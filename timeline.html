@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Timeline - Cantonese in Americas</title>
 
-  <!-- Same global style as index -->
+  <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
 
   <!-- Mapbox CSS -->
@@ -13,132 +13,15 @@
 </head>
 
 <body>
-  <!-- Shared header injected here -->
+  <!-- Shared header -->
   <div id="site-header"></div>
   <script src="./assets/header.js" defer></script>
 
-  <!-- Hero -->
-  <section class="hero" style="
-    background: linear-gradient(rgba(0, 48, 87, 0.72), rgba(0, 48, 87, 0.72)),
-      url('https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg');
-    background-size: cover;
-    background-position: center;">
-    <div class="hero-content">
-      <h1>Timeline of Cantonese Migration</h1>
-      <p>Waves · Networks · Institutions</p>
-    </div>
-  </section>
-
-  <!-- Intro -->
-  <section class="intro-section">
+  <!-- Mapbox Section directly under header -->
+  <section class="news-section" style="padding-top: 1.5rem;">
     <div class="container">
-      <div class="intro-text">
-        <h2>Overview</h2>
-
-        <p>
-          This timeline traces Cantonese-speaking migration across Southeast Asia, the Pacific, and North America—highlighting
-          not only movement, but the infrastructures of survival: clan associations, labor networks, schools, media, and cultural institutions.
-        </p>
-
-        <p>
-          Use the four phases below to explore key waves, turning points, and community transformations over time.
-        </p>
-
-        <div class="stats">
-          <h3>JUMP TO:</h3>
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-number"><a href="phase1.html" style="color:#8BA888; text-decoration:none;">Phase I</a></div>
-              <div class="stat-divider"></div>
-              <p class="stat-description">17th–19th Centuries</p>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number"><a href="phase2.html" style="color:#8BA888; text-decoration:none;">Phase II</a></div>
-              <div class="stat-divider"></div>
-              <p class="stat-description">1840s–1940s</p>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number"><a href="phase3.html" style="color:#8BA888; text-decoration:none;">Phase III</a></div>
-              <div class="stat-divider"></div>
-              <p class="stat-description">1940s–1980s</p>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number"><a href="phase4.html" style="color:#8BA888; text-decoration:none;">Phase IV</a></div>
-              <div class="stat-divider"></div>
-              <p class="stat-description">1980s–Present</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Phase Cards -->
-  <section class="services-section">
-    <div class="services-grid">
-
-      <div class="service-card">
-        <div class="border-accent" style="border-color:#84402d;">
-          <h3 style="color:#84402d;">Phase I: 17th–19th Centuries</h3>
-          <p class="subtitle" style="color:#84402d;">Early Migration within Southeast Asia</p>
-        </div>
-        <p>
-          Early Cantonese mobility through maritime trade, port cities, and regional networks—laying the foundations
-          for later Pacific and North American migration routes.
-        </p>
-        <a href="phase1.html" class="btn" style="background:#84402d;">Read Phase I</a>
-      </div>
-
-      <div class="service-card">
-        <div class="border-accent" style="border-color:#84402d;">
-          <h3 style="color:#84402d;">Phase II: 1840s–1940s</h3>
-          <p class="subtitle" style="color:#84402d;">The Great Migration to the Americas</p>
-        </div>
-        <p>
-          Gold rushes, railroad labor, and the formation of Chinatowns—followed by exclusion laws and community resistance
-          through associations, mutual aid, and legal struggles.
-        </p>
-        <a href="phase2.html" class="btn" style="background:#84402d;">Read Phase II</a>
-      </div>
-
-      <div class="service-card">
-        <div class="border-accent" style="border-color:#7BA3B8;">
-          <h3 style="color:#7BA3B8;">Phase III: 1940s–1980s</h3>
-          <p class="subtitle" style="color:#7BA3B8;">War, Revolution, and Renewed Migration</p>
-        </div>
-        <p>
-          Postwar shifts, decolonization, and new immigration systems—plus refugee routes (including Cantonese-speaking Hoa)
-          that reshaped institutions and revived many urban enclaves.
-        </p>
-        <a href="phase3.html" class="btn" style="background:#7BA3B8;">Read Phase III</a>
-      </div>
-
-      <div class="service-card">
-        <div class="border-accent" style="border-color:#2C7565;">
-          <h3 style="color:#2C7565;">Phase IV: 1980s–Present</h3>
-          <p class="subtitle" style="color:#2C7565;">Globalization and New Identities</p>
-        </div>
-        <p>
-          Transnational media, shifting language hierarchies, and cultural resilience—how communities negotiate identity,
-          memory, and public presence across generations.
-        </p>
-        <a href="phase4.html" class="btn" style="background:#2C7565;">Read Phase IV</a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Routes Map -->
-  <section class="news-section">
-    <div class="container">
-      <h2>Routes Map</h2>
-      <p style="color:#4a5568; max-width:56rem; margin-bottom:1.25rem;">
-        Maritime & Flight Migration Routes (flat map, solid lines, all labels).
-      </p>
-
       <div style="background:#fff; border-radius:0.5rem; padding:1rem; box-shadow:0 1px 3px rgba(0,0,0,0.1);">
-        <div id="diaspora-map" style="width:100%; height:540px; border-radius:14px; overflow:hidden;"></div>
+        <div id="diaspora-map" style="width:100%; height:620px; border-radius:14px; overflow:hidden;"></div>
       </div>
     </div>
   </section>
@@ -153,12 +36,13 @@
 
     const STYLE_URL = "mapbox://styles/kevincat100/cmjneo20k000v01sxghqb6aqr";
 
-    const C_ROUTE1 = "#3d85c6";
-    const C_ROUTE2 = "#e69138";
-    const C_ROUTE3 = "#6a329f";
-    const C_ROUTE4 = "#666666";
-    const C_ROUTE5 = "#cc0000";
-    const C_ROUTE6 = "#0b5394";
+    /* Route colors */
+    const C_ROUTE1 = "#3d85c6"; // Si Yi → Ayutthaya
+    const C_ROUTE2 = "#e69138"; // Ayutthaya → Hà Tiên → Saigon
+    const C_ROUTE3 = "#6a329f"; // Si Yi → Penang → Singapore
+    const C_ROUTE4 = "#666666"; // Saigon → San Francisco (eastward)
+    const C_ROUTE5 = "#cc0000"; // Hong Kong → San Francisco (eastward)
+    const C_ROUTE6 = "#0b5394"; // Heungshan → Honolulu (eastward)
 
     const ROUTE_WIDTH = 1.2;
     const ROUTE_OPACITY = 0.9;
@@ -167,7 +51,7 @@
       container: "diaspora-map",
       style: STYLE_URL,
 
-      // ✅ DEFAULT VIEW = your screenshot (A: can pan/zoom)
+      // Default view (A: can pan/zoom) –跨太平洋构图
       center: [170, 28],
       zoom: 2.25,
 
@@ -178,6 +62,7 @@
 
     map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
+    // Keep it flat even if style has globe defaults
     map.on("style.load", () => {
       map.setProjection("mercator");
       map.setTerrain(null);
@@ -190,20 +75,28 @@
 
     map.on("load", () => {
 
-      // ✅ ALL labels ON
+      /* ===== Points (dots always; labels appear by minZoom) =====
+         FAR view labels: Sze Yup, Ayutthaya Kingdom, Saigon, Penang, Singapore, Honolulu, San Francisco
+      */
       const points = [
-        { title:"Sze Yup", subtitle:"Four region of Guangdong", country:"China", coords:[112.98, 22.54], showLabel:true },
-        { title:"Hong Kong", subtitle:"", country:"China", coords:[114.1694, 22.3193], showLabel:true },
-        { title:"Ayutthaya Kingdom", subtitle:"", country:"Thailand", coords:[100.5689, 14.3532], showLabel:true },
-        { title:"Hà Tiên", subtitle:"", country:"Vietnam", coords:[104.4833, 10.3833], showLabel:true },
-        { title:"Saigon", subtitle:"Ho Chi Minh City", country:"Vietnam", coords:[106.6297, 10.8231], showLabel:true },
-        { title:"Penang", subtitle:"", country:"Malaysia", coords:[100.3354, 5.4141], showLabel:true },
-        { title:"Singapore", subtitle:"", country:"Singapore", coords:[103.8198, 1.3521], showLabel:true },
-        { title:"Heungshan", subtitle:"Zhongshan", country:"China", coords:[113.382, 22.515], showLabel:true },
-        { title:"Honolulu", subtitle:"", country:"United States", coords:[-157.8583, 21.3069], showLabel:true },
-        { title:"San Francisco", subtitle:"", country:"United States", coords:[-122.4194, 37.7749], showLabel:true }
+        // FAR (zoom >= 2.2) — show at default view
+        { title:"Si Yi", subtitle:"Sze Yup region of Guangdong", country:"China", coords:[112.98, 22.54], minZoom: 2.2 }, // Sze Yup
+        { title:"Ayutthaya Kingdom", subtitle:"Ayutthaya", country:"Thailand", coords:[100.5689, 14.3532], minZoom: 2.2 },
+        { title:"Saigon", subtitle:"Ho Chi Minh City", country:"Vietnam", coords:[106.6297, 10.8231], minZoom: 2.2 },
+        { title:"Penang", subtitle:"", country:"Malaysia", coords:[100.3354, 5.4141], minZoom: 2.2 },
+        { title:"Singapore", subtitle:"", country:"Singapore", coords:[103.8198, 1.3521], minZoom: 2.2 },
+        { title:"Honolulu", subtitle:"Hawaii", country:"United States", coords:[-157.8583, 21.3069], minZoom: 2.2 },
+        { title:"San Francisco", subtitle:"", country:"United States", coords:[-122.4194, 37.7749], minZoom: 2.2 },
+
+        // MID (zoom >= 3.4)
+        { title:"Hong Kong", subtitle:"", country:"China", coords:[114.1694, 22.3193], minZoom: 3.4 },
+        { title:"Hà Tiên", subtitle:"", country:"Vietnam", coords:[104.4833, 10.3833], minZoom: 3.4 },
+
+        // CLOSE (zoom >= 4.2)
+        { title:"Heungshan", subtitle:"Zhongshan", country:"China", coords:[113.382, 22.515], minZoom: 4.2 }
       ];
 
+      /* ===== Helper: add solid route ===== */
       function addRoute(id, coords, color) {
         map.addSource(id, {
           type: "geojson",
@@ -223,6 +116,7 @@
         });
       }
 
+      /* ===== Routes ===== */
       addRoute("r1", [
         [112.98, 22.54],
         [114.0, 21.8],
@@ -276,7 +170,7 @@
 
       // Eastward flights: US longitudes +360
       addRoute("r4", [
-        [106.6297, 10.8231],
+        [106.6297, 10.8231],  // Saigon
         [122.0, 18.0],
         [138.0, 26.0],
         [154.0, 33.0],
@@ -285,11 +179,11 @@
         [202.0, 41.5],
         [218.0, 40.5],
         [232.0, 39.2],
-        [237.5806, 37.7749]
+        [237.5806, 37.7749]   // San Francisco (-122.4194 + 360)
       ], C_ROUTE4);
 
       addRoute("r5", [
-        [114.1694, 22.3193],
+        [114.1694, 22.3193],  // Hong Kong
         [130.0, 28.0],
         [146.0, 34.0],
         [162.0, 39.0],
@@ -302,15 +196,16 @@
       ], C_ROUTE5);
 
       addRoute("r6", [
-        [113.382, 22.515],
+        [113.382, 22.515],    // Heungshan
         [128.0, 26.0],
         [145.0, 30.0],
         [160.0, 33.0],
         [175.0, 33.5],
         [190.0, 30.5],
-        [202.1417, 21.3069]
+        [202.1417, 21.3069]   // Honolulu (-157.8583 + 360)
       ], C_ROUTE6);
 
+      /* ===== Points source ===== */
       const pointsGeoJSON = {
         type: "FeatureCollection",
         features: points.map(p => ({
@@ -320,7 +215,7 @@
             title: p.title,
             subtitle: p.subtitle || "",
             country: p.country || "",
-            showLabel: !!p.showLabel,
+            minZoom: p.minZoom ?? 3.0,
             label: p.subtitle ? `${p.title} (${p.subtitle})` : p.title
           }
         }))
@@ -328,6 +223,7 @@
 
       map.addSource("route-points", { type: "geojson", data: pointsGeoJSON });
 
+      /* Dots always visible */
       map.addLayer({
         id: "route-points-dot",
         type: "circle",
@@ -340,18 +236,24 @@
         }
       });
 
+      /* Labels appear only when zoom >= point minZoom */
       map.addLayer({
         id: "route-points-label",
         type: "symbol",
         source: "route-points",
-        filter: ["==", ["get", "showLabel"], true],
+        filter: [">=", ["zoom"], ["get", "minZoom"]],
         layout: {
           "text-field": ["get", "label"],
-          "text-size": 12,
+          "text-size": [
+            "interpolate", ["linear"], ["zoom"],
+            2.2, 11,
+            3.2, 12,
+            4.5, 14
+          ],
           "text-offset": [0, 1.1],
           "text-anchor": "top",
-          "text-allow-overlap": true,
-          "text-ignore-placement": true
+          "text-allow-overlap": false,
+          "text-ignore-placement": false
         },
         paint: {
           "text-color": "#111",
@@ -360,6 +262,7 @@
         }
       });
 
+      /* Popup on click */
       map.on("click", "route-points-dot", (e) => {
         const f = e.features && e.features[0];
         if (!f) return;
