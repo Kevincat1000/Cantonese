@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantonese in Americas - Public History & Cultural Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+        }
+
+        .logo {
+            text-align: center;
+            padding: 0 0.5rem;
+        }
+
+        .logo-main {
+            font-size: 24px;
+            font-weight: bold;
+            color: #5B6D87;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        .logo-sub {
+            font-size: 16px;
+            font-weight: bold;
+            color: #5B6D87;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #333;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.7;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background: linear-gradient(rgba(0, 48, 87, 0.7), rgba(0, 48, 87, 0.7)), 
+                        url('https://ext.same-assets.com/2026473150/704387381.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            padding: 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: clamp(1.25rem, 3vw, 1.875rem);
+            font-weight: 300;
+        }
+
+        /* Introduction Section */
+        .intro-section {
+            background: #2C5266;
+            color: white;
+            padding: 4rem 1rem;
+        }
+
+        .intro-section h2 {
+            font-size: clamp(1.875rem, 4vw, 2.25rem);
+            color: #d6d0ac;
+            margin-bottom: 3rem;
+        }
+
+        .intro-text {
+            max-width: 56rem;
+            margin: 0 auto;
+        }
+
+        .intro-text p {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .intro-text a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .intro-text a:hover {
+            opacity: 0.8;
+        }
+
+        /* Statistics */
+        .stats {
+            margin-top: 3rem;
+        }
+
+        .stats h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #8BA888;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .stat-divider {
+            border-bottom: 2px dotted #8BA888;
+            margin-bottom: 1rem;
+        }
+
+        .stat-description {
+            font-size: 0.875rem;
+        }
+
+        /* Service Cards Section */
+        .services-section {
+            background: white;
+            padding: 4rem 1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 72rem;
+            margin: 0 auto;
+        }
+
+        .service-card h3 {
+            font-size: 1.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-card .subtitle {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card p {
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card .border-accent {
+            border-left: 4px solid;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            transition: opacity 0.3s;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* News Section */
+        .news-section {
+            background: #F5F5F5;
+            padding: 4rem 1rem;
+        }
+
+        .news-section h2 {
+            font-size: 2.25rem;
+            color: #2C7565;
+            margin-bottom: 3rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 72rem;
+            margin: 0 auto;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 192px;
+            object-fit: cover;
+        }
+
+        .news-card-content {
+            padding: 1.5rem;
+        }
+
+        .news-date {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .news-category {
+            font-size: 0.875rem;
+            color: #2C7565;
+            margin-bottom: 0.75rem;
+        }
+
+        .news-excerpt {
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: white;
+            padding: 4rem 1rem;
+        }
+
+        .faq-section h2 {
+            font-size: 2.25rem;
+            color: #003057;
+            margin-bottom: 2rem;
+            max-width: 56rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .accordion {
+            max-width: 56rem;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            background: #7BA3B8;
+            color: white;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0 1.5rem;
+        }
+
+        .accordion-trigger {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .accordion-trigger:hover {
+            opacity: 0.9;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s;
+            font-size: 1.25rem;
+        }
+
+        .accordion-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.open {
+            max-height: 500px;
+            padding-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #003057;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.875rem;
+            color: #d1d5db;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <div class="logo-main">CANTONESE</div>
+                    <div class="logo-sub">IN AMERICAS</div>
+                </a>
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#timeline">Timeline</a></li>
+                        <li><a href="#culture">Culture</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Cantonese in Americas</h1>
+            <p>Public History · Oral History · Cultural Research</p>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="intro-text">
+                <h2>Introduction</h2>
+                
+                <p>Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific through commerce, contract labor, education, and family reunification. They moved back and forth among Hong Kong, Southeast Asia, and North America.</p>
+                
+                <p>This project shifts the focus from a single origin group to a broader question: how Cantonese culture has been carried abroad, transformed, and transmitted across generations. Through oral histories, visual archives, and digital humanities methods, this project documents cultural survival, migration, and memory.</p>
+                
+                <p><a href="/introduction">View the full introduction</a></p>
+
+                <div class="stats">
+                    <h3>BY THE NUMBERS:</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">175+ Years</div>
+                            <div class="stat-divider"></div>
+                            <p class="stat-description">Documented migration since the 1848 Gold Rush.</p>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">530,000+</div>
+                            <div class="stat-divider"></div>
+                            <p class="stat-description">U.S. residents speaking Cantonese at home.</p>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">30 Million+</div>
+                            <div class="stat-divider"></div>
+                            <p class="stat-description">Descendants in a vast global diaspora.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Cards Section -->
+    <section class="services-section">
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="border-accent" style="border-color: #84402d;">
+                    <h3 style="color: #84402d;">Timeline of Cantonese Migration</h3>
+                    <p class="subtitle" style="color: #84402d;">Waves, Networks, and Institutions</p>
+                </div>
+                <p>Trace the arc of a diaspora that defied borders. From the rugged goldfields of 1848 to the refugee waves of the 20th century, this timeline reveals how a people weathered the storms of exclusion to forge new destinies.</p>
+                <p>Witness the rise of Chinatowns, the resilience of Huiguan associations, and the silent strength of communities that anchored themselves in foreign soil—rebuilding the concept of "home," one generation at a time.</p>
+                <a href="/timeline" class="btn" style="background: #84402d;">View the full article</a>
+            </div>
+
+            <div class="service-card">
+                <div class="border-accent" style="border-color: #7BA3B8;">
+                    <h3 style="color: #7BA3B8;">Cantonese as Linguistic Capital</h3>
+                    <p class="subtitle" style="color: #7BA3B8;">Power, Hierarchy, and Identity</p>
+                </div>
+                <p>Language is never just words; it is the currency of power and the architecture of identity. Explore the invisible battlegrounds where Cantonese and Mandarin vie for dominance in schools, policies, and labor markets.</p>
+                <p>Map the poignant shift of a mother tongue—fading from public squares to the intimate whispers of the kitchen table—and uncover what is lost, what is saved, and what it truly means to sound like where Cantonese comes from.</p>
+                <a href="/language" class="btn" style="background: #7BA3B8;">View the full article</a>
+            </div>
+
+            <div class="service-card">
+                <div class="border-accent" style="border-color: #2C7565;">
+                    <h3 style="color: #2C7565;">Culture Symbols</h3>
+                    <p class="subtitle" style="color: #2C7565;">Rituals, Performance, and Resilience</p>
+                </div>
+                <p>From the ritual pulse of dragon and lion dances and ancestral offerings to the kinetic power of Kung Fu; from the evolution of cuisine—transforming from a survival strategy into global gastronomy—to the Opera stage that preserves the memory of a mobile homeland.</p>
+                <p>Witness how Cantonese culture reshapes itself, forging a resilient new identity across the seas.</p>
+                <a href="/culture" class="btn" style="background: #2C7565;">View the full article</a>
+            </div>
+
+            <div class="service-card">
+                <div class="border-accent" style="border-color: #B4A572;">
+                    <h3 style="color: #B4A572;">Historical Research</h3>
+                    <p class="subtitle" style="color: #B4A572;">Establishing Fact Over Fiction</p>
+                </div>
+                <p>HAI applies its tried-and-true research methodology to all research projects, regardless of their size, topic, or era—from science and medicine to sports, entertainment, and current events. We consult with you to refine the research question and identify potential repositories and collections including the Library of Congress, National Archives, Smithsonian Institution.</p>
+                <a href="#contact" class="btn" style="background: #B4A572;">Talk to an HAI Expert</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <div class="container">
+            <h2>HAI News & Insights</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <img src="https://ext.same-assets.com/2026473150/1432826340.jpeg" alt="Voting Rights">
+                    <div class="news-card-content">
+                        <p class="news-date">AUGUST 5, 2025</p>
+                        <h3 class="news-title">FROM SELMA TO THE BALLOT BOX: VOTING RIGHTS ACT</h3>
+                        <p class="news-category">HAI INSIGHTS, HISTORICAL RESEARCH AND STORYTELLING</p>
+                        <p class="news-excerpt">Wednesday, 06 August 2025 marks the 60th anniversary of the Voting Rights Act, the crowning achievement of Lyndon Johnson's presidency...</p>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <img src="https://ext.same-assets.com/2026473150/2013173794.jpeg" alt="Philosophy">
+                    <div class="news-card-content">
+                        <p class="news-date">APRIL 3, 2025</p>
+                        <h3 class="news-title">ALWAYS BEEN THERE: LEADING LADIES IN PHILOSOPHY</h3>
+                        <p class="news-category">HAI INSIGHTS, HISTORICAL RESEARCH AND STORYTELLING</p>
+                        <p class="news-excerpt">To study philosophy is to question the nature of knowing. For thousands of years, men and women have pondered existence...</p>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <img src="https://ext.same-assets.com/2026473150/2550463488.jpeg" alt="Tim Russert">
+                    <div class="news-card-content">
+                        <p class="news-date">APRIL 1, 2025</p>
+                        <h3 class="news-title">TIM RUSSERT: ONE MAN'S IMPACT ON THE NATION</h3>
+                        <p class="news-category">PRESS RELEASES, #CU, #JOHNCARROLLUNIVERSITY</p>
+                        <p class="news-excerpt">Tim Russert: One Man's Impact on the Nation - HAI and Axiell Bring the Legacy of an Iconic Journalist to Life...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Historical Research and Storytelling FAQs</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+                        <span>How long does the typical history or exhibit project take?</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>As long as it needs to. Our team can typically complete tasks like in-depth historical research, interpretive planning, and oral histories in less than six months. Small projects tend to take closer to a year, while larger projects may take two or three years. Often, content development accounts for only part of the time it takes to complete a project—tasks like graphic design, fabrication and installation, and web development can take several months or years, too.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+                        <span>Do you offer exhibit design and fabrication services?</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Yes, we offer comprehensive exhibit design and fabrication services through our network of trusted partners.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+                        <span>What if I don't know how best to tell my story?</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>That's where we come in! Our team of experts will work with you to understand your goals and craft the best narrative approach.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+                        <span>How much time and effort will a content development project require of my team?</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>We work to minimize the burden on your team while ensuring we capture your organization's unique story and perspective.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+                        <span>Do you work only on projects that are historical in nature?</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>While history is our specialty, we work on a wide range of projects that involve research, storytelling, and experience design.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+                        <span>We are not local to the DC Metro area. Can you still help me?</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Absolutely! We work with clients across the country and around the world.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Created by kw30928@gmail.com All rights reserved 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.accordion-icon');
+            const isOpen = content.classList.contains('open');
+            
+            // Close all accordions
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                item.classList.remove('open');
+            });
+            document.querySelectorAll('.accordion-icon').forEach(item => {
+                item.classList.remove('open');
+            });
+            
+            // Open clicked accordion if it was closed
+            if (!isOpen) {
+                content.classList.add('open');
+                icon.classList.add('open');
+            }
+        }
+    </script>
+</body>
+</html>
