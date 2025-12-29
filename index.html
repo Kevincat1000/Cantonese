@@ -43,6 +43,12 @@
         .logo {
             text-align: center;
             padding: 0 0.5rem;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .logo:hover {
+            opacity: 0.9;
         }
 
         .logo-main {
@@ -61,20 +67,107 @@
             line-height: 1.2;
         }
 
+        /* Navigation */
         .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
+            display: none;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
         }
 
-        .nav-menu a {
+        @media (min-width: 768px) {
+            .nav-menu {
+                display: flex;
+            }
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
             color: #333;
             text-decoration: none;
-            transition: opacity 0.3s;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
         }
 
-        .nav-menu a:hover {
-            opacity: 0.7;
+        .nav-link:hover {
+            color: #5B6D87;
+        }
+
+        .nav-link svg {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding-top: 0.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-content {
+            width: 20rem;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        .dropdown-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .dropdown-subtitle {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
         }
 
         /* Hero Section */
@@ -367,13 +460,6 @@
             font-size: 0.875rem;
             color: #d1d5db;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-        }
     </style>
 </head>
 <body>
@@ -385,14 +471,51 @@
                     <div class="logo-main">CANTONESE</div>
                     <div class="logo-sub">IN AMERICAS</div>
                 </a>
-                <nav>
-                    <ul class="nav-menu">
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#timeline">Timeline</a></li>
-                        <li><a href="#culture">Culture</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
+                
+                <!-- Desktop Navigation -->
+                <nav class="nav-menu">
+                    <!-- Timeline Dropdown -->
+                    <div class="nav-item">
+                        <div class="nav-link">
+                            Timeline
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-content">
+                                <a href="/phase1.html" class="dropdown-item">
+                                    <div class="dropdown-title">Phase I: 17th–19th Centuries</div>
+                                    <div class="dropdown-subtitle">Early Migration within Southeast Asia</div>
+                                </a>
+                                <a href="/phase2.html" class="dropdown-item">
+                                    <div class="dropdown-title">Phase II: 1840s–1940s</div>
+                                    <div class="dropdown-subtitle">The Great Migration to the Americas</div>
+                                </a>
+                                <a href="/phase3.html" class="dropdown-item">
+                                    <div class="dropdown-title">Phase III: 1940s–1980s</div>
+                                    <div class="dropdown-subtitle">War, Revolution, and Renewed Migration</div>
+                                </a>
+                                <a href="/phase4.html" class="dropdown-item">
+                                    <div class="dropdown-title">Phase IV: 1980s–Present</div>
+                                    <div class="dropdown-subtitle">Globalization and New Identities</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="/language.html" class="nav-link">Language Power</a>
+                    <a href="/culture.html" class="nav-link">Culture Symbols</a>
+                    <a href="/archives.html" class="nav-link">Archives</a>
+                    <a href="/resources.html" class="nav-link">Resources</a>
                 </nav>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" onclick="alert('Mobile menu - implement as needed')">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             </div>
         </div>
     </header>
@@ -415,7 +538,7 @@
                 
                 <p>This project shifts the focus from a single origin group to a broader question: how Cantonese culture has been carried abroad, transformed, and transmitted across generations. Through oral histories, visual archives, and digital humanities methods, this project documents cultural survival, migration, and memory.</p>
                 
-                <p><a href="/introduction">View the full introduction</a></p>
+                <p><a href="/introduction.html">View the full introduction</a></p>
 
                 <div class="stats">
                     <h3>BY THE NUMBERS:</h3>
@@ -451,7 +574,7 @@
                 </div>
                 <p>Trace the arc of a diaspora that defied borders. From the rugged goldfields of 1848 to the refugee waves of the 20th century, this timeline reveals how a people weathered the storms of exclusion to forge new destinies.</p>
                 <p>Witness the rise of Chinatowns, the resilience of Huiguan associations, and the silent strength of communities that anchored themselves in foreign soil—rebuilding the concept of "home," one generation at a time.</p>
-                <a href="/timeline" class="btn" style="background: #84402d;">View the full article</a>
+                <a href="/timeline.html" class="btn" style="background: #84402d;">View the full article</a>
             </div>
 
             <div class="service-card">
@@ -461,7 +584,7 @@
                 </div>
                 <p>Language is never just words; it is the currency of power and the architecture of identity. Explore the invisible battlegrounds where Cantonese and Mandarin vie for dominance in schools, policies, and labor markets.</p>
                 <p>Map the poignant shift of a mother tongue—fading from public squares to the intimate whispers of the kitchen table—and uncover what is lost, what is saved, and what it truly means to sound like where Cantonese comes from.</p>
-                <a href="/language" class="btn" style="background: #7BA3B8;">View the full article</a>
+                <a href="/language.html" class="btn" style="background: #7BA3B8;">View the full article</a>
             </div>
 
             <div class="service-card">
@@ -471,7 +594,7 @@
                 </div>
                 <p>From the ritual pulse of dragon and lion dances and ancestral offerings to the kinetic power of Kung Fu; from the evolution of cuisine—transforming from a survival strategy into global gastronomy—to the Opera stage that preserves the memory of a mobile homeland.</p>
                 <p>Witness how Cantonese culture reshapes itself, forging a resilient new identity across the seas.</p>
-                <a href="/culture" class="btn" style="background: #2C7565;">View the full article</a>
+                <a href="/culture.html" class="btn" style="background: #2C7565;">View the full article</a>
             </div>
 
             <div class="service-card">
