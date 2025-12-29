@@ -3,94 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Timeline — Cantonese in Americas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <title>Timeline - Cantonese Migration</title>
+
+  <!-- Use the same global style as index -->
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- Page-only styles (keeps overall index style; only adds timeline layout) -->
   <style>
-    body{font-family:'Lato',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0;color:#333;line-height:1.6}
-    header{background:#fff;border-bottom:1px solid #e5e5e5;position:sticky;top:0;z-index:50}
-    .container{max-width:1280px;margin:0 auto;padding:0 1rem}
-    .header-content{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem}
-    .logo{text-decoration:none;color:#5B6D87}
-    .logo-main{font-size:24px;font-weight:700;letter-spacing:.5px;line-height:1.2}
-    .logo-sub{font-size:16px;font-weight:700;letter-spacing:2px;line-height:1.2}
-    .nav-menu{display:none;gap:1.5rem;align-items:center}
-    @media (min-width:768px){.nav-menu{display:flex}}
-    .nav-item{position:relative}
-    .nav-link{color:#333;text-decoration:none;font-size:14px;font-weight:600;display:flex;gap:.25rem;align-items:center;padding:.5rem 0;white-space:nowrap}
-    .nav-link:hover{color:#5B6D87}
-    .dropdown-menu{position:absolute;top:100%;left:0;padding-top:.5rem;opacity:0;visibility:hidden;transition:.3s}
-    .nav-item:hover .dropdown-menu{opacity:1;visibility:visible}
-    .dropdown-content{width:20rem;background:#fff;border:1px solid #e5e7eb;border-radius:.5rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.1);padding:.5rem 0}
-    .dropdown-item{display:block;padding:.875rem 1.25rem;text-decoration:none;border-left:3px solid transparent}
-    .dropdown-item:hover{background:#f3f4f6;border-left-color:#5B6D87}
-    .dropdown-title{font-weight:600;font-size:14px;color:#111827;margin-bottom:.25rem}
-    .dropdown-subtitle{font-size:12px;color:#6b7280}
-    main{padding:2.5rem 0}
-    .page-title{font-size:2rem;margin:0 0 .75rem 0}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.25rem}
-    .card{border:1px solid #e5e7eb;border-radius:.75rem;padding:1rem;background:#fff}
-    .card a{text-decoration:none;color:#2C5266;font-weight:700}
-  </style>
-</head>
-<body>
+    .page-hero {
+      position: relative;
+      padding: 4.25rem 1rem 3.25rem;
+      background: linear-gradient(rgba(0, 48, 87, 0.78), rgba(0, 48, 87, 0.78)),
+        url("https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+    .page-hero h1 {
+      font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .page-hero p {
+      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+      font-weight: 300;
+      opacity: 0.95;
+    }
 
-<header>
-  <div class="container">
-    <div class="header-content">
-      <a href="index.html" class="logo" aria-label="Home">
-        <div class="logo-main">CANTONESE</div>
-        <div class="logo-sub">IN AMERICAS</div>
-      </a>
+    .page-section {
+      padding: 3.25rem 1rem;
+      background: #fff;
+    }
+    .page-section.alt {
+      background: #f5f5f5;
+    }
+    .section-title {
+      font-size: 2rem;
+      color: #2c7565;
+      margin-bottom: 1.25rem;
+      font-weight: 700;
+    }
+    .section-lead {
+      max-width: 56rem;
+      font-size: 1.05rem;
+      color: #4a5568;
+      line-height: 1.9;
+    }
 
-      <nav class="nav-menu" aria-label="Primary">
-        <div class="nav-item">
-          <a href="timeline.html" class="nav-link">Timeline
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="width:1rem;height:1rem">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </a>
-          <div class="dropdown-menu" role="menu">
-            <div class="dropdown-content">
-              <a href="phase1.html" class="dropdown-item" role="menuitem">
-                <div class="dropdown-title">Phase I: 17th–19th Centuries</div>
-                <div class="dropdown-subtitle">Early Migration within Southeast Asia</div>
-              </a>
-              <a href="phase2.html" class="dropdown-item" role="menuitem">
-                <div class="dropdown-title">Phase II: 1840s–1940s</div>
-                <div class="dropdown-subtitle">The Great Migration to the Americas</div>
-              </a>
-              <a href="phase3.html" class="dropdown-item" role="menuitem">
-                <div class="dropdown-title">Phase III: 1940s–1980s</div>
-                <div class="dropdown-subtitle">War, Revolution, and Renewed Migration</div>
-              </a>
-              <a href="phase4.html" class="dropdown-item" role="menuitem">
-                <div class="dropdown-title">Phase IV: 1980s–Present</div>
-                <div class="dropdown-subtitle">Globalization and New Identities</div>
-              </a>
-            </div>
-          </div>
-        </div>
+    /* Phase chips */
+    .phase-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 0.9rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #111827;
+      background: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .chip:hover {
+      border-color: #5b6d87;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      transform: translateY(-1px);
+      color: #5b6d87;
+    }
+    .chip .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #5b6d87;
+      flex: 0 0 auto;
+    }
 
-        <a href="language.html" class="nav-link">Language Power</a>
-        <a href="culture.html" class="nav-link">Culture Symbols</a>
-        <a href="archives.html" class="nav-link">Archives</a>
-        <a href="resources.html" class="nav-link">Resources</a>
-      </nav>
-    </div>
-  </div>
-</header>
-
-<main class="container">
-  <h1 class="page-title">Timeline</h1>
-  <p>Choose a phase to explore key migration waves, institutions, and cultural transformation.</p>
-
-  <div class="grid">
-    <div class="card"><a href="phase1.html">Phase I</a><div>17th–19th Centuries</div></div>
-    <div class="card"><a href="phase2.html">Phase II</a><div>1840s–1940s</div></div>
-    <div class="card"><a href="phase3.html">Phase III</a><div>1940s–1980s</div></div>
-    <div class="card"><a href="phase4.html">Phase IV</a><div>1980s–Present</div></div>
-  </div>
-</main>
-
-</body>
-</html>
+    /* Timeline layout */
+    .timeline-wrap {
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+    .timeline {
+      margin-top: 2.25rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    @media (min-width: 900px) {
+      .timeline {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+    }
+    .phase-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .phase-head {
+      padding: 1.25rem 1.25rem 0.9rem;
+      border-bottom: 1px solid #eef2f7;
+    }
+    .phase-kicker {
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: #5b6d87;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .phase-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: #111827;
+      line-height: 1.25;
+    }
+    .phase-subtitle {
+      font-size: 0.95rem;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+    .phase-body {
+      padding: 1.15rem 1.25rem 1.25rem;
+      color: #4a5568;
+    }
+    .phase-b
