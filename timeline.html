@@ -11,10 +11,46 @@
   <!-- Mapbox CSS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
 
-  <!-- Timeline-only styling (no font imports here) -->
   <style>
+    /* ===== Layout: blue panel LEFT, map RIGHT ===== */
+    .split-top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      padding-top: 1.25rem;
+    }
+    @media (min-width: 980px) {
+      .split-top {
+        grid-template-columns: 1.15fr 1fr;
+        align-items: start;
+      }
+    }
+
+    /* Keep existing background colors: we reuse intro-section for the blue panel,
+       and a plain white wrapper for the map. */
+    .timeline-panel {
+      border-radius: 0; /* don’t change background colors; keep your section look */
+      overflow: hidden;
+    }
+
+    .map-panel {
+      background: transparent; /* keep white page background */
+    }
+    .map-card {
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    #diaspora-map {
+      width: 100%;
+      height: 360px;
+    }
+    @media (min-width: 980px) {
+      #diaspora-map { height: 420px; }
+    }
+
+    /* ===== Timeline-only styling (same as your current file) ===== */
     .timeline-wrap { max-width: 72rem; margin: 0 auto; }
-    .timeline-header { margin-bottom: 1.75rem; }
+    .timeline-header { margin-bottom: 1.25rem; }
     .timeline-header h2 { margin: 0 0 0.75rem 0; }
     .timeline-header p { margin: 0; color: #e9eef2; }
 
@@ -22,7 +58,7 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 1rem;
-      margin-top: 1.25rem;
+      margin-top: 1.1rem;
     }
     @media (min-width: 900px) {
       .phase-grid { grid-template-columns: 1fr 1fr; }
@@ -53,7 +89,7 @@
     details[open] .chev { transform: rotate(180deg); }
 
     .phase-body { padding: 0 1.1rem 1.1rem 1.1rem; }
-    .phase-body .phase-link { margin-top: 0.75rem; display: inline-block; }
+    .phase-body .phase-link { margin-top: 0.6rem; display: inline-block; }
     .phase-body .phase-link a { text-decoration: none; }
 
     .events { margin-top: 0.25rem; display: grid; gap: 0.75rem; }
@@ -65,15 +101,16 @@
     .event .what { font-weight: 800; color: #111827; margin-top: 0.1rem; }
     .event .desc { color: #4a5568; margin-top: 0.25rem; font-size: 14px; line-height: 1.6; }
 
-    /* Small helper buttons consistent with your site */
+    /* ===== Buttons shorter (no background color change) ===== */
     .btn-lite {
       display: inline-block;
-      padding: 0.6rem 1rem;
+      padding: 0.42rem 0.75rem; /* shorter */
       border-radius: 10px;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;          /* slightly smaller */
+      line-height: 1;
       color: white;
-      background: #5B6D87;
+      background: #5B6D87;      /* unchanged */
       transition: opacity 0.2s;
     }
     .btn-lite:hover { opacity: 0.9; }
@@ -85,176 +122,179 @@
   <div id="site-header"></div>
   <script src="./assets/header.js" defer></script>
 
-  <!-- Map directly under header -->
-  <section class="news-section" style="padding-top: 1.25rem;">
-    <div class="container">
-      <!-- No white wrapper, map directly -->
-<div id="diaspora-map" style="width:50%; height:310px; margin-left:auto; border-radius:14px; overflow:hidden;"></div>
+  <!-- Split row: BLUE timeline panel on the LEFT, map on the RIGHT -->
+  <div class="container">
+    <div class="split-top">
 
-  </section>
+      <!-- LEFT: timeline (blue background comes from intro-section) -->
+      <section class="intro-section timeline-panel" style="padding-top: 1.25rem;">
+        <div class="timeline-wrap">
+          <div class="timeline-header">
+            <h2>Timeline</h2>
+            <p>
+              A phase-based view of Cantonese-speaking mobility across Southeast Asia, the Pacific, and North America—
+              focusing on routes, institutions, and turning points that reshaped community life.
+            </p>
+          </div>
 
-  <!-- Timeline content -->
-  <section class="intro-section">
-    <div class="container">
-      <div class="timeline-wrap">
-        <div class="timeline-header">
-          <h2>Timeline</h2>
-          <p>
-            A phase-based view of Cantonese-speaking mobility across Southeast Asia, the Pacific, and North America—
-            focusing on routes, institutions, and turning points that reshaped community life.
-          </p>
+          <div class="phase-grid">
+            <!-- Phase I -->
+            <details class="phase">
+              <summary>
+                <div>
+                  <div class="phase-title">Phase I: 17th–19th Centuries</div>
+                  <div class="phase-sub">Early regional mobility in Southeast Asia</div>
+                </div>
+                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div class="phase-body">
+                <div class="events">
+                  <div class="event">
+                    <div class="when">17th–18th c.</div>
+                    <div class="what">Maritime trade & port-city settlement</div>
+                    <div class="desc">Cantonese mobility follows shipping routes through South China Sea networks, linking coastal Guangdong to regional entrepôts.</div>
+                  </div>
+                  <div class="event">
+                    <div class="when">18th–19th c.</div>
+                    <div class="what">Southeast Asian nodes strengthen</div>
+                    <div class="desc">Commercial and kinship ties consolidate in key ports, forming early foundations for later Pacific-era migration channels.</div>
+                  </div>
+                </div>
+                <div class="phase-link">
+                  <a class="btn-lite" href="phase1.html">Open Phase I</a>
+                </div>
+              </div>
+            </details>
+
+            <!-- Phase II -->
+            <details class="phase">
+              <summary>
+                <div>
+                  <div class="phase-title">Phase II: 1840s–1940s</div>
+                  <div class="phase-sub">Gold rush, railroads, Chinatowns, exclusion</div>
+                </div>
+                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div class="phase-body">
+                <div class="events">
+                  <div class="event">
+                    <div class="when">1848–1851</div>
+                    <div class="what">California Gold Rush & San Francisco gateway</div>
+                    <div class="desc">Large-scale Cantonese-speaking migration accelerates; San Francisco grows as a primary entry point and community hub.</div>
+                  </div>
+                  <div class="event">
+                    <div class="when">1858</div>
+                    <div class="what">Fraser Canyon Gold Rush (Canada)</div>
+                    <div class="desc">New circuits link California and British Columbia; early Chinatowns emerge as labor, lodging, and mutual-aid infrastructure.</div>
+                  </div>
+                  <div class="event">
+                    <div class="when">1865–1869</div>
+                    <div class="what">Transcontinental Railroad labor</div>
+                    <div class="desc">Cantonese workers become indispensable to railroad construction, expanding networks of work, remittance, and migration sponsorship.</div>
+                  </div>
+                  <div class="event">
+                    <div class="when">1875–1924</div>
+                    <div class="what">Escalating restriction & legal struggle</div>
+                    <div class="desc">Exclusion-era policies reshape family life and settlement; associations, district networks, and legal resistance intensify.</div>
+                  </div>
+                  <div class="event">
+                    <div class="when">1943</div>
+                    <div class="what">U.S. repeal of Chinese Exclusion</div>
+                    <div class="desc">A limited reopening changes pathways again, setting up postwar shifts and later immigration reform.</div>
+                  </div>
+                </div>
+                <div class="phase-link">
+                  <a class="btn-lite" href="phase2.html">Open Phase II</a>
+                </div>
+              </div>
+            </details>
+
+            <!-- Phase III -->
+            <details class="phase">
+              <summary>
+                <div>
+                  <div class="phase-title">Phase III: 1940s–1980s</div>
+                  <div class="phase-sub">War, decolonization, new immigration systems</div>
+                </div>
+                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div class="phase-body">
+                <div class="events">
+                  <div class="event">
+                    <div class="when">1965 (U.S.) / 1967 (Canada)</div>
+                    <div class="what">New immigration systems</div>
+                    <div class="desc">Race-based quotas are dismantled; family reunification and skilled migration expand new streams and community composition.</div>
+                  </div>
+                  <div class="event">
+                    <div class="when">1975–1979</div>
+                    <div class="what">Refugee routes reshape Chinatowns</div>
+                    <div class="desc">Postwar displacement and refugee resettlement bring new Cantonese-speaking arrivals, strengthening institutions and neighborhood economies.</div>
+                  </div>
+                  <div class="event">
+                    <div class="when">1980s</div>
+                    <div class="what">Institutional expansion</div>
+                    <div class="desc">Community media, schools, and associations adapt to broader coalitions and new transnational ties across the Pacific.</div>
+                  </div>
+                </div>
+                <div class="phase-link">
+                  <a class="btn-lite" href="phase3.html">Open Phase III</a>
+                </div>
+              </div>
+            </details>
+
+            <!-- Phase IV -->
+            <details class="phase">
+              <summary>
+                <div>
+                  <div class="phase-title">Phase IV: 1980s–Present</div>
+                  <div class="phase-sub">Globalization, language shift, cultural resilience</div>
+                </div>
+                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div class="phase-body">
+                <div class="events">
+                  <div class="event">
+                    <div class="when">1984–1997</div>
+                    <div class="what">Pre-handover Hong Kong emigration</div>
+                    <div class="desc">Large-scale movement intensifies transnational family strategy, investment migration, and bilingual community institutions.</div>
+                  </div>
+                  <div class="event">
+                    <div class="when">2000s–Present</div>
+                    <div class="what">Diversification & shifting language power</div>
+                    <div class="desc">New migrants and new media reshape language ecology; Cantonese persists through home, arts, cuisine, and local public culture.</div>
+                  </div>
+                  <div class="event">
+                    <div class="when">Today</div>
+                    <div class="what">Memory work & public scholarship</div>
+                    <div class="desc">Oral histories, archives, and digital mapping re-center Cantonese experience as part of Asian American and Pacific histories.</div>
+                  </div>
+                </div>
+                <div class="phase-link">
+                  <a class="btn-lite" href="phase4.html">Open Phase IV</a>
+                </div>
+              </div>
+            </details>
+          </div>
         </div>
+      </section>
 
-        <div class="phase-grid">
-          <!-- Phase I -->
-          <details class="phase">
-            <summary>
-              <div>
-                <div class="phase-title">Phase I: 17th–19th Centuries</div>
-                <div class="phase-sub">Early regional mobility in Southeast Asia</div>
-              </div>
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="phase-body">
-              <div class="events">
-                <div class="event">
-                  <div class="when">17th–18th c.</div>
-                  <div class="what">Maritime trade & port-city settlement</div>
-                  <div class="desc">Cantonese mobility follows shipping routes through South China Sea networks, linking coastal Guangdong to regional entrepôts.</div>
-                </div>
-                <div class="event">
-                  <div class="when">18th–19th c.</div>
-                  <div class="what">Southeast Asian nodes strengthen</div>
-                  <div class="desc">Commercial and kinship ties consolidate in key ports, forming early foundations for later Pacific-era migration channels.</div>
-                </div>
-              </div>
-              <div class="phase-link">
-                <a class="btn-lite" href="phase1.html">Open Phase I</a>
-              </div>
-            </div>
-          </details>
-
-          <!-- Phase II -->
-          <details class="phase">
-            <summary>
-              <div>
-                <div class="phase-title">Phase II: 1840s–1940s</div>
-                <div class="phase-sub">Gold rush, railroads, Chinatowns, exclusion</div>
-              </div>
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="phase-body">
-              <div class="events">
-                <div class="event">
-                  <div class="when">1848–1851</div>
-                  <div class="what">California Gold Rush & San Francisco gateway</div>
-                  <div class="desc">Large-scale Cantonese-speaking migration accelerates; San Francisco grows as a primary entry point and community hub.</div>
-                </div>
-                <div class="event">
-                  <div class="when">1858</div>
-                  <div class="what">Fraser Canyon Gold Rush (Canada)</div>
-                  <div class="desc">New circuits link California and British Columbia; early Chinatowns emerge as labor, lodging, and mutual-aid infrastructure.</div>
-                </div>
-                <div class="event">
-                  <div class="when">1865–1869</div>
-                  <div class="what">Transcontinental Railroad labor</div>
-                  <div class="desc">Cantonese workers become indispensable to railroad construction, expanding networks of work, remittance, and migration sponsorship.</div>
-                </div>
-                <div class="event">
-                  <div class="when">1875–1924</div>
-                  <div class="what">Escalating restriction & legal struggle</div>
-                  <div class="desc">Exclusion-era policies reshape family life and settlement; associations, district networks, and legal resistance intensify.</div>
-                </div>
-                <div class="event">
-                  <div class="when">1943</div>
-                  <div class="what">U.S. repeal of Chinese Exclusion</div>
-                  <div class="desc">A limited reopening changes pathways again, setting up postwar shifts and later immigration reform.</div>
-                </div>
-              </div>
-              <div class="phase-link">
-                <a class="btn-lite" href="phase2.html">Open Phase II</a>
-              </div>
-            </div>
-          </details>
-
-          <!-- Phase III -->
-          <details class="phase">
-            <summary>
-              <div>
-                <div class="phase-title">Phase III: 1940s–1980s</div>
-                <div class="phase-sub">War, decolonization, new immigration systems</div>
-              </div>
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="phase-body">
-              <div class="events">
-                <div class="event">
-                  <div class="when">1965 (U.S.) / 1967 (Canada)</div>
-                  <div class="what">New immigration systems</div>
-                  <div class="desc">Race-based quotas are dismantled; family reunification and skilled migration expand new streams and community composition.</div>
-                </div>
-                <div class="event">
-                  <div class="when">1975–1979</div>
-                  <div class="what">Refugee routes reshape Chinatowns</div>
-                  <div class="desc">Postwar displacement and refugee resettlement bring new Cantonese-speaking arrivals, strengthening institutions and neighborhood economies.</div>
-                </div>
-                <div class="event">
-                  <div class="when">1980s</div>
-                  <div class="what">Institutional expansion</div>
-                  <div class="desc">Community media, schools, and associations adapt to broader coalitions and new transnational ties across the Pacific.</div>
-                </div>
-              </div>
-              <div class="phase-link">
-                <a class="btn-lite" href="phase3.html">Open Phase III</a>
-              </div>
-            </div>
-          </details>
-
-          <!-- Phase IV -->
-          <details class="phase">
-            <summary>
-              <div>
-                <div class="phase-title">Phase IV: 1980s–Present</div>
-                <div class="phase-sub">Globalization, language shift, cultural resilience</div>
-              </div>
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="phase-body">
-              <div class="events">
-                <div class="event">
-                  <div class="when">1984–1997</div>
-                  <div class="what">Pre-handover Hong Kong emigration</div>
-                  <div class="desc">Large-scale movement intensifies transnational family strategy, investment migration, and bilingual community institutions.</div>
-                </div>
-                <div class="event">
-                  <div class="when">2000s–Present</div>
-                  <div class="what">Diversification & shifting language power</div>
-                  <div class="desc">New migrants and new media reshape language ecology; Cantonese persists through home, arts, cuisine, and local public culture.</div>
-                </div>
-                <div class="event">
-                  <div class="when">Today</div>
-                  <div class="what">Memory work & public scholarship</div>
-                  <div class="desc">Oral histories, archives, and digital mapping re-center Cantonese experience as part of Asian American and Pacific histories.</div>
-                </div>
-              </div>
-              <div class="phase-link">
-                <a class="btn-lite" href="phase4.html">Open Phase IV</a>
-              </div>
-            </div>
-          </details>
-
+      <!-- RIGHT: map -->
+      <section class="map-panel">
+        <div class="map-card">
+          <div id="diaspora-map"></div>
         </div>
-      </div>
+      </section>
+
     </div>
-  </section>
+  </div>
 
   <!-- Mapbox JS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
@@ -298,7 +338,6 @@
     });
 
     map.on("load", () => {
-      // Initial view labels
       const points = [
         { title:"Sze Yup", subtitle:"Four regions of Guangdong", country:"China", coords:[112.98, 22.54], mustLabel:true, minZoom: 1.0 },
         { title:"Ayutthaya Kingdom", subtitle:"Ayutthaya", country:"Thailand", coords:[100.5689, 14.3532], mustLabel:true, minZoom: 1.0 },
@@ -308,7 +347,6 @@
         { title:"Honolulu", subtitle:"Hawaii", country:"United States", coords:[-157.8583, 21.3069], mustLabel:true, minZoom: 1.0},
         { title:"San Francisco", subtitle:"", country:"United States", coords:[-122.4194, 37.7749] , mustLabel:true, minZoom: 1.0},
 
-        // Other labels appear with slight zoom only
         { title:"Hong Kong", subtitle:"", country:"China", coords:[114.1694, 22.3193], minZoom: 2 },
         { title:"Hà Tiên", subtitle:"", country:"Vietnam", coords:[104.4833, 10.3833], minZoom: 2 },
         { title:"Heungshan", subtitle:"Zhongshan", country:"China", coords:[113.382, 22.515], minZoom: 2}
@@ -333,7 +371,6 @@
         });
       }
 
-      // Routes
       addRoute("r1", [
         [112.98, 22.54],[114.0, 21.8],[113.2, 20.0],[112.0, 18.2],[111.0, 16.2],
         [110.2, 14.5],[109.5, 13.2],[109.0, 11.8],[108.2, 10.5],[106.8, 9.2],
@@ -353,7 +390,6 @@
         [101.6, 4.1],[102.7, 2.7],[103.3, 2.0],[103.8198, 1.3521]
       ], C_ROUTE3);
 
-      // Eastward flights: US longitudes +360
       addRoute("r4", [
         [106.6297, 10.8231],[122.0, 18.0],[138.0, 26.0],[154.0, 33.0],[170.0, 38.0],
         [186.0, 40.5],[202.0, 41.5],[218.0, 40.5],[232.0, 39.2],[237.5806, 37.7749]
@@ -369,7 +405,6 @@
         [190.0, 30.5],[202.1417, 21.3069]
       ], C_ROUTE6);
 
-      // Points source
       const pointsGeoJSON = {
         type: "FeatureCollection",
         features: points.map(p => ({
@@ -387,7 +422,6 @@
 
       map.addSource("route-points", { type: "geojson", data: pointsGeoJSON });
 
-      // Smaller dots
       map.addLayer({
         id: "route-points-dot",
         type: "circle",
@@ -400,7 +434,6 @@
         }
       });
 
-      // Labels appear by zoom threshold
       map.addLayer({
         id: "route-points-label",
         type: "symbol",
@@ -426,7 +459,6 @@
         }
       });
 
-      // Popup on click
       map.on("click", "route-points-dot", (e) => {
         const f = e.features && e.features[0];
         if (!f) return;
