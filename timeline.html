@@ -1,634 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline - Cantonese in Americas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        /* Header */
-        header {
-            background: white;
-            border-bottom: 1px solid #e5e5e5;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
-        }
-
-        .logo {
-            text-align: center;
-            padding: 0 0.5rem;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        .logo:hover {
-            opacity: 0.9;
-        }
-
-        .logo-main {
-            font-size: 24px;
-            font-weight: bold;
-            color: #5B6D87;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
-        }
-
-        .logo-sub {
-            font-size: 16px;
-            font-weight: bold;
-            color: #5B6D87;
-            letter-spacing: 2px;
-            line-height: 1.2;
-        }
-
-        /* Navigation */
-        .nav-menu {
-            display: none;
-            align-items: center;
-            gap: 1.5rem;
-            position: relative;
-        }
-
-        @media (min-width: 768px) {
-            .nav-menu {
-                display: flex;
-            }
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-link {
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 0;
-            cursor: pointer;
-            line-height: 1.5;
-            white-space: nowrap;
-        }
-
-        .nav-link:hover {
-            color: #5B6D87;
-        }
-
-        .nav-link.active {
-            color: #5B6D87;
-        }
-
-        .nav-link svg {
-            width: 1rem;
-            height: 1rem;
-        }
-
-        /* Dropdown Menu */
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            padding-top: 0.5rem;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-
-        .nav-item:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .dropdown-content {
-            width: 20rem;
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            padding: 0.5rem 0;
-        }
-
-        .dropdown-item {
-            display: block;
-            padding: 0.875rem 1.25rem;
-            text-decoration: none;
-            transition: background-color 0.2s;
-            border-left: 3px solid transparent;
-        }
-
-        .dropdown-item:hover {
-            background-color: #f3f4f6;
-            border-left-color: #5B6D87;
-        }
-
-        .dropdown-title {
-            font-weight: 600;
-            font-size: 14px;
-            color: #111827;
-            margin-bottom: 0.25rem;
-            line-height: 1.4;
-        }
-
-        .dropdown-subtitle {
-            font-size: 12px;
-            color: #6b7280;
-            line-height: 1.5;
-        }
-
-        /* Mobile Menu Toggle */
-        .mobile-menu-btn {
-            display: block;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .mobile-menu-btn {
-                display: none;
-            }
-        }
-
-        /* Page Header */
-        .page-header {
-            background: linear-gradient(135deg, #2C5266 0%, #1a3d4d 100%);
-            color: white;
-            padding: 4rem 1rem;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .page-header p {
-            font-size: clamp(1.125rem, 2vw, 1.5rem);
-            font-weight: 300;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Timeline Section */
-        .timeline-section {
-            padding: 4rem 1rem;
-            background: white;
-        }
-
-        .timeline-intro {
-            max-width: 56rem;
-            margin: 0 auto 4rem;
-            text-align: center;
-        }
-
-        .timeline-intro h2 {
-            font-size: 2.25rem;
-            color: #2C5266;
-            margin-bottom: 1.5rem;
-        }
-
-        .timeline-intro p {
-            font-size: 1.125rem;
-            color: #4a5568;
-            line-height: 1.8;
-        }
-
-        /* Timeline Phases */
-        .timeline-phases {
-            max-width: 72rem;
-            margin: 0 auto;
-        }
-
-        .phase {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            margin-bottom: 4rem;
-            padding: 3rem;
-            background: #f9fafb;
-            border-radius: 1rem;
-            border-left: 6px solid;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .phase:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        @media (min-width: 768px) {
-            .phase {
-                grid-template-columns: 1fr 2fr;
-            }
-        }
-
-        .phase-1 {
-            border-left-color: #84402d;
-        }
-
-        .phase-2 {
-            border-left-color: #7BA3B8;
-        }
-
-        .phase-3 {
-            border-left-color: #2C7565;
-        }
-
-        .phase-4 {
-            border-left-color: #B4A572;
-        }
-
-        .phase-header {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .phase-number {
-            font-size: 0.875rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            opacity: 0.8;
-        }
-
-        .phase-1 .phase-number { color: #84402d; }
-        .phase-2 .phase-number { color: #7BA3B8; }
-        .phase-3 .phase-number { color: #2C7565; }
-        .phase-4 .phase-number { color: #B4A572; }
-
-        .phase-period {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #1a202c;
-            margin-bottom: 0.5rem;
-        }
-
-        .phase-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 1rem;
-        }
-
-        .phase-content p {
-            font-size: 1rem;
-            color: #4a5568;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-
-        .phase-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: white;
-            color: #333;
-            text-decoration: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin-top: 1rem;
-            border: 2px solid;
-        }
-
-        .phase-1 .phase-link { border-color: #84402d; color: #84402d; }
-        .phase-2 .phase-link { border-color: #7BA3B8; color: #7BA3B8; }
-        .phase-3 .phase-link { border-color: #2C7565; color: #2C7565; }
-        .phase-4 .phase-link { border-color: #B4A572; color: #B4A572; }
-
-        .phase-1 .phase-link:hover { background: #84402d; color: white; }
-        .phase-2 .phase-link:hover { background: #7BA3B8; color: white; }
-        .phase-3 .phase-link:hover { background: #2C7565; color: white; }
-        .phase-4 .phase-link:hover { background: #B4A572; color: white; }
-
-        .phase-link svg {
-            width: 1.25rem;
-            height: 1.25rem;
-        }
-
-        /* Key Highlights */
-        .key-highlights {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px dashed #d1d5db;
-        }
-
-        .highlight-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-        }
-
-        .highlight-icon {
-            flex-shrink: 0;
-            width: 1.5rem;
-            height: 1.5rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-        }
-
-        .phase-1 .highlight-icon { background: #84402d; }
-        .phase-2 .highlight-icon { background: #7BA3B8; }
-        .phase-3 .highlight-icon { background: #2C7565; }
-        .phase-4 .highlight-icon { background: #B4A572; }
-
-        .highlight-text {
-            font-size: 0.875rem;
-            color: #4a5568;
-        }
-
-        /* Footer */
-        footer {
-            background: #003057;
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-
-        footer p {
-            font-size: 0.875rem;
-            color: #d1d5db;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeline — Cantonese in Americas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Lato',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0;color:#333;line-height:1.6}
+    header{background:#fff;border-bottom:1px solid #e5e5e5;position:sticky;top:0;z-index:50}
+    .container{max-width:1280px;margin:0 auto;padding:0 1rem}
+    .header-content{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem}
+    .logo{text-decoration:none;color:#5B6D87}
+    .logo-main{font-size:24px;font-weight:700;letter-spacing:.5px;line-height:1.2}
+    .logo-sub{font-size:16px;font-weight:700;letter-spacing:2px;line-height:1.2}
+    .nav-menu{display:none;gap:1.5rem;align-items:center}
+    @media (min-width:768px){.nav-menu{display:flex}}
+    .nav-item{position:relative}
+    .nav-link{color:#333;text-decoration:none;font-size:14px;font-weight:600;display:flex;gap:.25rem;align-items:center;padding:.5rem 0;white-space:nowrap}
+    .nav-link:hover{color:#5B6D87}
+    .dropdown-menu{position:absolute;top:100%;left:0;padding-top:.5rem;opacity:0;visibility:hidden;transition:.3s}
+    .nav-item:hover .dropdown-menu{opacity:1;visibility:visible}
+    .dropdown-content{width:20rem;background:#fff;border:1px solid #e5e7eb;border-radius:.5rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.1);padding:.5rem 0}
+    .dropdown-item{display:block;padding:.875rem 1.25rem;text-decoration:none;border-left:3px solid transparent}
+    .dropdown-item:hover{background:#f3f4f6;border-left-color:#5B6D87}
+    .dropdown-title{font-weight:600;font-size:14px;color:#111827;margin-bottom:.25rem}
+    .dropdown-subtitle{font-size:12px;color:#6b7280}
+    main{padding:2.5rem 0}
+    .page-title{font-size:2rem;margin:0 0 .75rem 0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.25rem}
+    .card{border:1px solid #e5e7eb;border-radius:.75rem;padding:1rem;background:#fff}
+    .card a{text-decoration:none;color:#2C5266;font-weight:700}
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="/index.html" class="logo">
-                    <div class="logo-main">CANTONESE</div>
-                    <div class="logo-sub">IN AMERICAS</div>
-                </a>
-                
-                <!-- Desktop Navigation -->
-                <nav class="nav-menu">
-                    <!-- Timeline Dropdown -->
-                    <div class="nav-item">
-                        <div class="nav-link active">
-                            Timeline
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-content">
-                                <a href="/phase1.html" class="dropdown-item">
-                                    <div class="dropdown-title">Phase I: 17th–19th Centuries</div>
-                                    <div class="dropdown-subtitle">Early Migration within Southeast Asia</div>
-                                </a>
-                                <a href="/phase2.html" class="dropdown-item">
-                                    <div class="dropdown-title">Phase II: 1840s–1940s</div>
-                                    <div class="dropdown-subtitle">The Great Migration to the Americas</div>
-                                </a>
-                                <a href="/phase3.html" class="dropdown-item">
-                                    <div class="dropdown-title">Phase III: 1940s–1980s</div>
-                                    <div class="dropdown-subtitle">War, Revolution, and Renewed Migration</div>
-                                </a>
-                                <a href="/phase4.html" class="dropdown-item">
-                                    <div class="dropdown-title">Phase IV: 1980s–Present</div>
-                                    <div class="dropdown-subtitle">Globalization and New Identities</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <a href="/language.html" class="nav-link">Language Power</a>
-                    <a href="/culture.html" class="nav-link">Culture Symbols</a>
-                    <a href="/archives.html" class="nav-link">Archives</a>
-                    <a href="/resources.html" class="nav-link">Resources</a>
-                </nav>
+<header>
+  <div class="container">
+    <div class="header-content">
+      <a href="index.html" class="logo" aria-label="Home">
+        <div class="logo-main">CANTONESE</div>
+        <div class="logo-sub">IN AMERICAS</div>
+      </a>
 
-                <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn" onclick="alert('Mobile menu - implement as needed')">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
+      <nav class="nav-menu" aria-label="Primary">
+        <div class="nav-item">
+          <a href="timeline.html" class="nav-link">Timeline
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="width:1rem;height:1rem">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <div class="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              <a href="phase1.html" class="dropdown-item" role="menuitem">
+                <div class="dropdown-title">Phase I: 17th–19th Centuries</div>
+                <div class="dropdown-subtitle">Early Migration within Southeast Asia</div>
+              </a>
+              <a href="phase2.html" class="dropdown-item" role="menuitem">
+                <div class="dropdown-title">Phase II: 1840s–1940s</div>
+                <div class="dropdown-subtitle">The Great Migration to the Americas</div>
+              </a>
+              <a href="phase3.html" class="dropdown-item" role="menuitem">
+                <div class="dropdown-title">Phase III: 1940s–1980s</div>
+                <div class="dropdown-subtitle">War, Revolution, and Renewed Migration</div>
+              </a>
+              <a href="phase4.html" class="dropdown-item" role="menuitem">
+                <div class="dropdown-title">Phase IV: 1980s–Present</div>
+                <div class="dropdown-subtitle">Globalization and New Identities</div>
+              </a>
             </div>
+          </div>
         </div>
-    </header>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <h1>Timeline of Cantonese Migration</h1>
-            <p>Waves, Networks, and Institutions Across Four Centuries</p>
-        </div>
-    </section>
+        <a href="language.html" class="nav-link">Language Power</a>
+        <a href="culture.html" class="nav-link">Culture Symbols</a>
+        <a href="archives.html" class="nav-link">Archives</a>
+        <a href="resources.html" class="nav-link">Resources</a>
+      </nav>
+    </div>
+  </div>
+</header>
 
-    <!-- Timeline Introduction -->
-    <section class="timeline-section">
-        <div class="container">
-            <div class="timeline-intro">
-                <h2>A Journey Across Oceans and Generations</h2>
-                <p>From the 17th century to today, Cantonese migration has shaped communities across the Pacific. This timeline traces the arc of a diaspora that defied borders, weathered exclusion, and forged new identities—rebuilding the concept of "home" one generation at a time.</p>
-            </div>
+<main class="container">
+  <h1 class="page-title">Timeline</h1>
+  <p>Choose a phase to explore key migration waves, institutions, and cultural transformation.</p>
 
-            <!-- Timeline Phases -->
-            <div class="timeline-phases">
-                <!-- Phase I -->
-                <div class="phase phase-1">
-                    <div class="phase-header">
-                        <span class="phase-number">Phase I</span>
-                        <h3 class="phase-period">17th–19th Centuries</h3>
-                        <h4 class="phase-title">Early Migration within Southeast Asia</h4>
-                    </div>
-                    <div class="phase-content">
-                        <p>The earliest waves of Cantonese migration began as merchants, laborers, and settlers moved throughout Southeast Asia, establishing trading networks and communities in ports like Manila, Batavia, and Singapore.</p>
-                        <p>These pioneering communities laid the foundation for transnational networks that would later facilitate migration to the Americas, creating a web of kinship and commerce that spanned the South China Sea.</p>
-                        
-                        <div class="key-highlights">
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🌊</span>
-                                <span class="highlight-text">Maritime trade networks</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🏘️</span>
-                                <span class="highlight-text">Southeast Asian settlements</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🤝</span>
-                                <span class="highlight-text">Kinship networks</span>
-                            </div>
-                        </div>
+  <div class="grid">
+    <div class="card"><a href="phase1.html">Phase I</a><div>17th–19th Centuries</div></div>
+    <div class="card"><a href="phase2.html">Phase II</a><div>1840s–1940s</div></div>
+    <div class="card"><a href="phase3.html">Phase III</a><div>1940s–1980s</div></div>
+    <div class="card"><a href="phase4.html">Phase IV</a><div>1980s–Present</div></div>
+  </div>
+</main>
 
-                        <a href="/phase1.html" class="phase-link">
-                            Explore Phase I
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Phase II -->
-                <div class="phase phase-2">
-                    <div class="phase-header">
-                        <span class="phase-number">Phase II</span>
-                        <h3 class="phase-period">1840s–1940s</h3>
-                        <h4 class="phase-title">The Great Migration to the Americas</h4>
-                    </div>
-                    <div class="phase-content">
-                        <p>The California Gold Rush of 1848 marked the beginning of mass Cantonese migration to North America. Tens of thousands crossed the Pacific seeking fortune, later becoming essential labor in building the transcontinental railroad.</p>
-                        <p>Despite facing harsh exclusion laws and discrimination, Cantonese immigrants established vibrant Chinatowns, mutual aid societies (Huiguan), and created economic niches that would sustain their communities for generations.</p>
-                        
-                        <div class="key-highlights">
-                            <div class="highlight-item">
-                                <span class="highlight-icon">⛏️</span>
-                                <span class="highlight-text">Gold Rush era (1848)</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🚂</span>
-                                <span class="highlight-text">Railroad construction</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🏛️</span>
-                                <span class="highlight-text">Chinatown establishment</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">📜</span>
-                                <span class="highlight-text">Chinese Exclusion Act</span>
-                            </div>
-                        </div>
-
-                        <a href="/phase2.html" class="phase-link">
-                            Explore Phase II
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Phase III -->
-                <div class="phase phase-3">
-                    <div class="phase-header">
-                        <span class="phase-number">Phase III</span>
-                        <h3 class="phase-period">1940s–1980s</h3>
-                        <h4 class="phase-title">War, Revolution, and Renewed Migration</h4>
-                    </div>
-                    <div class="phase-content">
-                        <p>World War II, the Chinese Civil War, and the establishment of the People's Republic of China triggered new waves of Cantonese migration. Many fled through Hong Kong, creating a crucial transit hub for refugees heading to North America.</p>
-                        <p>The repeal of exclusion laws and new immigration policies in the 1960s opened doors for family reunification and skilled professionals, transforming the demographic composition of Cantonese American communities.</p>
-                        
-                        <div class="key-highlights">
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🛂</span>
-                                <span class="highlight-text">Immigration Act of 1965</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">👨‍👩‍👧</span>
-                                <span class="highlight-text">Family reunification</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🏙️</span>
-                                <span class="highlight-text">Hong Kong as transit hub</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">📚</span>
-                                <span class="highlight-text">Educational migration</span>
-                            </div>
-                        </div>
-
-                        <a href="/phase3.html" class="phase-link">
-                            Explore Phase III
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Phase IV -->
-                <div class="phase phase-4">
-                    <div class="phase-header">
-                        <span class="phase-number">Phase IV</span>
-                        <h3 class="phase-period">1980s–Present</h3>
-                        <h4 class="phase-title">Globalization and New Identities</h4>
-                    </div>
-                    <div class="phase-content">
-                        <p>The return of Hong Kong to China, economic globalization, and digital connectivity have created new patterns of transnational migration. Today's Cantonese diaspora maintains fluid connections across multiple countries and continents.</p>
-                        <p>As Mandarin gains dominance and younger generations navigate multiple identities, Cantonese communities face questions about language preservation, cultural heritage, and what it means to be Cantonese in the 21st century.</p>
-                        
-                        <div class="key-highlights">
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🌐</span>
-                                <span class="highlight-text">Digital diaspora</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">💼</span>
-                                <span class="highlight-text">Global professionals</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🗣️</span>
-                                <span class="highlight-text">Language preservation</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🎭</span>
-                                <span class="highlight-text">Hybrid identities</span>
-                            </div>
-                        </div>
-
-                        <a href="/phase4.html" class="phase-link">
-                            Explore Phase IV
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>Created by kw30928@gmail.com All rights reserved 2025</p>
-        </div>
-    </footer>
 </body>
 </html>
