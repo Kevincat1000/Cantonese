@@ -12,48 +12,31 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
 
   <style>
-    /* ===== Layout: blue panel LEFT, map RIGHT ===== */
+    /* ===== Cream background everywhere (map area + buttons sit on this) ===== */
+    body { background: #F5F0E5; }
+
+    /* Top row: left cards + right map, all on cream */
     .split-top {
       display: grid;
       grid-template-columns: 1fr;
       gap: 1.25rem;
       padding-top: 1.25rem;
+      padding-bottom: 1.75rem;
     }
     @media (min-width: 980px) {
       .split-top {
-        grid-template-columns: 1.15fr 1fr;
+        grid-template-columns: 1.05fr 1fr;
         align-items: start;
       }
     }
 
-    /* Keep existing background colors: we reuse intro-section for the blue panel,
-       and a plain white wrapper for the map. */
-    .timeline-panel {
-      border-radius: 0; /* don’t change background colors; keep your section look */
-      overflow: hidden;
-    }
-
-    .map-panel {
-      background: transparent; /* keep white page background */
-    }
-    .map-card {
-      border-radius: 14px;
-      overflow: hidden;
-    }
-    #diaspora-map {
-      width: 100%;
-      height: 360px;
-    }
-    @media (min-width: 980px) {
-      #diaspora-map { height: 420px; }
-    }
-
-    /* ===== Timeline-only styling (same as your current file) ===== */
+    /* LEFT content (no blue background here) */
     .timeline-wrap { max-width: 72rem; margin: 0 auto; }
-    .timeline-header { margin-bottom: 1.25rem; }
+    .timeline-header { margin-bottom: 1.15rem; }
     .timeline-header h2 { margin: 0 0 0.75rem 0; }
-    .timeline-header p { margin: 0; color: #e9eef2; }
+    .timeline-header p { margin: 0; color: #24313f; } /* readable on cream */
 
+    /* Card grid (the four phase buttons/cards) */
     .phase-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -64,6 +47,7 @@
       .phase-grid { grid-template-columns: 1fr 1fr; }
     }
 
+    /* Cards themselves (your “buttons”) stay white on cream */
     details.phase {
       background: #ffffff;
       border: 1px solid #e5e7eb;
@@ -88,32 +72,48 @@
     .chev { width: 18px; height: 18px; opacity: 0.65; flex: 0 0 auto; }
     details[open] .chev { transform: rotate(180deg); }
 
+    /* We will “cancel popout” by never opening details at all (JS below).
+       Keep the body section available, but it won’t show unless opened. */
     .phase-body { padding: 0 1.1rem 1.1rem 1.1rem; }
     .phase-body .phase-link { margin-top: 0.6rem; display: inline-block; }
     .phase-body .phase-link a { text-decoration: none; }
 
     .events { margin-top: 0.25rem; display: grid; gap: 0.75rem; }
-    .event {
-      border-left: 3px solid #5B6D87;
-      padding-left: 0.85rem;
-    }
+    .event { border-left: 3px solid #5B6D87; padding-left: 0.85rem; }
     .event .when { font-weight: 800; color: #111827; font-size: 12px; letter-spacing: 0.04em; }
     .event .what { font-weight: 800; color: #111827; margin-top: 0.1rem; }
     .event .desc { color: #4a5568; margin-top: 0.25rem; font-size: 14px; line-height: 1.6; }
 
-    /* ===== Buttons shorter (no background color change) ===== */
+    /* Shorter button (color unchanged) */
     .btn-lite {
       display: inline-block;
-      padding: 0.42rem 0.75rem; /* shorter */
+      padding: 0.42rem 0.75rem;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 12px;          /* slightly smaller */
+      font-size: 12px;
       line-height: 1;
       color: white;
-      background: #5B6D87;      /* unchanged */
+      background: #5B6D87;
       transition: opacity 0.2s;
     }
     .btn-lite:hover { opacity: 0.9; }
+
+    /* RIGHT map card */
+    .map-card {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      background: transparent;
+    }
+    #diaspora-map { width: 100%; height: 420px; }
+    @media (max-width: 980px) { #diaspora-map { height: 360px; } }
+
+    /* ===== Blue background becomes a separate empty section at bottom ===== */
+    .blue-bottom {
+      width: 100%;
+      background: #2f4f60; /* your blue look */
+      min-height: 220px;   /* “empty section” height */
+    }
   </style>
 </head>
 
@@ -122,12 +122,12 @@
   <div id="site-header"></div>
   <script src="./assets/header.js" defer></script>
 
-  <!-- Split row: BLUE timeline panel on the LEFT, map on the RIGHT -->
+  <!-- Top row on cream background -->
   <div class="container">
     <div class="split-top">
 
-      <!-- LEFT: timeline (blue background comes from intro-section) -->
-      <section class="intro-section timeline-panel" style="padding-top: 1.25rem;">
+      <!-- LEFT: timeline header + 4 phase cards (no blue background here) -->
+      <section>
         <div class="timeline-wrap">
           <div class="timeline-header">
             <h2>Timeline</h2>
@@ -138,9 +138,9 @@
           </div>
 
           <div class="phase-grid">
-            <!-- Phase I -->
+            <!-- NOTE: summaries act like buttons; JS below prevents popout -->
             <details class="phase">
-              <summary>
+              <summary data-link="phase1.html" role="button" aria-label="Open Phase I">
                 <div>
                   <div class="phase-title">Phase I: 17th–19th Centuries</div>
                   <div class="phase-sub">Early regional mobility in Southeast Asia</div>
@@ -162,15 +162,12 @@
                     <div class="desc">Commercial and kinship ties consolidate in key ports, forming early foundations for later Pacific-era migration channels.</div>
                   </div>
                 </div>
-                <div class="phase-link">
-                  <a class="btn-lite" href="phase1.html">Open Phase I</a>
-                </div>
+                <div class="phase-link"><a class="btn-lite" href="phase1.html">Open Phase I</a></div>
               </div>
             </details>
 
-            <!-- Phase II -->
             <details class="phase">
-              <summary>
+              <summary data-link="phase2.html" role="button" aria-label="Open Phase II">
                 <div>
                   <div class="phase-title">Phase II: 1840s–1940s</div>
                   <div class="phase-sub">Gold rush, railroads, Chinatowns, exclusion</div>
@@ -191,31 +188,13 @@
                     <div class="what">Fraser Canyon Gold Rush (Canada)</div>
                     <div class="desc">New circuits link California and British Columbia; early Chinatowns emerge as labor, lodging, and mutual-aid infrastructure.</div>
                   </div>
-                  <div class="event">
-                    <div class="when">1865–1869</div>
-                    <div class="what">Transcontinental Railroad labor</div>
-                    <div class="desc">Cantonese workers become indispensable to railroad construction, expanding networks of work, remittance, and migration sponsorship.</div>
-                  </div>
-                  <div class="event">
-                    <div class="when">1875–1924</div>
-                    <div class="what">Escalating restriction & legal struggle</div>
-                    <div class="desc">Exclusion-era policies reshape family life and settlement; associations, district networks, and legal resistance intensify.</div>
-                  </div>
-                  <div class="event">
-                    <div class="when">1943</div>
-                    <div class="what">U.S. repeal of Chinese Exclusion</div>
-                    <div class="desc">A limited reopening changes pathways again, setting up postwar shifts and later immigration reform.</div>
-                  </div>
                 </div>
-                <div class="phase-link">
-                  <a class="btn-lite" href="phase2.html">Open Phase II</a>
-                </div>
+                <div class="phase-link"><a class="btn-lite" href="phase2.html">Open Phase II</a></div>
               </div>
             </details>
 
-            <!-- Phase III -->
             <details class="phase">
-              <summary>
+              <summary data-link="phase3.html" role="button" aria-label="Open Phase III">
                 <div>
                   <div class="phase-title">Phase III: 1940s–1980s</div>
                   <div class="phase-sub">War, decolonization, new immigration systems</div>
@@ -231,26 +210,13 @@
                     <div class="what">New immigration systems</div>
                     <div class="desc">Race-based quotas are dismantled; family reunification and skilled migration expand new streams and community composition.</div>
                   </div>
-                  <div class="event">
-                    <div class="when">1975–1979</div>
-                    <div class="what">Refugee routes reshape Chinatowns</div>
-                    <div class="desc">Postwar displacement and refugee resettlement bring new Cantonese-speaking arrivals, strengthening institutions and neighborhood economies.</div>
-                  </div>
-                  <div class="event">
-                    <div class="when">1980s</div>
-                    <div class="what">Institutional expansion</div>
-                    <div class="desc">Community media, schools, and associations adapt to broader coalitions and new transnational ties across the Pacific.</div>
-                  </div>
                 </div>
-                <div class="phase-link">
-                  <a class="btn-lite" href="phase3.html">Open Phase III</a>
-                </div>
+                <div class="phase-link"><a class="btn-lite" href="phase3.html">Open Phase III</a></div>
               </div>
             </details>
 
-            <!-- Phase IV -->
             <details class="phase">
-              <summary>
+              <summary data-link="phase4.html" role="button" aria-label="Open Phase IV">
                 <div>
                   <div class="phase-title">Phase IV: 1980s–Present</div>
                   <div class="phase-sub">Globalization, language shift, cultural resilience</div>
@@ -266,28 +232,16 @@
                     <div class="what">Pre-handover Hong Kong emigration</div>
                     <div class="desc">Large-scale movement intensifies transnational family strategy, investment migration, and bilingual community institutions.</div>
                   </div>
-                  <div class="event">
-                    <div class="when">2000s–Present</div>
-                    <div class="what">Diversification & shifting language power</div>
-                    <div class="desc">New migrants and new media reshape language ecology; Cantonese persists through home, arts, cuisine, and local public culture.</div>
-                  </div>
-                  <div class="event">
-                    <div class="when">Today</div>
-                    <div class="what">Memory work & public scholarship</div>
-                    <div class="desc">Oral histories, archives, and digital mapping re-center Cantonese experience as part of Asian American and Pacific histories.</div>
-                  </div>
                 </div>
-                <div class="phase-link">
-                  <a class="btn-lite" href="phase4.html">Open Phase IV</a>
-                </div>
+                <div class="phase-link"><a class="btn-lite" href="phase4.html">Open Phase IV</a></div>
               </div>
             </details>
           </div>
         </div>
       </section>
 
-      <!-- RIGHT: map -->
-      <section class="map-panel">
+      <!-- RIGHT: map on cream background -->
+      <section>
         <div class="map-card">
           <div id="diaspora-map"></div>
         </div>
@@ -295,6 +249,20 @@
 
     </div>
   </div>
+
+  <!-- Make summary act like a link button; cancel the details popout -->
+  <script>
+    document.addEventListener("click", (e) => {
+      const sum = e.target.closest("summary[data-link]");
+      if (!sum) return;
+
+      // Prevent <details> toggling (the popout)
+      e.preventDefault();
+
+      const href = sum.getAttribute("data-link");
+      if (href) window.location.href = href;
+    });
+  </script>
 
   <!-- Mapbox JS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
@@ -489,6 +457,9 @@
     }
   })();
   </script>
+
+  <!-- Blue background moved to an empty bottom section -->
+  <section class="blue-bottom" aria-hidden="true"></section>
 
   <!-- Footer -->
   <footer>
