@@ -3,141 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Timeline - Cantonese Migration</title>
+  <title>Timeline</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+  <script src="./assets/header.js" defer></script>
 
-  <!-- Use the same global style as index -->
-  <link rel="stylesheet" href="assets/style.css" />
+  <section class="services-section">
+    <div class="container">
+      <h1 style="font-size:2.25rem; margin: 2rem 0 0.75rem;">Timeline</h1>
+      <p style="color:#4a5568; max-width:56rem;">
+        If you can see this page, your timeline route and shared header/style are working.
+      </p>
+    </div>
+  </section>
 
-  <!-- Page-only styles (keeps overall index style; only adds timeline layout) -->
-  <style>
-    .page-hero {
-      position: relative;
-      padding: 4.25rem 1rem 3.25rem;
-      background: linear-gradient(rgba(0, 48, 87, 0.78), rgba(0, 48, 87, 0.78)),
-        url("https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg");
-      background-size: cover;
-      background-position: center;
-      color: #fff;
-    }
-    .page-hero h1 {
-      font-size: clamp(2.25rem, 4.5vw, 3.25rem);
-      line-height: 1.15;
-      margin-bottom: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .page-hero p {
-      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
-      font-weight: 300;
-      opacity: 0.95;
-    }
+  <footer>
+    <div class="container">
+      <p>Created by kw30928@gmail.com All rights reserved 2025</p>
+    </div>
+  </footer>
+</body>
+</html>
 
-    .page-section {
-      padding: 3.25rem 1rem;
-      background: #fff;
-    }
-    .page-section.alt {
-      background: #f5f5f5;
-    }
-    .section-title {
-      font-size: 2rem;
-      color: #2c7565;
-      margin-bottom: 1.25rem;
-      font-weight: 700;
-    }
-    .section-lead {
-      max-width: 56rem;
-      font-size: 1.05rem;
-      color: #4a5568;
-      line-height: 1.9;
-    }
-
-    /* Phase chips */
-    .phase-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 1.75rem;
-    }
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 0.9rem;
-      border: 1px solid #e5e7eb;
-      border-radius: 999px;
-      text-decoration: none;
-      color: #111827;
-      background: #fff;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
-      white-space: nowrap;
-    }
-    .chip:hover {
-      border-color: #5b6d87;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-      transform: translateY(-1px);
-      color: #5b6d87;
-    }
-    .chip .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #5b6d87;
-      flex: 0 0 auto;
-    }
-
-    /* Timeline layout */
-    .timeline-wrap {
-      max-width: 72rem;
-      margin: 0 auto;
-    }
-    .timeline {
-      margin-top: 2.25rem;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-    @media (min-width: 900px) {
-      .timeline {
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-      }
-    }
-    .phase-card {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 0.75rem;
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-    .phase-head {
-      padding: 1.25rem 1.25rem 0.9rem;
-      border-bottom: 1px solid #eef2f7;
-    }
-    .phase-kicker {
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      font-weight: 700;
-      color: #5b6d87;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    .phase-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: 0.35rem;
-      color: #111827;
-      line-height: 1.25;
-    }
-    .phase-subtitle {
-      font-size: 0.95rem;
-      color: #6b7280;
-      line-height: 1.5;
-    }
-    .phase-body {
-      padding: 1.15rem 1.25rem 1.25rem;
-      color: #4a5568;
-    }
-    .phase-b
