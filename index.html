@@ -88,14 +88,17 @@
         .nav-link {
             color: #333;
             text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
             transition: color 0.3s;
             display: flex;
             align-items: center;
             gap: 0.25rem;
             padding: 0.5rem 0;
             cursor: pointer;
+            line-height: 1.5;
+            white-space: nowrap;
         }
 
         .nav-link:hover {
@@ -134,25 +137,29 @@
 
         .dropdown-item {
             display: block;
-            padding: 0.75rem 1rem;
+            padding: 0.875rem 1.25rem;
             text-decoration: none;
             transition: background-color 0.2s;
+            border-left: 3px solid transparent;
         }
 
         .dropdown-item:hover {
             background-color: #f3f4f6;
+            border-left-color: #5B6D87;
         }
 
         .dropdown-title {
             font-weight: 600;
-            font-size: 0.875rem;
+            font-size: 14px;
             color: #111827;
             margin-bottom: 0.25rem;
+            line-height: 1.4;
         }
 
         .dropdown-subtitle {
-            font-size: 0.75rem;
+            font-size: 12px;
             color: #6b7280;
+            line-height: 1.5;
         }
 
         /* Mobile Menu Toggle */
@@ -179,7 +186,7 @@
             justify-content: center;
             color: white;
             background: linear-gradient(rgba(0, 48, 87, 0.7), rgba(0, 48, 87, 0.7)), 
-                        url('https://ext.same-assets.com/2026473150/704387381.jpeg');
+                        url('https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -382,71 +389,7 @@
             color: #4a5568;
         }
 
-        /* FAQ Section */
-        .faq-section {
-            background: white;
-            padding: 4rem 1rem;
-        }
 
-        .faq-section h2 {
-            font-size: 2.25rem;
-            color: #003057;
-            margin-bottom: 2rem;
-            max-width: 56rem;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .accordion {
-            max-width: 56rem;
-            margin: 0 auto;
-        }
-
-        .accordion-item {
-            background: #7BA3B8;
-            color: white;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            padding: 0 1.5rem;
-        }
-
-        .accordion-trigger {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-            text-align: left;
-        }
-
-        .accordion-trigger:hover {
-            opacity: 0.9;
-        }
-
-        .accordion-icon {
-            transition: transform 0.3s;
-            font-size: 1.25rem;
-        }
-
-        .accordion-icon.open {
-            transform: rotate(180deg);
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .accordion-content.open {
-            max-height: 500px;
-            padding-bottom: 1rem;
-        }
 
         /* Footer */
         footer {
@@ -597,14 +540,7 @@
                 <a href="/culture.html" class="btn" style="background: #2C7565;">View the full article</a>
             </div>
 
-            <div class="service-card">
-                <div class="border-accent" style="border-color: #B4A572;">
-                    <h3 style="color: #B4A572;">Historical Research</h3>
-                    <p class="subtitle" style="color: #B4A572;">Establishing Fact Over Fiction</p>
-                </div>
-                <p>HAI applies its tried-and-true research methodology to all research projects, regardless of their size, topic, or era—from science and medicine to sports, entertainment, and current events. We consult with you to refine the research question and identify potential repositories and collections including the Library of Congress, National Archives, Smithsonian Institution.</p>
-                <a href="#contact" class="btn" style="background: #B4A572;">Talk to an HAI Expert</a>
-            </div>
+
         </div>
     </section>
 
@@ -646,73 +582,7 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="container">
-            <h2>Historical Research and Storytelling FAQs</h2>
-            <div class="accordion">
-                <div class="accordion-item">
-                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
-                        <span>How long does the typical history or exhibit project take?</span>
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content">
-                        <p>As long as it needs to. Our team can typically complete tasks like in-depth historical research, interpretive planning, and oral histories in less than six months. Small projects tend to take closer to a year, while larger projects may take two or three years. Often, content development accounts for only part of the time it takes to complete a project—tasks like graphic design, fabrication and installation, and web development can take several months or years, too.</p>
-                    </div>
-                </div>
 
-                <div class="accordion-item">
-                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
-                        <span>Do you offer exhibit design and fabrication services?</span>
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content">
-                        <p>Yes, we offer comprehensive exhibit design and fabrication services through our network of trusted partners.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
-                        <span>What if I don't know how best to tell my story?</span>
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content">
-                        <p>That's where we come in! Our team of experts will work with you to understand your goals and craft the best narrative approach.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
-                        <span>How much time and effort will a content development project require of my team?</span>
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content">
-                        <p>We work to minimize the burden on your team while ensuring we capture your organization's unique story and perspective.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
-                        <span>Do you work only on projects that are historical in nature?</span>
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content">
-                        <p>While history is our specialty, we work on a wide range of projects that involve research, storytelling, and experience design.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <button class="accordion-trigger" onclick="toggleAccordion(this)">
-                        <span>We are not local to the DC Metro area. Can you still help me?</span>
-                        <span class="accordion-icon">▼</span>
-                    </button>
-                    <div class="accordion-content">
-                        <p>Absolutely! We work with clients across the country and around the world.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer>
@@ -721,26 +591,6 @@
         </div>
     </footer>
 
-    <script>
-        function toggleAccordion(button) {
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('.accordion-icon');
-            const isOpen = content.classList.contains('open');
-            
-            // Close all accordions
-            document.querySelectorAll('.accordion-content').forEach(item => {
-                item.classList.remove('open');
-            });
-            document.querySelectorAll('.accordion-icon').forEach(item => {
-                item.classList.remove('open');
-            });
-            
-            // Open clicked accordion if it was closed
-            if (!isOpen) {
-                content.classList.add('open');
-                icon.classList.add('open');
-            }
-        }
-    </script>
+
 </body>
 </html>
