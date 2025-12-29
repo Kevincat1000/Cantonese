@@ -1,398 +1,401 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeline - Cantonese in Americas</title>
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <!-- Same global style as index -->
+  <link rel="stylesheet" href="./assets/style.css" />
 
-body {
-  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  line-height: 1.6;
-  color: #333;
-}
+  <!-- Mapbox CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
+</head>
 
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
+<body>
+  <!-- Shared header injected here -->
+  <div id="site-header"></div>
+  <script src="./assets/header.js" defer></script>
 
-/* Header */
-header {
-  background: white;
-  border-bottom: 1px solid #e5e5e5;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
+  <!-- Hero -->
+  <section class="hero" style="
+    background: linear-gradient(rgba(0, 48, 87, 0.72), rgba(0, 48, 87, 0.72)),
+      url('https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg');
+    background-size: cover;
+    background-position: center;">
+    <div class="hero-content">
+      <h1>Timeline of Cantonese Migration</h1>
+      <p>Waves · Networks · Institutions</p>
+    </div>
+  </section>
 
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
-}
+  <!-- Intro -->
+  <section class="intro-section">
+    <div class="container">
+      <div class="intro-text">
+        <h2>Overview</h2>
 
-.logo {
-  text-align: center;
-  padding: 0 0.5rem;
-  text-decoration: none;
-  transition: opacity 0.3s;
-}
+        <p>
+          This timeline traces Cantonese-speaking migration across Southeast Asia, the Pacific, and North America—highlighting
+          not only movement, but the infrastructures of survival: clan associations, labor networks, schools, media, and cultural institutions.
+        </p>
 
-.logo:hover {
-  opacity: 0.9;
-}
+        <p>
+          Use the four phases below to explore key waves, turning points, and community transformations over time.
+        </p>
 
-.logo-main {
-  font-size: 24px;
-  font-weight: bold;
-  color: #5B6D87;
-  letter-spacing: 0.5px;
-  line-height: 1.2;
-}
+        <div class="stats">
+          <h3>JUMP TO:</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number"><a href="phase1.html" style="color:#8BA888; text-decoration:none;">Phase I</a></div>
+              <div class="stat-divider"></div>
+              <p class="stat-description">17th–19th Centuries</p>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number"><a href="phase2.html" style="color:#8BA888; text-decoration:none;">Phase II</a></div>
+              <div class="stat-divider"></div>
+              <p class="stat-description">1840s–1940s</p>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number"><a href="phase3.html" style="color:#8BA888; text-decoration:none;">Phase III</a></div>
+              <div class="stat-divider"></div>
+              <p class="stat-description">1940s–1980s</p>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number"><a href="phase4.html" style="color:#8BA888; text-decoration:none;">Phase IV</a></div>
+              <div class="stat-divider"></div>
+              <p class="stat-description">1980s–Present</p>
+            </div>
+          </div>
+        </div>
 
-.logo-sub {
-  font-size: 16px;
-  font-weight: bold;
-  color: #5B6D87;
-  letter-spacing: 2px;
-  line-height: 1.2;
-}
+      </div>
+    </div>
+  </section>
 
-/* Navigation */
-.nav-menu {
-  display: none;
-  align-items: center;
-  gap: 1.5rem;
-  position: relative;
-}
+  <!-- Phase Cards -->
+  <section class="services-section">
+    <div class="services-grid">
 
-@media (min-width: 768px) {
-  .nav-menu {
-    display: flex;
-  }
-}
+      <div class="service-card">
+        <div class="border-accent" style="border-color:#84402d;">
+          <h3 style="color:#84402d;">Phase I: 17th–19th Centuries</h3>
+          <p class="subtitle" style="color:#84402d;">Early Migration within Southeast Asia</p>
+        </div>
+        <p>
+          Early Cantonese mobility through maritime trade, port cities, and regional networks—laying the foundations
+          for later Pacific and North American migration routes.
+        </p>
+        <a href="phase1.html" class="btn" style="background:#84402d;">Read Phase I</a>
+      </div>
 
-.nav-item {
-  position: relative;
-}
+      <div class="service-card">
+        <div class="border-accent" style="border-color:#84402d;">
+          <h3 style="color:#84402d;">Phase II: 1840s–1940s</h3>
+          <p class="subtitle" style="color:#84402d;">The Great Migration to the Americas</p>
+        </div>
+        <p>
+          Gold rushes, railroad labor, and the formation of Chinatowns—followed by exclusion laws and community resistance
+          through associations, mutual aid, and legal struggles.
+        </p>
+        <a href="phase2.html" class="btn" style="background:#84402d;">Read Phase II</a>
+      </div>
 
-.nav-link {
-  color: #333;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  transition: color 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.5rem 0;
-  cursor: pointer;
-  line-height: 1.5;
-  white-space: nowrap;
-}
+      <div class="service-card">
+        <div class="border-accent" style="border-color:#7BA3B8;">
+          <h3 style="color:#7BA3B8;">Phase III: 1940s–1980s</h3>
+          <p class="subtitle" style="color:#7BA3B8;">War, Revolution, and Renewed Migration</p>
+        </div>
+        <p>
+          Postwar shifts, decolonization, and new immigration systems—plus refugee routes (including Cantonese-speaking Hoa)
+          that reshaped institutions and revived many urban enclaves.
+        </p>
+        <a href="phase3.html" class="btn" style="background:#7BA3B8;">Read Phase III</a>
+      </div>
 
-.nav-link:hover {
-  color: #5B6D87;
-}
+      <div class="service-card">
+        <div class="border-accent" style="border-color:#2C7565;">
+          <h3 style="color:#2C7565;">Phase IV: 1980s–Present</h3>
+          <p class="subtitle" style="color:#2C7565;">Globalization and New Identities</p>
+        </div>
+        <p>
+          Transnational media, shifting language hierarchies, and cultural resilience—how communities negotiate identity,
+          memory, and public presence across generations.
+        </p>
+        <a href="phase4.html" class="btn" style="background:#2C7565;">Read Phase IV</a>
+      </div>
 
-.nav-link svg {
-  width: 1rem;
-  height: 1rem;
-}
+    </div>
+  </section>
 
-/* Dropdown Menu */
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  padding-top: 0.5rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-}
+  <!-- Routes Map -->
+  <section class="news-section">
+    <div class="container">
+      <h2>Routes Map</h2>
+      <p style="color:#4a5568; max-width:56rem; margin-bottom:1.25rem;">
+        Maritime & Flight Migration Routes (flat map, solid lines, all labels).
+      </p>
 
-.nav-item:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-}
+      <div style="background:#fff; border-radius:0.5rem; padding:1rem; box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+        <div id="diaspora-map" style="width:100%; height:540px; border-radius:14px; overflow:hidden;"></div>
+      </div>
+    </div>
+  </section>
 
-.dropdown-content {
-  width: 20rem;
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-              0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  padding: 0.5rem 0;
-}
+  <!-- Mapbox JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
 
-.dropdown-item {
-  display: block;
-  padding: 0.875rem 1.25rem;
-  text-decoration: none;
-  transition: background-color 0.2s;
-  border-left: 3px solid transparent;
-}
+  <script>
+  (function () {
+    mapboxgl.accessToken =
+      "pk.eyJ1Ijoia2V2aW5jYXQxMDAiLCJhIjoiY21qbmFyN21yMTYzMzNlcHN5ZHVubTdpbiJ9.m8QPkEMJKLNIMvFyKUgTkw";
 
-.dropdown-item:hover {
-  background-color: #f3f4f6;
-  border-left-color: #5B6D87;
-}
+    const STYLE_URL = "mapbox://styles/kevincat100/cmjneo20k000v01sxghqb6aqr";
 
-.dropdown-title {
-  font-weight: 600;
-  font-size: 14px;
-  color: #111827;
-  margin-bottom: 0.25rem;
-  line-height: 1.4;
-}
+    const C_ROUTE1 = "#3d85c6";
+    const C_ROUTE2 = "#e69138";
+    const C_ROUTE3 = "#6a329f";
+    const C_ROUTE4 = "#666666";
+    const C_ROUTE5 = "#cc0000";
+    const C_ROUTE6 = "#0b5394";
 
-.dropdown-subtitle {
-  font-size: 12px;
-  color: #6b7280;
-  line-height: 1.5;
-}
+    const ROUTE_WIDTH = 1.2;
+    const ROUTE_OPACITY = 0.9;
 
-/* Mobile Menu Toggle */
-.mobile-menu-btn {
-  display: block;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-}
+    const map = new mapboxgl.Map({
+      container: "diaspora-map",
+      style: STYLE_URL,
 
-@media (min-width: 768px) {
-  .mobile-menu-btn {
-    display: none;
-  }
-}
+      // ✅ DEFAULT VIEW = your screenshot (A: can pan/zoom)
+      center: [170, 28],
+      zoom: 2.25,
 
-/* Hero Section */
-.hero {
-  position: relative;
-  height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background: linear-gradient(rgba(0, 48, 87, 0.7), rgba(0, 48, 87, 0.7)),
-              url('https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg');
-  background-size: cover;
-  background-position: center;
-}
+      bearing: 0,
+      pitch: 0,
+      projection: "mercator"
+    });
 
-.hero-content {
-  text-align: center;
-  z-index: 10;
-  padding: 1rem;
-}
+    map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-.hero h1 {
-  font-size: clamp(2.5rem, 5vw, 3.75rem);
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
+    map.on("style.load", () => {
+      map.setProjection("mercator");
+      map.setTerrain(null);
+    });
 
-.hero p {
-  font-size: clamp(1.25rem, 3vw, 1.875rem);
-  font-weight: 300;
-}
+    // Fix occasional blank render until resize
+    window.addEventListener("load", () => {
+      setTimeout(() => map.resize(), 150);
+    });
 
-/* Introduction Section */
-.intro-section {
-  background: #2C5266;
-  color: white;
-  padding: 4rem 1rem;
-}
+    map.on("load", () => {
 
-.intro-section h2 {
-  font-size: clamp(1.875rem, 4vw, 2.25rem);
-  color: #d6d0ac;
-  margin-bottom: 3rem;
-}
+      // ✅ ALL labels ON
+      const points = [
+        { title:"Si Yi", subtitle:"Sze Yup region of Guangdong", country:"China", coords:[112.98, 22.54], showLabel:true },
+        { title:"Hong Kong", subtitle:"", country:"China", coords:[114.1694, 22.3193], showLabel:true },
+        { title:"Ayutthaya Kingdom", subtitle:"Ayutthaya", country:"Thailand", coords:[100.5689, 14.3532], showLabel:true },
+        { title:"Hà Tiên", subtitle:"", country:"Vietnam", coords:[104.4833, 10.3833], showLabel:true },
+        { title:"Saigon", subtitle:"Ho Chi Minh City", country:"Vietnam", coords:[106.6297, 10.8231], showLabel:true },
+        { title:"Penang", subtitle:"", country:"Malaysia", coords:[100.3354, 5.4141], showLabel:true },
+        { title:"Singapore", subtitle:"", country:"Singapore", coords:[103.8198, 1.3521], showLabel:true },
+        { title:"Heungshan", subtitle:"Zhongshan", country:"China", coords:[113.382, 22.515], showLabel:true },
+        { title:"Hawaii", subtitle:"Honolulu", country:"United States", coords:[-157.8583, 21.3069], showLabel:true },
+        { title:"San Francisco", subtitle:"", country:"United States", coords:[-122.4194, 37.7749], showLabel:true }
+      ];
 
-.intro-text {
-  max-width: 56rem;
-  margin: 0 auto;
-}
+      function addRoute(id, coords, color) {
+        map.addSource(id, {
+          type: "geojson",
+          data: { type:"Feature", geometry:{ type:"LineString", coordinates: coords } }
+        });
 
-.intro-text p {
-  font-size: 1.125rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.8;
-}
+        map.addLayer({
+          id: id + "-line",
+          type: "line",
+          source: id,
+          layout: { "line-cap":"round", "line-join":"round" },
+          paint: {
+            "line-color": color,
+            "line-width": ROUTE_WIDTH,
+            "line-opacity": ROUTE_OPACITY
+          }
+        });
+      }
 
-.intro-text a {
-  color: white;
-  text-decoration: underline;
-}
+      addRoute("r1", [
+        [112.98, 22.54],
+        [114.0, 21.8],
+        [113.2, 20.0],
+        [112.0, 18.2],
+        [111.0, 16.2],
+        [110.2, 14.5],
+        [109.5, 13.2],
+        [109.0, 11.8],
+        [108.2, 10.5],
+        [106.8, 9.2],
+        [105.2, 8.8],
+        [103.6, 8.9],
+        [102.0, 9.2],
+        [101.0, 10.2],
+        [100.6, 12.0],
+        [100.5689, 14.3532]
+      ], C_ROUTE1);
 
-.intro-text a:hover {
-  opacity: 0.8;
-}
+      addRoute("r2", [
+        [100.5689, 14.3532],
+        [101.0, 12.8],
+        [101.6, 11.6],
+        [102.4, 10.9],
+        [103.3, 10.6],
+        [104.0, 10.5],
+        [104.4833, 10.3833],
+        [104.9, 10.0],
+        [105.6, 9.6],
+        [106.1, 9.8],
+        [106.4, 10.2],
+        [106.6297, 10.8231]
+      ], C_ROUTE2);
 
-/* Statistics */
-.stats {
-  margin-top: 3rem;
-}
+      addRoute("r3", [
+        [112.98, 22.54],
+        [113.6, 20.5],
+        [112.6, 18.0],
+        [111.0, 15.0],
+        [109.5, 12.5],
+        [107.8, 10.2],
+        [105.8, 8.2],
+        [103.5, 6.8],
+        [101.8, 6.0],
+        [100.3354, 5.4141],
+        [101.6, 4.1],
+        [102.7, 2.7],
+        [103.3, 2.0],
+        [103.8198, 1.3521]
+      ], C_ROUTE3);
 
-.stats h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  letter-spacing: 0.05em;
-}
+      // Eastward flights: US longitudes +360
+      addRoute("r4", [
+        [106.6297, 10.8231],
+        [122.0, 18.0],
+        [138.0, 26.0],
+        [154.0, 33.0],
+        [170.0, 38.0],
+        [186.0, 40.5],
+        [202.0, 41.5],
+        [218.0, 40.5],
+        [232.0, 39.2],
+        [237.5806, 37.7749]
+      ], C_ROUTE4);
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-}
+      addRoute("r5", [
+        [114.1694, 22.3193],
+        [130.0, 28.0],
+        [146.0, 34.0],
+        [162.0, 39.0],
+        [176.0, 43.0],
+        [190.0, 45.0],
+        [206.0, 44.5],
+        [222.0, 42.5],
+        [233.0, 40.5],
+        [237.5806, 37.7749]
+      ], C_ROUTE5);
 
-.stat-item {
-  text-align: left;
-}
+      addRoute("r6", [
+        [113.382, 22.515],
+        [128.0, 26.0],
+        [145.0, 30.0],
+        [160.0, 33.0],
+        [175.0, 33.5],
+        [190.0, 30.5],
+        [202.1417, 21.3069]
+      ], C_ROUTE6);
 
-.stat-number {
-  font-size: 1.875rem;
-  font-weight: bold;
-  color: #8BA888;
-  margin-bottom: 0.5rem;
-  white-space: nowrap;
-}
+      const pointsGeoJSON = {
+        type: "FeatureCollection",
+        features: points.map(p => ({
+          type: "Feature",
+          geometry: { type: "Point", coordinates: p.coords },
+          properties: {
+            title: p.title,
+            subtitle: p.subtitle || "",
+            country: p.country || "",
+            showLabel: !!p.showLabel,
+            label: p.subtitle ? `${p.title} (${p.subtitle})` : p.title
+          }
+        }))
+      };
 
-.stat-divider {
-  border-bottom: 2px dotted #8BA888;
-  margin-bottom: 1rem;
-}
+      map.addSource("route-points", { type: "geojson", data: pointsGeoJSON });
 
-.stat-description {
-  font-size: 0.875rem;
-}
+      map.addLayer({
+        id: "route-points-dot",
+        type: "circle",
+        source: "route-points",
+        paint: {
+          "circle-radius": 4,
+          "circle-color": "#111",
+          "circle-stroke-color": "#fff",
+          "circle-stroke-width": 2
+        }
+      });
 
-/* Service Cards Section */
-.services-section {
-  background: white;
-  padding: 4rem 1rem;
-}
+      map.addLayer({
+        id: "route-points-label",
+        type: "symbol",
+        source: "route-points",
+        filter: ["==", ["get", "showLabel"], true],
+        layout: {
+          "text-field": ["get", "label"],
+          "text-size": 12,
+          "text-offset": [0, 1.1],
+          "text-anchor": "top",
+          "text-allow-overlap": true,
+          "text-ignore-placement": true
+        },
+        paint: {
+          "text-color": "#111",
+          "text-halo-color": "#fff",
+          "text-halo-width": 1.5
+        }
+      });
 
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 3rem;
-  max-width: 72rem;
-  margin: 0 auto;
-}
+      map.on("click", "route-points-dot", (e) => {
+        const f = e.features && e.features[0];
+        if (!f) return;
 
-.service-card h3 {
-  font-size: 1.875rem;
-  margin-bottom: 0.5rem;
-}
+        const { title, subtitle, country } = f.properties;
+        const html = `
+          <div style="font-family:system-ui; font-size:13px; line-height:1.25;">
+            <div style="font-weight:700;">${escapeHtml(title)}</div>
+            ${subtitle ? `<div style="opacity:.8;">${escapeHtml(subtitle)}</div>` : ``}
+            <div style="opacity:.6;">${escapeHtml(country)}</div>
+          </div>
+        `;
 
-.service-card .subtitle {
-  font-size: 1.125rem;
-  margin-bottom: 1.5rem;
-}
+        new mapboxgl.Popup({ offset: 18 })
+          .setLngLat(f.geometry.coordinates)
+          .setHTML(html)
+          .addTo(map);
+      });
 
-.service-card p {
-  color: #4a5568;
-  margin-bottom: 1.5rem;
-}
+      map.on("mouseenter", "route-points-dot", () => map.getCanvas().style.cursor = "pointer");
+      map.on("mouseleave", "route-points-dot", () => map.getCanvas().style.cursor = "");
+    });
 
-.service-card .border-accent {
-  border-left: 4px solid;
-  padding-left: 1rem;
-  margin-bottom: 1.5rem;
-}
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, m =>
+        ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m])
+      );
+    }
+  })();
+  </script>
 
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  color: white;
-  text-decoration: none;
-  border-radius: 0.375rem;
-  transition: opacity 0.3s;
-  font-weight: 500;
-}
-
-.btn:hover {
-  opacity: 0.9;
-}
-
-/* News Section */
-.news-section {
-  background: #F5F5F5;
-  padding: 4rem 1rem;
-}
-
-.news-section h2 {
-  font-size: 2.25rem;
-  color: #2C7565;
-  margin-bottom: 3rem;
-}
-
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 72rem;
-  margin: 0 auto;
-}
-
-.news-card {
-  background: white;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.news-card img {
-  width: 100%;
-  height: 192px;
-  object-fit: cover;
-}
-
-.news-card-content {
-  padding: 1.5rem;
-}
-
-.news-date {
-  font-size: 0.875rem;
-  color: #6b7280;
-  margin-bottom: 0.5rem;
-}
-
-.news-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.news-category {
-  font-size: 0.875rem;
-  color: #2C7565;
-  margin-bottom: 0.75rem;
-}
-
-.news-excerpt {
-  font-size: 0.875rem;
-  color: #4a5568;
-}
-
-/* Footer */
-footer {
-  background: #003057;
-  color: white;
-  padding: 2rem 1rem;
-  text-align: center;
-}
-
-footer p {
-  font-size: 0.875rem;
-  color: #d1d5db;
-}
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Created by kw30928@gmail.com All rights reserved 2025</p>
+    </div>
+  </footer>
+</body>
+</html>
