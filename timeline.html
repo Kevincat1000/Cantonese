@@ -279,8 +279,8 @@
     const map = new mapboxgl.Map({
       container: "diaspora-map",
       style: STYLE_URL,
-      center: [140, 27],
-      zoom: 1.55,
+      center: [150, 27],
+      zoom: 1.45,
       bearing: 0,
       pitch: 0,
       projection: "mercator"
@@ -300,13 +300,13 @@
     map.on("load", () => {
       // Initial view labels
       const points = [
-        { title:"Sze Yup", subtitle:"Four regions of Guangdong", country:"China", coords:[112.98, 22.54] },
-        { title:"Ayutthaya Kingdom", subtitle:"Ayutthaya", country:"Thailand", coords:[100.5689, 14.3532] },
-        { title:"Saigon", subtitle:"Ho Chi Minh City", country:"Vietnam", coords:[106.6297, 10.8231]},
-        { title:"Penang", subtitle:"", country:"Malaysia", coords:[100.3354, 5.4141] },
-        { title:"Singapore", subtitle:"", country:"Singapore", coords:[103.8198, 1.3521] },
-        { title:"Honolulu", subtitle:"Hawaii", country:"United States", coords:[-157.8583, 21.3069]},
-        { title:"San Francisco", subtitle:"", country:"United States", coords:[-122.4194, 37.7749] },
+        { title:"Sze Yup", subtitle:"Four regions of Guangdong", country:"China", coords:[112.98, 22.54], minZoom: 1.8 },
+        { title:"Ayutthaya Kingdom", subtitle:"Ayutthaya", country:"Thailand", coords:[100.5689, 14.3532], minZoom: 1.8 },
+        { title:"Saigon", subtitle:"Ho Chi Minh City", country:"Vietnam", coords:[106.6297, 10.8231], minZoom: 1.8},
+        { title:"Penang", subtitle:"", country:"Malaysia", coords:[100.3354, 5.4141], minZoom: 1.8 },
+        { title:"Singapore", subtitle:"", country:"Singapore", coords:[103.8198, 1.3521], minZoom: 1.8 },
+        { title:"Honolulu", subtitle:"Hawaii", country:"United States", coords:[-157.8583, 21.3069], minZoom: 1.8},
+        { title:"San Francisco", subtitle:"", country:"United States", coords:[-122.4194, 37.7749] , minZoom: 1.8},
 
         // Other labels appear with slight zoom only
         { title:"Hong Kong", subtitle:"", country:"China", coords:[114.1694, 22.3193], minZoom: 2.9 },
