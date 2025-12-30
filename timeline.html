@@ -202,14 +202,17 @@
     /* === PHASE CONTENT === */
     #phaseContentContainer { 
       display: none;
-      position: fixed;
-      top: 0; /* Cover entire screen including header */
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #F5F0E5;
-      overflow-y: auto;
-      z-index: 100; /* Above header (which is z-index: 50) */
+      /* Break out of parent padding */
+      margin-left: -1rem;
+      margin-right: -1rem;
+      padding: 0;
+    }
+
+    @media (min-width: 1024px) {
+      #phaseContentContainer {
+        margin-left: -2rem;
+        margin-right: -2rem;
+      }
     }
 
     #phaseContentContainer.active { 
@@ -234,7 +237,7 @@
       border: none;
       display: block;
       overflow: hidden;
-      min-height: 100%;
+      min-height: 100vh;
       margin: 0;
       padding: 0;
     }
@@ -312,13 +315,13 @@
 
       </div>
     </div>
-  </div>
 
-  <!-- Phase Content Area (Fixed overlay outside page-wrapper) -->
-  <div id="phaseContentContainer">
-    <div class="container">
-      <div class="content-inner">
-        <iframe id="phaseFrame" scrolling="no"></iframe>
+    <!-- Phase Content Area (inside page-wrapper for scrolling) -->
+    <div id="phaseContentContainer">
+      <div class="container">
+        <div class="content-inner">
+          <iframe id="phaseFrame" scrolling="no"></iframe>
+        </div>
       </div>
     </div>
   </div>
