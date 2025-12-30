@@ -22,7 +22,7 @@
       font-family: 'Gentium Book Plus', serif;
     }
     
-    /* Override body font for header to use Lato */
+    /* ✅ FIX 1: Override body font for header to use Lato */
     header,
     header * {
       font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif !important;
@@ -39,7 +39,7 @@
     /* ===== Cream background everywhere ===== */
     body { background: #F5F0E5; }
 
-    /* Match header's padding structure */
+    /* ✅ FIX 2: Match header's padding structure */
     .timeline-container {
       max-width: 1280px;
       margin: 0 auto;
@@ -53,8 +53,8 @@
       gap: 1.25rem;
       padding-top: 1.25rem;
       padding-bottom: 1.75rem;
-      padding-left: 1rem;  /* Match header-content padding */
-      padding-right: 1rem; /* Match header-content padding */
+      padding-left: 1rem;  /* ✅ Add this to match header-content padding */
+      padding-right: 1rem; /* ✅ Add this to match header-content padding */
     }
     @media (min-width: 980px) {
       .split-top {
@@ -66,11 +66,11 @@
     /* Match header's larger padding on bigger screens */
     @media (min-width: 1024px) {
       .timeline-container {
-        padding: 0 2rem;  /* Match header's 2rem padding */
+        padding: 0 2rem;  /* ✅ Match header's 2rem padding */
       }
       .split-top {
-        padding-left: 0;  /* Remove inner padding on large screens */
-        padding-right: 0; /* Remove inner padding on large screens */
+        padding-left: 2rem;  /* ✅ Keep 2rem inner padding to match header-content */
+        padding-right: 2rem; /* ✅ Total = 4rem like header (2rem + 2rem) */
       }
     }
 
@@ -196,6 +196,7 @@
   <script src="./assets/header.js"></script>
 
   <!-- Top row on cream background -->
+  <!-- ✅ Changed from 'container' to 'timeline-container' -->
   <div class="timeline-container">
     <div class="split-top">
 
