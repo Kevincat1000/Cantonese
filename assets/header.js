@@ -1,13 +1,13 @@
 /**
  * Header Component for Cantonese in Americas
- * 包含：Header HTML, CSS样式, 滚动隐藏功能, Mobile Menu功能
- * 使用方法：在HTML中引入此文件，然后调用 initHeader()
+ * Includes: Header HTML, CSS styles, Scroll hide functionality, Mobile Menu
+ * Usage: Include this file in HTML, then call initHeader()
  */
 
 (function() {
     'use strict';
 
-    // ========== 插入CSS样式 ==========
+    // Insert CSS styles
     function insertHeaderStyles() {
         const styles = `
             <style id="header-styles">
@@ -174,7 +174,7 @@
                     }
                 }
 
-                /* 响应式优化 */
+                /* Responsive optimization */
                 @media (min-width: 640px) {
                     .logo-main {
                         font-size: 26px;
@@ -201,7 +201,7 @@
         document.head.insertAdjacentHTML('beforeend', styles);
     }
 
-    // ========== 插入Header HTML ==========
+    // Insert Header HTML
     function insertHeaderHTML() {
         const headerHTML = `
             <header>
@@ -222,7 +222,7 @@
                         </nav>
 
                         <!-- Mobile Menu Button -->
-                        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="打开菜单">
+                        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
@@ -254,7 +254,7 @@
         document.body.insertAdjacentHTML('afterbegin', headerHTML);
     }
 
-    // ========== 滚动隐藏功能 ==========
+    // Scroll hide functionality
     function initScrollHide() {
         let lastScrollTop = 0;
         const header = document.querySelector('header');
@@ -284,60 +284,56 @@
         });
     }
 
-    // ========== Mobile Menu 功能 ==========
+    // Mobile Menu functionality
     function initMobileMenu() {
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileNavMenu = document.getElementById('mobileNavMenu');
         
         if (!mobileMenuBtn || !mobileNavMenu) return;
         
-        // 切换mobile menu显示/隐藏
+        // Toggle mobile menu
         mobileMenuBtn.addEventListener('click', function() {
             mobileNavMenu.classList.toggle('active');
             
             const icon = mobileMenuBtn.querySelector('svg path');
             if (mobileNavMenu.classList.contains('active')) {
                 icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
-                mobileMenuBtn.setAttribute('aria-label', '关闭菜单');
+                mobileMenuBtn.setAttribute('aria-label', 'Close menu');
             } else {
                 icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                mobileMenuBtn.setAttribute('aria-label', '打开菜单');
+                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
             }
         });
 
-        // 点击菜单项后关闭mobile menu
+        // Close mobile menu when clicking menu items
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', function() {
                 mobileNavMenu.classList.remove('active');
                 const icon = mobileMenuBtn.querySelector('svg path');
                 icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                mobileMenuBtn.setAttribute('aria-label', '打开菜单');
+                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
             });
         });
 
-        // 点击页面其他地方关闭mobile menu
+        // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
             if (!mobileMenuBtn.contains(event.target) && !mobileNavMenu.contains(event.target)) {
                 if (mobileNavMenu.classList.contains('active')) {
                     mobileNavMenu.classList.remove('active');
                     const icon = mobileMenuBtn.querySelector('svg path');
                     icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                    mobileMenuBtn.setAttribute('aria-label', '打开菜单');
+                    mobileMenuBtn.setAttribute('aria-label', 'Open menu');
                 }
             }
         });
     }
 
-    // ========== 初始化所有功能 ==========
+    // Initialize all functionalities
     window.initHeader = function() {
-        // 插入CSS
         insertHeaderStyles();
-        
-        // 插入HTML
         insertHeaderHTML();
         
-        // 等待DOM完全加载后初始化功能
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', function() {
                 initScrollHide();
@@ -348,9 +344,5 @@
             initMobileMenu();
         }
     };
-
-    // 自动初始化（如果需要）
-    // 如果想要自动加载，取消下面这行的注释
-    // window.initHeader();
 
 })();
