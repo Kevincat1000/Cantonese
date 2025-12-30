@@ -38,9 +38,21 @@
         }
 
         .fullpage-section {
-            height: 100vh;
+            min-height: 100vh;
             scroll-snap-align: start;
             scroll-snap-stop: always;
+        }
+
+        /* 第一屏固定100vh */
+        .fullpage-section.hero {
+            height: 100vh;
+        }
+
+        /* 第二屏内容容器 */
+        .second-screen-content {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Header */
@@ -53,6 +65,12 @@
             right: 0;
             z-index: 50;
             backdrop-filter: blur(10px);
+            transform: translateY(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
         }
 
         .header-content {
@@ -290,8 +308,8 @@
         .intro-section {
             background: #2C5266;
             color: white;
-            padding: 6rem 1rem 4rem;
-            min-height: calc(100vh - 200px); /* 为footer留出空间 */
+            padding: 3rem 1rem 2rem;
+            flex: 1;
             display: flex;
             align-items: center;
         }
@@ -299,7 +317,7 @@
         .intro-section h2 {
             font-size: clamp(1.875rem, 4vw, 2.25rem);
             color: #d6d0ac;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .intro-text {
@@ -310,8 +328,8 @@
 
         .intro-text p {
             font-size: 1.125rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
+            margin-bottom: 1rem;
+            line-height: 1.7;
         }
 
         .intro-text a {
@@ -325,20 +343,20 @@
 
         /* Statistics */
         .stats {
-            margin-top: 3rem;
+            margin-top: 2rem;
         }
 
         .stats h3 {
             font-size: 1.25rem;
             font-weight: 600;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             letter-spacing: 0.05em;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .stat-item {
@@ -366,7 +384,7 @@
         footer {
             background: #003057;
             color: white;
-            padding: 2rem 1rem;
+            padding: 1.5rem 1rem;
             text-align: center;
         }
 
@@ -378,12 +396,12 @@
         /* 平板和手机适配 */
         @media (max-width: 768px) {
             .intro-section {
-                padding: 5rem 1rem 3rem;
+                padding: 2rem 1rem 1.5rem;
             }
             
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1.25rem;
             }
         }
     </style>
@@ -455,45 +473,47 @@
 
         <!-- 第二屏：Introduction + Footer -->
         <section class="fullpage-section">
-            <div class="intro-section">
-                <div class="container">
-                    <div class="intro-text">
-                        <h2>Introduction</h2>
-                        
-                        <p>Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.</p>
-                        
-                        <p>This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.</p>
+            <div class="second-screen-content">
+                <div class="intro-section">
+                    <div class="container">
+                        <div class="intro-text">
+                            <h2>Introduction</h2>
+                            
+                            <p>Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.</p>
+                            
+                            <p>This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.</p>
 
-                        <div class="stats">
-                            <h3>BY THE NUMBERS:</h3>
-                            <div class="stats-grid">
-                                <div class="stat-item">
-                                    <div class="stat-number">175+ Years</div>
-                                    <div class="stat-divider"></div>
-                                    <p class="stat-description">Documented migration since the 1848 Gold Rush.</p>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">530,000+</div>
-                                    <div class="stat-divider"></div>
-                                    <p class="stat-description">U.S. residents speaking Cantonese at home.</p>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">30 Million+</div>
-                                    <div class="stat-divider"></div>
-                                    <p class="stat-description">Descendants in a vast global diaspora.</p>
+                            <div class="stats">
+                                <h3>BY THE NUMBERS:</h3>
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <div class="stat-number">175+ Years</div>
+                                        <div class="stat-divider"></div>
+                                        <p class="stat-description">Documented migration since the 1848 Gold Rush.</p>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-number">530,000+</div>
+                                        <div class="stat-divider"></div>
+                                        <p class="stat-description">U.S. residents speaking Cantonese at home.</p>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-number">30 Million+</div>
+                                        <div class="stat-divider"></div>
+                                        <p class="stat-description">Descendants in a vast global diaspora.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Footer -->
-            <footer>
-                <div class="container">
-                    <p>Created by kw30928@gmail.com All rights reserved 2025</p>
-                </div>
-            </footer>
+                <!-- Footer -->
+                <footer>
+                    <div class="container">
+                        <p>Created by kw30928@gmail.com All rights reserved 2025</p>
+                    </div>
+                </footer>
+            </div>
         </section>
     </div>
 
@@ -546,6 +566,7 @@
         // ===== Fullpage Scroll Functionality =====
         const fullpageWrapper = document.querySelector('.fullpage-wrapper');
         const sections = document.querySelectorAll('.fullpage-section');
+        const header = document.querySelector('header');
         let currentSection = 0;
         let isScrolling = false;
 
@@ -556,6 +577,13 @@
             const viewportHeight = window.innerHeight;
             
             currentSection = Math.round(scrollPosition / viewportHeight);
+            
+            // Hide header on second screen, show on first screen
+            if (currentSection >= 1) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
         });
 
         // Keyboard navigation support
