@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Timeline - Cantonese in Americas</title>
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+
   <!-- Global style (same as index) -->
   <link rel="stylesheet" href="./assets/style.css" />
 
@@ -12,7 +17,12 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
 
   <style>
-    /* ===== Cream background everywhere (map area + buttons sit on this) ===== */
+    /* ===== Font system ===== */
+    body {
+      font-family: 'Gentium Book Plus', serif;
+    }
+    
+    /* ===== Cream background everywhere ===== */
     body { background: #F5F0E5; }
 
     /* Top row: left cards + right map, all on cream */
@@ -30,11 +40,11 @@
       }
     }
 
-    /* LEFT content (no blue background here) */
+    /* LEFT content */
     .timeline-wrap { max-width: 72rem; margin: 0 auto; }
     .timeline-header { margin-bottom: 1.15rem; }
     .timeline-header h2 { margin: 0 0 0.75rem 0; }
-    .timeline-header p { margin: 0; color: #24313f; } /* readable on cream */
+    .timeline-header p { margin: 0; color: #24313f; }
 
     /* Card grid (the four phase buttons/cards) */
     .phase-grid {
@@ -47,56 +57,55 @@
       .phase-grid { grid-template-columns: 1fr 1fr; }
     }
 
-    /* Cards themselves (your “buttons”) stay white on cream */
-    details.phase {
+    /* Phase cards as simple clickable buttons */
+    .phase {
       background: #ffffff;
       border: 1px solid #e5e7eb;
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-    details.phase summary {
-      list-style: none;
       cursor: pointer;
       padding: 1rem 1.1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      user-select: none;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
     }
-    details.phase summary::-webkit-details-marker { display: none; }
-
-    .phase-title { font-weight: 800; font-size: 15px; color: #111827; line-height: 1.25; }
-    .phase-sub { font-size: 12px; color: #6b7280; margin-top: 0.25rem; line-height: 1.35; }
-    .chev { width: 18px; height: 18px; opacity: 0.65; flex: 0 0 auto; }
-    details[open] .chev { transform: rotate(180deg); }
-
-    /* We will “cancel popout” by never opening details at all (JS below).
-       Keep the body section available, but it won’t show unless opened. */
-    .phase-body { padding: 0 1.1rem 1.1rem 1.1rem; }
-    .phase-body .phase-link { margin-top: 0.6rem; display: inline-block; }
-    .phase-body .phase-link a { text-decoration: none; }
-
-    .events { margin-top: 0.25rem; display: grid; gap: 0.75rem; }
-    .event { border-left: 3px solid #5B6D87; padding-left: 0.85rem; }
-    .event .when { font-weight: 800; color: #111827; font-size: 12px; letter-spacing: 0.04em; }
-    .event .what { font-weight: 800; color: #111827; margin-top: 0.1rem; }
-    .event .desc { color: #4a5568; margin-top: 0.25rem; font-size: 14px; line-height: 1.6; }
-
-    /* Shorter button (color unchanged) */
-    .btn-lite {
-      display: inline-block;
-      padding: 0.42rem 0.75rem;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 12px;
-      line-height: 1;
-      color: white;
-      background: #5B6D87;
-      transition: opacity 0.2s;
+    
+    .phase:hover {
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transform: translateY(-1px);
     }
-    .btn-lite:hover { opacity: 0.9; }
+
+    .phase.active {
+      border-color: #5B6D87;
+      background: #f8f9fa;
+    }
+
+    .phase-title { 
+      font-weight: 800; 
+      font-size: 15px; 
+      color: #111827; 
+      line-height: 1.25; 
+    }
+    
+    .phase-sub { 
+      font-size: 12px; 
+      color: #6b7280; 
+      margin-top: 0.25rem; 
+      line-height: 1.35; 
+    }
+    
+    .chev { 
+      width: 18px; 
+      height: 18px; 
+      opacity: 0.65; 
+      flex: 0 0 auto; 
+      transform: rotate(-90deg);
+    }
 
     /* RIGHT map card */
     .map-card {
@@ -108,11 +117,23 @@
     #diaspora-map { width: 100%; height: 420px; }
     @media (max-width: 980px) { #diaspora-map { height: 360px; } }
 
-    /* ===== Blue background becomes a separate empty section at bottom ===== */
-    .blue-bottom {
+    /* Phase content area below */
+    .phase-content-container {
+      margin-top: 2rem;
+      display: none;
+    }
+
+    .phase-content-container.active {
+      display: block;
+    }
+
+    .phase-content-frame {
       width: 100%;
-      background: #2f4f60; /* your blue look */
-      min-height: 220px;   /* “empty section” height */
+      border: none;
+      border-radius: 14px;
+      background: white;
+      min-height: 600px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
   </style>
 </head>
@@ -126,116 +147,55 @@
   <div class="container">
     <div class="split-top">
 
-      <!-- LEFT: timeline header + 4 phase cards (no blue background here) -->
+      <!-- LEFT: timeline header + 4 phase cards -->
       <section>
         <div class="timeline-wrap">
           <div class="timeline-header">
-            <h2>Timeline</h2>
-            <p>
-              A phase-based view of Cantonese-speaking mobility across Southeast Asia, the Pacific, and North America—
-              focusing on routes, institutions, and turning points that reshaped community life.
-            </p>
+            <h2>Timeline of Cantonese Migration</h2>
+            <p>Waves, Networks, and Institutions</p>
           </div>
 
           <div class="phase-grid">
-            <!-- NOTE: summaries act like buttons; JS below prevents popout -->
-            <details class="phase">
-              <summary data-link="phase1.html" role="button" aria-label="Open Phase I">
-                <div>
-                  <div class="phase-title">Phase I: 17th–19th Centuries</div>
-                  <div class="phase-sub">Early regional mobility in Southeast Asia</div>
-                </div>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <div class="phase-body">
-                <div class="events">
-                  <div class="event">
-                    <div class="when">17th–18th c.</div>
-                    <div class="what">Maritime trade & port-city settlement</div>
-                    <div class="desc">Cantonese mobility follows shipping routes through South China Sea networks, linking coastal Guangdong to regional entrepôts.</div>
-                  </div>
-                  <div class="event">
-                    <div class="when">18th–19th c.</div>
-                    <div class="what">Southeast Asian nodes strengthen</div>
-                    <div class="desc">Commercial and kinship ties consolidate in key ports, forming early foundations for later Pacific-era migration channels.</div>
-                  </div>
-                </div>
-                <div class="phase-link"><a class="btn-lite" href="phase1.html">Open Phase I</a></div>
+            <!-- Phase cards as simple clickable buttons -->
+            <a href="#" class="phase" data-phase="phase1.html">
+              <div>
+                <div class="phase-title">Phase I: 17th–19th Centuries</div>
+                <div class="phase-sub">Early regional mobility in Southeast Asia</div>
               </div>
-            </details>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
 
-            <details class="phase">
-              <summary data-link="phase2.html" role="button" aria-label="Open Phase II">
-                <div>
-                  <div class="phase-title">Phase II: 1840s–1940s</div>
-                  <div class="phase-sub">Gold rush, railroads, Chinatowns, exclusion</div>
-                </div>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <div class="phase-body">
-                <div class="events">
-                  <div class="event">
-                    <div class="when">1848–1851</div>
-                    <div class="what">California Gold Rush & San Francisco gateway</div>
-                    <div class="desc">Large-scale Cantonese-speaking migration accelerates; San Francisco grows as a primary entry point and community hub.</div>
-                  </div>
-                  <div class="event">
-                    <div class="when">1858</div>
-                    <div class="what">Fraser Canyon Gold Rush (Canada)</div>
-                    <div class="desc">New circuits link California and British Columbia; early Chinatowns emerge as labor, lodging, and mutual-aid infrastructure.</div>
-                  </div>
-                </div>
-                <div class="phase-link"><a class="btn-lite" href="phase2.html">Open Phase II</a></div>
+            <a href="#" class="phase" data-phase="phase2.html">
+              <div>
+                <div class="phase-title">Phase II: 1840s–1940s</div>
+                <div class="phase-sub">Gold rush, railroads, Chinatowns, exclusion</div>
               </div>
-            </details>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
 
-            <details class="phase">
-              <summary data-link="phase3.html" role="button" aria-label="Open Phase III">
-                <div>
-                  <div class="phase-title">Phase III: 1940s–1980s</div>
-                  <div class="phase-sub">War, decolonization, new immigration systems</div>
-                </div>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <div class="phase-body">
-                <div class="events">
-                  <div class="event">
-                    <div class="when">1965 (U.S.) / 1967 (Canada)</div>
-                    <div class="what">New immigration systems</div>
-                    <div class="desc">Race-based quotas are dismantled; family reunification and skilled migration expand new streams and community composition.</div>
-                  </div>
-                </div>
-                <div class="phase-link"><a class="btn-lite" href="phase3.html">Open Phase III</a></div>
+            <a href="#" class="phase" data-phase="phase3.html">
+              <div>
+                <div class="phase-title">Phase III: 1940s–1980s</div>
+                <div class="phase-sub">War, decolonization, new immigration systems</div>
               </div>
-            </details>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
 
-            <details class="phase">
-              <summary data-link="phase4.html" role="button" aria-label="Open Phase IV">
-                <div>
-                  <div class="phase-title">Phase IV: 1980s–Present</div>
-                  <div class="phase-sub">Globalization, language shift, cultural resilience</div>
-                </div>
-                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <div class="phase-body">
-                <div class="events">
-                  <div class="event">
-                    <div class="when">1984–1997</div>
-                    <div class="what">Pre-handover Hong Kong emigration</div>
-                    <div class="desc">Large-scale movement intensifies transnational family strategy, investment migration, and bilingual community institutions.</div>
-                  </div>
-                </div>
-                <div class="phase-link"><a class="btn-lite" href="phase4.html">Open Phase IV</a></div>
+            <a href="#" class="phase" data-phase="phase4.html">
+              <div>
+                <div class="phase-title">Phase IV: 1980s–Present</div>
+                <div class="phase-sub">Globalization, language shift, cultural resilience</div>
               </div>
-            </details>
+              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
@@ -248,19 +208,44 @@
       </section>
 
     </div>
+
+    <!-- Phase content area (hidden by default) -->
+    <div class="phase-content-container" id="phaseContentContainer">
+      <iframe id="phaseFrame" class="phase-content-frame"></iframe>
+    </div>
   </div>
 
-  <!-- Make summary act like a link button; cancel the details popout -->
+  <!-- Phase button click handler -->
   <script>
-    document.addEventListener("click", (e) => {
-      const sum = e.target.closest("summary[data-link]");
-      if (!sum) return;
+    document.addEventListener('DOMContentLoaded', function() {
+      const phaseButtons = document.querySelectorAll('.phase');
+      const contentContainer = document.getElementById('phaseContentContainer');
+      const phaseFrame = document.getElementById('phaseFrame');
 
-      // Prevent <details> toggling (the popout)
-      e.preventDefault();
-
-      const href = sum.getAttribute("data-link");
-      if (href) window.location.href = href;
+      phaseButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const phaseUrl = this.getAttribute('data-phase');
+          
+          // Remove active class from all buttons
+          phaseButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          // Show content container
+          contentContainer.classList.add('active');
+          
+          // Load phase content in iframe
+          phaseFrame.src = phaseUrl;
+          
+          // Smooth scroll to content
+          setTimeout(() => {
+            contentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        });
+      });
     });
   </script>
 
@@ -457,9 +442,6 @@
     }
   })();
   </script>
-
-  <!-- Blue background moved to an empty bottom section -->
-  <section class="blue-bottom" aria-hidden="true"></section>
 
   <!-- Footer -->
   <footer>
