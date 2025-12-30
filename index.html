@@ -12,10 +12,15 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
         }
 
         .container {
@@ -24,22 +29,30 @@
             padding: 0 1rem;
         }
 
-        /* Header */
-        header {
-            background: #F5F0E5;
-            border-bottom: 1px solid #e5e5e5;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            
-            /* ✨ 新增：滚动隐藏效果 */
-            transform: translateY(0);
-            transition: transform 0.3s ease-in-out;
+        /* ===== 全屏滚动容器 ===== */
+        .fullpage-wrapper {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
         }
 
-        /* ✨ 新增：隐藏状态 */
-        header.header-hidden {
-            transform: translateY(-100%);
+        .fullpage-section {
+            height: 100vh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+
+        /* Header */
+        header {
+            background: rgba(245, 240, 229, 0.95);
+            border-bottom: 1px solid #e5e5e5;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
         }
 
         .header-content {
@@ -126,12 +139,13 @@
             top: 73px;
             left: 0;
             right: 0;
-            background: #F5F0E5;
+            background: rgba(245, 240, 229, 0.98);
             border-bottom: 1px solid #e5e5e5;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             z-index: 40;
             max-height: calc(100vh - 73px);
             overflow-y: auto;
+            backdrop-filter: blur(10px);
         }
 
         .mobile-nav-menu.active {
@@ -206,10 +220,10 @@
             }
         }
 
-        /* Hero Section */
+        /* Hero Section - 第一屏 */
         .hero {
             position: relative;
-            height: 500px;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -218,41 +232,80 @@
                         url('https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
         }
 
         .hero-content {
             text-align: center;
             z-index: 10;
             padding: 1rem;
+            margin-top: 73px; /* Header高度 */
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
             font-weight: bold;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .hero p {
-            font-size: clamp(1.25rem, 3vw, 1.875rem);
+            font-size: clamp(1.25rem, 3vw, 2rem);
             font-weight: 300;
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* Introduction Section */
+        /* 滚动提示 */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Introduction Section - 第二屏 */
         .intro-section {
             background: #2C5266;
             color: white;
-            padding: 4rem 1rem;
+            padding: 6rem 1rem 4rem;
+            min-height: calc(100vh - 200px); /* 为footer留出空间 */
+            display: flex;
+            align-items: center;
         }
 
         .intro-section h2 {
             font-size: clamp(1.875rem, 4vw, 2.25rem);
             color: #d6d0ac;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
         .intro-text {
             max-width: 56rem;
             margin: 0 auto;
+            width: 100%;
         }
 
         .intro-text p {
@@ -321,6 +374,18 @@
             font-size: 0.875rem;
             color: #d1d5db;
         }
+
+        /* 平板和手机适配 */
+        @media (max-width: 768px) {
+            .intro-section {
+                padding: 5rem 1rem 3rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -343,7 +408,7 @@
                 </nav>
 
                 <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="打开菜单">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
@@ -371,133 +436,158 @@
         </div>
     </header>
 
+    <!-- 全屏滚动容器 -->
+    <div class="fullpage-wrapper">
+        <!-- 第一屏：Hero Section -->
+        <section class="hero fullpage-section">
+            <div class="hero-content">
+                <h1>Cantonese in Americas</h1>
+                <p>Public History · Oral History · Cultural Research</p>
+            </div>
+            
+            <!-- 滚动提示 -->
+            <div class="scroll-indicator">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </section>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Cantonese in Americas</h1>
-            <p>Public History · Oral History · Cultural Research</p>
-        </div>
-    </section>
+        <!-- 第二屏：Introduction + Footer -->
+        <section class="fullpage-section">
+            <div class="intro-section">
+                <div class="container">
+                    <div class="intro-text">
+                        <h2>Introduction</h2>
+                        
+                        <p>Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.</p>
+                        
+                        <p>This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.</p>
 
-    <!-- Introduction Section -->
-    <section class="intro-section">
-        <div class="container">
-            <div class="intro-text">
-                <h2>Introduction</h2>
-                
-                <p>Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas. </p>
-                
-                <p>This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.</p>
-
-                <div class="stats">
-                    <h3>BY THE NUMBERS:</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number">175+ Years</div>
-                            <div class="stat-divider"></div>
-                            <p class="stat-description">Documented migration since the 1848 Gold Rush.</p>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">530,000+</div>
-                            <div class="stat-divider"></div>
-                            <p class="stat-description">U.S. residents speaking Cantonese at home.</p>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">30 Million+</div>
-                            <div class="stat-divider"></div>
-                            <p class="stat-description">Descendants in a vast global diaspora.</p>
+                        <div class="stats">
+                            <h3>BY THE NUMBERS:</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number">175+ Years</div>
+                                    <div class="stat-divider"></div>
+                                    <p class="stat-description">Documented migration since the 1848 Gold Rush.</p>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">530,000+</div>
+                                    <div class="stat-divider"></div>
+                                    <p class="stat-description">U.S. residents speaking Cantonese at home.</p>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">30 Million+</div>
+                                    <div class="stat-divider"></div>
+                                    <p class="stat-description">Descendants in a vast global diaspora.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>Created by kw30928@gmail.com All rights reserved 2025</p>
-        </div>
-    </footer>
+            <!-- Footer -->
+            <footer>
+                <div class="container">
+                    <p>Created by kw30928@gmail.com All rights reserved 2025</p>
+                </div>
+            </footer>
+        </section>
+    </div>
 
-    <!-- ✨ JavaScript for Header Scroll Hide and Mobile Menu -->
+    <!-- JavaScript -->
     <script>
-        // ===== 滚动隐藏Header功能 =====
-        let lastScrollTop = 0;
-        const header = document.querySelector('header');
-        const scrollThreshold = 100; // 滚动超过100px才触发
-        const scrollDelta = 5; // 最小滚动距离，防止抖动
-        
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // 滚动距离太小，忽略
-            if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) {
-                return;
-            }
-            
-            // 在页面顶部时，始终显示header
-            if (scrollTop < scrollThreshold) {
-                header.classList.remove('header-hidden');
-                lastScrollTop = scrollTop;
-                return;
-            }
-            
-            // 向下滚动 - 隐藏header
-            if (scrollTop > lastScrollTop) {
-                header.classList.add('header-hidden');
-            } 
-            // 向上滚动 - 显示header
-            else {
-                header.classList.remove('header-hidden');
-            }
-            
-            lastScrollTop = scrollTop;
-        });
-
-        // ===== Mobile Menu 功能 =====
+        // ===== Mobile Menu Functionality =====
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileNavMenu = document.getElementById('mobileNavMenu');
         
-        // 切换mobile menu显示/隐藏
+        // Toggle mobile menu visibility
         mobileMenuBtn.addEventListener('click', function() {
             mobileNavMenu.classList.toggle('active');
             
-            // 切换按钮图标（汉堡 ↔ X）
+            // Toggle button icon (hamburger ↔ X)
             const icon = mobileMenuBtn.querySelector('svg path');
             if (mobileNavMenu.classList.contains('active')) {
-                // 显示X图标
+                // Show X icon
                 icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
-                mobileMenuBtn.setAttribute('aria-label', '关闭菜单');
+                mobileMenuBtn.setAttribute('aria-label', 'Close menu');
             } else {
-                // 显示汉堡图标
+                // Show hamburger icon
                 icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                mobileMenuBtn.setAttribute('aria-label', '打开菜单');
+                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
             }
         });
 
-        // 点击菜单项后关闭mobile menu
+        // Close mobile menu after clicking menu item
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', function() {
                 mobileNavMenu.classList.remove('active');
                 const icon = mobileMenuBtn.querySelector('svg path');
                 icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                mobileMenuBtn.setAttribute('aria-label', '打开菜单');
+                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
             });
         });
 
-        // 点击页面其他地方关闭mobile menu
+        // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
             if (!mobileMenuBtn.contains(event.target) && !mobileNavMenu.contains(event.target)) {
                 if (mobileNavMenu.classList.contains('active')) {
                     mobileNavMenu.classList.remove('active');
                     const icon = mobileMenuBtn.querySelector('svg path');
                     icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                    mobileMenuBtn.setAttribute('aria-label', '打开菜单');
+                    mobileMenuBtn.setAttribute('aria-label', 'Open menu');
                 }
             }
+        });
+
+        // ===== Fullpage Scroll Functionality =====
+        const fullpageWrapper = document.querySelector('.fullpage-wrapper');
+        const sections = document.querySelectorAll('.fullpage-section');
+        let currentSection = 0;
+        let isScrolling = false;
+
+        // Monitor scroll events
+        fullpageWrapper.addEventListener('scroll', function() {
+            // Detect which section is currently visible
+            const scrollPosition = fullpageWrapper.scrollTop;
+            const viewportHeight = window.innerHeight;
+            
+            currentSection = Math.round(scrollPosition / viewportHeight);
+        });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                e.preventDefault();
+                scrollToSection(Math.min(currentSection + 1, sections.length - 1));
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                scrollToSection(Math.max(currentSection - 1, 0));
+            }
+        });
+
+        function scrollToSection(index) {
+            if (isScrolling) return;
+            
+            isScrolling = true;
+            const targetPosition = index * window.innerHeight;
+            
+            fullpageWrapper.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+            
+            setTimeout(() => {
+                isScrolling = false;
+            }, 1000);
+        }
+
+        // Scroll indicator click event
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            scrollToSection(1);
         });
     </script>
 </body>
