@@ -18,8 +18,10 @@
                 header {
                     background: #F5F0E5;
                     border-bottom: none;
-                    position: sticky;
+                    position: fixed;
                     top: 0;
+                    left: 0;
+                    right: 0;
                     z-index: 50;
                     transform: translateY(0);
                     transition: transform 0.3s ease-in-out;
@@ -27,6 +29,11 @@
 
                 header.header-hidden {
                     transform: translateY(-100%);
+                }
+
+                /* Add padding to body to account for fixed header */
+                body {
+                    padding-top: 73px;
                 }
 
                 header .header-container {
@@ -251,33 +258,10 @@
         document.body.insertAdjacentHTML('afterbegin', headerHTML);
     }
 
+    // No scroll hide functionality - handled by individual pages
     function initScrollHide() {
-        let lastScrollTop = 0;
-        const header = document.querySelector('header');
-        const scrollThreshold = 100;
-        const scrollDelta = 5;
-        
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) {
-                return;
-            }
-            
-            if (scrollTop < scrollThreshold) {
-                header.classList.remove('header-hidden');
-                lastScrollTop = scrollTop;
-                return;
-            }
-            
-            if (scrollTop > lastScrollTop) {
-                header.classList.add('header-hidden');
-            } else {
-                header.classList.remove('header-hidden');
-            }
-            
-            lastScrollTop = scrollTop;
-        });
+        // Scroll hiding is now handled by each page individually
+        // This function is kept for compatibility but does nothing
     }
 
     function initMobileMenu() {
