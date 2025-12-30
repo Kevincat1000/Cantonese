@@ -199,26 +199,32 @@
   margin-top: 3rem; 
   display: none; 
 }
-#phaseContentContainer.active { 
-  display: block; 
-}
 
-/* Remove padding from content-inner when showing phase content */
-#phaseContentContainer .content-inner {
-  padding: 0 !important;
+#phaseContentContainer.active { 
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
 #phaseContentContainer .container {
-  padding: 0 !important;
+  padding: 0;
+  margin: 0;
+  max-width: none;
 }
 
-    #phaseFrame {
-      width: 100%;
-      border: none;
-      display: block;
-      overflow: hidden;
-      min-height: 500px;
-    }
+#phaseContentContainer .content-inner {
+  padding: 0;
+}
+
+#phaseFrame {
+  width: 100%;
+  border: none;
+  display: block;
+  overflow: hidden;
+  min-height: 500px;
+  /* 确保 iframe 完全填满 */
+  margin: 0;
+}
   </style>
 </head>
 
