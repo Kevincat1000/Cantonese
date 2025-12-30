@@ -23,8 +23,29 @@
       font-family: 'Gentium Book Plus', serif;
     }
     
+    /* ✅ FIX 1: Override body font for header to use Lato */
+    header,
+    header * {
+      font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    }
+    
+    /* Ensure timeline content still uses Gentium */
+    .timeline-wrap,
+    .timeline-wrap *,
+    .phase,
+    .phase * {
+      font-family: 'Gentium Book Plus', serif;
+    }
+    
     /* ===== Cream background everywhere ===== */
     body { background: #F5F0E5; }
+
+    /* ✅ FIX 2: Use specific class name to avoid container conflict */
+    .timeline-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
 
     /* Top row: left cards + right map, all on cream */
     .split-top {
@@ -144,7 +165,8 @@
   <script src="./assets/header.js"></script>
 
   <!-- Top row on cream background -->
-  <div class="container">
+  <!-- ✅ Changed from 'container' to 'timeline-container' -->
+  <div class="timeline-container">
     <div class="split-top">
 
       <!-- LEFT: timeline header + 4 phase cards -->
