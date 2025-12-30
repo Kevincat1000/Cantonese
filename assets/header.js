@@ -7,15 +7,33 @@
 (function() {
     'use strict';
 
+    // Check if header already exists
     if (document.querySelector('header')) {
         console.warn('Header already exists in the page. Skipping header.js initialization.');
         return;
     }
 
-body { padding-top: 73px; }
+    // Insert CSS styles
+    function insertHeaderStyles() {
+        const styles = `
+            <style id="header-styles">
+                /* Header */
+                header {
+                    background: #F5F0E5;
+                    border-bottom: 1px solid #e5e5e5;
+                    position: sticky;
+                    top: 0;
+                    z-index: 50;
+                    transform: translateY(0);
+                    transition: transform 0.3s ease-in-out;
+                }
 
+                header.header-hidden {
+                    transform: translateY(-100%);
+                }
 
-                header .header-container {
+                /* Use specific class name to avoid conflicts */
+                header .container {
                     max-width: 1280px;
                     margin: 0 auto;
                     padding: 0 1rem;
@@ -39,6 +57,7 @@ body { padding-top: 73px; }
                     opacity: 0.9;
                 }
 
+                /* Logo with Lato font */
                 header .logo-main {
                     font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
                     font-size: 24px;
@@ -57,6 +76,7 @@ body { padding-top: 73px; }
                     line-height: 1.2;
                 }
 
+                /* Navigation */
                 header .nav-menu {
                     display: none;
                     align-items: center;
@@ -99,6 +119,7 @@ body { padding-top: 73px; }
                     height: 1rem;
                 }
 
+                /* Mobile Menu */
                 header .mobile-nav-menu {
                     display: none;
                     position: fixed;
@@ -137,6 +158,7 @@ body { padding-top: 73px; }
                     color: #8B2332;
                 }
 
+                /* Mobile Menu Toggle */
                 header .mobile-menu-btn {
                     display: block;
                     background: none;
@@ -162,6 +184,7 @@ body { padding-top: 73px; }
                     }
                 }
 
+                /* Responsive optimization */
                 @media (min-width: 640px) {
                     header .logo-main {
                         font-size: 26px;
@@ -172,7 +195,7 @@ body { padding-top: 73px; }
                 }
 
                 @media (min-width: 1024px) {
-                    header .header-container {
+                    header .container {
                         padding: 0 2rem;
                     }
                     header .header-content {
@@ -188,16 +211,18 @@ body { padding-top: 73px; }
         document.head.insertAdjacentHTML('beforeend', styles);
     }
 
+    // Insert Header HTML
     function insertHeaderHTML() {
         const headerHTML = `
             <header>
-                <div class="header-container">
+                <div class="container">
                     <div class="header-content">
                         <a href="index.html" class="logo" aria-label="Home">
                             <div class="logo-main">CANTONESE</div>
                             <div class="logo-sub">IN AMERICAS</div>
                         </a>
 
+                        <!-- Desktop Navigation -->
                         <nav class="nav-menu" aria-label="Primary">
                             <a href="timeline.html" class="nav-link">Timeline</a>
                             <a href="language.html" class="nav-link">Language Power</a>
@@ -206,6 +231,7 @@ body { padding-top: 73px; }
                             <a href="resources.html" class="nav-link">Resources</a>
                         </nav>
 
+                        <!-- Mobile Menu Button -->
                         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -213,6 +239,7 @@ body { padding-top: 73px; }
                         </button>
                     </div>
 
+                    <!-- Mobile Navigation Menu -->
                     <nav class="mobile-nav-menu" id="mobileNavMenu">
                         <div class="mobile-nav-item">
                             <a href="timeline.html" class="mobile-nav-link">Timeline</a>
@@ -237,18 +264,44 @@ body { padding-top: 73px; }
         document.body.insertAdjacentHTML('afterbegin', headerHTML);
     }
 
-    // No scroll hide functionality - handled by individual pages
+    // Scroll hide functionality
     function initScrollHide() {
-        // Scroll hiding is now handled by each page individually
-        // This function is kept for compatibility but does nothing
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        const scrollThreshold = 100;
+        const scrollDelta = 5;
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) {
+                return;
+            }
+            
+            if (scrollTop < scrollThreshold) {
+                header.classList.remove('header-hidden');
+                lastScrollTop = scrollTop;
+                return;
+            }
+            
+            if (scrollTop > lastScrollTop) {
+                header.classList.add('header-hidden');
+            } else {
+                header.classList.remove('header-hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
     }
 
+    // Mobile Menu functionality
     function initMobileMenu() {
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileNavMenu = document.getElementById('mobileNavMenu');
         
         if (!mobileMenuBtn || !mobileNavMenu) return;
         
+        // Toggle mobile menu
         mobileMenuBtn.addEventListener('click', function() {
             mobileNavMenu.classList.toggle('active');
             
@@ -262,6 +315,7 @@ body { padding-top: 73px; }
             }
         });
 
+        // Close mobile menu when clicking menu items
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', function() {
@@ -272,6 +326,7 @@ body { padding-top: 73px; }
             });
         });
 
+        // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
             if (!mobileMenuBtn.contains(event.target) && !mobileNavMenu.contains(event.target)) {
                 if (mobileNavMenu.classList.contains('active')) {
@@ -284,6 +339,7 @@ body { padding-top: 73px; }
         });
     }
 
+    // Initialize all functionalities
     window.initHeader = function() {
         insertHeaderStyles();
         insertHeaderHTML();
@@ -299,6 +355,7 @@ body { padding-top: 73px; }
         }
     };
 
+    // Auto-initialize on load
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', window.initHeader);
     } else {
