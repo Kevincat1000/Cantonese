@@ -345,4 +345,11 @@
         }
     };
 
+    // Auto-initialize on load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', window.initHeader);
+    } else {
+        window.initHeader();
+    }
+
 })();
