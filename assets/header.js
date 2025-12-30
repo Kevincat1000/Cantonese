@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   mount.innerHTML = `
 <style>
   #site-header {
-    font-family: Gotham, helvetica, arial, sans-serif;
+    font-family: 'Montserrat', helvetica, arial, sans-serif;
     font-size: 16px;
     color: #333333;
   }
