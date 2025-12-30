@@ -19,7 +19,7 @@
 
   <style>
     /* === GLOBAL === */
-    html, body {
+    html {
       margin: 0;
       padding: 0;
       height: 100%;
@@ -29,16 +29,20 @@
     body {
       font-family: 'Gentium Book Plus', serif;
       background: #F5F0E5;
+      margin: 0;
+      padding: 0;
+      padding-top: 73px; /* Account for fixed header */
+      height: 100%;
+      overflow: hidden;
     }
 
     /* === MAIN SCROLL CONTAINER === */
     .page-wrapper {
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;          
-  scrollbar-gutter: stable;  
-}
-
+      height: calc(100vh - 73px); /* Subtract header height */
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-gutter: stable; 
+    }
 
     /* === INNER CONTENT WRAPPER - Match header-content padding === */
     .content-inner { padding: 0 1rem; }
@@ -50,8 +54,8 @@
       grid-template-columns: 1fr;
       gap: 2rem;
 
-      /* ✅ move everything up */
-      padding-top: 0.75rem;
+      /* ✅ move everything up - reduced top padding */
+      padding-top: 0;
       padding-bottom: 2rem;
 
       align-items: start;
@@ -69,8 +73,8 @@
       grid-column: 1 / -1;
       text-align: center;
 
-      /* ✅ tighter spacing + move up a bit */
-      margin-top: -0.75rem;
+      /* ✅ tighter spacing */
+      margin-top: 0;
       margin-bottom: 0.75rem;
     }
 
@@ -194,16 +198,50 @@
       transform: rotate(-90deg);
     }
 
+
     /* === PHASE CONTENT === */
-    #phaseContentContainer { margin-top: 3rem; display: none; }
-    #phaseContentContainer.active { display: block; }
+    #phaseContentContainer { 
+      display: none;
+    }
+
+    #phaseContentContainer.active { 
+      display: block;
+      /* Break out of parent padding for full width and cover header area */
+      margin-left: -1rem;
+      margin-right: -1rem;
+      margin-top: -73px; /* Pull up to cover body padding */
+      padding: 0;
+      background: #F5F0E5;
+    }
+
+    @media (min-width: 1024px) {
+      #phaseContentContainer.active {
+        margin-left: -2rem;
+        margin-right: -2rem;
+      }
+    }
+
+    /* Remove all padding from phase content area */
+    #phaseContentContainer .container {
+      padding: 0;
+      margin: 0;
+      max-width: none;
+      width: 100%;
+    }
+
+    #phaseContentContainer .content-inner {
+      padding: 0;
+      margin: 0;
+    }
 
     #phaseFrame {
       width: 100%;
       border: none;
       display: block;
       overflow: hidden;
-      min-height: 500px;
+      min-height: calc(100vh + 73px); /* Extra height to account for negative margin */
+      margin: 0;
+      padding: 0;
     }
   </style>
 </head>
@@ -280,7 +318,7 @@
       </div>
     </div>
 
-    <!-- Phase Content Area -->
+    <!-- Phase Content Area (inside page-wrapper for scrolling) -->
     <div id="phaseContentContainer">
       <div class="container">
         <div class="content-inner">
@@ -349,9 +387,11 @@
           contentContainer.classList.add('active');
           phaseFrame.src = phaseUrl;
 
+          // Scroll to phase content
+          // The negative margin will make it extend upward to cover header area
           setTimeout(() => {
-            const containerTop = contentContainer.offsetTop;
-            pageWrapper.scrollTo({ top: containerTop, behavior: 'smooth' });
+            const phaseTop = contentContainer.offsetTop;
+            pageWrapper.scrollTo({ top: phaseTop, behavior: 'smooth' });
           }, 100);
         });
       });
@@ -485,3 +525,4 @@
   </script>
 </body>
 </html>
+
