@@ -1,11 +1,17 @@
 /**
  * Header Component for Cantonese in Americas
  * Includes: Header HTML, CSS styles, Scroll hide functionality, Mobile Menu
- * Usage: Include this file in HTML, then call initHeader()
+ * Usage: Include this file in HTML - it auto-initializes
  */
 
 (function() {
     'use strict';
+
+    // Check if header already exists
+    if (document.querySelector('header')) {
+        console.warn('Header already exists in the page. Skipping header.js initialization.');
+        return;
+    }
 
     // Insert CSS styles
     function insertHeaderStyles() {
@@ -26,31 +32,34 @@
                     transform: translateY(-100%);
                 }
 
-                .container {
+                /* Use specific class name to avoid conflicts */
+                header .container {
                     max-width: 1280px;
                     margin: 0 auto;
                     padding: 0 1rem;
                 }
 
-                .header-content {
+                header .header-content {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
                     padding: 0.75rem 1rem;
                 }
 
-                .logo {
+                header .logo {
                     text-align: center;
                     padding: 0 0.5rem;
                     text-decoration: none;
                     transition: opacity 0.3s;
                 }
 
-                .logo:hover {
+                header .logo:hover {
                     opacity: 0.9;
                 }
 
-                .logo-main {
+                /* Logo with Lato font */
+                header .logo-main {
+                    font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
                     font-size: 24px;
                     font-weight: bold;
                     color: #8B2332;
@@ -58,7 +67,8 @@
                     line-height: 1.2;
                 }
 
-                .logo-sub {
+                header .logo-sub {
+                    font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
                     font-size: 16px;
                     font-weight: bold;
                     color: #8B2332;
@@ -67,7 +77,7 @@
                 }
 
                 /* Navigation */
-                .nav-menu {
+                header .nav-menu {
                     display: none;
                     align-items: center;
                     gap: 1.5rem;
@@ -75,16 +85,16 @@
                 }
 
                 @media (min-width: 768px) {
-                    .nav-menu {
+                    header .nav-menu {
                         display: flex;
                     }
                 }
 
-                .nav-item {
+                header .nav-item {
                     position: relative;
                 }
 
-                .nav-link {
+                header .nav-link {
                     color: #333;
                     text-decoration: none;
                     font-size: 14px;
@@ -100,17 +110,17 @@
                     white-space: nowrap;
                 }
 
-                .nav-link:hover {
+                header .nav-link:hover {
                     color: #8B2332;
                 }
 
-                .nav-link svg {
+                header .nav-link svg {
                     width: 1rem;
                     height: 1rem;
                 }
 
                 /* Mobile Menu */
-                .mobile-nav-menu {
+                header .mobile-nav-menu {
                     display: none;
                     position: fixed;
                     top: 73px;
@@ -124,15 +134,15 @@
                     overflow-y: auto;
                 }
 
-                .mobile-nav-menu.active {
+                header .mobile-nav-menu.active {
                     display: block;
                 }
 
-                .mobile-nav-item {
+                header .mobile-nav-item {
                     border-bottom: 1px solid #E5DBCA;
                 }
 
-                .mobile-nav-link {
+                header .mobile-nav-link {
                     display: block;
                     padding: 1rem 1.5rem;
                     color: #333;
@@ -142,14 +152,14 @@
                     transition: background-color 0.2s, color 0.2s;
                 }
 
-                .mobile-nav-link:hover,
-                .mobile-nav-link:active {
+                header .mobile-nav-link:hover,
+                header .mobile-nav-link:active {
                     background-color: #EAE4D5;
                     color: #8B2332;
                 }
 
                 /* Mobile Menu Toggle */
-                .mobile-menu-btn {
+                header .mobile-menu-btn {
                     display: block;
                     background: none;
                     border: none;
@@ -159,39 +169,39 @@
                     transition: color 0.2s;
                 }
 
-                .mobile-menu-btn:hover {
+                header .mobile-menu-btn:hover {
                     color: #8B2332;
                 }
 
-                .mobile-menu-btn svg {
+                header .mobile-menu-btn svg {
                     width: 24px;
                     height: 24px;
                 }
 
                 @media (min-width: 768px) {
-                    .mobile-menu-btn {
+                    header .mobile-menu-btn {
                         display: none;
                     }
                 }
 
                 /* Responsive optimization */
                 @media (min-width: 640px) {
-                    .logo-main {
+                    header .logo-main {
                         font-size: 26px;
                     }
-                    .logo-sub {
+                    header .logo-sub {
                         font-size: 17px;
                     }
                 }
 
                 @media (min-width: 1024px) {
-                    .container {
+                    header .container {
                         padding: 0 2rem;
                     }
-                    .header-content {
+                    header .header-content {
                         padding: 0.75rem 2rem;
                     }
-                    .nav-menu {
+                    header .nav-menu {
                         gap: 2rem;
                     }
                 }
