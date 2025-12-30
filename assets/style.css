@@ -19,14 +19,12 @@ body {
   padding: 0 1rem;
 }
 
-/* Header - Changed to fixed to match header.js */
+/* Header */
 header {
   background: #F5F0E5;
   border-bottom: none;
-  position: fixed; /* Changed from sticky to fixed */
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 50;
 }
 
@@ -356,3 +354,4 @@ footer p {
   font-size: 0.875rem;
   color: #d1d5db;
 }
+
