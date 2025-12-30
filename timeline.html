@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -34,6 +34,12 @@
       padding-top: 73px; /* Account for fixed header */
       height: 100%;
       overflow: hidden;
+      transition: padding-top 0.3s ease; /* Smooth transition */
+    }
+
+    /* Remove body padding when scrolled past a threshold */
+    body.scrolled-to-phase {
+      padding-top: 0;
     }
 
     /* === MAIN SCROLL CONTAINER === */
@@ -41,7 +47,11 @@
       height: calc(100vh - 73px); /* Subtract header height */
       overflow-y: auto;
       overflow-x: hidden;
-      scrollbar-gutter: stable;
+      scrollbar-gutter: stable; 
+    }
+
+    body.scrolled-to-phase .page-wrapper {
+      height: 100vh;
     }
 
     /* === INNER CONTENT WRAPPER - Match header-content padding === */
@@ -53,8 +63,11 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 1.5rem; /* reduced from 2rem */
+
+      /* ✅ move everything up - reduced top padding */
       padding-top: 0;
       padding-bottom: 2rem;
+
       align-items: start;
     }
 
@@ -69,6 +82,8 @@
     .phase-header--grid{
       grid-column: 1 / -1;
       text-align: center;
+
+      /* ✅ reduce bottom margin */
       margin-top: 0;
       margin-bottom: 0.5rem;
     }
@@ -91,19 +106,29 @@
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      height: 360px; /* 450 * 0.8 */
+
+      /* visible window = 450 * 0.8 = 360 */
+      height: 360px;
     }
 
     #diaspora-map {
       width: 100%;
-      height: 450px;  /* keep render size the same */
+      /* keep render size the same */
+      height: 450px;
+
+      /* crop top 1/10: 450 * 0.1 = 45 */
       position: relative;
-      top: -45px;     /* crop top 1/10 */
+      top: -45px;
     }
 
     @media (max-width: 980px) {
-      .map-wrapper { height: 304px; } /* 380 * 0.8 */
-      #diaspora-map { height: 380px; top: -38px; }
+      /* visible window = 380 * 0.8 = 304 */
+      .map-wrapper { height: 304px; }
+
+      #diaspora-map {
+        height: 380px;
+        top: -38px;
+      }
     }
 
     /* === PHASE SECTION === */
@@ -117,7 +142,7 @@
     .phase-list {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0.6rem; /* reduced from 0.75rem by 20% */
       width: 100%;
       max-width: 520px;
       margin: 0 auto;
@@ -134,11 +159,14 @@
     .phase-card {
       background: #F5F0E5;
       border: 2px solid #000;
-      border-radius: 11px;
+      border-radius: 11px; /* reduced from 14px */
+
+      /* ✅ reduced padding by 20%: 0.875 * 0.8 = 0.7rem, 1.1 * 0.8 = 0.88rem */
       padding: 0.7rem 0.88rem;
+
       cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.2); /* reduced from 4px */
       text-decoration: none;
       color: inherit;
       display: flex;
@@ -150,12 +178,13 @@
     .phase-card:hover {
       background: #E8E0D0;
       transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0px rgba(0,0,0,0.25);
+      box-shadow: 5px 5px 0px rgba(0,0,0,0.25); /* reduced from 6px */
     }
 
     .phase-card.active { background: #E8E0D0; }
     .phase-info { flex: 1; }
 
+    /* reduced font sizes by 20% */
     .phase-title {
       font-size: 0.8rem;
       font-weight: 700;
@@ -179,23 +208,25 @@
       transform: rotate(-90deg);
     }
 
-    /* === PHASE CONTENT (FIXED: remove beige top gap & side frame) === */
+
+    /* === PHASE CONTENT === */
     #phaseContentContainer { 
       display: none;
     }
 
     #phaseContentContainer.active { 
       display: block;
-
-      /* full-bleed only for sides */
+      /* Break out of parent padding for full width and cover header area */
       margin-left: -1rem;
       margin-right: -1rem;
-
-      /* ✅ no more -73px; reduces the big beige blank */
-      margin-top: 1rem;
-
+      margin-top: -73px; /* Pull up to cover body padding */
       padding: 0;
       background: #F5F0E5;
+    }
+
+    /* When body.scrolled-to-phase, phase content doesn't need negative margin */
+    body.scrolled-to-phase #phaseContentContainer.active {
+      margin-top: 0;
     }
 
     @media (min-width: 1024px) {
@@ -205,6 +236,7 @@
       }
     }
 
+    /* Remove all padding from phase content area */
     #phaseContentContainer .container {
       padding: 0;
       margin: 0;
@@ -222,10 +254,7 @@
       border: none;
       display: block;
       overflow: hidden;
-
-      /* ✅ don't force (100vh + 73px) */
-      min-height: 70vh;
-
+      min-height: 100vh;
       margin: 0;
       padding: 0;
     }
@@ -334,12 +363,24 @@
 
           if (scrollTop < scrollThreshold) {
             header.classList.remove('header-hidden');
+            document.body.classList.remove('scrolled-to-phase');
             lastScrollTop = scrollTop;
             return;
           }
 
-          if (scrollTop > lastScrollTop) header.classList.add('header-hidden');
-          else header.classList.remove('header-hidden');
+          if (scrollTop > lastScrollTop) {
+            header.classList.add('header-hidden');
+            // If phase content is active and we're scrolling down past timeline, remove body padding
+            if (contentContainer.classList.contains('active') && scrollTop > scrollThreshold + 100) {
+              document.body.classList.add('scrolled-to-phase');
+            }
+          } else {
+            header.classList.remove('header-hidden');
+            // Scrolling up, restore body padding if scrolled back to top area
+            if (scrollTop < scrollThreshold + 50) {
+              document.body.classList.remove('scrolled-to-phase');
+            }
+          }
 
           lastScrollTop = scrollTop;
         });
@@ -373,14 +414,16 @@
           contentContainer.classList.add('active');
           phaseFrame.src = phaseUrl;
 
-          // ✅ Scroll to phase content, accounting for fixed header height
+          // Scroll to phase content
+          // The negative margin will make it extend upward to cover header area
           setTimeout(() => {
-            const headerH = header ? header.offsetHeight : 73;
             const phaseTop = contentContainer.offsetTop;
-            pageWrapper.scrollTo({
-              top: Math.max(0, phaseTop - headerH - 12),
-              behavior: 'smooth'
-            });
+            pageWrapper.scrollTo({ top: phaseTop, behavior: 'smooth' });
+            
+            // Add scrolled-to-phase class after scroll starts
+            setTimeout(() => {
+              document.body.classList.add('scrolled-to-phase');
+            }, 300);
           }, 100);
         });
       });
