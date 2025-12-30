@@ -36,12 +36,25 @@
       overflow: hidden;
     }
 
+    /* When phase content is active, remove header space */
+    body.phase-active {
+      padding-top: 0;
+    }
+
+    body.phase-active header {
+      display: none;
+    }
+
     /* === MAIN SCROLL CONTAINER === */
     .page-wrapper {
       height: calc(100vh - 73px); /* Subtract header height */
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-gutter: stable; 
+    }
+
+    body.phase-active .page-wrapper {
+      height: 100vh;
     }
 
     /* === INNER CONTENT WRAPPER - Match header-content padding === */
@@ -202,21 +215,22 @@
     /* === PHASE CONTENT === */
     #phaseContentContainer { 
       display: none;
-      /* Break out of parent padding */
-      margin-left: -1rem;
-      margin-right: -1rem;
-      padding: 0;
-    }
-
-    @media (min-width: 1024px) {
-      #phaseContentContainer {
-        margin-left: -2rem;
-        margin-right: -2rem;
-      }
     }
 
     #phaseContentContainer.active { 
       display: block;
+      /* Break out of parent padding for full width */
+      margin-left: -1rem;
+      margin-right: -1rem;
+      margin-top: 0;
+      background: #F5F0E5;
+    }
+
+    @media (min-width: 1024px) {
+      #phaseContentContainer.active {
+        margin-left: -2rem;
+        margin-right: -2rem;
+      }
     }
 
     /* Remove all padding from phase content area */
@@ -384,8 +398,30 @@
 
           contentContainer.classList.add('active');
           phaseFrame.src = phaseUrl;
+
+          // Add phase-active class to body to hide header and adjust layout
+          document.body.classList.add('phase-active');
+
+          // Scroll to phase content
+          setTimeout(() => {
+            const containerTop = contentContainer.offsetTop;
+            pageWrapper.scrollTo({ top: containerTop, behavior: 'smooth' });
+          }, 100);
         });
       });
+
+      // Show header when scrolling back to timeline area
+      if (pageWrapper && header && contentContainer) {
+        pageWrapper.addEventListener('scroll', function() {
+          const containerTop = contentContainer.offsetTop;
+          const scrollTop = pageWrapper.scrollTop;
+          
+          // If scrolled back above phase content, show header
+          if (contentContainer.classList.contains('active') && scrollTop < containerTop - 100) {
+            document.body.classList.remove('phase-active');
+          }
+        });
+      }
     });
   </script>
 
