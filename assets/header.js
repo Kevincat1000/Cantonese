@@ -7,20 +7,17 @@
 (function() {
     'use strict';
 
-    // Check if header already exists
     if (document.querySelector('header')) {
         console.warn('Header already exists in the page. Skipping header.js initialization.');
         return;
     }
 
-    // Insert CSS styles
     function insertHeaderStyles() {
         const styles = `
             <style id="header-styles">
-                /* Header */
                 header {
                     background: #F5F0E5;
-                    border-bottom: 1px solid #e5e5e5;
+                    border-bottom: 1px solid #E5DBCA;
                     position: sticky;
                     top: 0;
                     z-index: 50;
@@ -32,8 +29,7 @@
                     transform: translateY(-100%);
                 }
 
-                /* Use specific class name to avoid conflicts */
-                header .container {
+                header .header-container {
                     max-width: 1280px;
                     margin: 0 auto;
                     padding: 0 1rem;
@@ -57,7 +53,6 @@
                     opacity: 0.9;
                 }
 
-                /* Logo with Lato font */
                 header .logo-main {
                     font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
                     font-size: 24px;
@@ -76,7 +71,6 @@
                     line-height: 1.2;
                 }
 
-                /* Navigation */
                 header .nav-menu {
                     display: none;
                     align-items: center;
@@ -119,7 +113,6 @@
                     height: 1rem;
                 }
 
-                /* Mobile Menu */
                 header .mobile-nav-menu {
                     display: none;
                     position: fixed;
@@ -158,7 +151,6 @@
                     color: #8B2332;
                 }
 
-                /* Mobile Menu Toggle */
                 header .mobile-menu-btn {
                     display: block;
                     background: none;
@@ -184,7 +176,6 @@
                     }
                 }
 
-                /* Responsive optimization */
                 @media (min-width: 640px) {
                     header .logo-main {
                         font-size: 26px;
@@ -195,7 +186,7 @@
                 }
 
                 @media (min-width: 1024px) {
-                    header .container {
+                    header .header-container {
                         padding: 0 2rem;
                     }
                     header .header-content {
@@ -211,18 +202,16 @@
         document.head.insertAdjacentHTML('beforeend', styles);
     }
 
-    // Insert Header HTML
     function insertHeaderHTML() {
         const headerHTML = `
             <header>
-                <div class="container">
+                <div class="header-container">
                     <div class="header-content">
                         <a href="index.html" class="logo" aria-label="Home">
                             <div class="logo-main">CANTONESE</div>
                             <div class="logo-sub">IN AMERICAS</div>
                         </a>
 
-                        <!-- Desktop Navigation -->
                         <nav class="nav-menu" aria-label="Primary">
                             <a href="timeline.html" class="nav-link">Timeline</a>
                             <a href="language.html" class="nav-link">Language Power</a>
@@ -231,7 +220,6 @@
                             <a href="resources.html" class="nav-link">Resources</a>
                         </nav>
 
-                        <!-- Mobile Menu Button -->
                         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -239,7 +227,6 @@
                         </button>
                     </div>
 
-                    <!-- Mobile Navigation Menu -->
                     <nav class="mobile-nav-menu" id="mobileNavMenu">
                         <div class="mobile-nav-item">
                             <a href="timeline.html" class="mobile-nav-link">Timeline</a>
@@ -264,7 +251,6 @@
         document.body.insertAdjacentHTML('afterbegin', headerHTML);
     }
 
-    // Scroll hide functionality
     function initScrollHide() {
         let lastScrollTop = 0;
         const header = document.querySelector('header');
@@ -294,14 +280,12 @@
         });
     }
 
-    // Mobile Menu functionality
     function initMobileMenu() {
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileNavMenu = document.getElementById('mobileNavMenu');
         
         if (!mobileMenuBtn || !mobileNavMenu) return;
         
-        // Toggle mobile menu
         mobileMenuBtn.addEventListener('click', function() {
             mobileNavMenu.classList.toggle('active');
             
@@ -315,7 +299,6 @@
             }
         });
 
-        // Close mobile menu when clicking menu items
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', function() {
@@ -326,7 +309,6 @@
             });
         });
 
-        // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
             if (!mobileMenuBtn.contains(event.target) && !mobileNavMenu.contains(event.target)) {
                 if (mobileNavMenu.classList.contains('active')) {
@@ -339,7 +321,6 @@
         });
     }
 
-    // Initialize all functionalities
     window.initHeader = function() {
         insertHeaderStyles();
         insertHeaderHTML();
@@ -355,7 +336,6 @@
         }
     };
 
-    // Auto-initialize on load
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', window.initHeader);
     } else {
