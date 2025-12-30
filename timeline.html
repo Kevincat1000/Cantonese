@@ -15,11 +15,11 @@
   <link rel="stylesheet" href="./assets/style.css" />
 
   <!-- Mapbox CSS -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="sheet" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
 
   <style>
     /* === GLOBAL === */
-    html, body {
+    html {
       margin: 0;
       padding: 0;
       height: 100%;
@@ -29,6 +29,10 @@
     body {
       font-family: 'Gentium Book Plus', serif;
       background: #F5F0E5;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
     }
 
     /* === MAIN SCROLL CONTAINER === */
@@ -36,7 +40,8 @@
       height: 100vh;
       overflow-y: auto;
       overflow-x: hidden;
-  scrollbar-gutter: stable; 
+      scrollbar-gutter: stable;
+      padding-top: 73px; /* Account for fixed header */
     }
 
     /* === INNER CONTENT WRAPPER - Match header-content padding === */
@@ -193,40 +198,45 @@
       transform: rotate(-90deg);
     }
 
+    /* === PHASE CONTENT === */
+    #phaseContentContainer { 
+      display: none; 
+      position: fixed;
+      top: 73px; /* Below fixed header */
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #F5F0E5;
+      overflow-y: auto;
+      z-index: 10;
+    }
+    
+    #phaseContentContainer.active { 
+      display: block; 
+    }
 
-/* === PHASE CONTENT === */
-#phaseContentContainer { 
-  display: none; 
-}
+    /* Remove all padding from phase content area */
+    #phaseContentContainer .container {
+      padding: 0;
+      margin: 0;
+      max-width: none;
+      width: 100%;
+    }
 
-#phaseContentContainer.active { 
-  display: block;
-  margin: 0;
-  padding: 0;
-}
+    #phaseContentContainer .content-inner {
+      padding: 0;
+      margin: 0;
+    }
 
-#phaseContentContainer .container {
-  padding: 0;
-  margin: 0;
-  max-width: none;
-  width: 100%;
-}
-
-#phaseContentContainer .content-inner {
-  padding: 0;
-  margin: 0;
-}
-
-#phaseFrame {
-  width: 100%;
-  border: none;
-  display: block;
-  overflow: hidden;
-  min-height: 500px;
-  margin: 0;
-  padding: 0;
-}
-
+    #phaseFrame {
+      width: 100%;
+      border: none;
+      display: block;
+      overflow: hidden;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+    }
   </style>
 </head>
 
@@ -301,13 +311,13 @@
 
       </div>
     </div>
+  </div>
 
-    <!-- Phase Content Area -->
-    <div id="phaseContentContainer">
-      <div class="container">
-        <div class="content-inner">
-          <iframe id="phaseFrame" scrolling="no"></iframe>
-        </div>
+  <!-- Phase Content Area (Fixed overlay) -->
+  <div id="phaseContentContainer">
+    <div class="container">
+      <div class="content-inner">
+        <iframe id="phaseFrame" scrolling="no"></iframe>
       </div>
     </div>
   </div>
@@ -370,11 +380,6 @@
 
           contentContainer.classList.add('active');
           phaseFrame.src = phaseUrl;
-
-          setTimeout(() => {
-            const containerTop = contentContainer.offsetTop;
-            pageWrapper.scrollTo({ top: containerTop, behavior: 'smooth' });
-          }, 100);
         });
       });
     });
