@@ -19,13 +19,23 @@
 
   <style>
     /* === GLOBAL === */
-    html {
-      scrollbar-gutter: stable;
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
     }
     
     body {
       font-family: 'Gentium Book Plus', serif;
       background: #F5F0E5;
+    }
+
+    /* === MAIN SCROLL CONTAINER === */
+    .page-wrapper {
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     /* === INNER CONTENT WRAPPER - Match header-content padding === */
@@ -183,8 +193,10 @@
   <!-- Header loaded by header.js - auto-aligned -->
   <script src="./assets/header.js"></script>
 
-  <!-- Main Content - Use global .container class -->
-  <div class="container">
+  <!-- Page wrapper for scrolling (header stays outside) -->
+  <div class="page-wrapper">
+    <!-- Main Content - Use global .container class -->
+    <div class="container">
     <!-- Inner wrapper to match header-content padding -->
     <div class="content-inner">
       <div class="timeline-grid">
@@ -264,12 +276,46 @@
     </div>
   </div>
 
+  </div>
+  <!-- End page-wrapper -->
+
   <!-- JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const phaseCards = document.querySelectorAll('.phase-card');
       const contentContainer = document.getElementById('phaseContentContainer');
       const phaseFrame = document.getElementById('phaseFrame');
+
+      // Custom scroll hide for page-wrapper
+      const pageWrapper = document.querySelector('.page-wrapper');
+      const header = document.querySelector('header');
+      let lastScrollTop = 0;
+      const scrollThreshold = 100;
+      const scrollDelta = 5;
+
+      if (pageWrapper && header) {
+        pageWrapper.addEventListener('scroll', function() {
+          let scrollTop = pageWrapper.scrollTop;
+          
+          if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) {
+            return;
+          }
+          
+          if (scrollTop < scrollThreshold) {
+            header.classList.remove('header-hidden');
+            lastScrollTop = scrollTop;
+            return;
+          }
+          
+          if (scrollTop > lastScrollTop) {
+            header.classList.add('header-hidden');
+          } else {
+            header.classList.remove('header-hidden');
+          }
+          
+          lastScrollTop = scrollTop;
+        });
+      }
 
       function resizeIframe() {
         try {
@@ -301,7 +347,13 @@
           phaseFrame.src = phaseUrl;
           
           setTimeout(() => {
-            contentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Scroll within page-wrapper
+            const pageWrapper = document.querySelector('.page-wrapper');
+            const containerTop = contentContainer.offsetTop;
+            pageWrapper.scrollTo({
+              top: containerTop,
+              behavior: 'smooth'
+            });
           }, 100);
         });
       });
