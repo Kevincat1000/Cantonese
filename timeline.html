@@ -62,7 +62,7 @@
     .timeline-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.5rem; /* reduced from 2rem */
+      gap: 2rem; /* restored original gap */
 
       /* ✅ move everything up - reduced top padding */
       padding-top: 0;
@@ -142,7 +142,7 @@
     .phase-list {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem; /* reduced from 0.75rem by 20% */
+      gap: 0.75rem; /* restored original gap */
       width: 100%;
       max-width: 520px;
       margin: 0 auto;
@@ -159,50 +159,50 @@
     .phase-card {
       background: #F5F0E5;
       border: 2px solid #000;
-      border-radius: 11px; /* reduced from 14px */
+      border-radius: 14px; /* restored from 11px */
 
-      /* ✅ reduced padding by 20%: 0.875 * 0.8 = 0.7rem, 1.1 * 0.8 = 0.88rem */
-      padding: 0.7rem 0.88rem;
+      /* ✅ restored original padding */
+      padding: 0.875rem 1.1rem;
 
       cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.2); /* reduced from 4px */
+      box-shadow: 4px 4px 0px rgba(0,0,0,0.2); /* restored from 3px */
       text-decoration: none;
       color: inherit;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.8rem;
+      gap: 1rem; /* restored from 0.8rem */
     }
 
     .phase-card:hover {
       background: #E8E0D0;
       transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0px rgba(0,0,0,0.25); /* reduced from 6px */
+      box-shadow: 6px 6px 0px rgba(0,0,0,0.25); /* restored from 5px */
     }
 
     .phase-card.active { background: #E8E0D0; }
     .phase-info { flex: 1; }
 
-    /* reduced font sizes by 20% */
+    /* restored original font sizes */
     .phase-title {
-      font-size: 0.8rem;
+      font-size: 1rem;
       font-weight: 700;
       color: #1a1a1a;
-      margin: 0 0 0.2rem 0;
+      margin: 0 0 0.25rem 0;
       line-height: 1.3;
     }
 
     .phase-subtitle {
-      font-size: 0.7rem;
+      font-size: 0.875rem;
       color: #4a5568;
       margin: 0;
       line-height: 1.4;
     }
 
     .phase-arrow {
-      width: 14px;
-      height: 14px;
+      width: 18px;
+      height: 18px;
       opacity: 0.6;
       flex-shrink: 0;
       transform: rotate(-90deg);
@@ -216,17 +216,12 @@
 
     #phaseContentContainer.active { 
       display: block;
-      /* Break out of parent padding for full width and cover header area */
+      /* Break out of parent padding for full width only */
       margin-left: -1rem;
       margin-right: -1rem;
-      margin-top: -73px; /* Pull up to cover body padding */
+      margin-top: 0; /* No negative margin - stay in normal flow */
       padding: 0;
       background: #F5F0E5;
-    }
-
-    /* When body.scrolled-to-phase, phase content doesn't need negative margin */
-    body.scrolled-to-phase #phaseContentContainer.active {
-      margin-top: 0;
     }
 
     @media (min-width: 1024px) {
