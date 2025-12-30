@@ -52,7 +52,7 @@
     .timeline-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 1.5rem; /* reduced from 2rem */
 
       /* ✅ move everything up - reduced top padding */
       padding-top: 0;
@@ -73,9 +73,9 @@
       grid-column: 1 / -1;
       text-align: center;
 
-      /* ✅ tighter spacing */
+      /* ✅ reduce bottom margin */
       margin-top: 0;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
 
     .phase-header--grid h2 {
@@ -132,7 +132,7 @@
     .phase-list {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.6rem; /* reduced from 0.75rem by 20% */
       width: 100%;
       max-width: 520px;
       margin: 0 auto;
@@ -149,50 +149,50 @@
     .phase-card {
       background: #F5F0E5;
       border: 2px solid #000;
-      border-radius: 14px;
+      border-radius: 11px; /* reduced from 14px */
 
-      /* ✅ height ~70% by reducing padding (font size unchanged) */
-      padding: 0.875rem 1.1rem;
+      /* ✅ reduced padding by 20%: 0.875 * 0.8 = 0.7rem, 1.1 * 0.8 = 0.88rem */
+      padding: 0.7rem 0.88rem;
 
       cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.2); /* reduced from 4px */
       text-decoration: none;
       color: inherit;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.8rem;
     }
 
     .phase-card:hover {
       background: #E8E0D0;
       transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0px rgba(0,0,0,0.25);
+      box-shadow: 5px 5px 0px rgba(0,0,0,0.25); /* reduced from 6px */
     }
 
     .phase-card.active { background: #E8E0D0; }
     .phase-info { flex: 1; }
 
-    /* keep font sizes unchanged */
+    /* reduced font sizes by 20% */
     .phase-title {
-      font-size: 1rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: #1a1a1a;
-      margin: 0 0 0.25rem 0;
+      margin: 0 0 0.2rem 0;
       line-height: 1.3;
     }
 
     .phase-subtitle {
-      font-size: 0.875rem;
+      font-size: 0.7rem;
       color: #4a5568;
       margin: 0;
       line-height: 1.4;
     }
 
     .phase-arrow {
-      width: 18px;
-      height: 18px;
+      width: 14px;
+      height: 14px;
       opacity: 0.6;
       flex-shrink: 0;
       transform: rotate(-90deg);
