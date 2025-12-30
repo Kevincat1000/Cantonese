@@ -1,365 +1,357 @@
-/**
- * Header Component for Cantonese in Americas
- * Includes: Header HTML, CSS styles, Scroll hide functionality, Mobile Menu
- * Usage: Include this file in HTML - it auto-initializes
- */
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap");
 
-(function() {
-    'use strict';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    // Check if header already exists
-    if (document.querySelector('header')) {
-        console.warn('Header already exists in the page. Skipping header.js initialization.');
-        return;
-    }
+body {
+  font-family: 'Gentium Book Plus', serif;
+  line-height: 1.6;
+  color: #333;
+}
 
-    // Insert CSS styles
-    function insertHeaderStyles() {
-        const styles = `
-            <style id="header-styles">
-                /* Header */
-                header {
-                    background: #F5F0E5;
-                    border-bottom: 1px solid #e5e5e5;
-                    position: sticky;
-                    top: 0;
-                    z-index: 50;
-                    transform: translateY(0);
-                    transition: transform 0.3s ease-in-out;
-                }
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 
-                header.header-hidden {
-                    transform: translateY(-100%);
-                }
+/* Header */
+header {
+  background: #F5F0E5;
+  border-bottom: none;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
 
-                /* Use specific class name to avoid conflicts */
-                header .container {
-                    max-width: 1280px;
-                    margin: 0 auto;
-                    padding: 0 1rem;
-                }
+header,
+header *,
+.logo,
+.logo-main,
+.logo-sub,
+.nav-menu,
+.nav-link {
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
 
-                header .header-content {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    padding: 0.75rem 1rem;
-                }
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+}
 
-                header .logo {
-                    text-align: center;
-                    padding: 0 0.5rem;
-                    text-decoration: none;
-                    transition: opacity 0.3s;
-                }
+.logo {
+  text-align: center;
+  padding: 0 0.5rem;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
 
-                header .logo:hover {
-                    opacity: 0.9;
-                }
+.logo:hover {
+  opacity: 0.9;
+}
 
-                /* Logo with Lato font */
-                header .logo-main {
-                    font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #8B2332;
-                    letter-spacing: 0.5px;
-                    line-height: 1.2;
-                }
+.logo-main {
+  font-size: 24px;
+  font-weight: bold;
+  color: #8B2332;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
 
-                header .logo-sub {
-                    font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #8B2332;
-                    letter-spacing: 2px;
-                    line-height: 1.2;
-                }
+.logo-sub {
+  font-size: 16px;
+  font-weight: bold;
+  color: #8B2332;
+  letter-spacing: 2px;
+  line-height: 1.2;
+}
 
-                /* Navigation */
-                header .nav-menu {
-                    display: none;
-                    align-items: center;
-                    gap: 1.5rem;
-                    position: relative;
-                }
+/* Navigation */
+.nav-menu {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+}
 
-                @media (min-width: 768px) {
-                    header .nav-menu {
-                        display: flex;
-                    }
-                }
+@media (min-width: 768px) {
+  .nav-menu {
+    display: flex;
+  }
+}
 
-                header .nav-item {
-                    position: relative;
-                }
+.nav-item {
+  position: relative;
+}
 
-                header .nav-link {
-                    color: #333;
-                    text-decoration: none;
-                    font-size: 14px;
-                    font-weight: 600;
-                    letter-spacing: 0.3px;
-                    transition: color 0.3s;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.25rem;
-                    padding: 0.5rem 0;
-                    cursor: pointer;
-                    line-height: 1.5;
-                    white-space: nowrap;
-                }
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  line-height: 1.5;
+  white-space: nowrap;
+}
 
-                header .nav-link:hover {
-                    color: #8B2332;
-                }
+.nav-link:hover {
+  color: #8B2332;
+}
 
-                header .nav-link svg {
-                    width: 1rem;
-                    height: 1rem;
-                }
+.nav-link svg {
+  width: 1rem;
+  height: 1rem;
+}
 
-                /* Mobile Menu */
-                header .mobile-nav-menu {
-                    display: none;
-                    position: fixed;
-                    top: 73px;
-                    left: 0;
-                    right: 0;
-                    background: #F5F0E5;
-                    border-bottom: 1px solid #e5e5e5;
-                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-                    z-index: 40;
-                    max-height: calc(100vh - 73px);
-                    overflow-y: auto;
-                }
+/* Mobile Menu Toggle */
+.mobile-menu-btn {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
 
-                header .mobile-nav-menu.active {
-                    display: block;
-                }
+@media (min-width: 768px) {
+  .mobile-menu-btn {
+    display: none;
+  }
+}
 
-                header .mobile-nav-item {
-                    border-bottom: 1px solid #E5DBCA;
-                }
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: linear-gradient(rgba(0, 48, 87, 0.7), rgba(0, 48, 87, 0.7)),
+              url('https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg');
+  background-size: cover;
+  background-position: center;
+}
 
-                header .mobile-nav-link {
-                    display: block;
-                    padding: 1rem 1.5rem;
-                    color: #333;
-                    text-decoration: none;
-                    font-size: 16px;
-                    font-weight: 500;
-                    transition: background-color 0.2s, color 0.2s;
-                }
+.hero-content {
+  text-align: center;
+  z-index: 10;
+  padding: 1rem;
+}
 
-                header .mobile-nav-link:hover,
-                header .mobile-nav-link:active {
-                    background-color: #EAE4D5;
-                    color: #8B2332;
-                }
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
 
-                /* Mobile Menu Toggle */
-                header .mobile-menu-btn {
-                    display: block;
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    padding: 0.5rem;
-                    color: #333;
-                    transition: color 0.2s;
-                }
+.hero p {
+  font-size: clamp(1.25rem, 3vw, 1.875rem);
+  font-weight: 300;
+}
 
-                header .mobile-menu-btn:hover {
-                    color: #8B2332;
-                }
+/* Introduction Section */
+.intro-section {
+  background: #2C5266;
+  color: white;
+  padding: 4rem 1rem;
+}
 
-                header .mobile-menu-btn svg {
-                    width: 24px;
-                    height: 24px;
-                }
+.intro-section h2 {
+  font-size: clamp(1.875rem, 4vw, 2.25rem);
+  color: #d6d0ac;
+  margin-bottom: 3rem;
+}
 
-                @media (min-width: 768px) {
-                    header .mobile-menu-btn {
-                        display: none;
-                    }
-                }
+.intro-text {
+  max-width: 56rem;
+  margin: 0 auto;
+}
 
-                /* Responsive optimization */
-                @media (min-width: 640px) {
-                    header .logo-main {
-                        font-size: 26px;
-                    }
-                    header .logo-sub {
-                        font-size: 17px;
-                    }
-                }
+.intro-text p {
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
 
-                @media (min-width: 1024px) {
-                    header .container {
-                        padding: 0 2rem;
-                    }
-                    header .header-content {
-                        padding: 0.75rem 2rem;
-                    }
-                    header .nav-menu {
-                        gap: 2rem;
-                    }
-                }
-            </style>
-        `;
-        
-        document.head.insertAdjacentHTML('beforeend', styles);
-    }
+.intro-text a {
+  color: white;
+  text-decoration: underline;
+}
 
-    // Insert Header HTML
-    function insertHeaderHTML() {
-        const headerHTML = `
-            <header>
-                <div class="container">
-                    <div class="header-content">
-                        <a href="index.html" class="logo" aria-label="Home">
-                            <div class="logo-main">CANTONESE</div>
-                            <div class="logo-sub">IN AMERICAS</div>
-                        </a>
+.intro-text a:hover {
+  opacity: 0.8;
+}
 
-                        <!-- Desktop Navigation -->
-                        <nav class="nav-menu" aria-label="Primary">
-                            <a href="timeline.html" class="nav-link">Timeline</a>
-                            <a href="language.html" class="nav-link">Language Power</a>
-                            <a href="culture.html" class="nav-link">Culture Symbols</a>
-                            <a href="archives.html" class="nav-link">Archives</a>
-                            <a href="resources.html" class="nav-link">Resources</a>
-                        </nav>
+/* Statistics */
+.stats {
+  margin-top: 3rem;
+}
 
-                        <!-- Mobile Menu Button -->
-                        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-                    </div>
+.stats h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
 
-                    <!-- Mobile Navigation Menu -->
-                    <nav class="mobile-nav-menu" id="mobileNavMenu">
-                        <div class="mobile-nav-item">
-                            <a href="timeline.html" class="mobile-nav-link">Timeline</a>
-                        </div>
-                        <div class="mobile-nav-item">
-                            <a href="language.html" class="mobile-nav-link">Language Power</a>
-                        </div>
-                        <div class="mobile-nav-item">
-                            <a href="culture.html" class="mobile-nav-link">Culture Symbols</a>
-                        </div>
-                        <div class="mobile-nav-item">
-                            <a href="archives.html" class="mobile-nav-link">Archives</a>
-                        </div>
-                        <div class="mobile-nav-item">
-                            <a href="resources.html" class="mobile-nav-link">Resources</a>
-                        </div>
-                    </nav>
-                </div>
-            </header>
-        `;
-        
-        document.body.insertAdjacentHTML('afterbegin', headerHTML);
-    }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
 
-    // Scroll hide functionality
-    function initScrollHide() {
-        let lastScrollTop = 0;
-        const header = document.querySelector('header');
-        const scrollThreshold = 100;
-        const scrollDelta = 5;
-        
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) {
-                return;
-            }
-            
-            if (scrollTop < scrollThreshold) {
-                header.classList.remove('header-hidden');
-                lastScrollTop = scrollTop;
-                return;
-            }
-            
-            if (scrollTop > lastScrollTop) {
-                header.classList.add('header-hidden');
-            } else {
-                header.classList.remove('header-hidden');
-            }
-            
-            lastScrollTop = scrollTop;
-        });
-    }
+.stat-item {
+  text-align: left;
+}
 
-    // Mobile Menu functionality
-    function initMobileMenu() {
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileNavMenu = document.getElementById('mobileNavMenu');
-        
-        if (!mobileMenuBtn || !mobileNavMenu) return;
-        
-        // Toggle mobile menu
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileNavMenu.classList.toggle('active');
-            
-            const icon = mobileMenuBtn.querySelector('svg path');
-            if (mobileNavMenu.classList.contains('active')) {
-                icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
-                mobileMenuBtn.setAttribute('aria-label', 'Close menu');
-            } else {
-                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
-            }
-        });
+.stat-number {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #8BA888;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+}
 
-        // Close mobile menu when clicking menu items
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                mobileNavMenu.classList.remove('active');
-                const icon = mobileMenuBtn.querySelector('svg path');
-                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
-            });
-        });
+.stat-divider {
+  border-bottom: 2px dotted #8BA888;
+  margin-bottom: 1rem;
+}
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!mobileMenuBtn.contains(event.target) && !mobileNavMenu.contains(event.target)) {
-                if (mobileNavMenu.classList.contains('active')) {
-                    mobileNavMenu.classList.remove('active');
-                    const icon = mobileMenuBtn.querySelector('svg path');
-                    icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                    mobileMenuBtn.setAttribute('aria-label', 'Open menu');
-                }
-            }
-        });
-    }
+.stat-description {
+  font-size: 0.875rem;
+}
 
-    // Initialize all functionalities
-    window.initHeader = function() {
-        insertHeaderStyles();
-        insertHeaderHTML();
-        
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                initScrollHide();
-                initMobileMenu();
-            });
-        } else {
-            initScrollHide();
-            initMobileMenu();
-        }
-    };
+/* Service Cards Section */
+.services-section {
+  background: white;
+  padding: 4rem 1rem;
+}
 
-    // Auto-initialize on load
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', window.initHeader);
-    } else {
-        window.initHeader();
-    }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
 
-})();
+.service-card h3 {
+  font-size: 1.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-card .subtitle {
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-card p {
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+}
+
+.service-card .border-accent {
+  border-left: 4px solid;
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  transition: opacity 0.3s;
+  font-weight: 500;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* News Section */
+.news-section {
+  background: #F5F5F5;
+  padding: 4rem 1rem;
+}
+
+.news-section h2 {
+  font-size: 2.25rem;
+  color: #2C7565;
+  margin-bottom: 3rem;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.news-card {
+  background: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.news-card img {
+  width: 100%;
+  height: 192px;
+  object-fit: cover;
+}
+
+.news-card-content {
+  padding: 1.5rem;
+}
+
+.news-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.news-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.news-category {
+  font-size: 0.875rem;
+  color: #2C7565;
+  margin-bottom: 0.75rem;
+}
+
+.news-excerpt {
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+
+/* Footer */
+footer {
+  background: #003057;
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.875rem;
+  color: #d1d5db;
+}
+
