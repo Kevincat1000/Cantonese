@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <!-- Global style - DO NOT override container/padding -->
+  <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
 
   <!-- Mapbox CSS -->
@@ -40,38 +39,37 @@
     }
 
     /* === INNER CONTENT WRAPPER - Match header-content padding === */
-    .content-inner {
-      padding: 0 1rem;
-    }
+    .content-inner { padding: 0 1rem; }
+    @media (min-width: 1024px) { .content-inner { padding: 0 2rem; } }
 
-    @media (min-width: 1024px) {
-      .content-inner {
-        padding: 0 2rem;
-      }
-    }
-
-    /* === LAYOUT ONLY - NO PADDING/MARGIN === */
+    /* === LAYOUT === */
     .timeline-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
-      padding-top: 2rem;
+
+      /* ✅ move everything up */
+      padding-top: 0.75rem;
       padding-bottom: 2rem;
-      align-items: start; /* ✅ keep top aligned */
+
+      align-items: start;
     }
 
     @media (min-width: 980px) {
       .timeline-grid {
         grid-template-columns: 1fr 1fr;
-        align-items: start; /* ✅ map top aligns with phase list top */
+        align-items: start;
       }
     }
 
-    /* ✅ Header spans BOTH columns so Map starts aligned with Phase1 row */
+    /* ✅ Header spans BOTH columns */
     .phase-header--grid{
       grid-column: 1 / -1;
       text-align: center;
-      margin-bottom: 1.25rem;
+
+      /* ✅ tighter spacing + move up a bit */
+      margin-top: -0.75rem;
+      margin-bottom: 0.75rem;
     }
 
     .phase-header--grid h2 {
@@ -111,10 +109,8 @@
       /* visible window = 380 * 0.8 = 304 */
       .map-wrapper { height: 304px; }
 
-      /* keep render size the same */
       #diaspora-map {
         height: 380px;
-        /* crop top 1/10: 380 * 0.1 = 38 */
         top: -38px;
       }
     }
@@ -136,7 +132,6 @@
       margin: 0 auto;
     }
 
-    /* ✅ desktop: shrink to 60% and center */
     @media (min-width: 980px) {
       .phase-list{
         width: 60%;
@@ -151,7 +146,7 @@
       border-radius: 14px;
 
       /* ✅ height ~70% by reducing padding (font size unchanged) */
-      padding: 0.875rem 1.1rem; /* was 1.25rem 1.5rem */
+      padding: 0.875rem 1.1rem;
 
       cursor: pointer;
       transition: all 0.25s ease;
@@ -170,15 +165,10 @@
       box-shadow: 6px 6px 0px rgba(0,0,0,0.25);
     }
 
-    .phase-card.active {
-      background: #E8E0D0;
-    }
+    .phase-card.active { background: #E8E0D0; }
+    .phase-info { flex: 1; }
 
-    .phase-info {
-      flex: 1;
-    }
-
-    /* ✅ keep font sizes unchanged */
+    /* keep font sizes unchanged */
     .phase-title {
       font-size: 1rem;
       font-weight: 700;
@@ -195,7 +185,7 @@
     }
 
     .phase-arrow {
-      width: 18px; /* optional: slightly smaller */
+      width: 18px;
       height: 18px;
       opacity: 0.6;
       flex-shrink: 0;
@@ -203,14 +193,8 @@
     }
 
     /* === PHASE CONTENT === */
-    #phaseContentContainer {
-      margin-top: 3rem;
-      display: none;
-    }
-
-    #phaseContentContainer.active {
-      display: block;
-    }
+    #phaseContentContainer { margin-top: 3rem; display: none; }
+    #phaseContentContainer.active { display: block; }
 
     #phaseFrame {
       width: 100%;
@@ -223,19 +207,14 @@
 </head>
 
 <body>
-  <!-- Header loaded by header.js - auto-aligned -->
+  <!-- Header loaded by header.js -->
   <script src="./assets/header.js"></script>
 
-  <!-- Page wrapper for scrolling (header stays outside) -->
   <div class="page-wrapper">
-    <!-- Main Content - Use global .container class -->
     <div class="container">
-      <!-- Inner wrapper to match header-content padding -->
       <div class="content-inner">
 
         <div class="timeline-grid">
-
-          <!-- ✅ One header for both columns -->
           <div class="phase-header--grid">
             <h2>Timeline of Cantonese Migration</h2>
             <p>Waves, Networks, and Institutions</p>
@@ -294,14 +273,10 @@
               </div>
             </div>
           </div>
-
         </div>
-        <!-- End timeline-grid -->
 
       </div>
-      <!-- End content-inner -->
     </div>
-    <!-- End container -->
 
     <!-- Phase Content Area -->
     <div id="phaseContentContainer">
@@ -311,9 +286,7 @@
         </div>
       </div>
     </div>
-
   </div>
-  <!-- End page-wrapper -->
 
   <!-- JavaScript -->
   <script>
@@ -322,7 +295,6 @@
       const contentContainer = document.getElementById('phaseContentContainer');
       const phaseFrame = document.getElementById('phaseFrame');
 
-      // Custom scroll hide for page-wrapper
       const pageWrapper = document.querySelector('.page-wrapper');
       const header = document.querySelector('header');
       let lastScrollTop = 0;
@@ -332,7 +304,6 @@
       if (pageWrapper && header) {
         pageWrapper.addEventListener('scroll', function() {
           let scrollTop = pageWrapper.scrollTop;
-
           if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
 
           if (scrollTop < scrollThreshold) {
@@ -341,11 +312,8 @@
             return;
           }
 
-          if (scrollTop > lastScrollTop) {
-            header.classList.add('header-hidden');
-          } else {
-            header.classList.remove('header-hidden');
-          }
+          if (scrollTop > lastScrollTop) header.classList.add('header-hidden');
+          else header.classList.remove('header-hidden');
 
           lastScrollTop = scrollTop;
         });
@@ -373,7 +341,6 @@
           e.preventDefault();
 
           const phaseUrl = this.getAttribute('data-phase');
-
           phaseCards.forEach(c => c.classList.remove('active'));
           this.classList.add('active');
 
@@ -381,12 +348,8 @@
           phaseFrame.src = phaseUrl;
 
           setTimeout(() => {
-            const pageWrapper = document.querySelector('.page-wrapper');
             const containerTop = contentContainer.offsetTop;
-            pageWrapper.scrollTo({
-              top: containerTop,
-              behavior: 'smooth'
-            });
+            pageWrapper.scrollTo({ top: containerTop, behavior: 'smooth' });
           }, 100);
         });
       });
@@ -395,6 +358,8 @@
 
   <!-- Mapbox -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
+
+  <!-- ✅ MAPBOX CODE UNCHANGED -->
   <script>
   (function () {
     mapboxgl.accessToken = "pk.eyJ1Ijoia2V2aW5jYXQxMDAiLCJhIjoiY21qbmFyN21yMTYzMzNlcHN5ZHVubTdpbiJ9.m8QPkEMJKLNIMvFyKUgTkw";
@@ -518,4 +483,3 @@
   </script>
 </body>
 </html>
-```
