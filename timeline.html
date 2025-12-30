@@ -193,9 +193,24 @@
       transform: rotate(-90deg);
     }
 
-    /* === PHASE CONTENT === */
-    #phaseContentContainer { margin-top: 3rem; display: none; }
-    #phaseContentContainer.active { display: block; }
+
+/* === PHASE CONTENT === */
+#phaseContentContainer { 
+  margin-top: 3rem; 
+  display: none; 
+}
+#phaseContentContainer.active { 
+  display: block; 
+}
+
+/* Remove padding from content-inner when showing phase content */
+#phaseContentContainer .content-inner {
+  padding: 0 !important;
+}
+
+#phaseContentContainer .container {
+  padding: 0 !important;
+}
 
     #phaseFrame {
       width: 100%;
