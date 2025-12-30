@@ -19,12 +19,14 @@ body {
   padding: 0 1rem;
 }
 
-/* Header */
+/* Header - Changed to fixed to match header.js */
 header {
   background: #F5F0E5;
   border-bottom: none;
-  position: sticky;
+  position: fixed; /* Changed from sticky to fixed */
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
 }
 
