@@ -17,7 +17,7 @@
             <style id="header-styles">
                 header {
                     background: #F5F0E5;
-                    border-bottom: 1px solid #E5DBCA;
+                    border-bottom: none;
                     position: sticky;
                     top: 0;
                     z-index: 50;
