@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const mount = document.getElementById("site-header");
   if (!mount) return;
-  mount.innerHTML = 
+  mount.innerHTML = `
 <header style="background-color: #F5F0E5;">
   <div class="container">
     <div class="header-content">
@@ -55,5 +55,5 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </div>
 </header>
-  .trim();
+  `.trim();
 });
