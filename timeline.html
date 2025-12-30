@@ -34,12 +34,6 @@
       padding-top: 73px; /* Account for fixed header */
       height: 100%;
       overflow: hidden;
-      transition: padding-top 0.3s ease; /* Smooth transition */
-    }
-
-    /* Remove body padding when scrolled past a threshold */
-    body.scrolled-to-phase {
-      padding-top: 0;
     }
 
     /* === MAIN SCROLL CONTAINER === */
@@ -48,10 +42,6 @@
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-gutter: stable; 
-    }
-
-    body.scrolled-to-phase .page-wrapper {
-      height: 100vh;
     }
 
     /* === INNER CONTENT WRAPPER - Match header-content padding === */
@@ -358,23 +348,14 @@
 
           if (scrollTop < scrollThreshold) {
             header.classList.remove('header-hidden');
-            document.body.classList.remove('scrolled-to-phase');
             lastScrollTop = scrollTop;
             return;
           }
 
           if (scrollTop > lastScrollTop) {
             header.classList.add('header-hidden');
-            // If phase content is active and we're scrolling down past timeline, remove body padding
-            if (contentContainer.classList.contains('active') && scrollTop > scrollThreshold + 100) {
-              document.body.classList.add('scrolled-to-phase');
-            }
           } else {
             header.classList.remove('header-hidden');
-            // Scrolling up, restore body padding if scrolled back to top area
-            if (scrollTop < scrollThreshold + 50) {
-              document.body.classList.remove('scrolled-to-phase');
-            }
           }
 
           lastScrollTop = scrollTop;
@@ -410,15 +391,9 @@
           phaseFrame.src = phaseUrl;
 
           // Scroll to phase content
-          // The negative margin will make it extend upward to cover header area
           setTimeout(() => {
             const phaseTop = contentContainer.offsetTop;
             pageWrapper.scrollTo({ top: phaseTop, behavior: 'smooth' });
-            
-            // Add scrolled-to-phase class after scroll starts
-            setTimeout(() => {
-              document.body.classList.add('scrolled-to-phase');
-            }, 300);
           }, 100);
         });
       });
