@@ -126,6 +126,13 @@
     #phaseContentContainer.active {
       display: block;
     }
+
+    #phaseFrame {
+      width: 100%;
+      border: none;
+      display: block;
+      overflow: hidden;
+    }
   </style>
 </head>
 
@@ -201,17 +208,41 @@
     </div>
   </div>
 
-  <!-- Phase content area (will be dynamically loaded) -->
-  <div id="phaseContentContainer"></div>
+  <!-- Phase content area (will hold iframe) -->
+  <div id="phaseContentContainer">
+    <iframe id="phaseFrame" scrolling="no"></iframe>
+  </div>
 
   <!-- Phase button click handler -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const phaseButtons = document.querySelectorAll('.phase');
       const contentContainer = document.getElementById('phaseContentContainer');
+      const phaseFrame = document.getElementById('phaseFrame');
+
+      // Function to resize iframe to fit content
+      function resizeIframe() {
+        try {
+          const iframeDoc = phaseFrame.contentDocument || phaseFrame.contentWindow.document;
+          const height = iframeDoc.documentElement.scrollHeight;
+          phaseFrame.style.height = height + 'px';
+        } catch (e) {
+          console.log('Cannot access iframe content for resizing');
+        }
+      }
+
+      // Listen for iframe load
+      phaseFrame.addEventListener('load', function() {
+        resizeIframe();
+        
+        // Also resize after a short delay to catch any dynamic content
+        setTimeout(resizeIframe, 100);
+        setTimeout(resizeIframe, 500);
+        setTimeout(resizeIframe, 1000);
+      });
 
       phaseButtons.forEach(button => {
-        button.addEventListener('click', async function(e) {
+        button.addEventListener('click', function(e) {
           e.preventDefault();
           
           const phaseUrl = this.getAttribute('data-phase');
@@ -222,60 +253,16 @@
           // Add active class to clicked button
           this.classList.add('active');
           
-          // Show loading state
-          contentContainer.innerHTML = '<div style="text-align: center; padding: 3rem;"><p>Loading...</p></div>';
+          // Show content container
           contentContainer.classList.add('active');
           
-          try {
-            // Fetch the phase page
-            const response = await fetch(phaseUrl);
-            const html = await response.text();
-            
-            // Parse the HTML
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            
-            // Extract the body content (excluding the header)
-            const bodyContent = doc.body.innerHTML;
-            
-            // Remove the site-header from the loaded content if it exists
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = bodyContent;
-            const headerInContent = tempDiv.querySelector('#site-header');
-            if (headerInContent) {
-              headerInContent.remove();
-            }
-            
-            // Also remove any header script tags
-            const headerScript = tempDiv.querySelector('script[src*="header.js"]');
-            if (headerScript) {
-              headerScript.remove();
-            }
-            
-            // Insert the content
-            contentContainer.innerHTML = tempDiv.innerHTML;
-            
-            // Execute any scripts in the loaded content
-            const scripts = contentContainer.querySelectorAll('script');
-            scripts.forEach(oldScript => {
-              const newScript = document.createElement('script');
-              if (oldScript.src) {
-                newScript.src = oldScript.src;
-              } else {
-                newScript.textContent = oldScript.textContent;
-              }
-              oldScript.parentNode.replaceChild(newScript, oldScript);
-            });
-            
-            // Smooth scroll to content
-            setTimeout(() => {
-              contentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-            
-          } catch (error) {
-            console.error('Error loading phase content:', error);
-            contentContainer.innerHTML = '<div style="text-align: center; padding: 3rem;"><p>Error loading content. Please try again.</p></div>';
-          }
+          // Load phase content in iframe
+          phaseFrame.src = phaseUrl;
+          
+          // Smooth scroll to content
+          setTimeout(() => {
+            contentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
         });
       });
     });
