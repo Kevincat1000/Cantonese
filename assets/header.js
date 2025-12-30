@@ -13,6 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
     color: #8B2332;
     text-decoration: none;
   }
+  #site-header .logo-main,
+  #site-header .logo-sub {
+    color: #8B2332;
+  }
+  #site-header .logo::after {
+    border-color: #8B2332;
+  }
+  #site-header .logo-sub::after {
+    border-color: #8B2332;
+  }
   #site-header .nav-link {
     color: #333333;
     text-decoration: none;
