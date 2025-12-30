@@ -31,6 +31,15 @@
             position: sticky;
             top: 0;
             z-index: 50;
+            
+            /* ✨ 新增：滚动隐藏效果 */
+            transform: translateY(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* ✨ 新增：隐藏状态 */
+        header.header-hidden {
+            transform: translateY(-100%);
         }
 
         .header-content {
@@ -54,7 +63,7 @@
         .logo-main {
             font-size: 24px;
             font-weight: bold;
-            color: #5B6D87;
+            color: #8B2332;
             letter-spacing: 0.5px;
             line-height: 1.2;
         }
@@ -62,7 +71,7 @@
         .logo-sub {
             font-size: 16px;
             font-weight: bold;
-            color: #5B6D87;
+            color: #8B2332;
             letter-spacing: 2px;
             line-height: 1.2;
         }
@@ -102,7 +111,7 @@
         }
 
         .nav-link:hover {
-            color: #5B6D87;
+            color: #8B2332;
         }
 
         .nav-link svg {
@@ -110,56 +119,43 @@
             height: 1rem;
         }
 
-        /* Dropdown Menu */
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
+        /* Mobile Menu */
+        .mobile-nav-menu {
+            display: none;
+            position: fixed;
+            top: 73px;
             left: 0;
-            padding-top: 0.5rem;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-
-        .nav-item:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .dropdown-content {
-            width: 20rem;
+            right: 0;
             background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            padding: 0.5rem 0;
+            border-bottom: 1px solid #e5e5e5;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 40;
+            max-height: calc(100vh - 73px);
+            overflow-y: auto;
         }
 
-        .dropdown-item {
+        .mobile-nav-menu.active {
             display: block;
-            padding: 0.875rem 1.25rem;
+        }
+
+        .mobile-nav-item {
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #333;
             text-decoration: none;
-            transition: background-color 0.2s;
-            border-left: 3px solid transparent;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s;
         }
 
-        .dropdown-item:hover {
-            background-color: #f3f4f6;
-            border-left-color: #5B6D87;
-        }
-
-        .dropdown-title {
-            font-weight: 600;
-            font-size: 14px;
-            color: #111827;
-            margin-bottom: 0.25rem;
-            line-height: 1.4;
-        }
-
-        .dropdown-subtitle {
-            font-size: 12px;
-            color: #6b7280;
-            line-height: 1.5;
+        .mobile-nav-link:hover,
+        .mobile-nav-link:active {
+            background-color: #f9fafb;
+            color: #8B2332;
         }
 
         /* Mobile Menu Toggle */
@@ -169,11 +165,44 @@
             border: none;
             cursor: pointer;
             padding: 0.5rem;
+            color: #333;
+            transition: color 0.2s;
+        }
+
+        .mobile-menu-btn:hover {
+            color: #8B2332;
+        }
+
+        .mobile-menu-btn svg {
+            width: 24px;
+            height: 24px;
         }
 
         @media (min-width: 768px) {
             .mobile-menu-btn {
                 display: none;
+            }
+        }
+
+        /* 响应式优化 */
+        @media (min-width: 640px) {
+            .logo-main {
+                font-size: 26px;
+            }
+            .logo-sub {
+                font-size: 17px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+            .header-content {
+                padding: 0.75rem 2rem;
+            }
+            .nav-menu {
+                gap: 2rem;
             }
         }
 
@@ -280,117 +309,6 @@
             font-size: 0.875rem;
         }
 
-        /* Service Cards Section */
-        .services-section {
-            background: white;
-            padding: 4rem 1rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            max-width: 72rem;
-            margin: 0 auto;
-        }
-
-        .service-card h3 {
-            font-size: 1.875rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .service-card .subtitle {
-            font-size: 1.125rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-card p {
-            color: #4a5568;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-card .border-accent {
-            border-left: 4px solid;
-            padding-left: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            color: white;
-            text-decoration: none;
-            border-radius: 0.375rem;
-            transition: opacity 0.3s;
-            font-weight: 500;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        /* News Section */
-        .news-section {
-            background: #F5F5F5;
-            padding: 4rem 1rem;
-        }
-
-        .news-section h2 {
-            font-size: 2.25rem;
-            color: #2C7565;
-            margin-bottom: 3rem;
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 72rem;
-            margin: 0 auto;
-        }
-
-        .news-card {
-            background: white;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .news-card img {
-            width: 100%;
-            height: 192px;
-            object-fit: cover;
-        }
-
-        .news-card-content {
-            padding: 1.5rem;
-        }
-
-        .news-date {
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-bottom: 0.5rem;
-        }
-
-        .news-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .news-category {
-            font-size: 0.875rem;
-            color: #2C7565;
-            margin-bottom: 0.75rem;
-        }
-
-        .news-excerpt {
-            font-size: 0.875rem;
-            color: #4a5568;
-        }
-
-
-
         /* Footer */
         footer {
             background: #003057;
@@ -407,62 +325,51 @@
 </head>
 <body>
     <!-- Header -->
-<header>
-  <div class="container">
-    <div class="header-content">
-      <a href="index.html" class="logo" aria-label="Home">
-        <div class="logo-main">CANTONESE</div>
-        <div class="logo-sub">IN AMERICAS</div>
-      </a>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" aria-label="Home">
+                    <div class="logo-main">CANTONESE</div>
+                    <div class="logo-sub">IN AMERICAS</div>
+                </a>
 
-      <!-- Desktop Navigation -->
-      <nav class="nav-menu" aria-label="Primary">
-        <!-- Timeline Dropdown -->
-        <div class="nav-item">
-          <a href="timeline.html" class="nav-link" aria-haspopup="true">
-            Timeline
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </a>
+                <!-- Desktop Navigation -->
+                <nav class="nav-menu" aria-label="Primary">
+                    <a href="timeline.html" class="nav-link">Timeline</a>
+                    <a href="language.html" class="nav-link">Language Power</a>
+                    <a href="culture.html" class="nav-link">Culture Symbols</a>
+                    <a href="archives.html" class="nav-link">Archives</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                </nav>
 
-          <div class="dropdown-menu" role="menu">
-            <div class="dropdown-content">
-              <a href="phase1.html" class="dropdown-item" role="menuitem">
-                <div class="dropdown-title">Phase I: 17th–19th Centuries</div>
-                <div class="dropdown-subtitle">Early Migration within Southeast Asia</div>
-              </a>
-              <a href="phase2.html" class="dropdown-item" role="menuitem">
-                <div class="dropdown-title">Phase II: 1840s–1940s</div>
-                <div class="dropdown-subtitle">The Great Migration to the Americas</div>
-              </a>
-              <a href="phase3.html" class="dropdown-item" role="menuitem">
-                <div class="dropdown-title">Phase III: 1940s–1980s</div>
-                <div class="dropdown-subtitle">War, Revolution, and Renewed Migration</div>
-              </a>
-              <a href="phase4.html" class="dropdown-item" role="menuitem">
-                <div class="dropdown-title">Phase IV: 1980s–Present</div>
-                <div class="dropdown-subtitle">Globalization and New Identities</div>
-              </a>
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="打开菜单">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             </div>
-          </div>
+
+            <!-- Mobile Navigation Menu -->
+            <nav class="mobile-nav-menu" id="mobileNavMenu">
+                <div class="mobile-nav-item">
+                    <a href="timeline.html" class="mobile-nav-link">Timeline</a>
+                </div>
+                <div class="mobile-nav-item">
+                    <a href="language.html" class="mobile-nav-link">Language Power</a>
+                </div>
+                <div class="mobile-nav-item">
+                    <a href="culture.html" class="mobile-nav-link">Culture Symbols</a>
+                </div>
+                <div class="mobile-nav-item">
+                    <a href="archives.html" class="mobile-nav-link">Archives</a>
+                </div>
+                <div class="mobile-nav-item">
+                    <a href="resources.html" class="mobile-nav-link">Resources</a>
+                </div>
+            </nav>
         </div>
-
-        <a href="language.html" class="nav-link">Language Power</a>
-        <a href="culture.html" class="nav-link">Culture Symbols</a>
-        <a href="archives.html" class="nav-link">Archives</a>
-        <a href="resources.html" class="nav-link">Resources</a>
-      </nav>
-
-      <!-- Mobile Menu Button (placeholder) -->
-      <button class="mobile-menu-btn" onclick="alert('Mobile menu - implement as needed')" aria-label="Open menu">
-        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-  </div>
-</header>
+    </header>
 
 
     <!-- Hero Section -->
@@ -479,9 +386,9 @@
             <div class="intro-text">
                 <h2>Introduction</h2>
                 
-                <p>Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong’s coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas. </p>
+                <p>Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas. </p>
                 
-                <p>This project seeks to shift the focus from “a group of Guangdong people” to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.</p>
+                <p>This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.</p>
 
                 <div class="stats">
                     <h3>BY THE NUMBERS:</h3>
@@ -507,83 +414,6 @@
         </div>
     </section>
 
-    <!-- Service Cards Section -->
-    <section class="services-section">
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="border-accent" style="border-color: #84402d;">
-                    <h3 style="color: #84402d;">Timeline of Cantonese Migration</h3>
-                    <p class="subtitle" style="color: #84402d;">Waves, Networks, and Institutions</p>
-                </div>
-                <p>Trace the diaspora that defied borders. From the rugged goldfields of 1848 to the refugee waves of the 20th century, this timeline reveals how a people weathered the storms of exclusion to forge new destinies.</p>
-                <p>Witness the rise of Chinatowns, the resilience of Huiguan associations, and the silent strength of communities that anchored themselves in foreign soil.</p>
-                <a href="/timeline.html" class="btn" style="background: #84402d;">View the full article</a>
-            </div>
-
-            <div class="service-card">
-                <div class="border-accent" style="border-color: #7BA3B8;">
-                    <h3 style="color: #7BA3B8;">Cantonese as Linguistic Capital</h3>
-                    <p class="subtitle" style="color: #7BA3B8;">Power, Hierarchy, and Identity</p>
-                </div>
-                <p>Language is never just words; it is the currency of power and the architecture of identity. Explore the invisible battlegrounds where Cantonese and Mandarin vie for dominance in schools, policies, and labor markets.</p>
-                <p>Map the poignant shift of a mother tongue, fading from public squares to the intimate whispers of the kitchen table, and uncover what is lost, what is saved, and what it truly means to sound like where Cantonese comes from.</p>
-                <a href="/language.html" class="btn" style="background: #7BA3B8;">View the full article</a>
-            </div>
-
-            <div class="service-card">
-                <div class="border-accent" style="border-color: #2C7565;">
-                    <h3 style="color: #2C7565;">Culture Symbols</h3>
-                    <p class="subtitle" style="color: #2C7565;">Rituals, Performance, and Resilience</p>
-                </div>
-                <p>From the ritual pulse of dragon and lion dances and ancestral offerings to the kinetic power of Kung Fu; from the evolution of cuisine—transforming from a survival strategy into global gastronomy—to the Opera stage that preserves the memory of a mobile homeland.</p>
-                <p>Witness how Cantonese culture reshapes itself, forging a resilient new identity across the seas.</p>
-                <a href="/culture.html" class="btn" style="background: #2C7565;">View the full article</a>
-            </div>
-
-
-        </div>
-    </section>
-
-    <!-- News Section -->
-    <section class="news-section">
-        <div class="container">
-            <h2>HAI News & Insights</h2>
-            <div class="news-grid">
-                <div class="news-card">
-                    <img src="https://ext.same-assets.com/2026473150/1432826340.jpeg" alt="Voting Rights">
-                    <div class="news-card-content">
-                        <p class="news-date">AUGUST 5, 2025</p>
-                        <h3 class="news-title">FROM SELMA TO THE BALLOT BOX: VOTING RIGHTS ACT</h3>
-                        <p class="news-category">HAI INSIGHTS, HISTORICAL RESEARCH AND STORYTELLING</p>
-                        <p class="news-excerpt">Wednesday, 06 August 2025 marks the 60th anniversary of the Voting Rights Act, the crowning achievement of Lyndon Johnson's presidency...</p>
-                    </div>
-                </div>
-
-                <div class="news-card">
-                    <img src="https://ext.same-assets.com/2026473150/2013173794.jpeg" alt="Philosophy">
-                    <div class="news-card-content">
-                        <p class="news-date">APRIL 3, 2025</p>
-                        <h3 class="news-title">ALWAYS BEEN THERE: LEADING LADIES IN PHILOSOPHY</h3>
-                        <p class="news-category">HAI INSIGHTS, HISTORICAL RESEARCH AND STORYTELLING</p>
-                        <p class="news-excerpt">To study philosophy is to question the nature of knowing. For thousands of years, men and women have pondered existence...</p>
-                    </div>
-                </div>
-
-                <div class="news-card">
-                    <img src="https://ext.same-assets.com/2026473150/2550463488.jpeg" alt="Tim Russert">
-                    <div class="news-card-content">
-                        <p class="news-date">APRIL 1, 2025</p>
-                        <h3 class="news-title">TIM RUSSERT: ONE MAN'S IMPACT ON THE NATION</h3>
-                        <p class="news-category">PRESS RELEASES, #CU, #JOHNCARROLLUNIVERSITY</p>
-                        <p class="news-excerpt">Tim Russert: One Man's Impact on the Nation - HAI and Axiell Bring the Legacy of an Iconic Journalist to Life...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -591,6 +421,84 @@
         </div>
     </footer>
 
+    <!-- ✨ JavaScript for Header Scroll Hide and Mobile Menu -->
+    <script>
+        // ===== 滚动隐藏Header功能 =====
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        const scrollThreshold = 100; // 滚动超过100px才触发
+        const scrollDelta = 5; // 最小滚动距离，防止抖动
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 滚动距离太小，忽略
+            if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) {
+                return;
+            }
+            
+            // 在页面顶部时，始终显示header
+            if (scrollTop < scrollThreshold) {
+                header.classList.remove('header-hidden');
+                lastScrollTop = scrollTop;
+                return;
+            }
+            
+            // 向下滚动 - 隐藏header
+            if (scrollTop > lastScrollTop) {
+                header.classList.add('header-hidden');
+            } 
+            // 向上滚动 - 显示header
+            else {
+                header.classList.remove('header-hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
 
+        // ===== Mobile Menu 功能 =====
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNavMenu = document.getElementById('mobileNavMenu');
+        
+        // 切换mobile menu显示/隐藏
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileNavMenu.classList.toggle('active');
+            
+            // 切换按钮图标（汉堡 ↔ X）
+            const icon = mobileMenuBtn.querySelector('svg path');
+            if (mobileNavMenu.classList.contains('active')) {
+                // 显示X图标
+                icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+                mobileMenuBtn.setAttribute('aria-label', '关闭菜单');
+            } else {
+                // 显示汉堡图标
+                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+                mobileMenuBtn.setAttribute('aria-label', '打开菜单');
+            }
+        });
+
+        // 点击菜单项后关闭mobile menu
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileNavMenu.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('svg path');
+                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+                mobileMenuBtn.setAttribute('aria-label', '打开菜单');
+            });
+        });
+
+        // 点击页面其他地方关闭mobile menu
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuBtn.contains(event.target) && !mobileNavMenu.contains(event.target)) {
+                if (mobileNavMenu.classList.contains('active')) {
+                    mobileNavMenu.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('svg path');
+                    icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+                    mobileMenuBtn.setAttribute('aria-label', '打开菜单');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
