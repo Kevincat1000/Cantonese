@@ -206,10 +206,11 @@
 
     #phaseContentContainer.active { 
       display: block;
-      /* Break out of parent padding for full width and cover header area */
+      /* ✅ FIXED: Remove negative top margin to prevent upward extension */
+      /* Break out of parent padding for full width */
       margin-left: -1rem;
       margin-right: -1rem;
-      margin-top: -73px; /* Pull up to cover body padding */
+      margin-top: 0; /* Changed from -73px */
       padding: 0;
       background: #F5F0E5;
     }
@@ -239,7 +240,7 @@
       border: none;
       display: block;
       overflow: hidden;
-      min-height: calc(100vh + 73px); /* Extra height to account for negative margin */
+      min-height: 100vh; /* ✅ FIXED: Changed from calc(100vh + 73px) */
       margin: 0;
       padding: 0;
     }
@@ -387,8 +388,7 @@
           contentContainer.classList.add('active');
           phaseFrame.src = phaseUrl;
 
-          // Scroll to phase content
-          // The negative margin will make it extend upward to cover header area
+          // ✅ FIXED: Scroll to phase content with proper offset
           setTimeout(() => {
             const phaseTop = contentContainer.offsetTop;
             pageWrapper.scrollTo({ top: phaseTop, behavior: 'smooth' });
@@ -525,4 +525,3 @@
   </script>
 </body>
 </html>
-
