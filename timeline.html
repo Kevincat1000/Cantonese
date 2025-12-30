@@ -11,148 +11,159 @@
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <!-- Global style (same as index) -->
+  <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
+  
   <!-- Mapbox CSS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
 
   <style>
-    /* ===== Font system ===== */
+    /* Global Settings */
     body {
       font-family: 'Gentium Book Plus', serif;
+      background: #F5F0E5;
+      margin: 0;
+      padding: 0;
     }
-    
-    /* ✅ FIX 1: Override body font for header to use Lato */
-    header,
-    header * {
-      font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    }
-    
-    /* Ensure timeline content still uses Gentium */
-    .timeline-wrap,
-    .timeline-wrap *,
-    .phase,
-    .phase * {
-      font-family: 'Gentium Book Plus', serif;
-    }
-    
-    /* ===== Cream background everywhere ===== */
-    body { background: #F5F0E5; }
 
-    /* Use global container class (from style.css) for consistent alignment */
-    .split-top {
+    /* Timeline Content */
+    .timeline-content {
+      padding: 2rem 0;
+    }
+
+    .timeline-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.25rem;
-      padding-top: 1.25rem;
-      padding-bottom: 1.75rem;
+      gap: 2rem;
+      align-items: start;
     }
+
     @media (min-width: 980px) {
-      .split-top {
-        grid-template-columns: 1fr 1.05fr;
-        align-items: start;
+      .timeline-grid {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
-    /* RIGHT content - centered */
-    .timeline-wrap { 
-      max-width: 72rem; 
-      margin: 0 auto;
+    /* Map Section */
+    .map-section {
+      width: 100%;
+    }
+
+    .map-container {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: #fff;
+    }
+
+    #diaspora-map {
+      width: 100%;
+      height: 450px;
+    }
+
+    @media (max-width: 980px) {
+      #diaspora-map {
+        height: 380px;
+      }
+    }
+
+    /* Phase Section */
+    .phase-section {
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-    }
-    .timeline-header { 
-      margin-bottom: 1.5rem; 
-      width: 100%;
-    }
-    .timeline-header h2 { 
-      margin: 0 0 0.75rem 0; 
-      font-size: 1.75rem;
-    }
-    .timeline-header p { 
-      margin: 0; 
-      color: #24313f; 
-      font-size: 1.1rem;
+      justify-content: center;
     }
 
-    /* Card grid - vertical stack, centered */
-    .phase-grid {
+    .phase-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+
+    .phase-header h2 {
+      font-family: 'Gentium Book Plus', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .phase-header p {
+      font-family: 'Gentium Book Plus', serif;
+      font-size: 1.125rem;
+      color: #4a5568;
+      margin: 0;
+    }
+
+    /* Phase Cards */
+    .phase-list {
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      margin-top: 1.1rem;
       width: 100%;
-      max-width: 480px;
-      align-items: stretch;
+      max-width: 500px;
     }
 
-    /* Phase cards - updated styling */
-    .phase {
+    .phase-card {
       background: #F5F0E5;
-      border: 2px solid #000000;
+      border: 2px solid #000;
       border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 4px 4px 8px rgba(0,0,0,0.2);
-      cursor: pointer;
       padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+      text-decoration: none;
+      color: inherit;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      transition: all 0.2s;
-      text-decoration: none;
-      color: inherit;
-      text-align: left;
-    }
-    
-    .phase:hover {
-      background: #E8E0D0;
-      box-shadow: 6px 6px 12px rgba(0,0,0,0.25);
-      transform: translateY(-2px);
     }
 
-    .phase.active {
-      border-color: #000000;
+    .phase-card:hover {
+      background: #E8E0D0;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px rgba(0,0,0,0.25);
+    }
+
+    .phase-card.active {
       background: #E8E0D0;
     }
 
-    .phase-title { 
-      font-weight: 700; 
-      font-size: 16px; 
-      color: #111827; 
-      line-height: 1.3; 
-      margin-bottom: 0.35rem;
+    .phase-info {
+      flex: 1;
     }
-    
-    .phase-sub { 
-      font-size: 13px; 
-      color: #4a5568; 
-      line-height: 1.4; 
+
+    .phase-title {
+      font-family: 'Gentium Book Plus', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 0.25rem 0;
+      line-height: 1.3;
     }
-    
-    .chev { 
-      width: 18px; 
-      height: 18px; 
-      opacity: 0.65; 
-      flex: 0 0 auto; 
+
+    .phase-subtitle {
+      font-family: 'Gentium Book Plus', serif;
+      font-size: 0.875rem;
+      color: #4a5568;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .phase-arrow {
+      width: 20px;
+      height: 20px;
+      opacity: 0.6;
+      flex-shrink: 0;
       transform: rotate(-90deg);
     }
 
-    /* LEFT map card */
-    .map-card {
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-      background: transparent;
-    }
-    #diaspora-map { width: 100%; height: 420px; }
-    @media (max-width: 980px) { #diaspora-map { height: 360px; } }
-
-    /* Phase content area below */
+    /* Phase Content Container */
     #phaseContentContainer {
-      margin-top: 2rem;
+      margin-top: 3rem;
       display: none;
     }
 
@@ -165,135 +176,128 @@
       border: none;
       display: block;
       overflow: hidden;
+      min-height: 500px;
     }
   </style>
 </head>
 
 <body>
-  <!-- Header will be automatically inserted here by header.js -->
-
-  <!-- Load header (auto-initializes) -->
+  <!-- Header (loaded by header.js) -->
   <script src="./assets/header.js"></script>
 
-  <!-- Top row on cream background -->
+  <!-- Main Content -->
   <div class="container">
-    <div class="split-top">
-
-      <!-- LEFT: map on cream background -->
-      <section>
-        <div class="map-card">
-          <div id="diaspora-map"></div>
+    <div class="timeline-content">
+      <div class="timeline-grid">
+        
+        <!-- Left: Map -->
+        <div class="map-section">
+          <div class="map-container">
+            <div id="diaspora-map"></div>
+          </div>
         </div>
-      </section>
 
-      <!-- RIGHT: timeline header + 4 phase cards (centered) -->
-      <section>
-        <div class="timeline-wrap">
-          <div class="timeline-header">
+        <!-- Right: Phase Cards -->
+        <div class="phase-section">
+          <div class="phase-header">
             <h2>Timeline of Cantonese Migration</h2>
             <p>Waves, Networks, and Institutions</p>
           </div>
 
-          <div class="phase-grid">
-            <!-- Phase cards as vertical stack -->
-            <a href="#" class="phase" data-phase="phase1.html">
-              <div>
-                <div class="phase-title">Phase I: 17th–19th Centuries</div>
-                <div class="phase-sub">Early Migration within Southeast Asia</div>
+          <div class="phase-list">
+            <a href="#" class="phase-card" data-phase="phase1.html">
+              <div class="phase-info">
+                <h3 class="phase-title">Phase I: 17th–19th Centuries</h3>
+                <p class="phase-subtitle">Early Migration within Southeast Asia</p>
               </div>
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </a>
 
-            <a href="#" class="phase" data-phase="phase2.html">
-              <div>
-                <div class="phase-title">Phase II: 1840s–1940s</div>
-                <div class="phase-sub">Building North America & The Pacific</div>
+            <a href="#" class="phase-card" data-phase="phase2.html">
+              <div class="phase-info">
+                <h3 class="phase-title">Phase II: 1840s–1940s</h3>
+                <p class="phase-subtitle">Building North America & The Pacific</p>
               </div>
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </a>
 
-            <a href="#" class="phase" data-phase="phase3.html">
-              <div>
-                <div class="phase-title">Phase III: 1965–1997</div>
-                <div class="phase-sub">Reforms, Refugees, and New Waves</div>
+            <a href="#" class="phase-card" data-phase="phase3.html">
+              <div class="phase-info">
+                <h3 class="phase-title">Phase III: 1965–1997</h3>
+                <p class="phase-subtitle">Reforms, Refugees, and New Waves</p>
               </div>
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </a>
 
-            <a href="#" class="phase" data-phase="phase4.html">
-              <div>
-                <div class="phase-title">Phase IV: 2000s–Present</div>
-                <div class="phase-sub">Diversification and Cultural Resilience</div>
+            <a href="#" class="phase-card" data-phase="phase4.html">
+              <div class="phase-info">
+                <h3 class="phase-title">Phase IV: 2000s–Present</h3>
+                <p class="phase-subtitle">Diversification and Cultural Resilience</p>
               </div>
-              <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </a>
           </div>
         </div>
-      </section>
 
+      </div>
     </div>
   </div>
 
-  <!-- Phase content area (will hold iframe) -->
+  <!-- Phase Content (iframe) -->
   <div id="phaseContentContainer">
     <iframe id="phaseFrame" scrolling="no"></iframe>
   </div>
 
-  <!-- Phase button click handler -->
+  <!-- JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const phaseButtons = document.querySelectorAll('.phase');
+      const phaseCards = document.querySelectorAll('.phase-card');
       const contentContainer = document.getElementById('phaseContentContainer');
       const phaseFrame = document.getElementById('phaseFrame');
 
-      // Function to resize iframe to fit content
+      // Resize iframe to fit content
       function resizeIframe() {
         try {
           const iframeDoc = phaseFrame.contentDocument || phaseFrame.contentWindow.document;
           const height = iframeDoc.documentElement.scrollHeight;
           phaseFrame.style.height = height + 'px';
         } catch (e) {
-          console.log('Cannot access iframe content for resizing');
+          console.log('Cannot access iframe content');
         }
       }
 
       // Listen for iframe load
       phaseFrame.addEventListener('load', function() {
         resizeIframe();
-        
-        // Also resize after a short delay to catch any dynamic content
         setTimeout(resizeIframe, 100);
         setTimeout(resizeIframe, 500);
         setTimeout(resizeIframe, 1000);
       });
 
-      phaseButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+      // Phase card click handlers
+      phaseCards.forEach(card => {
+        card.addEventListener('click', function(e) {
           e.preventDefault();
           
           const phaseUrl = this.getAttribute('data-phase');
           
-          // Remove active class from all buttons
-          phaseButtons.forEach(btn => btn.classList.remove('active'));
-          
-          // Add active class to clicked button
+          // Update active states
+          phaseCards.forEach(c => c.classList.remove('active'));
           this.classList.add('active');
           
-          // Show content container
+          // Show content
           contentContainer.classList.add('active');
-          
-          // Load phase content in iframe
           phaseFrame.src = phaseUrl;
           
-          // Smooth scroll to content
+          // Scroll to content
           setTimeout(() => {
             contentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }, 100);
@@ -304,31 +308,15 @@
 
   <!-- Mapbox JS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
-
   <script>
   (function () {
-    mapboxgl.accessToken =
-      "pk.eyJ1Ijoia2V2aW5jYXQxMDAiLCJhIjoiY21qbmFyN21yMTYzMzNlcHN5ZHVubTdpbiJ9.m8QPkEMJKLNIMvFyKUgTkw";
-
-    const STYLE_URL = "mapbox://styles/kevincat100/cmjneo20k000v01sxghqb6aqr";
-
-    const C_ROUTE1 = "#3d85c6";
-    const C_ROUTE2 = "#e69138";
-    const C_ROUTE3 = "#6a329f";
-    const C_ROUTE4 = "#666666";
-    const C_ROUTE5 = "#cc0000";
-    const C_ROUTE6 = "#0b5394";
-
-    const ROUTE_WIDTH = 1.2;
-    const ROUTE_OPACITY = 0.9;
+    mapboxgl.accessToken = "pk.eyJ1Ijoia2V2aW5jYXQxMDAiLCJhIjoiY21qbmFyN21yMTYzMzNlcHN5ZHVubTdpbiJ9.m8QPkEMJKLNIMvFyKUgTkw";
 
     const map = new mapboxgl.Map({
       container: "diaspora-map",
-      style: STYLE_URL,
+      style: "mapbox://styles/kevincat100/cmjneo20k000v01sxghqb6aqr",
       center: [160, 27],
       zoom: 1.25,
-      bearing: 0,
-      pitch: 0,
       projection: "mercator"
     });
 
@@ -345,17 +333,16 @@
 
     map.on("load", () => {
       const points = [
-        { title:"Sze Yup", subtitle:"Four regions of Guangdong", country:"China", coords:[112.98, 22.54], mustLabel:true, minZoom: 1.0 },
-        { title:"Ayutthaya Kingdom", subtitle:"Ayutthaya", country:"Thailand", coords:[100.5689, 14.3532], mustLabel:true, minZoom: 1.0 },
-        { title:"Saigon", subtitle:"Ho Chi Minh City", country:"Vietnam", coords:[106.6297, 10.8231], mustLabel:true, minZoom: 1.0},
-        { title:"Penang", subtitle:"", country:"Malaysia", coords:[100.3354, 5.4141], mustLabel:true, minZoom: 1.0 },
-        { title:"Singapore", subtitle:"", country:"Singapore", coords:[103.8198, 1.3521], mustLabel:true, minZoom: 1.0 },
-        { title:"Honolulu", subtitle:"Hawaii", country:"United States", coords:[-157.8583, 21.3069], mustLabel:true, minZoom: 1.0},
-        { title:"San Francisco", subtitle:"", country:"United States", coords:[-122.4194, 37.7749] , mustLabel:true, minZoom: 1.0},
-
+        { title:"Sze Yup", subtitle:"Four regions of Guangdong", country:"China", coords:[112.98, 22.54], minZoom: 1.0 },
+        { title:"Ayutthaya Kingdom", subtitle:"Ayutthaya", country:"Thailand", coords:[100.5689, 14.3532], minZoom: 1.0 },
+        { title:"Saigon", subtitle:"Ho Chi Minh City", country:"Vietnam", coords:[106.6297, 10.8231], minZoom: 1.0 },
+        { title:"Penang", subtitle:"", country:"Malaysia", coords:[100.3354, 5.4141], minZoom: 1.0 },
+        { title:"Singapore", subtitle:"", country:"Singapore", coords:[103.8198, 1.3521], minZoom: 1.0 },
+        { title:"Honolulu", subtitle:"Hawaii", country:"United States", coords:[-157.8583, 21.3069], minZoom: 1.0 },
+        { title:"San Francisco", subtitle:"", country:"United States", coords:[-122.4194, 37.7749], minZoom: 1.0 },
         { title:"Hong Kong", subtitle:"", country:"China", coords:[114.1694, 22.3193], minZoom: 2 },
         { title:"Hà Tiên", subtitle:"", country:"Vietnam", coords:[104.4833, 10.3833], minZoom: 2 },
-        { title:"Heungshan", subtitle:"Zhongshan", country:"China", coords:[113.382, 22.515], minZoom: 2}
+        { title:"Heungshan", subtitle:"Zhongshan", country:"China", coords:[113.382, 22.515], minZoom: 2 }
       ];
 
       function addRoute(id, coords, color) {
@@ -363,53 +350,21 @@
           type: "geojson",
           data: { type:"Feature", geometry:{ type:"LineString", coordinates: coords } }
         });
-
         map.addLayer({
           id: id + "-line",
           type: "line",
           source: id,
           layout: { "line-cap":"round", "line-join":"round" },
-          paint: {
-            "line-color": color,
-            "line-width": ROUTE_WIDTH,
-            "line-opacity": ROUTE_OPACITY
-          }
+          paint: { "line-color": color, "line-width": 1.2, "line-opacity": 0.9 }
         });
       }
 
-      addRoute("r1", [
-        [112.98, 22.54],[114.0, 21.8],[113.2, 20.0],[112.0, 18.2],[111.0, 16.2],
-        [110.2, 14.5],[109.5, 13.2],[109.0, 11.8],[108.2, 10.5],[106.8, 9.2],
-        [105.2, 8.8],[103.6, 8.9],[102.0, 9.2],[101.0, 10.2],[100.6, 12.0],
-        [100.5689, 14.3532]
-      ], C_ROUTE1);
-
-      addRoute("r2", [
-        [100.5689, 14.3532],[101.0, 12.8],[101.6, 11.6],[102.4, 10.9],[103.3, 10.6],
-        [104.0, 10.5],[104.4833, 10.3833],[104.9, 10.0],[105.6, 9.6],[106.1, 9.8],
-        [106.4, 10.2],[106.6297, 10.8231]
-      ], C_ROUTE2);
-
-      addRoute("r3", [
-        [112.98, 22.54],[113.6, 20.5],[112.6, 18.0],[111.0, 15.0],[109.5, 12.5],
-        [107.8, 10.2],[105.8, 8.2],[103.5, 6.8],[101.8, 6.0],[100.3354, 5.4141],
-        [101.6, 4.1],[102.7, 2.7],[103.3, 2.0],[103.8198, 1.3521]
-      ], C_ROUTE3);
-
-      addRoute("r4", [
-        [106.6297, 10.8231],[122.0, 18.0],[138.0, 26.0],[154.0, 33.0],[170.0, 38.0],
-        [186.0, 40.5],[202.0, 41.5],[218.0, 40.5],[232.0, 39.2],[237.5806, 37.7749]
-      ], C_ROUTE4);
-
-      addRoute("r5", [
-        [114.1694, 22.3193],[130.0, 28.0],[146.0, 34.0],[162.0, 39.0],[176.0, 43.0],
-        [190.0, 45.0],[206.0, 44.5],[222.0, 42.5],[233.0, 40.5],[237.5806, 37.7749]
-      ], C_ROUTE5);
-
-      addRoute("r6", [
-        [113.382, 22.515],[128.0, 26.0],[145.0, 30.0],[160.0, 33.0],[175.0, 33.5],
-        [190.0, 30.5],[202.1417, 21.3069]
-      ], C_ROUTE6);
+      addRoute("r1", [[112.98,22.54],[114.0,21.8],[113.2,20.0],[112.0,18.2],[111.0,16.2],[110.2,14.5],[109.5,13.2],[109.0,11.8],[108.2,10.5],[106.8,9.2],[105.2,8.8],[103.6,8.9],[102.0,9.2],[101.0,10.2],[100.6,12.0],[100.5689,14.3532]], "#3d85c6");
+      addRoute("r2", [[100.5689,14.3532],[101.0,12.8],[101.6,11.6],[102.4,10.9],[103.3,10.6],[104.0,10.5],[104.4833,10.3833],[104.9,10.0],[105.6,9.6],[106.1,9.8],[106.4,10.2],[106.6297,10.8231]], "#e69138");
+      addRoute("r3", [[112.98,22.54],[113.6,20.5],[112.6,18.0],[111.0,15.0],[109.5,12.5],[107.8,10.2],[105.8,8.2],[103.5,6.8],[101.8,6.0],[100.3354,5.4141],[101.6,4.1],[102.7,2.7],[103.3,2.0],[103.8198,1.3521]], "#6a329f");
+      addRoute("r4", [[106.6297,10.8231],[122.0,18.0],[138.0,26.0],[154.0,33.0],[170.0,38.0],[186.0,40.5],[202.0,41.5],[218.0,40.5],[232.0,39.2],[237.5806,37.7749]], "#666666");
+      addRoute("r5", [[114.1694,22.3193],[130.0,28.0],[146.0,34.0],[162.0,39.0],[176.0,43.0],[190.0,45.0],[206.0,44.5],[222.0,42.5],[233.0,40.5],[237.5806,37.7749]], "#cc0000");
+      addRoute("r6", [[113.382,22.515],[128.0,26.0],[145.0,30.0],[160.0,33.0],[175.0,33.5],[190.0,30.5],[202.1417,21.3069]], "#0b5394");
 
       const pointsGeoJSON = {
         type: "FeatureCollection",
@@ -447,16 +402,10 @@
         filter: [">=", ["zoom"], ["get", "minZoom"]],
         layout: {
           "text-field": ["get", "label"],
-          "text-size": [
-            "interpolate", ["linear"], ["zoom"],
-            2.2, 11,
-            3.0, 12,
-            4.5, 14
-          ],
+          "text-size": ["interpolate", ["linear"], ["zoom"], 2.2, 11, 3.0, 12, 4.5, 14],
           "text-offset": [0, 1.1],
           "text-anchor": "top",
-          "text-allow-overlap": false,
-          "text-ignore-placement": false
+          "text-allow-overlap": false
         },
         paint: {
           "text-color": "#111",
@@ -468,31 +417,20 @@
       map.on("click", "route-points-dot", (e) => {
         const f = e.features && e.features[0];
         if (!f) return;
-
         const { title, subtitle, country } = f.properties;
-        const html = `
-          <div style="font-family:system-ui; font-size:13px; line-height:1.25;">
-            <div style="font-weight:700;">${escapeHtml(title)}</div>
-            ${subtitle ? `<div style="opacity:.8;">${escapeHtml(subtitle)}</div>` : ``}
-            <div style="opacity:.6;">${escapeHtml(country)}</div>
-          </div>
-        `;
-
         new mapboxgl.Popup({ offset: 18 })
           .setLngLat(f.geometry.coordinates)
-          .setHTML(html)
+          .setHTML(`<div style="font-family:system-ui;font-size:13px;line-height:1.25;">
+            <div style="font-weight:700;">${title}</div>
+            ${subtitle ? `<div style="opacity:.8;">${subtitle}</div>` : ''}
+            <div style="opacity:.6;">${country}</div>
+          </div>`)
           .addTo(map);
       });
 
       map.on("mouseenter", "route-points-dot", () => map.getCanvas().style.cursor = "pointer");
       map.on("mouseleave", "route-points-dot", () => map.getCanvas().style.cursor = "");
     });
-
-    function escapeHtml(str) {
-      return String(str).replace(/[&<>"']/g, m =>
-        ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[m])
-      );
-    }
   })();
   </script>
 </body>
