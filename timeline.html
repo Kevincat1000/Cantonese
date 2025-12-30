@@ -195,26 +195,36 @@
 
 
 /* === PHASE CONTENT === */
-#phaseContentContainer{
-  margin-top: 1rem;           /* 原来 3rem，想更贴就改成 0.5rem 或 0 */
+#phaseContentContainer { 
+  display: none; 
 }
 
-#phaseContentContainer .container{
-  max-width: none !important; /* 去掉 container 限宽 */
-  padding: 0 !important;      /* 去掉 container 内边距 */
-  margin: 0 !important;
-  width: 100% !important;
-}
-
-#phaseContentContainer .content-inner{
-  padding: 0 !important;      /* 去掉左右米色 padding */
-}
-
-#phaseFrame{
-  width: 100%;
+#phaseContentContainer.active { 
   display: block;
-  border: 0;
-  background: transparent;     /* 不要让外面露出米色边 */
+  margin: 0;
+  padding: 0;
+}
+
+#phaseContentContainer .container {
+  padding: 0;
+  margin: 0;
+  max-width: none;
+  width: 100%;
+}
+
+#phaseContentContainer .content-inner {
+  padding: 0;
+  margin: 0;
+}
+
+#phaseFrame {
+  width: 100%;
+  border: none;
+  display: block;
+  overflow: hidden;
+  min-height: 500px;
+  margin: 0;
+  padding: 0;
 }
 
   </style>
