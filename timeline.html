@@ -40,25 +40,38 @@
     /* ===== Cream background everywhere ===== */
     body { background: #F5F0E5; }
 
-    /* ✅ FIX 2: Use specific class name to avoid container conflict */
+    /* ✅ FIX 2: Match header's padding structure */
     .timeline-container {
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 1rem;
     }
-
-    /* Top row: left cards + right map, all on cream */
+    
+    /* Add matching inner padding to align with header */
     .split-top {
       display: grid;
       grid-template-columns: 1fr;
       gap: 1.25rem;
       padding-top: 1.25rem;
       padding-bottom: 1.75rem;
+      padding-left: 1rem;  /* ✅ Add this to match header-content padding */
+      padding-right: 1rem; /* ✅ Add this to match header-content padding */
     }
     @media (min-width: 980px) {
       .split-top {
         grid-template-columns: 1.05fr 1fr;
         align-items: start;
+      }
+    }
+    
+    /* Match header's larger padding on bigger screens */
+    @media (min-width: 1024px) {
+      .timeline-container {
+        padding: 0 2rem;  /* ✅ Match header's 2rem padding */
+      }
+      .split-top {
+        padding-left: 0;  /* ✅ Remove inner padding on large screens */
+        padding-right: 0; /* ✅ Remove inner padding on large screens */
       }
     }
 
