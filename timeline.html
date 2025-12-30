@@ -31,17 +31,18 @@
       background: #F5F0E5;
       margin: 0;
       padding: 0;
-      padding-top: 73px; /* Account for fixed header */
+      /* No padding-top - let individual sections handle their own spacing */
       height: 100%;
       overflow: hidden;
     }
 
     /* === MAIN SCROLL CONTAINER === */
     .page-wrapper {
-      height: calc(100vh - 73px); /* Subtract header height */
+      height: 100vh; /* Full viewport height */
       overflow-y: auto;
       overflow-x: hidden;
-      scrollbar-gutter: stable; 
+      scrollbar-gutter: stable;
+      padding-top: 73px; /* Account for fixed header */
     }
 
     /* === INNER CONTENT WRAPPER - Match header-content padding === */
@@ -206,10 +207,11 @@
 
     #phaseContentContainer.active { 
       display: block;
-      /* Break out of parent padding for full width only */
+      /* Break out of parent padding for full width */
       margin-left: -1rem;
       margin-right: -1rem;
-      margin-top: 0; /* No negative margin - stay in normal flow */
+      /* Negative margin to cancel page-wrapper's padding-top */
+      margin-top: -73px;
       padding: 0;
       background: #F5F0E5;
     }
@@ -239,7 +241,7 @@
       border: none;
       display: block;
       overflow: hidden;
-      min-height: 100vh;
+      min-height: 100vh; /* Exactly viewport height */
       margin: 0;
       padding: 0;
     }
@@ -391,9 +393,12 @@
           phaseFrame.src = phaseUrl;
 
           // Scroll to phase content
+          // Phase content has margin-top: -73px to cancel page-wrapper padding
+          // So its visual top aligns with where we want to scroll
           setTimeout(() => {
             const phaseTop = contentContainer.offsetTop;
-            pageWrapper.scrollTo({ top: phaseTop, behavior: 'smooth' });
+            // Add 73 to compensate for the negative margin
+            pageWrapper.scrollTo({ top: phaseTop + 73, behavior: 'smooth' });
           }, 100);
         });
       });
