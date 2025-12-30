@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase I: 17th–19th Centuries - Cantonese Migration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Gentium Book Plus', serif;
+      line-height: 1.6;
+    }
+    
+    .font-heading { font-family: 'Gentium Book Plus', serif; }
+    
+    .section-teal { background-color: #2d7b73; }
+    .section-paper { 
+      background-color: #f5f0e5;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px);
+    }
+    .section-footer { background-color: #256b64; }
+    
+    .container {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .hero-section {
+      padding: 3rem 2rem;
+    }
+    
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    
+    .hero-title {
+      font-size: 1.875rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .hero-img {
+      display: none;
+      width: 160px;
+    }
+    
+    .hero-img img {
+      width: 100%;
+      height: auto;
+    }
+    
+    .content-section {
+      padding: 4rem 2rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 12px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 3px;
+      background-color: #cc5e3e;
+    }
+    
+    .text-white { color: white; }
+    .text-dark { color: #231d16; }
+    .text-white-90 { color: rgba(255, 255, 255, 0.9); }
+    .text-dark-90 { color: rgba(35, 29, 22, 0.9); }
+    
+    .text-content {
+      font-size: 14px;
+      line-height: 21px;
+      max-width: 100%;
+      width: 100%;
+    }
+    
+    .text-content p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .grid-2col {
+      display: grid;
+      gap: 2rem;
+      align-items: start;
+    }
+    
+    .width-60 { 
+      max-width: 560px;
+      width: 100%;
+    }
+    
+    /* Image Slideshow */
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      background: #f0f0f0;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      aspect-ratio: 1;
+    }
+    
+    .slideshow-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    
+    .slideshow-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(45, 123, 115, 0.95), rgba(45, 123, 115, 0.7));
+      color: white;
+      padding: 1.5rem 1rem 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      font-weight: 600;
+    }
+    
+    /* Slider Controls */
+    .slider-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .slider-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background: transparent;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .slider-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .slider-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .slider-current {
+      color: #cc5e3e;
+      font-weight: bold;
+    }
+    
+    .slider-line {
+      width: 3rem;
+      height: 2px;
+      background-color: #cc5e3e;
+    }
+    
+    .slider-total {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Image Container */
+    .img-container {
+      position: relative;
+      aspect-ratio: 4/3;
+      background: linear-gradient(to bottom right, #d4c9b8, #c4b9a8);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 2rem;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: flex-end;
+      text-align: right;
+    }
+    
+    .footer-text {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.875rem;
+    }
+    
+    .footer-link {
+      color: white;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-link:hover {
+      color: #cc5e3e;
+    }
+    
+    .footer-copyright {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
+    
+    /* Responsive */
+    @media (min-width: 768px) {
+      .hero-content {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .hero-title {
+        font-size: 3rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.25rem;
+      }
+      
+      .hero-img {
+        display: block;
+      }
+      
+      .section-title {
+        font-size: 1.875rem;
+      }
+      
+      .grid-2col {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .grid-2-1 {
+        grid-template-columns: 2fr 1fr;
+      }
+      
+      .width-60 {
+        max-width: 60%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- Hero Section -->
+    <section class="section-teal hero-section">
+      <div class="container hero-content">
+        <div>
+          <h1 class="hero-title font-heading">
+            Phase I: 17th–19th Centuries
+          </h1>
+          <h2 class="hero-subtitle">
+            Early Migration within Southeast Asia
+          </h2>
+        </div>
+        <div class="hero-img">
+          <img src="https://ext.same-assets.com/3644952766/3063376915.png" alt="People illustration">
+        </div>
+      </div>
+    </section>
+
+    <!-- 1640s–1770s: Early Migration to Siam -->
+    <section class="section-teal content-section">
+      <div class="container">
+        <h2 class="section-title text-white font-heading">
+          1640s–1770s: Early Migration to Siam
+        </h2>
+        <div class="grid-2col grid-2-1">
+          <div>
+            <div class="text-content text-white-90">
+              <p>
+                Following the Qing dynasty's conquest of South China (c. 1644–1660s), significant Cantonese
+                migration occurred. Ming loyalists and refugees fled south by sea to escape warfare, while
+                widespread corruption and hardship under Qing rule compelled many farmers and artisans to seek
+                livelihoods abroad. Maritime routes linked Guangdong's coastal communities to Siam (Thailand),
+                Cambodia, and Cochinchina (Southern Vietnam under the Nguyễn lords), where local rulers welcomed
+                Cantonese traders and skilled workers for their commercial and fiscal value, catalyzing movement
+                toward Southeast Asia.
+              </p>
+              <p>
+                By 1700, the Chinese population in Ayutthaya reportedly exceeded 3,000. This community expanded
+                significantly throughout the 18th century, with Cantonese immigrants becoming prominent in royal
+                monopolies, navigation, commerce, and urban crafts. By the late 1700s, these networks had become
+                influential in Siam's port trade.
+              </p>
+            </div>
+          </div>
+          <div>
+            <div class="slideshow-container">
+              <img 
+                id="slideImg" 
+                class="slideshow-image" 
+                src="https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg" 
+                alt="Historical Site"
+              >
+              <div class="slideshow-caption" id="slideCaption">
+                Koh Kaew Suttharam Temple
+              </div>
+            </div>
+            <div class="slider-controls">
+              <button id="prevBtn" class="slider-btn" aria-label="Previous">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <div class="slider-indicator">
+                <span id="currentSlideNum" class="slider-current">1</span>
+                <div class="slider-line"></div>
+                <span class="slider-total">3</span>
+              </div>
+              <button id="nextBtn" class="slider-btn" aria-label="Next">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1680s–1790s: Establishment in Southern Vietnam -->
+    <section class="section-teal content-section">
+      <div class="container">
+        <h2 class="section-title text-white font-heading">
+          1680s–1790s: Establishment in Southern Vietnam
+        </h2>
+        <div class="width-60">
+          <div class="text-content text-white-90">
+            <p>
+              Around 1680, Mo Jiu, a refugee from Leizhou, Guangdong, developed the Hà Tiên area. He formally
+              established a semi-autonomous principality there in 1708, placing it under the suzerainty of the
+              Vietnamese Nguyễn lords. This polity functioned as a sanctuary and major hub for Cantonese and
+              other Chinese migrants prior to French colonization, linking frontier settlement and maritime
+              trade with the political protection of the Nguyễn.
+            </p>
+            <p>
+              During the Tây Sơn conflicts, ethnic Chinese merchants, primarily Cantonese, founded a new
+              settlement adjacent to Saigon in 1778. This settlement evolved into Chợ Lớn ("Big Market"),
+              eventually becoming the most significant Cantonese commercial enclave in Indochina. Despite
+              suffering severe persecution and violence, notably in 1782, survivors rebuilt the community,
+              laying the foundations for Saigon's enduring Chinatown. By the end of the 18th century, the
+              Cantonese population in Cochinchina was estimated at 30,000–40,000, controlling key rice and
+              silk trade routes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1786–1820s: Expansion into British Colonial Ports -->
+    <section class="section-paper content-section" style="background-image: none;">
+      <div class="container">
+        <h2 class="section-title text-dark font-heading">
+          1786–1820s: Expansion into British Colonial Ports
+        </h2>
+        <div class="text-content text-dark-90">
+          <p>
+            From the late 18th century, British colonial ports reshaped Guangdong migration routes. Penang
+            (est. 1786) offered security and strong commercial prospects that attracted migrants already
+            circulating in the region. In the 1790s, the Ghee Hin Kongsi emerged as one of the
+            earliest major Chinese brotherhoods in Penang. Strongly associated with Cantonese networks, it
+            organized labor, protection, and mutual aid, anchoring Cantonese community life in the Straits
+            Settlements.
+          </p>
+          <p>
+            Following the establishment of Singapore in 1819 as a British entrepôt, Cantonese migrants
+            integrated into the colony's expanding economy. In 1822, Cho Ah Chee, a carpenter from Taishan
+            who had accompanied Raffles from Penang, established the first Cantonese dialect association,
+            the Ning Yeung Wui Kuan. This marked a pivotal moment of institutional consolidation
+            for Singapore's Cantonese community, reinforcing the role of associations in lodging, employment,
+            welfare, dispute resolution, and collective representation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1840s–1870s: The Malayan Tin Boom -->
+    <section class="section-paper content-section" style="background-image: none;">
+      <div class="container">
+        <h2 class="section-title text-dark font-heading">
+          1840s–1870s: The Malayan Tin Boom
+        </h2>
+        <div class="grid-2col">
+          <div class="img-container">
+            <img src="images/71261767052538_.pic.jpg" alt="Malayan Tin Mining" style="max-width:100%; height:auto;">
+          </div>
+          <div class="text-content text-dark-90">
+            <p>
+              With the discovery of rich tin deposits in Perak, Selangor, and Negeri Sembilan, a new wave
+              of migration occurred between the 1840s and 1870s. During this period, Cantonese laborers
+              and capitalists moved from Penang and Singapore into the interior mining districts of the
+              Malay Peninsula.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary: Social Mobility and Economic Impact -->
+    <section class="section-teal content-section">
+      <div class="container">
+        <h2 class="section-title text-white font-heading">
+          Summary: Social Mobility and Economic Impact
+        </h2>
+        <div class="text-content text-white-90">
+          <p>
+            By the turn of the 19th century, the total Cantonese population in Southeast Asia remained
+            relatively modest, numbering in the tens of thousands, yet they occupied a unique niche in
+            the colonial hierarchy. While the majority arrived as indentured laborers (coolies) or artisans,
+            the community possessed high social mobility. Through the Ghee Hin brotherhoods and clan
+            associations, they organized both labor and capital. By the late 19th century, a distinct class
+            of magnates emerged, controlling tin mines, revenue farms, and vast commercial networks.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section-footer">
+      <div class="container footer-content">
+        <div>
+          <p class="footer-text">
+            Created by
+            <a href="mailto:kw30928@gmail.com" class="footer-link">kw30928@gmail.com</a>
+          </p>
+          <p class="footer-copyright">All rights reserved 2025</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const slides = [
+      { 
+        img: "https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg",
+        caption: "Koh Kaew Suttharam Temple"
+      },
+      { 
+        img: "https://picsum.photos/600/400?random=2",
+        caption: "Chinese Merchants in Saigon - 1780s"
+      },
+      { 
+        img: "https://picsum.photos/600/400?random=3",
+        caption: "Hà Tiên Settlement - Early 18th Century"
+      }
+    ];
+
+    let current = 0;
+
+    function updateSlide() {
+      const imgEl = document.getElementById('slideImg');
+      const captionEl = document.getElementById('slideCaption');
+      const slideNumEl = document.getElementById('currentSlideNum');
+      
+      if (imgEl && captionEl && slideNumEl) {
+        imgEl.src = slides[current].img;
+        captionEl.textContent = slides[current].caption;
+        slideNumEl.textContent = current + 1;
+      }
+    }
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    if (prevBtn) {
+      prevBtn.onclick = () => {
+        current = (current - 1 + slides.length) % slides.length;
+        updateSlide();
+      };
+    }
+    
+    if (nextBtn) {
+      nextBtn.onclick = () => {
+        current = (current + 1) % slides.length;
+        updateSlide();
+      };
+    }
+
+    updateSlide();
+  </script>
+</body>
+</html>
