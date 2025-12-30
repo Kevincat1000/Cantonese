@@ -308,7 +308,7 @@
         .intro-section {
             background: #2C5266;
             color: white;
-            padding: 3rem 1rem 2rem;
+            padding: 2rem 1rem 2rem;
             flex: 1;
             display: flex;
             align-items: center;
@@ -366,18 +366,18 @@
         .stat-number {
             font-size: 1.875rem;
             font-weight: bold;
-            color: #8BA888;
+            color: #afa15c;
             margin-bottom: 0.5rem;
             white-space: nowrap;
         }
 
         .stat-divider {
-            border-bottom: 2px dotted #8BA888;
+            border-bottom: 2px dotted #afa15c;
             margin-bottom: 1rem;
         }
 
         .stat-description {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
         }
 
         /* Footer */
@@ -396,7 +396,7 @@
         /* 平板和手机适配 */
         @media (max-width: 768px) {
             .intro-section {
-                padding: 2rem 1rem 1.5rem;
+                padding: 1.5rem 1rem 1.5rem;
             }
             
             .stats-grid {
@@ -487,17 +487,17 @@
                                 <h3>BY THE NUMBERS:</h3>
                                 <div class="stats-grid">
                                     <div class="stat-item">
-                                        <div class="stat-number">175+ Years</div>
+                                        <div class="stat-number" data-target="175">0</div>
                                         <div class="stat-divider"></div>
                                         <p class="stat-description">Documented migration since the 1848 Gold Rush.</p>
                                     </div>
                                     <div class="stat-item">
-                                        <div class="stat-number">530,000+</div>
+                                        <div class="stat-number" data-target="530000">0</div>
                                         <div class="stat-divider"></div>
                                         <p class="stat-description">U.S. residents speaking Cantonese at home.</p>
                                     </div>
                                     <div class="stat-item">
-                                        <div class="stat-number">30 Million+</div>
+                                        <div class="stat-number" data-target="30000000">0</div>
                                         <div class="stat-divider"></div>
                                         <p class="stat-description">Descendants in a vast global diaspora.</p>
                                     </div>
@@ -519,6 +519,62 @@
 
     <!-- JavaScript -->
     <script>
+        // ===== Number Counter Animation =====
+        function animateCounter(element, target, duration) {
+            const start = 0;
+            const increment = target / (duration / 16); // 60fps
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                
+                // Format number with commas
+                const formattedNumber = Math.floor(current).toLocaleString('en-US');
+                
+                // Add suffix based on target value
+                if (target === 175) {
+                    element.textContent = formattedNumber + '+ Years';
+                } else if (target === 530000) {
+                    element.textContent = formattedNumber + '+';
+                } else {
+                    element.textContent = formattedNumber;
+                }
+            }, 16);
+        }
+
+        // Intersection Observer to trigger animation when stats come into view
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        let hasAnimated = false;
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasAnimated) {
+                    hasAnimated = true;
+                    const statNumbers = document.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const target = parseInt(stat.getAttribute('data-target'));
+                        animateCounter(stat, target, 3000); // 3 seconds
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Start observing when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const statsSection = document.querySelector('.stats');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+        });
+
         // ===== Mobile Menu Functionality =====
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileNavMenu = document.getElementById('mobileNavMenu');
