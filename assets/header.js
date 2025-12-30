@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <style>
   #site-header {
     font-family: 'Montserrat', helvetica, arial, sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     color: #333333;
   }
   #site-header .logo {
