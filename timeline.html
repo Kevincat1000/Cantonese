@@ -24,6 +24,17 @@
       background: #F5F0E5;
     }
 
+    /* === INNER CONTENT WRAPPER - Match header-content padding === */
+    .content-inner {
+      padding: 0 1rem;
+    }
+
+    @media (min-width: 1024px) {
+      .content-inner {
+        padding: 0 2rem;
+      }
+    }
+
     /* === LAYOUT ONLY - NO PADDING/MARGIN === */
     .timeline-grid {
       display: grid;
@@ -170,7 +181,9 @@
 
   <!-- Main Content - Use global .container class -->
   <div class="container">
-    <div class="timeline-grid">
+    <!-- Inner wrapper to match header-content padding -->
+    <div class="content-inner">
+      <div class="timeline-grid">
       
       <!-- Left: Map -->
       <div class="map-section">
@@ -232,11 +245,19 @@
       </div>
 
     </div>
+    <!-- End timeline-grid -->
+    </div>
+    <!-- End content-inner -->
   </div>
+  <!-- End container -->
 
   <!-- Phase Content Area -->
   <div id="phaseContentContainer">
-    <iframe id="phaseFrame" scrolling="no"></iframe>
+    <div class="container">
+      <div class="content-inner">
+        <iframe id="phaseFrame" scrolling="no"></iframe>
+      </div>
+    </div>
   </div>
 
   <!-- JavaScript -->
