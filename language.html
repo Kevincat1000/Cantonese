@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Language - Cantonese in Americas</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Global style -->
+  <link rel="stylesheet" href="./assets/style.css" />
+
+  <!-- Header injector -->
+  <script src="./assets/header.js" defer></script>
+
+  <style>
+    :root { 
+      --header-h: 73px; 
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #F5F0E5;
+      font-family: 'Gentium Book Plus', serif;
+    }
+
+    .page-wrapper {
+      height: calc(100vh - var(--header-h));
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
+    }
+
+    .content-inner { 
+      padding: 2rem 1rem; 
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    @media (min-width: 1024px) { 
+      .content-inner { 
+        padding: 3rem 2rem; 
+      } 
+    }
+
+    /* Add your language page specific styles here */
+  </style>
+</head>
+
+<body>
+  <!-- Header injected by ./assets/header.js -->
+
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="content-inner">
+        <h1>Language</h1>
+        <!-- Add your language page content here -->
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
