@@ -30,30 +30,30 @@
       padding: 0 2rem;
     }
 
-    /* ✅ 1) 顶部预留合理空间（含手机安全区） */
+ 
     .hero-section {
-      padding: calc(4.25rem + env(safe-area-inset-top, 0px)) 2rem 2.25rem; /* top / sides / bottom */
+      padding: calc(4.25rem + env(safe-area-inset-top, 0px)) 3rem 2.25rem; /* top / sides / bottom */
     }
 
-    /* ✅ 3) Early Migration 下面空隙太多：收紧 */
+    /* ✅ 3) Early Migration 
     .hero-content {
       display: flex;
       flex-direction: column;
-      gap: 1rem;              /* 原 2rem -> 更紧凑 */
+      gap: 0rem;             
       align-items: flex-start;
     }
 
     .hero-title {
       font-size: 1.875rem;
       color: white;
-      margin-bottom: 0.35rem; /* 原 1rem -> 更紧凑 */
+      margin-bottom: 0.35rem; 
       line-height: 1.05;
     }
 
     .hero-subtitle {
       font-size: 1.125rem;
       color: rgba(255, 255, 255, 0.8);
-      margin-top: 0;          /* 防止默认间距 */
+      margin-top: 0;         
     }
 
     .hero-img {
@@ -71,13 +71,12 @@
       transform: translateX(0);
     }
 
-    /* ✅ 2) 进入页面：小船 3 秒慢慢往左移动一小段 */
     body.phase1-ready .hero-img img {
       animation: boat-drift 3s ease-out forwards;
     }
     @keyframes boat-drift {
       from { transform: translateX(0); }
-      to   { transform: translateX(-28px); } /* 往左一点点：想更明显就改 -38px */
+      to   { transform: translateX(-50px); } 
     }
     @media (prefers-reduced-motion: reduce) {
       body.phase1-ready .hero-img img { animation: none; }
@@ -196,18 +195,16 @@
       font-size: 0.875rem;
     }
 
-    /* ✅ 5) 数字橙色改白色（1/2/3 的数字显示） */
     .slider-current {
-      color: rgba(255, 255, 255, 0.95); /* 原 #cc5e3e */
-      font-weight: bold;
+      color: rgba(255, 255, 255, 0.75); 
     }
     .slider-total {
-      color: rgba(255, 255, 255, 0.75); /* 原灰更浅/更白 */
+      color: rgba(255, 255, 255, 0.75); 
     }
     .slider-line {
       width: 3rem;
       height: 2px;
-      background-color: rgba(255, 255, 255, 0.45); /* 原橙色 -> 白 */
+      background-color: rgba(255, 255, 255, 0.75); 
     }
 
     /* Image Container */
@@ -280,8 +277,8 @@
 
       .grid-2col { grid-template-columns: repeat(2, 1fr); }
 
-      /* ✅ 4) 右侧幻灯片放大约 30%：给右列更多宽度 */
-      .grid-2-1 { grid-template-columns: 1.6fr 1.4fr; } /* 原 2fr 1fr -> 右边更大 */
+ 
+      .grid-2-1 { grid-template-columns: 1.6fr 1.4fr; } 
 
       .width-60 { max-width: 60%; }
     }
@@ -465,7 +462,7 @@
   </main>
 
   <script>
-    /* ✅ 2) 触发小船动画 */
+
     document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(() => document.body.classList.add('phase1-ready'));
     });
