@@ -221,6 +221,35 @@
       line-height: 1.4;
     }
     
+    .historical-images {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-top: 3rem;
+      padding: 0 2rem;
+    }
+    
+    .historical-image-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .historical-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: block;
+    }
+    
+    .historical-caption {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.875rem;
+      text-align: center;
+      line-height: 1.4;
+    }
+    
     .gallery {
       width: 96%;
       margin-left: auto;
@@ -447,6 +476,12 @@
         animation: none;
       }
       
+      .historical-images {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0;
+      }
+      
       .phase-link {
         font-size: 1rem;
       }
@@ -515,7 +550,7 @@
               <div class="gallery-slide">
                 <img src="https://exploration.marinersmuseum.org/wp-content/uploads/sites/2/2014/04/Chinese_junk_1804-450x351.jpg" alt="Slide 3">
               </div>
-              <div class="gallery-label" id="label">Koh kaew suttharam temple mural 1730s</div>
+              <div class="gallery-label" id="label">View of Judea, the Capital of Siam (c. 1662 - c. 1663)</div>
             </div>
             
             <div class="gallery-nav">
@@ -556,7 +591,7 @@
             </p>
             <p>
               During the Tây Sơn conflicts, ethnic Chinese merchants, primarily Cantonese, founded a new
-              settlement adjacent to Saigon in 1778. This settlement evolved into Chợ Lớn ("Big Market"),
+              settlement adjacent to Saigon (Ho Chi Minh City) in 1778. This settlement evolved into Chợ Lớn ("Big Market"),
               eventually becoming the most significant Cantonese commercial enclave in Indochina. Despite
               suffering severe persecution and violence, notably in 1782, survivors rebuilt the community,
               laying the foundations for Saigon's enduring Chinatown. By the end of the 18th century, the
@@ -569,6 +604,22 @@
         <div class="map-container">
           <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map of Southern Asia" class="map-image">
           <p class="map-caption">Antique Map of Southern Asia by Walker (c.1840)</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section-teal content-section">
+      <div class="container">
+        <div class="historical-images">
+          <div class="historical-image-item">
+            <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Thien Hau Temple" class="historical-image">
+            <p class="historical-caption">Thien Hau Temple, Saigon, 1760</p>
+          </div>
+          
+          <div class="historical-image-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/A_voyage_to_Cochinchina%2C_in_the_years_1792_and_1793._To_which_is_annexed_an_account_of_a_journey_made_in_the_years_1801_and_1802%2C_to_the_residence_of_the_chief_of_the_Booshuana_nation_%281806%29_%2814766269094%29.jpg/1600px-thumbnail.jpg" alt="A voyage to Cochinchina" class="historical-image">
+            <p class="historical-caption">A voyage to Cochinchina, 1790s</p>
+          </div>
         </div>
       </div>
     </section>
@@ -653,7 +704,7 @@
     });
     
     const captions = [
-      "Koh kaew suttharam temple mural 1730s",
+      "View of Judea, the Capital of Siam (c. 1662 - c. 1663)",
       "View of Ayutthaya with royal barges, 1688",
       "Chinese Junk Ship, 1804"
     ];
