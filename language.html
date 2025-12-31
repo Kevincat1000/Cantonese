@@ -50,7 +50,171 @@
       } 
     }
 
-    /* Add your language page specific styles here */
+    /* =========================
+       Language page layout
+       ========================= */
+    .page-title {
+      margin: 0 0 0.35rem 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.15;
+    }
+
+    .page-subtitle {
+      margin: 0 0 1.6rem 0;
+      font-size: 1.05rem;
+      color: #4a5568;
+      line-height: 1.6;
+      max-width: 70ch;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 720px) {
+      .card-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .card-grid { grid-template-columns: repeat(3, 1fr); gap: 1.15rem; }
+    }
+
+    /* =========================
+       ✅ Card + overlay effect
+       ========================= */
+    .lang-card {
+      position: relative;
+      overflow: hidden;
+      border: 1.25px solid #000;
+      border-radius: 14px;
+      background: #F5F0E5;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.16);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      min-height: 190px;
+      outline: none;
+    }
+
+    .lang-card:hover {
+      background: #E8E0D0;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0px rgba(0,0,0,0.18);
+    }
+
+    .lang-card:focus-visible {
+      box-shadow: 0 0 0 3px rgba(26,26,26,0.25), 4px 4px 0px rgba(0,0,0,0.18);
+    }
+
+    .lang-card-inner {
+      padding: 1rem 1rem 1.05rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      height: 100%;
+    }
+
+    .lang-card-kicker {
+      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4a5568;
+      margin: 0;
+    }
+
+    .lang-card-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.25;
+    }
+
+    .lang-card-desc {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #2d3748;
+      line-height: 1.55;
+    }
+
+    .lang-card-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .lang-card-tag {
+      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      border: 1px solid rgba(0,0,0,0.45);
+      border-radius: 999px;
+      padding: 0.25rem 0.55rem;
+      background: rgba(255,255,255,0.35);
+      white-space: nowrap;
+    }
+
+    .lang-card-arrow {
+      width: 18px;
+      height: 18px;
+      opacity: 0.65;
+      flex-shrink: 0;
+    }
+
+    /* overlay */
+    .lang-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.95);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .lang-card:hover .overlay,
+    .lang-card:focus-visible .overlay {
+      opacity: 1;
+    }
+
+    .overlay-title {
+      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin: 0 0 0.35rem 0;
+      line-height: 1.25;
+    }
+
+    .overlay-cta {
+      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    /* On touch devices, hover doesn't exist. Keep it clean. */
+    @media (hover: none) {
+      .lang-card:hover .overlay { opacity: 0; }
+    }
   </style>
 </head>
 
@@ -60,8 +224,147 @@
   <div class="page-wrapper">
     <div class="container">
       <div class="content-inner">
-        <h1>Language</h1>
-        <!-- Add your language page content here -->
+        <h1 class="page-title">Language</h1>
+        <p class="page-subtitle">
+          Explore how Cantonese travels: accents, mixing, hierarchy, and identity across communities.
+        </p>
+
+        <!-- ✅ Card grid (edit links/titles freely) -->
+        <div class="card-grid">
+
+          <a class="lang-card" href="./language-cantonese.html">
+            <div class="lang-card-inner">
+              <p class="lang-card-kicker">Cantonese</p>
+              <h2 class="lang-card-title">Everyday Speech & Identity</h2>
+              <p class="lang-card-desc">
+                Sound, slang, and what “speaking Cantonese” signals in different diaspora spaces.
+              </p>
+
+              <div class="lang-card-footer">
+                <span class="lang-card-tag">Core</span>
+                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="overlay" aria-hidden="true">
+              <p class="overlay-title">Everyday Speech & Identity</p>
+              <p class="overlay-cta">Enter</p>
+            </div>
+          </a>
+
+          <a class="lang-card" href="./language-mixing.html">
+            <div class="lang-card-inner">
+              <p class="lang-card-kicker">Code-switching</p>
+              <h2 class="lang-card-title">Mixing English, Mandarin, Vietnamese</h2>
+              <p class="lang-card-desc">
+                How bilingual habits form, and how switching languages reshapes belonging.
+              </p>
+
+              <div class="lang-card-footer">
+                <span class="lang-card-tag">Practice</span>
+                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="overlay" aria-hidden="true">
+              <p class="overlay-title">Code-switching & Mixing</p>
+              <p class="overlay-cta">Enter</p>
+            </div>
+          </a>
+
+          <a class="lang-card" href="./language-power.html">
+            <div class="lang-card-inner">
+              <p class="lang-card-kicker">Race & Power</p>
+              <h2 class="lang-card-title">Language Hierarchy</h2>
+              <p class="lang-card-desc">
+                Accent discrimination, “standard” language, and who gets heard in institutions.
+              </p>
+
+              <div class="lang-card-footer">
+                <span class="lang-card-tag">Systems</span>
+                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="overlay" aria-hidden="true">
+              <p class="overlay-title">Language Hierarchy</p>
+              <p class="overlay-cta">Enter</p>
+            </div>
+          </a>
+
+          <a class="lang-card" href="./language-oral-history.html">
+            <div class="lang-card-inner">
+              <p class="lang-card-kicker">Oral History</p>
+              <h2 class="lang-card-title">Listening for Memory</h2>
+              <p class="lang-card-desc">
+                What elders keep, what gets lost, and how stories change when translated.
+              </p>
+
+              <div class="lang-card-footer">
+                <span class="lang-card-tag">Voices</span>
+                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="overlay" aria-hidden="true">
+              <p class="overlay-title">Listening for Memory</p>
+              <p class="overlay-cta">Enter</p>
+            </div>
+          </a>
+
+          <a class="lang-card" href="./language-education.html">
+            <div class="lang-card-inner">
+              <p class="lang-card-kicker">Education</p>
+              <h2 class="lang-card-title">Schools & Heritage Language</h2>
+              <p class="lang-card-desc">
+                Weekend schools, family rules, and why “fluency” becomes a pressure point.
+              </p>
+
+              <div class="lang-card-footer">
+                <span class="lang-card-tag">Community</span>
+                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="overlay" aria-hidden="true">
+              <p class="overlay-title">Schools & Heritage Language</p>
+              <p class="overlay-cta">Enter</p>
+            </div>
+          </a>
+
+          <a class="lang-card" href="./language-media.html">
+            <div class="lang-card-inner">
+              <p class="lang-card-kicker">Media</p>
+              <h2 class="lang-card-title">TV, Music, Internet Cantonese</h2>
+              <p class="lang-card-desc">
+                From TVB to memes: what media does to vocabulary, attitude, and pride.
+              </p>
+
+              <div class="lang-card-footer">
+                <span class="lang-card-tag">Culture</span>
+                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="overlay" aria-hidden="true">
+              <p class="overlay-title">TV, Music, Internet Cantonese</p>
+              <p class="overlay-cta">Enter</p>
+            </div>
+          </a>
+
+        </div>
       </div>
     </div>
   </div>
