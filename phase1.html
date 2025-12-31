@@ -97,7 +97,7 @@
     
     .boat {
       position: absolute;
-      left: -800px;
+      left: 0;
       top: 0;
       height: 80px;
       width: auto;
@@ -110,17 +110,17 @@
     
     @keyframes boatSailing {
       0% {
-        left: -800px;
+        left: 0;
       }
       100% {
-        left: -500px;
+        left: 300px;
       }
     }
     
     @media (prefers-reduced-motion: reduce) {
       body.ready .boat {
         animation: none;
-        left: -500px;
+        left: 300px;
       }
     }
     
@@ -179,11 +179,31 @@
     }
     
     .map-container {
-      width: 50%;
+      position: absolute;
+      top: 0;
+      right: 2rem;
+      width: 35%;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      margin-left: auto;
+      opacity: 0;
+      transform: translateX(100px);
+      transition: none;
+    }
+    
+    .map-container.visible {
+      animation: slideInFromRight 2s ease-out forwards;
+    }
+    
+    @keyframes slideInFromRight {
+      0% {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
     
     .map-image {
@@ -414,9 +434,17 @@
       }
       
       .map-container {
+        position: static;
         margin-top: 1.5rem;
         width: 100%;
         margin-left: 0;
+        right: auto;
+        opacity: 1;
+        transform: none;
+      }
+      
+      .map-container.visible {
+        animation: none;
       }
       
       .phase-link {
@@ -514,10 +542,10 @@
       </div>
     </section>
     
-    <section class="section-teal content-section">
-      <div class="container">
+    <section class="section-teal content-section" id="vietnam-section">
+      <div class="container" style="position: relative;">
         <h2 class="section-title text-white font-heading">1680s–1790s: Establishment in Southern Vietnam</h2>
-        <div class="grid-2col">
+        <div class="width-60">
           <div class="text-content text-white-90">
             <p>
               Around 1680, Mo Jiu, a refugee from Leizhou, Guangdong, developed the Hà Tiên area. He formally
@@ -536,11 +564,11 @@
               silk trade routes.
             </p>
           </div>
-          
-          <div class="map-container">
-            <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map of Southern Asia" class="map-image">
-            <p class="map-caption">Antique Map of Southern Asia by Walker (c.1840)</p>
-          </div>
+        </div>
+        
+        <div class="map-container">
+          <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map of Southern Asia" class="map-image">
+          <p class="map-caption">Antique Map of Southern Asia by Walker (c.1840)</p>
         </div>
       </div>
     </section>
@@ -645,6 +673,23 @@
     
     document.getElementById('prev').onclick = () => go(index - 1);
     document.getElementById('next').onclick = () => go(index + 1);
+    
+    // Map animation on scroll into view
+    const mapContainer = document.querySelector('.map-container');
+    if (mapContainer) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            mapContainer.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.2
+      });
+      
+      observer.observe(mapContainer);
+    }
   </script>
 </body>
 </html>
