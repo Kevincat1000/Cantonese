@@ -19,9 +19,9 @@
 
   <!-- Mapbox CSS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
-  <!-- ✅ Mapbox core (keep in HEAD + defer) -->
+  <!-- ✅ Mapbox core -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js" defer></script>
-  <!-- ✅ Your Mapbox init (relative path) -->
+  <!-- ✅ Your Mapbox init -->
   <script src="./assets/mapbox.js" defer></script>
 
   <style>
@@ -107,26 +107,26 @@
     }
 
     .phase-card {
-  background: #F5F0E5;
-  border: 1.25px solid #000;              /* ✅ thinner border */
-  border-radius: 14px;
-  padding: 0.875rem 1.1rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 3px 3px 0px rgba(0,0,0,0.16); /* ✅ lighter shadow */
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
+      background: #F5F0E5;
+      border: 1.25px solid #000;
+      border-radius: 14px;
+      padding: 0.875rem 1.1rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.16);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
 
-.phase-card:hover {
-  background: #E8E0D0;
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px rgba(0,0,0,0.18); /* ✅ lighter hover shadow */
-}
+    .phase-card:hover {
+      background: #E8E0D0;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0px rgba(0,0,0,0.18);
+    }
 
     .phase-card.active { background:#E8E0D0; }
     .phase-info { flex:1; }
@@ -147,12 +147,15 @@
     }
     #phaseContentContainer .container { padding:0; margin:0; max-width:none; width:100%; }
     #phaseContentContainer .content-inner { padding:0; margin:0; }
+
+    /* ✅ IMPORTANT: allow iframe to shrink */
     #phaseFrame {
       width:100%;
       border:none;
       display:block;
       overflow:hidden;
-      min-height:100vh;
+      min-height:0;   /* was 100vh */
+      height:0;       /* let JS set exact height */
       margin:0;
       padding:0;
     }
@@ -286,29 +289,61 @@
         lastScrollTop = scrollTop;
       });
 
+      // ✅ Iframe auto-resize (can grow AND shrink)
       function resizeIframe() {
+        if (!phaseFrame) return;
+
+        let doc;
         try {
-          const iframeDoc = phaseFrame.contentDocument || phaseFrame.contentWindow.document;
-          phaseFrame.style.height = iframeDoc.documentElement.scrollHeight + 'px';
-        } catch (e) {}
+          doc = phaseFrame.contentDocument || phaseFrame.contentWindow?.document;
+        } catch (e) { return; }
+        if (!doc) return;
+
+        // KEY: clear height first so it can shrink
+        phaseFrame.style.height = '0px';
+
+        requestAnimationFrame(() => {
+          const h = Math.max(
+            doc.body?.scrollHeight || 0,
+            doc.documentElement?.scrollHeight || 0
+          );
+          phaseFrame.style.height = h + 'px';
+        });
       }
 
       phaseFrame?.addEventListener('load', function() {
         resizeIframe();
+
+        // fonts can change layout after load
+        try {
+          const doc = phaseFrame.contentDocument || phaseFrame.contentWindow?.document;
+          if (doc?.fonts?.ready) doc.fonts.ready.then(resizeIframe).catch(() => {});
+          if (doc?.images) {
+            Array.from(doc.images).forEach(img => {
+              if (!img.complete) img.addEventListener('load', resizeIframe, { once: true });
+            });
+          }
+        } catch (e) {}
+
+        // one small safety resize (not 4 timeouts)
         setTimeout(resizeIframe, 120);
-        setTimeout(resizeIframe, 500);
-        setTimeout(resizeIframe, 1000);
       });
+
+      window.addEventListener('resize', resizeIframe);
 
       phaseCards.forEach(card => {
         card.addEventListener('click', function(e) {
           e.preventDefault();
           const phaseUrl = this.getAttribute('data-phase');
+          if (!phaseUrl) return;
 
           phaseCards.forEach(c => c.classList.remove('active'));
           this.classList.add('active');
 
           contentContainer.classList.add('active');
+
+          // KEY: clear old height before load new src
+          phaseFrame.style.height = '0px';
           phaseFrame.src = phaseUrl;
 
           setTimeout(() => {
