@@ -12,12 +12,21 @@
     
     html {
       scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
     }
     
     body {
       font-family: 'Gentium Book Plus', serif;
       line-height: 1.6;
       background-color: #2d7b73;
+      margin: 0;
+      padding: 0;
+    }
+    
+    main {
+      margin: 0;
+      padding: 0;
     }
     
     .font-heading { font-family: 'Gentium Book Plus', serif; }
@@ -307,6 +316,7 @@
     
     footer {
       padding: 2rem;
+      margin: 0;
     }
     
     .footer-content {
@@ -545,7 +555,7 @@
         <div>
           <p class="footer-text">
             Created by
-            <a href="mailto:kw30928@gmail.com" class="footer-link">kw30928@gmail.com</a>
+            <a href="/cdn-cgi/l/email-protection#28435f1b18111a10684f45494144064b4745" class="footer-link"><span class="__cf_email__" data-cfemail="c1aab6f2f1f8f3f981a6aca0a8adefa2aeac">[email&#160;protected]</span></a>
           </p>
           <p class="footer-copyright">All rights reserved 2025</p>
         </div>
@@ -553,7 +563,7 @@
     </footer>
   </main>
   
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     window.addEventListener('load', () => {
       document.body.classList.add('ready');
     });
@@ -577,13 +587,4 @@
       num.textContent = index + 1;
     }
     
-    document.getElementById('prev').onclick = () => go(index - 1);
-    document.getElementById('next').onclick = () => go(index + 1);
-    
-    slides.forEach(s => {
-      const img = new Image();
-      img.src = s.querySelector('img').src;
-    });
-  </script>
-</body>
-</html>
+    document.getElementById('prev').o
