@@ -222,7 +222,6 @@
       border-color: rgba(255, 255, 255, 0.5);
     }
     
-    /* 页码 - 浅白色不加粗 */
     .nav-info {
       display: flex;
       align-items: center;
@@ -287,7 +286,6 @@
       .hero-title { font-size: 3rem; }
       .hero-subtitle { font-size: 1.25rem; }
       
-      /* 桌面端显示船 */
       .boat {
         display: block;
       }
@@ -480,12 +478,12 @@
   </main>
   
   <script>
-    // 启动船动画
+
     window.addEventListener('load', () => {
       document.body.classList.add('ready');
     });
     
-    // 幻灯片
+
     const captions = [
       "Koh Kaew Suttharam Temple",
       "View of Judea, the Capital of Siam (c. 1662 - c. 1663)",
@@ -508,7 +506,7 @@
     document.getElementById('prev').onclick = () => go(index - 1);
     document.getElementById('next').onclick = () => go(index + 1);
     
-    // 预加载幻灯片图片
+
     slides.forEach(s => {
       const img = new Image();
       img.src = s.querySelector('img').src;
