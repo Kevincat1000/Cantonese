@@ -356,4 +356,4 @@ footer p {
 }
 /* When header is hidden, also remove the reserved top space */
 body.header-gap-off { padding-top: 0 !important; }
-
+header { overflow: visible; }
