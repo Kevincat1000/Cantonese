@@ -18,9 +18,7 @@
   <script src="./assets/header.js" defer></script>
 
   <style>
-    :root { 
-      --header-h: 73px; 
-    }
+    :root { --header-h: 73px; }
 
     html, body {
       margin: 0;
@@ -38,182 +36,160 @@
       scrollbar-gutter: stable;
     }
 
-    .content-inner { 
-      padding: 2rem 1rem; 
+    .content-inner {
+      padding: 2rem 1rem;
       max-width: 1200px;
       margin: 0 auto;
     }
-    
-    @media (min-width: 1024px) { 
-      .content-inner { 
-        padding: 3rem 2rem; 
-      } 
+    @media (min-width: 1024px) {
+      .content-inner { padding: 3rem 2rem; }
     }
 
     /* =========================
-       Language page layout
+       Page header
        ========================= */
     .page-title {
-      margin: 0 0 0.35rem 0;
+      margin: 0 0 0.4rem 0;
       font-size: 2.2rem;
       font-weight: 700;
       color: #1a1a1a;
       line-height: 1.15;
     }
-
     .page-subtitle {
       margin: 0 0 1.6rem 0;
       font-size: 1.05rem;
       color: #4a5568;
       line-height: 1.6;
-      max-width: 70ch;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    @media (min-width: 720px) {
-      .card-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (min-width: 1024px) {
-      .card-grid { grid-template-columns: repeat(3, 1fr); gap: 1.15rem; }
+      max-width: 75ch;
     }
 
     /* =========================
-       ✅ Card + overlay effect
+       4 x 2 grid (8 cards)
        ========================= */
-    .lang-card {
+    .flash-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    /* If screen too small, it will wrap nicely */
+    @media (max-width: 980px) {
+      .flash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 520px) {
+      .flash-grid { grid-template-columns: 1fr; }
+    }
+
+    /* =========================
+       Flashcard flip (3D)
+       ========================= */
+    .flashcard {
       position: relative;
-      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 1 / 1;         /* square cards */
+      perspective: 1100px;         /* depth */
+    }
+
+    /* clickable focus target (for mobile / keyboard) */
+    .flashcard button {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 14px;
+    }
+    .flashcard button:focus-visible {
+      outline: 3px solid rgba(26,26,26,0.35);
+      outline-offset: 3px;
+      border-radius: 16px;
+    }
+
+    .flashcard-inner {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(.2,.8,.2,1);
+    }
+
+    /* Flip on hover (desktop) */
+    .flashcard:hover .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Flip on keyboard focus / click focus (mobile-friendly) */
+    .flashcard:focus-within .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
       border: 1.25px solid #000;
       border-radius: 14px;
       background: #F5F0E5;
       box-shadow: 3px 3px 0px rgba(0,0,0,0.16);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      min-height: 190px;
-      outline: none;
-    }
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
 
-    .lang-card:hover {
-      background: #E8E0D0;
-      transform: translate(-2px, -2px);
-      box-shadow: 4px 4px 0px rgba(0,0,0,0.18);
-    }
-
-    .lang-card:focus-visible {
-      box-shadow: 0 0 0 3px rgba(26,26,26,0.25), 4px 4px 0px rgba(0,0,0,0.18);
-    }
-
-    .lang-card-inner {
-      padding: 1rem 1rem 1.05rem 1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
-      height: 100%;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      text-align: center;
+      overflow: hidden;
     }
 
-    .lang-card-kicker {
+    .card-front {
+      transform: rotateY(0deg);
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: #FFFFFF;
+    }
+
+    .face-kicker {
       font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #4a5568;
-      margin: 0;
+      margin: 0 0 0.35rem 0;
     }
 
-    .lang-card-title {
-      margin: 0;
-      font-size: 1.15rem;
+    .face-title {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #1a1a1a;
-      line-height: 1.25;
+      line-height: 1.2;
     }
 
-    .lang-card-desc {
+    .face-text {
       margin: 0;
       font-size: 0.95rem;
       color: #2d3748;
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
-    .lang-card-footer {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      opacity: 0.8;
-    }
-
-    .lang-card-tag {
+    .hint {
+      margin-top: 0.75rem;
       font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       font-size: 0.78rem;
       font-weight: 700;
-      color: #1a1a1a;
-      border: 1px solid rgba(0,0,0,0.45);
-      border-radius: 999px;
-      padding: 0.25rem 0.55rem;
-      background: rgba(255,255,255,0.35);
-      white-space: nowrap;
-    }
-
-    .lang-card-arrow {
-      width: 18px;
-      height: 18px;
-      opacity: 0.65;
-      flex-shrink: 0;
-    }
-
-    /* overlay */
-    .lang-card .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.95);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      text-align: center;
-      z-index: 2;
-    }
-
-    .lang-card:hover .overlay,
-    .lang-card:focus-visible .overlay {
-      opacity: 1;
-    }
-
-    .overlay-title {
-      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #1a1a1a;
-      margin: 0 0 0.35rem 0;
-      line-height: 1.25;
-    }
-
-    .overlay-cta {
-      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
+      color: rgba(26,26,26,0.75);
       text-decoration: underline;
       text-underline-offset: 3px;
-      color: #1a1a1a;
-      margin: 0;
     }
 
-    /* On touch devices, hover doesn't exist. Keep it clean. */
-    @media (hover: none) {
-      .lang-card:hover .overlay { opacity: 0; }
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .flashcard-inner { transition: none; }
     }
   </style>
 </head>
@@ -226,145 +202,163 @@
       <div class="content-inner">
         <h1 class="page-title">Language</h1>
         <p class="page-subtitle">
-          Explore how Cantonese travels: accents, mixing, hierarchy, and identity across communities.
+          Placeholder flashcards (4 per row, 2 rows). Hover (desktop) or click/focus (mobile) to flip.
         </p>
 
-        <!-- ✅ Card grid (edit links/titles freely) -->
-        <div class="card-grid">
-
-          <a class="lang-card" href="./language-cantonese.html">
-            <div class="lang-card-inner">
-              <p class="lang-card-kicker">Cantonese</p>
-              <h2 class="lang-card-title">Everyday Speech & Identity</h2>
-              <p class="lang-card-desc">
-                Sound, slang, and what “speaking Cantonese” signals in different diaspora spaces.
-              </p>
-
-              <div class="lang-card-footer">
-                <span class="lang-card-tag">Core</span>
-                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
+        <div class="flash-grid">
+          <!-- Card 1 -->
+          <div class="flashcard">
+            <button type="button" aria-label="Flip card 1"></button>
+            <div class="flashcard-inner">
+              <div class="card-face card-front">
+                <p class="face-kicker">Front</p>
+                <h3 class="face-title">Placeholder Title 01</h3>
+                <p class="face-text">Placeholder front text.</p>
+                <p class="hint">Hover / Click to flip</p>
+              </div>
+              <div class="card-face card-back">
+                <p class="face-kicker">Back</p>
+                <h3 class="face-title">Placeholder Back 01</h3>
+                <p class="face-text">Placeholder back content.</p>
+                <p class="hint">Flip back</p>
               </div>
             </div>
+          </div>
 
-            <div class="overlay" aria-hidden="true">
-              <p class="overlay-title">Everyday Speech & Identity</p>
-              <p class="overlay-cta">Enter</p>
-            </div>
-          </a>
-
-          <a class="lang-card" href="./language-mixing.html">
-            <div class="lang-card-inner">
-              <p class="lang-card-kicker">Code-switching</p>
-              <h2 class="lang-card-title">Mixing English, Mandarin, Vietnamese</h2>
-              <p class="lang-card-desc">
-                How bilingual habits form, and how switching languages reshapes belonging.
-              </p>
-
-              <div class="lang-card-footer">
-                <span class="lang-card-tag">Practice</span>
-                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
+          <!-- Card 2 -->
+          <div class="flashcard">
+            <button type="button" aria-label="Flip card 2"></button>
+            <div class="flashcard-inner">
+              <div class="card-face card-front">
+                <p class="face-kicker">Front</p>
+                <h3 class="face-title">Placeholder Title 02</h3>
+                <p class="face-text">Placeholder front text.</p>
+                <p class="hint">Hover / Click to flip</p>
+              </div>
+              <div class="card-face card-back">
+                <p class="face-kicker">Back</p>
+                <h3 class="face-title">Placeholder Back 02</h3>
+                <p class="face-text">Placeholder back content.</p>
+                <p class="hint">Flip back</p>
               </div>
             </div>
+          </div>
 
-            <div class="overlay" aria-hidden="true">
-              <p class="overlay-title">Code-switching & Mixing</p>
-              <p class="overlay-cta">Enter</p>
-            </div>
-          </a>
-
-          <a class="lang-card" href="./language-power.html">
-            <div class="lang-card-inner">
-              <p class="lang-card-kicker">Race & Power</p>
-              <h2 class="lang-card-title">Language Hierarchy</h2>
-              <p class="lang-card-desc">
-                Accent discrimination, “standard” language, and who gets heard in institutions.
-              </p>
-
-              <div class="lang-card-footer">
-                <span class="lang-card-tag">Systems</span>
-                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
+          <!-- Card 3 -->
+          <div class="flashcard">
+            <button type="button" aria-label="Flip card 3"></button>
+            <div class="flashcard-inner">
+              <div class="card-face card-front">
+                <p class="face-kicker">Front</p>
+                <h3 class="face-title">Placeholder Title 03</h3>
+                <p class="face-text">Placeholder front text.</p>
+                <p class="hint">Hover / Click to flip</p>
+              </div>
+              <div class="card-face card-back">
+                <p class="face-kicker">Back</p>
+                <h3 class="face-title">Placeholder Back 03</h3>
+                <p class="face-text">Placeholder back content.</p>
+                <p class="hint">Flip back</p>
               </div>
             </div>
+          </div>
 
-            <div class="overlay" aria-hidden="true">
-              <p class="overlay-title">Language Hierarchy</p>
-              <p class="overlay-cta">Enter</p>
-            </div>
-          </a>
-
-          <a class="lang-card" href="./language-oral-history.html">
-            <div class="lang-card-inner">
-              <p class="lang-card-kicker">Oral History</p>
-              <h2 class="lang-card-title">Listening for Memory</h2>
-              <p class="lang-card-desc">
-                What elders keep, what gets lost, and how stories change when translated.
-              </p>
-
-              <div class="lang-card-footer">
-                <span class="lang-card-tag">Voices</span>
-                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
+          <!-- Card 4 -->
+          <div class="flashcard">
+            <button type="button" aria-label="Flip card 4"></button>
+            <div class="flashcard-inner">
+              <div class="card-face card-front">
+                <p class="face-kicker">Front</p>
+                <h3 class="face-title">Placeholder Title 04</h3>
+                <p class="face-text">Placeholder front text.</p>
+                <p class="hint">Hover / Click to flip</p>
+              </div>
+              <div class="card-face card-back">
+                <p class="face-kicker">Back</p>
+                <h3 class="face-title">Placeholder Back 04</h3>
+                <p class="face-text">Placeholder back content.</p>
+                <p class="hint">Flip back</p>
               </div>
             </div>
+          </div>
 
-            <div class="overlay" aria-hidden="true">
-              <p class="overlay-title">Listening for Memory</p>
-              <p class="overlay-cta">Enter</p>
-            </div>
-          </a>
-
-          <a class="lang-card" href="./language-education.html">
-            <div class="lang-card-inner">
-              <p class="lang-card-kicker">Education</p>
-              <h2 class="lang-card-title">Schools & Heritage Language</h2>
-              <p class="lang-card-desc">
-                Weekend schools, family rules, and why “fluency” becomes a pressure point.
-              </p>
-
-              <div class="lang-card-footer">
-                <span class="lang-card-tag">Community</span>
-                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
+          <!-- Card 5 -->
+          <div class="flashcard">
+            <button type="button" aria-label="Flip card 5"></button>
+            <div class="flashcard-inner">
+              <div class="card-face card-front">
+                <p class="face-kicker">Front</p>
+                <h3 class="face-title">Placeholder Title 05</h3>
+                <p class="face-text">Placeholder front text.</p>
+                <p class="hint">Hover / Click to flip</p>
+              </div>
+              <div class="card-face card-back">
+                <p class="face-kicker">Back</p>
+                <h3 class="face-title">Placeholder Back 05</h3>
+                <p class="face-text">Placeholder back content.</p>
+                <p class="hint">Flip back</p>
               </div>
             </div>
+          </div>
 
-            <div class="overlay" aria-hidden="true">
-              <p class="overlay-title">Schools & Heritage Language</p>
-              <p class="overlay-cta">Enter</p>
-            </div>
-          </a>
-
-          <a class="lang-card" href="./language-media.html">
-            <div class="lang-card-inner">
-              <p class="lang-card-kicker">Media</p>
-              <h2 class="lang-card-title">TV, Music, Internet Cantonese</h2>
-              <p class="lang-card-desc">
-                From TVB to memes: what media does to vocabulary, attitude, and pride.
-              </p>
-
-              <div class="lang-card-footer">
-                <span class="lang-card-tag">Culture</span>
-                <svg class="lang-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
+          <!-- Card 6 -->
+          <div class="flashcard">
+            <button type="button" aria-label="Flip card 6"></button>
+            <div class="flashcard-inner">
+              <div class="card-face card-front">
+                <p class="face-kicker">Front</p>
+                <h3 class="face-title">Placeholder Title 06</h3>
+                <p class="face-text">Placeholder front text.</p>
+                <p class="hint">Hover / Click to flip</p>
+              </div>
+              <div class="card-face card-back">
+                <p class="face-kicker">Back</p>
+                <h3 class="face-title">Placeholder Back 06</h3>
+                <p class="face-text">Placeholder back content.</p>
+                <p class="hint">Flip back</p>
               </div>
             </div>
+          </div>
 
-            <div class="overlay" aria-hidden="true">
-              <p class="overlay-title">TV, Music, Internet Cantonese</p>
-              <p class="overlay-cta">Enter</p>
+          <!-- Card 7 -->
+          <div class="flashcard">
+            <button type="button" aria-label="Flip card 7"></button>
+            <div class="flashcard-inner">
+              <div class="card-face card-front">
+                <p class="face-kicker">Front</p>
+                <h3 class="face-title">Placeholder Title 07</h3>
+                <p class="face-text">Placeholder front text.</p>
+                <p class="hint">Hover / Click to flip</p>
+              </div>
+              <div class="card-face card-back">
+                <p class="face-kicker">Back</p>
+                <h3 class="face-title">Placeholder Back 07</h3>
+                <p class="face-text">Placeholder back content.</p>
+                <p class="hint">Flip back</p>
+              </div>
             </div>
-          </a>
+          </div>
 
+          <!-- Card 8 -->
+          <div class="flashcard">
+            <button type="button" aria-label="Flip card 8"></button>
+            <div class="flashcard-inner">
+              <div class="card-face card-front">
+                <p class="face-kicker">Front</p>
+                <h3 class="face-title">Placeholder Title 08</h3>
+                <p class="face-text">Placeholder front text.</p>
+                <p class="hint">Hover / Click to flip</p>
+              </div>
+              <div class="card-face card-back">
+                <p class="face-kicker">Back</p>
+                <h3 class="face-title">Placeholder Back 08</h3>
+                <p class="face-text">Placeholder back content.</p>
+                <p class="hint">Flip back</p>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
