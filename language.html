@@ -36,31 +36,17 @@
       scrollbar-gutter: stable;
     }
 
+    /* ⬆️ 顶住 header */
     .content-inner {
-      padding: 2rem 1rem;
+      padding: 0 1rem 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
-    @media (min-width: 1024px) {
-      .content-inner { padding: 3rem 2rem; }
-    }
 
-    /* =========================
-       Page header
-       ========================= */
-    .page-title {
-      margin: 0 0 0.4rem 0;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      line-height: 1.15;
-    }
-    .page-subtitle {
-      margin: 0 0 1.6rem 0;
-      font-size: 1.05rem;
-      color: #4a5568;
-      line-height: 1.6;
-      max-width: 75ch;
+    @media (min-width: 1024px) {
+      .content-inner {
+        padding: 0 2rem 3rem;
+      }
     }
 
     /* =========================
@@ -72,10 +58,10 @@
       gap: 1rem;
     }
 
-    /* If screen too small, it will wrap nicely */
     @media (max-width: 980px) {
       .flash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
+
     @media (max-width: 520px) {
       .flash-grid { grid-template-columns: 1fr; }
     }
@@ -86,11 +72,10 @@
     .flashcard {
       position: relative;
       width: 100%;
-      aspect-ratio: 1 / 1;         /* square cards */
-      perspective: 1100px;         /* depth */
+      aspect-ratio: 1 / 1;
+      perspective: 1100px;
     }
 
-    /* clickable focus target (for mobile / keyboard) */
     .flashcard button {
       position: absolute;
       inset: 0;
@@ -102,6 +87,7 @@
       cursor: pointer;
       border-radius: 14px;
     }
+
     .flashcard button:focus-visible {
       outline: 3px solid rgba(26,26,26,0.35);
       outline-offset: 3px;
@@ -115,12 +101,7 @@
       transition: transform 0.55s cubic-bezier(.2,.8,.2,1);
     }
 
-    /* Flip on hover (desktop) */
-    .flashcard:hover .flashcard-inner {
-      transform: rotateY(180deg);
-    }
-
-    /* Flip on keyboard focus / click focus (mobile-friendly) */
+    .flashcard:hover .flashcard-inner,
     .flashcard:focus-within .flashcard-inner {
       transform: rotateY(180deg);
     }
@@ -131,7 +112,10 @@
       border: 1.25px solid #000;
       border-radius: 14px;
       background: #F5F0E5;
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.16);
+
+      /* ❌ 阴影完全去掉 */
+      box-shadow: none;
+
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
 
@@ -141,7 +125,6 @@
       align-items: center;
       padding: 1rem;
       text-align: center;
-      overflow: hidden;
     }
 
     .card-front {
@@ -187,7 +170,6 @@
       text-underline-offset: 3px;
     }
 
-    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
       .flashcard-inner { transition: none; }
     }
@@ -200,163 +182,154 @@
   <div class="page-wrapper">
     <div class="container">
       <div class="content-inner">
-        <h1 class="page-title">Language</h1>
-        <p class="page-subtitle">
-          Placeholder flashcards (4 per row, 2 rows). Hover (desktop) or click/focus (mobile) to flip.
-        </p>
 
         <div class="flash-grid">
-          <!-- Card 1 -->
+
+          <!-- 8 placeholder flashcards -->
+          <!-- 1 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card 1"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
                 <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder Title 01</h3>
-                <p class="face-text">Placeholder front text.</p>
-                <p class="hint">Hover / Click to flip</p>
+                <h3 class="face-title">Placeholder 01</h3>
+                <p class="face-text">Front side placeholder.</p>
+                <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
                 <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder Back 01</h3>
-                <p class="face-text">Placeholder back content.</p>
-                <p class="hint">Flip back</p>
+                <h3 class="face-title">Placeholder 01</h3>
+                <p class="face-text">Back side placeholder.</p>
               </div>
             </div>
           </div>
 
-          <!-- Card 2 -->
+          <!-- 2 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card 2"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
                 <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder Title 02</h3>
-                <p class="face-text">Placeholder front text.</p>
-                <p class="hint">Hover / Click to flip</p>
+                <h3 class="face-title">Placeholder 02</h3>
+                <p class="face-text">Front side placeholder.</p>
+                <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
                 <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder Back 02</h3>
-                <p class="face-text">Placeholder back content.</p>
-                <p class="hint">Flip back</p>
+                <h3 class="face-title">Placeholder 02</h3>
+                <p class="face-text">Back side placeholder.</p>
               </div>
             </div>
           </div>
 
-          <!-- Card 3 -->
+          <!-- 3 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card 3"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
                 <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder Title 03</h3>
-                <p class="face-text">Placeholder front text.</p>
-                <p class="hint">Hover / Click to flip</p>
+                <h3 class="face-title">Placeholder 03</h3>
+                <p class="face-text">Front side placeholder.</p>
+                <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
                 <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder Back 03</h3>
-                <p class="face-text">Placeholder back content.</p>
-                <p class="hint">Flip back</p>
+                <h3 class="face-title">Placeholder 03</h3>
+                <p class="face-text">Back side placeholder.</p>
               </div>
             </div>
           </div>
 
-          <!-- Card 4 -->
+          <!-- 4 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card 4"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
                 <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder Title 04</h3>
-                <p class="face-text">Placeholder front text.</p>
-                <p class="hint">Hover / Click to flip</p>
+                <h3 class="face-title">Placeholder 04</h3>
+                <p class="face-text">Front side placeholder.</p>
+                <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
                 <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder Back 04</h3>
-                <p class="face-text">Placeholder back content.</p>
-                <p class="hint">Flip back</p>
+                <h3 class="face-title">Placeholder 04</h3>
+                <p class="face-text">Back side placeholder.</p>
               </div>
             </div>
           </div>
 
-          <!-- Card 5 -->
+          <!-- 5 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card 5"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
                 <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder Title 05</h3>
-                <p class="face-text">Placeholder front text.</p>
-                <p class="hint">Hover / Click to flip</p>
+                <h3 class="face-title">Placeholder 05</h3>
+                <p class="face-text">Front side placeholder.</p>
+                <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
                 <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder Back 05</h3>
-                <p class="face-text">Placeholder back content.</p>
-                <p class="hint">Flip back</p>
+                <h3 class="face-title">Placeholder 05</h3>
+                <p class="face-text">Back side placeholder.</p>
               </div>
             </div>
           </div>
 
-          <!-- Card 6 -->
+          <!-- 6 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card 6"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
                 <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder Title 06</h3>
-                <p class="face-text">Placeholder front text.</p>
-                <p class="hint">Hover / Click to flip</p>
+                <h3 class="face-title">Placeholder 06</h3>
+                <p class="face-text">Front side placeholder.</p>
+                <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
                 <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder Back 06</h3>
-                <p class="face-text">Placeholder back content.</p>
-                <p class="hint">Flip back</p>
+                <h3 class="face-title">Placeholder 06</h3>
+                <p class="face-text">Back side placeholder.</p>
               </div>
             </div>
           </div>
 
-          <!-- Card 7 -->
+          <!-- 7 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card 7"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
                 <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder Title 07</h3>
-                <p class="face-text">Placeholder front text.</p>
-                <p class="hint">Hover / Click to flip</p>
+                <h3 class="face-title">Placeholder 07</h3>
+                <p class="face-text">Front side placeholder.</p>
+                <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
                 <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder Back 07</h3>
-                <p class="face-text">Placeholder back content.</p>
-                <p class="hint">Flip back</p>
+                <h3 class="face-title">Placeholder 07</h3>
+                <p class="face-text">Back side placeholder.</p>
               </div>
             </div>
           </div>
 
-          <!-- Card 8 -->
+          <!-- 8 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card 8"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
                 <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder Title 08</h3>
-                <p class="face-text">Placeholder front text.</p>
-                <p class="hint">Hover / Click to flip</p>
+                <h3 class="face-title">Placeholder 08</h3>
+                <p class="face-text">Front side placeholder.</p>
+                <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
                 <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder Back 08</h3>
-                <p class="face-text">Placeholder back content.</p>
-                <p class="hint">Flip back</p>
+                <h3 class="face-title">Placeholder 08</h3>
+                <p class="face-text">Back side placeholder.</p>
               </div>
             </div>
           </div>
+
         </div>
 
       </div>
