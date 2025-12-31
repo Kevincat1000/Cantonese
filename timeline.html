@@ -311,85 +311,102 @@
 
   <!-- === Page JS === -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const phaseCards = document.querySelectorAll('.phase-card');
-      const contentContainer = document.getElementById('phaseContentContainer');
-      const phaseFrame = document.getElementById('phaseFrame');
+  document.addEventListener('DOMContentLoaded', function() {
+    const phaseCards = document.querySelectorAll('.phase-card');
+    const contentContainer = document.getElementById('phaseContentContainer');
+    const phaseFrame = document.getElementById('phaseFrame');
 
-      const pageWrapper = document.querySelector('.page-wrapper');
+    const pageWrapper = document.querySelector('.page-wrapper');
 
-      // Header is injected by header.js; query after DOM ready is fine
-      const header = document.querySelector('header');
+    let lastScrollTop = 0;
+    const scrollThreshold = 100;
+    const scrollDelta = 5;
 
-      let lastScrollTop = 0;
-      const scrollThreshold = 100;
-      const scrollDelta = 5;
+    // === Header show/hide with correct layout (no top gap / no bottom gap) ===
+    function applyHeaderState(isHidden) {
+      const headerEl = document.querySelector('header'); // header is injected by header.js
+      if (!headerEl || !pageWrapper) return;
 
-      // Hide header on scroll down (only if header exists)
-      if (pageWrapper) {
-        pageWrapper.addEventListener('scroll', function() {
-          const headerNow = document.querySelector('header'); // re-check in case injected late
-          if (!headerNow) return;
+      const headerH = headerEl.offsetHeight || 73;
 
-          const scrollTop = pageWrapper.scrollTop;
-          if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
+      if (isHidden) {
+        headerEl.classList.add('header-hidden');
+        document.body.style.paddingTop = '0px';
+        pageWrapper.style.height = '100vh'; // ✅ fill the screen when header is hidden
+      } else {
+        headerEl.classList.remove('header-hidden');
+        document.body.style.paddingTop = headerH + 'px';
+        pageWrapper.style.height = `calc(100vh - ${headerH}px)`; // ✅ normal when header is visible
+      }
+    }
 
-          if (scrollTop < scrollThreshold) {
-            headerNow.classList.remove('header-hidden');
-            lastScrollTop = scrollTop;
-            return;
-          }
+    // Initialize layout
+    applyHeaderState(false);
 
-       if (scrollTop > lastScrollTop) {
-  header.classList.add('header-hidden');
-  document.body.style.paddingTop = "0px";   
-} else {
-  header.classList.remove('header-hidden');
-  document.body.style.paddingTop = "73px";  
-}
+    // Hide header on scroll down
+    if (pageWrapper) {
+      pageWrapper.addEventListener('scroll', function() {
+        const headerNow = document.querySelector('header');
+        if (!headerNow) return;
 
+        const scrollTop = pageWrapper.scrollTop;
+        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
+
+        if (scrollTop < scrollThreshold) {
+          applyHeaderState(false);
           lastScrollTop = scrollTop;
-        });
-      }
-
-      function resizeIframe() {
-        try {
-          const iframeDoc = phaseFrame.contentDocument || phaseFrame.contentWindow.document;
-          const height = iframeDoc.documentElement.scrollHeight;
-          phaseFrame.style.height = height + 'px';
-        } catch (e) {
-          // cross-origin would fail; your pages are same-origin so should be OK on GitHub Pages
+          return;
         }
-      }
 
+        if (scrollTop > lastScrollTop) applyHeaderState(true);
+        else applyHeaderState(false);
+
+        lastScrollTop = scrollTop;
+      });
+    }
+
+    // === Iframe auto-resize ===
+    function resizeIframe() {
+      try {
+        const iframeDoc = phaseFrame.contentDocument || phaseFrame.contentWindow.document;
+        const height = iframeDoc.documentElement.scrollHeight;
+        phaseFrame.style.height = height + 'px';
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    if (phaseFrame) {
       phaseFrame.addEventListener('load', function() {
         resizeIframe();
         setTimeout(resizeIframe, 120);
         setTimeout(resizeIframe, 500);
         setTimeout(resizeIframe, 1000);
       });
+    }
 
-      phaseCards.forEach(card => {
-        card.addEventListener('click', function(e) {
-          e.preventDefault();
+    // === Phase click -> load iframe + scroll ===
+    phaseCards.forEach(card => {
+      card.addEventListener('click', function(e) {
+        e.preventDefault();
 
-          const phaseUrl = this.getAttribute('data-phase');
+        const phaseUrl = this.getAttribute('data-phase');
 
-          phaseCards.forEach(c => c.classList.remove('active'));
-          this.classList.add('active');
+        phaseCards.forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
 
-          contentContainer.classList.add('active');
-          phaseFrame.src = phaseUrl;
+        contentContainer.classList.add('active');
+        phaseFrame.src = phaseUrl;
 
-          // scroll to phase content
-          setTimeout(() => {
-            const phaseTop = contentContainer.offsetTop;
-            pageWrapper.scrollTo({ top: phaseTop, behavior: 'smooth' });
-          }, 120);
-        });
+        setTimeout(() => {
+          const phaseTop = contentContainer.offsetTop;
+          pageWrapper.scrollTo({ top: phaseTop, behavior: 'smooth' });
+        }, 120);
       });
     });
-  </script>
+  });
+</script>
+
 
   <!-- Mapbox -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
