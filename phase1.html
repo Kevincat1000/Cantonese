@@ -273,10 +273,12 @@
       object-fit: cover;
       display: block;
       backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
     
     .temple-image.initial {
       z-index: 2;
+      transform: rotateY(0deg);
     }
     
     .temple-image.final {
