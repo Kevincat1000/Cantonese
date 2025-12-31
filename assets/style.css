@@ -354,4 +354,6 @@ footer p {
   font-size: 0.875rem;
   color: #d1d5db;
 }
+/* When header is hidden, also remove the reserved top space */
+body.header-gap-off { padding-top: 0 !important; }
 
