@@ -340,8 +340,13 @@
             return;
           }
 
-          if (scrollTop > lastScrollTop) headerNow.classList.add('header-hidden');
-          else headerNow.classList.remove('header-hidden');
+       if (scrollTop > lastScrollTop) {
+  header.classList.add('header-hidden');
+  document.body.style.paddingTop = "0px";   
+} else {
+  header.classList.remove('header-hidden');
+  document.body.style.paddingTop = "73px";  
+}
 
           lastScrollTop = scrollTop;
         });
