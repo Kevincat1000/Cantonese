@@ -107,25 +107,27 @@
     }
 
     .phase-card {
-      background: #F5F0E5;
-      border: 2px solid #000;
-      border-radius: 14px;
-      padding: 0.875rem 1.1rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
-      text-decoration: none;
-      color: inherit;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1rem;
-    }
-    .phase-card:hover {
-      background: #E8E0D0;
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0px rgba(0,0,0,0.25);
-    }
+  background: #F5F0E5;
+  border: 1.25px solid #000;              /* ✅ thinner border */
+  border-radius: 14px;
+  padding: 0.875rem 1.1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 3px 3px 0px rgba(0,0,0,0.16); /* ✅ lighter shadow */
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.phase-card:hover {
+  background: #E8E0D0;
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.18); /* ✅ lighter hover shadow */
+}
+
     .phase-card.active { background:#E8E0D0; }
     .phase-info { flex:1; }
     .phase-title { font-size:1rem; font-weight:700; color:#1a1a1a; margin:0 0 0.25rem 0; line-height:1.3; }
