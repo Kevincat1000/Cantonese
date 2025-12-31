@@ -10,9 +10,14 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
+    html {
+      scroll-behavior: smooth;
+    }
+    
     body {
       font-family: 'Gentium Book Plus', serif;
       line-height: 1.6;
+      background-color: #2d7b73;
     }
     
     .font-heading { font-family: 'Gentium Book Plus', serif; }
@@ -376,7 +381,7 @@
 
 <body>
   <main>
-    <section class="section-teal hero-section">
+    <section class="section-teal hero-section" id="top">
       <div class="container hero-content">
         <div>
           <h1 class="hero-title font-heading">Phase I: 17th–19th Centuries</h1>
@@ -527,7 +532,7 @@
         </div>
         
         <div class="phase-navigation">
-          <a href="phase2.html" class="phase-link">
+          <a href="phase2.html#top" class="phase-link">
             <span class="phase-link-text">Phase II: 1840s–1940s<br>Building North America & The Pacific</span>
             <span class="phase-arrow">→</span>
           </a>
