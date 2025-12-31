@@ -14,16 +14,21 @@
   <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
 
+  <!-- ✅ Header injector (MUST be outside <style>) -->
+  <script src="./assets/header.js" defer></script>
+
   <!-- Mapbox CSS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
 
   <style>
     /* === GLOBAL === */
+    :root { --header-h: 73px; }
+
     html {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      overflow: hidden; /* lock window scroll; use .page-wrapper scroll */
     }
 
     body {
@@ -32,18 +37,21 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      overflow: hidden; /* lock window scroll; use .page-wrapper scroll */
     }
 
-    /* === MAIN SCROLL CONTAINER === */
+    /* === MAIN SCROLL CONTAINER ===
+       IMPORTANT: subtract header height.
+       header.js will add body padding-top: 73px.
+       73px + (100vh-73px) = 100vh (no bottom gap) */
     .page-wrapper {
-      height: calc(100vh - 73px); /* Subtract header height */
+      height: calc(100vh - var(--header-h));
       overflow-y: auto;
       overflow-x: hidden;
-      scrollbar-gutter: stable; 
+      scrollbar-gutter: stable;
     }
 
-    /* === INNER CONTENT WRAPPER - Match header-content padding === */
+    /* === INNER CONTENT WRAPPER === */
     .content-inner { padding: 0 1rem; }
     @media (min-width: 1024px) { .content-inner { padding: 0 2rem; } }
 
@@ -52,11 +60,8 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
-
-      /* ✅ move everything up - reduced top padding */
       padding-top: 0;
       padding-bottom: 2rem;
-
       align-items: start;
     }
 
@@ -67,12 +72,10 @@
       }
     }
 
-    /* ✅ Header spans BOTH columns */
+    /* Header spans BOTH columns */
     .phase-header--grid{
       grid-column: 1 / -1;
       text-align: center;
-
-      /* ✅ tighter spacing */
       margin-top: 0;
       margin-bottom: 0.75rem;
     }
@@ -90,34 +93,24 @@
       margin: 0;
     }
 
-    /* === MAP STYLES (CROP 1/5 TOTAL: TOP 1/10 + BOTTOM 1/10) === */
+    /* === MAP STYLES (CROP TOP/BOTTOM) === */
     .map-wrapper {
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-
-      /* visible window = 450 * 0.8 = 360 */
-      height: 360px;
+      height: 360px; /* visible window */
     }
 
     #diaspora-map {
       width: 100%;
-      /* keep render size the same */
-      height: 450px;
-
-      /* crop top 1/10: 450 * 0.1 = 45 */
+      height: 450px;   /* render size */
       position: relative;
-      top: -45px;
+      top: -45px;      /* crop top */
     }
 
     @media (max-width: 980px) {
-      /* visible window = 380 * 0.8 = 304 */
       .map-wrapper { height: 304px; }
-
-      #diaspora-map {
-        height: 380px;
-        top: -38px;
-      }
+      #diaspora-map { height: 380px; top: -38px; }
     }
 
     /* === PHASE SECTION === */
@@ -127,7 +120,6 @@
       align-items: center;
     }
 
-    /* === PHASE CARDS === */
     .phase-list {
       display: flex;
       flex-direction: column;
@@ -149,10 +141,7 @@
       background: #F5F0E5;
       border: 2px solid #000;
       border-radius: 14px;
-
-      /* ✅ height ~70% by reducing padding (font size unchanged) */
       padding: 0.875rem 1.1rem;
-
       cursor: pointer;
       transition: all 0.25s ease;
       box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
@@ -173,7 +162,6 @@
     .phase-card.active { background: #E8E0D0; }
     .phase-info { flex: 1; }
 
-    /* keep font sizes unchanged */
     .phase-title {
       font-size: 1rem;
       font-weight: 700;
@@ -197,19 +185,14 @@
       transform: rotate(-90deg);
     }
 
-
     /* === PHASE CONTENT === */
-    #phaseContentContainer { 
-      display: none;
-    }
+    #phaseContentContainer { display: none; }
 
-    #phaseContentContainer.active { 
+    #phaseContentContainer.active {
       display: block;
-      /* ✅ FIXED: Remove negative top margin to prevent upward extension */
-      /* Break out of parent padding for full width */
       margin-left: -1rem;
       margin-right: -1rem;
-      margin-top: 0; /* Changed from -73px */
+      margin-top: 0;
       padding: 0;
       background: #F5F0E5;
     }
@@ -221,7 +204,6 @@
       }
     }
 
-    /* Remove all padding from phase content area */
     #phaseContentContainer .container {
       padding: 0;
       margin: 0;
@@ -239,17 +221,15 @@
       border: none;
       display: block;
       overflow: hidden;
-      min-height: 100vh; /* ✅ FIXED: Changed from calc(100vh + 73px) */
+      min-height: 100vh;
       margin: 0;
       padding: 0;
     }
-    <script src="./assets/header.js" defer></script>
-
   </style>
 </head>
 
 <body>
-  <!-- Header loaded by header.js -->
+  <!-- header is injected by ./assets/header.js -->
 
   <div class="page-wrapper">
     <div class="container">
@@ -329,7 +309,7 @@
     </div>
   </div>
 
-  <!-- JavaScript -->
+  <!-- === Page JS === -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const phaseCards = document.querySelectorAll('.phase-card');
@@ -337,24 +317,31 @@
       const phaseFrame = document.getElementById('phaseFrame');
 
       const pageWrapper = document.querySelector('.page-wrapper');
+
+      // Header is injected by header.js; query after DOM ready is fine
       const header = document.querySelector('header');
+
       let lastScrollTop = 0;
       const scrollThreshold = 100;
       const scrollDelta = 5;
 
-      if (pageWrapper && header) {
+      // Hide header on scroll down (only if header exists)
+      if (pageWrapper) {
         pageWrapper.addEventListener('scroll', function() {
-          let scrollTop = pageWrapper.scrollTop;
+          const headerNow = document.querySelector('header'); // re-check in case injected late
+          if (!headerNow) return;
+
+          const scrollTop = pageWrapper.scrollTop;
           if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
 
           if (scrollTop < scrollThreshold) {
-            header.classList.remove('header-hidden');
+            headerNow.classList.remove('header-hidden');
             lastScrollTop = scrollTop;
             return;
           }
 
-          if (scrollTop > lastScrollTop) header.classList.add('header-hidden');
-          else header.classList.remove('header-hidden');
+          if (scrollTop > lastScrollTop) headerNow.classList.add('header-hidden');
+          else headerNow.classList.remove('header-hidden');
 
           lastScrollTop = scrollTop;
         });
@@ -366,13 +353,13 @@
           const height = iframeDoc.documentElement.scrollHeight;
           phaseFrame.style.height = height + 'px';
         } catch (e) {
-          console.log('Cannot access iframe content');
+          // cross-origin would fail; your pages are same-origin so should be OK on GitHub Pages
         }
       }
 
       phaseFrame.addEventListener('load', function() {
         resizeIframe();
-        setTimeout(resizeIframe, 100);
+        setTimeout(resizeIframe, 120);
         setTimeout(resizeIframe, 500);
         setTimeout(resizeIframe, 1000);
       });
@@ -382,17 +369,18 @@
           e.preventDefault();
 
           const phaseUrl = this.getAttribute('data-phase');
+
           phaseCards.forEach(c => c.classList.remove('active'));
           this.classList.add('active');
 
           contentContainer.classList.add('active');
           phaseFrame.src = phaseUrl;
 
-          // ✅ FIXED: Scroll to phase content with proper offset
+          // scroll to phase content
           setTimeout(() => {
             const phaseTop = contentContainer.offsetTop;
             pageWrapper.scrollTo({ top: phaseTop, behavior: 'smooth' });
-          }, 100);
+          }, 120);
         });
       });
     });
@@ -401,7 +389,6 @@
   <!-- Mapbox -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
 
-  <!-- ✅ MAPBOX CODE UNCHANGED -->
   <script>
   (function () {
     mapboxgl.accessToken = "pk.eyJ1Ijoia2V2aW5jYXQxMDAiLCJhIjoiY21qbmFyN21yMTYzMzNlcHN5ZHVubTdpbiJ9.m8QPkEMJKLNIMvFyKUgTkw";
@@ -415,10 +402,12 @@
     });
 
     map.addControl(new mapboxgl.NavigationControl(), "top-right");
+
     map.on("style.load", () => {
       map.setProjection("mercator");
       map.setTerrain(null);
     });
+
     window.addEventListener("load", () => setTimeout(() => map.resize(), 150));
 
     map.on("load", () => {
@@ -436,7 +425,10 @@
       ];
 
       function addRoute(id, coords, color) {
-        map.addSource(id, { type: "geojson", data: { type:"Feature", geometry:{ type:"LineString", coordinates: coords } } });
+        map.addSource(id, {
+          type: "geojson",
+          data: { type:"Feature", geometry:{ type:"LineString", coordinates: coords } }
+        });
         map.addLayer({
           id: id + "-line",
           type: "line",
@@ -525,5 +517,3 @@
   </script>
 </body>
 </html>
-
-
