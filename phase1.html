@@ -49,7 +49,7 @@
       color: rgba(255, 255, 255, 0.85);
       text-decoration: underline;
       font-size: 1rem;
-      padding: 1.5rem 2rem 0.5rem;
+      padding: 1rem 1.5rem 0.3rem;
       transition: color 0.3s ease;
     }
     
@@ -58,7 +58,7 @@
     }
     
     .hero-section {
-      padding: 0.5rem 2rem 1rem;
+      padding: 0 2rem 1rem;
       min-height: 120px;
     }
     
@@ -86,38 +86,39 @@
     }
     
     .boat-container {
-      position: relative;
-      height: 100px;
-      margin-top: 0.3rem;
-      margin-bottom: -2rem;
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 80px;
+      pointer-events: none;
     }
     
     .boat {
       position: absolute;
-      left: 0;
+      right: -80px;
       top: 0;
-      height: 100px;
+      height: 80px;
       width: auto;
       opacity: 0.9;
     }
     
     body.ready .boat {
-      animation: boatSailing 5s ease-in-out forwards;
+      animation: boatSailing 4s ease-in-out forwards;
     }
     
     @keyframes boatSailing {
       0% {
-        left: 0;
+        right: -80px;
       }
       100% {
-        left: 666px;
+        right: -380px;
       }
     }
     
     @media (prefers-reduced-motion: reduce) {
       body.ready .boat {
         animation: none;
-        left: 666px;
+        right: -380px;
       }
     }
     
@@ -127,6 +128,7 @@
     
     .content-section.first-section {
       padding-top: 1.5rem;
+      margin-top: -1rem;
     }
     
     .section-title {
@@ -172,6 +174,28 @@
     .width-60 {
       max-width: 560px;
       width: 100%;
+    }
+    
+    .map-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .map-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: block;
+    }
+    
+    .map-caption {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.875rem;
+      text-align: center;
+      line-height: 1.4;
     }
     
     .gallery {
@@ -365,13 +389,6 @@
     }
     
     @media (min-width: 768px) {
-      .hero-content {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
-      }
-      
       .hero-title { font-size: 3rem; }
       .hero-subtitle { font-size: 1.25rem; }
       
@@ -390,6 +407,10 @@
       
       .gallery-frame {
         height: 302px;
+      }
+      
+      .map-container {
+        margin-top: 1.5rem;
       }
       
       .phase-link {
@@ -418,9 +439,9 @@
             <h1 class="hero-title font-heading">Phase I: 17th–19th Centuries</h1>
             <h2 class="hero-subtitle">Early Migration within Southeast Asia</h2>
           </div>
-        </div>
-        <div class="boat-container">
-          <img src="images/Boat.pic.png" alt="Sailing boat" class="boat">
+          <div class="boat-container">
+            <img src="images/Boat.pic.png" alt="Sailing boat" class="boat">
+          </div>
         </div>
       </div>
     </section>
@@ -490,7 +511,7 @@
     <section class="section-teal content-section">
       <div class="container">
         <h2 class="section-title text-white font-heading">1680s–1790s: Establishment in Southern Vietnam</h2>
-        <div class="width-60">
+        <div class="grid-2col">
           <div class="text-content text-white-90">
             <p>
               Around 1680, Mo Jiu, a refugee from Leizhou, Guangdong, developed the Hà Tiên area. He formally
@@ -508,6 +529,11 @@
               Cantonese population in Cochinchina was estimated at 30,000–40,000, controlling key rice and
               silk trade routes.
             </p>
+          </div>
+          
+          <div class="map-container">
+            <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map of Southern Asia" class="map-image">
+            <p class="map-caption">Antique Map of Southern Asia by Walker (c.1840)</p>
           </div>
         </div>
       </div>
