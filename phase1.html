@@ -31,8 +31,8 @@
     }
     
     .hero-section {
-      padding: calc(6rem + env(safe-area-inset-top, 0px)) 2rem 3rem;
-      min-height: 250px;
+      padding: calc(4.5rem + env(safe-area-inset-top, 0px)) 2rem 2rem;
+      min-height: 200px;
     }
     
     .hero-content {
@@ -41,7 +41,7 @@
       gap: 0.2rem;
       align-items: flex-start;
       position: relative;
-      min-height: 180px;
+      min-height: 140px;
     }
     
     .hero-title {
@@ -65,7 +65,7 @@
       right: 0;
       top: 50%;
       transform: translateY(-50%);
-      height: 160px;
+      height: 120px;
       width: auto;
       opacity: 0.9;
     }
@@ -95,7 +95,7 @@
     }
     
     .content-section.first-section {
-      padding-top: 2.5rem;
+      padding-top: 1.5rem;
     }
     
     .section-title {
@@ -222,6 +222,7 @@
       border-color: rgba(255, 255, 255, 0.5);
     }
     
+    /* 页码 - 浅白色不加粗 */
     .nav-info {
       display: flex;
       align-items: center;
@@ -242,6 +243,61 @@
     
     .nav-total {
       color: rgba(255, 255, 255, 0.85);
+    }
+    
+    /* Phase II 导航链接 */
+    .phase-navigation {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .phase-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      color: #ffa07a;
+      text-decoration: none;
+      font-size: 1.125rem;
+      line-height: 1.4;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .phase-link:hover {
+      color: #ff8c5a;
+      transform: translateX(5px);
+    }
+    
+    .phase-link-text {
+      border-bottom: 2px solid #ffa07a;
+      padding-bottom: 4px;
+      transition: border-color 0.3s ease;
+    }
+    
+    .phase-link:hover .phase-link-text {
+      border-bottom-color: #ff8c5a;
+    }
+    
+    .phase-arrow {
+      font-size: 1.5rem;
+      font-weight: bold;
+      animation: bounce-right 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes bounce-right {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(10px);
+      }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .phase-arrow {
+        animation: none;
+      }
     }
     
     footer {
@@ -286,6 +342,7 @@
       .hero-title { font-size: 3rem; }
       .hero-subtitle { font-size: 1.25rem; }
       
+      /* 桌面端显示船 */
       .boat {
         display: block;
       }
@@ -305,6 +362,14 @@
       
       .gallery-frame {
         height: 280px;
+      }
+      
+      .phase-link {
+        font-size: 1rem;
+      }
+      
+      .phase-arrow {
+        font-size: 1.25rem;
       }
     }
   </style>
@@ -461,6 +526,14 @@
             of magnates emerged, controlling tin mines, revenue farms, and vast commercial networks.
           </p>
         </div>
+        
+        <!-- Phase II 导航 -->
+        <div class="phase-navigation">
+          <a href="phase2.html" class="phase-link">
+            <span class="phase-link-text">Phase II: 1840s–1940s<br>Building North America & The Pacific</span>
+            <span class="phase-arrow">→</span>
+          </a>
+        </div>
       </div>
     </section>
     
@@ -478,12 +551,12 @@
   </main>
   
   <script>
-
+    // 启动船动画
     window.addEventListener('load', () => {
       document.body.classList.add('ready');
     });
     
-
+    // 幻灯片
     const captions = [
       "Koh Kaew Suttharam Temple",
       "View of Judea, the Capital of Siam (c. 1662 - c. 1663)",
@@ -506,7 +579,7 @@
     document.getElementById('prev').onclick = () => go(index - 1);
     document.getElementById('next').onclick = () => go(index + 1);
     
-
+    // 预加载幻灯片图片
     slides.forEach(s => {
       const img = new Image();
       img.src = s.querySelector('img').src;
