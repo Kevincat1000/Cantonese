@@ -105,7 +105,7 @@
     }
     
     body.ready .boat {
-      animation: boatSailing 4s ease-in-out forwards;
+      animation: boatSailing 5s ease-in-out forwards;
     }
     
     @keyframes boatSailing {
@@ -113,14 +113,14 @@
         left: 800px;
       }
       100% {
-        left: 1100px;
+        left: 1000px;
       }
     }
     
     @media (prefers-reduced-motion: reduce) {
       body.ready .boat {
         animation: none;
-        left: 1100px;
+        left: 1000px;
       }
     }
     
@@ -180,9 +180,9 @@
     
     .map-container {
       position: absolute;
-      top: 0;
-      right: 2rem;
-      width: 17.5%;
+      top: -30px;
+      right: calc(2rem + 30px);
+      width: 21%;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
@@ -266,7 +266,7 @@
       background: linear-gradient(to top, rgba(45, 123, 115, 0.95), rgba(45, 123, 115, 0.7));
       color: white;
       padding: 18px 16px 14px;
-      font-size: 14px;
+      font-size: 12px;
       text-align: center;
       font-weight: 600;
       z-index: 10;
@@ -510,12 +510,12 @@
                 <img src="https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg" alt="Slide 1">
               </div>
               <div class="gallery-slide">
-                <img src="https://mdl.artvee.com/sftb/522790ld.jpg" alt="Slide 2">
+                <img src="https://www.meisterdrucke.ie/kunstwerke/1260px/French_School_-_View_of_Ayutthaya_with_royal_barges_from_Voyage_du_Siam_des_Peres_Jesuites_by_Gu_-_%28MeisterDrucke-444314%29.jpg" alt="Slide 2">
               </div>
               <div class="gallery-slide">
-                <img src="https://www.theshipyardblog.com/wp-content/uploads/2024/03/Guangzhou_Chinese_Boats_by_Lai_Afong_c%D0%B0_1880.jpg" alt="Slide 3">
+                <img src="https://exploration.marinersmuseum.org/wp-content/uploads/sites/2/2014/04/Chinese_junk_1804-450x351.jpg" alt="Slide 3">
               </div>
-              <div class="gallery-label" id="label">Koh Kaew Suttharam Temple</div>
+              <div class="gallery-label" id="label">View of Judea, the Capital of Siam (c. 1662 - c. 1663)</div>
             </div>
             
             <div class="gallery-nav">
@@ -653,9 +653,9 @@
     });
     
     const captions = [
-      "Koh Kaew Suttharam Temple",
       "View of Judea, the Capital of Siam (c. 1662 - c. 1663)",
-      "Junk Ship in Guangdong, 1880"
+      "View of Ayutthaya with royal barges, 1688",
+      "Chinese Junk Ship, 1804"
     ];
     
     let index = 0;
