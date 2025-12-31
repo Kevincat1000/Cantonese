@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phase I: 17th–19th Centuries - Cantonese Migration (Fixed)</title>
+  <title>Phase I: 17th–19th Centuries - Cantonese Migration</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
@@ -55,32 +55,36 @@
       line-height: 1.08;
     }
     
-    .hero-img {
+    /* 小船动画容器 - 固定高度 */
+    .boat-animation-container {
       display: none;
       width: auto;
-      height: 160px;
+      height: 180px;
       position: relative;
-      overflow: visible;
+      overflow: hidden;
     }
     
-    .hero-img img {
-      height: 100%;
+    .boat-img {
+      height: 160px;
       width: auto;
+      position: absolute;
+      right: 0;
+      top: 10px;
       will-change: transform;
       transform: translateX(-30px);
     }
     
-    body.phase1-ready .hero-img img {
-      animation: boat-drift 3s ease-out forwards;
+    body.page-loaded .boat-img {
+      animation: boat-sail 3s ease-out forwards;
     }
     
-    @keyframes boat-drift {
+    @keyframes boat-sail {
       from { transform: translateX(-30px); }
       to   { transform: translateX(-80px); }
     }
     
     @media (prefers-reduced-motion: reduce) {
-      body.phase1-ready .hero-img img { animation: none; }
+      body.page-loaded .boat-img { animation: none; }
     }
     
     .content-section {
@@ -136,48 +140,49 @@
       width: 100%;
     }
     
-    /* 修复1: 为slideshow-wrap添加固定高度，防止内容跳跃 */
-    .slideshow-wrap{
+    /* 全新的幻灯片设计 - 关键：固定所有尺寸 */
+    .slideshow-wrapper {
       width: 80%;
       margin-left: auto;
-      /* 添加最小高度以稳定布局 */
-      min-height: 320px;
     }
     
-    /* 修复2: 确保容器高度固定 */
-    .slideshow-container {
+    /* 固定高度容器 - 防止跳跃的核心 */
+    .slideshow-box {
       position: relative;
       width: 100%;
+      height: 350px; /* 固定像素高度 */
       background: #f0f0f0;
       border-radius: 0.5rem;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      aspect-ratio: 1.3;
-      /* 添加固定高度防止跳跃 */
-      height: 0;
-      padding-bottom: 76.92%; /* 1/1.3 = 76.92% */
     }
     
-    /* 修复3: 图片绝对定位，防止加载时改变容器大小 */
-    .slideshow-image {
+    /* 图片层 - 所有图片叠加在同一位置 */
+    .slide-item {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      display: block;
-      object-fit: cover;
-      /* 添加过渡效果使切换更平滑 */
-      opacity: 1;
-      transition: opacity 0.3s ease-in-out;
-    }
-    
-    /* 添加加载状态 */
-    .slideshow-image.loading {
       opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      pointer-events: none;
     }
     
-    .slideshow-caption {
+    .slide-item.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .slide-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    
+    /* 标题层 - 绝对定位，不影响布局 */
+    .slide-caption {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -188,18 +193,20 @@
       font-size: 0.9rem;
       text-align: center;
       font-weight: 600;
-      z-index: 1;
+      z-index: 10;
     }
     
-    .slider-controls {
+    /* 控制按钮 - 固定高度 */
+    .slide-controls {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 1rem;
       margin-top: 1rem;
+      height: 40px; /* 固定高度 */
     }
     
-    .slider-btn {
+    .slide-btn {
       width: 2.5rem;
       height: 2.5rem;
       border-radius: 50%;
@@ -211,31 +218,36 @@
       background: transparent;
       cursor: pointer;
       transition: background-color 0.2s;
+      flex-shrink: 0;
     }
     
-    .slider-btn:hover {
+    .slide-btn:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
     
-    .slider-indicator {
+    .slide-indicator {
       display: flex;
       align-items: center;
       gap: 0.5rem;
       font-size: 0.875rem;
+      color: white;
     }
     
-    .slider-current {
+    .indicator-current {
       color: rgba(255, 255, 255, 0.95);
       font-weight: bold;
+      min-width: 12px;
+      text-align: center;
     }
     
-    .slider-line {
+    .indicator-line {
       width: 3rem;
       height: 2px;
       background-color: rgba(255, 255, 255, 0.45);
+      flex-shrink: 0;
     }
     
-    .slider-total {
+    .indicator-total {
       color: rgba(255, 255, 255, 0.75);
     }
     
@@ -281,9 +293,8 @@
       .hero-title { font-size: 3rem; }
       .hero-subtitle { font-size: 1.25rem; }
       
-      .hero-img {
+      .boat-animation-container {
         display: block;
-        height: 180px;
       }
       
       .grid-2col { grid-template-columns: repeat(2, 1fr); }
@@ -293,11 +304,14 @@
       .width-60 { max-width: 60%; }
     }
     
-    @media (max-width: 767px){
-      .slideshow-wrap{
+    @media (max-width: 767px) {
+      .slideshow-wrapper {
         width: 100%;
         margin-left: 0;
-        min-height: 280px;
+      }
+      
+      .slideshow-box {
+        height: 280px; /* 移动端固定高度 */
       }
     }
   </style>
@@ -305,18 +319,20 @@
 
 <body>
   <main>
+    <!-- 顶部区域 -->
     <section class="section-teal hero-section">
       <div class="container hero-content">
         <div>
           <h1 class="hero-title font-heading">Phase I: 17th–19th Centuries</h1>
           <h2 class="hero-subtitle">Early Migration within Southeast Asia</h2>
         </div>
-        <div class="hero-img">
-          <img src="images/Boat.pic.png" alt="Boat illustration">
+        <div class="boat-animation-container">
+          <img src="images/Boat.pic.png" alt="Boat illustration" class="boat-img">
         </div>
       </div>
     </section>
     
+    <!-- 第一部分：幻灯片区域 -->
     <section class="section-teal content-section first-section">
       <div class="container">
         <h2 class="section-title text-white font-heading">1640s–1770s: Early Migration to Siam</h2>
@@ -341,44 +357,52 @@
             </div>
           </div>
           
-          <div class="slideshow-wrap">
-            <div class="slideshow-container">
-              <img
-                id="slideImg"
-                class="slideshow-image"
-                src="https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg"
-                alt="Historical Site"
-              >
-              <div class="slideshow-caption" id="slideCaption">
-                Koh Kaew Suttharam Temple
+          <!-- 全新幻灯片 -->
+          <div class="slideshow-wrapper">
+            <div class="slideshow-box">
+              <!-- 幻灯片1 -->
+              <div class="slide-item active" data-index="0">
+                <img src="https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg" alt="Koh Kaew Suttharam Temple">
               </div>
+              <!-- 幻灯片2 -->
+              <div class="slide-item" data-index="1">
+                <img src="https://mdl.artvee.com/sftb/522790ld.jpg" alt="View of Judea, the Capital of Siam">
+              </div>
+              <!-- 幻灯片3 -->
+              <div class="slide-item" data-index="2">
+                <img src="https://www.theshipyardblog.com/wp-content/uploads/2024/03/Guangzhou_Chinese_Boats_by_Lai_Afong_c%D0%B0_1880.jpg" alt="Junk Ship in Guangdong, 1880">
+              </div>
+              
+              <!-- 标题 -->
+              <div class="slide-caption" id="caption">Koh Kaew Suttharam Temple</div>
             </div>
             
-            <div class="slider-controls">
-              <button id="prevBtn" class="slider-btn" aria-label="Previous">
+            <!-- 控制器 -->
+            <div class="slide-controls">
+              <button class="slide-btn" id="prevButton" aria-label="Previous">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="15 18 9 12 15 6" />
                 </svg>
               </button>
               
-              <div class="slider-indicator">
-                <span id="currentSlideNum" class="slider-current">1</span>
-                <div class="slider-line"></div>
-                <span class="slider-total">3</span>
+              <div class="slide-indicator">
+                <span class="indicator-current" id="currentNum">1</span>
+                <div class="indicator-line"></div>
+                <span class="indicator-total">3</span>
               </div>
               
-              <button id="nextBtn" class="slider-btn" aria-label="Next">
+              <button class="slide-btn" id="nextButton" aria-label="Next">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
               </button>
             </div>
           </div>
-         
         </div>
       </div>
     </section>
     
+    <!-- 其他部分保持不变 -->
     <section class="section-teal content-section">
       <div class="container">
         <h2 class="section-title text-white font-heading">1680s–1790s: Establishment in Southern Vietnam</h2>
@@ -473,78 +497,73 @@
   </main>
   
   <script>
+    // 页面加载完成后启动小船动画
     document.addEventListener('DOMContentLoaded', () => {
-      requestAnimationFrame(() => document.body.classList.add('phase1-ready'));
+      requestAnimationFrame(() => {
+        document.body.classList.add('page-loaded');
+      });
     });
     
-    const slides = [
-      {
-        img: "https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg",
-        caption: "Koh Kaew Suttharam Temple"
-      },
-      {
-        img: "https://mdl.artvee.com/sftb/522790ld.jpg",
-        caption: "View of Judea, the Capital of Siam (c. 1662 - c. 1663)"
-      },
-      {
-        img: "https://www.theshipyardblog.com/wp-content/uploads/2024/03/Guangzhou_Chinese_Boats_by_Lai_Afong_c%D0%B0_1880.jpg",
-        caption: "Junk Ship in Guangdong, 1880"
-      }
+    // 幻灯片数据
+    const slideData = [
+      { caption: "Koh Kaew Suttharam Temple" },
+      { caption: "View of Judea, the Capital of Siam (c. 1662 - c. 1663)" },
+      { caption: "Junk Ship in Guangdong, 1880" }
     ];
     
-    let current = 0;
+    let currentSlide = 0;
+    const totalSlides = 3;
     
-    // 修复4: 预加载图片，避免加载延迟导致跳跃
-    function preloadImages() {
-      slides.forEach(slide => {
-        const img = new Image();
-        img.src = slide.img;
-      });
-    }
+    // 获取DOM元素
+    const slides = document.querySelectorAll('.slide-item');
+    const captionEl = document.getElementById('caption');
+    const currentNumEl = document.getElementById('currentNum');
+    const prevBtn = document.getElementById('prevButton');
+    const nextBtn = document.getElementById('nextButton');
     
-    function updateSlide() {
-      const imgEl = document.getElementById('slideImg');
-      const captionEl = document.getElementById('slideCaption');
-      const slideNumEl = document.getElementById('currentSlideNum');
+    // 切换幻灯片
+    function showSlide(index) {
+      // 移除所有active类
+      slides.forEach(slide => slide.classList.remove('active'));
       
-      if (imgEl && captionEl && slideNumEl) {
-        // 添加淡出效果
-        imgEl.classList.add('loading');
-        
-        // 短暂延迟后更新图片
-        setTimeout(() => {
-          imgEl.src = slides[current].img;
-          captionEl.textContent = slides[current].caption;
-          slideNumEl.textContent = current + 1;
-          
-          // 图片加载完成后淡入
-          imgEl.onload = () => {
-            imgEl.classList.remove('loading');
-          };
-        }, 150);
+      // 添加active到当前幻灯片
+      slides[index].classList.add('active');
+      
+      // 更新标题和序号
+      captionEl.textContent = slideData[index].caption;
+      currentNumEl.textContent = index + 1;
+    }
+    
+    // 上一张
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      showSlide(currentSlide);
+    }
+    
+    // 下一张
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+    
+    // 绑定事件
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    
+    // 键盘导航
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    });
+    
+    // 预加载所有图片
+    slides.forEach(slide => {
+      const img = slide.querySelector('img');
+      if (img && img.src) {
+        const preload = new Image();
+        preload.src = img.src;
       }
-    }
-    
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    
-    if (prevBtn) {
-      prevBtn.onclick = () => {
-        current = (current - 1 + slides.length) % slides.length;
-        updateSlide();
-      };
-    }
-    
-    if (nextBtn) {
-      nextBtn.onclick = () => {
-        current = (current + 1) % slides.length;
-        updateSlide();
-      };
-    }
-    
-    // 初始化时预加载所有图片
-    preloadImages();
-    updateSlide();
+    });
   </script>
 </body>
 </html>
