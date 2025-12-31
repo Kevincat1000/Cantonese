@@ -10,9 +10,14 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
+    html {
+      scroll-behavior: smooth;
+    }
+    
     body {
       font-family: 'Gentium Book Plus', serif;
       line-height: 1.6;
+      background-color: #D9CCB7;
     }
     
     .font-heading { font-family: 'Gentium Book Plus', serif; }
@@ -419,7 +424,7 @@
 
 <body>
   <main>
-    <section class="section-teal hero-section">
+    <section class="section-teal hero-section" id="top">
       <div class="container hero-content">
         <div>
           <h1 class="hero-title font-heading">Phase II: 1840s–1940s</h1>
@@ -555,12 +560,12 @@
         </div>
         
         <div class="phase-navigation">
-          <a href="phase1.html" class="phase-link prev">
+          <a href="phase1.html#top" class="phase-link prev">
             <span class="phase-arrow prev">←</span>
             <span class="phase-link-text">Phase I: 17th–19th Centuries<br>Early Migration within Southeast Asia</span>
           </a>
           
-          <a href="phase3.html" class="phase-link next">
+          <a href="phase3.html#top" class="phase-link next">
             <span class="phase-link-text">Phase III: 1965–1997<br>Reforms, Refugees, and New Waves</span>
             <span class="phase-arrow next">→</span>
           </a>
