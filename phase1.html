@@ -136,6 +136,11 @@
       width: 100%;
     }
 
+    .slideshow-wrap{
+      width: 80%;
+      margin-left: auto;
+    }
+
     .slideshow-container {
       position: relative;
       width: 100%;
@@ -267,6 +272,13 @@
 
       .width-60 { max-width: 60%; }
     }
+
+    @media (max-width: 767px){
+      .slideshow-wrap{
+        width: 100%;
+        margin-left: 0;
+      }
+    }
   </style>
 </head>
 
@@ -308,7 +320,7 @@
             </div>
           </div>
 
-          <div>
+          <div class="slideshow-wrap">
             <div class="slideshow-container">
               <img
                 id="slideImg"
