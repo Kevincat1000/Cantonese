@@ -58,7 +58,6 @@
       line-height: 1.08;
     }
     
-    /* 船动画 - 全新设计 */
     .boat {
       display: none;
       position: absolute;
@@ -143,7 +142,6 @@
       width: 100%;
     }
     
-    /* 幻灯片 */
     .gallery {
       width: 80%;
       margin-left: auto;
@@ -151,7 +149,7 @@
     
     .gallery-frame {
       width: 100%;
-      height: 350px;
+      height: 315px;
       position: relative;
       background: #f0f0f0;
       border-radius: 8px;
@@ -222,7 +220,6 @@
       border-color: rgba(255, 255, 255, 0.5);
     }
     
-    /* 页码 - 浅白色不加粗 */
     .nav-info {
       display: flex;
       align-items: center;
@@ -245,38 +242,41 @@
       color: rgba(255, 255, 255, 0.85);
     }
     
-    /* Phase II 导航链接 */
     .phase-navigation {
       margin-top: 3rem;
       padding-top: 2rem;
       border-top: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      justify-content: flex-end;
     }
     
     .phase-link {
       display: inline-flex;
       align-items: center;
       gap: 1rem;
-      color: #ffa07a;
+      color: rgba(255, 255, 255, 0.85);
       text-decoration: none;
       font-size: 1.125rem;
       line-height: 1.4;
+      font-weight: bold;
       transition: all 0.3s ease;
       position: relative;
     }
     
     .phase-link:hover {
-      color: #ff8c5a;
+      color: white;
       transform: translateX(5px);
     }
     
     .phase-link-text {
-      border-bottom: 2px solid #ffa07a;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.85);
       padding-bottom: 4px;
       transition: border-color 0.3s ease;
+      text-align: right;
     }
     
     .phase-link:hover .phase-link-text {
-      border-bottom-color: #ff8c5a;
+      border-bottom-color: white;
     }
     
     .phase-arrow {
@@ -342,7 +342,6 @@
       .hero-title { font-size: 3rem; }
       .hero-subtitle { font-size: 1.25rem; }
       
-      /* 桌面端显示船 */
       .boat {
         display: block;
       }
@@ -361,7 +360,7 @@
       }
       
       .gallery-frame {
-        height: 280px;
+        height: 252px;
       }
       
       .phase-link {
@@ -527,7 +526,6 @@
           </p>
         </div>
         
-        <!-- Phase II 导航 -->
         <div class="phase-navigation">
           <a href="phase2.html" class="phase-link">
             <span class="phase-link-text">Phase II: 1840s–1940s<br>Building North America & The Pacific</span>
@@ -551,12 +549,10 @@
   </main>
   
   <script>
-    // 启动船动画
     window.addEventListener('load', () => {
       document.body.classList.add('ready');
     });
     
-    // 幻灯片
     const captions = [
       "Koh Kaew Suttharam Temple",
       "View of Judea, the Capital of Siam (c. 1662 - c. 1663)",
@@ -579,7 +575,6 @@
     document.getElementById('prev').onclick = () => go(index - 1);
     document.getElementById('next').onclick = () => go(index + 1);
     
-    // 预加载幻灯片图片
     slides.forEach(s => {
       const img = new Image();
       img.src = s.querySelector('img').src;
