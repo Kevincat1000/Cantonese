@@ -36,7 +36,7 @@
       scrollbar-gutter: stable;
     }
 
-    /* ⬆️ 顶住 header */
+    /* ⬆️ 顶住 header（你之前的要求） */
     .content-inner {
       padding: 0 1rem 2rem;
       max-width: 1200px;
@@ -49,9 +49,7 @@
       }
     }
 
-    /* =========================
-       4 x 2 grid (8 cards)
-       ========================= */
+    /* 4 x 2 grid */
     .flash-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -66,9 +64,7 @@
       .flash-grid { grid-template-columns: 1fr; }
     }
 
-    /* =========================
-       Flashcard flip (3D)
-       ========================= */
+    /* Flashcard flip (3D) */
     .flashcard {
       position: relative;
       width: 100%;
@@ -112,9 +108,7 @@
       border: 1.25px solid #000;
       border-radius: 14px;
       background: #F5F0E5;
-
-      /* ❌ 阴影完全去掉 */
-      box-shadow: none;
+      box-shadow: none; /* 阴影去掉 */
 
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
@@ -127,48 +121,17 @@
       text-align: center;
     }
 
-    .card-front {
-      transform: rotateY(0deg);
-    }
+    .card-front { transform: rotateY(0deg); }
 
+    /* ✅ definition 在后面 */
     .card-back {
       transform: rotateY(180deg);
       background: #FFFFFF;
     }
 
-    .face-kicker {
-      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #4a5568;
-      margin: 0 0 0.35rem 0;
-    }
-
-    .face-title {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      line-height: 1.2;
-    }
-
-    .face-text {
-      margin: 0;
-      font-size: 0.95rem;
-      color: #2d3748;
-      line-height: 1.5;
-    }
-
-    .hint {
-      margin-top: 0.75rem;
-      font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: rgba(26,26,26,0.75);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
+    .face-title { margin: 0 0 0.5rem 0; font-weight: 700; color: #1a1a1a; line-height: 1.1; }
+    .face-text  { margin: 0.15rem 0 0 0; color: #2d3748; line-height: 1.5; }
+    .hint { margin-top: 0.75rem; font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; font-size: 0.78rem; font-weight: 700; color: rgba(26,26,26,0.75); text-decoration: underline; text-underline-offset: 3px; }
 
     @media (prefers-reduced-motion: reduce) {
       .flashcard-inner { transition: none; }
@@ -182,151 +145,152 @@
   <div class="page-wrapper">
     <div class="container">
       <div class="content-inner">
-        <!-- spacer: push cards below header -->
+
+        <!-- ✅ 只在 language 页面内往下推一点点，避免被 header 遮住（不改外部 style 文件） -->
         <div style="height: 1rem;"></div>
+
         <div class="flash-grid">
 
-          <!-- 8 placeholder flashcards -->
-          <!-- 1 -->
+          <!-- 1 飲茶 -->
           <div class="flashcard">
-            <button type="button"></button>
+            <button type="button" aria-label="Flip card: Yam Cha"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
-                <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder 01</h3>
-                <p class="face-text">Front side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">飲茶</h3>
+                <p class="face-text" style="font-size:18px;">(Yam Cha)</p>
                 <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
-                <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder 01</h3>
-                <p class="face-text">Back side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">Drinking tea</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Going for dim sum (often for brunch or lunch), eating the food, and socializing.
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- 2 -->
+          <!-- 2 食檸檬 -->
           <div class="flashcard">
-            <button type="button"></button>
+            <button type="button" aria-label="Flip card: Sik Ning Mung"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
-                <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder 02</h3>
-                <p class="face-text">Front side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">食檸檬</h3>
+                <p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p>
                 <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
-                <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder 02</h3>
-                <p class="face-text">Back side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">Eating lemons</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Being rejected when asking someone out.
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- 3 -->
+          <!-- 3 放飛機 -->
           <div class="flashcard">
-            <button type="button"></button>
+            <button type="button" aria-label="Flip card: Fong Fei Gei"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
-                <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder 03</h3>
-                <p class="face-text">Front side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">放飛機</h3>
+                <p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p>
                 <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
-                <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder 03</h3>
-                <p class="face-text">Back side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">Throwing / releasing an airplane</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Breaking a promise to meet.
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- 4 -->
+          <!-- 4 吹水 -->
           <div class="flashcard">
-            <button type="button"></button>
+            <button type="button" aria-label="Flip card: Ceoi Seoi"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
-                <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder 04</h3>
-                <p class="face-text">Front side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">吹水</h3>
+                <p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p>
                 <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
-                <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder 04</h3>
-                <p class="face-text">Back side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">Blowing water</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Chit-chatting; sometimes implies bragging or bluffing.
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- 5 -->
+          <!-- 5 食咗飯未？ -->
           <div class="flashcard">
-            <button type="button"></button>
+            <button type="button" aria-label="Flip card: Sik Jo Faan Mei"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
-                <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder 05</h3>
-                <p class="face-text">Front side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">食咗飯未？</h3>
+                <p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p>
                 <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
-                <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder 05</h3>
-                <p class="face-text">Back side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
+                <p class="face-text" style="font-size:18px;">
+                  A casual greeting: “Hello / how are you?”
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- 6 -->
+          <!-- 6 生舊叉燒好過生你 -->
           <div class="flashcard">
-            <button type="button"></button>
+            <button type="button" aria-label="Flip card: Sang Gau Char Siu Hou Gwo Sang Nei"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
-                <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder 06</h3>
-                <p class="face-text">Front side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3>
+                <p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p>
                 <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
-                <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder 06</h3>
-                <p class="face-text">Back side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3>
+                <p class="face-text" style="font-size:18px;">
+                  “You’re frustrating me.” A classic parent complaint.
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- 7 -->
+          <!-- 7 炒魷魚 -->
           <div class="flashcard">
-            <button type="button"></button>
+            <button type="button" aria-label="Flip card: Caau Yau Yu"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
-                <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder 07</h3>
-                <p class="face-text">Front side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">炒魷魚</h3>
+                <p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p>
                 <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
-                <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder 07</h3>
-                <p class="face-text">Back side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Getting fired.
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- 8 -->
+          <!-- 8 雞同鴨講 -->
           <div class="flashcard">
-            <button type="button"></button>
+            <button type="button" aria-label="Flip card: Gai Tung Aap Gong"></button>
             <div class="flashcard-inner">
               <div class="card-face card-front">
-                <p class="face-kicker">Front</p>
-                <h3 class="face-title">Placeholder 08</h3>
-                <p class="face-text">Front side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">雞同鴨講</h3>
+                <p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p>
                 <p class="hint">Flip</p>
               </div>
               <div class="card-face card-back">
-                <p class="face-kicker">Back</p>
-                <h3 class="face-title">Placeholder 08</h3>
-                <p class="face-text">Back side placeholder.</p>
+                <h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Mutual lack of understanding; unable to communicate due to language barriers.
+                </p>
               </div>
             </div>
           </div>
