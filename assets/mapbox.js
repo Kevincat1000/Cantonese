@@ -1,4 +1,6 @@
-/* ./assets/mapbox.js */
+/* ./assets/mapbox.js
+   One-paste version (robust init: works whether loaded in <head defer> or end of <body>)
+*/
 (function () {
   const MAPBOX_TOKEN =
     "pk.eyJ1Ijoia2V2aW5jYXQxMDAiLCJhIjoiY21qbmFyN21yMTYzMzNlcHN5ZHVubTdpbiJ9.m8QPkEMJKLNIMvFyKUgTkw";
@@ -7,7 +9,12 @@
 
   function initDiasporaMap() {
     const el = document.getElementById("diaspora-map");
-    if (!el || !window.mapboxgl) return;
+    if (!el) return;
+
+    if (!window.mapboxgl) {
+      console.warn("[mapbox.js] mapboxgl not found (mapbox-gl.js not loaded).");
+      return;
+    }
 
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -57,7 +64,6 @@
           type: "geojson",
           data: { type: "Feature", geometry: { type: "LineString", coordinates: coords } },
         });
-
         map.addLayer({
           id: id + "-line",
           type: "line",
@@ -135,4 +141,19 @@
           .addTo(map);
       });
 
-      map.on("mouseenter", "route-points-dot", () => (map.getCanv
+      map.on("mouseenter", "route-points-dot", () => (map.getCanvas().style.cursor = "pointer"));
+      map.on("mouseleave", "route-points-dot", () => (map.getCanvas().style.cursor = ""));
+    });
+  }
+
+  // Robust boot: works whether loaded in <head defer> or at end of <body>
+  function boot(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+
+  boot(() => {
+    if (window.mapboxgl) initDiasporaMap();
+    else window.addEventListener("load", initDiasporaMap, { once: true });
+  });
+})();
