@@ -239,9 +239,29 @@
       position: relative;
       width: 100%;
       height: 400px;
+      perspective: 1000px;
+    }
+    
+    .temple-flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .temple-image-wrapper:hover .temple-flip-inner {
+      transform: rotateY(180deg);
+    }
+    
+    /* 移动端触摸支持 */
+    @media (hover: none) and (pointer: coarse) {
+      .temple-image-wrapper:active .temple-flip-inner {
+        transform: rotateY(180deg);
+      }
     }
     
     .temple-image {
@@ -252,42 +272,16 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      backface-visibility: hidden;
     }
     
     .temple-image.initial {
-      opacity: 1;
       z-index: 2;
     }
     
     .temple-image.final {
-      opacity: 0;
+      transform: rotateY(180deg);
       z-index: 1;
-    }
-    
-    .temple-image-wrapper.fade .temple-image.initial {
-      animation: fadeOut 4s ease-in-out forwards;
-    }
-    
-    .temple-image-wrapper.fade .temple-image.final {
-      animation: fadeIn 4s ease-in-out forwards;
-    }
-    
-    @keyframes fadeOut {
-      0% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-      }
-    }
-    
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
     }
     
     .historical-image {
@@ -678,8 +672,10 @@
         <div class="historical-images">
           <div class="historical-image-item">
             <div class="temple-image-wrapper">
-              <img src="https://scontent-lax3-1.xx.fbcdn.net/v/t39.30808-6/482028079_1054721156683649_4741026620118105993_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=xGA8JIq5WqsQ7kNvwH1umDw&_nc_oc=AdmvToxUARCrvCsU01OTTocfHPpJmSCLLQvF-uoX6NaoVstx1NtHp7DnQaH14OImusjzc7yIio7joUDAMOzfCQw9&_nc_zt=23&_nc_ht=scontent-lax3-1.xx&_nc_gid=fXS4Lxf5_11QtpnEG8gF2w&oh=00_AfpSXG_vEJpXu5OjmSrxu-k0t9GQHXH_n1sScOkj5hUlog&oe=695B954A" alt="Thien Hau Temple Initial" class="temple-image initial">
-              <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Thien Hau Temple" class="temple-image final">
+              <div class="temple-flip-inner">
+                <img src="https://scontent-lax3-1.xx.fbcdn.net/v/t39.30808-6/482028079_1054721156683649_4741026620118105993_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=xGA8JIq5WqsQ7kNvwH1umDw&_nc_oc=AdmvToxUARCrvCsU01OTTocfHPpJmSCLLQvF-uoX6NaoVstx1NtHp7DnQaH14OImusjzc7yIio7joUDAMOzfCQw9&_nc_zt=23&_nc_ht=scontent-lax3-1.xx&_nc_gid=fXS4Lxf5_11QtpnEG8gF2w&oh=00_AfpSXG_vEJpXu5OjmSrxu-k0t9GQHXH_n1sScOkj5hUlog&oe=695B954A" alt="Thien Hau Temple Initial" class="temple-image initial">
+                <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Thien Hau Temple" class="temple-image final">
+              </div>
             </div>
             <p class="historical-caption">Thien Hau Temple, Saigon, 1760</p>
           </div>
@@ -808,23 +804,6 @@
       });
       
       observer.observe(mapContainer);
-    }
-    
-    // Temple image fade animation on scroll into view
-    const templeWrapper = document.querySelector('.temple-image-wrapper');
-    if (templeWrapper) {
-      const templeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            templeWrapper.classList.add('fade');
-            templeObserver.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.3
-      });
-      
-      templeObserver.observe(templeWrapper);
     }
   </script>
 </body>
