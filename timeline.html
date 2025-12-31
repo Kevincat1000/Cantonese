@@ -17,36 +17,25 @@
   <!-- ✅ Header injector -->
   <script src="./assets/header.js" defer></script>
 
-
-  <!-- ✅ Your Mapbox init (you already created this file) -->
+  <!-- Mapbox CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
+  <!-- ✅ Mapbox core (keep in HEAD + defer) -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js" defer></script>
+  <!-- ✅ Your Mapbox init (relative path) -->
   <script src="./assets/mapbox.js" defer></script>
 
   <style>
-    /* === GLOBAL === */
     :root { --header-h: 73px; }
 
-    html {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       overflow: hidden; /* lock window scroll; use .page-wrapper scroll */
-    }
-<!-- Mapbox core (put at end of body to guarantee load order) -->
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
-
-<!-- Your Mapbox init (use absolute path so it works in subfolders) -->
-<script src="/assets/mapbox.js"></script>
-
-    body {
-      font-family: 'Gentium Book Plus', serif;
       background: #F5F0E5;
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden; /* lock window scroll; use .page-wrapper scroll */
+      font-family: 'Gentium Book Plus', serif;
     }
 
-    /* === MAIN SCROLL CONTAINER === */
     .page-wrapper {
       height: calc(100vh - var(--header-h));
       overflow-y: auto;
@@ -54,90 +43,67 @@
       scrollbar-gutter: stable;
     }
 
-    /* === INNER CONTENT WRAPPER === */
     .content-inner { padding: 0 1rem; }
     @media (min-width: 1024px) { .content-inner { padding: 0 2rem; } }
 
-    /* === LAYOUT === */
     .timeline-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
-      padding-top: 0;
       padding-bottom: 2rem;
       align-items: start;
     }
-
     @media (min-width: 980px) {
-      .timeline-grid {
-        grid-template-columns: 1fr 1fr;
-        align-items: start;
-      }
+      .timeline-grid { grid-template-columns: 1fr 1fr; }
     }
 
-    /* Header spans BOTH columns */
     .phase-header--grid{
       grid-column: 1 / -1;
       text-align: center;
-      margin-top: 0;
-      margin-bottom: 0.75rem;
+      margin: 0 0 0.75rem 0;
     }
-
     .phase-header--grid h2 {
       font-size: 2rem;
       font-weight: 700;
       color: #1a1a1a;
       margin: 0 0 0.5rem 0;
     }
-
     .phase-header--grid p {
       font-size: 1.125rem;
       color: #4a5568;
       margin: 0;
     }
 
-    /* === MAP STYLES (CROP TOP/BOTTOM) === */
+    /* === MAP (crop) === */
     .map-wrapper {
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      height: 360px; /* visible window */
+      height: 360px;
     }
-
     #diaspora-map {
       width: 100%;
-      height: 450px;   /* render size */
+      height: 450px;
       position: relative;
-      top: -45px;      /* crop top */
+      top: -45px;
     }
-
     @media (max-width: 980px) {
       .map-wrapper { height: 304px; }
       #diaspora-map { height: 380px; top: -38px; }
     }
 
-    /* === PHASE SECTION === */
-    .phase-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
+    /* === PHASE LIST === */
+    .phase-wrapper { display:flex; flex-direction:column; align-items:center; }
     .phase-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      width: 100%;
-      max-width: 520px;
-      margin: 0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:0.75rem;
+      width:100%;
+      max-width:520px;
+      margin:0 auto;
     }
-
     @media (min-width: 980px) {
-      .phase-list{
-        width: 60%;
-        max-width: 420px;
-        margin: 0 auto;
-      }
+      .phase-list { width:60%; max-width:420px; }
     }
 
     .phase-card {
@@ -150,108 +116,65 @@
       box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
       text-decoration: none;
       color: inherit;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
     }
-
     .phase-card:hover {
       background: #E8E0D0;
       transform: translate(-2px, -2px);
       box-shadow: 6px 6px 0px rgba(0,0,0,0.25);
     }
-
-    .phase-card.active { background: #E8E0D0; }
-    .phase-info { flex: 1; }
-
-    .phase-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      margin: 0 0 0.25rem 0;
-      line-height: 1.3;
-    }
-
-    .phase-subtitle {
-      font-size: 0.875rem;
-      color: #4a5568;
-      margin: 0;
-      line-height: 1.4;
-    }
-
-    .phase-arrow {
-      width: 18px;
-      height: 18px;
-      opacity: 0.6;
-      flex-shrink: 0;
-      transform: rotate(-90deg);
-    }
+    .phase-card.active { background:#E8E0D0; }
+    .phase-info { flex:1; }
+    .phase-title { font-size:1rem; font-weight:700; color:#1a1a1a; margin:0 0 0.25rem 0; line-height:1.3; }
+    .phase-subtitle { font-size:0.875rem; color:#4a5568; margin:0; line-height:1.4; }
+    .phase-arrow { width:18px; height:18px; opacity:0.6; flex-shrink:0; transform: rotate(-90deg); }
 
     /* === PHASE CONTENT === */
-    #phaseContentContainer { display: none; }
-
+    #phaseContentContainer { display:none; }
     #phaseContentContainer.active {
-      display: block;
-      margin-left: -1rem;
-      margin-right: -1rem;
-      margin-top: 0;
-      padding: 0;
-      background: #F5F0E5;
+      display:block;
+      margin-left:-1rem;
+      margin-right:-1rem;
+      background:#F5F0E5;
     }
-
     @media (min-width: 1024px) {
-      #phaseContentContainer.active {
-        margin-left: -2rem;
-        margin-right: -2rem;
-      }
+      #phaseContentContainer.active { margin-left:-2rem; margin-right:-2rem; }
     }
-
-    #phaseContentContainer .container {
-      padding: 0;
-      margin: 0;
-      max-width: none;
-      width: 100%;
-    }
-
-    #phaseContentContainer .content-inner {
-      padding: 0;
-      margin: 0;
-    }
-
+    #phaseContentContainer .container { padding:0; margin:0; max-width:none; width:100%; }
+    #phaseContentContainer .content-inner { padding:0; margin:0; }
     #phaseFrame {
-      width: 100%;
-      border: none;
-      display: block;
-      overflow: hidden;
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
+      width:100%;
+      border:none;
+      display:block;
+      overflow:hidden;
+      min-height:100vh;
+      margin:0;
+      padding:0;
     }
   </style>
 </head>
 
 <body>
-  <!-- header is injected by ./assets/header.js -->
+  <!-- header injected by ./assets/header.js -->
 
   <div class="page-wrapper">
     <div class="container">
       <div class="content-inner">
-
         <div class="timeline-grid">
           <div class="phase-header--grid">
             <h2>Timeline of Cantonese Migration</h2>
             <p>Waves, Networks, and Institutions</p>
           </div>
 
-          <!-- Left: Map -->
           <div class="map-section">
             <div class="map-wrapper">
               <div id="diaspora-map"></div>
             </div>
           </div>
 
-          <!-- Right: Phases -->
           <div class="phase-section">
             <div class="phase-wrapper">
               <div class="phase-list">
@@ -297,12 +220,11 @@
               </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
 
-    <!-- Phase Content Area (inside page-wrapper for scrolling) -->
     <div id="phaseContentContainer">
       <div class="container">
         <div class="content-inner">
@@ -312,7 +234,7 @@
     </div>
   </div>
 
-  <!-- === Timeline JS (phase click + header hide/show + iframe resize) === -->
+  <!-- Timeline JS -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const phaseCards = document.querySelectorAll('.phase-card');
@@ -325,7 +247,7 @@
       const scrollDelta = 5;
 
       function applyHeaderState(isHidden) {
-        const headerEl = document.querySelector('header'); // injected by header.js
+        const headerEl = document.querySelector('header');
         if (!headerEl || !pageWrapper) return;
 
         const headerH = headerEl.offsetHeight || 73;
@@ -343,48 +265,42 @@
 
       applyHeaderState(false);
 
-      if (pageWrapper) {
-        pageWrapper.addEventListener('scroll', function() {
-          const headerNow = document.querySelector('header');
-          if (!headerNow) return;
+      pageWrapper?.addEventListener('scroll', function() {
+        const headerNow = document.querySelector('header');
+        if (!headerNow) return;
 
-          const scrollTop = pageWrapper.scrollTop;
-          if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
+        const scrollTop = pageWrapper.scrollTop;
+        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
 
-          if (scrollTop < scrollThreshold) {
-            applyHeaderState(false);
-            lastScrollTop = scrollTop;
-            return;
-          }
-
-          if (scrollTop > lastScrollTop) applyHeaderState(true);
-          else applyHeaderState(false);
-
+        if (scrollTop < scrollThreshold) {
+          applyHeaderState(false);
           lastScrollTop = scrollTop;
-        });
-      }
+          return;
+        }
+
+        if (scrollTop > lastScrollTop) applyHeaderState(true);
+        else applyHeaderState(false);
+
+        lastScrollTop = scrollTop;
+      });
 
       function resizeIframe() {
         try {
           const iframeDoc = phaseFrame.contentDocument || phaseFrame.contentWindow.document;
-          const height = iframeDoc.documentElement.scrollHeight;
-          phaseFrame.style.height = height + 'px';
+          phaseFrame.style.height = iframeDoc.documentElement.scrollHeight + 'px';
         } catch (e) {}
       }
 
-      if (phaseFrame) {
-        phaseFrame.addEventListener('load', function() {
-          resizeIframe();
-          setTimeout(resizeIframe, 120);
-          setTimeout(resizeIframe, 500);
-          setTimeout(resizeIframe, 1000);
-        });
-      }
+      phaseFrame?.addEventListener('load', function() {
+        resizeIframe();
+        setTimeout(resizeIframe, 120);
+        setTimeout(resizeIframe, 500);
+        setTimeout(resizeIframe, 1000);
+      });
 
       phaseCards.forEach(card => {
         card.addEventListener('click', function(e) {
           e.preventDefault();
-
           const phaseUrl = this.getAttribute('data-phase');
 
           phaseCards.forEach(c => c.classList.remove('active'));
@@ -394,8 +310,7 @@
           phaseFrame.src = phaseUrl;
 
           setTimeout(() => {
-            const phaseTop = contentContainer.offsetTop;
-            pageWrapper.scrollTo({ top: phaseTop, behavior: 'smooth' });
+            pageWrapper.scrollTo({ top: contentContainer.offsetTop, behavior: 'smooth' });
           }, 120);
         });
       });
