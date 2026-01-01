@@ -24,37 +24,42 @@
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
       background: #F5F0E5;
       font-family: 'Gentium Book Plus', serif;
     }
 
-    body {
-      overflow: hidden;
-    }
+    /* fade transition */
+    body{ opacity:0; transition: opacity 260ms ease; }
+    body.page-ready{ opacity:1; }
 
     .page-wrapper {
       height: calc(100vh - var(--header-h));
       overflow: hidden;
+      scrollbar-gutter: stable;
       position: relative;
       background: #F5F0E5;
     }
 
-    /* ===== Stage ===== */
+    /* Full-bleed stage */
     .culture-stage{
       position: relative;
       height: 100%;
       width: 100%;
+      background: #F5F0E5;
       overflow: hidden;
     }
 
     .culture-bg{
       position:absolute;
       inset:0;
-      background: url("images/culture-bg.jpg") center/cover no-repeat;
+      background:
+        url("images/culture-bg.jpg") center/cover no-repeat;
       transform: scale(1.02);
       filter: saturate(0.98);
     }
 
+    /* soft vignette, no borders */
     .culture-bg::after{
       content:"";
       position:absolute;
@@ -66,7 +71,7 @@
       pointer-events:none;
     }
 
-    /* ===== Symbols ===== */
+    /* Bottom icon row */
     .symbol-row{
       position:absolute;
       left:0;
@@ -86,17 +91,26 @@
       border: none;
       background: rgba(245,240,229,0.65);
       backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       display:flex;
       align-items:center;
       justify-content:center;
       cursor:pointer;
       text-decoration:none;
-      transition: transform .18s ease, background .18s ease;
+      transition: transform .18s ease, background .18s ease, opacity .18s ease;
+      opacity: .92;
     }
 
     .symbol-btn:hover{
       transform: translateY(-2px) scale(1.02);
       background: rgba(245,240,229,0.82);
+      opacity: 1;
+    }
+
+    .symbol-btn.active{
+      outline: 2px solid rgba(0,0,0,0.55);
+      outline-offset: 3px;
+      opacity: 1;
     }
 
     .symbol-btn img{
@@ -107,6 +121,7 @@
       display:block;
     }
 
+    /* Small label above icons (optional, subtle) */
     .symbol-hint{
       position:absolute;
       left:0; right:0;
@@ -116,9 +131,8 @@
       z-index:5;
       pointer-events:none;
     }
-
     .symbol-hint span{
-      font: 600 12px/1 'Lato', system-ui, sans-serif;
+      font: 600 12px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       letter-spacing: .14em;
       color: rgba(0,0,0,0.55);
       text-transform: uppercase;
@@ -126,37 +140,71 @@
       padding: 8px 12px;
       border-radius: 999px;
       backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    @media (max-width: 560px){
+      .symbol-btn{ width: 62px; height: 62px; }
+      .symbol-btn img{ width: 48px; height: 48px; }
+      .symbol-row{ gap: 14px; bottom: 18px; }
+      .symbol-hint{ bottom: 98px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- header injected by header.js -->
+  <!-- header injected by ./assets/header.js -->
 
   <div class="page-wrapper">
     <section class="culture-stage" aria-label="Culture Symbols">
-      <div class="culture-bg" aria-hidden="true"></div>
+      <div class="culture-bg" role="img" aria-label="Background image"></div>
 
-      <div class="symbol-hint"><span>CULTURE SYMBOLS</span></div>
+      <div class="symbol-hint"><span>Culture Symbols</span></div>
 
       <div class="symbol-row">
-        <a class="symbol-btn" href="symbol-1-faith.html">
-          <img src="images/icon-faith.png" alt="Faith">
+        <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Symbol 1: Religious Beliefs and Ancestral Worship">
+          <img src="images/icon-faith.png" alt="Symbol 1 icon">
         </a>
-        <a class="symbol-btn" href="symbol-2-food.html">
-          <img src="images/icon-food.png" alt="Food">
+
+        <a class="symbol-btn active" href="symbol-2-food.html" aria-label="Symbol 2: Culinary Heritage and the Global Table">
+          <img src="images/icon-food.png" alt="Symbol 2 icon">
         </a>
-        <a class="symbol-btn" href="symbol-3-opera.html">
-          <img src="images/icon-opera.png" alt="Opera">
+
+        <a class="symbol-btn" href="symbol-3-opera.html" aria-label="Symbol 3: Cantonese Opera">
+          <img src="images/icon-opera.png" alt="Symbol 3 icon">
         </a>
-        <a class="symbol-btn" href="symbol-4-kungfu.html">
-          <img src="images/icon-kungfu.png" alt="Kung Fu">
-        </a>
-        <a class="symbol-btn" href="symbol-5-lion.html">
-          <img src="images/icon-lion.png" alt="Lion Dance">
+
+        <a class="symbol-btn" href="symbol-4-kungfu.html" aria-label="Symbol 4: Martial Arts Cinema and Kung Fu">
+          <img src="images/icon-kungfu.png" alt="Symbol 4 icon">
         </a>
       </div>
     </section>
   </div>
+
+  <script>
+    // fade-in on load
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('page-ready');
+    });
+
+    // fade-out on internal link click
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+
+      const href = a.getAttribute('href') || '';
+      const isSameTab = !a.target || a.target === '_self';
+      const isHash = href.startsWith('#');
+      const isExternal = /^https?:\/\//i.test(href);
+
+      if (!href || isHash || isExternal || !isSameTab) return;
+
+      e.preventDefault();
+      document.body.classList.remove('page-ready');
+      setTimeout(() => { window.location.href = href; }, 260);
+    });
+  </script>
 </body>
 </html>
+
+
