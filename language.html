@@ -18,13 +18,19 @@
   <script src="./assets/header.js" defer></script>
 
   <style>
+    :root { --header-h: 73px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scrollbar-gutter: stable; }
+
     body {
       background: #F5F0E5;
+      font-family: 'Gentium Book Plus', serif;
+      line-height: 1.6;
+      padding-top: var(--header-h, 73px);
     }
 
     .page-wrapper {
       overflow-x: hidden;
-      scrollbar-gutter: stable;
     }
 
     .content-inner {
