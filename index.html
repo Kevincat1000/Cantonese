@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cantonese in Americas - Public History & Cultural Research</title>
 
-  <!-- Google Fonts: Gentium Book Plus -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
@@ -19,9 +19,16 @@
   <script src="./assets/header.js" defer></script>
 
   <style>
+    :root { --header-h: 73px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scrollbar-gutter: stable; }
+
     body{
+      font-family: "Gentium Book Plus", serif;
+      line-height: 1.6;
       color: #333;
       background: #fff;
+      padding-top: var(--header-h, 73px);
     }
 
     .container{
@@ -191,11 +198,11 @@
 
   <footer>
     <div class="container">
-      <p>Created by <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6ddc185868f848ef6d1dbd7dfda98d5d9db">[email&#160;protected]</a> All rights reserved 2025</p>
+      <p>Created by kw30928@gmail.com All rights reserved 2025</p>
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     (function () {
       "use strict";
 
@@ -216,3 +223,13 @@
           lastScrollTop = scrollTop;
           return;
         }
+
+        if (scrollTop > lastScrollTop) header.classList.add("header-hidden");
+        else header.classList.remove("header-hidden");
+
+        lastScrollTop = scrollTop;
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>
