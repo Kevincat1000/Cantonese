@@ -236,8 +236,6 @@ function boot() {
   insertHeaderHTML();
   initMobileMenu();
   initAdaptiveHeaderHeight();
-
-  document.dispatchEvent(new CustomEvent("site-header:ready"));
 }
 
 
