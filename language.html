@@ -18,7 +18,14 @@
   <script src="./assets/header.js" defer></script>
 
   <style>
-    :root { --header-h: 73px; }
+    :root { 
+      --header-h: 73px;
+      --accent-red: #b32d2e;
+      --accent-gold: #c5a059;
+      --text-main: #e0e0e0;
+      --text-dim: #999;
+      --line-width: 3px;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scrollbar-gutter: stable; }
 
@@ -45,6 +52,7 @@
       }
     }
 
+    /* ========== Flashcard Section ========== */
     .flash-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -124,7 +132,7 @@
       line-height: 1.5;
     }
 
-    /* Research Section */
+    /* ========== Research Intro Section ========== */
     #research-section {
       position: relative;
       width: 100%;
@@ -202,10 +210,171 @@
         font-size: 1rem;
       }
     }
+
+    /* ========== Academic Article Section ========== */
+    #academic-section {
+      position: relative;
+      background-color: #0a0a0a;
+      color: var(--text-main);
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    #academic-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .academic-header {
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 10% 0 15%;
+      border-bottom: 1px solid #222;
+    }
+
+    .academic-header h1 {
+      font-size: 3.5rem;
+      color: var(--accent-gold);
+      margin: 0;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    .academic-header h2 {
+      font-size: 1.3rem;
+      font-weight: normal;
+      font-style: italic;
+      color: var(--text-dim);
+      margin-top: 20px;
+      max-width: 800px;
+    }
+
+    .academic-container {
+      position: relative;
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+    }
+
+    .timeline-aside {
+      width: 150px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .red-line-track {
+      position: absolute;
+      left: 80px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #222;
+    }
+
+    .red-line-active {
+      position: absolute;
+      left: 80px;
+      top: 0;
+      width: var(--line-width);
+      height: 0;
+      background: var(--accent-red);
+      box-shadow: 0 0 15px var(--accent-red);
+      z-index: 10;
+    }
+
+    .academic-main {
+      padding: 100px 5% 100px 20px;
+      flex-grow: 1;
+    }
+
+    .academic-main section {
+      margin-bottom: 180px;
+      opacity: 0.5;
+      transition: opacity 0.8s ease;
+    }
+
+    .academic-main section.active {
+      opacity: 1;
+    }
+
+    .era-title {
+      position: relative;
+      font-size: 2.5rem;
+      color: var(--accent-gold);
+      margin-bottom: 50px;
+      font-family: 'Helvetica', sans-serif;
+      font-weight: 800;
+    }
+
+    .era-title .time-tag {
+      position: absolute;
+      left: -180px;
+      color: var(--accent-red);
+      font-size: 1.1rem;
+      top: 15px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      text-align: justify;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+      margin-bottom: 30px;
+    }
+
+    .academic-main h3 {
+      font-size: 1.5rem;
+      color: #fff;
+      border-bottom: 1px solid var(--accent-red);
+      padding-bottom: 5px;
+      margin-top: 40px;
+      grid-column: 1 / -1;
+    }
+
+    .academic-main p {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+
+    .highlight-box {
+      background: rgba(179, 45, 46, 0.05);
+      border: 1px solid rgba(179, 45, 46, 0.2);
+      padding: 25px;
+      margin: 20px 0;
+      grid-column: 1 / -1;
+    }
+
+    .academic-main strong {
+      color: var(--accent-gold);
+    }
+
+    @media (max-width: 1000px) {
+      .grid-layout { grid-template-columns: 1fr; }
+      .academic-header h1 { font-size: 2.2rem; }
+      .timeline-aside { width: 60px; }
+      .red-line-track, .red-line-active { left: 30px; }
+      .era-title .time-tag { position: static; display: block; margin-bottom: 10px; }
+      .academic-header { padding-left: 60px; }
+      .era-title { font-size: 1.8rem; }
+    }
   </style>
 </head>
 
 <body>
+  <!-- ========== Part 1: Flashcards ========== -->
   <div class="page-wrapper">
     <div class="container">
       <div class="content-inner">
@@ -354,23 +523,146 @@
     </div>
   </div>
 
-  <!-- Research Section with Particle Animation -->
+  <!-- ========== Part 2: Research Intro with Particle Animation ========== -->
   <section id="research-section">
     <canvas id="particle-canvas"></canvas>
     
     <div class="research-content-box">
-      <h1>Cantonese as Linguistic Capital: <br>The Revaluation from Survival to Heritage</h1>
+      <h1>Cantonese Capital: <br>The Revaluation from Survival to Heritage</h1>
       <h2>Power, Hierarchy, and Identity in the North American Chinese Diaspora</h2>
       
       <p>
         Beyond communication, <span class="highlight">language is capital.</span> 
-        For over a century, Cantonese served as the dominant "currency" of North American Chinatowns, a 
+        For over a century, Cantonese served as the dominant "currency" of North American Chinatowns—a 
         resource granting access to employment, protection, and social belonging.
       </p>
     </div>
   </section>
 
+  <!-- ========== Part 3: Academic Article with Timeline ========== -->
+  <div id="academic-section">
+    <canvas id="academic-canvas"></canvas>
+
+    <div class="academic-header">
+      <h1>Cantonese Capital:<br>The Revaluation from Survival to Heritage</h1>
+      <h2>Power, Hierarchy, and Identity in the North American Chinese Diaspora</h2>
+    </div>
+
+    <div class="academic-container">
+      <aside class="timeline-aside">
+        <div class="red-line-track"></div>
+        <div class="red-line-active" id="activeLine"></div>
+      </aside>
+
+      <main class="academic-main">
+        
+        <!-- SECTION 1 -->
+        <section id="section1">
+          <div class="era-title">
+            <span class="time-tag">1850s–1970s</span>
+            1. The Era of Hegemony: Cantonese as "Survival License"
+          </div>
+
+          <div class="grid-layout">
+            <h3>A. Huiguan Power: Associations as Gatekeepers</h3>
+            <div class="full-width">
+              <p>Early Cantonese dominance was not just about numbers—it was about <strong>institutional power</strong>. In the 19th and 20th-century Chinatowns, native-place associations (huiguan), such as the Chinese Consolidated Benevolent Association (CCBA), acted like a government.</p>
+            </div>
+            <div>
+              <p>They dominated trades like hand laundries, cigar making, and shoe manufacturing. They settled disputes, provided welfare, controlled remittance networks and steamship tickets, and fought legal battles against discrimination.</p>
+            </div>
+            <div>
+              <p>In a context of exclusion, these associations became a practical infrastructure of social protection—the only safety net available. Because these institutions were deeply shaped by Guangdong native-place networks, <strong>Cantonese was the price of admission.</strong></p>
+            </div>
+            <div class="highlight-box">
+              Speaking the language was not a choice; it was a necessity. It functioned as a <strong>"survival license."</strong> Without Cantonese, a Chinese immigrant could not borrow money, find a job, or access legal protection.
+            </div>
+
+            <h3>B. Media Hegemony: The Public Voice</h3>
+            <div>
+              <p>San Francisco's early Chinese press was written exclusively for a Cantonese-speaking labor class. <i>The Golden Hills' News</i> (1854) and <i>Chung Sai Yat Po</i> (1900–1951) shaped political and civic discourse for decades.</p>
+            </div>
+            <div>
+              <p>Even when discussing modern issues, they spoke to a Cantonese world. By making Cantonese the default language of news and opinion, these papers established who was "inside" the community and which groups were peripheral.</p>
+            </div>
+
+            <h3>C. Surnames and Signs: Default Pronunciation</h3>
+            <div class="full-width">
+              <p>The linguistic landscape defined Chinatown: English spellings historically tracked Cantonese pronunciations. <strong>"Lee," "Wong," and "Chan"</strong> became the norm, rather than the Mandarin pinyin <strong>"Li," "Wang," or "Chen."</strong> This signaled that Cantonese was the "standard sound" of public life in North America.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section id="section2">
+          <div class="era-title">
+            <span class="time-tag">1980s–PRESENT</span>
+            2. Diglossia and Displacement: Rise of Mandarin as "High" Variety
+          </div>
+
+          <div class="grid-layout">
+            <h3>A. Reframing Diglossia: "High/Low" Inside Chinese</h3>
+            <div>
+              <p>In North American communities today, a split increasingly operates within the Chinese language itself. <strong>Mandarin is treated as the "High" variety</strong>—official, educated, and globally useful. Meanwhile, Cantonese is pushed toward the <strong>"Low" variety</strong>—associated with family, local history, and the elderly.</p>
+            </div>
+            <div>
+              <p>The key shift here is political and economic. Even while the community maintains "Chinese" identity, the definition of which Chinese counts as legitimate or prestigious has changed.</p>
+            </div>
+
+            <div class="highlight-box">
+              <strong>Official Status:</strong> Cantonese remains official only in <strong>Hong Kong</strong> (Language of government, law, and education) and <strong>Macau</strong> (Official oral medium).
+            </div>
+
+            <h3>B. Institutional Production of "Standard" Chinese</h3>
+            <div class="full-width">
+              <p>Heritage education is a primary site where this hierarchy is produced. In many Chinese schools, Mandarin is enforced as the only "proper" identity. Students learn that legitimate "Chinese" is what schools, tests, and formal curricula recognize—often Mandarin by default.</p>
+            </div>
+
+            <h3>C. The Supply Chain Disruption: State Standardization</h3>
+            <div class="full-width">
+              <p>The <strong>Law on the Standard Spoken and Written Chinese Language (2000)</strong> in the PRC institutionalized the promotion of "Putonghua" nationwide. This policy strengthened Mandarin as the only language of literacy and formal domains, disrupting the historical "supply chain" of new Cantonese migrants.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3 -->
+        <section id="section3">
+          <div class="era-title">
+            <span class="time-tag">2000s–FUTURE</span>
+            3. The Great Reversal: Current Demographic Realities
+          </div>
+
+          <div class="grid-layout">
+            <div class="full-width">
+              <p>Cantonese in North America now confronts a form of <strong>double marginality</strong>: External pressure from English and internal displacement by Mandarin's prestige.</p>
+            </div>
+
+            <h3>A. Comparative Signals: Canada vs. the United States</h3>
+            <div>
+              <p><strong>Canada:</strong> The 2021 Census confirmed Mandarin as the leading Chinese language (679,000) widening the gap over Cantonese (553,000).</p>
+            </div>
+            <div>
+              <p><strong>United States:</strong> Mandarin surpassed Cantonese around 2010. By 2025, estimates show 2.6M Mandarin speakers compared to 0.55M Cantonese speakers.</p>
+            </div>
+
+            <h3>B. San Francisco as "Fortress"</h3>
+            <div class="full-width">
+              <p>San Francisco remains critical. The <strong>2025 Language Access Ordinance</strong> report notes Cantonese LEP interactions reached 20% among all languages; meanwhile, Mandarin accounted for only about 5%. Cantonese retains direct institutional consequences for accessing rights.</p>
+            </div>
+
+            <h3>C. Linguistic Landscape as Evidence of Revaluation</h3>
+            <div class="full-width">
+              <p>The reversal appears in the public landscape: signage and translated materials increasingly default to Mandarin-centered forms (often pinyin). Cantonese becomes less visible as the public standard, transitioning into its new role as a <strong>Heritage Asset</strong>.</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
   <script>
+    // ========== Header Scroll Behavior ==========
     (function () {
       "use strict";
 
@@ -399,7 +691,7 @@
       }, { passive: true });
     })();
 
-    // Particle Animation for Research Section
+    // ========== Particle Animation for Research Section ==========
     (function() {
       const canvas = document.getElementById('particle-canvas');
       const ctx = canvas.getContext('2d');
@@ -498,6 +790,82 @@
           }
         });
       });
+    })();
+
+    // ========== Academic Section: Red Line & Background ==========
+    (function() {
+      const academicSection = document.getElementById('academic-section');
+      const activeLine = document.getElementById('activeLine');
+      const academicCanvas = document.getElementById('academic-canvas');
+      const actx = academicCanvas.getContext('2d');
+      let academicParticles = [];
+
+      // Resize academic canvas
+      function resizeAcademic() {
+        academicCanvas.width = window.innerWidth;
+        academicCanvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeAcademic);
+      resizeAcademic();
+
+      // Academic background particles
+      class AcademicParticle {
+        constructor() {
+          this.x = Math.random() * academicCanvas.width;
+          this.y = Math.random() * academicCanvas.height;
+          this.size = Math.random() * 2;
+          this.speedY = Math.random() * 0.5 + 0.2;
+          this.color = Math.random() > 0.5 ? '#b32d2e' : '#c5a059';
+        }
+        update() {
+          this.y += this.speedY;
+          if (this.y > academicCanvas.height) this.y = -10;
+        }
+        draw() {
+          actx.fillStyle = this.color;
+          actx.beginPath();
+          actx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          actx.fill();
+        }
+      }
+
+      for (let i = 0; i < 100; i++) {
+        academicParticles.push(new AcademicParticle());
+      }
+
+      function animateAcademic() {
+        actx.clearRect(0, 0, academicCanvas.width, academicCanvas.height);
+        academicParticles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animateAcademic);
+      }
+      animateAcademic();
+
+      // Red line scroll & section highlighting
+      window.addEventListener('scroll', function() {
+        const sectionTop = academicSection.offsetTop;
+        const sectionHeight = academicSection.offsetHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Calculate progress within academic section
+        const relativeScroll = scrollTop - sectionTop + window.innerHeight;
+        const progress = Math.max(0, Math.min(100, (relativeScroll / sectionHeight) * 100));
+        
+        activeLine.style.height = progress + '%';
+
+        // Highlight current subsection
+        const sections = academicSection.querySelectorAll('.academic-main section');
+        sections.forEach(sec => {
+          const top = sec.offsetTop + sectionTop;
+          if (scrollTop > top - 400) {
+            sec.classList.add('active');
+          } else {
+            sec.classList.remove('active');
+          }
+        });
+      }, { passive: true });
     })();
   </script>
 </body>
