@@ -231,12 +231,15 @@ header[data-site-header="1"] .mobile-nav-link:active{
     });
   }
 
-  function boot() {
-    const headerEl = ensureHeaderEl();
-    insertHeaderStyles();
-    insertHeaderHTML(headerEl);
-    initMobileMenu();
-  }
+function boot() {
+  insertHeaderStyles();
+  insertHeaderHTML();
+  initMobileMenu();
+  initAdaptiveHeaderHeight();
+
+  document.dispatchEvent(new CustomEvent("site-header:ready"));
+}
+
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", boot, { once: true });
