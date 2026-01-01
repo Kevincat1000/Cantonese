@@ -46,6 +46,8 @@
         justify-content:space-between;
         padding:.75rem 0;
         gap:1rem;
+        height:var(--header-h, 73px);
+        box-sizing:border-box;
       }
 
       header[data-site-header="1"] .logo{
