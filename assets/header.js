@@ -51,7 +51,7 @@
       }
 
       header[data-site-header="1"] .logo-main{
-        font-size:21px;
+        font-size:18px;
         font-weight:700;
         color:#8B2332;
         letter-spacing:.5px;
@@ -70,7 +70,6 @@
         display:none;
         align-items:center;
         gap:1.5rem;
-        position:relative;
       }
 
       @media (min-width:768px){
@@ -165,8 +164,6 @@
   }
 
   function insertHeaderHTML() {
-    if (!document.body) return;
-
     const headerHTML = `
       <header data-site-header="1">
         <div class="header-container">
@@ -186,7 +183,8 @@
 
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
@@ -201,14 +199,35 @@
         </div>
       </header>
     `;
-
     document.body.insertAdjacentHTML("afterbegin", headerHTML);
+  }
 
+  function initAdaptiveHeaderHeight() {
+    const root = document.documentElement;
     const headerEl = document.querySelector("header[data-site-header='1']");
-    if (headerEl) {
-      const h = headerEl.offsetHeight || 73;
-      document.documentElement.style.setProperty("--header-h", h + "px");
+    if (!headerEl) return;
+
+    let last = 0;
+
+    const update = () => {
+      const h = Math.round(headerEl.getBoundingClientRect().height);
+      if (!h || h === last) return;
+      last = h;
+      root.style.setProperty("--header-h", h + "px");
+    };
+
+    requestAnimationFrame(update);
+
+    if ("ResizeObserver" in window) {
+      const ro = new ResizeObserver(() => requestAnimationFrame(update));
+      ro.observe(headerEl);
     }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => requestAnimationFrame(update)).catch(() => {});
+    }
+
+    window.addEventListener("load", () => requestAnimationFrame(update), { once: true });
   }
 
   function initMobileMenu() {
@@ -244,6 +263,7 @@
     insertHeaderStyles();
     insertHeaderHTML();
     initMobileMenu();
+    initAdaptiveHeaderHeight();
   }
 
   if (document.readyState === "loading") {
