@@ -33,35 +33,28 @@
       height: calc(100vh - var(--header-h));
       overflow-y: auto;
       overflow-x: hidden;
-      scrollbar-gutter: stable;
     }
 
     .content-inner {
-      padding: 1.25rem 1rem 2.5rem;
+      padding: 1.5rem 1rem 3rem;
       max-width: 1200px;
       margin: 0 auto;
     }
-    @media (min-width: 1024px) {
-      .content-inner { padding: 1.5rem 2rem 3rem; }
-    }
 
     /* =========================
-       Symbols “hero” section
+       Symbols Stage (no border)
        ========================= */
     .symbols-stage {
       width: 100%;
-      border: 1.25px solid rgba(0,0,0,0.9);
-      border-radius: 18px;
-      overflow: hidden;
       background: #F5F0E5;
+      overflow: hidden;
     }
 
     .stage-bg {
       position: relative;
       width: 100%;
-      height: clamp(320px, 42vw, 520px);
+      height: clamp(340px, 42vw, 520px);
       background: #eae3d4;
-      overflow: hidden;
     }
 
     .stage-bg img.bg-img {
@@ -70,104 +63,86 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.95;
-      transform: scale(1.02);
     }
 
-    /* Center “main” image (the one that switches) */
     .stage-main {
       position: absolute;
       inset: 0;
       display: grid;
       place-items: center;
-      padding: 28px 16px 90px; /* leave room for buttons row */
+      padding-bottom: 90px;
       pointer-events: none;
     }
 
-    .stage-main img#mainSymbolImage {
+    .stage-main img {
       width: min(72%, 720px);
       max-height: 78%;
       object-fit: contain;
       filter: drop-shadow(0 8px 18px rgba(0,0,0,0.25));
-      transform: translateY(-6px);
     }
 
-    /* Buttons row (foreground “people”) */
     .symbol-buttons {
       position: absolute;
+      bottom: 12px;
       left: 0;
       right: 0;
-      bottom: 12px;
       display: flex;
       justify-content: center;
-      gap: clamp(10px, 2.2vw, 22px);
-      padding: 0 14px;
-      z-index: 5;
+      gap: 20px;
     }
 
     .symbol-btn {
-      appearance: none;
-      border: none;
       background: transparent;
+      border: none;
       cursor: pointer;
-      display: grid;
-      place-items: center;
-      gap: 8px;
-      padding: 10px 10px 6px;
+      padding: 10px;
       border-radius: 14px;
-      transition: transform 0.18s ease, background 0.18s ease, outline-color 0.18s ease;
+      transition: background 0.2s ease, transform 0.2s ease;
       outline: 1.25px solid transparent;
     }
 
-    .symbol-btn:hover { transform: translateY(-2px); background: rgba(245,240,229,0.55); }
-    .symbol-btn.active { outline-color: rgba(0,0,0,0.9); background: rgba(245,240,229,0.72); }
-
-    .symbol-btn img {
-      width: clamp(56px, 7.2vw, 92px);
-      height: clamp(56px, 7.2vw, 92px);
-      object-fit: contain;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18));
+    .symbol-btn.active {
+      outline-color: rgba(0,0,0,0.85);
+      background: rgba(245,240,229,0.6);
     }
 
-    .symbol-btn .btn-label {
-      font: 700 12px/1.1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(0,0,0,0.72);
+    .symbol-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .symbol-btn img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
     }
 
     /* =========================
-       Text panel below
+       Text Panel (UNIFIED)
        ========================= */
     .symbol-text {
-      padding: 18px 18px 20px;
+      padding: 22px 24px 26px;
       background: #F5F0E5;
-    }
-    @media (min-width: 900px){
-      .symbol-text { padding: 22px 26px 26px; }
-    }
-
-    .symbol-h {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 12px;
     }
 
     .symbol-title {
       font-size: 22px;
-      line-height: 1.25;
       font-weight: 700;
+      margin: 0 0 6px 0;
       color: #1a1a1a;
-      margin: 0;
     }
 
     .symbol-theme {
-      font: 700 13px/1.35 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font: 700 13px/1.35 'Lato', system-ui, sans-serif;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: rgba(0,0,0,0.62);
-      margin: 0;
+      color: rgba(0,0,0,0.6);
+      margin: 0 0 14px 0;
+    }
+
+    .symbol-divider {
+      height: 1px;
+      background: rgba(0,0,0,0.18);
+      margin-bottom: 14px;
     }
 
     .symbol-body {
@@ -175,167 +150,108 @@
       line-height: 1.7;
       color: rgba(0,0,0,0.86);
     }
-    .symbol-body p { margin: 0 0 12px 0; }
 
-    /* Small divider line */
-    .symbol-divider {
-      height: 1px;
-      background: rgba(0,0,0,0.16);
-      margin: 12px 0 14px;
+    .symbol-body p {
+      margin: 0 0 14px 0;
     }
   </style>
 </head>
 
 <body>
-  <!-- Header injected by ./assets/header.js -->
-
   <div class="page-wrapper">
-    <div class="container">
-      <div class="content-inner">
+    <div class="content-inner">
 
-        <!-- =========================
-             SYMBOLS SECTION
-             ========================= -->
-        <section class="symbols-stage" aria-label="Culture Symbols Interactive">
-          <div class="stage-bg">
-            <!-- Background image -->
-            <img class="bg-img" src="images/symbols/bg.jpg" alt="Background artwork (replace with your image)">
+      <section class="symbols-stage">
+        <div class="stage-bg">
+          <img class="bg-img" src="images/symbols/bg.jpg" alt="Background">
 
-            <!-- Center switching image -->
-            <div class="stage-main" aria-hidden="true">
-              <img id="mainSymbolImage" src="images/symbols/s1.png" alt="Selected symbol image">
-            </div>
-
-            <!-- Foreground “people buttons” -->
-            <div class="symbol-buttons" role="tablist" aria-label="Select a symbol">
-              <button class="symbol-btn active" type="button"
-                data-key="s1"
-                data-img="images/symbols/s1.png"
-                aria-selected="true">
-                <img src="images/symbols/btn1.png" alt="Symbol 1 button image">
-                <div class="btn-label">Symbol 1</div>
-              </button>
-
-              <button class="symbol-btn" type="button"
-                data-key="s2"
-                data-img="images/symbols/s2.png"
-                aria-selected="false">
-                <img src="images/symbols/btn2.png" alt="Symbol 2 button image">
-                <div class="btn-label">Symbol 2</div>
-              </button>
-
-              <button class="symbol-btn" type="button"
-                data-key="s3"
-                data-img="images/symbols/s3.png"
-                aria-selected="false">
-                <img src="images/symbols/btn3.png" alt="Symbol 3 button image">
-                <div class="btn-label">Symbol 3</div>
-              </button>
-
-              <button class="symbol-btn" type="button"
-                data-key="s4"
-                data-img="images/symbols/s4.png"
-                aria-selected="false">
-                <img src="images/symbols/btn4.png" alt="Symbol 4 button image">
-                <div class="btn-label">Symbol 4</div>
-              </button>
-            </div>
+          <div class="stage-main">
+            <img id="mainImage" src="images/symbols/s2.png" alt="">
           </div>
 
-          <!-- Text panel -->
-          <div class="symbol-text" id="symbolText">
-            <div class="symbol-h">
-              <h2 class="symbol-title" id="symbolTitle"></h2>
-              <p class="symbol-theme" id="symbolTheme"></p>
-            </div>
-            <div class="symbol-divider"></div>
-            <div class="symbol-body" id="symbolBody"></div>
+          <div class="symbol-buttons">
+            <button class="symbol-btn" data-key="s1"><img src="images/symbols/btn1.png"></button>
+            <button class="symbol-btn active" data-key="s2"><img src="images/symbols/btn2.png"></button>
+            <button class="symbol-btn" data-key="s3"><img src="images/symbols/btn3.png"></button>
+            <button class="symbol-btn" data-key="s4"><img src="images/symbols/btn4.png"></button>
           </div>
-        </section>
+        </div>
 
-      </div>
+        <div class="symbol-text">
+          <h2 id="title" class="symbol-title"></h2>
+          <p id="theme" class="symbol-theme"></p>
+          <div class="symbol-divider"></div>
+          <div id="body" class="symbol-body"></div>
+        </div>
+      </section>
+
     </div>
   </div>
 
   <script>
-    // ====== DATA (your full text, no shortening) ======
-    const SYMBOLS = {
+    const DATA = {
       s1: {
+        img: "images/symbols/s1.png",
         title: "Symbol 1: Religious Beliefs and Ancestral Worship",
-        theme: "Theme: Spiritual Anchors and the \"Temple-Association\" Model",
+        theme: "Theme: Spiritual Anchors and the Temple–Association Model",
         body: [
-          "Guangdong immigrants transplanted their spiritual landscape to the U.S. through a unique \"Temple-Association\"  model. This integration of sacred and secular spaces—exemplified by the Tin How Temple in San Francisco (est. 1852)—served as a vital cultural nexus. Beyond worshiping Mazu or Guandi, these sites functioned as social hubs where ancestor worship reinforced lineage identity and community cohesion.",
-          "By recreating familiar ritual spaces, early immigrants transformed traditional Lingnan folk beliefs into a visible public culture in the West. This \"regeneration\" allowed the community to maintain its cultural \"root\" while navigating the challenges of life in a foreign land, ultimately enriching America's multicultural religious landscape through festive performances like lion dances and opera."
+          "Guangdong immigrants transplanted their spiritual landscape to the U.S. through a unique Temple–Association model. This integration of sacred and secular spaces—exemplified by the Tin How Temple in San Francisco (est. 1852)—served as a vital cultural nexus.",
+          "Beyond worshiping Mazu or Guandi, these sites functioned as social hubs where ancestor worship reinforced lineage identity and community cohesion. By recreating familiar ritual spaces, early immigrants transformed Lingnan folk beliefs into a visible public culture in the West."
         ]
       },
+
       s2: {
+        img: "images/symbols/s2.png",
         title: "Symbol 2: Culinary Heritage and the Global Table",
         theme: "Theme: From Survival Strategy to Global Linguistic Influence",
         body: [
-          "The evolution of Cantonese cuisine in the U.S. marks a remarkable journey from \"survival\" to \"cultural dominance.\" From only five restaurants in 1856 to over 50,000 today, the proliferation of Cantonese staples such as Chow Mein and Fried Rice provided immigrants with a critical economic foothold during the Exclusion Era.",
-          "These dishes bridged the gap between Chinese kitchens and Western palates, becoming the foundation of the global \"Chinese takeout\" culture. More importantly, this dissemination led to the linguistic integration of Cantonese terms—not only \"Chow Mein\" but also \"Dim Sum\" and \"Won Ton\"—into the global lexicon. Yum Cha (dim sum) further evolved into a cross-cultural \"scene of public life,\" showcasing how Cantonese food culture \"regenerated\" from a marginalized community's sustenance into a ubiquitous symbol of cosmopolitan urban life."
+          "The evolution of Cantonese cuisine in the U.S. marks a journey from survival to cultural dominance. From only five restaurants in 1856 to over 50,000 today, Cantonese staples such as Chow Mein and Fried Rice provided immigrants with a critical economic foothold during the Exclusion Era.",
+          "These dishes bridged Chinese kitchens and Western palates, forming the foundation of global Chinese takeout culture. Terms like Chow Mein, Dim Sum, and Won Ton entered the global lexicon, while Yum Cha evolved into a cross-cultural public scene that transformed marginal sustenance into cosmopolitan life."
         ]
       },
+
       s3: {
+        img: "images/symbols/s3.png",
         title: "Symbol 3: Cantonese Opera",
         theme: "Theme: The Stage as a Repository of Transnational Memory",
         body: [
-          "Cantonese Opera serves as a profound medium for cultural memory, manifesting Lingnan history through the \"stage\" in overseas diasporas. Historically, it functioned not just as entertainment, but as a ritualistic \"Chou-shen\" (thanksgiving to deities) performance that bonded immigrant communities.",
-          "Its significance lies in its dual role: as a carrier of the Cantonese language and as a rigorous system of physical aesthetics. The opera’s tradition of acrobatics and stylized combat provided the foundational \"body knowledge\" for later action cinema. In the transnational context, Cantonese Opera became a mobile \"homeland,\" allowing immigrants to relive collective narratives and maintain their ethnic identity through the sight, sound, and symbolism of the traditional stage."
+          "Cantonese Opera served not only as entertainment but as ritual performance, bonding immigrant communities through shared narrative and sound.",
+          "Its acrobatics and stylized combat formed a system of embodied knowledge that later influenced action cinema, allowing opera to function as a mobile homeland across the diaspora."
         ]
       },
+
       s4: {
-        title: "Symbol 4: Martial Arts Cinema and \"Kung Fu\"",
+        img: "images/symbols/s4.png",
+        title: "Symbol 4: Martial Arts Cinema and Kung Fu",
         theme: "Theme: Industrialized Narratives and Linguistic Globalization",
         body: [
-          "The global phenomenon of Kung Fu cinema is deeply rooted in the Lingnan martial arts and Cantonese Opera traditions. Hong Kong industrialized these local symbols—most notably the Wong Fei-hung legacy—to create a genre centered on \"South-style\" ethics and community order.",
-          "The linguistic triumph of the word \"Kung Fu\" (a Cantonese transliteration) signifies the cultural binding of the Cantonese identity to global pop culture. From the 1970s \"Kung Fu Craze\" ignited by Bruce Lee to the Hollywood action choreography seen in The Matrix (designed by Yuen Woo-ping), Hong Kong cinema exported more than just films; it exported a \"body language.\" This regeneration through cinema transformed a local martial art into a universal symbol of resistance and discipline, permanently embedding Cantonese cultural elements into the global narrative."
+          "Kung Fu cinema industrialized Lingnan martial traditions into a global genre rooted in Cantonese ethics and performance.",
+          "From Bruce Lee to Hollywood choreography, Cantonese body language was exported worldwide, embedding local identity into global pop culture."
         ]
       }
     };
 
-    // ====== UI wiring ======
-    const mainImg = document.getElementById('mainSymbolImage');
-    const titleEl = document.getElementById('symbolTitle');
-    const themeEl = document.getElementById('symbolTheme');
-    const bodyEl  = document.getElementById('symbolBody');
-    const buttons = Array.from(document.querySelectorAll('.symbol-btn'));
+    const mainImg = document.getElementById("mainImage");
+    const title = document.getElementById("title");
+    const theme = document.getElementById("theme");
+    const body = document.getElementById("body");
+    const buttons = document.querySelectorAll(".symbol-btn");
 
     function render(key){
-      const d = SYMBOLS[key];
-      if (!d) return;
-
-      // swap image (center)
-      const btn = buttons.find(b => b.dataset.key === key);
-      const img = btn?.dataset.img;
-      if (img) mainImg.src = img;
-
-      // text
-      titleEl.textContent = d.title;
-      themeEl.textContent = d.theme;
-
-      bodyEl.innerHTML = d.body.map(p => `<p>${p}</p>`).join('');
+      const d = DATA[key];
+      mainImg.src = d.img;
+      title.textContent = d.title;
+      theme.textContent = d.theme;
+      body.innerHTML = d.body.map(p => `<p>${p}</p>`).join("");
     }
 
-    // init
-    render('s1');
+    render("s2");
 
-    buttons.forEach(b => {
-      b.addEventListener('click', () => {
-        const key = b.dataset.key;
-
-        buttons.forEach(x => {
-          x.classList.remove('active');
-          x.setAttribute('aria-selected', 'false');
-        });
-
-        b.classList.add('active');
-        b.setAttribute('aria-selected', 'true');
-
-        render(key);
-
-        // optional: ensure text is visible on click
-        document.getElementById('symbolText').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        render(btn.dataset.key);
       });
     });
   </script>
