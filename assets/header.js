@@ -9,7 +9,7 @@
     const css = `
       header[data-site-header="1"]{
         background:#F5F0E5;
-        border-bottom:none;
+        border-bottom:1px solid #e5e5e5;
         position:fixed;
         top:0; left:0; right:0;
         z-index:50;
@@ -64,6 +64,11 @@
         color:#8B2332;
         letter-spacing:2px;
         line-height:1.2;
+      }
+      
+      @media (min-width: 640px) {
+          header[data-site-header="1"] .logo-main { font-size: 24px; }
+          header[data-site-header="1"] .logo-sub { font-size: 16px; }
       }
 
       header[data-site-header="1"] .nav-menu{
@@ -208,8 +213,7 @@
     if (!headerEl) return;
 
     let last = 0;
-    let isReady = false;
-
+    
     const update = () => {
       const h = Math.round(headerEl.getBoundingClientRect().height);
       if (!h) return;
@@ -217,15 +221,6 @@
       if (h !== last) {
         last = h;
         root.style.setProperty("--header-h", h + "px");
-      }
-      
-      // 高度计算完成后，添加ready类显示header
-      if (!isReady && h > 0) {
-        isReady = true;
-        // 使用 requestAnimationFrame 确保CSS变量已应用
-        requestAnimationFrame(() => {
-          headerEl.classList.add("header-ready");
-        });
       }
     };
 
@@ -236,11 +231,36 @@
       ro.observe(headerEl);
     }
 
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(() => requestAnimationFrame(update)).catch(() => {});
-    }
-
     window.addEventListener("load", () => requestAnimationFrame(update), { once: true });
+    window.addEventListener("resize", () => requestAnimationFrame(update));
+  }
+
+  function initScrollBehavior() {
+    let lastScrollTop = 0;
+    const header = document.querySelector("header[data-site-header='1']");
+    if (!header) return;
+    
+    const scrollThreshold = 100;
+    
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (Math.abs(lastScrollTop - scrollTop) <= 5) return;
+        
+        if (scrollTop < scrollThreshold) {
+            header.classList.remove('header-hidden');
+            lastScrollTop = scrollTop;
+            return;
+        }
+        
+        if (scrollTop > lastScrollTop) {
+            header.classList.add('header-hidden');
+        } else {
+            header.classList.remove('header-hidden');
+        }
+        
+        lastScrollTop = scrollTop;
+    });
   }
 
   function initMobileMenu() {
@@ -277,6 +297,7 @@
     insertHeaderHTML();
     initMobileMenu();
     initAdaptiveHeaderHeight();
+    initScrollBehavior();
   }
 
   if (document.readyState === "loading") {
