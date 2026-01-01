@@ -20,11 +20,15 @@
   <style>
     :root { --header-h: 73px; }
 
+    /* ✅ Reserve scrollbar space so header aligns with other pages */
+    html { scrollbar-gutter: stable; }
+    body { overflow-y: scroll; } /* always show right scrollbar space */
+
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      overflow-x: hidden;
       background: #F5F0E5;
       font-family: 'Gentium Book Plus', serif;
     }
@@ -35,7 +39,7 @@
 
     .page-wrapper {
       height: calc(100vh - var(--header-h));
-      overflow: hidden;
+      overflow: hidden; /* keep stage full-screen (no scroll inside) */
       position: relative;
       background: #F5F0E5;
     }
@@ -70,23 +74,18 @@
       pointer-events:none;
     }
 
-    /* ✅ Symbols are OVERLAYED on the image */
+    /* ✅ Symbols OVERLAYED on the image */
     .symbol-overlay{
-      position:absolute;
+      position: absolute;
       left: 50%;
       bottom: clamp(18px, 4vh, 44px);
       transform: translateX(-50%);
-      display:flex;
-      justify-content:center;
+      display: flex;
+      justify-content: center;
       gap: 22px;
       padding: 0 18px;
-      z-index: 10;
+      z-index: 50;             /* make sure it's above bg */
       width: min(920px, calc(100% - 36px));
-      pointer-events: none; /* allow only buttons to receive clicks */
-    }
-
-    .symbol-overlay a{
-      pointer-events: auto; /* re-enable clicks on buttons */
     }
 
     .symbol-btn{
@@ -112,7 +111,6 @@
       opacity: 1;
     }
 
-    /* Optional: show a clean focus ring for keyboard users */
     .symbol-btn:focus-visible{
       outline: 2px solid rgba(0,0,0,0.55);
       outline-offset: 4px;
@@ -126,13 +124,13 @@
       display:block;
     }
 
-    /* Optional hint pill (also overlay on image) */
+    /* Optional hint pill (overlay) */
     .symbol-hint{
       position:absolute;
       left: 50%;
       bottom: calc(clamp(18px, 4vh, 44px) + 86px);
       transform: translateX(-50%);
-      z-index: 10;
+      z-index: 50;
       pointer-events:none;
     }
 
@@ -153,7 +151,7 @@
       .symbol-btn img{ width: 48px; height: 48px; }
       .symbol-overlay{
         gap: 14px;
-        flex-wrap: wrap; /* if 5 icons don't fit, it wraps nicely */
+        flex-wrap: wrap; /* 5 icons wrap nicely on small screens */
         bottom: 16px;
       }
       .symbol-hint{
@@ -172,7 +170,6 @@
 
       <div class="symbol-hint"><span>Culture Symbols</span></div>
 
-      <!-- ✅ OVERLAY icons directly ON TOP of the background image -->
       <div class="symbol-overlay" aria-label="Culture symbol links">
         <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Symbol 1: Religious Beliefs and Ancestral Worship">
           <img src="images/icon-faith.png" alt="Symbol 1 icon">
