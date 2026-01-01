@@ -299,6 +299,66 @@
       line-height: 1.4;
     }
     
+    .colonial-images {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-top: 60px;
+      padding: 0 2rem;
+    }
+    
+    .colonial-image-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .colonial-image {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: block;
+    }
+    
+    .colonial-caption {
+      color: rgba(35, 29, 22, 0.75);
+      font-size: 0.875rem;
+      text-align: center;
+      line-height: 1.4;
+    }
+    
+    .tin-images {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-top: 60px;
+      padding: 0 2rem;
+    }
+    
+    .tin-image-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .tin-image {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: block;
+    }
+    
+    .tin-caption {
+      color: rgba(35, 29, 22, 0.75);
+      font-size: 0.875rem;
+      text-align: center;
+      line-height: 1.4;
+    }
+    
     .gallery {
       width: 96%;
       margin-left: auto;
@@ -540,6 +600,28 @@
         height: 300px;
       }
       
+      .colonial-images {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0;
+        margin-top: 40px;
+      }
+      
+      .colonial-image {
+        height: 220px;
+      }
+      
+      .tin-images {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0;
+        margin-top: 40px;
+      }
+      
+      .tin-image {
+        height: 360px;
+      }
+      
       .phase-link {
         font-size: 1rem;
       }
@@ -676,7 +758,7 @@
                 <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Thien Hau Temple" class="temple-image final">
               </div>
             </div>
-            <p class="historical-caption">Thien Hau Temple, Saigon, 1760</p>
+            <p class="historical-caption">Thien Hau Temple, Saigon, established in 1760</p>
           </div>
           
           <div class="historical-image-item">
@@ -708,10 +790,22 @@
             welfare, dispute resolution, and collective representation.
           </p>
         </div>
+        
+        <div class="colonial-images">
+          <div class="colonial-image-item">
+            <img src="http://bit.ly/4924hNh" alt="Penang Ng Fook Thong School" class="colonial-image">
+            <p class="colonial-caption">Penang Ng Fook Thong School, established in the 1820s<br>The first Cantonese school in Malaysia</p>
+          </div>
+          
+          <div class="colonial-image-item">
+            <img src="https://sgarchi.wordpress.com/wp-content/uploads/2020/05/shophouses1900.jpg" alt="Shophouses in early 1900s Singapore" class="colonial-image">
+            <p class="colonial-caption">Shophouses in early 1900s Singapore,<br>where many Cantonese migrants lived.</p>
+          </div>
+        </div>
       </div>
     </section>
     
-    <section class="section-paper content-section" style="background-image: none;">
+    <section class="section-paper content-section" style="background-image: none; padding-top: 1.5rem;">
       <div class="container">
         <h2 class="section-title text-dark font-heading">1840s–1870s: The Malayan Tin Boom</h2>
         <div class="text-content text-dark-90">
@@ -721,6 +815,18 @@
             and capitalists moved from Penang and Singapore into the interior mining districts of the
             Malay Peninsula.
           </p>
+        </div>
+        
+        <div class="tin-images">
+          <div class="tin-image-item">
+            <img src="https://bit.ly/4phrjVa" alt="Loke Yew" class="tin-image">
+            <p class="tin-caption">Loke Yew (1846-1917). Cantonese migrant turned<br>Malayan tin tycoon and philanthropist.</p>
+          </div>
+          
+          <div class="tin-image-item">
+            <img src="https://icf.newscdn.net/publisher-c1a3f893382d2b2f8a9aa22a654d9c97/2021/11/19671de90e44635c17d7ce037ff92cb8.jpg" alt="Open-cast Tin Mine in Malaya" class="tin-image">
+            <p class="tin-caption">Open-cast Tin Mine in Malaya, 1900s</p>
+          </div>
         </div>
       </div>
     </section>
