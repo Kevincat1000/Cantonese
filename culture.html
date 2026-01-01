@@ -18,9 +18,10 @@
   <script src="./assets/header.js" defer></script>
 
   <style>
-    :root { 
-      --header-h: 73px; 
-    }
+    :root { --header-h: 73px; }
+
+    /* ✅ Fix header “shift” vs other pages: always reserve scrollbar space */
+    html { overflow-y: scroll; }
 
     html, body {
       margin: 0;
@@ -28,7 +29,7 @@
       height: 100%;
       background: #F5F0E5;
       font-family: 'Gentium Book Plus', serif;
-      overflow: hidden;
+      overflow: hidden; /* keep the page clean; we only reserve scrollbar on html */
     }
 
     .page-wrapper {
@@ -37,9 +38,7 @@
       position: relative;
     }
 
-    /* =========================
-       Background image
-       ========================= */
+    /* Background image */
     .culture-bg {
       position: absolute;
       inset: 0;
@@ -47,9 +46,7 @@
       opacity: 0.95;
     }
 
-    /* =========================
-       Symbol row
-       ========================= */
+    /* Symbol row */
     .culture-symbol-row {
       position: absolute;
       bottom: 7vh;
@@ -70,8 +67,11 @@
       justify-content: center;
       background: rgba(245, 240, 229, 0.92);
       backdrop-filter: blur(2px);
-      transition: transform 0.25s ease, background 0.25s ease;
       text-decoration: none;
+
+      /* ✅ Unified transition (all symbols same) */
+      transition: transform 0.25s ease, background 0.25s ease;
+      will-change: transform;
     }
 
     .culture-symbol-btn img {
@@ -79,6 +79,10 @@
       height: 64%;
       object-fit: contain;
       display: block;
+
+      /* ✅ Unified transition (fix “lion feels different”) */
+      transition: transform 0.25s ease, filter 0.25s ease;
+      will-change: transform;
     }
 
     .culture-symbol-btn:hover {
@@ -86,13 +90,15 @@
       background: rgba(245, 240, 229, 1);
     }
 
+    .culture-symbol-btn:hover img {
+      transform: scale(1.03); /* subtle, makes all icons feel consistent */
+      filter: saturate(1.05);
+    }
+
     .culture-symbol-btn:active {
       transform: translateY(-2px);
     }
 
-    /* =========================
-       Mobile
-       ========================= */
     @media (max-width: 768px) {
       .culture-symbol-row {
         gap: 1.4rem;
@@ -112,41 +118,26 @@
   <div class="page-wrapper">
     <div class="culture-bg"></div>
 
-    <!-- =========================
-         Symbol buttons
-         ========================= -->
     <div class="culture-symbol-row">
-
-      <a href="symbol-1-faith.html"
-         class="culture-symbol-btn"
-         aria-label="Religious Beliefs and Ancestral Worship">
+      <a href="symbol-1-faith.html" class="culture-symbol-btn" aria-label="Religious Beliefs and Ancestral Worship">
         <img src="images/icon-faith.png" alt="Faith">
       </a>
 
-      <a href="symbol-2-food.html"
-         class="culture-symbol-btn"
-         aria-label="Culinary Heritage">
+      <a href="symbol-2-food.html" class="culture-symbol-btn" aria-label="Culinary Heritage">
         <img src="images/icon-food.png" alt="Food">
       </a>
 
-      <a href="symbol-3-opera.html"
-         class="culture-symbol-btn"
-         aria-label="Cantonese Opera">
+      <a href="symbol-3-opera.html" class="culture-symbol-btn" aria-label="Cantonese Opera">
         <img src="images/icon-opera.png" alt="Opera">
       </a>
 
-      <a href="symbol-4-kungfu.html"
-         class="culture-symbol-btn"
-         aria-label="Kung Fu Cinema">
+      <a href="symbol-4-kungfu.html" class="culture-symbol-btn" aria-label="Kung Fu Cinema">
         <img src="images/icon-kungfu.png" alt="Kung Fu">
       </a>
 
-      <a href="symbol-5-lion.html"
-         class="culture-symbol-btn"
-         aria-label="Lion Dance">
+      <a href="symbol-5-lion.html" class="culture-symbol-btn" aria-label="Lion Dance">
         <img src="images/icon-liondance.png" alt="Lion Dance">
       </a>
-
     </div>
   </div>
 
