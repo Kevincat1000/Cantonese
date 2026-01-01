@@ -140,4 +140,50 @@
   <div class="page-wrapper">
     <section class="hero">
       <div class="hero-inner">
-        <div class="kicker">
+        <div class="kicker">Symbol 4</div>
+        <h1 class="title">Martial Arts Cinema and "Kung Fu"</h1>
+        <p class="subtitle">Theme: Industrialized Narratives and Linguistic Globalization</p>
+      </div>
+    </section>
+
+    <main class="content">
+      <h2 class="section-h">Overview</h2>
+      <p>
+        The global phenomenon of Kung Fu cinema is deeply rooted in the Lingnan martial arts and Cantonese Opera traditions.
+        Hong Kong industrialized these local symbols—most notably the Wong Fei-hung legacy—to create a genre centered on "South-style" ethics and community order.
+        The linguistic triumph of the word "Kung Fu" (a Cantonese transliteration) signifies the cultural binding of the Cantonese identity to global pop culture.
+        From the 1970s "Kung Fu Craze" ignited by Bruce Lee to the Hollywood action choreography seen in The Matrix (designed by Yuen Woo-ping),
+        Hong Kong cinema exported more than just films; it exported a "body language."
+        This regeneration through cinema transformed a local martial art into a universal symbol of resistance and discipline,
+        permanently embedding Cantonese cultural elements into the global narrative.
+      </p>
+
+      <div class="back-wrap">
+        <a class="back-btn" href="culture.html">← Back to Culture Symbols</a>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('page-ready');
+    });
+
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+
+      const href = a.getAttribute('href') || '';
+      const isSameTab = !a.target || a.target === '_self';
+      const isHash = href.startsWith('#');
+      const isExternal = /^https?:\/\//i.test(href);
+
+      if (!href || isHash || isExternal || !isSameTab) return;
+
+      e.preventDefault();
+      document.body.classList.remove('page-ready');
+      setTimeout(() => { window.location.href = href; }, 260);
+    });
+  </script>
+</body>
+</html>
