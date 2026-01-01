@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Timeline - Cantonese in Americas</title>
 
   <!-- Google Fonts -->
@@ -16,157 +14,98 @@
   <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
 
-  <!-- Header injector -->
+  <!-- ✅ Header injector -->
   <script src="./assets/header.js" defer></script>
 
   <!-- Mapbox CSS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
-  <!-- Mapbox core -->
+  <!-- ✅ Mapbox core -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js" defer></script>
-  <!-- Mapbox init -->
+  <!-- ✅ Your Mapbox init -->
   <script src="./assets/mapbox.js" defer></script>
 
   <style>
-    /* Root variables */
-    :root { 
-      --header-h: 73px; 
-    }
+    :root { --header-h: 73px; }
 
-    /* Base styles - prevent overscroll bounce on mobile */
-    html {
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-y: none; /* Prevent bounce on iOS/Android */
-    }
-    
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      min-height: 100%;
+      height: 100%;
+      overflow: hidden; /* lock window scroll; use .page-wrapper scroll */
       background: #F5F0E5;
       font-family: 'Gentium Book Plus', serif;
-      overscroll-behavior-y: none; /* Additional prevention */
-      -webkit-overflow-scrolling: touch;
     }
 
-    /* Main page wrapper - allow normal scrolling with proper bottom spacing */
     .page-wrapper {
-      min-height: calc(100vh - var(--header-h));
-      padding-bottom: max(4rem, env(safe-area-inset-bottom, 0px) + 4rem); /* Respect safe areas on iOS */
-    }
-    
-    /* Mobile: extra bottom padding */
-    @media (max-width: 767px) {
-      .page-wrapper {
-        padding-bottom: max(5rem, env(safe-area-inset-bottom, 0px) + 5rem);
-      }
+      height: calc(100vh - var(--header-h));
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
     }
 
-    /* Content padding */
-    .content-inner { 
-      padding: 0 1rem; 
-    }
-    
-    @media (min-width: 1024px) { 
-      .content-inner { 
-        padding: 0 2rem; 
-      } 
-    }
+    .content-inner { padding: 0 1rem; }
+    @media (min-width: 1024px) { .content-inner { padding: 0 2rem; } }
 
-    /* Timeline grid layout */
     .timeline-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
-      padding-bottom: 3rem; /* Ensure bottom spacing */
+      padding-bottom: 2rem;
       align-items: start;
     }
-    
     @media (min-width: 980px) {
-      .timeline-grid { 
-        grid-template-columns: 1fr 1fr; 
-      }
-    }
-    
-    /* Mobile: extra bottom spacing */
-    @media (max-width: 767px) {
-      .timeline-grid {
-        padding-bottom: 4rem;
-      }
+      .timeline-grid { grid-template-columns: 1fr 1fr; }
     }
 
-    /* Phase header */
-    .phase-header--grid {
+    .phase-header--grid{
       grid-column: 1 / -1;
       text-align: center;
       margin: 0 0 0.75rem 0;
     }
-    
     .phase-header--grid h2 {
       font-size: 2rem;
       font-weight: 700;
       color: #1a1a1a;
       margin: 0 0 0.5rem 0;
     }
-    
     .phase-header--grid p {
       font-size: 1.125rem;
       color: #4a5568;
       margin: 0;
     }
 
-    /* Map wrapper - with 20px right offset */
+    /* === MAP (crop) === */
     .map-wrapper {
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       height: 360px;
-      margin-right: -20px; /* Move map 20px to the right */
     }
-    
     #diaspora-map {
       width: 100%;
       height: 450px;
       position: relative;
       top: -45px;
     }
-    
     @media (max-width: 980px) {
-      .map-wrapper { 
-        height: 304px;
-        margin-right: 0; /* Reset on mobile */
-      }
-      #diaspora-map { 
-        height: 380px; 
-        top: -38px; 
-      }
+      .map-wrapper { height: 304px; }
+      #diaspora-map { height: 380px; top: -38px; }
     }
 
-    /* Phase list wrapper */
-    .phase-wrapper { 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-    }
-    
+    /* === PHASE LIST === */
+    .phase-wrapper { display:flex; flex-direction:column; align-items:center; }
     .phase-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      width: 100%;
-      max-width: 520px;
-      margin: 0 auto;
-      padding-bottom: 2rem; /* Extra space at bottom of list */
+      display:flex;
+      flex-direction:column;
+      gap:0.75rem;
+      width:100%;
+      max-width:520px;
+      margin:0 auto;
     }
-    
     @media (min-width: 980px) {
-      .phase-list { 
-        width: 60%; 
-        max-width: 420px; 
-      }
+      .phase-list { width:60%; max-width:420px; }
     }
 
-    /* Phase card styles */
     .phase-card {
       background: #F5F0E5;
       border: 1.25px solid #000;
@@ -189,64 +128,36 @@
       box-shadow: 4px 4px 0px rgba(0,0,0,0.18);
     }
 
-    /* Phase card content */
-    .phase-info { 
-      flex: 1; 
-    }
-    
-    .phase-title { 
-      font-size: 1rem; 
-      font-weight: 700; 
-      color: #1a1a1a; 
-      margin: 0 0 0.25rem 0; 
-      line-height: 1.3; 
-    }
-    
-    .phase-subtitle { 
-      font-size: 0.875rem; 
-      color: #4a5568; 
-      margin: 0; 
-      line-height: 1.4; 
-    }
-    
-    /* Arrow icon */
-    .phase-arrow { 
-      width: 18px; 
-      height: 18px; 
-      opacity: 0.6; 
-      flex-shrink: 0; 
-      transform: rotate(-90deg); 
-    }
+    .phase-info { flex:1; }
+    .phase-title { font-size:1rem; font-weight:700; color:#1a1a1a; margin:0 0 0.25rem 0; line-height:1.3; }
+    .phase-subtitle { font-size:0.875rem; color:#4a5568; margin:0; line-height:1.4; }
+    .phase-arrow { width:18px; height:18px; opacity:0.6; flex-shrink:0; transform: rotate(-90deg); }
   </style>
 </head>
 
 <body>
-  <!-- Header injected by ./assets/header.js -->
+  <!-- header injected by ./assets/header.js -->
 
   <div class="page-wrapper">
     <div class="container">
       <div class="content-inner">
         <div class="timeline-grid">
-          
-          <!-- Page header -->
           <div class="phase-header--grid">
             <h2>Timeline of Cantonese Migration</h2>
             <p>Waves, Networks, and Institutions</p>
           </div>
 
-          <!-- Map section -->
           <div class="map-section">
             <div class="map-wrapper">
               <div id="diaspora-map"></div>
             </div>
           </div>
 
-          <!-- Phase cards section -->
           <div class="phase-section">
             <div class="phase-wrapper">
               <div class="phase-list">
-                
-                <!-- Phase 1 -->
+
+                <!-- ✅ Direct links -->
                 <a href="phase1.html" class="phase-card">
                   <div class="phase-info">
                     <h3 class="phase-title">Phase I: 17th–19th Centuries</h3>
@@ -257,7 +168,6 @@
                   </svg>
                 </a>
 
-                <!-- Phase 2 -->
                 <a href="phase2.html" class="phase-card">
                   <div class="phase-info">
                     <h3 class="phase-title">Phase II: 1840s–1940s</h3>
@@ -268,7 +178,6 @@
                   </svg>
                 </a>
 
-                <!-- Phase 3 -->
                 <a href="phase3.html" class="phase-card">
                   <div class="phase-info">
                     <h3 class="phase-title">Phase III: 1965–1997</h3>
@@ -279,7 +188,6 @@
                   </svg>
                 </a>
 
-                <!-- Phase 4 -->
                 <a href="phase4.html" class="phase-card">
                   <div class="phase-info">
                     <h3 class="phase-title">Phase IV: 2000s–Present</h3>
@@ -289,7 +197,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </a>
-                
+
               </div>
             </div>
           </div>
@@ -299,5 +207,53 @@
     </div>
   </div>
 
+  <!-- ✅ Keep only the header hide/show logic (no iframe / no phase interaction) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const pageWrapper = document.querySelector('.page-wrapper');
+
+      let lastScrollTop = 0;
+      const scrollThreshold = 100;
+      const scrollDelta = 5;
+
+      function applyHeaderState(isHidden) {
+        const headerEl = document.querySelector('header');
+        if (!headerEl || !pageWrapper) return;
+
+        const headerH = headerEl.offsetHeight || 73;
+
+        if (isHidden) {
+          headerEl.classList.add('header-hidden');
+          document.body.style.paddingTop = '0px';
+          pageWrapper.style.height = '100vh';
+        } else {
+          headerEl.classList.remove('header-hidden');
+          document.body.style.paddingTop = headerH + 'px';
+          pageWrapper.style.height = `calc(100vh - ${headerH}px)`;
+        }
+      }
+
+      applyHeaderState(false);
+
+      pageWrapper?.addEventListener('scroll', function() {
+        const headerNow = document.querySelector('header');
+        if (!headerNow) return;
+
+        const scrollTop = pageWrapper.scrollTop;
+        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
+
+        if (scrollTop < scrollThreshold) {
+          applyHeaderState(false);
+          lastScrollTop = scrollTop;
+          return;
+        }
+
+        if (scrollTop > lastScrollTop) applyHeaderState(true);
+        else applyHeaderState(false);
+
+        lastScrollTop = scrollTop;
+      });
+    });
+  </script>
 </body>
 </html>
