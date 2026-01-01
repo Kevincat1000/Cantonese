@@ -1,57 +1,43 @@
-<script src="./assets/header.js" defer></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Language - Cantonese in Americas</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Global style -->
+  <link rel="stylesheet" href="./assets/style.css" />
+
+  <!-- Header injector -->
+  <script src="./assets/header.js" defer></script>
 
   <style>
     :root { --header-h: 73px; }
-    :root{
-      --header-h: 73px;
-      --bg: #F5F0E5;
-      --text: #1a1a1a;
-      --muted: #4a5568;
-      --border: #000;
-      --radius: 14px;
-    }
-
-    *{ box-sizing: border-box; }
 
     html, body {
-    html, body{
       margin: 0;
       padding: 0;
       height: 100%;
       overflow: hidden;
       background: #F5F0E5;
-      overflow: hidden; /* lock window scroll; use .page-wrapper scroll */
-      background: var(--bg);
-      color: var(--text);
       font-family: 'Gentium Book Plus', serif;
     }
 
     .page-wrapper {
-    /* =========================================================
-       ✅ First-principles fix: prevent layout shift when header loads late
-       Reserve space from first paint + fixed header
-       ========================================================= */
-    body{ padding-top: var(--header-h); }
-
-    header{
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--header-h);
-      z-index: 9999;
-    }
-
-    .page-wrapper{
       height: calc(100vh - var(--header-h));
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-gutter: stable;
-      -webkit-overflow-scrolling: touch;
     }
 
     .content-inner {
       padding: 0 1rem 2rem;
-    .content-inner{
-      padding: 1rem 1rem 2.5rem;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -60,38 +46,23 @@
       .content-inner {
         padding: 0 2rem 3rem;
       }
-    @media (min-width: 1024px){
-      .content-inner{ padding: 1.25rem 2rem 3rem; }
     }
 
     .flash-grid {
-    /* ===================== FLASH GRID ===================== */
-    .flash-grid{
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1rem;
-      margin-top: 0.25rem;
     }
 
     @media (max-width: 980px) {
       .flash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    @media (max-width: 980px){
-      .flash-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 520px) {
       .flash-grid { grid-template-columns: 1fr; }
-    @media (max-width: 520px){
-      .flash-grid{ grid-template-columns: 1fr; }
     }
 
     .flashcard {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  perspective: 1100px;
-}
-    .flashcard{
       position: relative;
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -99,430 +70,214 @@
     }
 
     .flashcard button {
-    /* The overlay button handles click/keyboard without changing layout */
-    .flashcard > button{
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       border: 0;
       padding: 0;
-      margin: 0;
       background: transparent;
       cursor: pointer;
       border-radius: 14px;
-      border-radius: var(--radius);
-      z-index: 3;
-
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-    .flashcard > button:focus-visible{
-      outline: 2px solid rgba(0,0,0,0.55);
-      outline-offset: 3px;
     }
 
     .flashcard-inner {
-    .flashcard-inner{
       position: absolute;
       inset: 0;
       transform-style: preserve-3d;
       transition: transform 0.55s cubic-bezier(.2,.8,.2,1);
-      will-change: transform;
-    }
-
-    /* Desktop: hover/focus flips */
-    @media (hover: hover){
-      .flashcard:hover .flashcard-inner,
-      .flashcard:focus-within .flashcard-inner{
-        transform: rotateY(180deg);
-      }
     }
 
     .flashcard:hover .flashcard-inner,
     .flashcard:focus-within .flashcard-inner {
-    /* Touch: click toggles .is-flipped (JS adds/removes it) */
-    .flashcard.is-flipped .flashcard-inner{
       transform: rotateY(180deg);
     }
 
     .card-face {
-    .card-face{
       position: absolute;
       inset: 0;
       border: 1.25px solid #000;
       border-radius: 14px;
       background: #F5F0E5;
       box-shadow: none;
-      border: 1.25px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--bg);
       backface-visibility: hidden;
       display: flex;
       flex-direction: column;
-@@ -108,39 +147,68 @@
+      justify-content: center;
+      align-items: center;
       padding: 1rem;
       text-align: center;
     }
 
     .card-back {
-    .card-back{
       transform: rotateY(180deg);
       background: #FFFFFF;
     }
 
     .face-title {
-    .face-title{
       margin: 0 0 0.5rem 0;
       font-weight: 700;
       color: #1a1a1a;
-      color: var(--text);
       line-height: 1.1;
     }
 
     .face-text {
-    .face-text{
       margin: 0;
       color: #2d3748;
       line-height: 1.5;
-    }
-
-    /* ===================== ESSAY TYPOGRAPHY (remove inline redundancy) ===================== */
-    .essay{
-      max-width: 950px;
-      margin-top: 3rem;
-    }
-    .essay h2{
-      margin: 0 0 1rem 0;
-      font-size: 1.9rem;
-      line-height: 1.2;
-    }
-    .essay h3{
-      margin: 1.5rem 0 0.6rem 0;
-      font-size: 1.25rem;
-      line-height: 1.25;
-    }
-    .essay h4{
-      margin: 1rem 0 0.45rem 0;
-      font-size: 1.05rem;
-      line-height: 1.3;
-    }
-    .essay p{
-      margin: 0 0 1rem 0;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #1f2937;
-    }
-    .essay .muted{
-      color: var(--muted);
     }
   </style>
 </head>
 
 <body>
-  <!-- header injected by ./assets/header.js -->
-
   <div class="page-wrapper">
     <div class="container">
       <div class="content-inner">
         <div style="height: 1rem;"></div>
 
-        <!-- ================= FLASHCARDS (RESTORED) ================= -->
-        <!-- ================= FLASHCARDS ================= -->
         <div class="flash-grid">
 
           <!-- 1 飲茶 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card: Yam Cha"></button>
-            <button type="button" aria-label="Flip card: Yam Cha" aria-pressed="false"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face">
                 <h3 class="face-title" style="font-size:48px;">飲茶</h3>
-@@ -157,7 +225,7 @@ <h3 class="face-title" style="font-size:48px;">Drinking tea</h3>
+                <p class="face-text" style="font-size:18px;">(Yam Cha)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Drinking tea</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Going for dim sum (often for brunch or lunch), eating the food, and socializing.
+                </p>
+              </div>
+            </div>
+          </div>
 
           <!-- 2 食檸檬 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card: Sik Ning Mung"></button>
-            <button type="button" aria-label="Flip card: Sik Ning Mung" aria-pressed="false"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face">
                 <h3 class="face-title" style="font-size:48px;">食檸檬</h3>
-@@ -174,7 +242,7 @@ <h3 class="face-title" style="font-size:48px;">Eating lemons</h3>
+                <p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Eating lemons</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Being rejected when asking someone out.
+                </p>
+              </div>
+            </div>
+          </div>
 
           <!-- 3 放飛機 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card: Fong Fei Gei"></button>
-            <button type="button" aria-label="Flip card: Fong Fei Gei" aria-pressed="false"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face">
                 <h3 class="face-title" style="font-size:48px;">放飛機</h3>
-@@ -191,7 +259,7 @@ <h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3>
+                <p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Breaking a promise to meet.
+                </p>
+              </div>
+            </div>
+          </div>
 
           <!-- 4 吹水 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card: Ceoi Seoi"></button>
-            <button type="button" aria-label="Flip card: Ceoi Seoi" aria-pressed="false"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face">
                 <h3 class="face-title" style="font-size:48px;">吹水</h3>
-@@ -208,7 +276,7 @@ <h3 class="face-title" style="font-size:48px;">Blowing water</h3>
+                <p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Blowing water</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Chit-chatting; sometimes implies bragging or bluffing.
+                </p>
+              </div>
+            </div>
+          </div>
 
           <!-- 5 食咗飯未？ -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card: Sik Jo Faan Mei"></button>
-            <button type="button" aria-label="Flip card: Sik Jo Faan Mei" aria-pressed="false"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face">
                 <h3 class="face-title" style="font-size:48px;">食咗飯未？</h3>
-@@ -225,7 +293,7 @@ <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
+                <p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
+                <p class="face-text" style="font-size:18px;">
+                  A casual greeting meaning “hello” or “how are you?”
+                </p>
+              </div>
+            </div>
+          </div>
 
           <!-- 6 生舊叉燒好過生你 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card: Sang Gau Char Siu Hou Gwo Sang Nei"></button>
-            <button type="button" aria-label="Flip card: Sang Gau Char Siu Hou Gwo Sang Nei" aria-pressed="false"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face">
                 <h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3>
-@@ -242,7 +310,7 @@ <h3 class="face-title" style="font-size:36px;">Giving birth to BBQ pork would be
+                <p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3>
+                <p class="face-text" style="font-size:18px;">
+                  “You’re frustrating me.” A classic parent complaint.
+                </p>
+              </div>
+            </div>
+          </div>
 
           <!-- 7 炒魷魚 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card: Caau Yau Yu"></button>
-            <button type="button" aria-label="Flip card: Caau Yau Yu" aria-pressed="false"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face">
                 <h3 class="face-title" style="font-size:48px;">炒魷魚</h3>
-@@ -259,7 +327,7 @@ <h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3>
+                <p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Getting fired.
+                </p>
+              </div>
+            </div>
+          </div>
 
           <!-- 8 雞同鴨講 -->
           <div class="flashcard">
-            <button type="button" aria-label="Flip card: Gai Tung Aap Gong"></button>
-            <button type="button" aria-label="Flip card: Gai Tung Aap Gong" aria-pressed="false"></button>
+            <button type="button"></button>
             <div class="flashcard-inner">
               <div class="card-face">
                 <h3 class="face-title" style="font-size:48px;">雞同鴨講</h3>
-@@ -276,155 +344,136 @@ <h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3>
+                <p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Mutual lack of understanding; unable to communicate due to language barriers.
+                </p>
+              </div>
+            </div>
+          </div>
 
         </div>
-
-        <!-- ================= ESSAY (FULL, NO SHORTENING) ================= -->
-        <div style="height: 3rem;"></div>
-
-        <section style="max-width: 950px;">
-          <h2 style="margin:0 0 1rem 0;">Cantonese as Linguistic Capital： Power, Hierarchy, and Identity</h2>
-
-          <h3 style="margin:1.25rem 0 0.5rem 0;">Research Overview: From Survival License to Heritage Asset</h3>
-        <!-- ================= ESSAY ================= -->
-        <section class="essay">
-          <h2>Cantonese as Linguistic Capital： Power, Hierarchy, and Identity</h2>
-
-          <p style="margin:0 0 1rem 0;">
-          <h3>Research Overview: From Survival License to Heritage Asset</h3>
-          <p>
-            In the history of the Chinese diaspora, language has functioned not merely as a medium of communication, but as a form of capital—a resource granting access to employment, protection, and social belonging. For over a century, Cantonese (including the Sze Yup and Sam Yup varieties) served as the dominant “currency” of North American Chinatowns.
-          </p>
-          <p>This module argues that North American Cantonese has undergone a dramatic historical reversal.</p>
-          <p>1850s–1970s: It operated as a "Survival License." Linguistic competence in Cantonese was a prerequisite for participation in the ethnic economy and access to institutional protection.</p>
-          <p>1980s–Present: It is being revalued as a "Heritage Asset." While socially meaningful for identity and intergenerational memory, it is increasingly displaced by Mandarin in institutional and commercial domains.</p>
-          <p>This shift represents an "Internal Re-ranking" within the Chinese diaspora, driven by global political economy, migration demographics, and state-level language standardization.</p>
-
-          <p style="margin:0 0 1rem 0;">
-            This module argues that North American Cantonese has undergone a dramatic historical reversal.
-          </p>
-
-          <p style="margin:0 0 0.5rem 0;">
-            1850s–1970s: It operated as a "Survival License." Linguistic competence in Cantonese was a prerequisite for participation in the ethnic economy and access to institutional protection.
-          </p>
-
-          <p style="margin:0 0 1rem 0;">
-            1980s–Present: It is being revalued as a "Heritage Asset." While socially meaningful for identity and intergenerational memory, it is increasingly displaced by Mandarin in institutional and commercial domains.
-          </p>
-
-          <p style="margin:0 0 1rem 0;">
-            This shift represents an "Internal Re-ranking" within the Chinese diaspora, driven by global political economy, migration demographics, and state-level language standardization.
-          </p>
-
-          <h3 style="margin:1.5rem 0 0.5rem 0;">1. The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</h3>
-
-          <h4 style="margin:0.75rem 0 0.4rem 0;">A. Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
-          <h3>1. The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</h3>
-
-          <p style="margin:0 0 1rem 0;">
-          <h4>A. Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
-          <p>
-            Early Cantonese dominance was not just about numbers—it was about institutional power. In the 19th and 20th-century Chinatowns, native-place associations (huiguan), such as the Chinese Consolidated Benevolent Association (CCBA, often known as the “Six Companies” in San Francisco) acted like a government. They dominated trades like hand laundries, cigar making, and shoe manufacturing. They settled disputes, provided welfare, controlled remittance networks and steamship tickets, and fought legal battles against discrimination. In a context of exclusion and racialized vulnerability, these associations became a practical infrastructure of social protection—the only safety net available.
-          </p>
-
-          <p style="margin:0 0 1rem 0;">
-          <p>
-            Because these institutions were deeply shaped by Guangdong native-place networks, Cantonese was the price of admission. Speaking the language was not a choice; it was a necessity. It functioned as a “survival license.” Without Cantonese, a Chinese immigrant could not borrow money, find a job, or access legal protection. The community’s support system was effectively closed to anyone who did not speak the language.
-          </p>
-
-          <h4 style="margin:0.75rem 0 0.4rem 0;">B. Media Hegemony: The Public Voice</h4>
-
-          <p style="margin:0 0 1rem 0;">
-          <h4>B. Media Hegemony: The Public Voice</h4>
-          <p>
-            Cantonese dominance was also reproduced through media institutions. San Francisco’s early Chinese press was written exclusively for a Cantonese-speaking labor class. The Golden Hills’ News (1854), the first Chinese newspaper in the U.S., circulated among early migrants. In the early 20th century, major papers such as Chung Sai Yat Po (1900–1951) shaped political and civic discourse for decades, also spelled in Cantonese. Even when these newspapers discussed modern issues, they spoke to a Cantonese world. The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was “inside” the community’s political imagination and which linguistic groups were peripheral.
-          </p>
-
-          <h4 style="margin:0.75rem 0 0.4rem 0;">C. Surnames and Signs: Cantonese as the Default Public Pronunciation</h4>
-
-          <p style="margin:0 0 1rem 0;">
-          <h4>C. Surnames and Signs: Cantonese as the Default Public Pronunciation</h4>
-          <p>
-            A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin“Li,” “Wang,” or “Chen.”
-          </p>
-
-          <p style="margin:0 0 1rem 0;">
-          <p>
-            This was more than just spelling. It signaled that Cantonese was the “standard sound” of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.
-          </p>
-
-          <h3 style="margin:1.5rem 0 0.5rem 0;">2. Diglossia and Displacement, 1980s–Present: The Rise of Mandarin as “High” Variety</h3>
-          <h3>2. Diglossia and Displacement, 1980s–Present: The Rise of Mandarin as “High” Variety</h3>
-
-          <h4 style="margin:0.75rem 0 0.4rem 0;">A. Reframing Diglossia: “High/Low” Inside Chinese</h4>
-
-          <p style="margin:0 0 1rem 0;">
-          <h4>A. Reframing Diglossia: “High/Low” Inside Chinese</h4>
-          <p>
-            Classically, sociolinguists describe “diglossia” as a system where a “High” language is used for official business and a “Low” language is used for family life. In North American communities today, this split increasingly operates within the Chinese language itself. Mandarin is treated as the “High” variety—official, educated, and globally useful. Meanwhile, Cantonese is pushed toward the “Low” variety—associated with family, local history, and the elderly. This does not mean Cantonese lacks value; rather, its value is being moved away from institutional power.
-          </p>
-
-          <p style="margin:0 0 1rem 0;">
-          <p>
-            The key shift here is political and economic. Even while the community maintains “Chinese” identity, the definition of which Chinese counts as legitimate or prestigious has changed.
-          </p>
-
-          <p style="margin:0 0 1rem 0;">
-          <p class="muted">
-            Cantonese is recognized as an official language in only two territories worldwide:
-            <br>Hong Kong: Under the Basic Law, "Chinese" is an official language alongside English. In practice, Cantonese serves as the language of government, law, and education.
-            <br>Macau: Similarly, Cantonese functions as the official oral medium alongside Portuguese.
-          </p>
-
-          <h4 style="margin:0.75rem 0 0.4rem 0;">B. Institutional Production of “standard” Chinese</h4>
-
-          <p style="margin:0 0 1rem 0;">
-          <h4>B. Institutional Production of “standard” Chinese</h4>
-          <p>
-            Heritage education is a primary site where this hierarchy is produced. In many Chinese heritage schools, classrooms become arenas where Mandarin is enforced as the only "proper" identity. Other repertoires, including Cantonese, are often treated as secondary or invisible. The outcome is not only a language shift, but a redefinition of authenticity. Students learn that legitimate “Chinese” is what schools, tests, and formal curricula recognize—often Mandarin by default.
-          </p>
-
-          <h4 style="margin:0.75rem 0 0.4rem 0;">C. The Supply Chain Disruption: State Standardization</h4>
-
-          <p style="margin:0 0 1rem 0;">
-          <h4>C. The Supply Chain Disruption: State Standardization</h4>
-          <p>
-            A major driver of this shift comes from upstream: the standardization policies in the People's Republic of China. The Law on the Standard Spoken and Written Chinese Language (2000) institutionalized the promotion of “Putonghua”(Mandarin) nationwide. This policy strengthened Mandarin as the only language of literacy and formal domains, even in historically Cantonese-speaking regions. Consequently, the historical “supply chain” of monolingual new Cantonese migrants has been disrupted.
-          </p>
-
-          <h3 style="margin:1.5rem 0 0.5rem 0;">3. The Great Reversal, 2000s–Present: Current Demographic Realities</h3>
-          <h3>3. The Great Reversal, 2000s–Present: Current Demographic Realities</h3>
-          <p>Cantonese in North America now confronts a form of double marginality:</p>
-          <p>External pressure: English continues to dominate schooling, labor markets, and mainstream life, pushing heritage languages toward attrition across generations.</p>
-          <p>Internal displacement: Mandarin’s prestige and institutional centrality within “Chinese” reorganizes the community’s own hierarchy, often subordinating Cantonese.</p>
-
-          <p style="margin:0 0 1rem 0;">
-            Cantonese in North America now confronts a form of double marginality:
-          </p>
-
-          <p style="margin:0 0 0.5rem 0;">
-            External pressure: English continues to dominate schooling, labor markets, and mainstream life, pushing heritage languages toward attrition across generations.
-          </p>
-
-          <p style="margin:0 0 0.5rem 0;">
-            Internal displacement: Mandarin’s prestige and institutional centrality within “Chinese” reorganizes the community’s own hierarchy, often subordinating Cantonese.
-          </p>
-
-          <h4 style="margin:0.75rem 0 0.4rem 0;">A. Comparative Signals: Canada vs. the United States (Brief Contrast)</h4>
-
-          <p style="margin:0 0 1rem 0;">
-          <h4>A. Comparative Signals: Canada vs. the United States (Brief Contrast)</h4>
-          <p>
-            Canada provides a clear macro-signal of linguistic re-ranking. The 2021 Census confirmed Mandarin as the leading Chinese language with approximately 679,000 speakers, widening the gap over the aging demographic of 553,000 Cantonese speakers. Furthermore, Cantonese counts have declined in key hubs like Toronto since the 2016 peak.
-          </p>
-
-          <p style="margin:0 0 1rem 0;">
-          <p>
-            The U.S. landscape is more spatially fragmented, even though Mandarin surpassed Cantonese nationally around 2010. By 2025, estimates show approximately 2.6 million Mandarin speakers compared to roughly 0.55 million Cantonese speakers. Cantonese nevertheless remains vital for institutional services in legacy Chinatowns catering to older populations. In contrast, post-1990s migration and capital have driven newer suburban "ethnoburbs," such as San Gabriel and Irvine, into Mandarin-centered networks where speakers frequently outnumber Cantonese.
-          </p>
-
-          <h4 style="margin:0.75rem 0 0.4rem 0;">B. San Francisco as “Fortress”: Institutional Demand Still High</h4>
-
-          <p style="margin:0 0 1rem 0;">
-          <h4>B. San Francisco as “Fortress”: Institutional Demand Still High</h4>
-          <p>
-            Language service data from San Francisco demonstrates that Cantonese remains critical for the "operational accessibility" of public services. The 2025 Language Access Ordinance (LAO) summary report by OCEIA (covering FY2023–2024) notes that self-reported Limited English Proficiency (LEP) interactions reached a record high. In the analysis of this data, Cantonese LEP interactions totaled approximately 20% among all languages; meanwhile, Mandarin showed the fastest growth and accounted for only about 5% of interactions. Therefore, even as Mandarin rises as a symbolic "standard," Cantonese retains direct institutional consequences for accessing rights and services in established communities.
-          </p>
-
-          <h4 style="margin:0.75rem 0 0.4rem 0;">C. Linguistic Landscape as Evidence of Revaluation</h4>
-
-          <p style="margin:0 0 1rem 0;">
-          <h4>C. Linguistic Landscape as Evidence of Revaluation</h4>
-          <p>
-            The reversal also appears in the public landscape: signage, service counters, translated public materials, and the semiotics of “what Chinese looks like.” When the public Chinese increasingly defaults to Mandarin-centered forms—often pinyin, Cantonese becomes less visible as the presumed public standard, even when spoken widely.
-          </p>
-
-          <h3 style="margin:1.5rem 0 0.5rem 0;">4. Identity and Resistance</h3>
-
-          <p style="margin:0 0 1rem 0;">
-          <h3>4. Identity and Resistance</h3>
-          <p>
-            If Cantonese is no longer the dominant economic credential, its value does not disappear—it shifts. Cantonese is increasingly revalued as a heritage asset. The decline of Cantonese as a "market requirement" has catalyzed its re-emergence as a site of cultural resistance. Cantonese is frequently framed as a “bonus” skill for elder care and community services, rather than a core credential for upward mobility.
-          </p>
-
-          <p style="margin:0 0 1rem 0;">
-          <p>
-            Mandarin is now valued primarily for its "Commodification"—its convertibility into economic opportunities in the global market. In contrast, Cantonese is valued for its "Authenticity"—a marker of specific regional roots, Hong Kong identity, and diasporic history.
-          </p>
-
-          <p style="margin:0 0 1rem 0;">
-          <p>
-            While no longer the universal "key" to the ethnic economy, Cantonese persists as a critical resource for intergenerational connection and community organizing. The emergence of a "Cantonese Renaissance" among youth activists suggests a conscious effort to preserve the language not for economic utility, but for cultural continuity.
-          </p>
-
-          <h3 style="margin:1.5rem 0 0.5rem 0;">Conclusion: What the Reversal Means</h3>
-
-          <p style="margin:0 0 1rem 0;">
-          <h3>Conclusion: What the Reversal Means</h3>
-          <p>
-            The function of Cantonese in North America has fundamentally shifted. This transformation signals the end of an era. Traditional Cantonese immigrant origins no longer holds a monopoly on what it meant to be “Chinese” in North America. The contemporary diaspora is shaped by a new internal hierarchy: Mandarin’s economic power rises alongside English assimilation pressures, leaving Cantonese squeezed in the middle. Yet, this very pressure has politicized the language, turning it into a new site of resistance and cultural reclamation.
-          </p>
-
-          <p style="margin:0 0 1rem 0;">
-          <p>
-            The critical analytical point is that language shift is never only about speakers “choosing” a language. It is about institutions, policies, migration streams, and economies that assign value to repertoires—and thereby assign value to people.
-          </p>
-        </section>
-
       </div>
     </div>
   </div>
-
-  <!-- ✅ Touch-friendly flip (no hover dependency) -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const cards = document.querySelectorAll('.flashcard');
-      cards.forEach(card => {
-        const btn = card.querySelector('button');
-        if (!btn) return;
-
-        btn.addEventListener('click', () => {
-          const isFlipped = card.classList.toggle('is-flipped');
-          btn.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
-        });
-
-        // Keyboard support (Enter/Space)
-        btn.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            btn.click();
-          }
-        });
-      });
-    });
-  </script>
 </body>
 </html>
+
+
