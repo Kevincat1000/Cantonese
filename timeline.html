@@ -17,122 +17,197 @@
   <!-- ✅ Header injector -->
   <script src="./assets/header.js" defer></script>
 
-  <!-- Mapbox CSS -->
+  <!-- Mapbox -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
-  <!-- ✅ Mapbox core -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js" defer></script>
-  <!-- ✅ Your Mapbox init -->
   <script src="./assets/mapbox.js" defer></script>
 
   <style>
-    :root { --header-h: 73px; }
+    :root{
+      --bg: #F5F0E5;
+      --text: #1a1a1a;
+      --muted: #4a5568;
+      --card-hover: #E8E0D0;
+      --border: #000;
+      --header-h: 73px;
+      --radius: 14px;
+    }
 
-    html, body {
+    *{ box-sizing: border-box; }
+    html, body{
       margin: 0;
       padding: 0;
       height: 100%;
       overflow: hidden; /* lock window scroll; use .page-wrapper scroll */
-      background: #F5F0E5;
+      background: var(--bg);
       font-family: 'Gentium Book Plus', serif;
+      color: var(--text);
     }
 
-    .page-wrapper {
+    /* =========================================================
+       ✅ FIRST-PRINCIPLES FIX FOR "BANG" (LAYOUT SHIFT):
+       Reserve header space from the first paint + fix header.
+       ========================================================= */
+    body{
+      padding-top: var(--header-h);
+    }
+    header{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      z-index: 9999;
+    }
+    header.header-hidden{
+      transform: translateY(-110%);
+      transition: transform 220ms ease;
+    }
+    body.no-header-space{ padding-top: 0; }
+
+    .page-wrapper{
       height: calc(100vh - var(--header-h));
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-gutter: stable;
+      -webkit-overflow-scrolling: touch;
     }
+    body.no-header-space .page-wrapper{ height: 100vh; }
 
-    .content-inner { padding: 0 1rem; }
-    @media (min-width: 1024px) { .content-inner { padding: 0 2rem; } }
+    .content-inner{ padding: 0 1rem; }
+    @media (min-width: 1024px){ .content-inner{ padding: 0 2rem; } }
 
-    .timeline-grid {
+    /* =========================================================
+       Layout
+       ========================================================= */
+    .timeline-grid{
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
-      padding-bottom: 2rem;
+      padding: 1.25rem 0 2rem 0;
       align-items: start;
     }
-    @media (min-width: 980px) {
-      .timeline-grid { grid-template-columns: 1fr 1fr; }
+    @media (min-width: 980px){
+      .timeline-grid{ grid-template-columns: 1fr 1fr; }
     }
 
     .phase-header--grid{
       grid-column: 1 / -1;
       text-align: center;
-      margin: 0 0 0.75rem 0;
+      margin: 0;
+      padding-top: 0.25rem;
     }
-    .phase-header--grid h2 {
+    .phase-header--grid h2{
       font-size: 2rem;
       font-weight: 700;
-      color: #1a1a1a;
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.45rem 0;
+      letter-spacing: 0.2px;
     }
-    .phase-header--grid p {
+    .phase-header--grid p{
       font-size: 1.125rem;
-      color: #4a5568;
       margin: 0;
+      color: var(--muted);
     }
 
-    /* === MAP (crop) === */
-    .map-wrapper {
-      border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  height: 320px;             
-  transform: translateX(30px);
+    /* =========================================================
+       Map (crop top+bottom 20px, shift right 30px; no zoom changes)
+       ========================================================= */
+    .map-section{ min-width: 0; }
+    .map-wrapper{
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 320px;                 /* was 360 -> crop 20px top + 20px bottom */
+      transform: translateX(30px);   /* move entire map right */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      background: transparent;
     }
-    #diaspora-map {
+    #diaspora-map{
       width: 100%;
-  height: 450px;  
-  position: relative;
-  top: -65px;  
+      height: 450px;      /* keep internal map size (no scaling/zoom changes) */
+      position: relative;
+      top: -65px;         /* was -45 -> crop 20px more at top (and bottom via wrapper height) */
     }
-    @media (max-width: 980px){
-  .map-wrapper{ height: 264px; }  
-  #diaspora-map{ height: 380px; top: -58px; } 
-}
 
-    /* === PHASE LIST === */
-    .phase-wrapper { display:flex; flex-direction:column; align-items:center; }
-    .phase-list {
+    @media (max-width: 980px){
+      .map-wrapper{ height: 264px; }         /* was 304 -> crop 20px top+bottom */
+      #diaspora-map{ height: 380px; top: -58px; } /* was -38 -> crop 20px more */
+    }
+
+    /* =========================================================
+       Phase list cards
+       ========================================================= */
+    .phase-section{ min-width: 0; }
+    .phase-wrapper{ display:flex; flex-direction:column; align-items:center; }
+
+    .phase-list{
       display:flex;
       flex-direction:column;
-      gap:0.75rem;
-      width:100%;
-      max-width:520px;
-      margin:0 auto;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
     }
-    @media (min-width: 980px) {
-      .phase-list { width:60%; max-width:420px; }
+    @media (min-width: 980px){
+      .phase-list{ width: 60%; max-width: 420px; }
     }
 
-    .phase-card {
-      background: #F5F0E5;
-      border: 1.25px solid #000;
-      border-radius: 14px;
-      padding: 0.875rem 1.1rem;
+    .phase-card{
+      background: var(--bg);
+      border: 1.25px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1.1rem;
       cursor: pointer;
-      transition: all 0.25s ease;
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.16);
       text-decoration: none;
       color: inherit;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.16);
+
+      /* ✅ avoid "exploding" animations on touch */
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
-    .phase-card:hover {
-      background: #E8E0D0;
+    .phase-card:hover{
+      background: var(--card-hover);
       transform: translate(-2px, -2px);
       box-shadow: 4px 4px 0px rgba(0,0,0,0.18);
     }
 
-    .phase-info { flex:1; }
-    .phase-title { font-size:1rem; font-weight:700; color:#1a1a1a; margin:0 0 0.25rem 0; line-height:1.3; }
-    .phase-subtitle { font-size:0.875rem; color:#4a5568; margin:0; line-height:1.4; }
-    .phase-arrow { width:18px; height:18px; opacity:0.6; flex-shrink:0; transform: rotate(-90deg); }
+    @media (hover: none){
+      .phase-card:hover{
+        background: var(--bg);
+        transform: none;
+        box-shadow: 3px 3px 0px rgba(0,0,0,0.16);
+      }
+      .phase-card:active{
+        background: var(--card-hover);
+        transform: translate(-2px, -2px);
+        box-shadow: 4px 4px 0px rgba(0,0,0,0.18);
+      }
+    }
+
+    .phase-info{ flex: 1; }
+    .phase-title{
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 0.25rem 0;
+      line-height: 1.3;
+    }
+    .phase-subtitle{
+      font-size: 0.875rem;
+      margin: 0;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+    .phase-arrow{
+      width: 18px;
+      height: 18px;
+      opacity: 0.6;
+      flex-shrink: 0;
+      transform: rotate(-90deg);
+    }
   </style>
 </head>
 
@@ -157,14 +232,12 @@
           <div class="phase-section">
             <div class="phase-wrapper">
               <div class="phase-list">
-
-                <!-- ✅ Direct links -->
                 <a href="phase1.html" class="phase-card">
                   <div class="phase-info">
                     <h3 class="phase-title">Phase I: 17th–19th Centuries</h3>
                     <p class="phase-subtitle">Early Migration within Southeast Asia</p>
                   </div>
-                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </a>
@@ -174,7 +247,7 @@
                     <h3 class="phase-title">Phase II: 1840s–1940s</h3>
                     <p class="phase-subtitle">Building North America & The Pacific</p>
                   </div>
-                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </a>
@@ -184,7 +257,7 @@
                     <h3 class="phase-title">Phase III: 1965–1997</h3>
                     <p class="phase-subtitle">Reforms, Refugees, and New Waves</p>
                   </div>
-                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </a>
@@ -194,11 +267,10 @@
                     <h3 class="phase-title">Phase IV: 2000s–Present</h3>
                     <p class="phase-subtitle">Diversification and Cultural Resilience</p>
                   </div>
-                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </a>
-
               </div>
             </div>
           </div>
@@ -208,7 +280,7 @@
     </div>
   </div>
 
-  <!-- ✅ Keep only the header hide/show logic (no iframe / no phase interaction) -->
+  <!-- ✅ clean header hide/show logic (no inline height/padding thrash) -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const pageWrapper = document.querySelector('.page-wrapper');
@@ -217,41 +289,29 @@
       const scrollThreshold = 100;
       const scrollDelta = 5;
 
-      function applyHeaderState(isHidden) {
+      function setHeaderHidden(isHidden){
+        document.body.classList.toggle('no-header-space', isHidden);
         const headerEl = document.querySelector('header');
-        if (!headerEl || !pageWrapper) return;
+        if (headerEl) headerEl.classList.toggle('header-hidden', isHidden);
 
-        const headerH = headerEl.offsetHeight || 73;
-
-        if (isHidden) {
-          headerEl.classList.add('header-hidden');
-          document.body.style.paddingTop = '0px';
-          pageWrapper.style.height = '100vh';
-        } else {
-          headerEl.classList.remove('header-hidden');
-          document.body.style.paddingTop = headerH + 'px';
-          pageWrapper.style.height = `calc(100vh - ${headerH}px)`;
-        }
+        // If your mapbox.js stores the map instance on window.diasporaMap, this prevents any resize shimmer.
+        window.diasporaMap?.resize?.();
       }
 
-      applyHeaderState(false);
+      // Start stable (even if header is injected late, layout won't shift because space is reserved + header is fixed)
+      setHeaderHidden(false);
 
       pageWrapper?.addEventListener('scroll', function() {
-        const headerNow = document.querySelector('header');
-        if (!headerNow) return;
-
         const scrollTop = pageWrapper.scrollTop;
         if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
 
         if (scrollTop < scrollThreshold) {
-          applyHeaderState(false);
+          setHeaderHidden(false);
           lastScrollTop = scrollTop;
           return;
         }
 
-        if (scrollTop > lastScrollTop) applyHeaderState(true);
-        else applyHeaderState(false);
-
+        setHeaderHidden(scrollTop > lastScrollTop);
         lastScrollTop = scrollTop;
       });
     });
