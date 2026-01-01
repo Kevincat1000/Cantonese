@@ -123,6 +123,85 @@
       color: #2d3748;
       line-height: 1.5;
     }
+
+    /* Research Section */
+    #research-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      background-color: #0a0a0a;
+    }
+
+    #research-section.is-visible {
+      opacity: 1;
+    }
+
+    #particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    .research-content-box {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 40px;
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(5px);
+      border-left: 1px solid #d4af37;
+    }
+
+    .research-content-box h1 {
+      font-size: 3rem;
+      line-height: 1.1;
+      margin: 0 0 10px 0;
+      color: #d4af37;
+      font-weight: normal;
+      font-family: 'Georgia', serif;
+    }
+
+    .research-content-box h2 {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #a0a0a0;
+      margin-bottom: 30px;
+      font-weight: normal;
+    }
+
+    .research-content-box p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      margin: 0;
+      color: #e0e0e0;
+    }
+
+    .research-content-box .highlight {
+      color: white;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .research-content-box {
+        margin: 0 1rem;
+        padding: 30px;
+      }
+      .research-content-box h1 {
+        font-size: 2rem;
+      }
+      .research-content-box p {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 
@@ -275,6 +354,22 @@
     </div>
   </div>
 
+  <!-- Research Section with Particle Animation -->
+  <section id="research-section">
+    <canvas id="particle-canvas"></canvas>
+    
+    <div class="research-content-box">
+      <h1>Cantonese Capital: <br>The Revaluation from Survival to Heritage</h1>
+      <h2>Power, Hierarchy, and Identity in the North American Chinese Diaspora</h2>
+      
+      <p>
+        Beyond communication, <span class="highlight">language is capital.</span> 
+        For over a century, Cantonese served as the dominant "currency" of North American Chinatowns, a 
+        resource granting access to employment, protection, and social belonging.
+      </p>
+    </div>
+  </section>
+
   <script>
     (function () {
       "use strict";
@@ -303,9 +398,107 @@
         lastScrollTop = scrollTop;
       }, { passive: true });
     })();
+
+    // Particle Animation for Research Section
+    (function() {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      const section = document.getElementById('research-section');
+
+      let particles = [];
+      let animationFrame;
+      const characters = ['食', '揾', '同', '乡', '家', '货', '钱', '语'];
+      let isActive = false;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.init();
+        }
+
+        init() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.char = characters[Math.floor(Math.random() * characters.length)];
+          this.size = Math.random() * 15 + 10;
+          this.speedX = (Math.random() - 0.5) * 1.5;
+          this.speedY = (Math.random() - 0.5) * 1.5;
+          this.alpha = 0;
+          this.targetAlpha = Math.random() * 0.5 + 0.1;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+          if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+
+          if (this.alpha < this.targetAlpha) this.alpha += 0.005;
+        }
+
+        draw() {
+          ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
+          ctx.font = `${this.size}px serif`;
+          ctx.fillText(this.char, this.x, this.y);
+        }
+      }
+
+      function initParticles() {
+        particles = [];
+        for (let i = 0; i < 60; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      function animate() {
+        if (!isActive) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        
+        animationFrame = requestAnimationFrame(animate);
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            isActive = true;
+            section.classList.add('is-visible');
+            initParticles();
+            animate();
+          } else {
+            isActive = false;
+            section.classList.remove('is-visible');
+            cancelAnimationFrame(animationFrame);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      observer.observe(section);
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isActive) return;
+        particles.forEach(p => {
+          let dx = e.clientX - p.x;
+          let dy = e.clientY - p.y;
+          let dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 150) {
+            p.x -= dx * 0.02;
+            p.y -= dy * 0.02;
+          }
+        });
+      });
+    })();
   </script>
 </body>
 </html>
-
-
-
