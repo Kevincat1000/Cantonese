@@ -77,20 +77,21 @@
     /* === MAP (crop) === */
     .map-wrapper {
       border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      height: 360px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  height: 320px;             
+  transform: translateX(30px);
     }
     #diaspora-map {
       width: 100%;
-      height: 450px;
-      position: relative;
-      top: -45px;
+  height: 450px;  
+  position: relative;
+  top: -65px;  
     }
-    @media (max-width: 980px) {
-      .map-wrapper { height: 304px; }
-      #diaspora-map { height: 380px; top: -38px; }
-    }
+    @media (max-width: 980px){
+  .map-wrapper{ height: 264px; }  
+  #diaspora-map{ height: 380px; top: -58px; } 
+}
 
     /* === PHASE LIST === */
     .phase-wrapper { display:flex; flex-direction:column; align-items:center; }
