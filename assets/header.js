@@ -37,17 +37,18 @@
       }
 
       header[data-site-header="1"] .header-content{
-        display:flex;
+        display:grid;
+        grid-template-columns:auto 1fr auto;
         align-items:center;
-        justify-content:space-between;
-        padding:.75rem 1rem;
+        gap:1rem;
+        padding:.75rem 0;
       }
 
       header[data-site-header="1"] .logo{
         text-align:center;
-        padding:0 .5rem;
         text-decoration:none;
         color:inherit;
+        justify-self:start;
       }
 
       header[data-site-header="1"] .logo-main{
@@ -69,7 +70,9 @@
       header[data-site-header="1"] .nav-menu{
         display:none;
         align-items:center;
+        justify-content:center;
         gap:1.5rem;
+        justify-self:center;
       }
 
       @media (min-width:768px){
@@ -93,6 +96,63 @@
 
       header[data-site-header="1"] .nav-link:hover{
         color:#8B2332;
+      }
+
+      header[data-site-header="1"] .header-right{
+        display:flex;
+        align-items:center;
+        gap:.75rem;
+        justify-self:end;
+      }
+
+      header[data-site-header="1"] .header-search{
+        display:none;
+        align-items:center;
+        gap:.5rem;
+      }
+
+      @media (min-width:768px){
+        header[data-site-header="1"] .header-search{ display:flex; }
+      }
+
+      header[data-site-header="1"] .header-search input{
+        width:220px;
+        max-width:28vw;
+        height:34px;
+        border-radius:999px;
+        border:1px solid #E5DBCA;
+        background:#fff;
+        padding:0 12px;
+        font-size:14px;
+        line-height:34px;
+        outline:none;
+      }
+
+      header[data-site-header="1"] .header-search input:focus{
+        border-color:#8B2332;
+      }
+
+      header[data-site-header="1"] .header-search button{
+        height:34px;
+        width:34px;
+        border-radius:999px;
+        border:1px solid #E5DBCA;
+        background:#fff;
+        cursor:pointer;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        color:#333;
+      }
+
+      header[data-site-header="1"] .header-search button:hover{
+        color:#8B2332;
+        border-color:#8B2332;
+      }
+
+      header[data-site-header="1"] .header-search button svg{
+        width:18px;
+        height:18px;
       }
 
       header[data-site-header="1"] .mobile-menu-btn{
@@ -152,7 +212,6 @@
 
       @media (min-width:1024px){
         header[data-site-header="1"] .header-container{ padding:0 2rem; }
-        header[data-site-header="1"] .header-content{ padding:.75rem 2rem; }
         header[data-site-header="1"] .nav-menu{ gap:2rem; }
       }
     `;
@@ -181,12 +240,24 @@
               <a href="resources.html" class="nav-link">Resources</a>
             </nav>
 
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
+            <div class="header-right">
+              <form class="header-search" id="siteSearchForm" role="search" aria-label="Site search">
+                <input id="siteSearchInput" type="search" name="q" placeholder="Search" autocomplete="off" />
+                <button type="submit" aria-label="Search">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" />
+                  </svg>
+                </button>
+              </form>
+
+              <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           <nav class="mobile-nav-menu" id="mobileNavMenu" aria-label="Mobile">
@@ -230,6 +301,25 @@
     window.addEventListener("load", () => requestAnimationFrame(update), { once: true });
   }
 
+  function initSiteSearch() {
+    const headerEl = document.querySelector(HEADER_SEL);
+    if (!headerEl) return;
+
+    const form = headerEl.querySelector("#siteSearchForm");
+    const input = headerEl.querySelector("#siteSearchInput");
+    if (!form || !input) return;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const q = (input.value || "").trim();
+      if (!q) return;
+
+      const host = location.hostname;
+      const query = host ? `site:${host} ${q}` : q;
+      window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, "_blank", "noopener");
+    });
+  }
+
   function initMobileMenu() {
     const headerEl = document.querySelector(HEADER_SEL);
     if (!headerEl) return;
@@ -261,6 +351,7 @@
   function boot() {
     insertHeaderStyles();
     insertHeaderHTML();
+    initSiteSearch();
     initMobileMenu();
     initAdaptiveHeaderHeight();
   }
