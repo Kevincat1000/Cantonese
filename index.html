@@ -1,678 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cantonese in Americas - Public History & Cultural Research</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cantonese in Americas - Public History & Cultural Research</title>
 
-        html {
-            scroll-behavior: smooth;
-        }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-        }
+  <!-- ✅ Optional: faster header load -->
+  <link rel="preload" href="./assets/header.js" as="script">
 
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
+  <!-- ✅ Unified header -->
+  <script src="./assets/header.js" defer></script>
 
-        /* ===== 全屏滚动容器 ===== */
-        .fullpage-wrapper {
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-        }
+  <style>
+    :root { --header-h: 73px; }
 
-        .fullpage-section {
-            min-height: 100vh;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-        /* 第一屏固定100vh */
-        .fullpage-section.hero {
-            height: 100vh;
-        }
+    body {
+      font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      overflow: hidden;              /* lock window scroll */
+      padding-top: var(--header-h);  /* ✅ reserve header space to prevent "jitter" */
+    }
 
-        /* 第二屏内容容器 */
-        .second-screen-content {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    /* When header is hidden, remove reserved space */
+    body.no-header-space { padding-top: 0; }
 
-        /* Header */
-        header {
-            background: rgba(245, 240, 229, 0.95);
-            border-bottom: 1px solid #e5e5e5;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            backdrop-filter: blur(10px);
-            transform: translateY(0);
-            transition: transform 0.3s ease-in-out;
-        }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    @media (min-width: 1024px) {
+      .container { padding: 0 2rem; }
+    }
 
-        header.hidden {
-            transform: translateY(-100%);
-        }
+    /* ===== Fullpage scroll container ===== */
+    .fullpage-wrapper {
+      height: calc(100vh - var(--header-h));
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+    body.no-header-space .fullpage-wrapper { height: 100vh; }
 
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
-        }
+    .fullpage-section {
+      min-height: 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
 
-        .logo {
-            text-align: center;
-            padding: 0 0.5rem;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background:
+        linear-gradient(rgba(0, 48, 87, 0.7), rgba(0, 48, 87, 0.7)),
+        url('https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    @media (max-width: 768px) {
+      .hero { background-attachment: scroll; }
+    }
 
-        .logo:hover {
-            opacity: 0.9;
-        }
+    .hero-content {
+      text-align: center;
+      z-index: 10;
+      padding: 1rem;
+    }
 
-        .logo-main {
-            font-size: 24px;
-            font-weight: bold;
-            color: #8B2332;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
-        }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
 
-        .logo-sub {
-            font-size: 16px;
-            font-weight: bold;
-            color: #8B2332;
-            letter-spacing: 2px;
-            line-height: 1.2;
-        }
+    .hero p {
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
 
-        /* Navigation */
-        .nav-menu {
-            display: none;
-            align-items: center;
-            gap: 1.5rem;
-            position: relative;
-        }
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
 
-        @media (min-width: 768px) {
-            .nav-menu {
-                display: flex;
-            }
-        }
+    .scroll-indicator svg {
+      width: 32px;
+      height: 32px;
+      color: white;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
 
-        .nav-item {
-            position: relative;
-        }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
 
-        .nav-link {
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 0;
-            cursor: pointer;
-            line-height: 1.5;
-            white-space: nowrap;
-        }
+    /* Second screen */
+    .second-screen-content {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
 
-        .nav-link:hover {
-            color: #8B2332;
-        }
+    .intro-section {
+      background: #2C5266;
+      color: white;
+      padding: 2rem 1rem 2rem;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .intro-section { padding: 1.5rem 1rem 1.5rem; }
+    }
 
-        .nav-link svg {
-            width: 1rem;
-            height: 1rem;
-        }
+    .intro-text { max-width: 56rem; margin: 0 auto; width: 100%; }
+    .intro-section h2 {
+      font-size: clamp(1.875rem, 4vw, 2.25rem);
+      color: #d6d0ac;
+      margin-bottom: 1.5rem;
+    }
+    .intro-text p {
+      font-size: 1.125rem;
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+    .intro-text a { color: white; text-decoration: underline; }
+    .intro-text a:hover { opacity: 0.8; }
 
-        /* Mobile Menu */
-        .mobile-nav-menu {
-            display: none;
-            position: fixed;
-            top: 73px;
-            left: 0;
-            right: 0;
-            background: rgba(245, 240, 229, 0.98);
-            border-bottom: 1px solid #e5e5e5;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            z-index: 40;
-            max-height: calc(100vh - 73px);
-            overflow-y: auto;
-            backdrop-filter: blur(10px);
-        }
+    /* Stats */
+    .stats { margin-top: 2rem; }
+    .stats h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
 
-        .mobile-nav-menu.active {
-            display: block;
-        }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    }
 
-        .mobile-nav-item {
-            border-bottom: 1px solid #E5DBCA;
-        }
+    .stat-item { text-align: left; }
+    .stat-number {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #afa15c;
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+    }
+    .stat-divider { border-bottom: 2px dotted #afa15c; margin-bottom: 1rem; }
+    .stat-description { font-size: 0.75rem; }
 
-        .mobile-nav-link {
-            display: block;
-            padding: 1rem 1.5rem;
-            color: #333;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            transition: background-color 0.2s, color 0.2s;
-        }
-
-        .mobile-nav-link:hover,
-        .mobile-nav-link:active {
-            background-color: #EAE4D5;
-            color: #8B2332;
-        }
-
-        /* Mobile Menu Toggle */
-        .mobile-menu-btn {
-            display: block;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            color: #333;
-            transition: color 0.2s;
-        }
-
-        .mobile-menu-btn:hover {
-            color: #8B2332;
-        }
-
-        .mobile-menu-btn svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        @media (min-width: 768px) {
-            .mobile-menu-btn {
-                display: none;
-            }
-        }
-
-        /* 响应式优化 */
-        @media (min-width: 640px) {
-            .logo-main {
-                font-size: 26px;
-            }
-            .logo-sub {
-                font-size: 17px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .container {
-                padding: 0 2rem;
-            }
-            .header-content {
-                padding: 0.75rem 2rem;
-            }
-            .nav-menu {
-                gap: 2rem;
-            }
-        }
-
-        /* Hero Section - 第一屏 */
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            background: linear-gradient(rgba(0, 48, 87, 0.7), rgba(0, 48, 87, 0.7)), 
-                        url('https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 10;
-            padding: 1rem;
-            margin-top: 73px; /* Header高度 */
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.02em;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero p {
-            font-size: clamp(1.25rem, 3vw, 2rem);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        /* 滚动提示 */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator svg {
-            width: 32px;
-            height: 32px;
-            color: white;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        /* Introduction Section - 第二屏 */
-        .intro-section {
-            background: #2C5266;
-            color: white;
-            padding: 2rem 1rem 2rem;
-            flex: 1;
-            display: flex;
-            align-items: center;
-        }
-
-        .intro-section h2 {
-            font-size: clamp(1.875rem, 4vw, 2.25rem);
-            color: #d6d0ac;
-            margin-bottom: 1.5rem;
-        }
-
-        .intro-text {
-            max-width: 56rem;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .intro-text p {
-            font-size: 1.125rem;
-            margin-bottom: 1rem;
-            line-height: 1.7;
-        }
-
-        .intro-text a {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .intro-text a:hover {
-            opacity: 0.8;
-        }
-
-        /* Statistics */
-        .stats {
-            margin-top: 2rem;
-        }
-
-        .stats h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.05em;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .stat-item {
-            text-align: left;
-        }
-
-        .stat-number {
-            font-size: 1.875rem;
-            font-weight: bold;
-            color: #afa15c;
-            margin-bottom: 0.5rem;
-            white-space: nowrap;
-        }
-
-        .stat-divider {
-            border-bottom: 2px dotted #afa15c;
-            margin-bottom: 1rem;
-        }
-
-        .stat-description {
-            font-size: 0.75rem;
-        }
-
-        /* Footer */
-        footer {
-            background: #003057;
-            color: white;
-            padding: 1.5rem 1rem;
-            text-align: center;
-        }
-
-        footer p {
-            font-size: 0.875rem;
-            color: #d1d5db;
-        }
-
-        /* 平板和手机适配 */
-        @media (max-width: 768px) {
-            .intro-section {
-                padding: 1.5rem 1rem 1.5rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 1.25rem;
-            }
-        }
-    </style>
+    /* Footer */
+    footer {
+      background: #003057;
+      color: white;
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+    footer p { font-size: 0.875rem; color: #d1d5db; }
+  </style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo" aria-label="Home">
-                    <div class="logo-main">CANTONESE</div>
-                    <div class="logo-sub">IN AMERICAS</div>
-                </a>
+  <!-- ✅ Header is injected by ./assets/header.js -->
 
-                <!-- Desktop Navigation -->
-                <nav class="nav-menu" aria-label="Primary">
-                    <a href="timeline.html" class="nav-link">Timeline</a>
-                    <a href="language.html" class="nav-link">Language Power</a>
-                    <a href="culture.html" class="nav-link">Culture Symbols</a>
-                    <a href="archives.html" class="nav-link">Archives</a>
-                    <a href="resources.html" class="nav-link">Resources</a>
-                </nav>
+  <div class="fullpage-wrapper" id="fullpageWrapper">
+    <!-- Screen 1 -->
+    <section class="hero fullpage-section">
+      <div class="hero-content">
+        <h1>Cantonese in Americas</h1>
+        <p>Public History · Oral History · Cultural Research</p>
+      </div>
 
-                <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
+      <div class="scroll-indicator" id="scrollIndicator" aria-label="Scroll to next section">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Screen 2 -->
+    <section class="fullpage-section">
+      <div class="second-screen-content">
+        <div class="intro-section">
+          <div class="container">
+            <div class="intro-text">
+              <h2>Introduction</h2>
+
+              <p>Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.</p>
+
+              <p>This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.</p>
+
+              <div class="stats" id="statsSection">
+                <h3>BY THE NUMBERS:</h3>
+                <div class="stats-grid">
+                  <div class="stat-item">
+                    <div class="stat-number" data-target="175">0</div>
+                    <div class="stat-divider"></div>
+                    <p class="stat-description">Documented migration since the 1848 Gold Rush.</p>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number" data-target="530000">0</div>
+                    <div class="stat-divider"></div>
+                    <p class="stat-description">U.S. residents speaking Cantonese at home.</p>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number" data-target="30000000">0</div>
+                    <div class="stat-divider"></div>
+                    <p class="stat-description">Descendants in a vast global diaspora.</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
-
-            <!-- Mobile Navigation Menu -->
-            <nav class="mobile-nav-menu" id="mobileNavMenu">
-                <div class="mobile-nav-item">
-                    <a href="timeline.html" class="mobile-nav-link">Timeline</a>
-                </div>
-                <div class="mobile-nav-item">
-                    <a href="language.html" class="mobile-nav-link">Language Power</a>
-                </div>
-                <div class="mobile-nav-item">
-                    <a href="culture.html" class="mobile-nav-link">Culture Symbols</a>
-                </div>
-                <div class="mobile-nav-item">
-                    <a href="archives.html" class="mobile-nav-link">Archives</a>
-                </div>
-                <div class="mobile-nav-item">
-                    <a href="resources.html" class="mobile-nav-link">Resources</a>
-                </div>
-            </nav>
+          </div>
         </div>
-    </header>
 
-    <!-- 全屏滚动容器 -->
-    <div class="fullpage-wrapper">
-        <!-- 第一屏：Hero Section -->
-        <section class="hero fullpage-section">
-            <div class="hero-content">
-                <h1>Cantonese in Americas</h1>
-                <p>Public History · Oral History · Cultural Research</p>
-            </div>
-            
-            <!-- 滚动提示 -->
-            <div class="scroll-indicator">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                </svg>
-            </div>
-        </section>
+        <footer>
+          <div class="container">
+            <p>Created by kw30928@gmail.com All rights reserved 2025</p>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </div>
 
-        <!-- 第二屏：Introduction + Footer -->
-        <section class="fullpage-section">
-            <div class="second-screen-content">
-                <div class="intro-section">
-                    <div class="container">
-                        <div class="intro-text">
-                            <h2>Introduction</h2>
-                            
-                            <p>Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.</p>
-                            
-                            <p>This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.</p>
+  <script>
+    // ===== Number Counter Animation (smooth + less jitter) =====
+    function animateCounter(el, target, durationMs) {
+      const startTs = performance.now();
+      function tick(now) {
+        const t = Math.min(1, (now - startTs) / durationMs);
+        const val = Math.floor(target * t);
 
-                            <div class="stats">
-                                <h3>BY THE NUMBERS:</h3>
-                                <div class="stats-grid">
-                                    <div class="stat-item">
-                                        <div class="stat-number" data-target="175">0</div>
-                                        <div class="stat-divider"></div>
-                                        <p class="stat-description">Documented migration since the 1848 Gold Rush.</p>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number" data-target="530000">0</div>
-                                        <div class="stat-divider"></div>
-                                        <p class="stat-description">U.S. residents speaking Cantonese at home.</p>
-                                    </div>
-                                    <div class="stat-item">
-                                        <div class="stat-number" data-target="30000000">0</div>
-                                        <div class="stat-divider"></div>
-                                        <p class="stat-description">Descendants in a vast global diaspora.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Footer -->
-                <footer>
-                    <div class="container">
-                        <p>Created by kw30928@gmail.com All rights reserved 2025</p>
-                    </div>
-                </footer>
-            </div>
-        </section>
-    </div>
-
-    <!-- JavaScript -->
-    <script>
-        // ===== Number Counter Animation =====
-        function animateCounter(element, target, duration) {
-            const start = 0;
-            const increment = target / (duration / 16); // 60fps
-            let current = start;
-            
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                
-                // Format number with commas
-                const formattedNumber = Math.floor(current).toLocaleString('en-US');
-                
-                // Add suffix based on target value
-                if (target === 175) {
-                    element.textContent = formattedNumber + '+ Years';
-                } else if (target === 530000) {
-                    element.textContent = formattedNumber + '+';
-                } else {
-                    element.textContent = formattedNumber;
-                }
-            }, 16);
+        if (target === 175) {
+          el.textContent = val.toLocaleString('en-US') + '+ Years';
+        } else if (target === 530000) {
+          el.textContent = val.toLocaleString('en-US') + '+';
+        } else {
+          el.textContent = val.toLocaleString('en-US');
         }
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
 
-        // Intersection Observer to trigger animation when stats come into view
-        const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px'
-        };
+    const fullpageWrapper = document.getElementById('fullpageWrapper');
+    let hasAnimated = false;
 
-        let hasAnimated = false;
-
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !hasAnimated) {
-                    hasAnimated = true;
-                    const statNumbers = document.querySelectorAll('.stat-number');
-                    statNumbers.forEach(stat => {
-                        const target = parseInt(stat.getAttribute('data-target'));
-                        animateCounter(stat, target, 3000); // 3 seconds
-                    });
-                }
-            });
-        }, observerOptions);
-
-        // Start observing when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            const statsSection = document.querySelector('.stats');
-            if (statsSection) {
-                statsObserver.observe(statsSection);
-            }
-        });
-
-        // ===== Mobile Menu Functionality =====
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileNavMenu = document.getElementById('mobileNavMenu');
-        
-        // Toggle mobile menu visibility
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileNavMenu.classList.toggle('active');
-            
-            // Toggle button icon (hamburger ↔ X)
-            const icon = mobileMenuBtn.querySelector('svg path');
-            if (mobileNavMenu.classList.contains('active')) {
-                // Show X icon
-                icon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
-                mobileMenuBtn.setAttribute('aria-label', 'Close menu');
-            } else {
-                // Show hamburger icon
-                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
-            }
-        });
-
-        // Close mobile menu after clicking menu item
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                mobileNavMenu.classList.remove('active');
-                const icon = mobileMenuBtn.querySelector('svg path');
-                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
-            });
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!mobileMenuBtn.contains(event.target) && !mobileNavMenu.contains(event.target)) {
-                if (mobileNavMenu.classList.contains('active')) {
-                    mobileNavMenu.classList.remove('active');
-                    const icon = mobileMenuBtn.querySelector('svg path');
-                    icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                    mobileMenuBtn.setAttribute('aria-label', 'Open menu');
-                }
-            }
-        });
-
-        // ===== Fullpage Scroll Functionality =====
-        const fullpageWrapper = document.querySelector('.fullpage-wrapper');
-        const sections = document.querySelectorAll('.fullpage-section');
-        const header = document.querySelector('header');
-        let currentSection = 0;
-        let isScrolling = false;
-
-        // Monitor scroll events
-        fullpageWrapper.addEventListener('scroll', function() {
-            // Detect which section is currently visible
-            const scrollPosition = fullpageWrapper.scrollTop;
-            const viewportHeight = window.innerHeight;
-            
-            currentSection = Math.round(scrollPosition / viewportHeight);
-            
-            // Hide header on second screen, show on first screen
-            if (currentSection >= 1) {
-                header.classList.add('hidden');
-            } else {
-                header.classList.remove('hidden');
-            }
-        });
-
-        // Keyboard navigation support
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-                e.preventDefault();
-                scrollToSection(Math.min(currentSection + 1, sections.length - 1));
-            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-                e.preventDefault();
-                scrollToSection(Math.max(currentSection - 1, 0));
-            }
-        });
-
-        function scrollToSection(index) {
-            if (isScrolling) return;
-            
-            isScrolling = true;
-            const targetPosition = index * window.innerHeight;
-            
-            fullpageWrapper.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-            
-            setTimeout(() => {
-                isScrolling = false;
-            }, 1000);
+    // Stats observer inside scroll container
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasAnimated) {
+          hasAnimated = true;
+          document.querySelectorAll('.stat-number').forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-target'), 10);
+            animateCounter(stat, target, 1800);
+          });
         }
+      });
+    }, { root: fullpageWrapper, threshold: 0.5 });
 
-        // Scroll indicator click event
-        document.querySelector('.scroll-indicator').addEventListener('click', function() {
-            scrollToSection(1);
-        });
-    </script>
+    const statsSection = document.getElementById('statsSection');
+    if (statsSection) statsObserver.observe(statsSection);
+
+    // ===== Fullpage header behavior (no layout jump) =====
+    let rafLock = false;
+
+    function applyHeaderForSection(sectionIndex) {
+      const header = document.querySelector('header');
+      const hide = sectionIndex >= 1;
+
+      document.body.classList.toggle('no-header-space', hide);
+
+      // header.js uses class "header-hidden"
+      if (header) header.classList.toggle('header-hidden', hide);
+    }
+
+    fullpageWrapper.addEventListener('scroll', () => {
+      if (rafLock) return;
+      rafLock = true;
+
+      requestAnimationFrame(() => {
+        const vh = fullpageWrapper.clientHeight || window.innerHeight;
+        const idx = Math.round(fullpageWrapper.scrollTop / vh);
+        applyHeaderForSection(idx);
+        rafLock = false;
+      });
+    });
+
+    applyHeaderForSection(0);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const sections = document.querySelectorAll('.fullpage-section');
+      const vh = fullpageWrapper.clientHeight || window.innerHeight;
+      const current = Math.round(fullpageWrapper.scrollTop / vh);
+
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        fullpageWrapper.scrollTo({ top: Math.min(current + 1, sections.length - 1) * vh, behavior: 'smooth' });
+      }
+      if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        fullpageWrapper.scrollTo({ top: Math.max(current - 1, 0) * vh, behavior: 'smooth' });
+      }
+    });
+
+    // Scroll indicator
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    if (scrollIndicator) {
+      scrollIndicator.addEventListener('click', () => {
+        const vh = fullpageWrapper.clientHeight || window.innerHeight;
+        fullpageWrapper.scrollTo({ top: vh, behavior: 'smooth' });
+      });
+    }
+  </script>
 </body>
 </html>
