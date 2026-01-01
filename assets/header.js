@@ -208,12 +208,25 @@
     if (!headerEl) return;
 
     let last = 0;
+    let isReady = false;
 
     const update = () => {
       const h = Math.round(headerEl.getBoundingClientRect().height);
-      if (!h || h === last) return;
-      last = h;
-      root.style.setProperty("--header-h", h + "px");
+      if (!h) return;
+      
+      if (h !== last) {
+        last = h;
+        root.style.setProperty("--header-h", h + "px");
+      }
+      
+      // 高度计算完成后，添加ready类显示header
+      if (!isReady && h > 0) {
+        isReady = true;
+        // 使用 requestAnimationFrame 确保CSS变量已应用
+        requestAnimationFrame(() => {
+          headerEl.classList.add("header-ready");
+        });
+      }
     };
 
     requestAnimationFrame(update);
