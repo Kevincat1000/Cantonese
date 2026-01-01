@@ -18,20 +18,14 @@
   <script src="./assets/header.js" defer></script>
 
   <style>
-    :root { --header-h: 73px; }
-
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden;
       background: #F5F0E5;
       font-family: 'Gentium Book Plus', serif;
     }
 
     .page-wrapper {
-      height: calc(100vh - var(--header-h));
-      overflow-y: auto;
       overflow-x: hidden;
       scrollbar-gutter: stable;
     }
@@ -216,7 +210,7 @@
               <div class="card-face card-back">
                 <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
                 <p class="face-text" style="font-size:18px;">
-                  A casual greeting meaning “hello” or “how are you?”
+                  A casual greeting meaning "hello" or "how are you?"
                 </p>
               </div>
             </div>
@@ -233,7 +227,7 @@
               <div class="card-face card-back">
                 <h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3>
                 <p class="face-text" style="font-size:18px;">
-                  “You’re frustrating me.” A classic parent complaint.
+                  "You're frustrating me." A classic parent complaint.
                 </p>
               </div>
             </div>
@@ -277,7 +271,35 @@
       </div>
     </div>
   </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      let lastScrollTop = 0;
+      const scrollThreshold = 100;
+      const scrollDelta = 5;
+
+      window.addEventListener("scroll", function () {
+        const header = document.querySelector("header[data-site-header='1']");
+        if (!header) return;
+
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
+
+        if (scrollTop < scrollThreshold) {
+          header.classList.remove("header-hidden");
+          lastScrollTop = scrollTop;
+          return;
+        }
+
+        if (scrollTop > lastScrollTop) header.classList.add("header-hidden");
+        else header.classList.remove("header-hidden");
+
+        lastScrollTop = scrollTop;
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
-
-
