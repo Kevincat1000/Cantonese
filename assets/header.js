@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  if (document.querySelector("header[data-site-header='1']")) return;
+  const HEADER_SEL = "header[data-site-header='1']";
 
   function insertHeaderStyles() {
     if (document.getElementById("header-styles")) return;
@@ -12,7 +12,7 @@
         border-bottom:none;
         position:fixed;
         top:0; left:0; right:0;
-        z-index:50;
+        z-index:1000;
         transform:translateY(0);
         transition:transform .28s ease-in-out;
         font-family:'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -121,7 +121,7 @@
         background:#F5F0E5;
         border-bottom:1px solid #e5e5e5;
         box-shadow:0 4px 6px -1px rgba(0,0,0,.1);
-        z-index:40;
+        z-index:990;
         max-height:calc(100vh - var(--header-h, 73px));
         overflow-y:auto;
       }
@@ -181,7 +181,7 @@
               <a href="resources.html" class="nav-link">Resources</a>
             </nav>
 
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M4 6h16M4 12h16M4 18h16" />
@@ -204,7 +204,7 @@
 
   function initAdaptiveHeaderHeight() {
     const root = document.documentElement;
-    const headerEl = document.querySelector("header[data-site-header='1']");
+    const headerEl = document.querySelector(HEADER_SEL);
     if (!headerEl) return;
 
     let last = 0;
@@ -231,31 +231,30 @@
   }
 
   function initMobileMenu() {
-    const btn = document.getElementById("mobileMenuBtn");
-    const menu = document.getElementById("mobileNavMenu");
+    const headerEl = document.querySelector(HEADER_SEL);
+    if (!headerEl) return;
+
+    const btn = headerEl.querySelector("#mobileMenuBtn");
+    const menu = headerEl.querySelector("#mobileNavMenu");
     if (!btn || !menu) return;
 
     const path = btn.querySelector("svg path");
 
-    function closeMenu() {
-      menu.classList.remove("active");
-      if (path) path.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
-      btn.setAttribute("aria-label", "Open menu");
-    }
-
-    btn.addEventListener("click", function () {
-      menu.classList.toggle("active");
-      const open = menu.classList.contains("active");
+    function setOpen(open) {
+      menu.classList.toggle("active", open);
       if (path) path.setAttribute("d", open ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16");
       btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    btn.addEventListener("click", () => setOpen(!menu.classList.contains("active")));
+
+    headerEl.querySelectorAll(".mobile-nav-link").forEach((a) => {
+      a.addEventListener("click", () => setOpen(false));
     });
 
-    document.querySelectorAll(".mobile-nav-link").forEach((a) => {
-      a.addEventListener("click", closeMenu);
-    });
-
-    document.addEventListener("click", function (e) {
-      if (!btn.contains(e.target) && !menu.contains(e.target)) closeMenu();
+    document.addEventListener("click", (e) => {
+      if (!btn.contains(e.target) && !menu.contains(e.target)) setOpen(false);
     });
   }
 
