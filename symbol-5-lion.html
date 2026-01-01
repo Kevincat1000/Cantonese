@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Symbol 5: Lion Dance - Cantonese in the Americas</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Global style -->
+  <link rel="stylesheet" href="./assets/style.css" />
+  <script src="./assets/header.js" defer></script>
+
+  <style>
+    body{
+      margin:0;
+      background:#F5F0E5;
+      font-family:'Gentium Book Plus', serif;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+    main{ flex:1; }
+
+    /* Hero */
+    .symbol-hero{
+      position:relative;
+      padding: calc(4.5rem + env(safe-area-inset-top,0px)) 2rem 2rem;
+      color:white;
+      overflow:hidden;
+    }
+    .symbol-hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:url("images/symbol5-lion.jpg") center/cover no-repeat;
+      opacity:0.35;
+      transform:scale(1.02);
+    }
+    .symbol-hero .inner{
+      position:relative;
+      max-width:1152px;
+      margin:0 auto;
+    }
+    .symbol-kicker{
+      font:700 14px/1 'Lato', system-ui;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    .symbol-title{
+      font-size:2.4rem;
+      margin:0 0 10px 0;
+      line-height:1.05;
+    }
+    .symbol-subtitle{
+      max-width:72ch;
+      font-size:1.05rem;
+      line-height:1.6;
+      opacity:0.95;
+    }
+
+    /* Content */
+    .symbol-content{
+      max-width:1152px;
+      margin:0 auto;
+      padding:2.4rem 2rem 3rem;
+      color:#231d16;
+    }
+    .symbol-content h2{
+      font-size:1.25rem;
+      margin-bottom:0.8rem;
+    }
+    .symbol-content p{
+      max-width:80ch;
+      line-height:1.8;
+      margin-bottom:1.2rem;
+      font-size:1rem;
+    }
+
+    /* Back button */
+    .back-wrap{
+      margin-top:2.5rem;
+    }
+    .back-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(35,29,22,0.35);
+      text-decoration:none;
+      color:#231d16;
+      font:700 14px/1 'Lato', system-ui;
+      transition:all .2s ease;
+    }
+    .back-btn:hover{
+      background:rgba(35,29,22,0.06);
+      border-color:rgba(35,29,22,0.55);
+      transform:translateY(-1px);
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <section class="symbol-hero">
+      <div class="inner">
+        <div class="symbol-kicker">Symbol 5</div>
+        <h1 class="symbol-title">Lion Dance (舞狮)</h1>
+        <p class="symbol-subtitle">
+          Public ritual, community protection, and embodied performance in the Cantonese diaspora.
+        </p>
+      </div>
+    </section>
+
+    <section class="symbol-content">
+      <h2>Theme: Ritual Performance and Communal Protection</h2>
+
+      <p>
+        Lion Dance occupies a central place in Cantonese public culture, functioning as both ritual performance
+        and communal safeguard. Historically embedded in Lingnan folk religion, the lion was believed to dispel
+        malevolent forces, restore cosmic balance, and invite prosperity. In overseas Cantonese communities,
+        lion dances were most visible during Lunar New Year, temple festivals, store openings, and moments of
+        collective transition.
+      </p>
+
+      <p>
+        In North America, lion dance troupes were often sponsored by huiguan, clan associations, martial arts
+        schools, and later student organizations. These performances transformed streets, storefronts, and
+        association halls into temporary ritual spaces, asserting cultural presence in public urban landscapes.
+        The rhythmic coordination of drums, cymbals, and gongs turned movement into sound, making Cantonese
+        culture both visible and audible.
+      </p>
+
+      <p>
+        Beyond spectacle, lion dance functioned as a form of embodied pedagogy. Young performers learned
+        discipline, cooperation, and lineage history through physical training. As immigration patterns shifted
+        and Chinatowns evolved, lion dance became a mobile cultural symbol—appearing in parades, multicultural
+        festivals, and university campuses—signaling continuity amid displacement.
+      </p>
+
+      <div class="back-wrap">
+        <a href="culture.html" class="back-btn">← Back to Cultures</a>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
