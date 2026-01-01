@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Language - Cantonese in Americas</title>
+  <title>Culture Symbols - Cantonese in Americas</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,290 +19,241 @@
 
   <style>
     :root { --header-h: 73px; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scrollbar-gutter: stable; }
 
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
       background: #F5F0E5;
       font-family: 'Gentium Book Plus', serif;
-      line-height: 1.6;
-      padding-top: var(--header-h, 73px);
     }
 
     .page-wrapper {
+      height: calc(100vh - var(--header-h));
+      overflow-y: auto;
       overflow-x: hidden;
     }
 
     .content-inner {
-      padding: 0 1rem 2rem;
+      padding: 1.5rem 1rem 3rem;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    @media (min-width: 1024px) {
-      .content-inner {
-        padding: 0 2rem 3rem;
-      }
+    /* =========================
+       Symbols Stage (no border)
+       ========================= */
+    .symbols-stage {
+      width: 100%;
+      background: #F5F0E5;
+      overflow: hidden;
     }
 
-    .flash-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    @media (max-width: 980px) {
-      .flash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 520px) {
-      .flash-grid { grid-template-columns: 1fr; }
-    }
-
-    .flashcard {
+    .stage-bg {
       position: relative;
       width: 100%;
-      aspect-ratio: 1 / 1;
-      perspective: 1100px;
+      height: clamp(340px, 42vw, 520px);
+      background: #eae3d4;
     }
 
-    .flashcard button {
+    .stage-bg img.bg-img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      border: 0;
-      padding: 0;
-      background: transparent;
-      cursor: pointer;
-      border-radius: 14px;
+      object-fit: cover;
     }
 
-    .flashcard-inner {
+    .stage-main {
       position: absolute;
       inset: 0;
-      transform-style: preserve-3d;
-      transition: transform 0.55s cubic-bezier(.2,.8,.2,1);
+      display: grid;
+      place-items: center;
+      padding-bottom: 90px;
+      pointer-events: none;
     }
 
-    .flashcard:hover .flashcard-inner,
-    .flashcard:focus-within .flashcard-inner {
-      transform: rotateY(180deg);
+    .stage-main img {
+      width: min(72%, 720px);
+      max-height: 78%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.25));
     }
 
-    .card-face {
+    .symbol-buttons {
       position: absolute;
-      inset: 0;
-      border: 1.25px solid #000;
-      border-radius: 14px;
-      background: #F5F0E5;
-      box-shadow: none;
-      backface-visibility: hidden;
+      bottom: 12px;
+      left: 0;
+      right: 0;
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      align-items: center;
-      padding: 1rem;
-      text-align: center;
+      gap: 20px;
     }
 
-    .card-back {
-      transform: rotateY(180deg);
-      background: #FFFFFF;
+    .symbol-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 14px;
+      transition: background 0.2s ease, transform 0.2s ease;
+      outline: 1.25px solid transparent;
     }
 
-    .face-title {
-      margin: 0 0 0.5rem 0;
+    .symbol-btn.active {
+      outline-color: rgba(0,0,0,0.85);
+      background: rgba(245,240,229,0.6);
+    }
+
+    .symbol-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .symbol-btn img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    /* =========================
+       Text Panel (UNIFIED)
+       ========================= */
+    .symbol-text {
+      padding: 22px 24px 26px;
+      background: #F5F0E5;
+    }
+
+    .symbol-title {
+      font-size: 22px;
       font-weight: 700;
+      margin: 0 0 6px 0;
       color: #1a1a1a;
-      line-height: 1.1;
     }
 
-    .face-text {
-      margin: 0;
-      color: #2d3748;
-      line-height: 1.5;
+    .symbol-theme {
+      font: 700 13px/1.35 'Lato', system-ui, sans-serif;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.6);
+      margin: 0 0 14px 0;
+    }
+
+    .symbol-divider {
+      height: 1px;
+      background: rgba(0,0,0,0.18);
+      margin-bottom: 14px;
+    }
+
+    .symbol-body {
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(0,0,0,0.86);
+    }
+
+    .symbol-body p {
+      margin: 0 0 14px 0;
     }
   </style>
 </head>
 
 <body>
   <div class="page-wrapper">
-    <div class="container">
-      <div class="content-inner">
-        <div style="height: 1rem;"></div>
+    <div class="content-inner">
 
-        <div class="flash-grid">
+      <section class="symbols-stage">
+        <div class="stage-bg">
+          <img class="bg-img" src="images/symbols/bg.jpg" alt="Background">
 
-          <!-- 1 飲茶 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">飲茶</h3>
-                <p class="face-text" style="font-size:18px;">(Yam Cha)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Drinking tea</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Going for dim sum (often for brunch or lunch), eating the food, and socializing.
-                </p>
-              </div>
-            </div>
+          <div class="stage-main">
+            <img id="mainImage" src="images/symbols/s2.png" alt="">
           </div>
 
-          <!-- 2 食檸檬 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">食檸檬</h3>
-                <p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Eating lemons</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Being rejected when asking someone out.
-                </p>
-              </div>
-            </div>
+          <div class="symbol-buttons">
+            <button class="symbol-btn" data-key="s1"><img src="images/symbols/btn1.png"></button>
+            <button class="symbol-btn active" data-key="s2"><img src="images/symbols/btn2.png"></button>
+            <button class="symbol-btn" data-key="s3"><img src="images/symbols/btn3.png"></button>
+            <button class="symbol-btn" data-key="s4"><img src="images/symbols/btn4.png"></button>
           </div>
-
-          <!-- 3 放飛機 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">放飛機</h3>
-                <p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Breaking a promise to meet.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4 吹水 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">吹水</h3>
-                <p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Blowing water</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Chit-chatting; sometimes implies bragging or bluffing.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 5 食咗飯未？ -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">食咗飯未？</h3>
-                <p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
-                <p class="face-text" style="font-size:18px;">
-                  A casual greeting meaning "hello" or "how are you?"
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 6 生舊叉燒好過生你 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3>
-                <p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3>
-                <p class="face-text" style="font-size:18px;">
-                  "You're frustrating me." A classic parent complaint.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 7 炒魷魚 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">炒魷魚</h3>
-                <p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Getting fired.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 8 雞同鴨講 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">雞同鴨講</h3>
-                <p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Mutual lack of understanding; unable to communicate due to language barriers.
-                </p>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </div>
+
+        <div class="symbol-text">
+          <h2 id="title" class="symbol-title"></h2>
+          <p id="theme" class="symbol-theme"></p>
+          <div class="symbol-divider"></div>
+          <div id="body" class="symbol-body"></div>
+        </div>
+      </section>
+
     </div>
   </div>
 
   <script>
-    (function () {
-      "use strict";
+    const DATA = {
+      s1: {
+        img: "images/symbols/s1.png",
+        title: "Symbol 1: Religious Beliefs and Ancestral Worship",
+        theme: "Theme: Spiritual Anchors and the Temple–Association Model",
+        body: [
+          "Guangdong immigrants transplanted their spiritual landscape to the U.S. through a unique Temple–Association model. This integration of sacred and secular spaces—exemplified by the Tin How Temple in San Francisco (est. 1852)—served as a vital cultural nexus.",
+          "Beyond worshiping Mazu or Guandi, these sites functioned as social hubs where ancestor worship reinforced lineage identity and community cohesion. By recreating familiar ritual spaces, early immigrants transformed Lingnan folk beliefs into a visible public culture in the West."
+        ]
+      },
 
-      let lastScrollTop = 0;
-      const scrollThreshold = 100;
-      const scrollDelta = 5;
+      s2: {
+        img: "images/symbols/s2.png",
+        title: "Symbol 2: Culinary Heritage and the Global Table",
+        theme: "Theme: From Survival Strategy to Global Linguistic Influence",
+        body: [
+          "The evolution of Cantonese cuisine in the U.S. marks a journey from survival to cultural dominance. From only five restaurants in 1856 to over 50,000 today, Cantonese staples such as Chow Mein and Fried Rice provided immigrants with a critical economic foothold during the Exclusion Era.",
+          "These dishes bridged Chinese kitchens and Western palates, forming the foundation of global Chinese takeout culture. Terms like Chow Mein, Dim Sum, and Won Ton entered the global lexicon, while Yum Cha evolved into a cross-cultural public scene that transformed marginal sustenance into cosmopolitan life."
+        ]
+      },
 
-      window.addEventListener("scroll", function () {
-        const header = document.querySelector("header[data-site-header='1']");
-        if (!header) return;
+      s3: {
+        img: "images/symbols/s3.png",
+        title: "Symbol 3: Cantonese Opera",
+        theme: "Theme: The Stage as a Repository of Transnational Memory",
+        body: [
+          "Cantonese Opera served not only as entertainment but as ritual performance, bonding immigrant communities through shared narrative and sound.",
+          "Its acrobatics and stylized combat formed a system of embodied knowledge that later influenced action cinema, allowing opera to function as a mobile homeland across the diaspora."
+        ]
+      },
 
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      s4: {
+        img: "images/symbols/s4.png",
+        title: "Symbol 4: Martial Arts Cinema and Kung Fu",
+        theme: "Theme: Industrialized Narratives and Linguistic Globalization",
+        body: [
+          "Kung Fu cinema industrialized Lingnan martial traditions into a global genre rooted in Cantonese ethics and performance.",
+          "From Bruce Lee to Hollywood choreography, Cantonese body language was exported worldwide, embedding local identity into global pop culture."
+        ]
+      }
+    };
 
-        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
+    const mainImg = document.getElementById("mainImage");
+    const title = document.getElementById("title");
+    const theme = document.getElementById("theme");
+    const body = document.getElementById("body");
+    const buttons = document.querySelectorAll(".symbol-btn");
 
-        if (scrollTop < scrollThreshold) {
-          header.classList.remove("header-hidden");
-          lastScrollTop = scrollTop;
-          return;
-        }
+    function render(key){
+      const d = DATA[key];
+      mainImg.src = d.img;
+      title.textContent = d.title;
+      theme.textContent = d.theme;
+      body.innerHTML = d.body.map(p => `<p>${p}</p>`).join("");
+    }
 
-        if (scrollTop > lastScrollTop) header.classList.add("header-hidden");
-        else header.classList.remove("header-hidden");
+    render("s2");
 
-        lastScrollTop = scrollTop;
-      }, { passive: true });
-    })();
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        render(btn.dataset.key);
+      });
+    });
   </script>
 </body>
 </html>
