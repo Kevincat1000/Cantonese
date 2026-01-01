@@ -24,236 +24,188 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      overflow: hidden; /* lock window scroll; use .page-wrapper scroll */
       background: #F5F0E5;
       font-family: 'Gentium Book Plus', serif;
     }
 
-    .page-wrapper {
+    .page-wrapper{
       height: calc(100vh - var(--header-h));
       overflow-y: auto;
       overflow-x: hidden;
-    }
-
-    .content-inner {
-      padding: 1.5rem 1rem 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* =========================
-       Symbols Stage (no border)
-       ========================= */
-    .symbols-stage {
-      width: 100%;
+      scrollbar-gutter: stable;
       background: #F5F0E5;
+    }
+
+    /* ====== Symbol Hub Layout ====== */
+    .symbol-hub{
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0; /* keep tight like reference */
+    }
+
+    .symbol-stage{
+      position: relative;
+      width: 100%;
+      min-height: calc(100vh - var(--header-h));
+      background: #e7e0d4;
       overflow: hidden;
     }
 
-    .stage-bg {
-      position: relative;
-      width: 100%;
-      height: clamp(340px, 42vw, 520px);
-      background: #eae3d4;
-    }
-
-    .stage-bg img.bg-img {
+    /* Background image (like reference) */
+    .stage-bg{
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      background-image: url("images/symbols/bg-symbols.jpg"); /* TODO: replace */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: none;
+      transform: scale(1.01);
     }
 
-    .stage-main {
+    /* Optional subtle overlay to help readability (no border) */
+    .stage-tint{
       position: absolute;
       inset: 0;
-      display: grid;
-      place-items: center;
-      padding-bottom: 90px;
+      background: radial-gradient(
+        circle at 55% 55%,
+        rgba(0,0,0,0.00) 0%,
+        rgba(0,0,0,0.08) 60%,
+        rgba(0,0,0,0.12) 100%
+      );
       pointer-events: none;
     }
 
-    .stage-main img {
-      width: min(72%, 720px);
-      max-height: 78%;
-      object-fit: contain;
-      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.25));
-    }
-
-    .symbol-buttons {
-      position: absolute;
-      bottom: 12px;
-      left: 0;
-      right: 0;
+    /* Main artwork image in the center */
+    .stage-center{
+      position: relative;
+      z-index: 2;
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding-top: 6.5vh;
       display: flex;
       justify-content: center;
-      gap: 20px;
     }
 
-    .symbol-btn {
-      background: transparent;
+    .center-art{
+      width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+      /* no border, no box-shadow (match your request) */
+    }
+
+    /* Bottom buttons row */
+    .symbol-row{
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 5vh;
+      z-index: 3;
+      display: flex;
+      justify-content: center;
+      gap: clamp(18px, 3vw, 36px);
+      padding: 0 18px;
+    }
+
+    /* Button wrapper: no border */
+    .symbol-btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: clamp(54px, 6vw, 74px);
+      height: clamp(54px, 6vw, 74px);
+      border-radius: 999px;
+      text-decoration: none;
+      outline: none;
       border: none;
-      cursor: pointer;
-      padding: 10px;
-      border-radius: 14px;
-      transition: background 0.2s ease, transform 0.2s ease;
-      outline: 1.25px solid transparent;
+      background: rgba(245,240,229,0.18);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
     }
 
-    .symbol-btn.active {
-      outline-color: rgba(0,0,0,0.85);
-      background: rgba(245,240,229,0.6);
+    .symbol-btn img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 999px;
+      display: block;
     }
 
-    .symbol-btn:hover {
-      transform: translateY(-2px);
+    .symbol-btn:hover{
+      transform: translateY(-2px) scale(1.03);
+      background: rgba(245,240,229,0.26);
     }
 
-    .symbol-btn img {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
+    .symbol-btn:focus-visible{
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.25);
     }
 
-    /* =========================
-       Text Panel (UNIFIED)
-       ========================= */
-    .symbol-text {
-      padding: 22px 24px 26px;
-      background: #F5F0E5;
+    /* Optional: label below icons on desktop only */
+    .symbol-label{
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(5vh - 28px);
+      z-index: 3;
+      font: 600 13px/1.2 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: rgba(0,0,0,0.55);
+      text-align: center;
+      padding: 0 14px;
+      display: none;
     }
 
-    .symbol-title {
-      font-size: 22px;
-      font-weight: 700;
-      margin: 0 0 6px 0;
-      color: #1a1a1a;
+    @media (min-width: 900px){
+      .symbol-label{ display: block; }
     }
 
-    .symbol-theme {
-      font: 700 13px/1.35 'Lato', system-ui, sans-serif;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: rgba(0,0,0,0.6);
-      margin: 0 0 14px 0;
-    }
-
-    .symbol-divider {
-      height: 1px;
-      background: rgba(0,0,0,0.18);
-      margin-bottom: 14px;
-    }
-
-    .symbol-body {
-      font-size: 16px;
-      line-height: 1.7;
-      color: rgba(0,0,0,0.86);
-    }
-
-    .symbol-body p {
-      margin: 0 0 14px 0;
-    }
+    /* Make sure content isn't hidden behind header on some injections */
+    body{ background:#F5F0E5; }
   </style>
 </head>
 
 <body>
+  <!-- header injected by ./assets/header.js -->
+
   <div class="page-wrapper">
-    <div class="content-inner">
+    <div class="symbol-hub">
+      <section class="symbol-stage" aria-label="Culture Symbols Hub">
+        <div class="stage-bg" aria-hidden="true"></div>
+        <div class="stage-tint" aria-hidden="true"></div>
 
-      <section class="symbols-stage">
-        <div class="stage-bg">
-          <img class="bg-img" src="images/symbols/bg.jpg" alt="Background">
-
-          <div class="stage-main">
-            <img id="mainImage" src="images/symbols/s2.png" alt="">
-          </div>
-
-          <div class="symbol-buttons">
-            <button class="symbol-btn" data-key="s1"><img src="images/symbols/btn1.png"></button>
-            <button class="symbol-btn active" data-key="s2"><img src="images/symbols/btn2.png"></button>
-            <button class="symbol-btn" data-key="s3"><img src="images/symbols/btn3.png"></button>
-            <button class="symbol-btn" data-key="s4"><img src="images/symbols/btn4.png"></button>
-          </div>
+        <div class="stage-center">
+          <!-- TODO: replace with your “central initial image” -->
+          <img class="center-art" src="images/symbols/center-initial.png" alt="Culture Symbols Overview Artwork">
         </div>
 
-        <div class="symbol-text">
-          <h2 id="title" class="symbol-title"></h2>
-          <p id="theme" class="symbol-theme"></p>
-          <div class="symbol-divider"></div>
-          <div id="body" class="symbol-body"></div>
+        <div class="symbol-label">
+          Click a symbol to open its exhibit page.
+        </div>
+
+        <div class="symbol-row" role="navigation" aria-label="Symbols">
+          <!-- TODO: replace icon images -->
+          <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Open Symbol 1: Religious Beliefs and Ancestral Worship">
+            <img src="images/symbols/icon-1.png" alt="Symbol 1 icon">
+          </a>
+
+          <a class="symbol-btn" href="symbol-2-food.html" aria-label="Open Symbol 2: Culinary Heritage and the Global Table">
+            <img src="images/symbols/icon-2.png" alt="Symbol 2 icon">
+          </a>
+
+          <a class="symbol-btn" href="symbol-3-opera.html" aria-label="Open Symbol 3: Cantonese Opera">
+            <img src="images/symbols/icon-3.png" alt="Symbol 3 icon">
+          </a>
+
+          <a class="symbol-btn" href="symbol-4-kungfu.html" aria-label="Open Symbol 4: Martial Arts Cinema and Kung Fu">
+            <img src="images/symbols/icon-4.png" alt="Symbol 4 icon">
+          </a>
         </div>
       </section>
-
     </div>
   </div>
-
-  <script>
-    const DATA = {
-      s1: {
-        img: "images/symbols/s1.png",
-        title: "Symbol 1: Religious Beliefs and Ancestral Worship",
-        theme: "Theme: Spiritual Anchors and the Temple–Association Model",
-        body: [
-          "Guangdong immigrants transplanted their spiritual landscape to the U.S. through a unique Temple–Association model. This integration of sacred and secular spaces—exemplified by the Tin How Temple in San Francisco (est. 1852)—served as a vital cultural nexus.",
-          "Beyond worshiping Mazu or Guandi, these sites functioned as social hubs where ancestor worship reinforced lineage identity and community cohesion. By recreating familiar ritual spaces, early immigrants transformed Lingnan folk beliefs into a visible public culture in the West."
-        ]
-      },
-
-      s2: {
-        img: "images/symbols/s2.png",
-        title: "Symbol 2: Culinary Heritage and the Global Table",
-        theme: "Theme: From Survival Strategy to Global Linguistic Influence",
-        body: [
-          "The evolution of Cantonese cuisine in the U.S. marks a journey from survival to cultural dominance. From only five restaurants in 1856 to over 50,000 today, Cantonese staples such as Chow Mein and Fried Rice provided immigrants with a critical economic foothold during the Exclusion Era.",
-          "These dishes bridged Chinese kitchens and Western palates, forming the foundation of global Chinese takeout culture. Terms like Chow Mein, Dim Sum, and Won Ton entered the global lexicon, while Yum Cha evolved into a cross-cultural public scene that transformed marginal sustenance into cosmopolitan life."
-        ]
-      },
-
-      s3: {
-        img: "images/symbols/s3.png",
-        title: "Symbol 3: Cantonese Opera",
-        theme: "Theme: The Stage as a Repository of Transnational Memory",
-        body: [
-          "Cantonese Opera served not only as entertainment but as ritual performance, bonding immigrant communities through shared narrative and sound.",
-          "Its acrobatics and stylized combat formed a system of embodied knowledge that later influenced action cinema, allowing opera to function as a mobile homeland across the diaspora."
-        ]
-      },
-
-      s4: {
-        img: "images/symbols/s4.png",
-        title: "Symbol 4: Martial Arts Cinema and Kung Fu",
-        theme: "Theme: Industrialized Narratives and Linguistic Globalization",
-        body: [
-          "Kung Fu cinema industrialized Lingnan martial traditions into a global genre rooted in Cantonese ethics and performance.",
-          "From Bruce Lee to Hollywood choreography, Cantonese body language was exported worldwide, embedding local identity into global pop culture."
-        ]
-      }
-    };
-
-    const mainImg = document.getElementById("mainImage");
-    const title = document.getElementById("title");
-    const theme = document.getElementById("theme");
-    const body = document.getElementById("body");
-    const buttons = document.querySelectorAll(".symbol-btn");
-
-    function render(key){
-      const d = DATA[key];
-      mainImg.src = d.img;
-      title.textContent = d.title;
-      theme.textContent = d.theme;
-      body.innerHTML = d.body.map(p => `<p>${p}</p>`).join("");
-    }
-
-    render("s2");
-
-    buttons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        buttons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        render(btn.dataset.key);
-      });
-    });
-  </script>
 </body>
 </html>
