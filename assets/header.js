@@ -7,6 +7,10 @@
     if (document.getElementById("header-styles")) return;
 
     const css = `
+      html {
+        scrollbar-gutter: stable;
+      }
+
       header[data-site-header="1"]{
         background:#F5F0E5;
         border-bottom:none;
