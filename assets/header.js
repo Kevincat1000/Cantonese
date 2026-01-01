@@ -33,22 +33,22 @@
       header[data-site-header="1"] .header-container{
         max-width:1280px;
         margin:0 auto;
-        padding:0 1rem;
+        padding:0 calc(1rem + 20px);
       }
 
       header[data-site-header="1"] .header-content{
-        display:grid;
-        grid-template-columns:auto 1fr auto;
+        display:flex;
         align-items:center;
-        gap:1rem;
+        justify-content:space-between;
         padding:.75rem 0;
+        gap:1rem;
       }
 
       header[data-site-header="1"] .logo{
         text-align:center;
         text-decoration:none;
         color:inherit;
-        justify-self:start;
+        padding:0 .5rem;
       }
 
       header[data-site-header="1"] .logo-main{
@@ -70,9 +70,9 @@
       header[data-site-header="1"] .nav-menu{
         display:none;
         align-items:center;
-        justify-content:center;
+        justify-content:flex-end;
         gap:1.5rem;
-        justify-self:center;
+        margin-left:auto;
       }
 
       @media (min-width:768px){
@@ -98,13 +98,6 @@
         color:#8B2332;
       }
 
-      header[data-site-header="1"] .header-right{
-        display:flex;
-        align-items:center;
-        gap:.75rem;
-        justify-self:end;
-      }
-
       header[data-site-header="1"] .header-search{
         display:none;
         align-items:center;
@@ -116,16 +109,20 @@
       }
 
       header[data-site-header="1"] .header-search input{
-        width:220px;
-        max-width:28vw;
+        width:110px;
+        max-width:18vw;
         height:34px;
-        border-radius:999px;
+        border-radius:6px;
         border:1px solid #E5DBCA;
-        background:#fff;
-        padding:0 12px;
+        background:#F5F0E5;
+        padding:0 10px;
         font-size:14px;
         line-height:34px;
         outline:none;
+      }
+
+      header[data-site-header="1"] .header-search input::placeholder{
+        color:#666;
       }
 
       header[data-site-header="1"] .header-search input:focus{
@@ -135,9 +132,9 @@
       header[data-site-header="1"] .header-search button{
         height:34px;
         width:34px;
-        border-radius:999px;
+        border-radius:6px;
         border:1px solid #E5DBCA;
-        background:#fff;
+        background:#F5F0E5;
         cursor:pointer;
         display:inline-flex;
         align-items:center;
@@ -211,8 +208,8 @@
       }
 
       @media (min-width:1024px){
-        header[data-site-header="1"] .header-container{ padding:0 2rem; }
-        header[data-site-header="1"] .nav-menu{ gap:2rem; }
+        header[data-site-header="1"] .header-container{ padding:0 calc(2rem + 20px); }
+        header[data-site-header="1"] .nav-menu{ gap:1.5rem; }
       }
     `;
 
@@ -238,9 +235,7 @@
               <a href="culture.html" class="nav-link">Culture Symbols</a>
               <a href="archives.html" class="nav-link">Archives</a>
               <a href="resources.html" class="nav-link">Resources</a>
-            </nav>
 
-            <div class="header-right">
               <form class="header-search" id="siteSearchForm" role="search" aria-label="Site search">
                 <input id="siteSearchInput" type="search" name="q" placeholder="Search" autocomplete="off" />
                 <button type="submit" aria-label="Search">
@@ -250,14 +245,14 @@
                   </svg>
                 </button>
               </form>
+            </nav>
 
-              <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
 
           <nav class="mobile-nav-menu" id="mobileNavMenu" aria-label="Mobile">
