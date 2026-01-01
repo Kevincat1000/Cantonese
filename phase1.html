@@ -329,34 +329,77 @@
       line-height: 1.4;
     }
     
-    .tin-images {
+    .tin-boom-layout {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 3rem;
-      margin-top: 60px;
-      padding: 0 2rem;
+      margin-top: 2rem;
+      align-items: center;
     }
     
-    .tin-image-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+    .tin-mine-wrapper {
+      position: relative;
+      height: 360px;
+      opacity: 0;
+      transform: translateX(-100px);
+      transition: none;
     }
     
-    .tin-image {
+    .tin-mine-wrapper.visible {
+      animation: flyInFromLeft 3s ease-out forwards;
+    }
+    
+    @keyframes flyInFromLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-100px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .tin-mine-image {
       width: 100%;
-      height: 480px;
+      height: 100%;
       object-fit: cover;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       display: block;
     }
     
-    .tin-caption {
+    .tin-mine-caption {
       color: rgba(35, 29, 22, 0.75);
       font-size: 0.875rem;
       text-align: center;
       line-height: 1.4;
+      margin-top: 0.5rem;
+    }
+    
+    .loke-yew-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 3rem;
+      align-items: flex-start;
+    }
+    
+    .loke-yew-image {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: block;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .loke-yew-caption {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.875rem;
+      text-align: center;
+      line-height: 1.4;
+      margin-top: 0.5rem;
     }
     
     .gallery {
@@ -611,15 +654,24 @@
         height: 220px;
       }
       
-      .tin-images {
+      .tin-boom-layout {
         grid-template-columns: 1fr;
         gap: 2rem;
-        padding: 0;
-        margin-top: 40px;
       }
       
-      .tin-image {
-        height: 360px;
+      .tin-mine-wrapper {
+        height: 280px;
+      }
+      
+      .loke-yew-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .loke-yew-image {
+        width: 100%;
+        height: 250px;
+        margin: 0 auto;
       }
       
       .phase-link {
@@ -808,24 +860,22 @@
     <section class="section-paper content-section" style="background-image: none; padding-top: 1.5rem;">
       <div class="container">
         <h2 class="section-title text-dark font-heading">1840s–1870s: The Malayan Tin Boom</h2>
-        <div class="text-content text-dark-90">
-          <p>
-            With the discovery of rich tin deposits in Perak, Selangor, and Negeri Sembilan, a new wave
-            of migration occurred between the 1840s and 1870s. During this period, Cantonese laborers
-            and capitalists moved from Penang and Singapore into the interior mining districts of the
-            Malay Peninsula.
-          </p>
-        </div>
         
-        <div class="tin-images">
-          <div class="tin-image-item">
-            <img src="https://bit.ly/4phrjVa" alt="Loke Yew" class="tin-image">
-            <p class="tin-caption">Loke Yew (1846-1917). Cantonese migrant turned<br>Malayan tin tycoon and philanthropist.</p>
+        <div class="tin-boom-layout">
+          <div>
+            <div class="tin-mine-wrapper">
+              <img src="https://icf.newscdn.net/publisher-c1a3f893382d2b2f8a9aa22a654d9c97/2021/11/19671de90e44635c17d7ce037ff92cb8.jpg" alt="Open-cast Tin Mine in Malaya" class="tin-mine-image">
+            </div>
+            <p class="tin-mine-caption">Open-cast Tin Mine in Malaya, 1900s</p>
           </div>
           
-          <div class="tin-image-item">
-            <img src="https://icf.newscdn.net/publisher-c1a3f893382d2b2f8a9aa22a654d9c97/2021/11/19671de90e44635c17d7ce037ff92cb8.jpg" alt="Open-cast Tin Mine in Malaya" class="tin-image">
-            <p class="tin-caption">Open-cast Tin Mine in Malaya, 1900s</p>
+          <div class="text-content text-dark-90">
+            <p>
+              With the discovery of rich tin deposits in Perak, Selangor, and Negeri Sembilan, a new wave
+              of migration occurred between the 1840s and 1870s. During this period, Cantonese laborers
+              and capitalists moved from Penang and Singapore into the interior mining districts of the
+              Malay Peninsula.
+            </p>
           </div>
         </div>
       </div>
@@ -834,15 +884,23 @@
     <section class="section-teal content-section">
       <div class="container">
         <h2 class="section-title text-white font-heading">Summary: Social Mobility and Economic Impact</h2>
-        <div class="text-content text-white-90">
-          <p>
-            By the turn of the 19th century, the total Cantonese population in Southeast Asia remained
-            relatively modest, numbering in the tens of thousands, yet they occupied a unique niche in
-            the colonial hierarchy. While the majority arrived as indentured laborers (coolies) or artisans,
-            the community possessed high social mobility. Through the Ghee Hin brotherhoods and clan
-            associations, they organized both labor and capital. By the late 19th century, a distinct class
-            of magnates emerged, controlling tin mines, revenue farms, and vast commercial networks.
-          </p>
+        
+        <div class="loke-yew-layout">
+          <div>
+            <img src="https://bit.ly/4phrjVa" alt="Loke Yew" class="loke-yew-image">
+            <p class="loke-yew-caption">Loke Yew (1846-1917). Cantonese migrant turned<br>Malayan tin tycoon and philanthropist.</p>
+          </div>
+          
+          <div class="text-content text-white-90">
+            <p>
+              By the turn of the 19th century, the total Cantonese population in Southeast Asia remained
+              relatively modest, numbering in the tens of thousands, yet they occupied a unique niche in
+              the colonial hierarchy. While the majority arrived as indentured laborers (coolies) or artisans,
+              the community possessed high social mobility. Through the Ghee Hin brotherhoods and clan
+              associations, they organized both labor and capital. By the late 19th century, a distinct class
+              of magnates emerged, controlling tin mines, revenue farms, and vast commercial networks.
+            </p>
+          </div>
         </div>
         
         <div class="phase-navigation">
@@ -909,6 +967,23 @@
       });
       
       observer.observe(mapContainer);
+    }
+    
+    // Tin mine image fly-in animation on scroll into view
+    const tinMineWrapper = document.querySelector('.tin-mine-wrapper');
+    if (tinMineWrapper) {
+      const tinMineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            tinMineWrapper.classList.add('visible');
+            tinMineObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.3
+      });
+      
+      tinMineObserver.observe(tinMineWrapper);
     }
   </script>
 </body>
