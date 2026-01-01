@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Symbol 5: Lion Dance - Cantonese in the Americas</title>
+  <title>Symbol 5: Lion Dance - Cantonese in Americas</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,143 +13,216 @@
 
   <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
+
+  <!-- Header injector -->
   <script src="./assets/header.js" defer></script>
 
   <style>
-    body{
+    :root { --header-h: 73px; }
+
+    html, body{
       margin:0;
+      padding:0;
+      height:100%;
+      overflow:hidden;
       background:#F5F0E5;
       font-family:'Gentium Book Plus', serif;
-      display:flex;
-      flex-direction:column;
-      min-height:100vh;
     }
-    main{ flex:1; }
+
+    /* fade transition */
+    body{ opacity:0; transition: opacity 260ms ease; }
+    body.page-ready{ opacity:1; }
+
+    .page-wrapper{
+      height: calc(100vh - var(--header-h));
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
+      background:#F5F0E5;
+    }
 
     /* Hero */
-    .symbol-hero{
-      position:relative;
-      padding: calc(4.5rem + env(safe-area-inset-top,0px)) 2rem 2rem;
-      color:white;
+    .hero{
+      position: relative;
+      min-height: 52vh;
+      display:flex;
+      align-items:flex-end;
+      padding: 2.2rem 1.25rem;
       overflow:hidden;
+      background:#231d16;
     }
-    .symbol-hero::before{
+
+    .hero::before{
       content:"";
       position:absolute;
       inset:0;
-      background:url("images/symbol5-lion.jpg") center/cover no-repeat;
-      opacity:0.35;
-      transform:scale(1.02);
+      background: url("images/symbol5-lion.jpg") center/cover no-repeat;
+      transform: scale(1.02);
+      filter: saturate(0.98);
+      opacity: 0.9;
     }
-    .symbol-hero .inner{
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(
+        to top,
+        rgba(245,240,229,0.92) 0%,
+        rgba(245,240,229,0.35) 55%,
+        rgba(245,240,229,0.05) 100%
+      );
+    }
+
+    .hero-inner{
       position:relative;
-      max-width:1152px;
-      margin:0 auto;
+      z-index:2;
+      max-width: 1152px;
+      margin: 0 auto;
+      width:100%;
+      padding: 0 0.25rem;
+      color:#231d16;
     }
-    .symbol-kicker{
-      font:700 14px/1 'Lato', system-ui;
-      letter-spacing:0.14em;
-      text-transform:uppercase;
-      margin-bottom:10px;
+
+    .kicker{
+      font: 600 12px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(35,29,22,0.7);
+      margin: 0 0 10px 0;
+      display:inline-flex;
+      background: rgba(245,240,229,0.65);
+      padding: 8px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
-    .symbol-title{
-      font-size:2.4rem;
-      margin:0 0 10px 0;
-      line-height:1.05;
+
+    .title{
+      margin: 0 0 10px 0;
+      font-size: 2.35rem;
+      line-height: 1.05;
+      color:#231d16;
     }
-    .symbol-subtitle{
-      max-width:72ch;
-      font-size:1.05rem;
-      line-height:1.6;
-      opacity:0.95;
+
+    .subtitle{
+      margin: 0;
+      max-width: 78ch;
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: rgba(35,29,22,0.88);
+      background: rgba(245,240,229,0.45);
+      padding: 10px 12px;
+      border-radius: 14px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display:inline-block;
     }
 
     /* Content */
-    .symbol-content{
-      max-width:1152px;
-      margin:0 auto;
-      padding:2.4rem 2rem 3rem;
+    .content{
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 2.2rem 1.25rem 3.2rem;
       color:#231d16;
     }
-    .symbol-content h2{
-      font-size:1.25rem;
-      margin-bottom:0.8rem;
-    }
-    .symbol-content p{
-      max-width:80ch;
-      line-height:1.8;
-      margin-bottom:1.2rem;
-      font-size:1rem;
+
+    .content p{
+      margin: 0 0 1.15rem 0;
+      line-height: 1.85;
+      font-size: 1rem;
+      max-width: 86ch;
+      color: rgba(35,29,22,0.92);
     }
 
-    /* Back button */
     .back-wrap{
-      margin-top:2.5rem;
+      margin-top: 2.2rem;
+      display:flex;
+      justify-content:center;
     }
+
     .back-btn{
       display:inline-flex;
       align-items:center;
+      justify-content:center;
       gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(35,29,22,0.35);
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(245,240,229,0.85);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       text-decoration:none;
       color:#231d16;
-      font:700 14px/1 'Lato', system-ui;
-      transition:all .2s ease;
+      font: 700 14px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      transition: transform .18s ease, background .18s ease, opacity .18s ease;
+      opacity: .95;
     }
+
     .back-btn:hover{
-      background:rgba(35,29,22,0.06);
-      border-color:rgba(35,29,22,0.55);
-      transform:translateY(-1px);
+      transform: translateY(-2px) scale(1.01);
+      background: rgba(245,240,229,0.95);
+      opacity: 1;
+    }
+
+    @media (min-width: 1024px){
+      .hero{ padding: 3rem 2rem; min-height: 58vh; }
+      .content{ padding: 2.6rem 2rem 3.6rem; }
+      .title{ font-size: 3rem; }
     }
   </style>
 </head>
 
 <body>
-  <main>
+  <!-- header injected by ./assets/header.js -->
 
-    <section class="symbol-hero">
-      <div class="inner">
-        <div class="symbol-kicker">Symbol 5</div>
-        <h1 class="symbol-title">Lion Dance (舞狮)</h1>
-        <p class="symbol-subtitle">
-          Public ritual, community protection, and embodied performance in the Cantonese diaspora.
-        </p>
+  <div class="page-wrapper">
+    <section class="hero" id="top" aria-label="Symbol 5 Lion Dance">
+      <div class="hero-inner">
+        <div class="kicker">Symbol 5</div>
+        <h1 class="title">Lion Dance (舞狮)</h1>
+        <p class="subtitle">Placeholder subtitle. Replace with your theme line.</p>
       </div>
     </section>
 
-    <section class="symbol-content">
-      <h2>Theme: Ritual Performance and Communal Protection</h2>
-
+    <section class="content">
       <p>
-        Lion Dance occupies a central place in Cantonese public culture, functioning as both ritual performance
-        and communal safeguard. Historically embedded in Lingnan folk religion, the lion was believed to dispel
-        malevolent forces, restore cosmic balance, and invite prosperity. In overseas Cantonese communities,
-        lion dances were most visible during Lunar New Year, temple festivals, store openings, and moments of
-        collective transition.
+        Placeholder paragraph 1. Paste your full Lion Dance write-up here (long-form, no abbreviation).
       </p>
-
       <p>
-        In North America, lion dance troupes were often sponsored by huiguan, clan associations, martial arts
-        schools, and later student organizations. These performances transformed streets, storefronts, and
-        association halls into temporary ritual spaces, asserting cultural presence in public urban landscapes.
-        The rhythmic coordination of drums, cymbals, and gongs turned movement into sound, making Cantonese
-        culture both visible and audible.
+        Placeholder paragraph 2. Add examples, institutions, community groups, festivals, and how it functions as public culture.
       </p>
-
       <p>
-        Beyond spectacle, lion dance functioned as a form of embodied pedagogy. Young performers learned
-        discipline, cooperation, and lineage history through physical training. As immigration patterns shifted
-        and Chinatowns evolved, lion dance became a mobile cultural symbol—appearing in parades, multicultural
-        festivals, and university campuses—signaling continuity amid displacement.
+        Placeholder paragraph 3. Tie it back to cultural regeneration, diaspora visibility, and embodied practice.
       </p>
 
       <div class="back-wrap">
-        <a href="culture.html" class="back-btn">← Back to Cultures</a>
+        <a class="back-btn" href="culture.html">← Back to Cultures</a>
       </div>
     </section>
+  </div>
 
-  </main>
+  <script>
+    // fade-in on load
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('page-ready');
+    });
+
+    // fade-out on internal link click
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+
+      const href = a.getAttribute('href') || '';
+      const isSameTab = !a.target || a.target === '_self';
+      const isHash = href.startsWith('#');
+      const isExternal = /^https?:\/\//i.test(href);
+
+      if (!href || isHash || isExternal || !isSameTab) return;
+
+      e.preventDefault();
+      document.body.classList.remove('page-ready');
+      setTimeout(() => { window.location.href = href; }, 260);
+    });
+  </script>
 </body>
 </html>
