@@ -24,147 +24,131 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden; /* lock window scroll; use .page-wrapper scroll */
+      overflow: hidden;
       background: #F5F0E5;
       font-family: 'Gentium Book Plus', serif;
     }
 
-    .page-wrapper{
+    /* fade transition */
+    body{ opacity:0; transition: opacity 260ms ease; }
+    body.page-ready{ opacity:1; }
+
+    .page-wrapper {
       height: calc(100vh - var(--header-h));
-      overflow-y: auto;
-      overflow-x: hidden;
+      overflow: hidden;
       scrollbar-gutter: stable;
+      position: relative;
       background: #F5F0E5;
     }
 
-    /* ====== Symbol Hub Layout ====== */
-    .symbol-hub{
-      width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0; /* keep tight like reference */
-    }
-
-    .symbol-stage{
+    /* Full-bleed stage */
+    .culture-stage{
       position: relative;
+      height: 100%;
       width: 100%;
-      min-height: calc(100vh - var(--header-h));
-      background: #e7e0d4;
+      background: #F5F0E5;
       overflow: hidden;
     }
 
-    /* Background image (like reference) */
-    .stage-bg{
-      position: absolute;
-      inset: 0;
-      background-image: url("images/symbols/bg-symbols.jpg"); /* TODO: replace */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      filter: none;
-      transform: scale(1.01);
+    .culture-bg{
+      position:absolute;
+      inset:0;
+      background:
+        url("images/culture-bg.jpg") center/cover no-repeat;
+      transform: scale(1.02);
+      filter: saturate(0.98);
     }
 
-    /* Optional subtle overlay to help readability (no border) */
-    .stage-tint{
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        circle at 55% 55%,
-        rgba(0,0,0,0.00) 0%,
-        rgba(0,0,0,0.08) 60%,
-        rgba(0,0,0,0.12) 100%
-      );
-      pointer-events: none;
+    /* soft vignette, no borders */
+    .culture-bg::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at 50% 65%,
+        rgba(245,240,229,0) 0%,
+        rgba(245,240,229,0.12) 45%,
+        rgba(245,240,229,0.28) 100%);
+      pointer-events:none;
     }
 
-    /* Main artwork image in the center */
-    .stage-center{
-      position: relative;
-      z-index: 2;
-      width: min(1100px, 92vw);
-      margin: 0 auto;
-      padding-top: 6.5vh;
-      display: flex;
-      justify-content: center;
-    }
-
-    .center-art{
-      width: 100%;
-      height: auto;
-      display: block;
-      user-select: none;
-      -webkit-user-drag: none;
-      /* no border, no box-shadow (match your request) */
-    }
-
-    /* Bottom buttons row */
+    /* Bottom icon row */
     .symbol-row{
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 5vh;
-      z-index: 3;
-      display: flex;
-      justify-content: center;
-      gap: clamp(18px, 3vw, 36px);
+      position:absolute;
+      left:0;
+      right:0;
+      bottom: 28px;
+      display:flex;
+      justify-content:center;
+      gap: 22px;
       padding: 0 18px;
+      z-index: 5;
     }
 
-    /* Button wrapper: no border */
     .symbol-btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: clamp(54px, 6vw, 74px);
-      height: clamp(54px, 6vw, 74px);
+      width: 74px;
+      height: 74px;
       border-radius: 999px;
-      text-decoration: none;
-      outline: none;
       border: none;
-      background: rgba(245,240,229,0.18);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
-    }
-
-    .symbol-btn img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 999px;
-      display: block;
+      background: rgba(245,240,229,0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      text-decoration:none;
+      transition: transform .18s ease, background .18s ease, opacity .18s ease;
+      opacity: .92;
     }
 
     .symbol-btn:hover{
-      transform: translateY(-2px) scale(1.03);
-      background: rgba(245,240,229,0.26);
+      transform: translateY(-2px) scale(1.02);
+      background: rgba(245,240,229,0.82);
+      opacity: 1;
     }
 
-    .symbol-btn:focus-visible{
-      box-shadow: 0 0 0 3px rgba(0,0,0,0.25);
+    .symbol-btn.active{
+      outline: 2px solid rgba(0,0,0,0.55);
+      outline-offset: 3px;
+      opacity: 1;
     }
 
-    /* Optional: label below icons on desktop only */
-    .symbol-label{
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: calc(5vh - 28px);
-      z-index: 3;
-      font: 600 13px/1.2 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    .symbol-btn img{
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      object-fit: cover;
+      display:block;
+    }
+
+    /* Small label above icons (optional, subtle) */
+    .symbol-hint{
+      position:absolute;
+      left:0; right:0;
+      bottom: 118px;
+      display:flex;
+      justify-content:center;
+      z-index:5;
+      pointer-events:none;
+    }
+    .symbol-hint span{
+      font: 600 12px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      letter-spacing: .14em;
       color: rgba(0,0,0,0.55);
-      text-align: center;
-      padding: 0 14px;
-      display: none;
+      text-transform: uppercase;
+      background: rgba(245,240,229,0.55);
+      padding: 8px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
 
-    @media (min-width: 900px){
-      .symbol-label{ display: block; }
+    @media (max-width: 560px){
+      .symbol-btn{ width: 62px; height: 62px; }
+      .symbol-btn img{ width: 48px; height: 48px; }
+      .symbol-row{ gap: 14px; bottom: 18px; }
+      .symbol-hint{ bottom: 98px; }
     }
-
-    /* Make sure content isn't hidden behind header on some injections */
-    body{ background:#F5F0E5; }
   </style>
 </head>
 
@@ -172,40 +156,53 @@
   <!-- header injected by ./assets/header.js -->
 
   <div class="page-wrapper">
-    <div class="symbol-hub">
-      <section class="symbol-stage" aria-label="Culture Symbols Hub">
-        <div class="stage-bg" aria-hidden="true"></div>
-        <div class="stage-tint" aria-hidden="true"></div>
+    <section class="culture-stage" aria-label="Culture Symbols">
+      <div class="culture-bg" role="img" aria-label="Background image"></div>
 
-        <div class="stage-center">
-          <!-- TODO: replace with your “central initial image” -->
-          <img class="center-art" src="images/symbols/center-initial.png" alt="Culture Symbols Overview Artwork">
-        </div>
+      <div class="symbol-hint"><span>Culture Symbols</span></div>
 
-        <div class="symbol-label">
-          Click a symbol to open its exhibit page.
-        </div>
+      <div class="symbol-row">
+        <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Symbol 1: Religious Beliefs and Ancestral Worship">
+          <img src="images/icon-faith.png" alt="Symbol 1 icon">
+        </a>
 
-        <div class="symbol-row" role="navigation" aria-label="Symbols">
-          <!-- TODO: replace icon images -->
-          <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Open Symbol 1: Religious Beliefs and Ancestral Worship">
-            <img src="images/symbols/icon-1.png" alt="Symbol 1 icon">
-          </a>
+        <a class="symbol-btn active" href="symbol-2-food.html" aria-label="Symbol 2: Culinary Heritage and the Global Table">
+          <img src="images/icon-food.png" alt="Symbol 2 icon">
+        </a>
 
-          <a class="symbol-btn" href="symbol-2-food.html" aria-label="Open Symbol 2: Culinary Heritage and the Global Table">
-            <img src="images/symbols/icon-2.png" alt="Symbol 2 icon">
-          </a>
+        <a class="symbol-btn" href="symbol-3-opera.html" aria-label="Symbol 3: Cantonese Opera">
+          <img src="images/icon-opera.png" alt="Symbol 3 icon">
+        </a>
 
-          <a class="symbol-btn" href="symbol-3-opera.html" aria-label="Open Symbol 3: Cantonese Opera">
-            <img src="images/symbols/icon-3.png" alt="Symbol 3 icon">
-          </a>
-
-          <a class="symbol-btn" href="symbol-4-kungfu.html" aria-label="Open Symbol 4: Martial Arts Cinema and Kung Fu">
-            <img src="images/symbols/icon-4.png" alt="Symbol 4 icon">
-          </a>
-        </div>
-      </section>
-    </div>
+        <a class="symbol-btn" href="symbol-4-kungfu.html" aria-label="Symbol 4: Martial Arts Cinema and Kung Fu">
+          <img src="images/icon-kungfu.png" alt="Symbol 4 icon">
+        </a>
+      </div>
+    </section>
   </div>
+
+  <script>
+    // fade-in on load
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('page-ready');
+    });
+
+    // fade-out on internal link click
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+
+      const href = a.getAttribute('href') || '';
+      const isSameTab = !a.target || a.target === '_self';
+      const isHash = href.startsWith('#');
+      const isExternal = /^https?:\/\//i.test(href);
+
+      if (!href || isHash || isExternal || !isSameTab) return;
+
+      e.preventDefault();
+      document.body.classList.remove('page-ready');
+      setTimeout(() => { window.location.href = href; }, 260);
+    });
+  </script>
 </body>
 </html>
