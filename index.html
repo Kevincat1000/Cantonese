@@ -13,6 +13,11 @@
   <script src="./assets/header.js" defer></script>
 
   <style>
+    :root{
+      /* 预设header高度，与实际尽量接近以减少抖动 */
+      --header-h: 73px;
+    }
+
     *{ margin:0; padding:0; box-sizing:border-box; }
     html{ scroll-behavior:smooth; }
 
@@ -21,7 +26,15 @@
       line-height:1.6;
       overflow:hidden;
       background:#fff;
-      padding-top: var(--header-h, 64px);
+      padding-top: var(--header-h);
+    }
+
+    /* 防止header高度计算时的抖动 - 初始隐藏，计算完成后显示 */
+    header[data-site-header="1"]{
+      visibility: hidden;
+    }
+    header[data-site-header="1"].header-ready{
+      visibility: visible;
     }
 
     .container{
@@ -34,7 +47,8 @@
     }
 
     .fullpage-wrapper{
-      height: calc(100vh - var(--header-h, 64px));
+      height: calc(100vh - var(--header-h));
+      height: calc(100dvh - var(--header-h)); /* 使用dvh解决移动端地址栏问题 */
       overflow-y:auto;
       overflow-x:hidden;
       scroll-snap-type:y mandatory;
@@ -46,13 +60,15 @@
     }
 
     body.header-off .fullpage-wrapper{
-      transform: translateY(calc(var(--header-h, 64px) * -1));
+      transform: translateY(calc(var(--header-h) * -1));
     }
 
     .fullpage-section{
-      min-height:100%;
+      height: calc(100vh - var(--header-h));
+      height: calc(100dvh - var(--header-h));
       scroll-snap-align:start;
       scroll-snap-stop:always;
+      overflow: hidden; /* 防止内容溢出产生白条 */
     }
 
     .hero{
@@ -122,7 +138,7 @@
     .second-screen-content{
       display:flex;
       flex-direction:column;
-      min-height:100%;
+      height:100%; /* 改为固定100%而非min-height */
     }
 
     .intro-section{
@@ -132,6 +148,7 @@
       flex:1;
       display:flex;
       align-items:center;
+      overflow-y:auto; /* 内容过多时允许滚动 */
     }
     @media (max-width:768px){
       .intro-section{ padding:1.5rem 1rem; }
@@ -184,6 +201,7 @@
       color:#fff;
       padding:1.5rem 1rem;
       text-align:center;
+      flex-shrink: 0; /* 防止footer被压缩 */
     }
     footer p{ font-size:0.875rem; color:#d1d5db; }
   </style>
