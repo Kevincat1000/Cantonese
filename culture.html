@@ -30,13 +30,12 @@
     }
 
     /* fade transition */
-    body{ opacity:0; transition: opacity 260ms ease; }
-    body.page-ready{ opacity:1; }
+    body { opacity: 0; transition: opacity 260ms ease; }
+    body.page-ready { opacity: 1; }
 
     .page-wrapper {
       height: calc(100vh - var(--header-h));
       overflow: hidden;
-      scrollbar-gutter: stable;
       position: relative;
       background: #F5F0E5;
     }
@@ -46,42 +45,48 @@
       position: relative;
       height: 100%;
       width: 100%;
-      background: #F5F0E5;
       overflow: hidden;
+      background: #F5F0E5;
     }
 
+    /* Background image */
     .culture-bg{
-      position:absolute;
-      inset:0;
-      background:
-        url("images/culture-bg.jpg") center/cover no-repeat;
+      position: absolute;
+      inset: 0;
+      background: url("images/culture-bg.jpg") center/cover no-repeat;
       transform: scale(1.02);
       filter: saturate(0.98);
     }
 
-    /* soft vignette, no borders */
+    /* soft vignette overlay */
     .culture-bg::after{
       content:"";
       position:absolute;
       inset:0;
       background: radial-gradient(circle at 50% 65%,
         rgba(245,240,229,0) 0%,
-        rgba(245,240,229,0.12) 45%,
-        rgba(245,240,229,0.28) 100%);
+        rgba(245,240,229,0.10) 45%,
+        rgba(245,240,229,0.26) 100%);
       pointer-events:none;
     }
 
-    /* Bottom icon row */
-    .symbol-row{
+    /* ✅ Symbols are OVERLAYED on the image */
+    .symbol-overlay{
       position:absolute;
-      left:0;
-      right:0;
-      bottom: 28px;
+      left: 50%;
+      bottom: clamp(18px, 4vh, 44px);
+      transform: translateX(-50%);
       display:flex;
       justify-content:center;
       gap: 22px;
       padding: 0 18px;
-      z-index: 5;
+      z-index: 10;
+      width: min(920px, calc(100% - 36px));
+      pointer-events: none; /* allow only buttons to receive clicks */
+    }
+
+    .symbol-overlay a{
+      pointer-events: auto; /* re-enable clicks on buttons */
     }
 
     .symbol-btn{
@@ -89,28 +94,28 @@
       height: 74px;
       border-radius: 999px;
       border: none;
-      background: rgba(245,240,229,0.65);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(245,240,229,0.60);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
       display:flex;
       align-items:center;
       justify-content:center;
       cursor:pointer;
       text-decoration:none;
       transition: transform .18s ease, background .18s ease, opacity .18s ease;
-      opacity: .92;
+      opacity: .95;
     }
 
     .symbol-btn:hover{
-      transform: translateY(-2px) scale(1.02);
+      transform: translateY(-2px) scale(1.03);
       background: rgba(245,240,229,0.82);
       opacity: 1;
     }
 
-    .symbol-btn.active{
+    /* Optional: show a clean focus ring for keyboard users */
+    .symbol-btn:focus-visible{
       outline: 2px solid rgba(0,0,0,0.55);
-      outline-offset: 3px;
-      opacity: 1;
+      outline-offset: 4px;
     }
 
     .symbol-btn img{
@@ -121,33 +126,39 @@
       display:block;
     }
 
-    /* Small label above icons (optional, subtle) */
+    /* Optional hint pill (also overlay on image) */
     .symbol-hint{
       position:absolute;
-      left:0; right:0;
-      bottom: 118px;
-      display:flex;
-      justify-content:center;
-      z-index:5;
+      left: 50%;
+      bottom: calc(clamp(18px, 4vh, 44px) + 86px);
+      transform: translateX(-50%);
+      z-index: 10;
       pointer-events:none;
     }
+
     .symbol-hint span{
       font: 600 12px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       letter-spacing: .14em;
-      color: rgba(0,0,0,0.55);
+      color: rgba(0,0,0,0.58);
       text-transform: uppercase;
       background: rgba(245,240,229,0.55);
       padding: 8px 12px;
       border-radius: 999px;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
     }
 
     @media (max-width: 560px){
       .symbol-btn{ width: 62px; height: 62px; }
       .symbol-btn img{ width: 48px; height: 48px; }
-      .symbol-row{ gap: 14px; bottom: 18px; flex-wrap: wrap; }
-      .symbol-hint{ bottom: 106px; }
+      .symbol-overlay{
+        gap: 14px;
+        flex-wrap: wrap; /* if 5 icons don't fit, it wraps nicely */
+        bottom: 16px;
+      }
+      .symbol-hint{
+        bottom: calc(16px + 86px);
+      }
     }
   </style>
 </head>
@@ -161,7 +172,8 @@
 
       <div class="symbol-hint"><span>Culture Symbols</span></div>
 
-      <div class="symbol-row">
+      <!-- ✅ OVERLAY icons directly ON TOP of the background image -->
+      <div class="symbol-overlay" aria-label="Culture symbol links">
         <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Symbol 1: Religious Beliefs and Ancestral Worship">
           <img src="images/icon-faith.png" alt="Symbol 1 icon">
         </a>
@@ -178,7 +190,6 @@
           <img src="images/icon-kungfu.png" alt="Symbol 4 icon">
         </a>
 
-        <!-- ✅ NEW: Symbol 5 (Lion Dance) -->
         <a class="symbol-btn" href="symbol-5-lion.html" aria-label="Symbol 5: Lion Dance">
           <img src="images/icon-liondance.png" alt="Symbol 5 icon">
         </a>
