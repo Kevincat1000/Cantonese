@@ -5,204 +5,192 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cantonese in Americas - Public History & Cultural Research</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <!-- ✅ Optional: faster header load -->
   <link rel="preload" href="./assets/header.js" as="script">
-
-  <!-- ✅ Unified header -->
   <script src="./assets/header.js" defer></script>
 
   <style>
-    :root { --header-h: 73px; }
+    *{ margin:0; padding:0; box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      line-height: 1.6;
-      color: #333;
-      overflow: hidden;              /* lock window scroll */
-      padding-top: var(--header-h);  /* ✅ reserve header space to prevent "jitter" */
+    body{
+      font-family:'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height:1.6;
+      overflow:hidden;
+      background:#fff;
+      padding-top: var(--header-h, 64px);
     }
 
-    /* When header is hidden, remove reserved space */
-    body.no-header-space { padding-top: 0; }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1rem;
+    .container{
+      max-width:1280px;
+      margin:0 auto;
+      padding:0 1rem;
     }
-    @media (min-width: 1024px) {
-      .container { padding: 0 2rem; }
+    @media (min-width:1024px){
+      .container{ padding:0 2rem; }
     }
 
-    /* ===== Fullpage scroll container ===== */
-    .fullpage-wrapper {
-      height: calc(100vh - var(--header-h));
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
-    body.no-header-space .fullpage-wrapper { height: 100vh; }
-
-    .fullpage-section {
-      min-height: 100%;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
+    .fullpage-wrapper{
+      height: calc(100vh - var(--header-h, 64px));
+      overflow-y:auto;
+      overflow-x:hidden;
+      scroll-snap-type:y mandatory;
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling:touch;
+      transform: translateY(0);
+      transition: transform .28s ease;
+      will-change: transform;
     }
 
-    /* Hero */
-    .hero {
-      position: relative;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
+    body.header-off .fullpage-wrapper{
+      transform: translateY(calc(var(--header-h, 64px) * -1));
+    }
+
+    .fullpage-section{
+      min-height:100%;
+      scroll-snap-align:start;
+      scroll-snap-stop:always;
+    }
+
+    .hero{
+      position:relative;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
       background:
         linear-gradient(rgba(0, 48, 87, 0.7), rgba(0, 48, 87, 0.7)),
         url('https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg');
-      background-size: cover;
-      background-position: center calc(50% + 30px);
-      background-attachment: fixed;
+      background-size:cover;
+      background-position:center calc(50% + 30px);
+      background-attachment:fixed;
     }
-    @media (max-width: 768px) {
-      .hero { background-attachment: scroll; }
-    }
-
-    .hero-content {
-      text-align: center;
-      z-index: 10;
-      padding: 1rem;
+    @media (max-width:768px){
+      .hero{ background-attachment:scroll; }
     }
 
-    .hero h1 {
+    .hero-content{
+      text-align:center;
+      z-index:10;
+      padding:1rem;
+    }
+
+    .hero h1{
       font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.02em;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      font-weight:700;
+      margin-bottom:1.5rem;
+      letter-spacing:0.02em;
+      text-shadow:0 2px 10px rgba(0,0,0,0.3);
     }
 
-    .hero p {
+    .hero p{
       font-size: clamp(1.25rem, 3vw, 2rem);
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      font-weight:300;
+      letter-spacing:0.05em;
+      text-shadow:0 2px 8px rgba(0,0,0,0.3);
     }
 
-    /* Scroll indicator */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-      animation: bounce 2s infinite;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
+    .scroll-indicator{
+      position:absolute;
+      bottom:2rem;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:20;
+      animation:bounce 2s infinite;
+      cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+      touch-action:manipulation;
     }
 
-    .scroll-indicator svg {
-      width: 32px;
-      height: 32px;
-      color: white;
+    .scroll-indicator svg{
+      width:32px;
+      height:32px;
+      color:#fff;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
 
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-      40% { transform: translateX(-50%) translateY(-10px); }
-      60% { transform: translateX(-50%) translateY(-5px); }
+    @keyframes bounce{
+      0%,20%,50%,80%,100%{ transform:translateX(-50%) translateY(0); }
+      40%{ transform:translateX(-50%) translateY(-10px); }
+      60%{ transform:translateX(-50%) translateY(-5px); }
     }
 
-    /* Second screen */
-    .second-screen-content {
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
+    .second-screen-content{
+      display:flex;
+      flex-direction:column;
+      min-height:100%;
     }
 
-    .intro-section {
-      background: #2C5266;
-      color: white;
-      padding: 2rem 1rem 2rem;
-      flex: 1;
-      display: flex;
-      align-items: center;
+    .intro-section{
+      background:#2C5266;
+      color:#fff;
+      padding:2rem 1rem;
+      flex:1;
+      display:flex;
+      align-items:center;
     }
-    @media (max-width: 768px) {
-      .intro-section { padding: 1.5rem 1rem 1.5rem; }
+    @media (max-width:768px){
+      .intro-section{ padding:1.5rem 1rem; }
     }
 
-    .intro-text { max-width: 56rem; margin: 0 auto; width: 100%; }
-    .intro-section h2 {
+    .intro-text{ max-width:56rem; margin:0 auto; width:100%; }
+
+    .intro-section h2{
       font-size: clamp(1.875rem, 4vw, 2.25rem);
-      color: #d6d0ac;
-      margin-bottom: 1.5rem;
-    }
-    .intro-text p {
-      font-size: 1.125rem;
-      margin-bottom: 1rem;
-      line-height: 1.7;
-    }
-    .intro-text a { color: white; text-decoration: underline; }
-    .intro-text a:hover { opacity: 0.8; }
-
-    /* Stats */
-    .stats { margin-top: 2rem; }
-    .stats h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.05em;
+      color:#d6d0ac;
+      margin-bottom:1.5rem;
     }
 
-    .stats-grid {
-      display: grid;
+    .intro-text p{
+      font-size:1.125rem;
+      margin-bottom:1rem;
+      line-height:1.7;
+    }
+
+    .stats{ margin-top:2rem; }
+
+    .stats h3{
+      font-size:1.25rem;
+      font-weight:600;
+      margin-bottom:1.5rem;
+      letter-spacing:0.05em;
+    }
+
+    .stats-grid{
+      display:grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
+      gap:1.5rem;
     }
-    @media (max-width: 768px) {
-      .stats-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    @media (max-width:768px){
+      .stats-grid{ grid-template-columns:1fr; gap:1.25rem; }
     }
 
-    .stat-item { text-align: left; }
-    .stat-number {
-      font-size: 1.875rem;
-      font-weight: 700;
-      color: #afa15c;
-      margin-bottom: 0.5rem;
-      white-space: nowrap;
+    .stat-number{
+      font-size:1.875rem;
+      font-weight:700;
+      color:#afa15c;
+      margin-bottom:0.5rem;
+      white-space:nowrap;
     }
-    .stat-divider { border-bottom: 2px dotted #afa15c; margin-bottom: 1rem; }
-    .stat-description { font-size: 0.75rem; }
+    .stat-divider{ border-bottom:2px dotted #afa15c; margin-bottom:1rem; }
+    .stat-description{ font-size:0.75rem; }
 
-    /* Footer */
-    footer {
-      background: #003057;
-      color: white;
-      padding: 1.5rem 1rem;
-      text-align: center;
+    footer{
+      background:#003057;
+      color:#fff;
+      padding:1.5rem 1rem;
+      text-align:center;
     }
-    footer p { font-size: 0.875rem; color: #d1d5db; }
+    footer p{ font-size:0.875rem; color:#d1d5db; }
   </style>
 </head>
 
 <body>
-  <!-- ✅ Header is injected by ./assets/header.js -->
-
   <div class="fullpage-wrapper" id="fullpageWrapper">
-    <!-- Screen 1 -->
     <section class="hero fullpage-section">
       <div class="hero-content">
         <h1>Cantonese in Americas</h1>
@@ -217,7 +205,6 @@
       </div>
     </section>
 
-    <!-- Screen 2 -->
     <section class="fullpage-section">
       <div class="second-screen-content">
         <div class="intro-section">
@@ -264,20 +251,16 @@
   </div>
 
   <script>
-    // ===== Number Counter Animation (smooth + less jitter) =====
     function animateCounter(el, target, durationMs) {
       const startTs = performance.now();
       function tick(now) {
         const t = Math.min(1, (now - startTs) / durationMs);
         const val = Math.floor(target * t);
 
-        if (target === 175) {
-          el.textContent = val.toLocaleString('en-US') + '+ Years';
-        } else if (target === 530000) {
-          el.textContent = val.toLocaleString('en-US') + '+';
-        } else {
-          el.textContent = val.toLocaleString('en-US');
-        }
+        if (target === 175) el.textContent = val.toLocaleString('en-US') + '+ Years';
+        else if (target === 530000) el.textContent = val.toLocaleString('en-US') + '+';
+        else el.textContent = val.toLocaleString('en-US');
+
         if (t < 1) requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
@@ -286,7 +269,6 @@
     const fullpageWrapper = document.getElementById('fullpageWrapper');
     let hasAnimated = false;
 
-    // Stats observer inside scroll container
     const statsObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !hasAnimated) {
@@ -302,23 +284,18 @@
     const statsSection = document.getElementById('statsSection');
     if (statsSection) statsObserver.observe(statsSection);
 
-    // ===== Fullpage header behavior (no layout jump) =====
     let rafLock = false;
-
-    function applyHeaderForSection(sectionIndex) {
+    function applyHeaderForSection(idx) {
       const header = document.querySelector('header');
-      const hide = sectionIndex >= 1;
+      const hide = idx >= 1;
 
-      document.body.classList.toggle('no-header-space', hide);
-
-      // header.js uses class "header-hidden"
+      document.body.classList.toggle('header-off', hide);
       if (header) header.classList.toggle('header-hidden', hide);
     }
 
     fullpageWrapper.addEventListener('scroll', () => {
       if (rafLock) return;
       rafLock = true;
-
       requestAnimationFrame(() => {
         const vh = fullpageWrapper.clientHeight || window.innerHeight;
         const idx = Math.round(fullpageWrapper.scrollTop / vh);
@@ -329,7 +306,6 @@
 
     applyHeaderForSection(0);
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       const sections = document.querySelectorAll('.fullpage-section');
       const vh = fullpageWrapper.clientHeight || window.innerHeight;
@@ -345,7 +321,6 @@
       }
     });
 
-    // Scroll indicator
     const scrollIndicator = document.getElementById('scrollIndicator');
     if (scrollIndicator) {
       scrollIndicator.addEventListener('click', () => {
