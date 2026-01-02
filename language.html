@@ -21,7 +21,7 @@
     :root { 
       --header-h: 73px; 
       --bg-color: #F5F0E5;
-      --text-color: #2c2c2c;
+      --text-color: #000000;
       --caption-color: #555;
       --main-font: 'Gentium Book Plus', serif;
       --theme-red: #a21a1a;
@@ -615,4 +615,258 @@
 
     <div class="unified-content-container">
       
-      <!-- B. Media
+      <!-- B. Media Hegemony Content (Full Text) -->
+      <div class="content-block media-block">
+        <h4 class="era-subtitle-main">B. Media Hegemony: The Public Voice</h4>
+        <p class="highlight-text">
+          Cantonese dominance was also reproduced through media institutions. San Francisco’s early Chinese press was written exclusively for a Cantonese-speaking labor class.
+        </p>
+        <p>
+          <i>The Golden Hills’ News</i> (1854), the first Chinese newspaper in the U.S., circulated among early migrants. In the early 20th century, major papers such as <i>Chung Sai Yat Po</i> (1900–1951) shaped political and civic discourse for decades, also spelled in Cantonese. Even when these newspapers discussed modern issues, they spoke to a Cantonese world.
+        </p>
+        <p>
+          The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was “inside” the community’s political imagination and which linguistic groups were peripheral.
+        </p>
+        <span class="bg-caption">Background: The Golden Hills' News, San Francisco, 1854</span>
+      </div>
+
+      <!-- C. Surnames and Signs Content (Full Text) & Visualization -->
+      <div class="content-block surnames-block">
+        <h4 class="era-subtitle-main">C. Surnames and Signs: The “Standard Sound”</h4>
+        <p>
+          A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin “Li,” “Wang,” or “Chen.”
+        </p>
+        <p>
+          This was more than just spelling. It signaled that Cantonese was the “standard sound” of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.
+        </p>
+
+        <!-- Compact Pronunciation Visual Slider -->
+        <div class="pronunciation-visualizer">
+          <!-- Lee/Li -->
+          <div class="visual-row">
+            <div class="char-col">李</div>
+            <div class="slider-track">
+              <div class="slider-label cantonese-side">
+                <span class="label-name">Cantonese</span>
+                <span class="pinyin-highlight">Lee</span>
+              </div>
+              <div class="slider-label mandarin-side">
+                <span class="pinyin-dim">Li</span>
+                <span class="label-name">Mandarin</span>
+              </div>
+            </div>
+          </div>
+          <!-- Wong/Wang -->
+          <div class="visual-row">
+            <div class="char-col">王</div>
+            <div class="slider-track">
+              <div class="slider-label cantonese-side">
+                <span class="label-name">Cantonese</span>
+                <span class="pinyin-highlight">Wong</span>
+              </div>
+              <div class="slider-label mandarin-side">
+                <span class="pinyin-dim">Wang</span>
+                <span class="label-name">Mandarin</span>
+              </div>
+            </div>
+          </div>
+          <!-- Chan/Chen -->
+          <div class="visual-row">
+            <div class="char-col">陈</div>
+            <div class="slider-track">
+              <div class="slider-label cantonese-side">
+                <span class="label-name">Cantonese</span>
+                <span class="pinyin-highlight">Chan</span>
+              </div>
+              <div class="slider-label mandarin-side">
+                <span class="pinyin-dim">Chen</span>
+                <span class="label-name">Mandarin</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Header Auto-hide Script
+    (function () {
+      "use strict";
+      let lastScrollTop = 0;
+      const scrollThreshold = 100;
+      const scrollDelta = 5;
+      window.addEventListener("scroll", function () {
+        const header = document.querySelector("header[data-site-header='1']");
+        if (!header) return;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
+        if (scrollTop < scrollThreshold) {
+          header.classList.remove("header-hidden");
+          lastScrollTop = scrollTop;
+          return;
+        }
+        if (scrollTop > lastScrollTop) header.classList.add("header-hidden");
+        else header.classList.remove("header-hidden");
+        lastScrollTop = scrollTop;
+      }, { passive: true });
+    })();
+
+    // Particle Animation for Research Section (Black Section)
+    (function() {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      const section = document.getElementById('research-section');
+      let particles = [];
+      let animationFrame;
+      const characters = ['食', '揾', '同', '乡', '家', '货', '钱', '语'];
+      let isActive = false;
+
+      function resize() {
+        canvas.width = section.clientWidth;
+        canvas.height = section.clientHeight;
+      }
+      window.addEventListener('resize', resize);
+      setTimeout(resize, 100);
+
+      class Particle {
+        constructor() { this.init(); }
+        init() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.char = characters[Math.floor(Math.random() * characters.length)];
+          this.size = Math.random() * 15 + 10;
+          this.speedX = (Math.random() - 0.5) * 1.5;
+          this.speedY = (Math.random() - 0.5) * 1.5;
+          this.alpha = 0;
+          this.targetAlpha = Math.random() * 0.5 + 0.1;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+          if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+          if (this.alpha < this.targetAlpha) this.alpha += 0.005;
+        }
+        draw() {
+          ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
+          ctx.font = `${this.size}px serif`;
+          ctx.fillText(this.char, this.x, this.y);
+        }
+      }
+
+      function initParticles() {
+        particles = [];
+        for (let i = 0; i < 60; i++) { particles.push(new Particle()); }
+      }
+
+      function animate() {
+        if (!isActive) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        animationFrame = requestAnimationFrame(animate);
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (!isActive) {
+                isActive = true;
+                section.classList.add('is-visible');
+                resize();
+                initParticles();
+                animate();
+            }
+          } else {
+            if (isActive) {
+                isActive = false;
+                section.classList.remove('is-visible');
+                cancelAnimationFrame(animationFrame);
+            }
+          }
+        });
+      }, { threshold: 0.4 });
+      observer.observe(section);
+
+      section.addEventListener('mousemove', (e) => {
+        if (!isActive) return;
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        particles.forEach(p => {
+          let dx = mouseX - p.x;
+          let dy = mouseY - p.y;
+          let dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 150) {
+            p.x -= dx * 0.02;
+            p.y -= dy * 0.02;
+          }
+        });
+      });
+    })();
+
+    // Reusable Canvas Texture Drawing Function
+    function drawPaperTexture(canvasId, sectionId) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+      const section = document.getElementById(sectionId);
+      if (!canvas || !section) return;
+
+      function resizeCanvas() {
+        canvas.width = section.clientWidth;
+        canvas.height = section.clientHeight;
+        draw();
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(100, 90, 80, 0.05)'; 
+        for (let i = 0; i < canvas.width; i += 3) {
+          for (let j = 0; j < canvas.height; j += 3) {
+            if (Math.random() > 0.6) {
+              let size = Math.random() * 1.5 + 0.5;
+              ctx.fillRect(i, j, size, size);
+            }
+          }
+        }
+      }
+
+      window.addEventListener('resize', resizeCanvas);
+      // Use IntersectionObserver to draw only when needed
+      const observer = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+              resizeCanvas();
+              observer.disconnect();
+          }
+      });
+      observer.observe(section);
+    }
+
+    // Apply texture to sections
+    drawPaperTexture('textureCanvas1', 'evolution-section');
+    drawPaperTexture('textureCanvas3', 'hegemony-unified');
+
+    // Scroll Animation
+    (function() {
+      const sections = document.querySelectorAll('.era-section, .content-block');
+      const observerOptions = {
+        root: null, threshold: 0.15, rootMargin: "0px"
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (!entry.target.classList.contains('visible')) {
+                 entry.target.classList.add('visible');
+            }
+          }
+        });
+      }, observerOptions);
+      
+      sections.forEach(section => {
+          observer.observe(section);
+      });
+    })();
+  </script>
+</body>
+</html>
