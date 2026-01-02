@@ -24,48 +24,72 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      overflow: hidden; /* no scrollbar */
       background: #F5F0E5;
       font-family: 'Gentium Book Plus', serif;
     }
 
     .page-wrapper {
       height: calc(100vh - var(--header-h));
-      overflow: hidden; /* no scrollbar */
+      overflow: hidden;
       position: relative;
       background: #F5F0E5;
     }
 
-    /* Full-bleed stage */
+    /* ===== Full-bleed stage ===== */
     .culture-stage{
       position: relative;
       height: 100%;
       width: 100%;
-      background: #F5F0E5;
       overflow: hidden;
     }
 
     .culture-bg{
       position:absolute;
       inset:0;
-      background: url("images/culture-bg.jpg") center/cover no-repeat;
-      transform: scale(1.02);
+      background: url("images/culture-bg.jpg") center / cover no-repeat;
       filter: saturate(0.98);
     }
 
-    /* soft vignette, no borders */
+    /* soft vignette */
     .culture-bg::after{
       content:"";
       position:absolute;
       inset:0;
-      background: radial-gradient(circle at 50% 65%,
+      background: radial-gradient(
+        circle at 50% 65%,
         rgba(245,240,229,0) 0%,
         rgba(245,240,229,0.12) 45%,
-        rgba(245,240,229,0.28) 100%);
+        rgba(245,240,229,0.28) 100%
+      );
       pointer-events:none;
     }
 
-    /* Bottom icon row */
+    /* ===== Symbol label ===== */
+    .symbol-hint{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom: 138px;
+      display:flex;
+      justify-content:center;
+      z-index:5;
+      pointer-events:none;
+    }
+
+    .symbol-hint span{
+      font: 600 12px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.55);
+      background: rgba(245,240,229,0.55);
+      padding: 8px 14px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    /* ===== Symbol row ===== */
     .symbol-row{
       position:absolute;
       left:0;
@@ -73,14 +97,14 @@
       bottom: 28px;
       display:flex;
       justify-content:center;
-      gap: 22px;
+      gap: 28px;           /* ✅ larger spacing */
       padding: 0 18px;
       z-index: 5;
     }
 
     .symbol-btn{
-      width: 74px;
-      height: 74px;
+      width: 92px;         /* ✅ bigger */
+      height: 92px;        /* ✅ bigger */
       border-radius: 999px;
       border: none;
       background: rgba(245,240,229,0.65);
@@ -101,47 +125,30 @@
       opacity: 1;
     }
 
-    .symbol-btn.active{
-      outline: 2px solid rgba(0,0,0,0.55);
-      outline-offset: 3px;
-      opacity: 1;
-    }
-
     .symbol-btn img{
-      width: 56px;
-      height: 56px;
+      width: 68px;         /* ✅ bigger icon */
+      height: 68px;        /* ✅ bigger icon */
       border-radius: 999px;
       object-fit: cover;
       display:block;
     }
 
-    /* Small label above icons (optional, subtle) */
-    .symbol-hint{
-      position:absolute;
-      left:0; right:0;
-      bottom: 118px;
-      display:flex;
-      justify-content:center;
-      z-index:5;
-      pointer-events:none;
-    }
-    .symbol-hint span{
-      font: 600 12px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      letter-spacing: .14em;
-      color: rgba(0,0,0,0.55);
-      text-transform: uppercase;
-      background: rgba(245,240,229,0.55);
-      padding: 8px 12px;
-      border-radius: 999px;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-    }
-
     @media (max-width: 560px){
-      .symbol-btn{ width: 62px; height: 62px; }
-      .symbol-btn img{ width: 48px; height: 48px; }
-      .symbol-row{ gap: 14px; bottom: 18px; }
-      .symbol-hint{ bottom: 98px; }
+      .symbol-btn{
+        width: 76px;
+        height: 76px;
+      }
+      .symbol-btn img{
+        width: 56px;
+        height: 56px;
+      }
+      .symbol-row{
+        gap: 18px;
+        bottom: 18px;
+      }
+      .symbol-hint{
+        bottom: 118px;
+      }
     }
   </style>
 </head>
@@ -151,16 +158,18 @@
 
   <div class="page-wrapper">
     <section class="culture-stage" aria-label="Culture Symbols">
-      <div class="culture-bg" role="img" aria-label="Background image"></div>
+      <div class="culture-bg" aria-hidden="true"></div>
 
-      <div class="symbol-hint"><span>Culture Symbols</span></div>
+      <div class="symbol-hint">
+        <span>Culture Symbols</span>
+      </div>
 
       <div class="symbol-row">
         <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Symbol 1: Religious Beliefs and Ancestral Worship">
           <img src="images/icon-faith.png" alt="Symbol 1 icon">
         </a>
 
-        <a class="symbol-btn active" href="symbol-2-food.html" aria-label="Symbol 2: Culinary Heritage and the Global Table">
+        <a class="symbol-btn" href="symbol-2-food.html" aria-label="Symbol 2: Culinary Heritage and the Global Table">
           <img src="images/icon-food.png" alt="Symbol 2 icon">
         </a>
 
@@ -178,7 +187,5 @@
       </div>
     </section>
   </div>
-
-  <!-- no fade script -->
 </body>
 </html>
