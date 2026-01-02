@@ -652,6 +652,31 @@
     .caption-main { display: block; font-weight: bold; margin-top: 15px; color: var(--theme-red); font-size: 14px; }
     .caption-sub { font-size: 14px; }
 
+    /* Simple book figure with 150px width and shadow */
+    .book-figure-simple {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .book-figure-simple img { 
+      width: 150px; 
+      height: auto; 
+      display: block; 
+      margin: 0 auto;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    
+    .book-figure-simple figcaption {
+      margin-top: 12px;
+    }
+    
+    .book-figure-simple .caption-line {
+      display: block;
+      font-size: 14px;
+      color: #000000;
+      line-height: 1.5;
+    }
+
     /* --- Part 2 Grid (B & C + Evidence) --- */
     .institutional-grid {
       display: grid;
@@ -938,11 +963,11 @@
 
         <!-- Right Column: 1987 Book Image -->
         <div class="content-block img-col-right">
-          <figure class="book-figure">
-            <img src="https://m.media-amazon.com/images/I/51fK9IFMpiL._SY445_SX342_ML2_.jpg" alt="Intermediate Chinese Reader, 1987">
+          <figure class="book-figure-simple">
+            <img src="https://m.media-amazon.com/images/I/51fK9IFMpiL._SY445_SX342_FMwebp_.jpg" alt="Intermediate Chinese Reader, 1987">
             <figcaption>
-              <span class="caption-main">Symbol of Standardization</span>
-              <span class="caption-sub">Mandarin pronunciation "pinyin", published in 1987.</span>
+              <span class="caption-line">Symbol of Standardization</span>
+              <span class="caption-line">Mandarin pronunciation "pinyin", published in 1987.</span>
             </figcaption>
           </figure>
         </div>
