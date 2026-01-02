@@ -1,1 +1,755 @@
-依次出现 — 下滑进入视野时，三张图片分别延迟 0s、0.3s、0.6s 依次淡入上浮
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Language - Cantonese in Americas</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Global style -->
+  <link rel="stylesheet" href="./assets/style.css" />
+
+  <!-- Header injector -->
+  <script src="./assets/header.js" defer></script>
+
+  <style>
+    :root { 
+      --header-h: 73px; 
+      --bg-color: #F5F0E5;
+      --text-color: #2c2c2c;
+      --caption-color: #555;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scrollbar-gutter: stable; }
+
+    body {
+      background: var(--bg-color);
+      font-family: 'Gentium Book Plus', serif;
+      line-height: 1.6;
+      padding-top: var(--header-h, 73px);
+    }
+
+    .page-wrapper {
+      overflow-x: hidden;
+    }
+
+    .content-inner {
+      padding: 0 1rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 1024px) {
+      .content-inner {
+        padding: 0 2rem 3rem;
+      }
+    }
+
+    /* ===== Flashcard Grid ===== */
+    .flash-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 980px) {
+      .flash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 520px) {
+      .flash-grid { grid-template-columns: 1fr; }
+    }
+
+    .flashcard {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      perspective: 1100px;
+    }
+
+    .flashcard button {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 14px;
+    }
+
+    .flashcard-inner {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .flashcard:hover .flashcard-inner,
+    .flashcard:focus-within .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      border: 1.25px solid #000;
+      border-radius: 14px;
+      background: #F5F0E5;
+      box-shadow: none;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: #FFFFFF;
+    }
+
+    .face-title {
+      margin: 0 0 0.5rem 0;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.1;
+    }
+
+    .face-text {
+      margin: 0;
+      color: #2d3748;
+      line-height: 1.5;
+    }
+
+    /* ===== Research Section ===== */
+    #research-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      background-color: #0a0a0a;
+    }
+
+    #research-section.is-visible {
+      opacity: 1;
+    }
+
+    #particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    .research-content-box {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 40px;
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(5px);
+      border-left: 1px solid #d4af37;
+    }
+
+    .research-content-box h1 {
+      font-size: 3rem;
+      line-height: 1.1;
+      margin: 0 0 10px 0;
+      color: #d4af37;
+      font-weight: normal;
+      font-family: 'Georgia', serif;
+    }
+
+    .research-content-box h2 {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #a0a0a0;
+      margin-bottom: 30px;
+      font-weight: normal;
+    }
+
+    .research-content-box p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      margin: 0;
+      color: #e0e0e0;
+    }
+
+    .research-content-box .highlight {
+      color: white;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .research-content-box {
+        margin: 0 1rem;
+        padding: 30px;
+      }
+      .research-content-box h1 {
+        font-size: 2rem;
+      }
+      .research-content-box p {
+        font-size: 1rem;
+      }
+    }
+
+    /* ===== Evolution Timeline Section ===== */
+    #evolution-section {
+      position: relative;
+      background: var(--bg-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 0;
+    }
+
+    #textureCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.5;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+    }
+
+    .evolution-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    .evolution-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .evolution-header h2 {
+      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      font-size: 2.8rem;
+      font-weight: normal;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .evolution-header p {
+      font-size: 1.1rem;
+      color: var(--caption-color);
+      font-style: italic;
+    }
+
+    /* Horizontal Era Grid */
+    .era-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      align-items: start;
+    }
+
+    .era-section {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                  transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .era-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered delays */
+    .era-section:nth-child(1) { transition-delay: 0s; }
+    .era-section:nth-child(2) { transition-delay: 0.3s; }
+    .era-section:nth-child(3) { transition-delay: 0.6s; }
+
+    .image-container {
+      width: 100%;
+      height: 280px;
+      margin-bottom: 20px;
+      border: 10px solid #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      background-color: #fff;
+      overflow: hidden;
+    }
+
+    .era-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .caption {
+      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      font-size: 0.85rem;
+      color: var(--caption-color);
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+    .caption span { display: block; }
+
+    .era-title {
+      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      font-size: 1.15rem;
+      font-weight: bold;
+      margin: 0;
+      line-height: 1.3;
+      color: var(--text-color);
+    }
+
+    @media (max-width: 1000px) {
+      .era-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .image-container {
+        height: 320px;
+      }
+      .era-title { font-size: 1.3rem; }
+      .evolution-header h2 { font-size: 2rem; }
+      /* Reset delays for mobile vertical layout */
+      .era-section:nth-child(1) { transition-delay: 0s; }
+      .era-section:nth-child(2) { transition-delay: 0s; }
+      .era-section:nth-child(3) { transition-delay: 0s; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="content-inner">
+        <div style="height: 1rem;"></div>
+
+        <div class="flash-grid">
+
+          <!-- 1 飲茶 -->
+          <div class="flashcard">
+            <button type="button"></button>
+            <div class="flashcard-inner">
+              <div class="card-face">
+                <h3 class="face-title" style="font-size:48px;">飲茶</h3>
+                <p class="face-text" style="font-size:18px;">(Yam Cha)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Drinking tea</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Going for dim sum (often for brunch or lunch), eating the food, and socializing.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2 食檸檬 -->
+          <div class="flashcard">
+            <button type="button"></button>
+            <div class="flashcard-inner">
+              <div class="card-face">
+                <h3 class="face-title" style="font-size:48px;">食檸檬</h3>
+                <p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Eating lemons</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Being rejected when asking someone out.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3 放飛機 -->
+          <div class="flashcard">
+            <button type="button"></button>
+            <div class="flashcard-inner">
+              <div class="card-face">
+                <h3 class="face-title" style="font-size:48px;">放飛機</h3>
+                <p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Breaking a promise to meet.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 吹水 -->
+          <div class="flashcard">
+            <button type="button"></button>
+            <div class="flashcard-inner">
+              <div class="card-face">
+                <h3 class="face-title" style="font-size:48px;">吹水</h3>
+                <p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Blowing water</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Chit-chatting; sometimes implies bragging or bluffing.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5 食咗飯未？ -->
+          <div class="flashcard">
+            <button type="button"></button>
+            <div class="flashcard-inner">
+              <div class="card-face">
+                <h3 class="face-title" style="font-size:48px;">食咗飯未？</h3>
+                <p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
+                <p class="face-text" style="font-size:18px;">
+                  A casual greeting meaning "hello" or "how are you?"
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6 生舊叉燒好過生你 -->
+          <div class="flashcard">
+            <button type="button"></button>
+            <div class="flashcard-inner">
+              <div class="card-face">
+                <h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3>
+                <p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3>
+                <p class="face-text" style="font-size:18px;">
+                  "You're frustrating me." A classic parent complaint.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7 炒魷魚 -->
+          <div class="flashcard">
+            <button type="button"></button>
+            <div class="flashcard-inner">
+              <div class="card-face">
+                <h3 class="face-title" style="font-size:48px;">炒魷魚</h3>
+                <p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Getting fired.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8 雞同鴨講 -->
+          <div class="flashcard">
+            <button type="button"></button>
+            <div class="flashcard-inner">
+              <div class="card-face">
+                <h3 class="face-title" style="font-size:48px;">雞同鴨講</h3>
+                <p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p>
+              </div>
+              <div class="card-face card-back">
+                <h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3>
+                <p class="face-text" style="font-size:18px;">
+                  Mutual lack of understanding; unable to communicate due to language barriers.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Research Section with Particle Animation -->
+  <section id="research-section">
+    <canvas id="particle-canvas"></canvas>
+    
+    <div class="research-content-box">
+      <h1>Cantonese as Linguistic Capital: <br>The Revaluation from Survival to Heritage</h1>
+      <h2>Power, Hierarchy, and Identity in the North American Chinese Diaspora</h2>
+      
+      <p>
+        Beyond communication, <span class="highlight">language is capital.</span> 
+        For over a century, Cantonese served as the dominant "currency" of North American Chinatowns, a 
+        resource granting access to employment, protection, and social belonging.
+      </p>
+    </div>
+  </section>
+
+  <!-- Evolution of Cantonese Section -->
+  <section id="evolution-section">
+    <canvas id="textureCanvas"></canvas>
+    
+    <div class="evolution-container">
+      <div class="evolution-header">
+        <h2>The Evolution of Cantonese</h2>
+        <p>A visual journey through language, power, and identity</p>
+      </div>
+
+      <div class="era-grid">
+        <!-- Section 1 -->
+        <div class="era-section">
+          <div class="image-container">
+            <img src="https://www.bobeckertphotography.com/uploads/1/2/6/7/126794906/img034-street-scene-w-child-san-francisco-chinatown-2-email_orig.jpg" 
+                 alt="Street scene in San Francisco Chinatown, 1970s" class="era-image">
+          </div>
+          <div class="caption">
+            <span>Signage in Cantonese, 1970s</span>
+            <span>By Bob Eckert</span>
+          </div>
+          <h3 class="era-title">1. The Era of Hegemony (1850s–1970s): "Survival License"</h3>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="era-section">
+          <div class="image-container">
+            <img src="https://pictures.abebooks.com/isbn/9780893462949-us.jpg" 
+                 alt="Pinyin Chinese-English Dictionary Cover" class="era-image">
+          </div>
+          <div class="caption">
+            <span>Chinese pronunciation "Pinyin" book,</span>
+            <span>published in 1987</span>
+          </div>
+          <h3 class="era-title">2. Diglossia and Displacement (1980s–Present): The Rise of Mandarin</h3>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="era-section">
+          <div class="image-container">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/d3/24/b5/caption.jpg?w=1200&h=-1&s=1" 
+                 alt="Modern food court signage in Flushing" class="era-image">
+          </div>
+          <div class="caption">
+            <span>Mandarin signage in mall's food court,</span>
+            <span>Flushing, 2024</span>
+          </div>
+          <h3 class="era-title">3. The Great Reversal (2000s–Present): Cantonese recast as heritage</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      "use strict";
+
+      let lastScrollTop = 0;
+      const scrollThreshold = 100;
+      const scrollDelta = 5;
+
+      window.addEventListener("scroll", function () {
+        const header = document.querySelector("header[data-site-header='1']");
+        if (!header) return;
+
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
+
+        if (scrollTop < scrollThreshold) {
+          header.classList.remove("header-hidden");
+          lastScrollTop = scrollTop;
+          return;
+        }
+
+        if (scrollTop > lastScrollTop) header.classList.add("header-hidden");
+        else header.classList.remove("header-hidden");
+
+        lastScrollTop = scrollTop;
+      }, { passive: true });
+    })();
+
+    // Particle Animation for Research Section
+    (function() {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      const section = document.getElementById('research-section');
+
+      let particles = [];
+      let animationFrame;
+      const characters = ['食', '揾', '同', '乡', '家', '货', '钱', '语'];
+      let isActive = false;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.init();
+        }
+
+        init() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.char = characters[Math.floor(Math.random() * characters.length)];
+          this.size = Math.random() * 15 + 10;
+          this.speedX = (Math.random() - 0.5) * 1.5;
+          this.speedY = (Math.random() - 0.5) * 1.5;
+          this.alpha = 0;
+          this.targetAlpha = Math.random() * 0.5 + 0.1;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+          if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+
+          if (this.alpha < this.targetAlpha) this.alpha += 0.005;
+        }
+
+        draw() {
+          ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
+          ctx.font = `${this.size}px serif`;
+          ctx.fillText(this.char, this.x, this.y);
+        }
+      }
+
+      function initParticles() {
+        particles = [];
+        for (let i = 0; i < 60; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      function animate() {
+        if (!isActive) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        
+        animationFrame = requestAnimationFrame(animate);
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            isActive = true;
+            section.classList.add('is-visible');
+            initParticles();
+            animate();
+          } else {
+            isActive = false;
+            section.classList.remove('is-visible');
+            cancelAnimationFrame(animationFrame);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      observer.observe(section);
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isActive) return;
+        particles.forEach(p => {
+          let dx = e.clientX - p.x;
+          let dy = e.clientY - p.y;
+          let dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 150) {
+            p.x -= dx * 0.02;
+            p.y -= dy * 0.02;
+          }
+        });
+      });
+    })();
+
+    // Canvas Texture for Evolution Section
+    (function() {
+      const canvas = document.getElementById('textureCanvas');
+      const ctx = canvas.getContext('2d');
+      const section = document.getElementById('evolution-section');
+
+      function resizeCanvas() {
+        canvas.width = section.offsetWidth;
+        canvas.height = section.offsetHeight;
+        drawTexture();
+      }
+
+      function drawTexture() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(100, 90, 80, 0.05)'; 
+        for (let i = 0; i < canvas.width; i += 3) {
+          for (let j = 0; j < canvas.height; j += 3) {
+            if (Math.random() > 0.6) {
+              let size = Math.random() * 1.5 + 0.5;
+              ctx.fillRect(i, j, size, size);
+            }
+          }
+        }
+      }
+
+      window.addEventListener('resize', resizeCanvas);
+      setTimeout(resizeCanvas, 100);
+    })();
+
+    // Scroll Animation for Era Sections (staggered)
+    (function() {
+      const eraGrid = document.querySelector('.era-grid');
+      const sections = document.querySelectorAll('.era-section');
+
+      const observerOptions = {
+        root: null,
+        threshold: 0.2,
+        rootMargin: "0px 0px -50px 0px"
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Add visible class to all sections when grid is in view
+            sections.forEach(section => {
+              section.classList.add('visible');
+            });
+          } else {
+            // Remove visible class when grid leaves view
+            sections.forEach(section => {
+              section.classList.remove('visible');
+            });
+          }
+        });
+      }, observerOptions);
+
+      if (eraGrid) {
+        observer.observe(eraGrid);
+      }
+    })();
+  </script>
+</body>
+</html>
