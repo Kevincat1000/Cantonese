@@ -447,153 +447,205 @@
     }
 
     /* =========================================
-       NEW STYLES FOR HEGEMONY CONTINUED SECTION
+       NEW STYLES FOR UNIFIED B & C SECTION
        ========================================= */
-    #hegemony-continued .evolution-container {
-      padding-top: 40px;
-      padding-bottom: 40px;
-      min-height: 100vh;
+    #hegemony-unified {
+      position: relative;
+      /* Ensure background is the beige color for blend mode to work */
+      background-color: var(--bg-color); 
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: center;
     }
 
-    /* --- Newspaper Image Styles --- */
-    .newspaper-container {
-      position: relative;
-      width: 90%;
-      margin: 0 auto;
-      transform: rotate(-1deg);
-      transition: transform 0.3s ease;
-    }
-
-    .newspaper-container:hover {
-      transform: rotate(0deg) scale(1.02);
-    }
-
-    .blend-image {
+    /* --- Newspaper Background Layer --- */
+    .newspaper-bg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: auto;
-      display: block;
-      /* The key to the "cutout" effect: multiply blending */
+      height: 100%;
+      z-index: 0; /* Below content, above texture */
+      pointer-events: none;
+      opacity: 0.15; /* Subtle background */
+      /* CORE FIX: Multiply blend mode makes white transparent */
       mix-blend-mode: multiply;
-      filter: contrast(1.1) sepia(0.2);
-      box-shadow: 5px 8px 20px rgba(0,0,0,0.15);
     }
 
-    /* --- Surname Visualization Styles --- */
-    .surname-visualizer-container {
-      margin-top: 50px;
-      padding: 30px 0;
-      border-top: 1px solid rgba(162, 26, 26, 0.2);
-      border-bottom: 1px solid rgba(162, 26, 26, 0.2);
+    .newspaper-wrapper {
+      width: 100%;
+      height: 100%;
+      /* Scale up and rotate for dynamic background texture effect */
+      transform: scale(1.5) rotate(-5deg);
+      transform-origin: center center;
     }
 
-    .surname-grid {
+    .newspaper-blend-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Fill the area */
+      filter: contrast(1.2) sepia(0.3); /* Enhance aged look */
+    }
+
+    /* --- Content Container --- */
+    .unified-content-container {
+      position: relative;
+      z-index: 2; /* On top */
+      max-width: 1000px;
+      width: 90%;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      text-align: center;
+      grid-template-columns: 1fr 1fr; /* Two-column layout */
+      gap: 80px;
+      align-items: start;
+      padding: 60px 0;
     }
 
-    .surname-block {
-      padding: 20px;
-      background: rgba(255,255,255,0.4);
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-      cursor: default;
+    /* --- Content Block Animation --- */
+    .content-block {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
-    .surname-block:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(197, 160, 89, 0.2); /* Gold glow */
-      background: rgba(255,255,255,0.7);
+    .content-block.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .chinese-char {
-      font-size: 60px;
+    .surnames-block { transition-delay: 0.3s; } /* Stagger effect */
+
+    /* --- Text Styles --- */
+    .highlight-text {
+      font-size: 1.1rem;
       font-weight: bold;
-      color: var(--theme-red);
-      margin-bottom: 15px;
-      font-family: inherit;
+      color: var(--text-color);
+      border-left: 4px solid var(--theme-gold);
+      padding-left: 20px;
+      margin-bottom: 20px;
     }
 
-    .pronunciation-comparison {
-      display: grid;
-      grid-template-columns: 1fr 1px 1fr;
-      gap: 10px;
+    .bg-caption {
+      display: block;
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.4);
+      font-style: italic;
+      text-align: left;
+    }
+
+    /* --- NEW Visual Slider for Pronunciation --- */
+    .pronunciation-visualizer {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .visual-row {
+      display: flex;
       align-items: center;
     }
 
-    .p-col {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .p-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #888;
-      margin-bottom: 5px;
-    }
-
-    .p-spelling {
-      font-size: 1.4rem;
-      font-family: inherit;
-      line-height: 1.2;
-    }
-
-    /* Cantonese Highlight Style */
-    .cantonese-highlight {
-      color: var(--text-color);
+    .char-col {
+      font-size: 48px;
       font-weight: bold;
-      position: relative;
-      display: inline-block;
+      color: var(--theme-red);
+      margin-right: 30px;
+      flex-shrink: 0;
+      width: 60px;
+      text-align: center;
+      font-family: inherit;
     }
 
-    .cantonese-highlight::after {
+    /* Slider Track Background */
+    .slider-track {
+      flex-grow: 1;
+      height: 50px;
+      background: linear-gradient(to right, rgba(197, 160, 89, 0.2) 0%, rgba(0,0,0,0.05) 100%);
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Highlight Bar on Track */
+    .slider-track::before {
       content: '';
       position: absolute;
-      bottom: -2px;
       left: 0;
-      width: 100%;
-      height: 3px;
-      background-color: var(--theme-gold);
-      border-radius: 2px;
+      top: 0;
+      height: 100%;
+      width: 55%; /* Cantonese dominance visualization */
+      background: linear-gradient(to right, var(--theme-gold), rgba(197, 160, 89, 0.1));
+      border-radius: 25px;
+      opacity: 0.3;
     }
 
-    /* Mandarin Dim Style */
-    .mandarin-dim {
-      color: #999;
-      font-weight: normal;
+    .slider-label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 1;
     }
 
-    .p-divider {
-      height: 40px;
-      background-color: #ddd;
+    .cantonese-side {
+      align-items: flex-start;
+      padding-left: 20px;
     }
 
-    @media (max-width: 768px) {
-      #hegemony-continued .evolution-container {
-        justify-content: flex-start;
-        padding-top: 80px;
+    .mandarin-side {
+      align-items: flex-end;
+      padding-right: 20px;
+      text-align: right;
+    }
+
+    .label-name {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(0,0,0,0.5);
+      margin-bottom: 2px;
+      font-family: inherit;
+    }
+
+    /* Cantonese: Highlighted, Clear, Glowing */
+    .pinyin-highlight {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #000;
+      text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+      font-family: inherit;
+    }
+
+    /* Mandarin: Transparent, Blurred, Receded */
+    .pinyin-dim {
+      font-size: 1.2rem;
+      color: rgba(0,0,0,0.3); /* High transparency */
+      filter: blur(0.5px); /* Slight blur */
+      font-family: inherit;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 900px) {
+      .unified-content-container {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        gap: 60px;
+        padding: 40px 20px;
       }
-      .surname-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+      .newspaper-wrapper {
+        transform: scale(1.2) rotate(0deg); /* Less rotation on mobile */
       }
-      .newspaper-container {
-        width: 100%;
-        transform: rotate(0deg);
+      .char-col {
+        font-size: 36px;
+        margin-right: 20px;
+        width: 40px;
       }
-      .pronunciation-comparison {
-         gap: 5px;
-      }
-      .p-spelling {
-          font-size: 1.2rem;
-      }
+      .pinyin-highlight { font-size: 1.3rem; }
+      .pinyin-dim { font-size: 1rem; }
     }
   </style>
 </head>
@@ -788,100 +840,88 @@
     </div>
   </section>
 
-  <!-- PART 5: The Era of Hegemony Continued (New Section) -->
-  <section id="hegemony-continued" class="snap-item">
-    <canvas id="textureCanvas2" class="texture-canvas"></canvas>
+  <!-- PART 5: The Era of Hegemony Continued (B & C Unified) - NEW DESIGN -->
+  <section id="hegemony-unified" class="snap-item">
+    <!-- Background Texture Layer -->
+    <canvas id="textureCanvas3" class="texture-canvas"></canvas>
 
-    <div class="evolution-container">
-      <div class="era-grid" style="grid-template-columns: 1fr;"> <!-- Single column layout -->
+    <!-- Newspaper Background Layer (Fixed Cutout & Scaled Up) -->
+    <div class="newspaper-bg-layer">
+      <div class="newspaper-wrapper">
+        <img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" alt="The Golden Hills' News Background" class="newspaper-blend-img">
+      </div>
+    </div>
 
-        <!-- B. Media Hegemony Section -->
-        <div class="era-section era-section-expanded visible"> <!-- Force visible as it's a new page start -->
-          <div class="era-columns" style="align-items: center;">
-            <div class="era-column era-column-left">
-              <h4 class="era-subtitle-main">B. Media Hegemony: The Public Voice</h4>
-              <p>Cantonese dominance was also reproduced through media institutions. San Francisco’s early Chinese press was written exclusively for a Cantonese-speaking labor class. <i>The Golden Hills’ News</i> (1854), the first Chinese newspaper in the U.S., circulated among early migrants. In the early 20th century, major papers such as <i>Chung Sai Yat Po</i> (1900–1951) shaped political and civic discourse for decades, also spelled in Cantonese. Even when these newspapers discussed modern issues, they spoke to a Cantonese world.</p>
-              <p>The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was “inside” the community’s political imagination and which linguistic groups were peripheral.</p>
-            </div>
-            <!-- Right column with blended newspaper image -->
-            <div class="era-column era-column-right">
-              <div class="newspaper-container">
-                <!-- Image with blend-mode multiply for "cutout" effect -->
-                <img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" 
-                     alt="The Golden Hills' News" class="blend-image">
+    <!-- Content Layer -->
+    <div class="unified-content-container">
+      
+      <!-- B. Media Hegemony Content -->
+      <div class="content-block media-block">
+        <h4 class="era-subtitle-main">B. Media Hegemony: The Public Voice</h4>
+        <p class="highlight-text">
+          Cantonese dominance was reproduced through media. San Francisco’s early Chinese press, like <i>The Golden Hills’ News</i> (1854), was written exclusively for a Cantonese-speaking world.
+        </p>
+        <p>
+          The media didn't just reflect the community; it defined the boundaries, establishing Cantonese as the default language of news and opinion.
+        </p>
+        <span class="bg-caption">Background: The Golden Hills' News, San Francisco, 1854</span>
+      </div>
+
+      <!-- C. Surnames and Signs Content & Visualization -->
+      <div class="content-block surnames-block">
+        <h4 class="era-subtitle-main">C. Surnames and Signs: The “Standard Sound”</h4>
+        <p>
+          English spellings of surnames historically tracked Cantonese pronunciations. It signaled that Cantonese was the accepted standard for being Chinese in North America.
+        </p>
+
+        <!-- New Pronunciation Visual Slider -->
+        <div class="pronunciation-visualizer">
+          <!-- Lee/Li -->
+          <div class="visual-row">
+            <div class="char-col">李</div>
+            <div class="slider-track">
+              <div class="slider-label cantonese-side">
+                <span class="label-name">Cantonese</span>
+                <span class="pinyin-highlight">Lee</span>
               </div>
-              <span class="era-column-caption">The Golden Hills' News. San Francisco, 1854</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- C. Surnames and Signs Section with Visualization -->
-        <div class="era-section era-section-expanded visible" style="margin-top: 60px;">
-          <h4 class="era-subtitle-main">C. Surnames and Signs: Cantonese as the Default Public Pronunciation</h4>
-          <div class="era-column-left" style="max-width: 800px; margin-bottom: 30px;">
-             <p>A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations. This was more than just spelling. It signaled that Cantonese was the “standard sound” of public life.</p>
-          </div>
-
-          <!-- Surname Visualizer Widget -->
-          <div class="surname-visualizer-container">
-            <div class="surname-grid">
-
-              <!-- Lee/Li -->
-              <div class="surname-block">
-                <div class="chinese-char">李</div>
-                <div class="pronunciation-comparison">
-                  <div class="p-col">
-                    <span class="p-label">Cantonese</span>
-                    <span class="p-spelling cantonese-highlight">Lee</span>
-                  </div>
-                  <div class="p-divider"></div>
-                  <div class="p-col">
-                    <span class="p-label">Mandarin (Pinyin)</span>
-                    <span class="p-spelling mandarin-dim">Li</span>
-                  </div>
-                </div>
+              <div class="slider-label mandarin-side">
+                <span class="pinyin-dim">Li</span>
+                <span class="label-name">Mandarin</span>
               </div>
-
-              <!-- Wong/Wang -->
-              <div class="surname-block">
-                <div class="chinese-char">王</div>
-                <div class="pronunciation-comparison">
-                  <div class="p-col">
-                    <span class="p-label">Cantonese</span>
-                    <span class="p-spelling cantonese-highlight">Wong</span>
-                  </div>
-                  <div class="p-divider"></div>
-                  <div class="p-col">
-                    <span class="p-label">Mandarin (Pinyin)</span>
-                    <span class="p-spelling mandarin-dim">Wang</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Chan/Chen -->
-              <div class="surname-block">
-                <div class="chinese-char">陈</div>
-                <div class="pronunciation-comparison">
-                  <div class="p-col">
-                    <span class="p-label">Cantonese</span>
-                    <span class="p-spelling cantonese-highlight">Chan</span>
-                  </div>
-                  <div class="p-divider"></div>
-                  <div class="p-col">
-                    <span class="p-label">Mandarin (Pinyin)</span>
-                    <span class="p-spelling mandarin-dim">Chen</span>
-                  </div>
-                </div>
-              </div>
-
             </div>
           </div>
-          <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: #666;">
-              In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.
-          </p>
+          <!-- Wong/Wang -->
+          <div class="visual-row">
+            <div class="char-col">王</div>
+            <div class="slider-track">
+              <div class="slider-label cantonese-side">
+                <span class="label-name">Cantonese</span>
+                <span class="pinyin-highlight">Wong</span>
+              </div>
+              <div class="slider-label mandarin-side">
+                <span class="pinyin-dim">Wang</span>
+                <span class="label-name">Mandarin</span>
+              </div>
+            </div>
+          </div>
+          <!-- Chan/Chen -->
+          <div class="visual-row">
+            <div class="char-col">陈</div>
+            <div class="slider-track">
+              <div class="slider-label cantonese-side">
+                <span class="label-name">Cantonese</span>
+                <span class="pinyin-highlight">Chan</span>
+              </div>
+              <div class="slider-label mandarin-side">
+                <span class="pinyin-dim">Chen</span>
+                <span class="label-name">Mandarin</span>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
+
     </div>
   </section>
 
@@ -1006,6 +1046,7 @@
       const canvas = document.getElementById(canvasId);
       const ctx = canvas.getContext('2d');
       const section = document.getElementById(sectionId);
+      if (!canvas || !section) return;
 
       function resizeCanvas() {
         canvas.width = section.clientWidth;
@@ -1037,16 +1078,16 @@
       observer.observe(section);
     }
 
-    // Apply texture to both evolution sections
+    // Apply texture to both evolution sections (including the new one)
     drawPaperTexture('textureCanvas1', 'evolution-section');
-    drawPaperTexture('textureCanvas2', 'hegemony-continued');
+    drawPaperTexture('textureCanvas3', 'hegemony-unified');
 
     // Scroll Animation for Era Sections text (staggered fade-in)
     (function() {
-      // Select all elements that need animation (including the new ones)
-      const sections = document.querySelectorAll('.era-section');
+      // Select all elements that need animation (including the new content-blocks)
+      const sections = document.querySelectorAll('.era-section, .content-block');
       const observerOptions = {
-        root: null, threshold: 0.2, rootMargin: "0px"
+        root: null, threshold: 0.15, rootMargin: "0px"
       };
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
