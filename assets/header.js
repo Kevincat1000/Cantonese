@@ -27,7 +27,7 @@
       }
 
       body{
-        padding-top:var(--header-h, 60px);
+        padding-top:var(--header-h, 48px);
       }
 
       body.no-header-space{
@@ -46,7 +46,7 @@
         justify-content:space-between;
         padding:.5rem 0;
         gap:1rem;
-        height:60px;
+        height:48px;
         box-sizing:border-box;
       }
 
