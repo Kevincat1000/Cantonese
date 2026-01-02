@@ -3,621 +3,635 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phase II: 1840s–1940s - Cantonese Migration</title>
+  <title>Phase II: 1840s–1940s - Building North America</title>
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Injectors: Footer only -->
+  <script src="./assets/footer.js" defer></script>
+
   <style>
+    :root {
+      /* New Color Palette */
+      --bg-tan: #D9CCB7;     /* Replaces Teal */
+      --bg-paper: #f5f0e5;   /* Pure solid beige */
+      --accent-red: #a84d4d;
+      --text-main: #333333;  /* Unified dark text */
+      
+      --font-body: 'Gentium Book Plus', serif;
+      --font-heading: 'Exo', sans-serif;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
-    html {
-      scroll-behavior: smooth;
-      margin: 0;
-      padding: 0;
-    }
+    html { scroll-behavior: smooth; }
     
     body {
-      font-family: 'Gentium Book Plus', serif;
+      font-family: var(--font-body);
       line-height: 1.6;
-      background-color: #D9CCB7;
-      margin: 0;
-      padding: 0;
+      background-color: var(--bg-paper);
+      color: var(--text-main);
+      overflow-x: hidden;
     }
-    
-    main {
-      margin: 0;
-      padding: 0;
-    }
-    
-    .font-heading { font-family: 'Gentium Book Plus', serif; }
-    
-    .section-teal { background-color: #D9CCB7; }
-    .section-paper {
-      background-color: #f5f0e5;
-      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px);
-    }
-    .section-footer { background-color: #6A6050; }
-    
-    .container {
-      max-width: 1152px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-    
-    .hero-section {
-      padding: calc(4.5rem + env(safe-area-inset-top, 0px)) 2rem 2rem;
-      min-height: 200px;
-    }
-    
-    .hero-content {
+
+    /* --- 1. Nav --- */
+    .nav-float {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      z-index: 1000;
       display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      align-items: flex-start;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
+      color: var(--text-main); 
+      transition: all 0.3s ease;
+    }
+    
+    .nav-icon-circle {
+      width: 50px;
+      height: 50px;
+      border: 1px solid rgba(51, 51, 51, 0.2); /* Darker border for visibility */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(5px);
+    }
+
+    .nav-text {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .nav-float:hover .nav-icon-circle {
+      background-color: var(--accent-red);
+      border-color: var(--accent-red);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    .nav-float:hover .nav-text {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--accent-red);
+    }
+
+    /* --- 2. Hero (Canvas) --- */
+    .hero-section {
       position: relative;
-      min-height: 140px;
-    }
-    
-    .hero-title {
-      font-size: 1.875rem;
-      color: #333333;
-      margin: 0;
-      line-height: 1.03;
-    }
-    
-    .hero-subtitle {
-      font-size: 1.125rem;
-      color: #333333;
-      margin: 0;
-      line-height: 1.08;
-    }
-    
-    .boat {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 120px;
-      width: auto;
-      opacity: 0.9;
-    }
-    
-    body.ready .boat {
-      animation: sailing 3s ease-out forwards;
-    }
-    
-    @keyframes sailing {
-      from {
-        transform: translateY(-50%) translateX(0);
-      }
-      to {
-        transform: translateY(-50%) translateX(-80px);
-      }
-    }
-    
-    @media (prefers-reduced-motion: reduce) {
-      body.ready .boat {
-        animation: none;
-        transform: translateY(-50%) translateX(-80px);
-      }
-    }
-    
-    .content-section {
-      padding: 4rem 2rem;
-    }
-    
-    .content-section.first-section {
-      padding-top: 1.5rem;
-    }
-    
-    .section-title {
-      font-size: 21px;
-      margin-bottom: 1.1rem;
-      position: relative;
-      padding-bottom: 12px;
-      line-height: 1.25;
-    }
-    
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 80px;
-      height: 3px;
-      background-color: #cc5e3e;
-    }
-    
-    .text-white { color: #433A2D; }
-    .text-dark { color: #231d16; }
-    .text-white-90 { color: #433A2D; }
-    .text-dark-90 { color: rgba(35, 29, 22, 0.9); }
-    
-    .text-content {
-      font-size: 16px;
-      line-height: 24px;
-      max-width: 100%;
+      height: 100vh; 
       width: 100%;
-    }
-    
-    .text-content p {
-      margin-bottom: 1rem;
-    }
-    
-    .grid-2col {
-      display: grid;
-      gap: 2rem;
-      align-items: start;
-    }
-    
-    .width-60 {
-      max-width: 560px;
-      width: 100%;
-    }
-    
-    .gallery {
-      width: 80%;
-      margin-left: auto;
-    }
-    
-    .gallery-frame {
-      width: 100%;
-      height: 315px;
-      position: relative;
-      background: #f0f0f0;
-      border-radius: 8px;
+      background-color: var(--bg-paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-    
-    .gallery-slide {
+
+    #railroad-canvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      opacity: 0;
-      transition: opacity 0.4s ease;
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 20px;
+      text-shadow: 0 0 30px var(--bg-paper); /* Halo to read text over canvas lines */
+    }
+
+    .hero-label {
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent-red);
+      margin-bottom: 1rem;
+      display: block;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      color: #4a5568;
+      font-weight: 400;
+      margin-top: 0.5rem;
+    }
+
+    /* --- 3. Content Layout --- */
+    .container {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .content-section { padding: 5rem 2rem; }
+    
+    /* Updated Colors */
+    .section-tan { background-color: var(--bg-tan); color: var(--text-main); }
+    .section-paper { background-color: var(--bg-paper); color: var(--text-main); }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+      position: relative;
+      padding-left: 20px;
+      border-left: 5px solid var(--accent-red);
+    }
+
+    .text-content { font-size: 1.1rem; line-height: 1.8; width: 100%; }
+    .text-content p { margin-bottom: 1.5rem; }
+    
+    /* Text utility - all dark now */
+    .text-main-90 { color: rgba(51, 51, 51, 0.9); }
+
+    /* Layout Grids */
+    .grid-2col { display: grid; gap: 4rem; align-items: start; }
+    
+    /* Images */
+    .image-frame {
+      width: 100%;
+      height: 400px;
+      background-color: rgba(0,0,0,0.05);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
     }
     
-    .gallery-slide.show {
-      opacity: 1;
-    }
+    .image-frame:hover { transform: translateY(-5px); }
     
-    .gallery-slide img {
+    .image-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
     }
-    
-    .gallery-label {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(217, 204, 183, 0.95), rgba(217, 204, 183, 0.7));
-      color: #433A2D;
-      padding: 18px 16px 14px;
-      font-size: 14px;
+
+    .image-caption {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      margin-top: 10px;
+      opacity: 0.8;
       text-align: center;
-      font-weight: 600;
-      z-index: 10;
+      font-style: italic;
+      color: var(--text-main);
     }
-    
-    .gallery-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 16px;
-      height: 40px;
-    }
-    
-    .nav-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(67, 58, 45, 0.3);
-      background: transparent;
-      color: #433A2D;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    
-    .nav-btn:hover {
-      background: rgba(67, 58, 45, 0.1);
-      border-color: rgba(67, 58, 45, 0.5);
-    }
-    
-    .nav-info {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-    }
-    
-    .nav-current {
-      color: rgba(67, 58, 45, 0.85);
-      font-weight: normal;
-    }
-    
-    .nav-divider {
-      width: 48px;
-      height: 2px;
-      background: rgba(67, 58, 45, 0.5);
-    }
-    
-    .nav-total {
-      color: rgba(67, 58, 45, 0.85);
-    }
-    
+
+    /* Link */
     .phase-navigation {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(67, 58, 45, 0.2);
+      margin-top: 3rem; 
+      padding-top: 2rem; 
+      border-top: 1px solid rgba(51, 51, 51, 0.2);
       display: flex;
       justify-content: space-between;
-    }
-    
-    .phase-link {
-      display: inline-flex;
       align-items: center;
-      gap: 1rem;
-      color: rgba(67, 58, 45, 0.85);
-      text-decoration: none;
-      font-size: 1.125rem;
-      line-height: 1.4;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      position: relative;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .phase-link {
+      text-decoration: none; 
+      color: var(--text-main); 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 15px;
+      font-family: var(--font-heading); 
+      font-weight: 700; 
+      font-size: 1.1rem;
+      transition: color 0.3s;
     }
     
-    .phase-link:hover {
-      color: #433A2D;
-    }
+    .phase-link.prev { text-align: left; }
+    .phase-link.next { text-align: right; }
     
-    .phase-link.prev:hover {
-      transform: translateX(-5px);
-    }
+    .phase-link:hover { color: var(--accent-red); }
+    .phase-arrow { transition: transform 0.3s; }
+    .phase-link:hover .phase-arrow.right { transform: translateX(5px); }
+    .phase-link:hover .phase-arrow.left { transform: translateX(-5px); }
     
-    .phase-link.next:hover {
-      transform: translateX(5px);
+    .link-sub {
+      display: block; 
+      font-size: 0.8em; 
+      opacity: 0.7; 
+      font-weight: 400; 
+      margin-top: 4px;
     }
-    
-    .phase-link-text {
-      border-bottom: 2px solid rgba(67, 58, 45, 0.85);
-      padding-bottom: 4px;
-      transition: border-color 0.3s ease;
+
+    /* Media Queries */
+    @media (min-width: 900px) {
+      .grid-2col { grid-template-columns: 1fr 1fr; }
+      .grid-reverse .text-col { order: 2; } 
+      .grid-reverse .img-col { order: 1; }
+      .hero-title { font-size: 5rem; }
     }
-    
-    .phase-link.prev .phase-link-text {
-      text-align: left;
+
+    @media (max-width: 768px) {
+      .hero-content { margin-top: 0; }
+      .content-section { padding: 3rem 1.5rem; }
+      .image-frame { height: 250px; }
+      .phase-navigation { flex-direction: column; align-items: stretch; text-align: center; }
+      .phase-link { justify-content: center; }
+      .phase-link.prev, .phase-link.next { text-align: center; }
     }
-    
-    .phase-link.next .phase-link-text {
-      text-align: right;
-    }
-    
-    .phase-link:hover .phase-link-text {
-      border-bottom-color: #433A2D;
-    }
-    
-    .phase-arrow {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    
-    .phase-arrow.prev {
-      animation: bounce-left 1.5s ease-in-out infinite;
-    }
-    
-    .phase-arrow.next {
-      animation: bounce-right 1.5s ease-in-out infinite;
-    }
-    
-    @keyframes bounce-left {
-      0%, 100% {
-        transform: translateX(0);
-      }
-      50% {
-        transform: translateX(-10px);
-      }
-    }
-    
-    @keyframes bounce-right {
-      0%, 100% {
-        transform: translateX(0);
-      }
-      50% {
-        transform: translateX(10px);
-      }
-    }
-    
-    @media (prefers-reduced-motion: reduce) {
-      .phase-arrow {
-        animation: none;
-      }
-    }
-    
-    footer {
-      padding: 2rem;
-      margin: 0;
-    }
-    
-    .footer-content {
-      display: flex;
-      justify-content: flex-end;
-      text-align: right;
-    }
-    
-    .footer-text {
-      color: rgba(245, 240, 229, 0.7);
-      font-size: 0.875rem;
-    }
-    
-    .footer-link {
-      color: rgba(245, 240, 229, 0.95);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    
-    .footer-link:hover {
-      color: #cc5e3e;
-    }
-    
-    .footer-copyright {
-      color: rgba(245, 240, 229, 0.5);
-      font-size: 0.75rem;
-      margin-top: 0.25rem;
-    }
-    
-    @media (min-width: 768px) {
-      .hero-content {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
-      }
-      
-      .hero-title { font-size: 3rem; }
-      .hero-subtitle { font-size: 1.25rem; }
-      
-      .boat {
-        display: block;
-      }
-      
-      .grid-2col { grid-template-columns: repeat(2, 1fr); }
-      
-      .grid-2-1 { grid-template-columns: 1.6fr 1.4fr; }
-      
-      .width-60 { max-width: 60%; }
-    }
-    
-    @media (max-width: 767px) {
-      .gallery {
-        width: 100%;
-        margin-left: 0;
-      }
-      
-      .gallery-frame {
-        height: 252px;
-      }
-      
-      .phase-link {
-        font-size: 1rem;
-      }
-      
-      .phase-arrow {
-        font-size: 1.25rem;
-      }
-      
-      .phase-navigation {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .phase-link.prev {
-        align-self: flex-start;
-      }
-      
-      .phase-link.next {
-        align-self: flex-end;
-      }
-    }
+
+    /* Animation Classes */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1s, transform 1s; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
   </style>
 </head>
 
 <body>
+
+  <!-- Nav -->
+  <a href="timeline.html" class="nav-float" id="nav-btn">
+    <div class="nav-icon-circle">
+      <i data-lucide="arrow-left"></i>
+    </div>
+    <span class="nav-text">Back to Timeline</span>
+  </a>
+
+  <!-- Hero with Canvas -->
+  <header class="hero-section">
+    <canvas id="railroad-canvas"></canvas>
+    <div class="hero-content">
+      <span class="hero-label">Timeline / Phase II</span>
+      <h1 class="hero-title">1840s–1940s</h1>
+      <h2 class="hero-subtitle">Building North America & The Pacific</h2>
+    </div>
+  </header>
+  
   <main>
-    <section class="section-teal hero-section" id="top">
-      <div class="container hero-content">
-        <div>
-          <h1 class="hero-title font-heading">Phase II: 1840s–1940s</h1>
-          <h2 class="hero-subtitle">Building North America & The Pacific</h2>
-        </div>
-        <img src="images/Boat.pic.png" alt="Sailing boat" class="boat">
-      </div>
-    </section>
-    
-    <section class="section-teal content-section first-section">
+
+    <!-- 1. Gold Rushes (Tan) -->
+    <section class="section-tan content-section">
       <div class="container">
-        <h2 class="section-title text-white font-heading">1848–1858: The North American Gold Rushes</h2>
-        <div class="grid-2col grid-2-1">
-          <div>
-            <div class="text-content text-white-90">
+        <div class="grid-2col fade-in">
+          <div class="text-col">
+            <h2 class="section-title">1848–1858: The North American Gold Rushes</h2>
+            <div class="text-content text-main-90">
               <p>
-                The discovery of gold in California triggered the first major wave of Cantonese migration to North America. Between 1848 and 1851, approximately 25,000 migrants arrived, hailing primarily from the Sze Yup (Four Counties) region. San Francisco served as the primary entry point, where migrants established the continent's first Chinatown. This district functioned not only as a transit hub for newcomers but also as North America's earliest permanent Cantonese settlement.
+                The discovery of gold in California triggered the first major wave of Cantonese migration to North America. Between 1848 and 1851, approximately 25,000 migrants arrived, hailing primarily from the Sze Yup (Four Counties) region. San Francisco served as the primary entry point, where migrants established the continent’s first Chinatown. This district functioned not only as a transit hub for newcomers but also as North America's earliest permanent Cantonese settlement.
               </p>
               <p>
-                In 1858, the discovery of gold in British Columbia drew the migration northward. Cantonese miners, arriving from California or directly from southern China, founded Victoria's Chinatown. Known as the "Gateway to Canada," it remains the oldest Chinese enclave in the country.
+                In 1858, the discovery of gold in British Columbia drew the migration northward. Cantonese miners, arriving from California or directly from southern China, founded Victoria’s Chinatown. Known as the “Gateway to Canada,” it remains the oldest Chinese enclave in the country.
               </p>
             </div>
           </div>
-          
-          <div class="gallery">
-            <div class="gallery-frame">
-              <div class="gallery-slide show">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Chinese_miners_in_Idaho_-_NARA_-_519155.jpg/1280px-Chinese_miners_in_Idaho_-_NARA_-_519155.jpg" alt="Slide 1">
-              </div>
-              <div class="gallery-slide">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Arnold_Genthe%2C_Chinatown%2C_San_Francisco%2C_c1900a.jpg/1024px-Arnold_Genthe%2C_Chinatown%2C_San_Francisco%2C_c1900a.jpg" alt="Slide 2">
-              </div>
-              <div class="gallery-slide">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Lai_Yong%2C_Chinese_photographer%2C_working_in_a_mining_town_in_Australia_circa_1870s.jpg/1024px-Lai_Yong%2C_Chinese_photographer%2C_working_in_a_mining_town_in_Australia_circa_1870s.jpg" alt="Slide 3">
-              </div>
-              <div class="gallery-label" id="label">Chinese Miners in the American West, c. 1870s</div>
+          <div class="img-col">
+            <div class="image-frame">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Head_of_Auburn_Ravine_1852.jpg/1280px-Head_of_Auburn_Ravine_1852.jpg" alt="Gold Miners 1852">
             </div>
-            
-            <div class="gallery-nav">
-              <button class="nav-btn" id="prev" aria-label="Previous">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-              
-              <div class="nav-info">
-                <span class="nav-current" id="num">1</span>
-                <div class="nav-divider"></div>
-                <span class="nav-total">3</span>
-              </div>
-              
-              <button class="nav-btn" id="next" aria-label="Next">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
-            </div>
+            <p class="image-caption">Gold mining in the ravines, early 1850s</p>
           </div>
         </div>
       </div>
     </section>
-    
-    <section class="section-teal content-section" style="background-image: none;">
+
+    <!-- 2. Six Companies (Paper) -->
+    <section class="section-paper content-section">
       <div class="container">
-        <h2 class="section-title text-white font-heading">1849–1862: Institutional Power – The Rise of the "Six Companies"</h2>
-        <div class="text-content text-white-90">
-          <p>
-            To maintain order and protection, Cantonese migrants established their first organization, the Sze Yup Association, in San Francisco in 1849. In 1854, the Taishanese group split off to form the Ning Yung Benevolent Association, which became the most powerful district association. By 1862, these Cantonese groups united to form the "Chinese Six Companies" (later the CCBA). Acting as the community's governing body, it managed banking, settled disputes, and organized legal defenses against discrimination. This transformed Cantonese migrants into an organized, self-governing entity with a robust economic structure and substantial social standing.
-          </p>
+        <div class="grid-2col grid-reverse fade-in">
+          <div class="text-col">
+            <h2 class="section-title">1849–1862: Institutional Power – The "Six Companies"</h2>
+            <div class="text-content text-main-90">
+              <p>
+                To maintain order and protection, Cantonese migrants established their first organization, the Sze Yup Association, in San Francisco in 1849. In 1854, the Taishanese group split off to form the Ning Yung Benevolent Association, which became the most powerful district association. 
+              </p>
+              <p>
+                By 1862, these Cantonese groups united to form the "Chinese Six Companies" (later the CCBA). Acting as the community's governing body, it managed banking, settled disputes, and organized legal defenses against discrimination. This transformed Cantonese migrants into an organized, self-governing entity with a robust economic structure and substantial social standing.
+              </p>
+            </div>
+          </div>
+          <div class="img-col">
+            <div class="image-frame">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Six_companies_SF.jpg" alt="The Six Companies">
+            </div>
+            <p class="image-caption">Leaders of the Six Companies (CCBA)</p>
+          </div>
         </div>
       </div>
     </section>
-    
-    <section class="section-paper content-section" style="background-image: none;">
+
+    <!-- 3. Hawaii (Tan) -->
+    <section class="section-tan content-section">
       <div class="container">
-        <h2 class="section-title text-dark font-heading">1850s–1900s: The Plantation Economy in Hawaii (The Sandalwood Mountains)</h2>
-        <div class="width-60">
-          <div class="text-content text-dark-90">
+        <h2 class="section-title">1850s–1900s: The Plantation Economy in Hawaii</h2>
+        <div class="grid-2col fade-in">
+          <div class="text-content text-main-90">
             <p>
-              A distinct stream of Cantonese migration transformed Hawaii, beginning with contract laborers in 1852. Unlike the Sze Yup-dominated mainland, Hawaii's community was overwhelmingly Heungshan (Zhongshan), comprising roughly 75% of the Chinese population. Between 1852 and 1899, approximately 46,000 migrants arrived. By 1884, they constituted 22% of the total population and held 49% of plantation jobs, forming the backbone of the sugar industry. By the 1890s, they also dominated rice cultivation, successfully transferring South China's agricultural technology to the Pacific.
+              A distinct stream of Cantonese migration transformed Hawaii, beginning with contract laborers in 1852. Unlike the Sze Yup-dominated mainland, Hawaii’s community was overwhelmingly Heungshan (Zhongshan), comprising roughly 75% of the Chinese population. 
+            </p>
+            <p>
+              Between 1852 and 1899, approximately 46,000 migrants arrived. By 1884, they constituted 22% of the total population and held 49% of plantation jobs, forming the backbone of the sugar industry. By the 1890s, they also dominated rice cultivation, successfully transferring South China’s agricultural technology to the Pacific.
+            </p>
+          </div>
+          <div>
+            <div class="image-frame" style="height: 350px;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Chinese_Laborers_in_Sugar_Cane_Field%2C_Maui%2C_Hawaii_LCCN2003679659.jpg" alt="Hawaii Sugar Cane Field">
+            </div>
+            <p class="image-caption">Chinese laborers in sugar cane fields, Maui</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Railroad (Paper) -->
+    <section class="section-paper content-section">
+      <div class="container">
+        <h2 class="section-title">1865–1869: The Transcontinental Railroad</h2>
+        
+        <div class="grid-2col fade-in">
+          <div>
+            <div class="image-frame" style="height: 450px;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/East_and_West_Shaking_Hands_at_Laying_Last_Rail.jpg" alt="Meeting of the lines">
+            </div>
+             <p class="image-caption">"East and West Shaking Hands", Promontory Summit, 1869</p>
+          </div>
+
+          <div class="text-content text-main-90">
+            <p>
+              During the construction of the Central Pacific Railroad, more than 12,000 Chinese laborers were recruited. Roughly 90% were Cantonese-speaking migrants from Guangdong, predominantly from the Sze Yup region. These workers formed the backbone of the project.
+            </p>
+            <p>
+              Estimates suggest that several hundred to over one thousand laborers perished, often due to extreme cold, avalanches, and blasting accidents. From 1863 to 1869, the Central Pacific completed roughly 690 miles of track from Sacramento to Promontory Summit, joining the Union Pacific on May 10, 1869. The contributions of these Cantonese laborers were pivotal in accelerating U.S. economic integration and national expansion.
             </p>
           </div>
         </div>
       </div>
     </section>
-    
-    <section class="section-paper content-section" style="background-image: none;">
-      <div class="container">
-        <h2 class="section-title text-dark font-heading">1865–1869: The Transcontinental Railroad</h2>
-        <div class="text-content text-dark-90">
-          <p>
-            During the construction of the Central Pacific Railroad, more than 12,000 Chinese laborers were recruited. Roughly 90% were Cantonese-speaking migrants from Guangdong, predominantly from the Sze Yup region. These workers formed the backbone of the project. Estimates suggest that several hundred to over one thousand laborers perished, often due to extreme cold, avalanches, and blasting accidents. From 1863 to 1869, the Central Pacific completed roughly 690 miles of track from Sacramento to Promontory Summit, joining the Union Pacific on May 10, 1869. The contributions of these Cantonese laborers were pivotal in accelerating U.S. economic integration and national expansion.
-          </p>
+
+    <!-- 5. Burlingame Treaty (Tan) -->
+    <section class="section-tan content-section">
+      <div class="container fade-in">
+        <h2 class="section-title">1868: Diplomacy and Free Migration</h2>
+        <div class="width-60" style="max-width: 800px; margin: 0 auto;">
+          <div class="text-content text-main-90">
+            <p>
+              The Burlingame Treaty (1868) marked a high point in early U.S.–Qing relations. It affirmed reciprocal most-favored-nation treatment in travel and residence. Notably, it recognized the mutual advantage of free migration for trade, travel, or permanent residence while condemning coerced migration.
+            </p>
+            <p>
+              In this diplomatic context, the Qing government soon launched initiatives such as the Chinese Educational Mission (1872–1881). More broadly, the treaty’s language of “free migration” helped legitimize and protect transpacific mobility in the late 1860s and early 1870s. Combined with labor demand and established Cantonese migrant networks, it reinforced the United States as a major destination for Cantonese workers until the agreement was later curtailed and ultimately undermined by restrictive policies in the 1880s.
+            </p>
+          </div>
         </div>
       </div>
     </section>
-    
-    <section class="section-teal content-section">
+
+    <!-- 6. Exclusion & Resistance (Paper) -->
+    <section class="section-paper content-section">
       <div class="container">
-        <h2 class="section-title text-white font-heading">1868: Diplomacy and Free Migration</h2>
-        <div class="text-content text-white-90">
-          <p>
-            The Burlingame Treaty (1868) marked a high point in early U.S.–Qing relations. It affirmed reciprocal most-favored-nation treatment in travel and residence. Notably, it recognized the mutual advantage of free migration for trade, travel, or permanent residence while condemning coerced migration. In this diplomatic context, the Qing government soon launched initiatives such as the Chinese Educational Mission (1872–1881). More broadly, the treaty's language of "free migration" helped legitimize and protect transpacific mobility in the late 1860s and early 1870s. Combined with labor demand and established Cantonese migrant networks, it reinforced the United States as a major destination for Cantonese workers until the agreement was later curtailed and ultimately undermined by restrictive policies in the 1880s.
-          </p>
-        </div>
-      </div>
-    </section>
-    
-    <section class="section-teal content-section" style="background-image: none;">
-      <div class="container">
-        <h2 class="section-title text-white font-heading">1882–1943: Exclusion, Resistance, and Renewal</h2>
-        <div class="text-content text-white-90">
-          <p>
-            Following the completion of the Pacific Railroad, economic shifts fueled hostility specifically toward Cantonese labor. This culminated in the U.S. Chinese Exclusion Act of 1882, the first federal law banning a specific ethnic group. Canada followed with the 1885 Head Tax and the restrictive Chinese Immigration Act of 1923. These policies severed ties between Cantonese laborers and their hometowns and barred the entry of women, transforming North American Chinatowns into "Bachelor Societies" void of traditional family structures.
-          </p>
-          <p>
-            The community challenged these restrictions through legal channels. In 1898, Wong Kim Ark, a Taishanese descendant born in San Francisco, appealed his denied entry to the Supreme Court. The ruling in United States v. Wong Kim Ark affirmed birthright citizenship (jus soli), securing the legal status of American-born Cantonese and facilitating the transition from temporary sojourners to permanent citizens.
-          </p>
-          <p>
-            World War II marked a turning point. Acknowledging China as an ally, the U.S. repealed exclusion via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed suit in 1947, restoring voting rights. Crucially, the War Brides Act of 1945 allowed the entry of Cantonese women, many wives of servicemen. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.
-          </p>
-        </div>
-      </div>
-    </section>
-    
-    <section class="section-teal content-section" style="background-image: none;">
-      <div class="container">
-        <h2 class="section-title text-white font-heading">Summary: From Labor to Legacy</h2>
-        <div class="text-content text-white-90">
-          <p>
-            In this century of struggle, Cantonese migrants transformed from transient laborers into the architects of the Pacific and American frontiers. Anchored by powerful, benevolent associations (Huiguan) and clan networks, they not only survived but also organized. These institutions funded the legal battles that defined American citizenship, managed the capital that fueled the Heungshan-led plantations of Hawaii, and coordinated the labor that built the Transcontinental Railroad. Through collective resistance and economic pragmatism, they turned exclusion into endurance, laying the physical, legal, and commercial foundations of a prosperous America.
-          </p>
-        </div>
+        <h2 class="section-title">1882–1943: Exclusion, Resistance, and Renewal</h2>
         
-        <div class="phase-navigation">
-          <a href="phase1.html#top" class="phase-link prev">
-            <span class="phase-arrow prev">←</span>
-            <span class="phase-link-text">Phase I: 17th–19th Centuries<br>Early Migration within Southeast Asia</span>
-          </a>
+        <div class="grid-2col fade-in">
+          <div class="text-content text-main-90">
+            <p>
+              Following the completion of the Pacific Railroad, economic shifts fueled hostility specifically toward Cantonese labor. This culminated in the <strong>U.S. Chinese Exclusion Act of 1882</strong>, the first federal law banning a specific ethnic group. Canada followed with the 1885 Head Tax and the restrictive Chinese Immigration Act of 1923. These policies severed ties between Cantonese laborers and their hometowns and barred the entry of women, transforming North American Chinatowns into "Bachelor Societies" void of traditional family structures.
+            </p>
+            <p>
+              The community challenged these restrictions through legal channels. In 1898, Wong Kim Ark, a Taishanese descendant born in San Francisco, appealed his denied entry to the Supreme Court. The ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship (jus soli), securing the legal status of American-born Cantonese and facilitating the transition from temporary sojourners to permanent citizens.
+            </p>
+          </div>
           
-          <a href="phase3.html#top" class="phase-link next">
-            <span class="phase-link-text">Phase III: 1965–1997<br>Reforms, Refugees, and New Waves</span>
-            <span class="phase-arrow next">→</span>
-          </a>
+          <div class="text-content text-main-90">
+            <div class="image-frame" style="height: 200px; margin-bottom: 20px;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Wong_Kim_Ark_signature_on_declaration_of_intent_1926.jpg" alt="Wong Kim Ark Document">
+            </div>
+            <p>
+              World War II marked a turning point. Acknowledging China as an ally, the U.S. repealed exclusion via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed suit in 1947, restoring voting rights. 
+            </p>
+            <p>
+              Crucially, the War Brides Act of 1945 allowed the entry of Cantonese women, many wives of servicemen. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.
+            </p>
+          </div>
         </div>
       </div>
     </section>
-    
-    <footer class="section-footer">
-      <div class="container footer-content">
-        <div>
-          <p class="footer-text">
-            Created by
-            <a href="/cdn-cgi/l/email-protection#68031f5b58515a50280f05090104460b0705" class="footer-link"><span class="__cf_email__" data-cfemail="81eaf6b2b1b8b3b9c1e6ece0e8edafe2eeec">[email&#160;protected]</span></a>
+
+    <!-- Summary (Tan) -->
+    <section class="section-tan content-section">
+      <div class="container fade-in">
+        <h2 class="section-title">Summary: From Labor to Legacy</h2>
+        <div class="text-content text-main-90" style="max-width: 900px;">
+          <p>
+            In this century of struggle, Cantonese migrants transformed from transient laborers into the architects of the Pacific and American frontiers. Anchored by powerful, benevolent associations (Huiguan) and clan networks, they not only survived but also organized. 
           </p>
-          <p class="footer-copyright">All rights reserved 2025</p>
+          <p>
+            These institutions funded the legal battles that defined American citizenship, managed the capital that fueled the Heungshan-led plantations of Hawaii, and coordinated the labor that built the Transcontinental Railroad. Through collective resistance and economic pragmatism, they turned exclusion into endurance, laying the physical, legal, and commercial foundations of a prosperous America.
+          </p>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="phase-navigation">
+            <!-- Previous Phase -->
+            <a href="phase1.html" class="phase-link prev">
+                <i data-lucide="arrow-left" class="phase-arrow left"></i>
+                <span>Phase I: 17th–19th Centuries<br><span class="link-sub">Early Migration within Southeast Asia</span></span>
+            </a>
+
+            <!-- Next Phase -->
+            <a href="phase3.html" class="phase-link next">
+                <span>Phase III: 1950s–Present<br><span class="link-sub">Global Dispersion & Identity</span></span>
+                <i data-lucide="arrow-right" class="phase-arrow right"></i>
+            </a>
         </div>
       </div>
-    </footer>
+    </section>
+
   </main>
-  
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    window.addEventListener('load', () => {
-      document.body.classList.add('ready');
-    });
+
+  <script>
+    // 1. Initialize Icons
+    lucide.createIcons();
+
+    // 2. Intersection Observer for Fade-in Animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+
+    // 3. RAILROAD CANVAS ANIMATION
+    const canvas = document.getElementById('railroad-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
     
-    const captions = [
-      "Chinese Miners in the American West, c. 1870s",
-      "San Francisco Chinatown Street Scene, c. 1900",
-      "Chinese Workers in Mining Community, 1870s"
-    ];
-    
-    let index = 0;
-    const slides = document.querySelectorAll('.gallery-slide');
-    const label = document.getElementById('label');
-    const num = document.getElementById('num');
-    
-    function go(n) {
-      slides[index].classList.remove('show');
-      index = (n + 3) % 3;
-      slides[index].classList.add('show');
-      label.textContent = captions[index];
-      num.textContent = index + 1;
+    // Resize handling
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
     }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Animation Variables
+    let offset = 0;
+    const speed = 2; // Speed of the train movement
     
-    document.getElementById('prev').
+    // Draw Loop
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      
+      // -- Configuration --
+      const horizonY = height * 0.45; // Horizon line height
+      const vanishingX = width / 2;
+      const vanishingY = horizonY;
+      
+      const trackWidthBottom = Math.min(600, width * 0.8);
+      const trackWidthTop = 10; 
+      
+      // -- 1. Ground/Sky --
+      // Transparent sky, very subtle ground shade to match beige paper
+      ctx.fillStyle = "rgba(51, 51, 51, 0.03)";
+      ctx.fillRect(0, horizonY, width, height - horizonY);
+
+      // -- 2. Draw Rails (Perspective Lines) --
+      ctx.beginPath();
+      ctx.strokeStyle = "#5a4a3a"; // Dark brownish grey
+      ctx.lineWidth = 4;
+      ctx.lineCap = 'round';
+      
+      // Left Rail
+      ctx.moveTo(vanishingX - trackWidthTop/2, vanishingY);
+      ctx.lineTo(vanishingX - trackWidthBottom/2, height + 50);
+      
+      // Right Rail
+      ctx.moveTo(vanishingX + trackWidthTop/2, vanishingY);
+      ctx.lineTo(vanishingX + trackWidthBottom/2, height + 50);
+      ctx.stroke();
+
+      // -- 3. Draw Sleepers (Ties) --
+      offset = (offset + speed * 0.002) % 1; 
+      
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#5a4a3a";
+
+      const numTies = 20;
+      for (let i = 0; i < numTies; i++) {
+        let baseT = (i / numTies) + offset;
+        if (baseT > 1) baseT -= 1;
+        
+        // Logarithmic perspective
+        let perspectiveT = Math.pow(baseT, 4); 
+        
+        let y = vanishingY + (height - vanishingY + 50) * perspectiveT;
+        
+        if (y < vanishingY + 5) continue;
+
+        let progress = (y - vanishingY) / (height - vanishingY + 50);
+        let currentWidth = trackWidthTop + (trackWidthBottom - trackWidthTop) * progress;
+
+        ctx.beginPath();
+        let wobble = (Math.random() - 0.5) * 2; 
+        ctx.moveTo(vanishingX - currentWidth/2, y + wobble);
+        ctx.lineTo(vanishingX + currentWidth/2, y - wobble);
+        ctx.stroke();
+      }
+
+      // -- 4. Draw Mine Cart (Simple Sketch) --
+      const cartW = 180;
+      const cartH = 120;
+      const cartX = width/2 - cartW/2;
+      const cartY = height * 0.75;
+      
+      const shakeY = Math.sin(Date.now() / 50) * 1.5;
+
+      ctx.save();
+      ctx.translate(0, shakeY);
+      
+      ctx.strokeStyle = "#333333";
+      ctx.lineWidth = 3;
+
+      // Wheels
+      ctx.beginPath();
+      ctx.arc(cartX + 30, cartY + cartH, 20, 0, Math.PI*2); 
+      ctx.arc(cartX + cartW - 30, cartY + cartH, 20, 0, Math.PI*2); 
+      ctx.fillStyle = "rgba(168, 77, 77, 0.1)"; 
+      ctx.fill();
+      ctx.stroke();
+
+      // Body (Trapezoid)
+      ctx.beginPath();
+      ctx.moveTo(cartX, cartY); 
+      ctx.lineTo(cartX + cartW, cartY); 
+      ctx.lineTo(cartX + cartW - 20, cartY + cartH); 
+      ctx.lineTo(cartX + 20, cartY + cartH); 
+      ctx.closePath();
+      
+      // Fill with solid paper color to hide rails behind it
+      ctx.fillStyle = "#f5f0e5"; 
+      ctx.fill();
+      ctx.stroke();
+      
+      // Detail lines
+      ctx.beginPath();
+      ctx.moveTo(cartX + 10, cartY + 10);
+      ctx.lineTo(cartX + 10, cartY + cartH - 10);
+      ctx.moveTo(cartX + cartW/2, cartY);
+      ctx.lineTo(cartX + cartW/2, cartY + cartH);
+      ctx.moveTo(cartX + cartW - 10, cartY + 10);
+      ctx.lineTo(cartX + cartW - 10, cartY + cartH - 10);
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Gold/Rocks
+      ctx.beginPath();
+      ctx.moveTo(cartX + 20, cartY);
+      ctx.quadraticCurveTo(cartX + cartW/2, cartY - 40, cartX + cartW - 20, cartY);
+      ctx.fillStyle = "rgba(51, 51, 51, 0.2)"; 
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.restore();
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+
+  </script>
+</body>
+</html>
