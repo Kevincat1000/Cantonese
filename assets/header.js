@@ -179,13 +179,13 @@
       header[data-site-header="1"] .mobile-nav-menu{
         display:none;
         position:fixed;
-        top:var(--header-h, 60px);
+        top:var(--header-h, 48px);
         left:0; right:0;
         background:#F5F0E5;
         border-bottom:1px solid #e5e5e5;
         box-shadow:0 4px 6px -1px rgba(0,0,0,.1);
         z-index:990;
-        max-height:calc(100vh - var(--header-h, 60px));
+        max-height:calc(100vh - var(--header-h, 48px));
         overflow-y:auto;
       }
 
