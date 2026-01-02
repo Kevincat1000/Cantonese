@@ -236,9 +236,9 @@
     .evolution-container {
       position: relative;
       z-index: 1;
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 30px;
+      padding: 0 60px;
     }
 
     .evolution-header {
@@ -315,23 +315,29 @@
 
     .era-subtitle-main {
       font-family: 'Georgia', 'Times New Roman', Times, serif;
-      font-size: 1.3rem;
+      font-size: 18px;
       font-weight: normal;
       color: #a21a1a;
-      margin: 0 0 20px 0;
+      margin: 0 0 25px 0;
       line-height: 1.4;
     }
 
     .era-columns {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      align-items: stretch;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+      align-items: start;
     }
 
     .era-column {
       display: flex;
       flex-direction: column;
+    }
+
+    .era-column-left {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .era-column p {
@@ -346,17 +352,15 @@
     .era-column-right {
       display: flex;
       flex-direction: column;
-      gap: 15px;
     }
 
     .era-column-image {
-      margin-top: auto;
+      width: 100%;
     }
 
     .era-column-image img {
       width: 100%;
-      max-width: 280px;
-      border: 6px solid #fff;
+      border: 8px solid #fff;
       box-shadow: 0 5px 15px rgba(0,0,0,0.12);
     }
 
@@ -365,7 +369,7 @@
       font-family: 'Georgia', 'Times New Roman', Times, serif;
       font-size: 0.8rem;
       color: var(--caption-color);
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     @media (max-width: 1000px) {
@@ -373,6 +377,9 @@
         height: auto;
         min-height: auto;
         padding: 60px 0;
+      }
+      .evolution-container {
+        padding: 0 30px;
       }
       .era-grid {
         grid-template-columns: 1fr;
@@ -385,14 +392,14 @@
       }
       .era-columns {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 25px;
       }
       .era-column-image img {
-        max-width: 200px;
+        max-width: 280px;
       }
       .era-title { font-size: 1.2rem; }
       .era-section-expanded .era-title { font-size: 1.3rem; }
-      .era-subtitle-main { font-size: 1.2rem; }
+      .era-subtitle-main { font-size: 16px; }
       .evolution-header h2 { font-size: 2rem; }
       /* Reset delays for mobile vertical layout */
       .era-section:nth-child(1) { transition-delay: 0s; }
@@ -581,13 +588,13 @@
         <!-- Section 1 -->
         <div class="era-section era-section-expanded">
           <h3 class="era-title">1. The Era of Hegemony, 1850s–1970s</h3>
-          <h4 class="era-subtitle-main">Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
+          <h4 class="era-subtitle-main">A. Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
           <div class="era-columns">
             <div class="era-column era-column-left">
               <p>Early Cantonese dominance was not just about numbers; it was about institutional power. In the 19th and 20th-century Chinatowns, native-place associations (huiguan), such as the Chinese Consolidated Benevolent Association (CCBA, often known as the "Six Companies" in San Francisco) acted like a government. They dominated trades like hand laundries, cigar making, and shoe manufacturing. They settled disputes, provided welfare, controlled remittance networks and steamship tickets, and fought legal battles against discrimination. In a context of exclusion and racialized vulnerability, these associations became a practical infrastructure of social protection—the only safety net available.</p>
+              <p>Because Guangdong native networks deeply shaped these institutions, Cantonese was the price of admission. Speaking the language was not a choice; it was a necessity. It functioned as a "survival license." Without Cantonese, a Chinese immigrant could not borrow money, find a job, or access legal protection. The community's support system was effectively closed to anyone who did not speak the language.</p>
             </div>
             <div class="era-column era-column-right">
-              <p>Because Guangdong native networks deeply shaped these institutions, Cantonese was the price of admission. Speaking the language was not a choice; it was a necessity. It functioned as a "survival license." Without Cantonese, a Chinese immigrant could not borrow money, find a job, or access legal protection. The community's support system was effectively closed to anyone who did not speak the language.</p>
               <div class="era-column-image">
                 <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg" alt="Ning Yeung Association, San Francisco, 1891">
                 <span class="era-column-caption">Ning Yeung Association, San Francisco, 1891</span>
