@@ -14,7 +14,7 @@
   <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Injectors: 移除了 header.js，保留 footer.js -->
+  <!-- Injectors: 仅保留 Footer -->
   <script src="./assets/footer.js" defer></script>
 
   <style>
@@ -50,12 +50,10 @@
       align-items: center;
       gap: 15px;
       text-decoration: none;
-      /* Hero页默认是深色字 */
       color: var(--text-dark); 
       transition: all 0.3s ease;
     }
     
-    /* 滚动到深色背景时 JS 切换此类名 */
     .nav-float.on-dark { color: white; }
     .nav-float.on-dark .nav-icon-circle { border-color: rgba(255,255,255,0.4); }
 
@@ -101,7 +99,6 @@
     /* --- 2. Hero Section --- */
     .hero-section {
       position: relative;
-      /* 关键修改：强制 100vh，确保第一屏看不到下面的绿色 */
       height: 100vh; 
       width: 100%;
       background-color: var(--bg-paper);
@@ -111,15 +108,12 @@
       overflow: hidden;
     }
 
-    /* 视觉平滑过渡：在底部加一个从米色到透明的渐变，或者不做硬切断
-       这里我们保持干净的 100vh 切割，这是最现代的做法 */
-    
     .hero-content {
       position: relative;
       z-index: 10;
       max-width: 800px;
       color: var(--text-dark);
-      margin-top: -50px; /* 视觉中心微调 */
+      margin-top: -50px;
     }
 
     .hero-label {
@@ -150,17 +144,15 @@
       margin-top: 0.5rem;
     }
 
-    /* 静态小船：向右移动动画 */
     .hero-boat {
       position: absolute;
       right: 5%;
-      bottom: 20%; /* 稍微提起来一点，不要贴底 */
-      width: 360px; /* 指定大小 */
+      bottom: 20%;
+      width: 360px;
       height: auto;
       z-index: 1;
       opacity: 0.9;
       pointer-events: none;
-      /* 初始状态 */
       transform: translateX(-30px); 
       animation: sailRight 2s ease-out forwards;
     }
@@ -171,7 +163,7 @@
     }
 
 
-    /* --- 3. 内容通用排版 --- */
+    /* --- 3. Content Layout --- */
     .container {
       max-width: 1152px;
       margin: 0 auto;
@@ -179,7 +171,6 @@
     }
 
     .content-section { padding: 4rem 2rem; }
-    /* 减少第一屏下面的内边距，让内容紧接 Hero */
     .content-section.first-section { padding-top: 5rem; }
     
     .section-teal { background-color: var(--bg-teal); color: var(--text-white); }
@@ -198,7 +189,6 @@
       position: relative;
       padding-bottom: 12px;
       line-height: 1.3;
-      /* 关键：去掉顶部默认margin，方便对齐 */
       margin-top: 0; 
     }
     
@@ -217,23 +207,12 @@
     .text-white-90 { color: rgba(255, 255, 255, 0.9); }
     .text-dark-90 { color: rgba(35, 29, 22, 0.9); }
 
-    /* Grid Alignment Fix */
-    .grid-2col { 
-      display: grid; 
-      gap: 2rem; 
-      /* 关键：顶部对齐 */
-      align-items: start; 
-    }
+    .grid-2col { display: grid; gap: 2rem; align-items: start; }
     .grid-2-1 { grid-template-columns: 1fr; } 
-    
     .width-60 { width: 100%; }
 
-    /* --- Gallery --- */
-    .gallery { 
-      width: 100%; 
-      /* 关键：移除可能的顶部margin，确保与左侧标题对齐 */
-      margin-top: 0; 
-    }
+    /* Gallery */
+    .gallery { width: 100%; margin-top: 0; }
     .gallery-frame {
       width: 100%; height: 350px;
       position: relative; background: #000; border-radius: 8px; overflow: hidden;
@@ -260,7 +239,7 @@
     }
     .nav-btn:hover { border-color: var(--accent-red); background: var(--accent-red); }
 
-    /* --- Map & Animations --- */
+    /* Map & Images */
     .map-container {
       margin-top: 2rem;
       opacity: 0; transform: translateX(50px);
@@ -299,17 +278,14 @@
     .loke-yew-layout { display: grid; gap: 2rem; }
     .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(255,255,255,0.1); border-radius: 8px; }
 
-    /* --- Phase Link (Compact) --- */
+    /* Compact Link */
     .phase-navigation {
-      /* 删减留白 */
       margin-top: 1.5rem; 
       padding-top: 1.5rem; 
-      padding-bottom: 0; /* 底部靠紧 */
+      padding-bottom: 0;
       border-top: 1px solid rgba(255,255,255,0.2);
       text-align: right;
     }
-    
-    /* 针对最后一节的特殊处理，减少它的底部padding */
     .last-section { padding-bottom: 2rem; }
 
     .phase-link {
@@ -321,19 +297,21 @@
     .phase-arrow { transition: transform 0.3s; }
     .phase-link:hover .phase-arrow { transform: translateX(5px); }
 
-    /* Animations */
     @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
     @keyframes slideInLeft { to { opacity: 1; transform: translateX(0); } }
 
-
-    /* --- Desktop Override --- */
+    /* Desktop Media Query */
     @media (min-width: 900px) {
       .grid-2col { grid-template-columns: 1fr 1fr; }
       .grid-2-1 { grid-template-columns: 1.5fr 1fr; }
       .width-60 { max-width: 60%; }
       
+      /* 修改：地图左移并居中在右侧留白部分 */
       .map-container {
-        position: absolute; top: -50px; right: 0; width: 25%;
+        position: absolute; 
+        top: 0; 
+        right: 8%; /* 从 0 改为 8%，让它向左移动一点，不贴边 */
+        width: 25%;
         margin-top: 0;
       }
       
@@ -355,7 +333,7 @@
 
 <body>
 
-  <!-- 1. 悬浮返回导航 (修正 href 为 timeline.html) -->
+  <!-- Nav -->
   <a href="timeline.html" class="nav-float" id="nav-btn">
     <div class="nav-icon-circle">
       <i data-lucide="arrow-left"></i>
@@ -363,14 +341,13 @@
     <span class="nav-text">Back to Timeline</span>
   </a>
 
-  <!-- 2. Hero Section (100vh, 静态小船右移, 米色背景) -->
+  <!-- Hero -->
   <header class="hero-section">
     <div class="hero-content" id="hero-text">
       <span class="hero-label">Timeline / Phase I</span>
       <h1 class="hero-title">17th–19th Centuries</h1>
       <h2 class="hero-subtitle">Early Migration within Southeast Asia</h2>
     </div>
-    <!-- 小船：特效改为向右移动 -->
     <img src="images/Boat.pic.png" alt="Sailing boat" class="hero-boat" id="hero-boat">
   </header>
   
@@ -378,10 +355,7 @@
     <!-- Section 1: Siam -->
     <section class="section-teal content-section first-section">
       <div class="container">
-        
-        <!-- Grid: 确保标题和右侧Gallery顶部对齐 -->
         <div class="grid-2col grid-2-1">
-          <!-- Left Content -->
           <div>
             <h2 class="section-title text-white">1640s–1770s: Early Migration to Siam</h2>
             <div class="text-content text-white-90">
@@ -404,7 +378,7 @@
             </div>
           </div>
           
-          <!-- Right Gallery -->
+          <!-- Gallery -->
           <div class="gallery">
             <div class="gallery-frame">
               <div class="gallery-slide show">
@@ -416,7 +390,7 @@
               <div class="gallery-slide">
                 <img src="https://exploration.marinersmuseum.org/wp-content/uploads/sites/2/2014/04/Chinese_junk_1804-450x351.jpg" alt="Slide 3">
               </div>
-              <div class="gallery-label" id="label">View of Judea, the Capital of Siam (c. 1662)</div>
+              <div class="gallery-label" id="label">View of Judea, the Capital of Siam (c. 1662 - c. 1663)</div>
             </div>
             
             <div class="gallery-nav">
@@ -448,7 +422,7 @@
               During the Tây Sơn conflicts, ethnic Chinese merchants, primarily Cantonese, founded a new
               settlement adjacent to Saigon in 1778. This settlement evolved into Chợ Lớn ("Big Market"). 
               Despite suffering severe persecution and violence in 1782, survivors rebuilt the community. 
-              By the end of the 18th century, the Cantonese population in Cochinchina was estimated at 30,000–40,000.
+              By the end of the 18th century, the Cantonese population in Cochinchina was estimated at 30,000–40,000, controlling key rice and silk trade routes.
             </p>
           </div>
         </div>
@@ -464,7 +438,6 @@
     <section class="section-teal content-section">
       <div class="container">
         <div class="historical-images">
-          <!-- Flip Card -->
           <div style="display:flex; flex-direction:column; gap:8px;">
             <div class="temple-image-wrapper">
               <div class="temple-flip-inner">
@@ -472,10 +445,9 @@
                 <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Final" class="temple-image final">
               </div>
             </div>
-            <p class="caption text-white-90">Thien Hau Temple, Saigon (Hover to flip)</p>
+            <p class="caption text-white-90">Thien Hau Temple, Saigon, established in 1760</p>
           </div>
           
-          <!-- Static Image -->
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/A_voyage_to_Cochinchina%2C_in_the_years_1792_and_1793._To_which_is_annexed_an_account_of_a_journey_made_in_the_years_1801_and_1802%2C_to_the_residence_of_the_chief_of_the_Booshuana_nation_%281806%29_%2814766269094%29.jpg/1600px-thumbnail.jpg" alt="Voyage" class="historical-image">
             <p class="caption text-white-90">A voyage to Cochinchina, 1790s</p>
@@ -492,7 +464,7 @@
           <p>
             From the late 18th century, British colonial ports reshaped Guangdong migration routes. Penang
             (est. 1786) offered security and strong commercial prospects. In the 1790s, the Ghee Hin Kongsi 
-            emerged as one of the earliest major Chinese brotherhoods in Penang, anchoring Cantonese community life.
+            emerged as one of the earliest major Chinese brotherhoods in Penang. Strongly associated with Cantonese networks, it organized labor, protection, and mutual aid, anchoring Cantonese community life in the Straits Settlements.
           </p>
           <p>
             Following the establishment of Singapore in 1819, Cantonese migrants integrated into the colony's expanding economy. 
@@ -504,12 +476,12 @@
         <div class="colonial-images">
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="http://bit.ly/4924hNh" alt="Penang School" class="colonial-image">
-            <p class="caption text-dark-90">Penang Ng Fook Thong School (1820s)</p>
+            <p class="caption text-dark-90">Penang Ng Fook Thong School, established in the 1820s<br>The first Cantonese school in Malaysia</p>
           </div>
           
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="https://sgarchi.wordpress.com/wp-content/uploads/2020/05/shophouses1900.jpg" alt="Shophouses" class="colonial-image">
-            <p class="caption text-dark-90">Shophouses in early 1900s Singapore</p>
+            <p class="caption text-dark-90">Shophouses in early 1900s Singapore,<br>where many Cantonese migrants lived.</p>
           </div>
         </div>
       </div>
@@ -540,7 +512,7 @@
       </div>
     </section>
     
-    <!-- Section 6: Summary (Teal) + Compact Footer Link -->
+    <!-- Section 6: Summary (Teal) -->
     <section class="section-teal content-section last-section">
       <div class="container">
         <h2 class="section-title text-white">Summary: Social Mobility</h2>
@@ -548,7 +520,7 @@
         <div class="loke-yew-layout">
           <div>
             <img src="https://bit.ly/4phrjVa" alt="Loke Yew" class="loke-yew-image">
-            <p class="caption text-white-90">Loke Yew (1846-1917). Cantonese migrant turned tycoon.</p>
+            <p class="caption text-white-90">Loke Yew (1846-1917). Cantonese migrant turned<br>Malayan tin tycoon and philanthropist.</p>
           </div>
           
           <div class="text-content text-white-90">
@@ -561,7 +533,6 @@
           </div>
         </div>
         
-        <!-- 紧凑的下一章链接 -->
         <div class="phase-navigation">
           <a href="phase2.html" class="phase-link">
             <span>Phase II: 1840s–1940s<br><span style="font-size:0.8em; opacity:0.8; font-weight:400;">Building North America & The Pacific</span></span>
@@ -571,20 +542,17 @@
       </div>
     </section>
     
-    <!-- Footer 由 footer.js 注入 -->
+    <!-- Footer -->
   </main>
   
   <script>
-    // 1. 初始化图标
     lucide.createIcons();
 
-    // 2. Nav 颜色切换 (保留)
     const navBtn = document.getElementById('nav-btn');
-    const heroHeight = window.innerHeight; // 使用视口高度，因为我们设了 100vh
+    const heroHeight = window.innerHeight; 
 
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
-        // 离开 100vh 的 Hero 区域进入深绿色背景，Nav文字变白
         if(scrollY > heroHeight - 50) {
             navBtn.classList.add('on-dark');
         } else {
@@ -592,9 +560,8 @@
         }
     });
 
-    // 3. Gallery 逻辑
     const captions = [
-      "View of Judea, the Capital of Siam (c. 1662)",
+      "View of Judea, the Capital of Siam (c. 1662 - c. 1663)",
       "View of Ayutthaya with royal barges, 1688",
       "Chinese Junk Ship, 1804"
     ];
@@ -614,7 +581,6 @@
     document.getElementById('prev').onclick = () => go(index - 1);
     document.getElementById('next').onclick = () => go(index + 1);
 
-    // 4. 动画观察器
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -629,7 +595,6 @@
     
     const tinWrapper = document.querySelector('.tin-mine-wrapper');
     if (tinWrapper) observer.observe(tinWrapper);
-
   </script>
 </body>
 </html>
