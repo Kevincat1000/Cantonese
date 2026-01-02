@@ -5,315 +5,272 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Timeline - Cantonese in Americas</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts (保留原本字体) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Global style -->
-  <link rel="stylesheet" href="./assets/style.css" />
-
-  <!-- ✅ Header injector -->
+  <!-- Header/Footer Injectors -->
   <script src="./assets/header.js" defer></script>
+  <script src="./assets/footer.js" defer></script>
 
-  <!-- Mapbox -->
+  <!-- Mapbox CSS & JS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js" defer></script>
-  <script src="./assets/mapbox.js" defer></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
+
+  <!-- jQuery & Ripples (水纹特效依赖) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
 
   <style>
-    :root{
-      --bg: #F5F0E5;
+    :root {
+      --bg: #f5f0e5; /* 你的背景色 */
       --text: #1a1a1a;
-      --muted: #4a5568;
-      --card-hover: #E8E0D0;
-      --border: #000;
-      --header-h: 48px;
-      --radius: 14px;
+      --header-h: 48px; /* 预留 Header 高度 */
+      --mask-color: #e3bd28; /* 高级姜黄色 */
     }
 
-    *{ box-sizing: border-box; }
-    html, body{
+    * { box-sizing: border-box; }
+    
+    body, html {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden; /* lock window scroll; use .page-wrapper scroll */
-      background: var(--bg);
+      background-color: var(--bg);
       font-family: 'Gentium Book Plus', serif;
       color: var(--text);
+      overflow-x: hidden;
     }
 
-    /* =========================================================
-       ✅ FIRST-PRINCIPLES FIX FOR "BANG" (LAYOUT SHIFT):
-       Reserve header space from the first paint + fix header.
-       ========================================================= */
-    body{
+    /* 确保内容不被 Header 遮挡 */
+    body {
       padding-top: var(--header-h);
     }
-    header{
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--header-h);
-      z-index: 9999;
-    }
-    header.header-hidden{
-      transform: translateY(-110%);
-      transition: transform 220ms ease;
-    }
-    body.no-header-space{ padding-top: 0; }
 
-    .page-wrapper{
-      height: calc(100vh - var(--header-h));
-      overflow-y: auto;
-      overflow-x: hidden;
-      scrollbar-gutter: stable;
-      -webkit-overflow-scrolling: touch;
-    }
-    body.no-header-space .page-wrapper{ height: 100vh; }
-
-    .content-inner{ padding: 0 1rem; }
-    @media (min-width: 1024px){ .content-inner{ padding: 0 2rem; } }
-
-    /* =========================================================
-       Layout
-       ========================================================= */
-    .timeline-grid{
+    /* --- 1. 顶部四张图布局 --- */
+    .gallery-container {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      padding: 1.25rem 0 2rem 0;
-      align-items: start;
-    }
-    @media (min-width: 980px){
-      .timeline-grid{ grid-template-columns: 1fr 1fr; }
+      grid-template-columns: repeat(4, 1fr); /* 4等分 */
+      width: 100vw;
+      /* 这里的 60vh 可以调整，控制图片区域占屏幕的高度 */
+      height: 65vh; 
+      border-bottom: 1px solid #dcd8ce;
     }
 
-    .phase-header--grid{
-      grid-column: 1 / -1;
-      text-align: center;
-      margin: 0;
-      padding-top: 0.25rem;
-    }
-    .phase-header--grid h2{
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 0 0 0.45rem 0;
-      letter-spacing: 0.2px;
-    }
-    .phase-header--grid p{
-      font-size: 1.125rem;
-      margin: 0;
-      color: var(--muted);
-    }
-
-    /* =========================================================
-       Map (crop top+bottom 20px, shift right 30px; no zoom changes)
-       ========================================================= */
-    .map-section{ min-width: 0; }
-    .map-wrapper{
-      border-radius: var(--radius);
-      overflow: hidden;
-      height: 320px;                 /* was 360 -> crop 20px top + 20px bottom */
-      transform: translateX(30px);   /* move entire map right */
-      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-      background: transparent;
-    }
-    #diaspora-map{
-      width: 100%;
-      height: 450px;      /* keep internal map size (no scaling/zoom changes) */
+    .gallery-item {
       position: relative;
-      top: -65px;         /* was -45 -> crop 20px more at top (and bottom via wrapper height) */
-    }
-
-    @media (max-width: 980px){
-      .map-wrapper{ height: 264px; }         /* was 304 -> crop 20px top+bottom */
-      #diaspora-map{ height: 380px; top: -58px; } /* was -38 -> crop 20px more */
-    }
-
-    /* =========================================================
-       Phase list cards
-       ========================================================= */
-    .phase-section{ min-width: 0; }
-    .phase-wrapper{ display:flex; flex-direction:column; align-items:center; }
-
-    .phase-list{
-      display:flex;
-      flex-direction:column;
-      gap: 0.75rem;
+      display: block;
       width: 100%;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-    @media (min-width: 980px){
-      .phase-list{ width: 60%; max-width: 420px; }
-    }
-
-    .phase-card{
-      background: var(--bg);
-      border: 1.25px solid var(--border);
-      border-radius: var(--radius);
-      padding: 0.9rem 1.1rem;
-      cursor: pointer;
+      height: 100%;
+      overflow: hidden;
       text-decoration: none;
-      color: inherit;
+      cursor: pointer;
+      border-right: 1px solid rgba(0,0,0,0.05); /* 图片之间的分割线 */
+    }
+
+    /* 编号与文字样式 */
+    .item-info {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      z-index: 10;
+      pointer-events: none; /* 让鼠标穿透文字触发水纹 */
+    }
+
+    .item-number {
+      display: block;
+      font-family: 'Exo', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #000;
+      margin-bottom: 5px;
+    }
+
+    .item-title {
+      display: block;
+      font-family: 'Gentium Book Plus', serif;
+      font-size: 24px; /* 大字号标题 */
+      font-weight: 400;
+      color: #1a1a1a;
+      opacity: 0.9;
+    }
+
+    /* 图片容器 */
+    .image-wrapper {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: all 0.6s ease;
+      /* 默认黑白 */
+      filter: grayscale(100%) contrast(1.1); 
+    }
+
+    /* --- 核心视觉：黄色蒙版混合模式 --- */
+    .image-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--mask-color);
+      /* 正片叠底模式：让黄色“渗入”黑白照片的深色部分 */
+      mix-blend-mode: multiply; 
+      opacity: 0.85; 
+      transition: opacity 0.6s ease;
+    }
+
+    /* --- 悬停交互 --- */
+    .gallery-item:hover .image-wrapper {
+      filter: grayscale(0%) contrast(1); /* 恢复原色 */
+    }
+
+    .gallery-item:hover .image-wrapper::after {
+      opacity: 0; /* 移除黄色蒙版 */
+    }
+
+    /* --- 2. Mapbox 区域布局 --- */
+    .map-section {
+      width: 100%;
+      padding: 80px 0; /* 地图上下的留白 */
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.16);
-
-      /* ✅ avoid "exploding" animations on touch */
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
+      justify-content: center;
     }
 
-    .phase-card:hover{
-      background: var(--card-hover);
-      transform: translate(-2px, -2px);
-      box-shadow: 4px 4px 0px rgba(0,0,0,0.18);
+    .map-title {
+        margin-bottom: 20px;
+        font-family: 'Exo', sans-serif;
+        letter-spacing: 1px;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #666;
     }
 
-    @media (hover: none){
-      .phase-card:hover{
-        background: var(--bg);
-        transform: none;
-        box-shadow: 3px 3px 0px rgba(0,0,0,0.16);
+    #diaspora-map {
+      /* 宽度设定为 50vw (约等于两张图片的宽度) */
+      width: 50vw; 
+      height: 50vw; /* 正方形 */
+      max-height: 500px; /* 限制最大高度 */
+      background-color: #e5e0d5; /* 地图加载前的背景色 */
+      /* 简单的边框装饰 */
+      border: 1px solid #dcd8ce;
+    }
+
+    /* --- 移动端适配 --- */
+    @media (max-width: 768px) {
+      .gallery-container {
+        grid-template-columns: 1fr; /* 变成单列 */
+        height: auto;
       }
-      .phase-card:active{
-        background: var(--card-hover);
-        transform: translate(-2px, -2px);
-        box-shadow: 4px 4px 0px rgba(0,0,0,0.18);
+      .gallery-item {
+        height: 300px; /* 手机上每张图的高度 */
+        border-bottom: 1px solid rgba(0,0,0,0.05);
       }
-    }
-
-    .phase-info{ flex: 1; }
-    .phase-title{
-      font-size: 1rem;
-      font-weight: 700;
-      margin: 0 0 0.25rem 0;
-      line-height: 1.3;
-    }
-    .phase-subtitle{
-      font-size: 0.875rem;
-      margin: 0;
-      line-height: 1.4;
-      color: var(--muted);
-    }
-    .phase-arrow{
-      width: 18px;
-      height: 18px;
-      opacity: 0.6;
-      flex-shrink: 0;
-      transform: rotate(-90deg);
+      #diaspora-map {
+        width: 90vw; /* 手机上地图变宽 */
+        height: 300px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- header injected by ./assets/header.js -->
+  
+  <!-- Header 将被 header.js 注入 -->
 
-  <div class="page-wrapper">
-    <div class="container">
-      <div class="content-inner">
-        <div class="timeline-grid">
-          <div class="phase-header--grid">
-            <h2>Timeline of Cantonese Migration</h2>
-            <p>Waves, Networks, and Institutions</p>
-          </div>
-
-          <div class="map-section">
-            <div class="map-wrapper">
-              <div id="diaspora-map"></div>
+  <!-- 主要内容区 -->
+  <main>
+    
+    <!-- 顶部四张图展示区 -->
+    <div class="gallery-container">
+        
+        <!-- Phase 01 -->
+        <a href="phase1.html" class="gallery-item">
+            <div class="item-info">
+                <span class="item-number">01.</span>
+                <span class="item-title">Early Migration</span>
             </div>
-          </div>
+            <!-- 图片建议找黑白或低饱和度的历史图片，这里用了 Unsplash 示意图 -->
+            <div class="image-wrapper ripple-effect" style="background-image: url('https://images.unsplash.com/photo-1544258197-087090886c2e?q=80&w=1200&auto=format&fit=crop');"></div>
+        </a>
 
-          <div class="phase-section">
-            <div class="phase-wrapper">
-              <div class="phase-list">
-                <a href="phase1.html" class="phase-card">
-                  <div class="phase-info">
-                    <h3 class="phase-title">Phase I: 17th–19th Centuries</h3>
-                    <p class="phase-subtitle">Early Migration within Southeast Asia</p>
-                  </div>
-                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-
-                <a href="phase2.html" class="phase-card">
-                  <div class="phase-info">
-                    <h3 class="phase-title">Phase II: 1840s–1940s</h3>
-                    <p class="phase-subtitle">Building North America & The Pacific</p>
-                  </div>
-                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-
-                <a href="phase3.html" class="phase-card">
-                  <div class="phase-info">
-                    <h3 class="phase-title">Phase III: 1965–1997</h3>
-                    <p class="phase-subtitle">Reforms, Refugees, and New Waves</p>
-                  </div>
-                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-
-                <a href="phase4.html" class="phase-card">
-                  <div class="phase-info">
-                    <h3 class="phase-title">Phase IV: 2000s–Present</h3>
-                    <p class="phase-subtitle">Diversification and Cultural Resilience</p>
-                  </div>
-                  <svg class="phase-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-              </div>
+        <!-- Phase 02 -->
+        <a href="phase2.html" class="gallery-item">
+            <div class="item-info">
+                <span class="item-number">02.</span>
+                <span class="item-title">North America</span>
             </div>
-          </div>
+            <div class="image-wrapper ripple-effect" style="background-image: url('https://images.unsplash.com/photo-1533552809703-999059f632ac?q=80&w=1200&auto=format&fit=crop');"></div>
+        </a>
 
-        </div>
-      </div>
+        <!-- Phase 03 -->
+        <a href="phase3.html" class="gallery-item">
+            <div class="item-info">
+                <span class="item-number">03.</span>
+                <span class="item-title">Reforms & Waves</span>
+            </div>
+            <div class="image-wrapper ripple-effect" style="background-image: url('https://images.unsplash.com/photo-1548505224-b58603632f81?q=80&w=1200&auto=format&fit=crop');"></div>
+        </a>
+
+        <!-- Phase 04 -->
+        <a href="phase4.html" class="gallery-item">
+            <div class="item-info">
+                <span class="item-number">04.</span>
+                <span class="item-title">Modern Era</span>
+            </div>
+            <div class="image-wrapper ripple-effect" style="background-image: url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200&auto=format&fit=crop');"></div>
+        </a>
+
     </div>
-  </div>
 
-  <!-- ✅ clean header hide/show logic (no inline height/padding thrash) -->
+    <!-- 地图区域 -->
+    <div class="map-section">
+        <div class="map-title">Global Distribution Map</div>
+        <div id="diaspora-map"></div>
+    </div>
+
+  </main>
+
+  <!-- Footer 将被 footer.js 注入 -->
+
+  <!-- 脚本逻辑 -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const pageWrapper = document.querySelector('.page-wrapper');
-
-      let lastScrollTop = 0;
-      const scrollThreshold = 100;
-      const scrollDelta = 5;
-
-      function setHeaderHidden(isHidden){
-        document.body.classList.toggle('no-header-space', isHidden);
-        const headerEl = document.querySelector('header');
-        if (headerEl) headerEl.classList.toggle('header-hidden', isHidden);
-
-        // If your mapbox.js stores the map instance on window.diasporaMap, this prevents any resize shimmer.
-        window.diasporaMap?.resize?.();
-      }
-
-      // Start stable (even if header is injected late, layout won't shift because space is reserved + header is fixed)
-      setHeaderHidden(false);
-
-      pageWrapper?.addEventListener('scroll', function() {
-        const scrollTop = pageWrapper.scrollTop;
-        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
-
-        if (scrollTop < scrollThreshold) {
-          setHeaderHidden(false);
-          lastScrollTop = scrollTop;
-          return;
+        
+        // --- 1. 初始化水纹特效 (jQuery Ripples) ---
+        try {
+            $('.ripple-effect').ripples({
+                resolution: 512,  // 渲染分辨率
+                dropRadius: 25,   // 波纹半径
+                perturbance: 0.04 // 扰动量 (越小越平滑)
+            });
+        } catch (e) {
+            console.log("Ripples effect not supported or failed to load.");
         }
 
-        setHeaderHidden(scrollTop > lastScrollTop);
-        lastScrollTop = scrollTop;
-      });
+        // --- 2. Mapbox 地图初始化 ---
+        // TODO: !!! 请在这里替换为你自己的 Mapbox Access Token !!!
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'; 
+
+        const map = new mapboxgl.Map({
+            container: 'diaspora-map',
+            // 使用 Mapbox Light 风格，非常适合你的米色背景
+            style: 'mapbox://styles/mapbox/light-v11', 
+            center: [-98.5795, 39.8283], // 中心定位在北美
+            zoom: 2.5, // 显示大洲视图
+            projection: 'mercator',
+            interactive: false, // 禁用交互（纯展示用，如需交互改为 true）
+            cooperativeGestures: true
+        });
+
+        // 可以在这里添加简单的 Marker 标记重要城市
+        // new mapboxgl.Marker({ color: '#1a1a1a' }).setLngLat([-122.4194, 37.7749]).addTo(map); // San Francisco
+        // new mapboxgl.Marker({ color: '#1a1a1a' }).setLngLat([-74.0060, 40.7128]).addTo(map); // New York
     });
   </script>
 </body>
