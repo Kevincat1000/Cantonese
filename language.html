@@ -11,6 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
+  <!-- Header Injector (Make sure this file exists in your assets folder) -->
+  <script src="./assets/header.js" defer></script>
+
   <style>
     :root { 
       --header-h: 73px; 
@@ -20,7 +23,7 @@
       --main-font: 'Gentium Book Plus', serif;
       --theme-red: #a21a1a;
       --theme-gold: #c5a059;
-      --theme-teal: #2D7B73; /* New specific color */
+      --theme-teal: #2D7B73;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -40,13 +43,27 @@
       color: var(--text-color);
     }
 
+    /* HEADER STYLES (Placeholder to ensure visibility) */
+    header[data-site-header="1"] {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+      background: var(--bg-color); /* Fallback */
+    }
+    .header-hidden {
+      transform: translateY(-100%);
+    }
+
     .snap-item {
       scroll-snap-align: start;
       scroll-snap-stop: always;
       min-height: 100vh;
       width: 100%;
       position: relative;
-      overflow: hidden; /* Ensure content doesn't bleed */
+      overflow: hidden;
     }
 
     .first-section-wrapper {
@@ -558,13 +575,13 @@
 
     /* Title Styling */
     .diglossia-main-title {
-      font-size: 1.8rem; /* Adjusted for one line */
+      font-size: 1.8rem;
       font-weight: bold;
-      text-align: left; /* Left Aligned */
-      margin-bottom: 30px; /* Reduced gap */
+      text-align: left;
+      margin-bottom: 20px; /* Reduced gap */
       margin-top: 0;
       line-height: 1.2;
-      white-space: nowrap; /* Try to force one line */
+      white-space: nowrap;
       overflow: visible;
     }
     
@@ -596,13 +613,13 @@
       background: rgba(255,255,255,0.5);
       font-size: 0.95rem;
     }
-    .mandarin-box { border-color: #4682b4; color: #2c5270; } /* Steel Blue */
+    .mandarin-box { border-color: #4682b4; color: #2c5270; }
     
-    /* UPDATED: Cantonese Box Color */
+    /* Cantonese Box Color */
     .cantonese-box { 
         border-color: var(--theme-teal); 
         color: var(--theme-teal); 
-        font-weight: bold; /* Optional to make text clearer */
+        font-weight: bold;
     }
 
     .official-status-note {
@@ -626,7 +643,15 @@
       margin-top: 20px;
     }
     .book-figure:hover { transform: rotate(0deg) scale(1.02); }
-    .book-figure img { width: 100%; height: auto; display: block; border: 1px solid #eee; }
+    
+    /* UPDATED: Book image 50% width */
+    .book-figure img { 
+      width: 50%; 
+      height: auto; 
+      display: block; 
+      border: 1px solid #eee;
+      margin: 0 auto; /* Center it */
+    }
     .caption-main { display: block; font-weight: bold; margin-top: 15px; color: var(--theme-red); }
 
     /* --- Part 2 Grid (B & C + Evidence) --- */
@@ -634,18 +659,18 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
-      margin-bottom: 30px; /* Reduced gap before visual evidence */
+      margin-bottom: 10px; /* Further Reduced gap before visual evidence */
     }
 
     /* --- Visual Comparison Section --- */
     .visual-comparison-section {
       text-align: center;
-      margin-top: 10px; /* Minimal top margin */
+      margin-top: 0;
     }
     
     .comparison-title {
       font-size: 1.5rem;
-      margin-bottom: 20px; /* Reduced gap */
+      margin-bottom: 15px; /* Reduced gap */
       position: relative;
       display: inline-block;
     }
@@ -662,26 +687,36 @@
     }
     .comparison-figure { flex: 1; margin: 0; text-align: left; }
     
+    /* UPDATED: Image height 200px */
     .img-wrapper {
       overflow: hidden;
       border-radius: 4px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      height: 300px;
+      height: 200px; /* Reduced from 300px */
     }
     .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .comparison-figure:hover img { transform: scale(1.05); }
 
     /* Styling the contrast */
     .old-era .img-wrapper { border-bottom: 5px solid var(--theme-red); }
-    /* UPDATED: Removed Sepia Filter for Old Era */
+    /* UPDATED: Filter removed, keeping original greyish tone */
     .sepia-tone img { filter: none; } 
 
     .new-era .img-wrapper { border-bottom: 5px solid #4682b4; }
     .cool-tone img { filter: saturate(1.2) contrast(1.1); }
 
-    .caption-year { display: block; font-size: 1.1rem; font-weight: bold; margin-top: 15px; }
-    .old-era .caption-year { color: var(--theme-red); }
-    .new-era .caption-year { color: #4682b4; }
+    /* UPDATED: Caption Styles (All Black, 14px) */
+    .caption-year { display: block; margin-top: 10px; }
+    .caption-sub { display: block; }
+
+    /* Enforce black and small font */
+    .old-era .caption-year, .old-era .caption-sub,
+    .new-era .caption-year, .new-era .caption-sub {
+        color: #000000 !important;
+        font-size: 14px !important;
+        font-weight: normal;
+        line-height: 1.4;
+    }
 
     .shift-arrow {
       display: flex;
@@ -701,15 +736,19 @@
         gap: 40px;
       }
       .book-figure { transform: none; max-width: 400px; margin: 0 auto; }
+      .book-figure img { width: 40%; } /* Smaller on mobile */
       .shift-arrow { transform: rotate(90deg); margin: 20px 0; }
       .comparison-figure { width: 100%; }
-      .img-wrapper { height: 250px; }
+      .img-wrapper { height: 200px; }
       .diglossia-main-title { white-space: normal; }
     }
   </style>
 </head>
 
 <body>
+  <!-- HEADER RE-ADDED (Empty container for JS injection) -->
+  <header data-site-header="1"></header>
+
   <!-- PART 1 & 2: Header (injected) & Flashcards -->
   <section class="snap-item first-section-wrapper">
     <div class="page-wrapper">
@@ -923,14 +962,16 @@
       <div class="institutional-grid">
         <div class="content-block">
           <h4 class="era-subtitle-main">B. Institutional Production of “Standard” Chinese</h4>
+          <!-- CONDENSED TEXT -->
           <p>
-            Heritage education is a primary site where this hierarchy is produced. In many Chinese heritage schools, classrooms become arenas where Mandarin is enforced as the only "proper" identity. Other repertoires, including Cantonese, are often treated as secondary or invisible. The outcome is not only a language shift, but a redefinition of authenticity. Students learn that legitimate “Chinese” is what schools, tests, and formal curricula recognize—often Mandarin by default.
+            Heritage education is a primary site of hierarchy. In many schools, Mandarin is enforced as the only "proper" identity, rendering Cantonese secondary or invisible. This redefines authenticity: students learn that legitimate “Chinese” is simply what formal curricula recognize—Mandarin by default.
           </p>
         </div>
         <div class="content-block">
           <h4 class="era-subtitle-main">C. The Supply Chain Disruption: State Standardization</h4>
+          <!-- CONDENSED TEXT -->
           <p>
-            A major driver of this shift comes from upstream: the standardization policies in the People's Republic of China. The <i>Law on the Standard Spoken and Written Chinese Language</i> (2000) institutionalized the promotion of “Putonghua” (Mandarin) nationwide. This policy strengthened Mandarin as the only language of literacy and formal domains, even in historically Cantonese-speaking regions. Consequently, the historical “supply chain” of monolingual new Cantonese migrants has been disrupted.
+            Upstream, China’s <i>Standard Spoken and Written Chinese Language Law</i> (2000) institutionalized "Putonghua" nationwide. This policy cemented Mandarin as the sole language of literacy, even in Cantonese regions. Consequently, the historical “supply chain” of monolingual Cantonese migrants has been disrupted.
           </p>
         </div>
       </div>
@@ -1104,7 +1145,7 @@
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // Standard texture for all sections including new pages
+        // Standard texture for all sections
         const fillStyle = 'rgba(100, 90, 80, 0.05)';
         ctx.fillStyle = fillStyle; 
         for (let i = 0; i < canvas.width; i += 3) {
