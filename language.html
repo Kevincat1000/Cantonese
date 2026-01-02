@@ -23,51 +23,45 @@
       --bg-color: #F5F0E5;
       --text-color: #2c2c2c;
       --caption-color: #555;
+      --main-font: 'Gentium Book Plus', serif;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
-    /* --- NEW: Scroll Snap Setup on HTML --- */
+    /* --- Scroll Snap Setup on HTML --- */
     html { 
       scrollbar-gutter: stable;
-      /* Enables vertical scrolling with mandatory snapping points */
       scroll-snap-type: y mandatory;
-      /* Adds smooth scrolling behavior between snap points */
       scroll-behavior: smooth;
-      height: 100%; /* Ensure full height for snapping context */
+      height: 100%;
       overflow-y: scroll;
     }
 
     body {
       background: var(--bg-color);
-      font-family: 'Gentium Book Plus', serif;
+      font-family: var(--main-font);
       line-height: 1.6;
-      /* Padding top handled by first section wrapper now for better snapping alignment */
-      /* padding-top: var(--header-h, 73px); */ 
       min-height: 100%;
+      color: var(--text-color);
     }
 
-    /* --- NEW: Common class for full-page snapping sections --- */
+    /* --- Common class for full-page snapping sections --- */
     .snap-item {
-      /* Defines that the top of this element should snap to the top of the viewport */
       scroll-snap-align: start;
-      /* Forces the scroll to stop at this element (optional, adds friction) */
       scroll-snap-stop: always;
-      /* Ensures each section takes at least the full viewport height */
       min-height: 100vh;
       width: 100%;
       position: relative;
     }
 
-    /* Wrapper for the first section to handle header padding and centering */
     .first-section-wrapper {
       padding-top: var(--header-h, 73px);
       display: flex;
-      align-items: center; /* Optional: centers cards vertically on large screens */
+      align-items: center;
     }
 
     .page-wrapper {
       overflow-x: hidden;
-      width: 100%; /* Ensure it takes full width */
+      width: 100%;
     }
 
     .content-inner {
@@ -154,17 +148,18 @@
       font-weight: 700;
       color: #1a1a1a;
       line-height: 1.1;
+      font-family: inherit; 
     }
 
     .face-text {
       margin: 0;
       color: #2d3748;
       line-height: 1.5;
+      font-family: inherit;
     }
 
     /* ===== Research Section (Black Effect Section) ===== */
     #research-section {
-      /* Kept your original styles */
       position: relative;
       width: 100%;
       height: 100vh;
@@ -173,15 +168,11 @@
       justify-content: center;
       overflow: hidden;
       background-color: #0a0a0a;
-      
-      /* FIX FOR FADE-IN: Ensure opacity 0 and explicit transition property */
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
-      /* Ensure it doesn't block interaction when invisible */
       pointer-events: none; 
     }
 
-    /* The JS adds this class to trigger the fade-in */
     #research-section.is-visible {
       opacity: 1;
       pointer-events: auto;
@@ -212,7 +203,7 @@
       margin: 0 0 10px 0;
       color: #d4af37;
       font-weight: normal;
-      font-family: 'Georgia', serif;
+      font-family: 'Georgia', serif; 
     }
 
     .research-content-box h2 {
@@ -221,6 +212,7 @@
       color: #a0a0a0;
       margin-bottom: 30px;
       font-weight: normal;
+      font-family: inherit;
     }
 
     .research-content-box p {
@@ -228,6 +220,7 @@
       line-height: 1.8;
       margin: 0;
       color: #e0e0e0;
+      font-family: inherit;
     }
 
     .research-content-box .highlight {
@@ -252,7 +245,6 @@
     #evolution-section {
       position: relative;
       background: var(--bg-color);
-      /* Changed to min-height 100vh for snap alignment */
       min-height: 100vh; 
       height: auto;
       display: flex;
@@ -280,10 +272,9 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 60px;
-      width: 100%; /* Ensure full width */
+      width: 100%;
     }
 
-    /* Horizontal Era Grid */
     .era-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -306,13 +297,12 @@
       transform: translateY(0);
     }
 
-    /* Staggered delays */
     .era-section:nth-child(1) { transition-delay: 0s; }
-    .era-section:nth-child(2) { transition-delay: 0.5s; /* Reduced delay for faster snap feel */ }
+    .era-section:nth-child(2) { transition-delay: 0.5s; }
     .era-section:nth-child(3) { transition-delay: 1s; }
 
     .era-title {
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      font-family: inherit;
       font-size: 1.1rem;
       font-weight: normal;
       margin: 0 0 12px 0;
@@ -320,36 +310,39 @@
       color: var(--text-color);
     }
 
+    .era-title-large {
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
     .era-subtitle {
       display: block;
       margin-top: 5px;
     }
 
-    /* Expanded Era Section (Section 1) */
     .era-section-expanded {
       grid-column: 1 / -1;
       text-align: left;
     }
 
-    .era-section-expanded .era-title {
-      font-size: 1.3rem;
-      margin-bottom: 8px;
-    }
-
     .era-subtitle-main {
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      font-family: inherit;
       font-size: 18px;
-      font-weight: normal;
+      font-weight: bold;
       color: #a21a1a;
-      margin: 0;
+      /* CHANGE 1: Increased bottom margin for more spacing */
+      margin: 0 0 24px 0; 
       line-height: 1.4;
     }
 
     .era-columns {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 40px;
-      align-items: start;
+      gap: 50px; /* Slightly increased gap between text and image columns */
+      /* CHANGE 2: Changed from 'start' to 'center' to vertically center the image column */
+      align-items: center; 
+      margin-top: 20px;
     }
 
     .era-column {
@@ -364,7 +357,7 @@
     }
 
     .era-column p {
-      font-family: 'Gentium Book Plus', serif;
+      font-family: inherit;
       font-size: 0.95rem;
       line-height: 1.7;
       color: var(--text-color);
@@ -372,9 +365,12 @@
       text-align: justify;
     }
 
+    /* CHANGE 3: Updated Right column to center content */
     .era-column-right {
       display: flex;
       flex-direction: column;
+      align-items: center; /* Ensures image and caption are centered horizontally within the column */
+      justify-content: center; /* Ensures vertical centering if needed */
     }
 
     .era-column-image {
@@ -385,21 +381,24 @@
       width: 100%;
       border: 8px solid #fff;
       box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+      display: block; /* Removes bottom space below image */
     }
 
     .era-column-caption {
       display: block;
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      font-family: inherit;
       font-size: 0.8rem;
       color: var(--caption-color);
-      margin-top: 10px;
+      /* CHANGE 4: Adjusted margin for better spacing below image */
+      margin-top: 12px; 
+      text-align: center;
     }
 
     @media (max-width: 1000px) {
       #evolution-section {
         height: auto;
-        min-height: 100vh; /* Ensure it still snaps on mobile */
-        padding: 100px 0 60px; /* Increase top padding for mobile header */
+        min-height: 100vh;
+        padding: 100px 0 60px;
       }
       .evolution-container {
         padding: 0 30px;
@@ -415,14 +414,17 @@
       }
       .era-columns {
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 30px;
+        /* On mobile, revert to start alignment as stacked looks better than centered */
+        align-items: start; 
       }
       .era-column-image img {
-        max-width: 280px;
+        max-width: 320px; /* Slightly larger on mobile for better view */
+        margin: 0 auto;
       }
       .era-title { font-size: 1.2rem; }
-      .era-section-expanded .era-title { font-size: 1.3rem; }
-      .era-subtitle-main { font-size: 16px; }
+      .era-title-large { font-size: 24px; }
+      .era-subtitle-main { font-size: 16px; margin-bottom: 18px; }
       .era-section:nth-child(1) { transition-delay: 0s; }
       .era-section:nth-child(2) { transition-delay: 0.5s; }
       .era-section:nth-child(3) { transition-delay: 1s; }
@@ -432,16 +434,12 @@
 
 <body>
   <!-- PART 1 & 2: Header (injected) & Flashcards -->
-  <!-- Wrapped in a snap-item section -->
   <section class="snap-item first-section-wrapper">
     <div class="page-wrapper">
       <div class="container">
         <div class="content-inner">
-          <!-- Spacer for visual balance if needed, or removed -->
-          <!-- <div style="height: 1rem;"></div> -->
-
           <div class="flash-grid">
-            <!-- 1 飲茶 -->
+            <!-- Cards kept identical -->
             <div class="flashcard">
               <button type="button"></button>
               <div class="flashcard-inner">
@@ -457,8 +455,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 2 食檸檬 -->
             <div class="flashcard">
               <button type="button"></button>
               <div class="flashcard-inner">
@@ -474,8 +470,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 3 放飛機 -->
             <div class="flashcard">
               <button type="button"></button>
               <div class="flashcard-inner">
@@ -491,8 +485,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 4 吹水 -->
             <div class="flashcard">
               <button type="button"></button>
               <div class="flashcard-inner">
@@ -508,8 +500,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 5 食咗飯未？ -->
             <div class="flashcard">
               <button type="button"></button>
               <div class="flashcard-inner">
@@ -525,8 +515,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 6 生舊叉燒好過生你 -->
             <div class="flashcard">
               <button type="button"></button>
               <div class="flashcard-inner">
@@ -542,8 +530,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 7 炒魷魚 -->
             <div class="flashcard">
               <button type="button"></button>
               <div class="flashcard-inner">
@@ -559,8 +545,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- 8 雞同鴨講 -->
             <div class="flashcard">
               <button type="button"></button>
               <div class="flashcard-inner">
@@ -576,7 +560,6 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -584,7 +567,6 @@
   </section>
 
   <!-- PART 3: Research Section with Particle Animation -->
-  <!-- Added snap-item class -->
   <section id="research-section" class="snap-item">
     <canvas id="particle-canvas"></canvas>
     
@@ -601,7 +583,6 @@
   </section>
 
   <!-- PART 4: Evolution of Cantonese Section (Narrative 1) -->
-  <!-- Added snap-item class -->
   <section id="evolution-section" class="snap-item">
     <canvas id="textureCanvas"></canvas>
     
@@ -610,7 +591,7 @@
       <div class="era-grid">
         <!-- Section 1 -->
         <div class="era-section era-section-expanded">
-          <h3 class="era-title">1. The Era of Hegemony, 1850s–1970s</h3>
+          <h3 class="era-title era-title-large">1. The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</h3>
           <div class="era-columns">
             <div class="era-column era-column-left">
               <h4 class="era-subtitle-main">A. Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
@@ -643,30 +624,21 @@
     // Header Auto-hide Script
     (function () {
       "use strict";
-
       let lastScrollTop = 0;
       const scrollThreshold = 100;
       const scrollDelta = 5;
-
-      // Changed event listener to window, but adjusted for potential scroll snap behavior issues if they arise.
-      // Using window.pageYOffset usually works best across browsers.
       window.addEventListener("scroll", function () {
         const header = document.querySelector("header[data-site-header='1']");
         if (!header) return;
-
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
         if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
-
         if (scrollTop < scrollThreshold) {
           header.classList.remove("header-hidden");
           lastScrollTop = scrollTop;
           return;
         }
-
         if (scrollTop > lastScrollTop) header.classList.add("header-hidden");
         else header.classList.remove("header-hidden");
-
         lastScrollTop = scrollTop;
       }, { passive: true });
     })();
@@ -676,26 +648,20 @@
       const canvas = document.getElementById('particle-canvas');
       const ctx = canvas.getContext('2d');
       const section = document.getElementById('research-section');
-
       let particles = [];
       let animationFrame;
       const characters = ['食', '揾', '同', '乡', '家', '货', '钱', '语'];
       let isActive = false;
 
       function resize() {
-        // Set canvas size to match the section size precisely
         canvas.width = section.clientWidth;
         canvas.height = section.clientHeight;
       }
       window.addEventListener('resize', resize);
-      // Initial resize called slightly later to ensure container is rendered
       setTimeout(resize, 100);
 
       class Particle {
-        constructor() {
-          this.init();
-        }
-
+        constructor() { this.init(); }
         init() {
           this.x = Math.random() * canvas.width;
           this.y = Math.random() * canvas.height;
@@ -706,17 +672,13 @@
           this.alpha = 0;
           this.targetAlpha = Math.random() * 0.5 + 0.1;
         }
-
         update() {
           this.x += this.speedX;
           this.y += this.speedY;
-
           if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
           if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-
           if (this.alpha < this.targetAlpha) this.alpha += 0.005;
         }
-
         draw() {
           ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
           ctx.font = `${this.size}px serif`;
@@ -726,31 +688,22 @@
 
       function initParticles() {
         particles = [];
-        for (let i = 0; i < 60; i++) {
-          particles.push(new Particle());
-        }
+        for (let i = 0; i < 60; i++) { particles.push(new Particle()); }
       }
 
       function animate() {
         if (!isActive) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach(p => {
-          p.update();
-          p.draw();
-        });
-        
+        particles.forEach(p => { p.update(); p.draw(); });
         animationFrame = requestAnimationFrame(animate);
       }
 
-      // Adjusted thresholds for better triggering with scroll snap
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            if (!isActive) { // Prevents restarting if already active
+            if (!isActive) {
                 isActive = true;
                 section.classList.add('is-visible');
-                // Resize again just to be sure before animating
                 resize();
                 initParticles();
                 animate();
@@ -763,18 +716,14 @@
             }
           }
         });
-      }, { threshold: 0.4 }); // Trigger when 40% visible
-
+      }, { threshold: 0.4 });
       observer.observe(section);
 
-      // Mouse interaction
       section.addEventListener('mousemove', (e) => {
         if (!isActive) return;
-        // Get mouse position relative to canvas
         const rect = canvas.getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
-
         particles.forEach(p => {
           let dx = mouseX - p.x;
           let dy = mouseY - p.y;
@@ -792,13 +741,11 @@
       const canvas = document.getElementById('textureCanvas');
       const ctx = canvas.getContext('2d');
       const section = document.getElementById('evolution-section');
-
       function resizeCanvas() {
         canvas.width = section.clientWidth;
         canvas.height = section.clientHeight;
         drawTexture();
       }
-
       function drawTexture() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'rgba(100, 90, 80, 0.05)'; 
@@ -811,13 +758,11 @@
           }
         }
       }
-
       window.addEventListener('resize', resizeCanvas);
-      // Using intersection observer to draw only when needed and ensure correct sizing
       const observer = new IntersectionObserver((entries) => {
           if (entries[0].isIntersecting) {
               resizeCanvas();
-              observer.disconnect(); // Only need to draw once
+              observer.disconnect();
           }
       });
       observer.observe(section);
@@ -827,31 +772,19 @@
     (function() {
       const eraGrid = document.querySelector('.era-grid');
       const sections = document.querySelectorAll('.era-section');
-
       const observerOptions = {
-        root: null,
-        threshold: 0.2, // Trigger earlier
-        rootMargin: "0px"
+        root: null, threshold: 0.2, rootMargin: "0px"
       };
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            sections.forEach(section => {
-              section.classList.add('visible');
-            });
+            sections.forEach(section => { section.classList.add('visible'); });
           } else {
-            // Optional: remove this else block if you want them to stay visible once scrolled past
-            sections.forEach(section => {
-              section.classList.remove('visible');
-            });
+            sections.forEach(section => { section.classList.remove('visible'); });
           }
         });
       }, observerOptions);
-
-      if (eraGrid) {
-        observer.observe(eraGrid);
-      }
+      if (eraGrid) { observer.observe(eraGrid); }
     })();
   </script>
 </body>
