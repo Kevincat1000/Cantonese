@@ -5,224 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Symbol 5: Lion Dance - Cantonese in Americas</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
-
-  <!-- Header injector -->
   <script src="./assets/header.js" defer></script>
 
   <style>
     :root { --header-h: 73px; }
-
-    html, body{
-      margin:0;
-      padding:0;
-      height:100%;
-      overflow:hidden;
-      background:#F5F0E5;
-      font-family:'Gentium Book Plus', serif;
-    }
-
-    /* fade transition */
-    body{ opacity:0; transition: opacity 260ms ease; }
-    body.page-ready{ opacity:1; }
-
-    .page-wrapper{
-      height: calc(100vh - var(--header-h));
-      overflow-y: auto;
-      overflow-x: hidden;
-      scrollbar-gutter: stable;
-      background:#F5F0E5;
-    }
-
-    /* Hero */
-    .hero{
-      position: relative;
-      min-height: 52vh;
-      display:flex;
-      align-items:flex-end;
-      padding: 2.2rem 1.25rem;
-      overflow:hidden;
-      background:#231d16;
-    }
-
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: url("images/symbol5-lion.jpg") center/cover no-repeat;
-      transform: scale(1.02);
-      filter: saturate(0.98);
-      opacity: 0.9;
-    }
-
-    .hero::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: linear-gradient(
-        to top,
-        rgba(245,240,229,0.92) 0%,
-        rgba(245,240,229,0.35) 55%,
-        rgba(245,240,229,0.05) 100%
-      );
-    }
-
-    .hero-inner{
-      position:relative;
-      z-index:2;
-      max-width: 1152px;
-      margin: 0 auto;
-      width:100%;
-      padding: 0 0.25rem;
-      color:#231d16;
-    }
-
-    .kicker{
-      font: 600 12px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(35,29,22,0.7);
-      margin: 0 0 10px 0;
-      display:inline-flex;
-      background: rgba(245,240,229,0.65);
-      padding: 8px 12px;
-      border-radius: 999px;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-    }
-
-    .title{
-      margin: 0 0 10px 0;
-      font-size: 2.35rem;
-      line-height: 1.05;
-      color:#231d16;
-    }
-
-    .subtitle{
-      margin: 0;
-      max-width: 78ch;
-      font-size: 1.05rem;
-      line-height: 1.65;
-      color: rgba(35,29,22,0.88);
-      background: rgba(245,240,229,0.45);
-      padding: 10px 12px;
-      border-radius: 14px;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      display:inline-block;
-    }
-
-    /* Content */
-    .content{
-      max-width: 1152px;
-      margin: 0 auto;
-      padding: 2.2rem 1.25rem 3.2rem;
-      color:#231d16;
-    }
-
-    .content p{
-      margin: 0 0 1.15rem 0;
-      line-height: 1.85;
-      font-size: 1rem;
-      max-width: 86ch;
-      color: rgba(35,29,22,0.92);
-    }
-
-    .back-wrap{
-      margin-top: 2.2rem;
-      display:flex;
-      justify-content:center;
-    }
-
-    .back-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 12px 16px;
-      border-radius: 999px;
-      background: rgba(245,240,229,0.85);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      text-decoration:none;
-      color:#231d16;
-      font: 700 14px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      transition: transform .18s ease, background .18s ease, opacity .18s ease;
-      opacity: .95;
-    }
-
-    .back-btn:hover{
-      transform: translateY(-2px) scale(1.01);
-      background: rgba(245,240,229,0.95);
-      opacity: 1;
-    }
-
-    @media (min-width: 1024px){
-      .hero{ padding: 3rem 2rem; min-height: 58vh; }
-      .content{ padding: 2.6rem 2rem 3.6rem; }
-      .title{ font-size: 3rem; }
-    }
+    html, body{ margin:0; padding:0; height:100%; background:#F5F0E5; font-family:'Gentium Book Plus', serif; overflow:hidden; }
+    .page-wrapper{ height: calc(100vh - var(--header-h)); overflow-y:auto; overflow-x:hidden; background:#F5F0E5; }
+    .content{ max-width:1100px; margin:0 auto; padding:28px 18px 48px; }
+    .hero{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:22px; align-items:start; }
+    .hero-media{ border-radius:16px; overflow:hidden; background:#e9e2d5; min-height:360px; }
+    .hero-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .hero-text h1{ margin:0 0 10px 0; font-size:34px; line-height:1.08; color:#1a1a1a; }
+    .hero-text .sub{ margin:0 0 18px 0; font:700 14px/1.3 'Lato', system-ui, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:rgba(0,0,0,0.55); }
+    .body{ margin-top:18px; font-size:16px; line-height:1.75; color:rgba(0,0,0,0.82); max-width:72ch; }
+    .body p{ margin:0 0 14px 0; }
+    .back{ margin-top:26px; display:inline-flex; align-items:center; justify-content:center; padding:12px 16px; border-radius:999px; background:rgba(0,0,0,0.08); color:#1a1a1a; text-decoration:none; font:700 14px/1 'Lato', system-ui, sans-serif; transition:transform .15s ease, background .15s ease; }
+    .back:hover{ transform:translateY(-1px); background:rgba(0,0,0,0.12); }
+    @media (max-width:900px){ .hero{ grid-template-columns:1fr; } .hero-media{ min-height:260px; } .body{ max-width:none; } }
   </style>
 </head>
 
 <body>
-  <!-- header injected by ./assets/header.js -->
-
   <div class="page-wrapper">
-    <section class="hero" id="top" aria-label="Symbol 5 Lion Dance">
-      <div class="hero-inner">
-        <div class="kicker">Symbol 5</div>
-        <h1 class="title">Lion Dance (舞狮)</h1>
-        <p class="subtitle">Placeholder subtitle. Replace with your theme line.</p>
-      </div>
-    </section>
+    <div class="content">
+      <div class="hero">
+        <div class="hero-text">
+          <div class="sub">Symbol 5</div>
+          <h1>Lion Dance</h1>
 
-    <section class="content">
-      <p>
-        Placeholder paragraph 1. Paste your full Lion Dance write-up here (long-form, no abbreviation).
-      </p>
-      <p>
-        Placeholder paragraph 2. Add examples, institutions, community groups, festivals, and how it functions as public culture.
-      </p>
-      <p>
-        Placeholder paragraph 3. Tie it back to cultural regeneration, diaspora visibility, and embodied practice.
-      </p>
+          <div class="body">
+            <p><strong>Theme:</strong> [YOUR THEME HERE]</p>
+            <p>[PASTE YOUR FULL SYMBOL 5 TEXT HERE]</p>
+          </div>
 
-      <div class="back-wrap">
-        <a class="back-btn" href="culture.html">← Back to Cultures</a>
+          <a class="back" href="culture.html">Back to Cultures</a>
+        </div>
+
+        <div class="hero-media">
+          <img src="images/symbol-5.jpg" alt="Symbol 5 image">
+        </div>
       </div>
-    </section>
+    </div>
   </div>
-
-  <script>
-    // fade-in on load
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('page-ready');
-    });
-
-    // fade-out on internal link click
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (!a) return;
-
-      const href = a.getAttribute('href') || '';
-      const isSameTab = !a.target || a.target === '_self';
-      const isHash = href.startsWith('#');
-      const isExternal = /^https?:\/\//i.test(href);
-
-      if (!href || isHash || isExternal || !isSameTab) return;
-
-      e.preventDefault();
-      document.body.classList.remove('page-ready');
-      setTimeout(() => { window.location.href = href; }, 260);
-    });
-  </script>
 </body>
 </html>
