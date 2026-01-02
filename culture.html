@@ -45,17 +45,19 @@
       position:absolute;
       inset:0;
       background: url("images/culture-bg.jpg") center / cover no-repeat;
+      transform: scale(1.01);            /* ✅ 原来 1.04+，现在明显收敛 */
     }
 
+    /* softer, tighter vignette */
     .culture-bg::after{
       content:"";
       position:absolute;
       inset:0;
       background: radial-gradient(
-        circle at 50% 60%,
+        circle at 50% 58%,
         rgba(245,240,229,0) 0%,
-        rgba(245,240,229,0.15) 40%,
-        rgba(245,240,229,0.35) 100%
+        rgba(245,240,229,0.10) 45%,
+        rgba(245,240,229,0.22) 100%
       );
       pointer-events:none;
     }
@@ -65,7 +67,7 @@
       position:absolute;
       left:0;
       right:0;
-      top: 14%;
+      top: 15%;
       display:flex;
       justify-content:center;
       z-index:5;
@@ -83,19 +85,19 @@
       backdrop-filter: blur(8px);
     }
 
-    /* ===== SYMBOLS (×2 SIZE) ===== */
+    /* ===== SYMBOLS ===== */
     .symbol-row{
       position:absolute;
       left:50%;
-      top: 58%;                     /* 👈 视觉中心 */
+      top: 58%;
       transform: translateX(-50%);
       display:flex;
-      gap: 56px;                    /* wider spacing */
+      gap: 48px;                        /* 稍微收紧 */
       z-index:6;
     }
 
     .symbol-btn{
-      width: 180px;                 /* 🔥 ×2 */
+      width: 180px;                     /* 大圆仍然是主视觉 */
       height: 180px;
       border-radius: 999px;
       background: rgba(245,240,229,0.72);
@@ -109,13 +111,14 @@
     }
 
     .symbol-btn:hover{
-      transform: translateY(-10px) scale(1.06);
-      background: rgba(245,240,229,0.92);
+      transform: translateY(-8px) scale(1.04);  /* hover 也更克制 */
+      background: rgba(245,240,229,0.9);
     }
 
+    /* 🔑 icon 缩小到 ≈ 1 / 1.5 */
     .symbol-btn img{
-      width: 120px;                 /* 🔥 ×2 */
-      height: 120px;
+      width: 80px;                      /* 原 120 → 80 */
+      height: 80px;
       border-radius: 999px;
       object-fit: cover;
     }
@@ -124,7 +127,7 @@
     @media (max-width: 900px){
       .symbol-row{
         top: 64%;
-        gap: 26px;
+        gap: 22px;
         flex-wrap: wrap;
         justify-content:center;
       }
@@ -133,8 +136,8 @@
         height: 120px;
       }
       .symbol-btn img{
-        width: 78px;
-        height: 78px;
+        width: 56px;                    /* 同样按 1 / 1.5 */
+        height: 56px;
       }
     }
 
