@@ -19,7 +19,7 @@
         z-index:1000;
         transform:translateY(0);
         transition:transform .28s ease-in-out;
-        font-family:'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family:'Exo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       }
 
       header[data-site-header="1"].header-hidden{
@@ -58,6 +58,7 @@
       }
 
       header[data-site-header="1"] .logo-main{
+        font-family:'Exo', sans-serif;
         font-size:18px;
         font-weight:700;
         color:#8B2332;
@@ -66,6 +67,7 @@
       }
 
       header[data-site-header="1"] .logo-sub{
+        font-family:'Exo', sans-serif;
         font-size:14px;
         font-weight:700;
         color:#8B2332;
@@ -77,7 +79,7 @@
         display:none;
         align-items:center;
         justify-content:flex-end;
-        gap:1.5rem;
+        gap:1.25rem;
         margin-left:auto;
       }
 
@@ -115,8 +117,8 @@
       }
 
       header[data-site-header="1"] .header-search input{
-        width:110px;
-        max-width:18vw;
+        width:100px;
+        max-width:16vw;
         height:32px;
         border-radius:6px;
         border:1px solid #E5DBCA;
@@ -236,9 +238,10 @@
             </a>
 
             <nav class="nav-menu" aria-label="Primary">
+              <a href="about.html" class="nav-link">About</a>
               <a href="timeline.html" class="nav-link">Timeline</a>
-              <a href="language.html" class="nav-link">Language Power</a>
-              <a href="culture.html" class="nav-link">Culture Symbols</a>
+              <a href="language.html" class="nav-link">Language</a>
+              <a href="culture.html" class="nav-link">Culture</a>
               <a href="archives.html" class="nav-link">Archives</a>
               <a href="resources.html" class="nav-link">Resources</a>
 
@@ -262,9 +265,10 @@
           </div>
 
           <nav class="mobile-nav-menu" id="mobileNavMenu" aria-label="Mobile">
+            <div class="mobile-nav-item"><a href="about.html" class="mobile-nav-link">About</a></div>
             <div class="mobile-nav-item"><a href="timeline.html" class="mobile-nav-link">Timeline</a></div>
-            <div class="mobile-nav-item"><a href="language.html" class="mobile-nav-link">Language Power</a></div>
-            <div class="mobile-nav-item"><a href="culture.html" class="mobile-nav-link">Culture Symbols</a></div>
+            <div class="mobile-nav-item"><a href="language.html" class="mobile-nav-link">Language</a></div>
+            <div class="mobile-nav-item"><a href="culture.html" class="mobile-nav-link">Culture</a></div>
             <div class="mobile-nav-item"><a href="archives.html" class="mobile-nav-link">Archives</a></div>
             <div class="mobile-nav-item"><a href="resources.html" class="mobile-nav-link">Resources</a></div>
           </nav>
