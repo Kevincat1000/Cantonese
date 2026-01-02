@@ -14,7 +14,7 @@
   <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Injectors: 仅保留 Footer -->
+  <!-- Injectors: Footer only -->
   <script src="./assets/footer.js" defer></script>
 
   <style>
@@ -40,7 +40,7 @@
       overflow-x: hidden;
     }
 
-    /* --- 1. 悬浮导航 (Floating Nav) --- */
+    /* --- 1. Nav --- */
     .nav-float {
       position: fixed;
       top: 30px;
@@ -96,7 +96,7 @@
     .nav-float.on-dark:hover .nav-text { color: var(--accent-red); }
 
 
-    /* --- 2. Hero Section --- */
+    /* --- 2. Hero --- */
     .hero-section {
       position: relative;
       height: 100vh; 
@@ -181,25 +181,25 @@
       background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px);
     }
 
+    /* --- 新版标题样式 (左侧竖线) --- */
     .section-title {
       font-family: var(--font-heading);
       font-size: 24px;
       font-weight: 700;
       margin-bottom: 1.5rem;
-      position: relative;
-      padding-bottom: 12px;
       line-height: 1.3;
       margin-top: 0; 
+      
+      /* 竖线设计 */
+      position: relative;
+      padding-left: 20px; /* 文字与线的距离 */
+      border-left: 5px solid var(--accent-red); /* 左侧竖线 */
+      /* 移除之前的底部横线 */
+      padding-bottom: 0;
     }
     
     .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 80px;
-      height: 3px;
-      background-color: var(--accent-red);
+      display: none; /* 移除底部横线 */
     }
 
     .text-content { font-size: 1.05rem; line-height: 1.7; width: 100%; }
@@ -266,7 +266,9 @@
     .historical-image { width: 100%; height: 360px; object-fit: cover; border-radius: 8px; }
 
     .colonial-images { display: grid; gap: 2rem; margin-top: 2rem; }
-    .colonial-image { width: 100%; height: 260px; object-fit: cover; border-radius: 8px; }
+    
+    /* 修改：增加图片高度，减少裁切 */
+    .colonial-image { width: 100%; height: 340px; object-fit: cover; border-radius: 8px; }
 
     .tin-boom-layout { display: grid; gap: 2rem; margin-top: 1rem; }
     .tin-mine-wrapper {
@@ -306,11 +308,11 @@
       .grid-2-1 { grid-template-columns: 1.5fr 1fr; }
       .width-60 { max-width: 60%; }
       
-      /* 修改：地图左移并居中在右侧留白部分 */
+      /* 修改：地图上移 50px */
       .map-container {
         position: absolute; 
-        top: 0; 
-        right: 8%; /* 从 0 改为 8%，让它向左移动一点，不贴边 */
+        top: -50px;  /* 从 0 改为 -50px */
+        right: 8%; 
         width: 25%;
         margin-top: 0;
       }
@@ -465,23 +467,25 @@
             From the late 18th century, British colonial ports reshaped Guangdong migration routes. Penang
             (est. 1786) offered security and strong commercial prospects. In the 1790s, the Ghee Hin Kongsi 
             emerged as one of the earliest major Chinese brotherhoods in Penang. Strongly associated with Cantonese networks, it organized labor, protection, and mutual aid, anchoring Cantonese community life in the Straits Settlements.
+            Penang’s Ng Fook Thong (founded in 1819), often cited as an early Cantonese school in Malaya, also served as a temple gathering hub for Cantonese migrants.
           </p>
           <p>
             Following the establishment of Singapore in 1819, Cantonese migrants integrated into the colony's expanding economy. 
             In 1822, Cho Ah Chee established the first Cantonese dialect association, the Ning Yeung Wui Kuan. 
             This marked a pivotal moment of institutional consolidation for Singapore's Cantonese community.
+            By the early 1900s, many Cantonese migrants lived in Singapore shophouses, where shopfronts and upstairs lodging kept work and community tightly linked.
           </p>
         </div>
         
         <div class="colonial-images">
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="http://bit.ly/4924hNh" alt="Penang School" class="colonial-image">
-            <p class="caption text-dark-90">Penang Ng Fook Thong School, established in the 1820s<br>The first Cantonese school in Malaysia</p>
+            <p class="caption text-dark-90">Penang Ng Fook Thong (est. 1819)</p>
           </div>
           
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="https://sgarchi.wordpress.com/wp-content/uploads/2020/05/shophouses1900.jpg" alt="Shophouses" class="colonial-image">
-            <p class="caption text-dark-90">Shophouses in early 1900s Singapore,<br>where many Cantonese migrants lived.</p>
+            <p class="caption text-dark-90">Early 1900s Singapore Shophouses</p>
           </div>
         </div>
       </div>
