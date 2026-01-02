@@ -1,5 +1,5 @@
 :root {
-  --header-h: 73px;
+  --header-h: 60px;
 }
 
 html {
@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  padding-top: var(--header-h, 73px);
+  padding-top: var(--header-h, 60px);
 }
 
 body.no-header-space {
