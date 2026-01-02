@@ -65,27 +65,6 @@
       pointer-events:none;
     }
 
-    /* ===== Title pill ===== */
-    .symbol-hint{
-      position:absolute;
-      top: 18%;
-      left:50%;
-      transform: translateX(-50%);
-      z-index:5;
-      pointer-events:none;
-    }
-
-    .symbol-hint span{
-      font: 600 12px/1 'Lato', system-ui, sans-serif;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: rgba(0,0,0,0.55);
-      background: rgba(245,240,229,0.75);
-      padding: 10px 16px;
-      border-radius: 999px;
-      backdrop-filter: blur(6px);
-    }
-
     /* ===== Symbol row ===== */
     .symbol-row{
       position:absolute;
@@ -105,7 +84,7 @@
       cursor:pointer;
     }
 
-    /* === ICON 本体（126px）=== */
+    /* === ICON 本体（放大后版本）=== */
     .symbol-btn img{
       width: 126px;
       height: 126px;
@@ -138,10 +117,6 @@
   <div class="page-wrapper">
     <section class="culture-stage" aria-label="Culture Symbols">
       <div class="culture-bg" role="img" aria-label="Cantonese cultural background"></div>
-
-      <div class="symbol-hint">
-        <span>Culture Symbols</span>
-      </div>
 
       <div class="symbol-row">
         <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Faith">
