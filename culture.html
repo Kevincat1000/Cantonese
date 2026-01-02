@@ -24,7 +24,7 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden; /* no scrollbar */
+      overflow: hidden;
       background: #F5F0E5;
       font-family: 'Gentium Book Plus', serif;
     }
@@ -51,16 +51,15 @@
       filter: saturate(0.98);
     }
 
-    /* soft vignette */
     .culture-bg::after{
       content:"";
       position:absolute;
       inset:0;
       background: radial-gradient(
-        circle at 50% 65%,
+        circle at 50% 60%,
         rgba(245,240,229,0) 0%,
-        rgba(245,240,229,0.12) 45%,
-        rgba(245,240,229,0.28) 100%
+        rgba(245,240,229,0.12) 42%,
+        rgba(245,240,229,0.32) 100%
       );
       pointer-events:none;
     }
@@ -70,7 +69,7 @@
       position:absolute;
       left:0;
       right:0;
-      bottom: 138px;
+      top: 18%;
       display:flex;
       justify-content:center;
       z-index:5;
@@ -79,82 +78,85 @@
 
     .symbol-hint span{
       font: 600 12px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      letter-spacing: .14em;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: rgba(0,0,0,0.55);
       background: rgba(245,240,229,0.55);
-      padding: 8px 14px;
+      padding: 10px 18px;
       border-radius: 999px;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
 
-    /* ===== Symbol row ===== */
+    /* ===== Symbol row (FLOATING ON IMAGE) ===== */
     .symbol-row{
       position:absolute;
-      left:0;
-      right:0;
-      bottom: 28px;
+      left:50%;
+      top: 62%;
+      transform: translateX(-50%);
       display:flex;
       justify-content:center;
-      gap: 28px;           /* ✅ larger spacing */
-      padding: 0 18px;
-      z-index: 5;
+      gap: 40px;               /* wider spacing */
+      padding: 0 24px;
+      z-index: 6;
     }
 
     .symbol-btn{
-      width: 92px;         /* ✅ bigger */
-      height: 92px;        /* ✅ bigger */
+      width: 120px;            /* 🔥 BIG */
+      height: 120px;
       border-radius: 999px;
-      border: none;
-      background: rgba(245,240,229,0.65);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(245,240,229,0.68);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       display:flex;
       align-items:center;
       justify-content:center;
       cursor:pointer;
       text-decoration:none;
-      transition: transform .18s ease, background .18s ease, opacity .18s ease;
-      opacity: .92;
+      transition: transform .2s ease, background .2s ease;
     }
 
     .symbol-btn:hover{
-      transform: translateY(-2px) scale(1.02);
-      background: rgba(245,240,229,0.82);
-      opacity: 1;
+      transform: translateY(-6px) scale(1.05);
+      background: rgba(245,240,229,0.9);
     }
 
     .symbol-btn img{
-      width: 68px;         /* ✅ bigger icon */
-      height: 68px;        /* ✅ bigger icon */
+      width: 84px;             /* 🔥 BIG icon */
+      height: 84px;
       border-radius: 999px;
       object-fit: cover;
       display:block;
     }
 
-    @media (max-width: 560px){
+    /* ===== Mobile ===== */
+    @media (max-width: 768px){
+      .symbol-row{
+        top: 68%;
+        gap: 20px;
+      }
       .symbol-btn{
-        width: 76px;
-        height: 76px;
+        width: 86px;
+        height: 86px;
       }
       .symbol-btn img{
-        width: 56px;
-        height: 56px;
+        width: 60px;
+        height: 60px;
       }
+    }
+
+    @media (max-width: 480px){
       .symbol-row{
-        gap: 18px;
-        bottom: 18px;
-      }
-      .symbol-hint{
-        bottom: 118px;
+        flex-wrap: wrap;
+        top: 66%;
+        gap: 16px;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- header injected by ./assets/header.js -->
+  <!-- header injected -->
 
   <div class="page-wrapper">
     <section class="culture-stage" aria-label="Culture Symbols">
@@ -165,24 +167,24 @@
       </div>
 
       <div class="symbol-row">
-        <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Symbol 1: Religious Beliefs and Ancestral Worship">
-          <img src="images/icon-faith.png" alt="Symbol 1 icon">
+        <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Faith">
+          <img src="images/icon-faith.png" alt="Faith icon">
         </a>
 
-        <a class="symbol-btn" href="symbol-2-food.html" aria-label="Symbol 2: Culinary Heritage and the Global Table">
-          <img src="images/icon-food.png" alt="Symbol 2 icon">
+        <a class="symbol-btn" href="symbol-2-food.html" aria-label="Food">
+          <img src="images/icon-food.png" alt="Food icon">
         </a>
 
-        <a class="symbol-btn" href="symbol-3-opera.html" aria-label="Symbol 3: Cantonese Opera">
-          <img src="images/icon-opera.png" alt="Symbol 3 icon">
+        <a class="symbol-btn" href="symbol-3-opera.html" aria-label="Opera">
+          <img src="images/icon-opera.png" alt="Opera icon">
         </a>
 
-        <a class="symbol-btn" href="symbol-4-kungfu.html" aria-label="Symbol 4: Martial Arts Cinema and Kung Fu">
-          <img src="images/icon-kungfu.png" alt="Symbol 4 icon">
+        <a class="symbol-btn" href="symbol-4-kungfu.html" aria-label="Kung Fu">
+          <img src="images/icon-kungfu.png" alt="Kung Fu icon">
         </a>
 
-        <a class="symbol-btn" href="symbol-5-lion.html" aria-label="Symbol 5: Lion Dance">
-          <img src="images/icon-lion.png" alt="Symbol 5 icon">
+        <a class="symbol-btn" href="symbol-5-lion.html" aria-label="Lion Dance">
+          <img src="images/icon-lion.png" alt="Lion Dance icon">
         </a>
       </div>
     </section>
