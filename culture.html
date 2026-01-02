@@ -11,7 +11,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
+  <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
+
+  <!-- Header injector -->
   <script src="./assets/header.js" defer></script>
 
   <style>
@@ -26,144 +29,141 @@
       font-family: 'Gentium Book Plus', serif;
     }
 
+    /* Page wrapper */
     .page-wrapper {
       height: calc(100vh - var(--header-h));
+      position: relative;
+      background: #F5F0E5;
       overflow: hidden;
     }
 
-    /* ===== Stage ===== */
+    /* Stage */
     .culture-stage{
       position: relative;
-      height: 82vh;                 /* 🔑 不再吃满整屏 */
+      height: 100%;
       width: 100%;
-      margin: 0 auto;
       overflow: hidden;
     }
 
+    /* Background image */
     .culture-bg{
       position:absolute;
       inset:0;
-      background: url("images/culture-bg.jpg") center / cover no-repeat;
-      transform: scale(0.97);       /* 🔑 收回溢出感 */
+      background: url("images/culture-bg.jpg") center/cover no-repeat;
+      filter: saturate(0.98);
     }
 
     .culture-bg::after{
       content:"";
       position:absolute;
       inset:0;
-      background: radial-gradient(
-        circle at 50% 60%,
+      background: radial-gradient(circle at 50% 65%,
         rgba(245,240,229,0) 0%,
-        rgba(245,240,229,0.12) 50%,
-        rgba(245,240,229,0.28) 100%
-      );
+        rgba(245,240,229,0.12) 45%,
+        rgba(245,240,229,0.28) 100%);
       pointer-events:none;
     }
 
-    /* ===== Label ===== */
+    /* Label */
     .symbol-hint{
       position:absolute;
-      left:0;
-      right:0;
+      left:50%;
       top: 18%;
-      display:flex;
-      justify-content:center;
+      transform: translateX(-50%);
       z-index:5;
-      pointer-events:none;
     }
 
     .symbol-hint span{
-      font: 600 12px/1 'Lato', sans-serif;
-      letter-spacing: .22em;
+      font: 600 12px/1 'Lato', system-ui, sans-serif;
+      letter-spacing: .14em;
+      color: rgba(0,0,0,0.55);
       text-transform: uppercase;
-      background: rgba(245,240,229,0.65);
-      padding: 12px 22px;
+      background: rgba(245,240,229,0.75);
+      padding: 10px 16px;
       border-radius: 999px;
-      color: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
     }
 
-    /* ===== Symbols ===== */
+    /* Symbol row */
     .symbol-row{
       position:absolute;
       left:50%;
-      top: 68%;                     /* 🔑 明显下移 */
+      top: 72%;                 /* 往下移一点 */
       transform: translateX(-50%);
       display:flex;
-      gap: 36px;                    /* 更紧凑 */
+      gap: 36px;
       z-index:6;
     }
 
+    /* Symbol button (no outer circle) */
     .symbol-btn{
-      width: 140px;                 /* 🔑 缩小 */
-      height: 140px;
-      border-radius: 999px;
-      background: rgba(245,240,229,0.78);
-      backdrop-filter: blur(10px);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-decoration:none;
-      transition: transform .2s ease, background .2s ease;
+      background: transparent;
+      border: none;
+      padding: 0;
+      text-decoration: none;
+      cursor: pointer;
     }
 
-    .symbol-btn:hover{
-      transform: translateY(-6px) scale(1.03);
-      background: rgba(245,240,229,0.92);
-    }
-
+    /* Symbol image */
     .symbol-btn img{
-      width: 56px;                  /* 🔑 icon 缩小 */
-      height: 56px;
-      border-radius: 999px;
+      width: 84px;              /* 放大 1.5 倍 */
+      height: 84px;
+      border-radius: 50%;
       object-fit: cover;
+      transition: transform .2s ease;
     }
 
-    @media (max-width: 900px){
-      .culture-stage{ height: 78vh; }
+    .symbol-btn:hover img{
+      transform: scale(1.08);
+    }
+
+    /* Mobile */
+    @media (max-width: 640px){
       .symbol-row{
-        flex-wrap: wrap;
-        top: 70%;
-        gap: 20px;
-      }
-      .symbol-btn{
-        width: 110px;
-        height: 110px;
+        gap: 22px;
+        top: 74%;
       }
       .symbol-btn img{
-        width: 44px;
-        height: 44px;
+        width: 64px;
+        height: 64px;
       }
     }
   </style>
 </head>
 
 <body>
+  <!-- header injected by header.js -->
+
   <div class="page-wrapper">
-    <section class="culture-stage">
-      <div class="culture-bg"></div>
+    <section class="culture-stage" aria-label="Culture Symbols">
+
+      <div class="culture-bg" role="img" aria-label="Cantonese culture background"></div>
 
       <div class="symbol-hint">
         <span>Culture Symbols</span>
       </div>
 
       <div class="symbol-row">
-        <a class="symbol-btn" href="symbol-1-faith.html">
+        <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Faith">
           <img src="images/icon-faith.png" alt="Faith">
         </a>
-        <a class="symbol-btn" href="symbol-2-food.html">
+
+        <a class="symbol-btn" href="symbol-2-food.html" aria-label="Food">
           <img src="images/icon-food.png" alt="Food">
         </a>
-        <a class="symbol-btn" href="symbol-3-opera.html">
+
+        <a class="symbol-btn" href="symbol-3-opera.html" aria-label="Opera">
           <img src="images/icon-opera.png" alt="Opera">
         </a>
-        <a class="symbol-btn" href="symbol-4-kungfu.html">
+
+        <a class="symbol-btn" href="symbol-4-kungfu.html" aria-label="Kung Fu">
           <img src="images/icon-kungfu.png" alt="Kung Fu">
         </a>
-        <a class="symbol-btn" href="symbol-5-lion.html">
+
+        <a class="symbol-btn" href="symbol-5-lion.html" aria-label="Lion Dance">
           <img src="images/icon-lion.png" alt="Lion Dance">
         </a>
       </div>
+
     </section>
   </div>
 </body>
