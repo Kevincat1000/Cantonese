@@ -13,8 +13,6 @@
 
   <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
-
-  <!-- Header injector -->
   <script src="./assets/header.js" defer></script>
 
   <style>
@@ -33,10 +31,9 @@
       height: calc(100vh - var(--header-h));
       overflow: hidden;
       position: relative;
-      background: #F5F0E5;
     }
 
-    /* ===== Full-bleed stage ===== */
+    /* ===== Stage ===== */
     .culture-stage{
       position: relative;
       height: 100%;
@@ -48,7 +45,6 @@
       position:absolute;
       inset:0;
       background: url("images/culture-bg.jpg") center / cover no-repeat;
-      filter: saturate(0.98);
     }
 
     .culture-bg::after{
@@ -58,18 +54,18 @@
       background: radial-gradient(
         circle at 50% 60%,
         rgba(245,240,229,0) 0%,
-        rgba(245,240,229,0.12) 42%,
-        rgba(245,240,229,0.32) 100%
+        rgba(245,240,229,0.15) 40%,
+        rgba(245,240,229,0.35) 100%
       );
       pointer-events:none;
     }
 
-    /* ===== Symbol label ===== */
+    /* ===== Label ===== */
     .symbol-hint{
       position:absolute;
       left:0;
       right:0;
-      top: 18%;
+      top: 14%;
       display:flex;
       justify-content:center;
       z-index:5;
@@ -77,79 +73,74 @@
     }
 
     .symbol-hint span{
-      font: 600 12px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      letter-spacing: .18em;
+      font: 600 12px/1 'Lato', system-ui, sans-serif;
+      letter-spacing: .22em;
       text-transform: uppercase;
-      color: rgba(0,0,0,0.55);
-      background: rgba(245,240,229,0.55);
-      padding: 10px 18px;
+      background: rgba(245,240,229,0.6);
+      padding: 12px 22px;
       border-radius: 999px;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      color: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
     }
 
-    /* ===== Symbol row (FLOATING ON IMAGE) ===== */
+    /* ===== SYMBOLS (×2 SIZE) ===== */
     .symbol-row{
       position:absolute;
       left:50%;
-      top: 62%;
+      top: 58%;                     /* 👈 视觉中心 */
       transform: translateX(-50%);
       display:flex;
-      justify-content:center;
-      gap: 40px;               /* wider spacing */
-      padding: 0 24px;
-      z-index: 6;
+      gap: 56px;                    /* wider spacing */
+      z-index:6;
     }
 
     .symbol-btn{
-      width: 120px;            /* 🔥 BIG */
-      height: 120px;
+      width: 180px;                 /* 🔥 ×2 */
+      height: 180px;
       border-radius: 999px;
-      background: rgba(245,240,229,0.68);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(245,240,229,0.72);
+      backdrop-filter: blur(10px);
       display:flex;
       align-items:center;
       justify-content:center;
-      cursor:pointer;
       text-decoration:none;
-      transition: transform .2s ease, background .2s ease;
+      cursor:pointer;
+      transition: transform .22s ease, background .22s ease;
     }
 
     .symbol-btn:hover{
-      transform: translateY(-6px) scale(1.05);
-      background: rgba(245,240,229,0.9);
+      transform: translateY(-10px) scale(1.06);
+      background: rgba(245,240,229,0.92);
     }
 
     .symbol-btn img{
-      width: 84px;             /* 🔥 BIG icon */
-      height: 84px;
+      width: 120px;                 /* 🔥 ×2 */
+      height: 120px;
       border-radius: 999px;
       object-fit: cover;
-      display:block;
     }
 
     /* ===== Mobile ===== */
-    @media (max-width: 768px){
+    @media (max-width: 900px){
       .symbol-row{
-        top: 68%;
-        gap: 20px;
+        top: 64%;
+        gap: 26px;
+        flex-wrap: wrap;
+        justify-content:center;
       }
       .symbol-btn{
-        width: 86px;
-        height: 86px;
+        width: 120px;
+        height: 120px;
       }
       .symbol-btn img{
-        width: 60px;
-        height: 60px;
+        width: 78px;
+        height: 78px;
       }
     }
 
     @media (max-width: 480px){
       .symbol-row{
-        flex-wrap: wrap;
         top: 66%;
-        gap: 16px;
       }
     }
   </style>
@@ -159,32 +150,28 @@
   <!-- header injected -->
 
   <div class="page-wrapper">
-    <section class="culture-stage" aria-label="Culture Symbols">
-      <div class="culture-bg" aria-hidden="true"></div>
+    <section class="culture-stage">
+      <div class="culture-bg"></div>
 
       <div class="symbol-hint">
         <span>Culture Symbols</span>
       </div>
 
       <div class="symbol-row">
-        <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Faith">
-          <img src="images/icon-faith.png" alt="Faith icon">
+        <a class="symbol-btn" href="symbol-1-faith.html">
+          <img src="images/icon-faith.png" alt="Faith">
         </a>
-
-        <a class="symbol-btn" href="symbol-2-food.html" aria-label="Food">
-          <img src="images/icon-food.png" alt="Food icon">
+        <a class="symbol-btn" href="symbol-2-food.html">
+          <img src="images/icon-food.png" alt="Food">
         </a>
-
-        <a class="symbol-btn" href="symbol-3-opera.html" aria-label="Opera">
-          <img src="images/icon-opera.png" alt="Opera icon">
+        <a class="symbol-btn" href="symbol-3-opera.html">
+          <img src="images/icon-opera.png" alt="Opera">
         </a>
-
-        <a class="symbol-btn" href="symbol-4-kungfu.html" aria-label="Kung Fu">
-          <img src="images/icon-kungfu.png" alt="Kung Fu icon">
+        <a class="symbol-btn" href="symbol-4-kungfu.html">
+          <img src="images/icon-kungfu.png" alt="Kung Fu">
         </a>
-
-        <a class="symbol-btn" href="symbol-5-lion.html" aria-label="Lion Dance">
-          <img src="images/icon-lion.png" alt="Lion Dance icon">
+        <a class="symbol-btn" href="symbol-5-lion.html">
+          <img src="images/icon-lion.png" alt="Lion Dance">
         </a>
       </div>
     </section>
