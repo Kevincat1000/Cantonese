@@ -601,8 +601,8 @@
     /* --- Part 1 Grid (Text + Book) --- */
     .diglossia-top-grid {
       display: grid;
-      grid-template-columns: 3fr 2fr;
-      gap: 50px;
+      grid-template-columns: 4fr 1fr;
+      gap: 40px;
       align-items: start;
     }
 
@@ -638,13 +638,10 @@
       background: #fff;
       padding: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transform: rotate(2deg);
-      transition: transform 0.3s ease;
       margin-top: 20px;
     }
-    .book-figure:hover { transform: rotate(0deg) scale(1.02); }
     
-    /* UPDATED: Book image 50% width */
+    /* UPDATED: Book image 50% width, no hover effects */
     .book-figure img { 
       width: 50%; 
       height: auto; 
@@ -652,7 +649,8 @@
       border: 1px solid #eee;
       margin: 0 auto; /* Center it */
     }
-    .caption-main { display: block; font-weight: bold; margin-top: 15px; color: var(--theme-red); }
+    .caption-main { display: block; font-weight: bold; margin-top: 15px; color: var(--theme-red); font-size: 14px; }
+    .caption-sub { font-size: 14px; }
 
     /* --- Part 2 Grid (B & C + Evidence) --- */
     .institutional-grid {
@@ -707,7 +705,6 @@
 
     /* UPDATED: Caption Styles (All Black, 14px) */
     .caption-year { display: block; margin-top: 10px; }
-    .caption-sub { display: block; }
 
     /* Enforce black and small font */
     .old-era .caption-year, .old-era .caption-sub,
@@ -735,7 +732,7 @@
         flex-direction: column;
         gap: 40px;
       }
-      .book-figure { transform: none; max-width: 400px; margin: 0 auto; }
+      .book-figure { max-width: 400px; margin: 0 auto; }
       .book-figure img { width: 40%; } /* Smaller on mobile */
       .shift-arrow { transform: rotate(90deg); margin: 20px 0; }
       .comparison-figure { width: 100%; }
@@ -793,7 +790,7 @@
       <div class="era-grid">
         <!-- Section 1 ONLY -->
         <div class="era-section era-section-expanded">
-          <h3 class="era-title era-title-large">1. The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</h3>
+          <h3 class="era-title era-title-large">1. The Era of Hegemony, 1850s–1970s: Cantonese as "Survival License"</h3>
           <div class="era-columns">
             <div class="era-column era-column-left">
               <h4 class="era-subtitle-main">A. Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
@@ -827,25 +824,25 @@
       <div class="content-block media-block">
         <h4 class="era-subtitle-main">B. Media Hegemony: The Public Voice</h4>
         <p class="highlight-text">
-          Cantonese dominance was also reproduced through media institutions. San Francisco’s early Chinese press was written exclusively for a Cantonese-speaking labor class.
+          Cantonese dominance was also reproduced through media institutions. San Francisco's early Chinese press was written exclusively for a Cantonese-speaking labor class.
         </p>
         <p>
-          <i>The Golden Hills’ News</i> (1854), the first Chinese newspaper in the U.S., circulated among early migrants. In the early 20th century, major papers such as <i>Chung Sai Yat Po</i> (1900–1951) shaped political and civic discourse for decades, also spelled in Cantonese. Even when these newspapers discussed modern issues, they spoke to a Cantonese world.
+          <i>The Golden Hills' News</i> (1854), the first Chinese newspaper in the U.S., circulated among early migrants. In the early 20th century, major papers such as <i>Chung Sai Yat Po</i> (1900–1951) shaped political and civic discourse for decades, also spelled in Cantonese. Even when these newspapers discussed modern issues, they spoke to a Cantonese world.
         </p>
         <p>
-          The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was “inside” the community’s political imagination and which linguistic groups were peripheral.
+          The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was "inside" the community's political imagination and which linguistic groups were peripheral.
         </p>
         <span class="bg-caption">Background: The Golden Hills' News, San Francisco, 1854</span>
       </div>
 
       <!-- C. Surnames and Signs Content & Visualization -->
       <div class="content-block surnames-block">
-        <h4 class="era-subtitle-main">C. Surnames and Signs: The “Standard Sound”</h4>
+        <h4 class="era-subtitle-main">C. Surnames and Signs: The "Standard Sound"</h4>
         <p>
-          A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin “Li,” “Wang,” or “Chen.”
+          A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: "Lee," "Wong," and "Chan" became the norm, rather than the Mandarin pinyin "Li," "Wang," or "Chen."
         </p>
         <p>
-          This was more than just spelling. It signaled that Cantonese was the “standard sound” of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.
+          This was more than just spelling. It signaled that Cantonese was the "standard sound" of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.
         </p>
 
         <!-- Compact Pronunciation Visual Slider -->
@@ -907,7 +904,7 @@
       <!-- Main Title (Compacted) -->
       <div class="content-block visible">
         <h3 class="diglossia-main-title">
-          2. Diglossia and Displacement, 1960s–Present: The Rise of Mandarin as “High” Variety
+          2. Diglossia and Displacement, 1960s–Present: The Rise of Mandarin as "High" Variety
         </h3>
       </div>
 
@@ -915,18 +912,18 @@
       <div class="diglossia-top-grid">
         <!-- Left Column: Text -->
         <div class="content-block">
-          <h4 class="era-subtitle-main">A. Reframing Diglossia: “High/Low” Inside Chinese</h4>
+          <h4 class="era-subtitle-main">A. Reframing Diglossia: "High/Low" Inside Chinese</h4>
           <p>
-            Classically, sociolinguists describe “diglossia” as a system where a “High” language is used for official business and a “Low” language is used for family life. In North American communities today, this split increasingly operates within the Chinese language itself.
+            Classically, sociolinguists describe "diglossia" as a system where a "High" language is used for official business and a "Low" language is used for family life. In North American communities today, this split increasingly operates within the Chinese language itself.
           </p>
           <div class="highlight-box mandarin-box">
-            <strong>Mandarin as “High”:</strong> Treated as official, educated, and globally useful.
+            <strong>Mandarin as "High":</strong> Treated as official, educated, and globally useful.
           </div>
           <div class="highlight-box cantonese-box">
-            <strong>Cantonese as “Low”:</strong> Primarily used at home and in elder services.
+            <strong>Cantonese as "Low":</strong> Primarily used at home and in elder services.
           </div>
           <p>
-            This does not mean Cantonese lacks value; rather, its value is being moved away from institutional power. The key shift here is political and economic. Even while the community maintains “Chinese” identity, the definition of which Chinese counts as legitimate or prestigious has changed.
+            Since the 1950s, China established Mandarin as the sole official language. Cantonese retains cultural value but is losing institutional power.
           </p>
           
           <!-- Official Status Note -->
@@ -961,17 +958,17 @@
       <!-- Middle Grid: B & C Institutional Drivers -->
       <div class="institutional-grid">
         <div class="content-block">
-          <h4 class="era-subtitle-main">B. Institutional Production of “Standard” Chinese</h4>
+          <h4 class="era-subtitle-main">B. Institutional Production of "Standard" Chinese</h4>
           <!-- CONDENSED TEXT -->
           <p>
-            Heritage education is a primary site of hierarchy. In many schools, Mandarin is enforced as the only "proper" identity, rendering Cantonese secondary or invisible. This redefines authenticity: students learn that legitimate “Chinese” is simply what formal curricula recognize—Mandarin by default.
+            Heritage education is a primary site of hierarchy. In many schools, Mandarin is enforced as the only "proper" identity, rendering Cantonese secondary or invisible. This redefines authenticity: students learn that legitimate "Chinese" is simply what formal curricula recognize—Mandarin by default.
           </p>
         </div>
         <div class="content-block">
-          <h4 class="era-subtitle-main">C. The Supply Chain Disruption: State Standardization</h4>
-          <!-- CONDENSED TEXT -->
+          <h4 class="era-subtitle-main">C. The Supply Chain Disruption</h4>
+          <!-- UPDATED TEXT -->
           <p>
-            Upstream, China’s <i>Standard Spoken and Written Chinese Language Law</i> (2000) institutionalized "Putonghua" nationwide. This policy cemented Mandarin as the sole language of literacy, even in Cantonese regions. Consequently, the historical “supply chain” of monolingual Cantonese migrants has been disrupted.
+            1965 US Immigration Act and 1979 diplomatic normalization opened doors to migrants from all Chinese provinces, not just Guangdong. New arrivals poured in from Beijing, Shanghai, and Fujian, where Mandarin is the common language.
           </p>
         </div>
       </div>
