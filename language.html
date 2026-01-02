@@ -11,10 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <!-- Global style (Assuming external assets exist, but inline styles are provided below) -->
-  <!-- <link rel="stylesheet" href="./assets/style.css" /> -->
-  <!-- <script src="./assets/header.js" defer></script> -->
-
   <style>
     :root { 
       --header-h: 73px; 
@@ -24,6 +20,7 @@
       --main-font: 'Gentium Book Plus', serif;
       --theme-red: #a21a1a;
       --theme-gold: #c5a059;
+      --theme-teal: #2D7B73; /* New specific color */
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -49,6 +46,7 @@
       min-height: 100vh;
       width: 100%;
       position: relative;
+      overflow: hidden; /* Ensure content doesn't bleed */
     }
 
     .first-section-wrapper {
@@ -260,7 +258,6 @@
       width: 100%;
     }
 
-    /* Adjusted Grid: removed columns for deleted sections */
     .era-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -361,7 +358,7 @@
     }
 
     /* =========================================
-       NEW STYLES FOR UNIFIED B & C SECTION
+       HEGEMONY SECTION (B & C)
        ========================================= */
     #hegemony-unified {
       position: relative;
@@ -407,7 +404,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: start;
-      padding: 40px 0; /* Reduced vertical padding */
+      padding: 40px 0;
     }
 
     .content-block {
@@ -446,12 +443,12 @@
       text-align: left;
     }
 
-    /* --- UPDATED Visual Slider for Pronunciation --- */
+    /* --- Visual Slider --- */
     .pronunciation-visualizer {
-      margin-top: 25px; /* Reduced margin */
+      margin-top: 25px; 
       display: flex;
       flex-direction: column;
-      gap: 15px; /* Reduced gap to fit screen better */
+      gap: 15px;
     }
 
     .visual-row {
@@ -460,19 +457,19 @@
     }
 
     .char-col {
-      font-size: 32px; /* Reduced size */
+      font-size: 32px;
       font-weight: bold;
       color: var(--theme-red);
-      margin-right: 15px; /* Reduced margin */
+      margin-right: 15px; 
       flex-shrink: 0;
-      width: 40px; /* Reduced width */
+      width: 40px; 
       text-align: center;
       font-family: inherit;
     }
 
     .slider-track {
       flex-grow: 1;
-      height: 36px; /* Reduced height */
+      height: 36px;
       background: linear-gradient(to right, rgba(197, 160, 89, 0.2) 0%, rgba(0,0,0,0.05) 100%);
       border-radius: 18px;
       display: flex;
@@ -515,7 +512,7 @@
     }
 
     .pinyin-highlight {
-      font-size: 1.1rem; /* Reduced size */
+      font-size: 1.1rem;
       font-weight: bold;
       color: #000;
       text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
@@ -523,9 +520,9 @@
     }
 
     .pinyin-dim {
-      font-size: 1rem; /* Reduced size */
-      color: #666; /* Darker color for visibility */
-      filter: blur(0.3px); /* Subtle blur, less than before */
+      font-size: 1rem;
+      color: #666; 
+      filter: blur(0.3px);
       font-family: inherit;
     }
 
@@ -535,6 +532,179 @@
       .pronunciation-visualizer { gap: 10px; }
       .char-col { font-size: 28px; width: 30px; margin-right: 10px; }
       .slider-track { height: 32px; }
+    }
+
+    /* =========================================
+       NEW DIGLOSSIA SECTIONS (Parts 6 & 7)
+       ========================================= */
+
+    /* Shared Styles for New Sections */
+    .diglossia-section-style {
+      background-color: #f5f0e5; /* Match Main BG */
+      padding: 60px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; 
+    }
+
+    .diglossia-content-container {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 30px;
+      width: 100%;
+    }
+
+    /* Title Styling */
+    .diglossia-main-title {
+      font-size: 1.8rem; /* Adjusted for one line */
+      font-weight: bold;
+      text-align: left; /* Left Aligned */
+      margin-bottom: 30px; /* Reduced gap */
+      margin-top: 0;
+      line-height: 1.2;
+      white-space: nowrap; /* Try to force one line */
+      overflow: visible;
+    }
+    
+    @media (max-width: 1024px) {
+        .diglossia-main-title { white-space: normal; font-size: 1.6rem; }
+    }
+
+    .diglossia-content-container p {
+      font-family: inherit;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-color);
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    /* --- Part 1 Grid (Text + Book) --- */
+    .diglossia-top-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .highlight-box {
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-left: 4px solid;
+      background: rgba(255,255,255,0.5);
+      font-size: 0.95rem;
+    }
+    .mandarin-box { border-color: #4682b4; color: #2c5270; } /* Steel Blue */
+    
+    /* UPDATED: Cantonese Box Color */
+    .cantonese-box { 
+        border-color: var(--theme-teal); 
+        color: var(--theme-teal); 
+        font-weight: bold; /* Optional to make text clearer */
+    }
+
+    .official-status-note {
+      background: rgba(197, 160, 89, 0.15);
+      padding: 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    .official-status-note h5 { margin: 0 0 10px 0; font-size: 1rem; }
+    .official-status-note ul { margin: 0; padding-left: 20px; }
+    .official-status-note li { margin-bottom: 8px; }
+
+    .book-figure {
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transform: rotate(2deg);
+      transition: transform 0.3s ease;
+      margin-top: 20px;
+    }
+    .book-figure:hover { transform: rotate(0deg) scale(1.02); }
+    .book-figure img { width: 100%; height: auto; display: block; border: 1px solid #eee; }
+    .caption-main { display: block; font-weight: bold; margin-top: 15px; color: var(--theme-red); }
+
+    /* --- Part 2 Grid (B & C + Evidence) --- */
+    .institutional-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 30px; /* Reduced gap before visual evidence */
+    }
+
+    /* --- Visual Comparison Section --- */
+    .visual-comparison-section {
+      text-align: center;
+      margin-top: 10px; /* Minimal top margin */
+    }
+    
+    .comparison-title {
+      font-size: 1.5rem;
+      margin-bottom: 20px; /* Reduced gap */
+      position: relative;
+      display: inline-block;
+    }
+    .comparison-title::after {
+      content: ''; display: block; width: 60%; height: 3px; 
+      background: var(--theme-gold); margin: 5px auto 0;
+    }
+
+    .comparison-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .comparison-figure { flex: 1; margin: 0; text-align: left; }
+    
+    .img-wrapper {
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      height: 300px;
+    }
+    .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .comparison-figure:hover img { transform: scale(1.05); }
+
+    /* Styling the contrast */
+    .old-era .img-wrapper { border-bottom: 5px solid var(--theme-red); }
+    /* UPDATED: Removed Sepia Filter for Old Era */
+    .sepia-tone img { filter: none; } 
+
+    .new-era .img-wrapper { border-bottom: 5px solid #4682b4; }
+    .cool-tone img { filter: saturate(1.2) contrast(1.1); }
+
+    .caption-year { display: block; font-size: 1.1rem; font-weight: bold; margin-top: 15px; }
+    .old-era .caption-year { color: var(--theme-red); }
+    .new-era .caption-year { color: #4682b4; }
+
+    .shift-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--caption-color);
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .shift-arrow svg { fill: var(--caption-color); margin-top: 5px; }
+
+    /* Responsive Adjustments for New Sections */
+    @media (max-width: 900px) {
+      .diglossia-top-grid, .institutional-grid, .comparison-grid {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 40px;
+      }
+      .book-figure { transform: none; max-width: 400px; margin: 0 auto; }
+      .shift-arrow { transform: rotate(90deg); margin: 20px 0; }
+      .comparison-figure { width: 100%; }
+      .img-wrapper { height: 250px; }
+      .diglossia-main-title { white-space: normal; }
     }
   </style>
 </head>
@@ -582,7 +752,7 @@
     
     <div class="evolution-container">
       <div class="era-grid">
-        <!-- Section 1 ONLY (Placeholder sections 2 and 3 removed) -->
+        <!-- Section 1 ONLY -->
         <div class="era-section era-section-expanded">
           <h3 class="era-title era-title-large">1. The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</h3>
           <div class="era-columns">
@@ -614,7 +784,7 @@
 
     <div class="unified-content-container">
       
-      <!-- B. Media Hegemony Content (Full Text) -->
+      <!-- B. Media Hegemony Content -->
       <div class="content-block media-block">
         <h4 class="era-subtitle-main">B. Media Hegemony: The Public Voice</h4>
         <p class="highlight-text">
@@ -629,7 +799,7 @@
         <span class="bg-caption">Background: The Golden Hills' News, San Francisco, 1854</span>
       </div>
 
-      <!-- C. Surnames and Signs Content (Full Text) & Visualization -->
+      <!-- C. Surnames and Signs Content & Visualization -->
       <div class="content-block surnames-block">
         <h4 class="era-subtitle-main">C. Surnames and Signs: The “Standard Sound”</h4>
         <p>
@@ -689,17 +859,16 @@
     </div>
   </section>
 
-  <!-- PART 6: Diglossia and Displacement Section (New Content) -->
-  <section id="diglossia-section" class="snap-item">
-    <!-- Reuse the canvas texture technique for consistency -->
-    <canvas id="textureCanvasDiglossia" class="texture-canvas"></canvas>
+  <!-- PART 6: Diglossia Page 1 (Title + A) -->
+  <section id="diglossia-page1" class="snap-item diglossia-section-style">
+    <canvas id="textureCanvasDiglossia1" class="texture-canvas"></canvas>
     
     <div class="diglossia-content-container">
       
-      <!-- Main Title -->
+      <!-- Main Title (Compacted) -->
       <div class="content-block visible">
-        <h3 class="era-title era-title-large" style="text-align: center; margin-bottom: 40px;">
-          2. Diglossia and Displacement, 1960s–Present: <br>The Rise of Mandarin as “High” Variety
+        <h3 class="diglossia-main-title">
+          2. Diglossia and Displacement, 1960s–Present: The Rise of Mandarin as “High” Variety
         </h3>
       </div>
 
@@ -742,7 +911,14 @@
           </figure>
         </div>
       </div>
+    </div>
+  </section>
 
+  <!-- PART 7: Diglossia Page 2 (B, C + Evidence) -->
+  <section id="diglossia-page2" class="snap-item diglossia-section-style">
+    <canvas id="textureCanvasDiglossia2" class="texture-canvas"></canvas>
+
+    <div class="diglossia-content-container">
       <!-- Middle Grid: B & C Institutional Drivers -->
       <div class="institutional-grid">
         <div class="content-block">
@@ -793,152 +969,8 @@
           </figure>
         </div>
       </div>
-
     </div>
   </section>
-
-  <!-- Additional Styles for the New Section -->
-  <style>
-    #diglossia-section {
-      position: relative;
-      background-color: #f8f5f0; /* Slightly lighter than main bg */
-      padding: 60px 0;
-      overflow: hidden;
-    }
-
-    .diglossia-content-container {
-      position: relative;
-      z-index: 2;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 30px;
-    }
-
-    .diglossia-content-container p {
-      font-family: inherit;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--text-color);
-      margin-bottom: 20px;
-      text-align: justify;
-    }
-
-    /* --- Top Grid Layout --- */
-    .diglossia-top-grid {
-      display: grid;
-      grid-template-columns: 3fr 2fr;
-      gap: 50px;
-      margin-bottom: 60px;
-      align-items: start;
-    }
-
-    .highlight-box {
-      padding: 15px 20px;
-      margin-bottom: 15px;
-      border-left: 4px solid;
-      background: rgba(255,255,255,0.5);
-      font-size: 0.95rem;
-    }
-    .mandarin-box { border-color: #4682b4; color: #2c5270; } /* Steel Blue */
-    .cantonese-box { border-color: var(--theme-red); color: #7a1414; }
-
-    .official-status-note {
-      background: rgba(197, 160, 89, 0.15); /* theme gold tint */
-      padding: 20px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-    }
-    .official-status-note h5 { margin: 0 0 10px 0; font-size: 1rem; }
-    .official-status-note ul { margin: 0; padding-left: 20px; }
-    .official-status-note li { margin-bottom: 8px; }
-
-    .book-figure {
-      text-align: center;
-      background: #fff;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transform: rotate(2deg);
-      transition: transform 0.3s ease;
-    }
-    .book-figure:hover { transform: rotate(0deg) scale(1.02); }
-    .book-figure img { width: 100%; height: auto; display: block; border: 1px solid #eee; }
-    .caption-main { display: block; font-weight: bold; margin-top: 15px; color: var(--theme-red); }
-
-    /* --- Institutional Grid Layout --- */
-    .institutional-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      margin-bottom: 80px;
-      padding-top: 40px;
-      border-top: 1px dashed rgba(0,0,0,0.1);
-    }
-
-    /* --- Visual Comparison Section --- */
-    .visual-comparison-section {
-      text-align: center;
-    }
-    .comparison-title {
-      font-size: 1.5rem;
-      margin-bottom: 40px;
-      position: relative;
-      display: inline-block;
-    }
-    .comparison-title::after {
-      content: ''; display: block; width: 60%; height: 3px; 
-      background: var(--theme-gold); margin: 10px auto 0;
-    }
-
-    .comparison-grid {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-    .comparison-figure { flex: 1; margin: 0; text-align: left; }
-    .img-wrapper {
-      overflow: hidden;
-      border-radius: 4px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      height: 300px;
-    }
-    .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .comparison-figure:hover img { transform: scale(1.05); }
-
-    /* Styling the contrast between old and new */
-    .old-era .img-wrapper { border-bottom: 5px solid var(--theme-red); }
-    .sepia-tone img { filter: sepia(0.4) contrast(1.1); }
-
-    .new-era .img-wrapper { border-bottom: 5px solid #4682b4; }
-    .cool-tone img { filter: saturate(1.2) contrast(1.1); }
-
-    .caption-year { display: block; font-size: 1.1rem; font-weight: bold; margin-top: 15px; }
-    .old-era .caption-year { color: var(--theme-red); }
-    .new-era .caption-year { color: #4682b4; }
-
-    .shift-arrow {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: var(--caption-color);
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
-    .shift-arrow svg { fill: var(--caption-color); margin-top: 5px; }
-
-    /* Responsive Adjustments */
-    @media (max-width: 900px) {
-      .diglossia-top-grid, .institutional-grid, .comparison-grid {
-        grid-template-columns: 1fr;
-        flex-direction: column;
-        gap: 40px;
-      }
-      .book-figure { transform: none; max-width: 400px; margin: 0 auto; }
-      .shift-arrow { transform: rotate(90deg); margin: 20px 0; }
-      .comparison-figure { width: 100%; }
-      .img-wrapper { height: 250px; }
-    }
-  </style>
 
   <script>
     // Header Auto-hide Script
@@ -963,7 +995,7 @@
       }, { passive: true });
     })();
 
-    // Particle Animation for Research Section (Black Section)
+    // Particle Animation for Research Section
     (function() {
       const canvas = document.getElementById('particle-canvas');
       const ctx = canvas.getContext('2d');
@@ -1059,7 +1091,7 @@
     // Reusable Canvas Texture Drawing Function
     function drawPaperTexture(canvasId, sectionId) {
       const canvas = document.getElementById(canvasId);
-      if (!canvas) return; // Safety check
+      if (!canvas) return; 
       const ctx = canvas.getContext('2d');
       const section = document.getElementById(sectionId);
       if (!section) return;
@@ -1072,8 +1104,8 @@
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // Slightly darker texture for the new section for contrast
-        const fillStyle = sectionId === 'diglossia-section' ? 'rgba(80, 70, 60, 0.08)' : 'rgba(100, 90, 80, 0.05)';
+        // Standard texture for all sections including new pages
+        const fillStyle = 'rgba(100, 90, 80, 0.05)';
         ctx.fillStyle = fillStyle; 
         for (let i = 0; i < canvas.width; i += 3) {
           for (let j = 0; j < canvas.height; j += 3) {
@@ -1096,14 +1128,14 @@
       observer.observe(section);
     }
 
-    // Apply texture to sections (ADDED THE NEW SECTION HERE)
+    // Apply texture to sections
     drawPaperTexture('textureCanvas1', 'evolution-section');
     drawPaperTexture('textureCanvas3', 'hegemony-unified');
-    drawPaperTexture('textureCanvasDiglossia', 'diglossia-section');
+    drawPaperTexture('textureCanvasDiglossia1', 'diglossia-page1');
+    drawPaperTexture('textureCanvasDiglossia2', 'diglossia-page2');
 
     // Scroll Animation
     (function() {
-      // Added .comparison-figure to the observer list
       const sections = document.querySelectorAll('.era-section, .content-block, .comparison-figure');
       const observerOptions = {
         root: null, threshold: 0.15, rootMargin: "0px"
@@ -1111,7 +1143,6 @@
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Modified to allow re-triggering slightly for smoother feel on quick scrolls
             entry.target.classList.add('visible');
           }
         });
