@@ -25,17 +25,49 @@
       --caption-color: #555;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scrollbar-gutter: stable; }
+    
+    /* --- NEW: Scroll Snap Setup on HTML --- */
+    html { 
+      scrollbar-gutter: stable;
+      /* Enables vertical scrolling with mandatory snapping points */
+      scroll-snap-type: y mandatory;
+      /* Adds smooth scrolling behavior between snap points */
+      scroll-behavior: smooth;
+      height: 100%; /* Ensure full height for snapping context */
+      overflow-y: scroll;
+    }
 
     body {
       background: var(--bg-color);
       font-family: 'Gentium Book Plus', serif;
       line-height: 1.6;
+      /* Padding top handled by first section wrapper now for better snapping alignment */
+      /* padding-top: var(--header-h, 73px); */ 
+      min-height: 100%;
+    }
+
+    /* --- NEW: Common class for full-page snapping sections --- */
+    .snap-item {
+      /* Defines that the top of this element should snap to the top of the viewport */
+      scroll-snap-align: start;
+      /* Forces the scroll to stop at this element (optional, adds friction) */
+      scroll-snap-stop: always;
+      /* Ensures each section takes at least the full viewport height */
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+    }
+
+    /* Wrapper for the first section to handle header padding and centering */
+    .first-section-wrapper {
       padding-top: var(--header-h, 73px);
+      display: flex;
+      align-items: center; /* Optional: centers cards vertically on large screens */
     }
 
     .page-wrapper {
       overflow-x: hidden;
+      width: 100%; /* Ensure it takes full width */
     }
 
     .content-inner {
@@ -130,8 +162,9 @@
       line-height: 1.5;
     }
 
-    /* ===== Research Section ===== */
+    /* ===== Research Section (Black Effect Section) ===== */
     #research-section {
+      /* Kept your original styles */
       position: relative;
       width: 100%;
       height: 100vh;
@@ -139,13 +172,19 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      opacity: 0;
-      transition: opacity 1.5s ease;
       background-color: #0a0a0a;
+      
+      /* FIX FOR FADE-IN: Ensure opacity 0 and explicit transition property */
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      /* Ensure it doesn't block interaction when invisible */
+      pointer-events: none; 
     }
 
+    /* The JS adds this class to trigger the fade-in */
     #research-section.is-visible {
       opacity: 1;
+      pointer-events: auto;
     }
 
     #particle-canvas {
@@ -209,11 +248,13 @@
       }
     }
 
-    /* ===== Evolution Timeline Section ===== */
+    /* ===== Evolution Timeline Section (Narrative 1) ===== */
     #evolution-section {
       position: relative;
       background: var(--bg-color);
-      min-height: 100vh;
+      /* Changed to min-height 100vh for snap alignment */
+      min-height: 100vh; 
+      height: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -239,6 +280,7 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 60px;
+      width: 100%; /* Ensure full width */
     }
 
     /* Horizontal Era Grid */
@@ -266,8 +308,8 @@
 
     /* Staggered delays */
     .era-section:nth-child(1) { transition-delay: 0s; }
-    .era-section:nth-child(2) { transition-delay: 1s; }
-    .era-section:nth-child(3) { transition-delay: 2s; }
+    .era-section:nth-child(2) { transition-delay: 0.5s; /* Reduced delay for faster snap feel */ }
+    .era-section:nth-child(3) { transition-delay: 1s; }
 
     .era-title {
       font-family: 'Georgia', 'Times New Roman', Times, serif;
@@ -356,8 +398,8 @@
     @media (max-width: 1000px) {
       #evolution-section {
         height: auto;
-        min-height: auto;
-        padding: 60px 0;
+        min-height: 100vh; /* Ensure it still snaps on mobile */
+        padding: 100px 0 60px; /* Increase top padding for mobile header */
       }
       .evolution-container {
         padding: 0 30px;
@@ -381,165 +423,169 @@
       .era-title { font-size: 1.2rem; }
       .era-section-expanded .era-title { font-size: 1.3rem; }
       .era-subtitle-main { font-size: 16px; }
-      /* Reset delays for mobile vertical layout */
       .era-section:nth-child(1) { transition-delay: 0s; }
-      .era-section:nth-child(2) { transition-delay: 1s; }
-      .era-section:nth-child(3) { transition-delay: 2s; }
+      .era-section:nth-child(2) { transition-delay: 0.5s; }
+      .era-section:nth-child(3) { transition-delay: 1s; }
     }
   </style>
 </head>
 
 <body>
-  <div class="page-wrapper">
-    <div class="container">
-      <div class="content-inner">
-        <div style="height: 1rem;"></div>
+  <!-- PART 1 & 2: Header (injected) & Flashcards -->
+  <!-- Wrapped in a snap-item section -->
+  <section class="snap-item first-section-wrapper">
+    <div class="page-wrapper">
+      <div class="container">
+        <div class="content-inner">
+          <!-- Spacer for visual balance if needed, or removed -->
+          <!-- <div style="height: 1rem;"></div> -->
 
-        <div class="flash-grid">
-
-          <!-- 1 飲茶 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">飲茶</h3>
-                <p class="face-text" style="font-size:18px;">(Yam Cha)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Drinking tea</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Going for dim sum (often for brunch or lunch), eating the food, and socializing.
-                </p>
+          <div class="flash-grid">
+            <!-- 1 飲茶 -->
+            <div class="flashcard">
+              <button type="button"></button>
+              <div class="flashcard-inner">
+                <div class="card-face">
+                  <h3 class="face-title" style="font-size:48px;">飲茶</h3>
+                  <p class="face-text" style="font-size:18px;">(Yam Cha)</p>
+                </div>
+                <div class="card-face card-back">
+                  <h3 class="face-title" style="font-size:48px;">Drinking tea</h3>
+                  <p class="face-text" style="font-size:18px;">
+                    Going for dim sum (often for brunch or lunch), eating the food, and socializing.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- 2 食檸檬 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">食檸檬</h3>
-                <p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Eating lemons</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Being rejected when asking someone out.
-                </p>
+            <!-- 2 食檸檬 -->
+            <div class="flashcard">
+              <button type="button"></button>
+              <div class="flashcard-inner">
+                <div class="card-face">
+                  <h3 class="face-title" style="font-size:48px;">食檸檬</h3>
+                  <p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p>
+                </div>
+                <div class="card-face card-back">
+                  <h3 class="face-title" style="font-size:48px;">Eating lemons</h3>
+                  <p class="face-text" style="font-size:18px;">
+                    Being rejected when asking someone out.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- 3 放飛機 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">放飛機</h3>
-                <p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Breaking a promise to meet.
-                </p>
+            <!-- 3 放飛機 -->
+            <div class="flashcard">
+              <button type="button"></button>
+              <div class="flashcard-inner">
+                <div class="card-face">
+                  <h3 class="face-title" style="font-size:48px;">放飛機</h3>
+                  <p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p>
+                </div>
+                <div class="card-face card-back">
+                  <h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3>
+                  <p class="face-text" style="font-size:18px;">
+                    Breaking a promise to meet.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- 4 吹水 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">吹水</h3>
-                <p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Blowing water</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Chit-chatting; sometimes implies bragging or bluffing.
-                </p>
+            <!-- 4 吹水 -->
+            <div class="flashcard">
+              <button type="button"></button>
+              <div class="flashcard-inner">
+                <div class="card-face">
+                  <h3 class="face-title" style="font-size:48px;">吹水</h3>
+                  <p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p>
+                </div>
+                <div class="card-face card-back">
+                  <h3 class="face-title" style="font-size:48px;">Blowing water</h3>
+                  <p class="face-text" style="font-size:18px;">
+                    Chit-chatting; sometimes implies bragging or bluffing.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- 5 食咗飯未？ -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">食咗飯未？</h3>
-                <p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
-                <p class="face-text" style="font-size:18px;">
-                  A casual greeting meaning "hello" or "how are you?"
-                </p>
+            <!-- 5 食咗飯未？ -->
+            <div class="flashcard">
+              <button type="button"></button>
+              <div class="flashcard-inner">
+                <div class="card-face">
+                  <h3 class="face-title" style="font-size:48px;">食咗飯未？</h3>
+                  <p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p>
+                </div>
+                <div class="card-face card-back">
+                  <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
+                  <p class="face-text" style="font-size:18px;">
+                    A casual greeting meaning "hello" or "how are you?"
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- 6 生舊叉燒好過生你 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3>
-                <p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3>
-                <p class="face-text" style="font-size:18px;">
-                  "You're frustrating me." A classic parent complaint.
-                </p>
+            <!-- 6 生舊叉燒好過生你 -->
+            <div class="flashcard">
+              <button type="button"></button>
+              <div class="flashcard-inner">
+                <div class="card-face">
+                  <h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3>
+                  <p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p>
+                </div>
+                <div class="card-face card-back">
+                  <h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3>
+                  <p class="face-text" style="font-size:18px;">
+                    "You're frustrating me." A classic parent complaint.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- 7 炒魷魚 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">炒魷魚</h3>
-                <p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Getting fired.
-                </p>
+            <!-- 7 炒魷魚 -->
+            <div class="flashcard">
+              <button type="button"></button>
+              <div class="flashcard-inner">
+                <div class="card-face">
+                  <h3 class="face-title" style="font-size:48px;">炒魷魚</h3>
+                  <p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p>
+                </div>
+                <div class="card-face card-back">
+                  <h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3>
+                  <p class="face-text" style="font-size:18px;">
+                    Getting fired.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- 8 雞同鴨講 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">雞同鴨講</h3>
-                <p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Mutual lack of understanding; unable to communicate due to language barriers.
-                </p>
+            <!-- 8 雞同鴨講 -->
+            <div class="flashcard">
+              <button type="button"></button>
+              <div class="flashcard-inner">
+                <div class="card-face">
+                  <h3 class="face-title" style="font-size:48px;">雞同鴨講</h3>
+                  <p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p>
+                </div>
+                <div class="card-face card-back">
+                  <h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3>
+                  <p class="face-text" style="font-size:18px;">
+                    Mutual lack of understanding; unable to communicate due to language barriers.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Research Section with Particle Animation -->
-  <section id="research-section">
+  <!-- PART 3: Research Section with Particle Animation -->
+  <!-- Added snap-item class -->
+  <section id="research-section" class="snap-item">
     <canvas id="particle-canvas"></canvas>
     
     <div class="research-content-box">
@@ -554,8 +600,9 @@
     </div>
   </section>
 
-  <!-- Evolution of Cantonese Section -->
-  <section id="evolution-section">
+  <!-- PART 4: Evolution of Cantonese Section (Narrative 1) -->
+  <!-- Added snap-item class -->
+  <section id="evolution-section" class="snap-item">
     <canvas id="textureCanvas"></canvas>
     
     <div class="evolution-container">
@@ -579,12 +626,12 @@
           </div>
         </div>
 
-        <!-- Section 2 -->
+        <!-- Section 2 (Placeholder for future content) -->
         <div class="era-section">
           <h3 class="era-title">2. Diglossia and Displacement (1980s–2000)<br><span class="era-subtitle">The Rise of Mandarin</span></h3>
         </div>
 
-        <!-- Section 3 -->
+        <!-- Section 3 (Placeholder for future content) -->
         <div class="era-section">
           <h3 class="era-title">3. The Great Reversal (2000s–Present)<br><span class="era-subtitle">Cantonese recast as heritage</span></h3>
         </div>
@@ -593,6 +640,7 @@
   </section>
 
   <script>
+    // Header Auto-hide Script
     (function () {
       "use strict";
 
@@ -600,6 +648,8 @@
       const scrollThreshold = 100;
       const scrollDelta = 5;
 
+      // Changed event listener to window, but adjusted for potential scroll snap behavior issues if they arise.
+      // Using window.pageYOffset usually works best across browsers.
       window.addEventListener("scroll", function () {
         const header = document.querySelector("header[data-site-header='1']");
         if (!header) return;
@@ -621,7 +671,7 @@
       }, { passive: true });
     })();
 
-    // Particle Animation for Research Section
+    // Particle Animation for Research Section (Black Section)
     (function() {
       const canvas = document.getElementById('particle-canvas');
       const ctx = canvas.getContext('2d');
@@ -633,11 +683,13 @@
       let isActive = false;
 
       function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Set canvas size to match the section size precisely
+        canvas.width = section.clientWidth;
+        canvas.height = section.clientHeight;
       }
       window.addEventListener('resize', resize);
-      resize();
+      // Initial resize called slightly later to ensure container is rendered
+      setTimeout(resize, 100);
 
       class Particle {
         constructor() {
@@ -691,28 +743,41 @@
         animationFrame = requestAnimationFrame(animate);
       }
 
+      // Adjusted thresholds for better triggering with scroll snap
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            isActive = true;
-            section.classList.add('is-visible');
-            initParticles();
-            animate();
+            if (!isActive) { // Prevents restarting if already active
+                isActive = true;
+                section.classList.add('is-visible');
+                // Resize again just to be sure before animating
+                resize();
+                initParticles();
+                animate();
+            }
           } else {
-            isActive = false;
-            section.classList.remove('is-visible');
-            cancelAnimationFrame(animationFrame);
+            if (isActive) {
+                isActive = false;
+                section.classList.remove('is-visible');
+                cancelAnimationFrame(animationFrame);
+            }
           }
         });
-      }, { threshold: 0.3 });
+      }, { threshold: 0.4 }); // Trigger when 40% visible
 
       observer.observe(section);
 
-      window.addEventListener('mousemove', (e) => {
+      // Mouse interaction
+      section.addEventListener('mousemove', (e) => {
         if (!isActive) return;
+        // Get mouse position relative to canvas
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
         particles.forEach(p => {
-          let dx = e.clientX - p.x;
-          let dy = e.clientY - p.y;
+          let dx = mouseX - p.x;
+          let dy = mouseY - p.y;
           let dist = Math.sqrt(dx*dx + dy*dy);
           if (dist < 150) {
             p.x -= dx * 0.02;
@@ -722,15 +787,15 @@
       });
     })();
 
-    // Canvas Texture for Evolution Section
+    // Canvas Texture for Evolution Section (Last Section)
     (function() {
       const canvas = document.getElementById('textureCanvas');
       const ctx = canvas.getContext('2d');
       const section = document.getElementById('evolution-section');
 
       function resizeCanvas() {
-        canvas.width = section.offsetWidth;
-        canvas.height = section.offsetHeight;
+        canvas.width = section.clientWidth;
+        canvas.height = section.clientHeight;
         drawTexture();
       }
 
@@ -748,29 +813,35 @@
       }
 
       window.addEventListener('resize', resizeCanvas);
-      setTimeout(resizeCanvas, 100);
+      // Using intersection observer to draw only when needed and ensure correct sizing
+      const observer = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+              resizeCanvas();
+              observer.disconnect(); // Only need to draw once
+          }
+      });
+      observer.observe(section);
     })();
 
-    // Scroll Animation for Era Sections (staggered)
+    // Scroll Animation for Era Sections text (staggered fade-in)
     (function() {
       const eraGrid = document.querySelector('.era-grid');
       const sections = document.querySelectorAll('.era-section');
 
       const observerOptions = {
         root: null,
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
+        threshold: 0.2, // Trigger earlier
+        rootMargin: "0px"
       };
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Add visible class to all sections when grid is in view
             sections.forEach(section => {
               section.classList.add('visible');
             });
           } else {
-            // Remove visible class when grid leaves view
+            // Optional: remove this else block if you want them to stay visible once scrolled past
             sections.forEach(section => {
               section.classList.remove('visible');
             });
