@@ -213,11 +213,11 @@
     #evolution-section {
       position: relative;
       background: var(--bg-color);
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 40px 0;
+      padding: 60px 0;
       box-sizing: border-box;
     }
 
@@ -243,19 +243,19 @@
 
     .evolution-header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 50px;
     }
 
     .evolution-header h2 {
       font-family: 'Georgia', 'Times New Roman', Times, serif;
-      font-size: 2.4rem;
+      font-size: 2.6rem;
       font-weight: normal;
       color: var(--text-color);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.4rem;
     }
 
     .evolution-header p {
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--caption-color);
       font-style: italic;
     }
@@ -263,8 +263,8 @@
     /* Horizontal Era Grid */
     .era-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 25px;
       align-items: start;
     }
 
@@ -290,8 +290,7 @@
 
     .image-container {
       width: 100%;
-      height: calc(100vh - 320px);
-      max-height: 380px;
+      height: 280px;
       margin-bottom: 0;
       border: 10px solid #fff;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -336,23 +335,100 @@
       margin-top: 5px;
     }
 
+    /* Expanded Era Section (Section 1) */
+    .era-section-expanded {
+      grid-column: 1 / -1;
+      text-align: left;
+    }
+
+    .era-section-expanded .era-title {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .era-subtitle-main {
+      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      font-size: 1.3rem;
+      font-weight: normal;
+      color: #a21a1a;
+      margin: 0 0 20px 0;
+      line-height: 1.4;
+    }
+
+    .era-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: stretch;
+    }
+
+    .era-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .era-column p {
+      font-family: 'Gentium Book Plus', serif;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-color);
+      margin: 0;
+      text-align: justify;
+    }
+
+    .era-column-right {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .era-column-image {
+      margin-top: auto;
+    }
+
+    .era-column-image img {
+      width: 100%;
+      max-width: 280px;
+      border: 6px solid #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+    }
+
+    .era-column-caption {
+      display: block;
+      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      font-size: 0.8rem;
+      color: var(--caption-color);
+      margin-top: 8px;
+    }
+
     @media (max-width: 1000px) {
       #evolution-section {
         height: auto;
-        min-height: 100vh;
+        min-height: auto;
         padding: 60px 0;
       }
       .era-grid {
         grid-template-columns: 1fr;
         gap: 40px;
-        max-width: 500px;
+        max-width: 600px;
         margin: 0 auto;
+      }
+      .era-section-expanded {
+        text-align: left;
+      }
+      .era-columns {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .era-column-image img {
+        max-width: 200px;
       }
       .image-container {
         height: 320px;
-        max-height: none;
       }
       .era-title { font-size: 1.2rem; }
+      .era-section-expanded .era-title { font-size: 1.3rem; }
+      .era-subtitle-main { font-size: 1.2rem; }
       .evolution-header h2 { font-size: 2rem; }
       /* Reset delays for mobile vertical layout */
       .era-section:nth-child(1) { transition-delay: 0s; }
@@ -539,15 +615,20 @@
 
       <div class="era-grid">
         <!-- Section 1 -->
-        <div class="era-section">
-          <h3 class="era-title">1. The Era of Hegemony (1850s–1970s)<br><span class="era-subtitle">"Survival License"</span></h3>
-          <div class="image-container">
-            <img src="https://www.bobeckertphotography.com/uploads/1/2/6/7/126794906/img034-street-scene-w-child-san-francisco-chinatown-2-email_orig.jpg" 
-                 alt="Street scene in San Francisco Chinatown, 1970s" class="era-image">
-          </div>
-          <div class="caption">
-            <span>Signage in Cantonese, 1970s</span>
-            <span>By Bob Eckert</span>
+        <div class="era-section era-section-expanded">
+          <h3 class="era-title">1. The Era of Hegemony, 1850s–1970s</h3>
+          <h4 class="era-subtitle-main">Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
+          <div class="era-columns">
+            <div class="era-column era-column-left">
+              <p>Early Cantonese dominance was not just about numbers; it was about institutional power. In the 19th and 20th-century Chinatowns, native-place associations (huiguan), such as the Chinese Consolidated Benevolent Association (CCBA, often known as the "Six Companies" in San Francisco) acted like a government. They dominated trades like hand laundries, cigar making, and shoe manufacturing. They settled disputes, provided welfare, controlled remittance networks and steamship tickets, and fought legal battles against discrimination. In a context of exclusion and racialized vulnerability, these associations became a practical infrastructure of social protection—the only safety net available.</p>
+            </div>
+            <div class="era-column era-column-right">
+              <p>Because Guangdong native networks deeply shaped these institutions, Cantonese was the price of admission. Speaking the language was not a choice; it was a necessity. It functioned as a "survival license." Without Cantonese, a Chinese immigrant could not borrow money, find a job, or access legal protection. The community's support system was effectively closed to anyone who did not speak the language.</p>
+              <div class="era-column-image">
+                <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg" alt="Ning Yeung Association, San Francisco, 1891">
+                <span class="era-column-caption">Ning Yeung Association, San Francisco, 1891</span>
+              </div>
+            </div>
           </div>
         </div>
 
