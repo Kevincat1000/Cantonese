@@ -29,114 +29,115 @@
       font-family: 'Gentium Book Plus', serif;
     }
 
-    /* Page wrapper */
     .page-wrapper {
       height: calc(100vh - var(--header-h));
+      overflow: hidden;
       position: relative;
       background: #F5F0E5;
-      overflow: hidden;
     }
 
-    /* Stage */
+    /* ===== Stage ===== */
     .culture-stage{
       position: relative;
-      height: 100%;
       width: 100%;
+      height: 100%;
       overflow: hidden;
+      background: #F5F0E5;
     }
 
-    /* Background image */
     .culture-bg{
-      position:absolute;
-      inset:0;
-      background: url("images/culture-bg.jpg") center/cover no-repeat;
-      filter: saturate(0.98);
+      position: absolute;
+      inset: 0;
+      background: url("images/culture-bg.jpg") center / cover no-repeat;
     }
 
+    /* subtle vignette */
     .culture-bg::after{
       content:"";
       position:absolute;
       inset:0;
-      background: radial-gradient(circle at 50% 65%,
+      background: radial-gradient(
+        circle at 50% 65%,
         rgba(245,240,229,0) 0%,
-        rgba(245,240,229,0.12) 45%,
-        rgba(245,240,229,0.28) 100%);
+        rgba(245,240,229,0.15) 50%,
+        rgba(245,240,229,0.35) 100%
+      );
       pointer-events:none;
     }
 
-    /* Label */
+    /* ===== Title pill ===== */
     .symbol-hint{
       position:absolute;
-      left:50%;
       top: 18%;
+      left:50%;
       transform: translateX(-50%);
       z-index:5;
+      pointer-events:none;
     }
 
     .symbol-hint span{
       font: 600 12px/1 'Lato', system-ui, sans-serif;
-      letter-spacing: .14em;
-      color: rgba(0,0,0,0.55);
+      letter-spacing: .18em;
       text-transform: uppercase;
+      color: rgba(0,0,0,0.55);
       background: rgba(245,240,229,0.75);
       padding: 10px 16px;
       border-radius: 999px;
+      backdrop-filter: blur(6px);
     }
 
-    /* Symbol row */
+    /* ===== Symbol row ===== */
     .symbol-row{
       position:absolute;
       left:50%;
-      top: 72%;                 /* 往下移一点 */
+      top: 74%;                 /* 往下移一点 */
       transform: translateX(-50%);
       display:flex;
-      gap: 36px;
+      gap: 28px;                /* 紧凑但不挤 */
       z-index:6;
     }
 
-    /* Symbol button (no outer circle) */
     .symbol-btn{
-      background: transparent;
-      border: none;
-      padding: 0;
-      text-decoration: none;
-      cursor: pointer;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
     }
 
-    /* Symbol image */
+    /* === ICON 本体（126px）=== */
     .symbol-btn img{
-      width: 84px;              /* 放大 1.5 倍 */
-      height: 84px;
+      width: 126px;
+      height: 126px;
       border-radius: 50%;
       object-fit: cover;
       transition: transform .2s ease;
     }
 
     .symbol-btn:hover img{
-      transform: scale(1.08);
+      transform: scale(1.05);
     }
 
-    /* Mobile */
+    /* ===== Mobile ===== */
     @media (max-width: 640px){
       .symbol-row{
-        gap: 22px;
-        top: 74%;
+        top: 78%;
+        gap: 18px;
       }
       .symbol-btn img{
-        width: 64px;
-        height: 64px;
+        width: 84px;
+        height: 84px;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- header injected by header.js -->
+  <!-- header injected by ./assets/header.js -->
 
   <div class="page-wrapper">
     <section class="culture-stage" aria-label="Culture Symbols">
-
-      <div class="culture-bg" role="img" aria-label="Cantonese culture background"></div>
+      <div class="culture-bg" role="img" aria-label="Cantonese cultural background"></div>
 
       <div class="symbol-hint">
         <span>Culture Symbols</span>
@@ -163,7 +164,6 @@
           <img src="images/icon-lion.png" alt="Lion Dance">
         </a>
       </div>
-
     </section>
   </div>
 </body>
