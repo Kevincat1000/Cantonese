@@ -8,7 +8,6 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Using Gentium Book Plus as the closest match for "gentiumregular" based on existing imports -->
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -24,15 +23,12 @@
       --bg-color: #F5F0E5;
       --text-color: #2c2c2c;
       --caption-color: #555;
-      /* Define main font family variable for consistency */
       --main-font: 'Gentium Book Plus', serif;
-      /* Theme Colors for the new section */
       --theme-red: #a21a1a;
       --theme-gold: #c5a059;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
-    /* --- Scroll Snap Setup on HTML --- */
     html { 
       scrollbar-gutter: stable;
       scroll-snap-type: y mandatory;
@@ -43,14 +39,12 @@
 
     body {
       background: var(--bg-color);
-      /* CHANGE 1: Set global font family to Gentium Book Plus (regular weight 400 is default) */
       font-family: var(--main-font);
       line-height: 1.6;
       min-height: 100%;
-      color: var(--text-color); /* Ensure text color is applied globally */
+      color: var(--text-color);
     }
 
-    /* --- Common class for full-page snapping sections --- */
     .snap-item {
       scroll-snap-align: start;
       scroll-snap-stop: always;
@@ -59,7 +53,6 @@
       position: relative;
     }
 
-    /* Wrapper for the first section to handle header padding and centering */
     .first-section-wrapper {
       padding-top: var(--header-h, 73px);
       display: flex;
@@ -78,9 +71,7 @@
     }
 
     @media (min-width: 1024px) {
-      .content-inner {
-        padding: 0 2rem 3rem;
-      }
+      .content-inner { padding: 0 2rem 3rem; }
     }
 
     /* ===== Flashcard Grid ===== */
@@ -90,13 +81,8 @@
       gap: 1rem;
     }
 
-    @media (max-width: 980px) {
-      .flash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 520px) {
-      .flash-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 980px) { .flash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 520px) { .flash-grid { grid-template-columns: 1fr; } }
 
     .flashcard {
       position: relative;
@@ -155,7 +141,6 @@
       font-weight: 700;
       color: #1a1a1a;
       line-height: 1.1;
-      /* Ensure these inherit the global font */
       font-family: inherit; 
     }
 
@@ -163,11 +148,10 @@
       margin: 0;
       color: #2d3748;
       line-height: 1.5;
-       /* Ensure these inherit the global font */
       font-family: inherit;
     }
 
-    /* ===== Research Section (Black Effect Section) ===== */
+    /* ===== Research Section ===== */
     #research-section {
       position: relative;
       width: 100%;
@@ -212,7 +196,6 @@
       margin: 0 0 10px 0;
       color: #d4af37;
       font-weight: normal;
-      /* Keep Georgia for this specific title as per original design, or change to var(--main-font) if preferred */
       font-family: 'Georgia', serif; 
     }
 
@@ -239,16 +222,9 @@
     }
 
     @media (max-width: 768px) {
-      .research-content-box {
-        margin: 0 1rem;
-        padding: 30px;
-      }
-      .research-content-box h1 {
-        font-size: 2rem;
-      }
-      .research-content-box p {
-        font-size: 1rem;
-      }
+      .research-content-box { margin: 0 1rem; padding: 30px; }
+      .research-content-box h1 { font-size: 2rem; }
+      .research-content-box p { font-size: 1rem; }
     }
 
     /* ===== Evolution Timeline Section (Narrative 1) ===== */
@@ -264,7 +240,6 @@
       box-sizing: border-box;
     }
 
-    /* Common texture canvas style */
     .texture-canvas {
       position: absolute;
       top: 0;
@@ -286,10 +261,10 @@
       width: 100%;
     }
 
-    /* Horizontal Era Grid */
+    /* Adjusted Grid: removed columns for deleted sections */
     .era-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       gap: 40px 25px;
       align-items: start;
     }
@@ -309,13 +284,7 @@
       transform: translateY(0);
     }
 
-    /* Staggered delays */
-    .era-section:nth-child(1) { transition-delay: 0s; }
-    .era-section:nth-child(2) { transition-delay: 0.5s; }
-    .era-section:nth-child(3) { transition-delay: 1s; }
-
     .era-title {
-      /* Resetting font family to inherit from body */
       font-family: inherit;
       font-size: 1.1rem;
       font-weight: normal;
@@ -324,31 +293,22 @@
       color: var(--text-color);
     }
 
-    /* CHANGE 2: New class for the larger, full title */
     .era-title-large {
       font-size: 30px;
-      font-weight: bold; /* Optional: make it bold for better hierarchy */
+      font-weight: bold;
       margin-bottom: 16px;
     }
 
-    .era-subtitle {
-      display: block;
-      margin-top: 5px;
-    }
-
-    /* Expanded Era Section (Section 1) */
     .era-section-expanded {
       grid-column: 1 / -1;
       text-align: left;
     }
 
     .era-subtitle-main {
-      /* Resetting font family to inherit */
       font-family: inherit;
       font-size: 18px;
-      font-weight: bold; /* Changed to bold for better definition */
+      font-weight: bold;
       color: #a21a1a;
-      /* CHANGE 3: Increased bottom margin for more spacing */
       margin: 0 0 24px 0; 
       line-height: 1.4;
     }
@@ -357,24 +317,11 @@
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 50px;
-      /* CHANGE 4: Changed to 'center' for vertical alignment */
       align-items: center; 
       margin-top: 20px;
     }
 
-    .era-column {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .era-column-left {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
     .era-column p {
-      /* Resetting font family to inherit */
       font-family: inherit;
       font-size: 0.95rem;
       line-height: 1.7;
@@ -390,10 +337,6 @@
       justify-content: center;
     }
 
-    .era-column-image {
-      width: 100%;
-    }
-
     .era-column-image img {
       width: 100%;
       border: 8px solid #fff;
@@ -403,7 +346,6 @@
 
     .era-column-caption {
       display: block;
-      /* Resetting font family to inherit */
       font-family: inherit;
       font-size: 0.8rem;
       color: var(--caption-color);
@@ -412,38 +354,11 @@
     }
 
     @media (max-width: 1000px) {
-      #evolution-section {
-        height: auto;
-        min-height: 100vh;
-        padding: 100px 0 60px;
-      }
-      .evolution-container {
-        padding: 0 30px;
-      }
-      .era-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-      .era-section-expanded {
-        text-align: left;
-      }
-      .era-columns {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        align-items: start; 
-      }
-      .era-column-image img {
-        max-width: 320px;
-        margin: 0 auto;
-      }
-      .era-title { font-size: 1.2rem; }
+      #evolution-section { padding: 100px 0 60px; }
+      .evolution-container { padding: 0 30px; }
+      .era-columns { grid-template-columns: 1fr; gap: 30px; align-items: start; }
+      .era-column-image img { max-width: 320px; margin: 0 auto; }
       .era-title-large { font-size: 24px; }
-      .era-subtitle-main { font-size: 16px; margin-bottom: 18px; }
-      .era-section:nth-child(1) { transition-delay: 0s; }
-      .era-section:nth-child(2) { transition-delay: 0.5s; }
-      .era-section:nth-child(3) { transition-delay: 1s; }
     }
 
     /* =========================================
@@ -451,7 +366,6 @@
        ========================================= */
     #hegemony-unified {
       position: relative;
-      /* Ensure background is the beige color for blend mode to work */
       background-color: var(--bg-color); 
       overflow: hidden;
       display: flex;
@@ -459,24 +373,21 @@
       justify-content: center;
     }
 
-    /* --- Newspaper Background Layer --- */
     .newspaper-bg-layer {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 0; /* Below content, above texture */
+      z-index: 0;
       pointer-events: none;
-      opacity: 0.15; /* Subtle background */
-      /* CORE FIX: Multiply blend mode makes white transparent */
+      opacity: 0.15;
       mix-blend-mode: multiply;
     }
 
     .newspaper-wrapper {
       width: 100%;
       height: 100%;
-      /* Scale up and rotate for dynamic background texture effect */
       transform: scale(1.5) rotate(-5deg);
       transform-origin: center center;
     }
@@ -484,24 +395,22 @@
     .newspaper-blend-img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Fill the area */
-      filter: contrast(1.2) sepia(0.3); /* Enhance aged look */
+      object-fit: cover;
+      filter: contrast(1.2) sepia(0.3);
     }
 
-    /* --- Content Container --- */
     .unified-content-container {
       position: relative;
-      z-index: 2; /* On top */
+      z-index: 2;
       max-width: 1000px;
       width: 90%;
       display: grid;
-      grid-template-columns: 1fr 1fr; /* Two-column layout */
+      grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: start;
-      padding: 60px 0;
+      padding: 40px 0; /* Reduced vertical padding */
     }
 
-    /* --- Content Block Animation --- */
     .content-block {
       opacity: 0;
       transform: translateY(40px);
@@ -513,10 +422,8 @@
       transform: translateY(0);
     }
 
-    .surnames-block { transition-delay: 0.3s; } /* Stagger effect */
+    .surnames-block { transition-delay: 0.3s; }
 
-    /* --- Text Styles --- */
-    /* Added general paragraph style for this section for better spacing */
     .content-block p {
         margin-bottom: 20px;
         text-align: justify;
@@ -528,7 +435,7 @@
       color: var(--text-color);
       border-left: 4px solid var(--theme-gold);
       padding-left: 20px;
-      margin-bottom: 25px; /* Increased margin */
+      margin-bottom: 25px;
     }
 
     .bg-caption {
@@ -540,12 +447,12 @@
       text-align: left;
     }
 
-    /* --- NEW Visual Slider for Pronunciation --- */
+    /* --- UPDATED Visual Slider for Pronunciation --- */
     .pronunciation-visualizer {
-      margin-top: 40px;
+      margin-top: 25px; /* Reduced margin */
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 15px; /* Reduced gap to fit screen better */
     }
 
     .visual-row {
@@ -554,22 +461,21 @@
     }
 
     .char-col {
-      font-size: 48px;
+      font-size: 32px; /* Reduced size */
       font-weight: bold;
       color: var(--theme-red);
-      margin-right: 30px;
+      margin-right: 15px; /* Reduced margin */
       flex-shrink: 0;
-      width: 60px;
+      width: 40px; /* Reduced width */
       text-align: center;
       font-family: inherit;
     }
 
-    /* Slider Track Background */
     .slider-track {
       flex-grow: 1;
-      height: 50px;
+      height: 36px; /* Reduced height */
       background: linear-gradient(to right, rgba(197, 160, 89, 0.2) 0%, rgba(0,0,0,0.05) 100%);
-      border-radius: 25px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -578,16 +484,15 @@
       overflow: hidden;
     }
 
-    /* Highlight Bar on Track */
     .slider-track::before {
       content: '';
       position: absolute;
       left: 0;
       top: 0;
       height: 100%;
-      width: 55%; /* Cantonese dominance visualization */
+      width: 55%;
       background: linear-gradient(to right, var(--theme-gold), rgba(197, 160, 89, 0.1));
-      border-radius: 25px;
+      border-radius: 18px;
       opacity: 0.3;
     }
 
@@ -598,60 +503,39 @@
       z-index: 1;
     }
 
-    .cantonese-side {
-      align-items: flex-start;
-      padding-left: 20px;
-    }
-
-    .mandarin-side {
-      align-items: flex-end;
-      padding-right: 20px;
-      text-align: right;
-    }
+    .cantonese-side { align-items: flex-start; padding-left: 10px; }
+    .mandarin-side { align-items: flex-end; padding-right: 10px; text-align: right; }
 
     .label-name {
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: rgba(0,0,0,0.5);
-      margin-bottom: 2px;
+      margin-bottom: 0px;
       font-family: inherit;
     }
 
-    /* Cantonese: Highlighted, Clear, Glowing */
     .pinyin-highlight {
-      font-size: 1.5rem;
+      font-size: 1.1rem; /* Reduced size */
       font-weight: bold;
       color: #000;
       text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
       font-family: inherit;
     }
 
-    /* Mandarin: Transparent, Blurred, Receded */
     .pinyin-dim {
-      font-size: 1.2rem;
-      color: rgba(0,0,0,0.3); /* High transparency */
-      filter: blur(0.5px); /* Slight blur */
+      font-size: 1rem; /* Reduced size */
+      color: #666; /* Darker color for visibility */
+      filter: blur(0.3px); /* Subtle blur, less than before */
       font-family: inherit;
     }
 
-    /* Responsive Adjustments */
     @media (max-width: 900px) {
-      .unified-content-container {
-        grid-template-columns: 1fr; /* Single column on mobile */
-        gap: 60px;
-        padding: 40px 20px;
-      }
-      .newspaper-wrapper {
-        transform: scale(1.2) rotate(0deg); /* Less rotation on mobile */
-      }
-      .char-col {
-        font-size: 36px;
-        margin-right: 20px;
-        width: 40px;
-      }
-      .pinyin-highlight { font-size: 1.3rem; }
-      .pinyin-dim { font-size: 1rem; }
+      .unified-content-container { grid-template-columns: 1fr; gap: 40px; padding: 40px 20px; }
+      .newspaper-wrapper { transform: scale(1.2) rotate(0deg); }
+      .pronunciation-visualizer { gap: 10px; }
+      .char-col { font-size: 28px; width: 30px; margin-right: 10px; }
+      .slider-track { height: 32px; }
     }
   </style>
 </head>
@@ -663,127 +547,14 @@
       <div class="container">
         <div class="content-inner">
           <div class="flash-grid">
-            <!-- Cards kept identical -->
-            <div class="flashcard">
-              <button type="button"></button>
-              <div class="flashcard-inner">
-                <div class="card-face">
-                  <h3 class="face-title" style="font-size:48px;">飲茶</h3>
-                  <p class="face-text" style="font-size:18px;">(Yam Cha)</p>
-                </div>
-                <div class="card-face card-back">
-                  <h3 class="face-title" style="font-size:48px;">Drinking tea</h3>
-                  <p class="face-text" style="font-size:18px;">
-                    Going for dim sum (often for brunch or lunch), eating the food, and socializing.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="flashcard">
-              <button type="button"></button>
-              <div class="flashcard-inner">
-                <div class="card-face">
-                  <h3 class="face-title" style="font-size:48px;">食檸檬</h3>
-                  <p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p>
-                </div>
-                <div class="card-face card-back">
-                  <h3 class="face-title" style="font-size:48px;">Eating lemons</h3>
-                  <p class="face-text" style="font-size:18px;">
-                    Being rejected when asking someone out.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="flashcard">
-              <button type="button"></button>
-              <div class="flashcard-inner">
-                <div class="card-face">
-                  <h3 class="face-title" style="font-size:48px;">放飛機</h3>
-                  <p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p>
-                </div>
-                <div class="card-face card-back">
-                  <h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3>
-                  <p class="face-text" style="font-size:18px;">
-                    Breaking a promise to meet.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="flashcard">
-              <button type="button"></button>
-              <div class="flashcard-inner">
-                <div class="card-face">
-                  <h3 class="face-title" style="font-size:48px;">吹水</h3>
-                  <p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p>
-                </div>
-                <div class="card-face card-back">
-                  <h3 class="face-title" style="font-size:48px;">Blowing water</h3>
-                  <p class="face-text" style="font-size:18px;">
-                    Chit-chatting; sometimes implies bragging or bluffing.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="flashcard">
-              <button type="button"></button>
-              <div class="flashcard-inner">
-                <div class="card-face">
-                  <h3 class="face-title" style="font-size:48px;">食咗飯未？</h3>
-                  <p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p>
-                </div>
-                <div class="card-face card-back">
-                  <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
-                  <p class="face-text" style="font-size:18px;">
-                    A casual greeting meaning "hello" or "how are you?"
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="flashcard">
-              <button type="button"></button>
-              <div class="flashcard-inner">
-                <div class="card-face">
-                  <h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3>
-                  <p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p>
-                </div>
-                <div class="card-face card-back">
-                  <h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3>
-                  <p class="face-text" style="font-size:18px;">
-                    "You're frustrating me." A classic parent complaint.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="flashcard">
-              <button type="button"></button>
-              <div class="flashcard-inner">
-                <div class="card-face">
-                  <h3 class="face-title" style="font-size:48px;">炒魷魚</h3>
-                  <p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p>
-                </div>
-                <div class="card-face card-back">
-                  <h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3>
-                  <p class="face-text" style="font-size:18px;">
-                    Getting fired.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="flashcard">
-              <button type="button"></button>
-              <div class="flashcard-inner">
-                <div class="card-face">
-                  <h3 class="face-title" style="font-size:48px;">雞同鴨講</h3>
-                  <p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p>
-                </div>
-                <div class="card-face card-back">
-                  <h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3>
-                  <p class="face-text" style="font-size:18px;">
-                    Mutual lack of understanding; unable to communicate due to language barriers.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">飲茶</h3><p class="face-text" style="font-size:18px;">(Yam Cha)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Drinking tea</h3><p class="face-text" style="font-size:18px;">Going for dim sum (often for brunch or lunch), eating the food, and socializing.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">食檸檬</h3><p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Eating lemons</h3><p class="face-text" style="font-size:18px;">Being rejected when asking someone out.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">放飛機</h3><p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3><p class="face-text" style="font-size:18px;">Breaking a promise to meet.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">吹水</h3><p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Blowing water</h3><p class="face-text" style="font-size:18px;">Chit-chatting; sometimes implies bragging or bluffing.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">食咗飯未？</h3><p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3><p class="face-text" style="font-size:18px;">A casual greeting meaning "hello" or "how are you?"</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3><p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3><p class="face-text" style="font-size:18px;">"You're frustrating me." A classic parent complaint.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">炒魷魚</h3><p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3><p class="face-text" style="font-size:18px;">Getting fired.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">雞同鴨講</h3><p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3><p class="face-text" style="font-size:18px;">Mutual lack of understanding; unable to communicate due to language barriers.</p></div></div></div>
           </div>
         </div>
       </div>
@@ -808,15 +579,12 @@
 
   <!-- PART 4: Evolution of Cantonese Section (Narrative 1) -->
   <section id="evolution-section" class="snap-item">
-    <!-- 使用通用的纹理类 -->
     <canvas id="textureCanvas1" class="texture-canvas"></canvas>
     
     <div class="evolution-container">
-
       <div class="era-grid">
-        <!-- Section 1 -->
+        <!-- Section 1 ONLY (Placeholder sections 2 and 3 removed) -->
         <div class="era-section era-section-expanded">
-          <!-- CHANGE 3: Updated title text and added era-title-large class -->
           <h3 class="era-title era-title-large">1. The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</h3>
           <div class="era-columns">
             <div class="era-column era-column-left">
@@ -832,294 +600,19 @@
             </div>
           </div>
         </div>
-
-        <!-- Section 2 (Placeholder for future content) -->
-        <div class="era-section">
-          <h3 class="era-title">2. Diglossia and Displacement (1980s–2000)<br><span class="era-subtitle">The Rise of Mandarin</span></h3>
-        </div>
-
-        <!-- Section 3 (Placeholder for future content) -->
-        <div class="era-section">
-          <h3 class="era-title">3. The Great Reversal (2000s–Present)<br><span class="era-subtitle">Cantonese recast as heritage</span></h3>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- PART 5: The Era of Hegemony Continued (B & C Unified) - FULL CONTENT UPDATE -->
+  <!-- PART 5: The Era of Hegemony Continued (B & C Unified) -->
   <section id="hegemony-unified" class="snap-item">
-    <!-- Background Texture Layer -->
     <canvas id="textureCanvas3" class="texture-canvas"></canvas>
-
-    <!-- Newspaper Background Layer (Fixed Cutout & Scaled Up) -->
     <div class="newspaper-bg-layer">
       <div class="newspaper-wrapper">
         <img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" alt="The Golden Hills' News Background" class="newspaper-blend-img">
       </div>
     </div>
 
-    <!-- Content Layer -->
     <div class="unified-content-container">
       
-      <!-- B. Media Hegemony Content (Full Text) -->
-      <div class="content-block media-block">
-        <h4 class="era-subtitle-main">B. Media Hegemony: The Public Voice</h4>
-        <!-- Highlighted first sentence -->
-        <p class="highlight-text">
-          Cantonese dominance was also reproduced through media institutions. San Francisco’s early Chinese press was written exclusively for a Cantonese-speaking labor class.
-        </p>
-        <!-- Full details -->
-        <p>
-          <i>The Golden Hills’ News</i> (1854), the first Chinese newspaper in the U.S., circulated among early migrants. In the early 20th century, major papers such as <i>Chung Sai Yat Po</i> (1900–1951) shaped political and civic discourse for decades, also spelled in Cantonese. Even when these newspapers discussed modern issues, they spoke to a Cantonese world.
-        </p>
-        <p>
-          The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was “inside” the community’s political imagination and which linguistic groups were peripheral.
-        </p>
-        <span class="bg-caption">Background: The Golden Hills' News, San Francisco, 1854</span>
-      </div>
-
-      <!-- C. Surnames and Signs Content (Full Text) & Visualization -->
-      <div class="content-block surnames-block">
-        <h4 class="era-subtitle-main">C. Surnames and Signs: The “Standard Sound”</h4>
-        <!-- Full text paragraph 1 -->
-        <p>
-          A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin “Li,” “Wang,” or “Chen.”
-        </p>
-        <!-- Full text paragraph 2 -->
-        <p>
-          This was more than just spelling. It signaled that Cantonese was the “standard sound” of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.
-        </p>
-
-        <!-- Pronunciation Visual Slider (Placed below text) -->
-        <div class="pronunciation-visualizer">
-          <!-- Lee/Li -->
-          <div class="visual-row">
-            <div class="char-col">李</div>
-            <div class="slider-track">
-              <div class="slider-label cantonese-side">
-                <span class="label-name">Cantonese</span>
-                <span class="pinyin-highlight">Lee</span>
-              </div>
-              <div class="slider-label mandarin-side">
-                <span class="pinyin-dim">Li</span>
-                <span class="label-name">Mandarin</span>
-              </div>
-            </div>
-          </div>
-          <!-- Wong/Wang -->
-          <div class="visual-row">
-            <div class="char-col">王</div>
-            <div class="slider-track">
-              <div class="slider-label cantonese-side">
-                <span class="label-name">Cantonese</span>
-                <span class="pinyin-highlight">Wong</span>
-              </div>
-              <div class="slider-label mandarin-side">
-                <span class="pinyin-dim">Wang</span>
-                <span class="label-name">Mandarin</span>
-              </div>
-            </div>
-          </div>
-          <!-- Chan/Chen -->
-          <div class="visual-row">
-            <div class="char-col">陈</div>
-            <div class="slider-track">
-              <div class="slider-label cantonese-side">
-                <span class="label-name">Cantonese</span>
-                <span class="pinyin-highlight">Chan</span>
-              </div>
-              <div class="slider-label mandarin-side">
-                <span class="pinyin-dim">Chen</span>
-                <span class="label-name">Mandarin</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <script>
-    // Header Auto-hide Script
-    (function () {
-      "use strict";
-      let lastScrollTop = 0;
-      const scrollThreshold = 100;
-      const scrollDelta = 5;
-      window.addEventListener("scroll", function () {
-        const header = document.querySelector("header[data-site-header='1']");
-        if (!header) return;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
-        if (scrollTop < scrollThreshold) {
-          header.classList.remove("header-hidden");
-          lastScrollTop = scrollTop;
-          return;
-        }
-        if (scrollTop > lastScrollTop) header.classList.add("header-hidden");
-        else header.classList.remove("header-hidden");
-        lastScrollTop = scrollTop;
-      }, { passive: true });
-    })();
-
-    // Particle Animation for Research Section (Black Section)
-    (function() {
-      const canvas = document.getElementById('particle-canvas');
-      const ctx = canvas.getContext('2d');
-      const section = document.getElementById('research-section');
-      let particles = [];
-      let animationFrame;
-      const characters = ['食', '揾', '同', '乡', '家', '货', '钱', '语'];
-      let isActive = false;
-
-      function resize() {
-        canvas.width = section.clientWidth;
-        canvas.height = section.clientHeight;
-      }
-      window.addEventListener('resize', resize);
-      setTimeout(resize, 100);
-
-      class Particle {
-        constructor() { this.init(); }
-        init() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.char = characters[Math.floor(Math.random() * characters.length)];
-          this.size = Math.random() * 15 + 10;
-          this.speedX = (Math.random() - 0.5) * 1.5;
-          this.speedY = (Math.random() - 0.5) * 1.5;
-          this.alpha = 0;
-          this.targetAlpha = Math.random() * 0.5 + 0.1;
-        }
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-          if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-          if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-          if (this.alpha < this.targetAlpha) this.alpha += 0.005;
-        }
-        draw() {
-          ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
-          ctx.font = `${this.size}px serif`;
-          ctx.fillText(this.char, this.x, this.y);
-        }
-      }
-
-      function initParticles() {
-        particles = [];
-        for (let i = 0; i < 60; i++) { particles.push(new Particle()); }
-      }
-
-      function animate() {
-        if (!isActive) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        animationFrame = requestAnimationFrame(animate);
-      }
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (!isActive) {
-                isActive = true;
-                section.classList.add('is-visible');
-                resize();
-                initParticles();
-                animate();
-            }
-          } else {
-            if (isActive) {
-                isActive = false;
-                section.classList.remove('is-visible');
-                cancelAnimationFrame(animationFrame);
-            }
-          }
-        });
-      }, { threshold: 0.4 });
-      observer.observe(section);
-
-      section.addEventListener('mousemove', (e) => {
-        if (!isActive) return;
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        particles.forEach(p => {
-          let dx = mouseX - p.x;
-          let dy = mouseY - p.y;
-          let dist = Math.sqrt(dx*dx + dy*dy);
-          if (dist < 150) {
-            p.x -= dx * 0.02;
-            p.y -= dy * 0.02;
-          }
-        });
-      });
-    })();
-
-    // Reusable Canvas Texture Drawing Function
-    function drawPaperTexture(canvasId, sectionId) {
-      const canvas = document.getElementById(canvasId);
-      const ctx = canvas.getContext('2d');
-      const section = document.getElementById(sectionId);
-      if (!canvas || !section) return;
-
-      function resizeCanvas() {
-        canvas.width = section.clientWidth;
-        canvas.height = section.clientHeight;
-        draw();
-      }
-
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'rgba(100, 90, 80, 0.05)'; 
-        for (let i = 0; i < canvas.width; i += 3) {
-          for (let j = 0; j < canvas.height; j += 3) {
-            if (Math.random() > 0.6) {
-              let size = Math.random() * 1.5 + 0.5;
-              ctx.fillRect(i, j, size, size);
-            }
-          }
-        }
-      }
-
-      window.addEventListener('resize', resizeCanvas);
-      // Use IntersectionObserver to draw only when needed
-      const observer = new IntersectionObserver((entries) => {
-          if (entries[0].isIntersecting) {
-              resizeCanvas();
-              observer.disconnect();
-          }
-      });
-      observer.observe(section);
-    }
-
-    // Apply texture to sections
-    drawPaperTexture('textureCanvas1', 'evolution-section');
-    // 为新 section 添加纹理绘制
-    drawPaperTexture('textureCanvas3', 'hegemony-unified');
-
-    // Scroll Animation for Era Sections text
-    (function() {
-      // Select all elements that need animation (including the new content-blocks)
-      const sections = document.querySelectorAll('.era-section, .content-block');
-      const observerOptions = {
-        root: null, threshold: 0.15, rootMargin: "0px"
-      };
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (!entry.target.classList.contains('visible')) {
-                 entry.target.classList.add('visible');
-            }
-          }
-        });
-      }, observerOptions);
-      
-      sections.forEach(section => {
-          observer.observe(section);
-      });
-    })();
-  </script>
-</body>
-</html>
+      <!-- B. Media
