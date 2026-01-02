@@ -29,14 +29,9 @@
       font-family: 'Gentium Book Plus', serif;
     }
 
-    /* fade transition */
-    body{ opacity:0; transition: opacity 260ms ease; }
-    body.page-ready{ opacity:1; }
-
     .page-wrapper {
       height: calc(100vh - var(--header-h));
-      overflow: hidden;
-      scrollbar-gutter: stable;
+      overflow: hidden; /* no scrollbar */
       position: relative;
       background: #F5F0E5;
     }
@@ -53,8 +48,7 @@
     .culture-bg{
       position:absolute;
       inset:0;
-      background:
-        url("images/culture-bg.jpg") center/cover no-repeat;
+      background: url("images/culture-bg.jpg") center/cover no-repeat;
       transform: scale(1.02);
       filter: saturate(0.98);
     }
@@ -177,34 +171,14 @@
         <a class="symbol-btn" href="symbol-4-kungfu.html" aria-label="Symbol 4: Martial Arts Cinema and Kung Fu">
           <img src="images/icon-kungfu.png" alt="Symbol 4 icon">
         </a>
+
+        <a class="symbol-btn" href="symbol-5-lion.html" aria-label="Symbol 5: Lion Dance">
+          <img src="images/icon-lion.png" alt="Symbol 5 icon">
+        </a>
       </div>
     </section>
   </div>
 
-  <script>
-    // fade-in on load
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('page-ready');
-    });
-
-    // fade-out on internal link click
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (!a) return;
-
-      const href = a.getAttribute('href') || '';
-      const isSameTab = !a.target || a.target === '_self';
-      const isHash = href.startsWith('#');
-      const isExternal = /^https?:\/\//i.test(href);
-
-      if (!href || isHash || isExternal || !isSameTab) return;
-
-      e.preventDefault();
-      document.body.classList.remove('page-ready');
-      setTimeout(() => { window.location.href = href; }, 260);
-    });
-  </script>
+  <!-- no fade script -->
 </body>
 </html>
-
-
