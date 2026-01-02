@@ -241,25 +241,6 @@
       padding: 0 60px;
     }
 
-    .evolution-header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .evolution-header h2 {
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
-      font-size: 2.6rem;
-      font-weight: normal;
-      color: var(--text-color);
-      margin-bottom: 0.4rem;
-    }
-
-    .evolution-header p {
-      font-size: 1.05rem;
-      color: var(--caption-color);
-      font-style: italic;
-    }
-
     /* Horizontal Era Grid */
     .era-grid {
       display: grid;
@@ -318,7 +299,7 @@
       font-size: 18px;
       font-weight: normal;
       color: #a21a1a;
-      margin: 0 0 25px 0;
+      margin: 0;
       line-height: 1.4;
     }
 
@@ -337,7 +318,7 @@
     .era-column-left {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 18px;
     }
 
     .era-column p {
@@ -400,7 +381,6 @@
       .era-title { font-size: 1.2rem; }
       .era-section-expanded .era-title { font-size: 1.3rem; }
       .era-subtitle-main { font-size: 16px; }
-      .evolution-header h2 { font-size: 2rem; }
       /* Reset delays for mobile vertical layout */
       .era-section:nth-child(1) { transition-delay: 0s; }
       .era-section:nth-child(2) { transition-delay: 1s; }
@@ -579,18 +559,14 @@
     <canvas id="textureCanvas"></canvas>
     
     <div class="evolution-container">
-      <div class="evolution-header">
-        <h2>The Evolution of Cantonese</h2>
-        <p>A visual journey through language, power, and identity</p>
-      </div>
 
       <div class="era-grid">
         <!-- Section 1 -->
         <div class="era-section era-section-expanded">
           <h3 class="era-title">1. The Era of Hegemony, 1850s–1970s</h3>
-          <h4 class="era-subtitle-main">A. Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
           <div class="era-columns">
             <div class="era-column era-column-left">
+              <h4 class="era-subtitle-main">A. Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
               <p>Early Cantonese dominance was not just about numbers; it was about institutional power. In the 19th and 20th-century Chinatowns, native-place associations (huiguan), such as the Chinese Consolidated Benevolent Association (CCBA, often known as the "Six Companies" in San Francisco) acted like a government. They dominated trades like hand laundries, cigar making, and shoe manufacturing. They settled disputes, provided welfare, controlled remittance networks and steamship tickets, and fought legal battles against discrimination. In a context of exclusion and racialized vulnerability, these associations became a practical infrastructure of social protection—the only safety net available.</p>
               <p>Because Guangdong native networks deeply shaped these institutions, Cantonese was the price of admission. Speaking the language was not a choice; it was a necessity. It functioned as a "survival license." Without Cantonese, a Chinese immigrant could not borrow money, find a job, or access legal protection. The community's support system was effectively closed to anyone who did not speak the language.</p>
             </div>
