@@ -7,12 +7,12 @@
     const style = document.createElement("style");
     style.textContent = `
       footer[data-site-footer="1"] {
-        background: #2c2020;
+        background: #f5f0e5;
         border: none;
         padding: 12px 0;
         font-family: 'Exo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         font-size: 12px;
-        color: #fff;
+        color: #000;
         line-height: 1;
       }
 
@@ -39,12 +39,12 @@
       }
 
       footer[data-site-footer="1"] .footer-contact {
-        color: #fff;
+        color: #000;
         text-decoration: none;
       }
 
       footer[data-site-footer="1"] .footer-copyright {
-        color: #fff;
+        color: #000;
       }
 
       @media (max-width: 768px) {
