@@ -61,7 +61,7 @@
         font-family:'Exo', sans-serif;
         font-size:18px;
         font-weight:700;
-        color:#8B2332;
+        color:#701a1a;
         letter-spacing:.5px;
         line-height:1.2;
       }
@@ -70,7 +70,7 @@
         font-family:'Exo', sans-serif;
         font-size:14px;
         font-weight:700;
-        color:#8B2332;
+        color:#701a1a;
         letter-spacing:2px;
         line-height:1.2;
       }
@@ -103,7 +103,7 @@
       }
 
       header[data-site-header="1"] .nav-link:hover{
-        color:#8B2332;
+        color:#701a1a;
       }
 
       header[data-site-header="1"] .header-search{
