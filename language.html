@@ -516,13 +516,19 @@
     .surnames-block { transition-delay: 0.3s; } /* Stagger effect */
 
     /* --- Text Styles --- */
+    /* Added general paragraph style for this section for better spacing */
+    .content-block p {
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
     .highlight-text {
       font-size: 1.1rem;
       font-weight: bold;
       color: var(--text-color);
       border-left: 4px solid var(--theme-gold);
       padding-left: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 25px; /* Increased margin */
     }
 
     .bg-caption {
@@ -840,7 +846,7 @@
     </div>
   </section>
 
-  <!-- PART 5: The Era of Hegemony Continued (B & C Unified) - NEW DESIGN -->
+  <!-- PART 5: The Era of Hegemony Continued (B & C Unified) - FULL CONTENT UPDATE -->
   <section id="hegemony-unified" class="snap-item">
     <!-- Background Texture Layer -->
     <canvas id="textureCanvas3" class="texture-canvas"></canvas>
@@ -855,26 +861,36 @@
     <!-- Content Layer -->
     <div class="unified-content-container">
       
-      <!-- B. Media Hegemony Content -->
+      <!-- B. Media Hegemony Content (Full Text) -->
       <div class="content-block media-block">
         <h4 class="era-subtitle-main">B. Media Hegemony: The Public Voice</h4>
+        <!-- Highlighted first sentence -->
         <p class="highlight-text">
-          Cantonese dominance was reproduced through media. San Francisco’s early Chinese press, like <i>The Golden Hills’ News</i> (1854), was written exclusively for a Cantonese-speaking world.
+          Cantonese dominance was also reproduced through media institutions. San Francisco’s early Chinese press was written exclusively for a Cantonese-speaking labor class.
+        </p>
+        <!-- Full details -->
+        <p>
+          <i>The Golden Hills’ News</i> (1854), the first Chinese newspaper in the U.S., circulated among early migrants. In the early 20th century, major papers such as <i>Chung Sai Yat Po</i> (1900–1951) shaped political and civic discourse for decades, also spelled in Cantonese. Even when these newspapers discussed modern issues, they spoke to a Cantonese world.
         </p>
         <p>
-          The media didn't just reflect the community; it defined the boundaries, establishing Cantonese as the default language of news and opinion.
+          The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was “inside” the community’s political imagination and which linguistic groups were peripheral.
         </p>
         <span class="bg-caption">Background: The Golden Hills' News, San Francisco, 1854</span>
       </div>
 
-      <!-- C. Surnames and Signs Content & Visualization -->
+      <!-- C. Surnames and Signs Content (Full Text) & Visualization -->
       <div class="content-block surnames-block">
         <h4 class="era-subtitle-main">C. Surnames and Signs: The “Standard Sound”</h4>
+        <!-- Full text paragraph 1 -->
         <p>
-          English spellings of surnames historically tracked Cantonese pronunciations. It signaled that Cantonese was the accepted standard for being Chinese in North America.
+          A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin “Li,” “Wang,” or “Chen.”
+        </p>
+        <!-- Full text paragraph 2 -->
+        <p>
+          This was more than just spelling. It signaled that Cantonese was the “standard sound” of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.
         </p>
 
-        <!-- New Pronunciation Visual Slider -->
+        <!-- Pronunciation Visual Slider (Placed below text) -->
         <div class="pronunciation-visualizer">
           <!-- Lee/Li -->
           <div class="visual-row">
@@ -1078,11 +1094,12 @@
       observer.observe(section);
     }
 
-    // Apply texture to both evolution sections (including the new one)
+    // Apply texture to sections
     drawPaperTexture('textureCanvas1', 'evolution-section');
+    // 为新 section 添加纹理绘制
     drawPaperTexture('textureCanvas3', 'hegemony-unified');
 
-    // Scroll Animation for Era Sections text (staggered fade-in)
+    // Scroll Animation for Era Sections text
     (function() {
       // Select all elements that need animation (including the new content-blocks)
       const sections = document.querySelectorAll('.era-section, .content-block');
@@ -1092,13 +1109,9 @@
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Only animate if it doesn't already have the visible class (prevents re-animating static sections)
             if (!entry.target.classList.contains('visible')) {
                  entry.target.classList.add('visible');
             }
-          } else {
-            // Optional: comment this out if you want items to stay visible after scrolling past
-            // entry.target.classList.remove('visible');
           }
         });
       }, observerOptions);
