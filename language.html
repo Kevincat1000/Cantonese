@@ -8,6 +8,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Using Gentium Book Plus as the closest match for "gentiumregular" based on existing imports -->
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -23,7 +24,11 @@
       --bg-color: #F5F0E5;
       --text-color: #2c2c2c;
       --caption-color: #555;
+      /* Define main font family variable for consistency */
       --main-font: 'Gentium Book Plus', serif;
+      /* Theme Colors for the new section */
+      --theme-red: #a21a1a;
+      --theme-gold: #c5a059;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -38,10 +43,11 @@
 
     body {
       background: var(--bg-color);
+      /* CHANGE 1: Set global font family to Gentium Book Plus (regular weight 400 is default) */
       font-family: var(--main-font);
       line-height: 1.6;
       min-height: 100%;
-      color: var(--text-color);
+      color: var(--text-color); /* Ensure text color is applied globally */
     }
 
     /* --- Common class for full-page snapping sections --- */
@@ -53,6 +59,7 @@
       position: relative;
     }
 
+    /* Wrapper for the first section to handle header padding and centering */
     .first-section-wrapper {
       padding-top: var(--header-h, 73px);
       display: flex;
@@ -148,6 +155,7 @@
       font-weight: 700;
       color: #1a1a1a;
       line-height: 1.1;
+      /* Ensure these inherit the global font */
       font-family: inherit; 
     }
 
@@ -155,6 +163,7 @@
       margin: 0;
       color: #2d3748;
       line-height: 1.5;
+       /* Ensure these inherit the global font */
       font-family: inherit;
     }
 
@@ -203,6 +212,7 @@
       margin: 0 0 10px 0;
       color: #d4af37;
       font-weight: normal;
+      /* Keep Georgia for this specific title as per original design, or change to var(--main-font) if preferred */
       font-family: 'Georgia', serif; 
     }
 
@@ -254,7 +264,8 @@
       box-sizing: border-box;
     }
 
-    #textureCanvas {
+    /* Common texture canvas style */
+    .texture-canvas {
       position: absolute;
       top: 0;
       left: 0;
@@ -275,6 +286,7 @@
       width: 100%;
     }
 
+    /* Horizontal Era Grid */
     .era-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -297,11 +309,13 @@
       transform: translateY(0);
     }
 
+    /* Staggered delays */
     .era-section:nth-child(1) { transition-delay: 0s; }
     .era-section:nth-child(2) { transition-delay: 0.5s; }
     .era-section:nth-child(3) { transition-delay: 1s; }
 
     .era-title {
+      /* Resetting font family to inherit from body */
       font-family: inherit;
       font-size: 1.1rem;
       font-weight: normal;
@@ -310,9 +324,10 @@
       color: var(--text-color);
     }
 
+    /* CHANGE 2: New class for the larger, full title */
     .era-title-large {
       font-size: 30px;
-      font-weight: bold;
+      font-weight: bold; /* Optional: make it bold for better hierarchy */
       margin-bottom: 16px;
     }
 
@@ -321,17 +336,19 @@
       margin-top: 5px;
     }
 
+    /* Expanded Era Section (Section 1) */
     .era-section-expanded {
       grid-column: 1 / -1;
       text-align: left;
     }
 
     .era-subtitle-main {
+      /* Resetting font family to inherit */
       font-family: inherit;
       font-size: 18px;
-      font-weight: bold;
+      font-weight: bold; /* Changed to bold for better definition */
       color: #a21a1a;
-      /* CHANGE 1: Increased bottom margin for more spacing */
+      /* CHANGE 3: Increased bottom margin for more spacing */
       margin: 0 0 24px 0; 
       line-height: 1.4;
     }
@@ -339,8 +356,8 @@
     .era-columns {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 50px; /* Slightly increased gap between text and image columns */
-      /* CHANGE 2: Changed from 'start' to 'center' to vertically center the image column */
+      gap: 50px;
+      /* CHANGE 4: Changed to 'center' for vertical alignment */
       align-items: center; 
       margin-top: 20px;
     }
@@ -357,6 +374,7 @@
     }
 
     .era-column p {
+      /* Resetting font family to inherit */
       font-family: inherit;
       font-size: 0.95rem;
       line-height: 1.7;
@@ -365,12 +383,11 @@
       text-align: justify;
     }
 
-    /* CHANGE 3: Updated Right column to center content */
     .era-column-right {
       display: flex;
       flex-direction: column;
-      align-items: center; /* Ensures image and caption are centered horizontally within the column */
-      justify-content: center; /* Ensures vertical centering if needed */
+      align-items: center;
+      justify-content: center;
     }
 
     .era-column-image {
@@ -381,15 +398,15 @@
       width: 100%;
       border: 8px solid #fff;
       box-shadow: 0 5px 15px rgba(0,0,0,0.12);
-      display: block; /* Removes bottom space below image */
+      display: block;
     }
 
     .era-column-caption {
       display: block;
+      /* Resetting font family to inherit */
       font-family: inherit;
       font-size: 0.8rem;
       color: var(--caption-color);
-      /* CHANGE 4: Adjusted margin for better spacing below image */
       margin-top: 12px; 
       text-align: center;
     }
@@ -415,11 +432,10 @@
       .era-columns {
         grid-template-columns: 1fr;
         gap: 30px;
-        /* On mobile, revert to start alignment as stacked looks better than centered */
         align-items: start; 
       }
       .era-column-image img {
-        max-width: 320px; /* Slightly larger on mobile for better view */
+        max-width: 320px;
         margin: 0 auto;
       }
       .era-title { font-size: 1.2rem; }
@@ -428,6 +444,156 @@
       .era-section:nth-child(1) { transition-delay: 0s; }
       .era-section:nth-child(2) { transition-delay: 0.5s; }
       .era-section:nth-child(3) { transition-delay: 1s; }
+    }
+
+    /* =========================================
+       NEW STYLES FOR HEGEMONY CONTINUED SECTION
+       ========================================= */
+    #hegemony-continued .evolution-container {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* --- Newspaper Image Styles --- */
+    .newspaper-container {
+      position: relative;
+      width: 90%;
+      margin: 0 auto;
+      transform: rotate(-1deg);
+      transition: transform 0.3s ease;
+    }
+
+    .newspaper-container:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .blend-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      /* The key to the "cutout" effect: multiply blending */
+      mix-blend-mode: multiply;
+      filter: contrast(1.1) sepia(0.2);
+      box-shadow: 5px 8px 20px rgba(0,0,0,0.15);
+    }
+
+    /* --- Surname Visualization Styles --- */
+    .surname-visualizer-container {
+      margin-top: 50px;
+      padding: 30px 0;
+      border-top: 1px solid rgba(162, 26, 26, 0.2);
+      border-bottom: 1px solid rgba(162, 26, 26, 0.2);
+    }
+
+    .surname-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+
+    .surname-block {
+      padding: 20px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .surname-block:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(197, 160, 89, 0.2); /* Gold glow */
+      background: rgba(255,255,255,0.7);
+    }
+
+    .chinese-char {
+      font-size: 60px;
+      font-weight: bold;
+      color: var(--theme-red);
+      margin-bottom: 15px;
+      font-family: inherit;
+    }
+
+    .pronunciation-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .p-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .p-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      margin-bottom: 5px;
+    }
+
+    .p-spelling {
+      font-size: 1.4rem;
+      font-family: inherit;
+      line-height: 1.2;
+    }
+
+    /* Cantonese Highlight Style */
+    .cantonese-highlight {
+      color: var(--text-color);
+      font-weight: bold;
+      position: relative;
+      display: inline-block;
+    }
+
+    .cantonese-highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--theme-gold);
+      border-radius: 2px;
+    }
+
+    /* Mandarin Dim Style */
+    .mandarin-dim {
+      color: #999;
+      font-weight: normal;
+    }
+
+    .p-divider {
+      height: 40px;
+      background-color: #ddd;
+    }
+
+    @media (max-width: 768px) {
+      #hegemony-continued .evolution-container {
+        justify-content: flex-start;
+        padding-top: 80px;
+      }
+      .surname-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .newspaper-container {
+        width: 100%;
+        transform: rotate(0deg);
+      }
+      .pronunciation-comparison {
+         gap: 5px;
+      }
+      .p-spelling {
+          font-size: 1.2rem;
+      }
     }
   </style>
 </head>
@@ -584,14 +750,16 @@
 
   <!-- PART 4: Evolution of Cantonese Section (Narrative 1) -->
   <section id="evolution-section" class="snap-item">
-    <canvas id="textureCanvas"></canvas>
+    <!-- 使用通用的纹理类 -->
+    <canvas id="textureCanvas1" class="texture-canvas"></canvas>
     
     <div class="evolution-container">
 
       <div class="era-grid">
         <!-- Section 1 -->
         <div class="era-section era-section-expanded">
-          <h3 class="era-title era-title-large">1. 1850s–1970s: Cantonese as “Survival License”</h3>
+          <!-- CHANGE 3: Updated title text and added era-title-large class -->
+          <h3 class="era-title era-title-large">1. The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</h3>
           <div class="era-columns">
             <div class="era-column era-column-left">
               <h4 class="era-subtitle-main">A. Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
@@ -601,8 +769,8 @@
             <div class="era-column era-column-right">
               <div class="era-column-image">
                 <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg" alt="Ning Yeung Association, San Francisco, 1891">
-                <span class="era-column-caption">Ning Yeung Association, San Francisco, 1891</span>
               </div>
+              <span class="era-column-caption">Ning Yeung Association, San Francisco, 1891</span>
             </div>
           </div>
         </div>
@@ -616,6 +784,103 @@
         <div class="era-section">
           <h3 class="era-title">3. The Great Reversal (2000s–Present)<br><span class="era-subtitle">Cantonese recast as heritage</span></h3>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 5: The Era of Hegemony Continued (New Section) -->
+  <section id="hegemony-continued" class="snap-item">
+    <canvas id="textureCanvas2" class="texture-canvas"></canvas>
+
+    <div class="evolution-container">
+      <div class="era-grid" style="grid-template-columns: 1fr;"> <!-- Single column layout -->
+
+        <!-- B. Media Hegemony Section -->
+        <div class="era-section era-section-expanded visible"> <!-- Force visible as it's a new page start -->
+          <div class="era-columns" style="align-items: center;">
+            <div class="era-column era-column-left">
+              <h4 class="era-subtitle-main">B. Media Hegemony: The Public Voice</h4>
+              <p>Cantonese dominance was also reproduced through media institutions. San Francisco’s early Chinese press was written exclusively for a Cantonese-speaking labor class. <i>The Golden Hills’ News</i> (1854), the first Chinese newspaper in the U.S., circulated among early migrants. In the early 20th century, major papers such as <i>Chung Sai Yat Po</i> (1900–1951) shaped political and civic discourse for decades, also spelled in Cantonese. Even when these newspapers discussed modern issues, they spoke to a Cantonese world.</p>
+              <p>The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was “inside” the community’s political imagination and which linguistic groups were peripheral.</p>
+            </div>
+            <!-- Right column with blended newspaper image -->
+            <div class="era-column era-column-right">
+              <div class="newspaper-container">
+                <!-- Image with blend-mode multiply for "cutout" effect -->
+                <img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" 
+                     alt="The Golden Hills' News" class="blend-image">
+              </div>
+              <span class="era-column-caption">The Golden Hills' News. San Francisco, 1854</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- C. Surnames and Signs Section with Visualization -->
+        <div class="era-section era-section-expanded visible" style="margin-top: 60px;">
+          <h4 class="era-subtitle-main">C. Surnames and Signs: Cantonese as the Default Public Pronunciation</h4>
+          <div class="era-column-left" style="max-width: 800px; margin-bottom: 30px;">
+             <p>A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations. This was more than just spelling. It signaled that Cantonese was the “standard sound” of public life.</p>
+          </div>
+
+          <!-- Surname Visualizer Widget -->
+          <div class="surname-visualizer-container">
+            <div class="surname-grid">
+
+              <!-- Lee/Li -->
+              <div class="surname-block">
+                <div class="chinese-char">李</div>
+                <div class="pronunciation-comparison">
+                  <div class="p-col">
+                    <span class="p-label">Cantonese</span>
+                    <span class="p-spelling cantonese-highlight">Lee</span>
+                  </div>
+                  <div class="p-divider"></div>
+                  <div class="p-col">
+                    <span class="p-label">Mandarin (Pinyin)</span>
+                    <span class="p-spelling mandarin-dim">Li</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Wong/Wang -->
+              <div class="surname-block">
+                <div class="chinese-char">王</div>
+                <div class="pronunciation-comparison">
+                  <div class="p-col">
+                    <span class="p-label">Cantonese</span>
+                    <span class="p-spelling cantonese-highlight">Wong</span>
+                  </div>
+                  <div class="p-divider"></div>
+                  <div class="p-col">
+                    <span class="p-label">Mandarin (Pinyin)</span>
+                    <span class="p-spelling mandarin-dim">Wang</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chan/Chen -->
+              <div class="surname-block">
+                <div class="chinese-char">陈</div>
+                <div class="pronunciation-comparison">
+                  <div class="p-col">
+                    <span class="p-label">Cantonese</span>
+                    <span class="p-spelling cantonese-highlight">Chan</span>
+                  </div>
+                  <div class="p-divider"></div>
+                  <div class="p-col">
+                    <span class="p-label">Mandarin (Pinyin)</span>
+                    <span class="p-spelling mandarin-dim">Chen</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: #666;">
+              In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.
+          </p>
+        </div>
+
       </div>
     </div>
   </section>
@@ -736,17 +1001,19 @@
       });
     })();
 
-    // Canvas Texture for Evolution Section (Last Section)
-    (function() {
-      const canvas = document.getElementById('textureCanvas');
+    // Reusable Canvas Texture Drawing Function
+    function drawPaperTexture(canvasId, sectionId) {
+      const canvas = document.getElementById(canvasId);
       const ctx = canvas.getContext('2d');
-      const section = document.getElementById('evolution-section');
+      const section = document.getElementById(sectionId);
+
       function resizeCanvas() {
         canvas.width = section.clientWidth;
         canvas.height = section.clientHeight;
-        drawTexture();
+        draw();
       }
-      function drawTexture() {
+
+      function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'rgba(100, 90, 80, 0.05)'; 
         for (let i = 0; i < canvas.width; i += 3) {
@@ -758,7 +1025,9 @@
           }
         }
       }
+
       window.addEventListener('resize', resizeCanvas);
+      // Use IntersectionObserver to draw only when needed
       const observer = new IntersectionObserver((entries) => {
           if (entries[0].isIntersecting) {
               resizeCanvas();
@@ -766,11 +1035,15 @@
           }
       });
       observer.observe(section);
-    })();
+    }
+
+    // Apply texture to both evolution sections
+    drawPaperTexture('textureCanvas1', 'evolution-section');
+    drawPaperTexture('textureCanvas2', 'hegemony-continued');
 
     // Scroll Animation for Era Sections text (staggered fade-in)
     (function() {
-      const eraGrid = document.querySelector('.era-grid');
+      // Select all elements that need animation (including the new ones)
       const sections = document.querySelectorAll('.era-section');
       const observerOptions = {
         root: null, threshold: 0.2, rootMargin: "0px"
@@ -778,13 +1051,20 @@
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            sections.forEach(section => { section.classList.add('visible'); });
+            // Only animate if it doesn't already have the visible class (prevents re-animating static sections)
+            if (!entry.target.classList.contains('visible')) {
+                 entry.target.classList.add('visible');
+            }
           } else {
-            sections.forEach(section => { section.classList.remove('visible'); });
+            // Optional: comment this out if you want items to stay visible after scrolling past
+            // entry.target.classList.remove('visible');
           }
         });
       }, observerOptions);
-      if (eraGrid) { observer.observe(eraGrid); }
+      
+      sections.forEach(section => {
+          observer.observe(section);
+      });
     })();
   </script>
 </body>
