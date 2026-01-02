@@ -18,6 +18,10 @@
   <link rel="preload" href="./assets/header.js" as="script">
   <script src="./assets/header.js" defer></script>
 
+  <!-- Footer injector -->
+  <link rel="preload" href="./assets/footer.js" as="script">
+  <script src="./assets/footer.js" defer></script>
+
   <style>
     :root { --header-h: 48px; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -140,19 +144,6 @@
     }
 
     .stat-description{ font-size: 0.95rem; }
-
-    /* Footer */
-    footer{
-      background: #003057;
-      color: white;
-      padding: 2rem 1rem;
-      text-align: center;
-    }
-
-    footer p{
-      font-size: 0.95rem;
-      color: #d1d5db;
-    }
   </style>
 </head>
 
@@ -200,11 +191,7 @@
     </div>
   </section>
 
-  <footer>
-    <div class="container">
-      <p>Created by kw30928@gmail.com All rights reserved 2025</p>
-    </div>
-  </footer>
+  <!-- Footer will be injected by ./assets/footer.js -->
 
   <script>
     (function () {
