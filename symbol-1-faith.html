@@ -3,1285 +3,144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Symbol 1: Faith | Cantonese in Americas</title>
+  <title>Symbol I — Religious Beliefs & Ancestral Worship</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/style.css" />
+  <script src="./assets/header.js" defer></script>
 
   <style>
-    :root{
-      --paper:#f5f0e5;
-      --ink:#1a1a1a;
-      --muted:#5a5a5a;
-      --teal:#2d7b73;
-      --tealDark:#1f5c56;
-      --line:rgba(0,0,0,0.10);
-      --shadow: 0 12px 34px rgba(0,0,0,0.10);
-      --radius:18px;
-      --max: 1180px;
-      --pad: 22px; /* content padding (body margin stays 0) */
-    }
+    :root{ --header-h: 73px; }
 
-    *{ margin:0; padding:0; box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
+    html, body{
+      margin:0; padding:0; height:100%;
+      background:#F5F0E5;
       font-family:'Gentium Book Plus', serif;
-      color:var(--ink);
-      background: var(--paper);
-      line-height:1.7;
+      overflow:hidden;
+    }
+
+    .page-wrapper{
+      height: calc(100vh - var(--header-h));
+      overflow-y:auto;
       overflow-x:hidden;
+      scrollbar-gutter: stable;
     }
 
-    /* ====== BILINGUAL ====== */
-    .lang{ display:none; }
-    .lang.en{ display:block; }
-    body.lang-zh .lang.en{ display:none; }
-    body.lang-zh .lang.zh{ display:block; }
-
-    /* ====== HEADER / NAV (keep consistent with your site) ====== */
-    .site-header{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(245,240,229,0.90);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav-inner{
-      max-width: calc(var(--max) + (var(--pad) * 2));
+    .wrap{
+      max-width: 980px;
       margin: 0 auto;
-      padding: 14px var(--pad);
+      padding: 28px 18px 56px;
+    }
+
+    .crumbs{
       display:flex;
+      gap:10px;
       align-items:center;
-      justify-content:space-between;
-      gap: 14px;
+      font: 600 14px/1.2 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: rgba(0,0,0,0.65);
+      margin-bottom: 16px;
     }
-    .brand{
-      display:flex;
-      align-items:baseline;
-      gap: 12px;
-      text-decoration:none;
-      color:var(--ink);
-      min-width: 210px;
+    .crumbs a{ color: inherit; text-decoration: none; border-bottom: 1px solid rgba(0,0,0,0.25); }
+    .crumbs a:hover{ border-bottom-color: rgba(0,0,0,0.5); }
+
+    .title{
+      font-size: clamp(28px, 3.2vw, 40px);
+      line-height: 1.12;
+      margin: 0 0 8px 0;
+      color:#1a1a1a;
     }
-    .brand .title{
-      font-weight:700;
-      letter-spacing:0.2px;
+    .theme{
       font-size: 18px;
-      line-height:1.1;
-    }
-    .brand .subtitle{
-      font-size: 13px;
-      color: var(--muted);
-      line-height:1.1;
-    }
-
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-    .nav-item{ position: relative; display:flex; align-items:center; }
-    .nav-btn, .nav-link{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      text-decoration:none;
-      color: var(--ink);
-      border: 1px solid transparent;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      font-size: 14px;
-      white-space: nowrap;
-      background: transparent;
-      cursor:pointer;
-      font-family: inherit;
-    }
-    .nav-btn:hover, .nav-link:hover{
-      background: rgba(45,123,115,0.10);
-      border-color: rgba(45,123,115,0.22);
-      transform: translateY(-1px);
-    }
-    .nav-link.active{
-      background: rgba(45,123,115,0.14);
-      border-color: rgba(45,123,115,0.32);
-      font-weight:700;
-    }
-
-    /* Dropdown + hover bridge */
-    .dropdown{
-      position:absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      min-width: 220px;
-      background: rgba(255,255,255,0.92);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      padding: 8px;
-      opacity: 0;
-      transform: translateY(-6px);
-      pointer-events:none;
-      transition: opacity .14s ease, transform .14s ease;
-    }
-    .nav-item.has-dropdown::after{
-      content:"";
-      position:absolute;
-      left:0; right:0;
-      top: 100%;
-      height: 14px; /* bridge */
-    }
-    .nav-item.has-dropdown:hover .dropdown,
-    .nav-item.has-dropdown:focus-within .dropdown{
-      opacity:1;
-      transform: translateY(0);
-      pointer-events:auto;
-    }
-    .dropdown a{
-      display:flex;
-      flex-direction:column;
-      gap: 2px;
-      padding: 10px 10px;
-      border-radius: 12px;
-      text-decoration:none;
-      color: var(--ink);
-      border: 1px solid transparent;
-      transition: background .12s ease, border-color .12s ease;
-      font-size: 14px;
-    }
-    .dropdown a:hover{
-      background: rgba(45,123,115,0.10);
-      border-color: rgba(45,123,115,0.22);
-    }
-    .dropdown .small{
-      font-size: 12px;
-      color: var(--muted);
-      line-height:1.2;
-    }
-
-    .right-tools{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      min-width: 210px;
-      justify-content:flex-end;
-    }
-    .lang-toggle{
-      display:inline-flex;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      overflow:hidden;
-      background: rgba(255,255,255,0.60);
-    }
-    .lang-toggle button{
-      border:0;
-      background: transparent;
-      padding: 9px 12px;
-      cursor:pointer;
-      font-family: inherit;
-      font-size: 13px;
-      color: var(--muted);
-      transition: background .12s ease, color .12s ease;
-      white-space:nowrap;
-    }
-    .lang-toggle button.active{
-      background: rgba(45,123,115,0.18);
-      color: var(--ink);
-      font-weight:700;
-    }
-
-    /* ====== PAGE WRAP ====== */
-    .page{
-      max-width: calc(var(--max) + (var(--pad) * 2));
-      margin: 0 auto;
-      padding: 26px var(--pad) 90px;
-    }
-
-    /* ====== HERO (CGTN-like: big image + label panel) ====== */
-    .hero{
-      border-radius: calc(var(--radius) + 8px);
-      overflow:hidden;
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      background:
-        radial-gradient(1000px 380px at 20% 0%, rgba(45,123,115,0.22), transparent 56%),
-        radial-gradient(900px 420px at 88% 20%, rgba(45,123,115,0.12), transparent 60%),
-        rgba(255,255,255,0.55);
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 18px;
-      padding: 22px;
-      align-items:stretch;
-    }
-
-    .hero-media{
-      position:relative;
-      border-radius: var(--radius);
-      overflow:hidden;
-      border: 1px solid rgba(0,0,0,0.10);
-      background: #ddd;
-      min-height: 360px;
-    }
-
-    .hero-media img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      transform: scale(1.04);
-      filter: contrast(1.02) saturate(1.02);
-      animation: kenburns 16s ease-in-out infinite alternate;
-    }
-
-    @keyframes kenburns{
-      0% { transform: scale(1.05) translate3d(0px,0px,0); }
-      100% { transform: scale(1.12) translate3d(-10px,-8px,0); }
-    }
-
-    .hero-overlay{
-      position:absolute;
-      inset:0;
-      background: linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0.06) 55%, rgba(0,0,0,0.00));
-      pointer-events:none;
-    }
-
-    .hero-text{
-      position:absolute;
-      left: 18px;
-      bottom: 16px;
-      right: 18px;
-      color: rgba(255,255,255,0.95);
-      text-shadow: 0 10px 26px rgba(0,0,0,0.35);
-    }
-
-    .kicker{
-      display:inline-flex;
-      gap: 10px;
-      align-items:center;
-      font-size: 12px;
-      letter-spacing:0.22px;
-      font-weight:700;
-      text-transform: uppercase;
-      opacity: 0.95;
-    }
-    .kicker .dot{
-      width: 7px; height:7px; border-radius: 999px;
-      background: #fff;
-      box-shadow: 0 0 0 4px rgba(255,255,255,0.18);
-    }
-    .hero-text h1{
-      margin-top: 10px;
-      font-size: 34px;
-      line-height: 1.14;
-      letter-spacing: 0.2px;
-    }
-    .hero-text p{
-      margin-top: 10px;
-      font-size: 15px;
-      max-width: 62ch;
-      color: rgba(255,255,255,0.90);
-    }
-
-    .hero-panel{
-      border-radius: var(--radius);
-      border: 1px solid rgba(0,0,0,0.10);
-      background: rgba(255,255,255,0.62);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.05);
-      padding: 16px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-    }
-    .panel-title{
-      font-size: 14px;
-      color: var(--tealDark);
-      font-weight:700;
-      text-transform: uppercase;
-      letter-spacing:0.18px;
-    }
-    .panel-block{
-      border: 1px solid rgba(0,0,0,0.10);
-      background: rgba(255,255,255,0.70);
-      border-radius: 14px;
-      padding: 12px;
-    }
-    .panel-block .t{
-      font-weight:700;
-      margin-bottom: 6px;
-    }
-    .panel-block .s{
-      font-size: 13px;
-      color: rgba(0,0,0,0.74);
-    }
-    .panel-tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.12);
-      background: rgba(255,255,255,0.70);
-      font-size: 12px;
+      margin: 0 0 18px 0;
       color: rgba(0,0,0,0.72);
     }
 
-    .scroll-hint{
-      margin-top: auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      color: rgba(0,0,0,0.74);
-      font-size: 13px;
-    }
-    .scroll-hint .arrow{
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.12);
-      background: rgba(255,255,255,0.75);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      animation: bob 1.8s ease-in-out infinite;
-      user-select:none;
-    }
-    @keyframes bob{
-      0%,100%{ transform: translateY(0); }
-      50%{ transform: translateY(4px); }
-    }
-
-    /* ====== SECTION HEAD ====== */
-    .section{
-      margin-top: 22px;
-    }
-    .section-head{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap: 12px;
-      margin: 20px 0 10px;
-    }
-    .section-head h2{
-      font-size: 22px;
-      line-height:1.2;
-    }
-    .section-head p{
-      color: var(--muted);
-      font-size: 14px;
-      max-width: 70ch;
-    }
-
-    /* ====== GALLERY GRID ====== */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-    }
-    .card{
-      grid-column: span 4;
-      border-radius: var(--radius);
-      border: 1px solid rgba(0,0,0,0.10);
-      background: rgba(255,255,255,0.60);
-      box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+    .hero{
+      margin: 18px 0 22px;
+      border-radius: 18px;
       overflow:hidden;
-      transform: translateY(0);
-      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
-      opacity: 0;
-      transform: translateY(14px);
+      background:#e7dfd2;
     }
-    .card.in{
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity .55s ease, transform .55s ease;
-    }
-    .card:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 14px 30px rgba(0,0,0,0.10);
-      background: rgba(255,255,255,0.72);
-    }
-    .card-media{
-      position:relative;
-      height: 190px;
-      overflow:hidden;
-      background:#ddd;
-    }
-    .card-media img{
+    .hero img{
       width:100%;
-      height:100%;
-      object-fit:cover;
-      transform: scale(1.02);
-      transition: transform .35s ease;
+      height: auto;
       display:block;
     }
-    .card:hover .card-media img{
-      transform: scale(1.08);
+
+    .text{
+      font-size: 18px;
+      line-height: 1.75;
+      color: rgba(0,0,0,0.84);
     }
-    .card-bd{
-      padding: 14px 14px 14px;
-    }
-    .card-bd .title{
-      font-weight:700;
-      font-size: 16px;
-      line-height:1.2;
-    }
-    .card-bd .desc{
-      margin-top: 8px;
-      color: rgba(0,0,0,0.74);
-      font-size: 13px;
-      min-height: 42px;
-    }
-    .card-actions{
-      margin-top: 12px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 10px;
+    .text p{ margin: 0 0 14px 0; }
+
+    .lang-note{
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0,0,0,0.10);
+      font: 13px/1.45 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: rgba(0,0,0,0.55);
     }
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(45,123,115,0.22);
-      background: rgba(45,123,115,0.12);
-      color: var(--tealDark);
-      cursor:pointer;
-      font-family: inherit;
-      font-size: 13px;
-      font-weight:700;
+    .nav{
+      display:flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 26px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0,0,0,0.10);
+      flex-wrap: wrap;
+    }
+    .nav a{
       text-decoration:none;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      user-select:none;
-      white-space:nowrap;
+      color:#1a1a1a;
+      font: 700 14px/1.2 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      border-bottom: 1px solid rgba(0,0,0,0.30);
+      padding-bottom: 3px;
     }
-    .btn:hover{
-      background: rgba(45,123,115,0.18);
-      border-color: rgba(45,123,115,0.30);
-      transform: translateY(-1px);
-    }
-    .btn.ghost{
-      border: 1px solid rgba(0,0,0,0.12);
-      background: rgba(255,255,255,0.70);
-      color: rgba(0,0,0,0.78);
-      font-weight:700;
-    }
-    .btn.ghost:hover{
-      background: rgba(255,255,255,0.85);
-    }
-
-    .badge{
-      font-size: 12px;
-      color: rgba(0,0,0,0.70);
-      border: 1px solid rgba(0,0,0,0.10);
-      background: rgba(255,255,255,0.68);
-      padding: 6px 10px;
-      border-radius: 999px;
-      white-space:nowrap;
-    }
-
-    /* ====== EXPLORE OVERLAY (CGTN-like split view) ====== */
-    .overlay{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,0.58);
-      backdrop-filter: blur(8px);
-      z-index: 200;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-    }
-    .overlay.show{ display:flex; }
-
-    .viewer{
-      width: min(1200px, 100%);
-      height: min(720px, 92vh);
-      border-radius: 22px;
-      overflow:hidden;
-      background: rgba(20,20,20,0.92);
-      border: 1px solid rgba(255,255,255,0.14);
-      box-shadow: 0 22px 60px rgba(0,0,0,0.42);
-      display:grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      position:relative;
-    }
-
-    .viewer-left{
-      position:relative;
-      background: #121212;
-      overflow:hidden;
-    }
-
-    .zoom-stage{
-      position:absolute;
-      inset:0;
-      cursor: grab;
-      user-select:none;
-    }
-    .zoom-stage:active{ cursor: grabbing; }
-
-    .zoom-img{
-      position:absolute;
-      left:50%;
-      top:50%;
-      transform: translate(-50%,-50%) scale(1);
-      transform-origin: center;
-      max-width:none;
-      width:auto;
-      height:auto;
-      min-width:100%;
-      min-height:100%;
-      opacity: 0;
-      transition: opacity .20s ease;
-    }
-    .zoom-img.ready{ opacity: 1; }
-
-    .viewer-right{
-      background: rgba(10,10,10,0.92);
-      color: rgba(255,255,255,0.92);
-      padding: 18px 18px 16px;
-      overflow:auto;
-      border-left: 1px solid rgba(255,255,255,0.10);
-    }
-
-    .viewer-top{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-    .viewer-title{
-      font-size: 22px;
-      line-height:1.15;
-      margin:0;
-    }
-    .viewer-sub{
-      margin-top: 8px;
-      color: rgba(255,255,255,0.72);
-      font-size: 13px;
-      line-height:1.5;
-    }
-
-    .viewer-controls{
-      display:flex;
-      gap: 8px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .iconbtn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width: 38px;
-      height: 38px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.90);
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease;
-      user-select:none;
-    }
-    .iconbtn:hover{
-      background: rgba(255,255,255,0.14);
-      transform: translateY(-1px);
-    }
-
-    .viewer-body p{
-      margin-top: 10px;
-      color: rgba(255,255,255,0.84);
-      font-size: 14px;
-    }
-    .viewer-body ul{
-      margin-top: 12px;
-      padding-left: 18px;
-      color: rgba(255,255,255,0.82);
-      font-size: 14px;
-    }
-    .viewer-body li{ margin: 6px 0; }
-
-    .thumbs{
-      margin-top: 16px;
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-    }
-    .thumb{
-      width: 86px;
-      height: 62px;
-      border-radius: 12px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.06);
-      cursor:pointer;
-      transform: translateY(0);
-      transition: transform .12s ease, border-color .12s ease;
-      opacity: 0.9;
-    }
-    .thumb:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,0.26);
-      opacity: 1;
-    }
-    .thumb img{
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .thumb.active{
-      border-color: rgba(255,255,255,0.44);
-      opacity: 1;
-    }
-
-    .viewer-nav{
-      position:absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 46px;
-      height: 86px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.10);
-      color: rgba(255,255,255,0.92);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      user-select:none;
-      transition: background .12s ease, transform .12s ease;
-    }
-    .viewer-nav:hover{
-      background: rgba(255,255,255,0.16);
-      transform: translateY(-50%) scale(1.02);
-    }
-    .viewer-nav.prev{ left: 12px; }
-    .viewer-nav.next{ right: 12px; }
-
-    .hint{
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.60);
-    }
-
-    /* ====== RESPONSIVE ====== */
-    @media (max-width: 980px){
-      .hero-grid{ grid-template-columns: 1fr; }
-      .viewer{ grid-template-columns: 1fr; height: min(820px, 92vh); }
-      .viewer-right{ border-left:0; border-top: 1px solid rgba(255,255,255,0.10); }
-      .viewer-nav.prev, .viewer-nav.next{ top: 30%; }
-      .card{ grid-column: span 6; }
-    }
-    @media (max-width: 620px){
-      .card{ grid-column: span 12; }
-      .hero-text h1{ font-size: 28px; }
-    }
+    .nav a:hover{ border-bottom-color: rgba(0,0,0,0.6); }
   </style>
 </head>
 
-<body class="lang-en">
+<body>
+  <!-- header injected by ./assets/header.js -->
 
-  <!-- ===== HEADER ===== -->
-  <header class="site-header" role="banner">
-    <div class="nav-inner">
-      <a class="brand" href="index.html" aria-label="Home">
-        <div class="title">Cantonese in Americas</div>
-        <div class="subtitle">
-          <span class="lang en">Diaspora • Culture • Memory</span>
-          <span class="lang zh">离散 • 文化 • 记忆</span>
-        </div>
-      </a>
-
-      <nav class="nav-links" role="navigation" aria-label="Main navigation">
-        <a class="nav-link" href="index.html"><span class="lang en">Home</span><span class="lang zh">主页</span></a>
-
-        <div class="nav-item has-dropdown">
-          <button class="nav-btn" type="button" aria-haspopup="true" aria-expanded="false">
-            <span class="lang en">Timeline</span><span class="lang zh">时间线</span> ▾
-          </button>
-          <div class="dropdown" role="menu" aria-label="Timeline menu">
-            <a href="phase1.html" role="menuitem">
-              <div><span class="lang en">Phase 1</span><span class="lang zh">阶段 1</span></div>
-              <div class="small"><span class="lang en">17th–19th c. foundations</span><span class="lang zh">17–19 世纪：基础与起点</span></div>
-            </a>
-            <a href="phase2.html" role="menuitem">
-              <div><span class="lang en">Phase 2</span><span class="lang zh">阶段 2</span></div>
-              <div class="small"><span class="lang en">Exclusion & adaptation</span><span class="lang zh">排华与适应</span></div>
-            </a>
-            <a href="phase3.html" role="menuitem">
-              <div><span class="lang en">Phase 3</span><span class="lang zh">阶段 3</span></div>
-              <div class="small"><span class="lang en">Reform-era migrations</span><span class="lang zh">改革开放与新移民</span></div>
-            </a>
-            <a href="phase4.html" role="menuitem">
-              <div><span class="lang en">Phase 4</span><span class="lang zh">阶段 4</span></div>
-              <div class="small"><span class="lang en">Contemporary diaspora</span><span class="lang zh">当代离散与重塑</span></div>
-            </a>
-            <a href="map.html" role="menuitem">
-              <div><span class="lang en">Routes Map</span><span class="lang zh">路线地图</span></div>
-              <div class="small"><span class="lang en">Maritime + flight routes</span><span class="lang zh">海路 + 航线迁移</span></div>
-            </a>
-          </div>
-        </div>
-
-        <a class="nav-link active" href="culture.html"><span class="lang en">Culture</span><span class="lang zh">文化</span></a>
-        <a class="nav-link" href="archives.html"><span class="lang en">Archives</span><span class="lang zh">档案</span></a>
-        <a class="nav-link" href="resources.html"><span class="lang en">Resources</span><span class="lang zh">资源</span></a>
-        <a class="nav-link" href="culture-history.html"><span class="lang en">Culture History</span><span class="lang zh">文化史</span></a>
-        <a class="nav-link" href="oral-history.html"><span class="lang en">Oral History</span><span class="lang zh">口述史</span></a>
-      </nav>
-
-      <div class="right-tools">
-        <div class="lang-toggle" role="group" aria-label="Language toggle">
-          <button id="btnEN" class="active" type="button">EN</button>
-          <button id="btnZH" type="button">中文</button>
-        </div>
+  <div class="page-wrapper">
+    <div class="wrap">
+      <div class="crumbs">
+        <a href="culture.html">← Back to Symbols</a>
+        <span style="opacity:.55;">/</span>
+        <span>Symbol I</span>
       </div>
-    </div>
-  </header>
 
-  <!-- ===== CONTENT ===== -->
-  <main class="page" role="main">
+      <h1 class="title">Symbol 1: Religious Beliefs and Ancestral Worship</h1>
+      <h2 class="theme">Theme: Spiritual Anchors and the "Temple-Association" Model</h2>
 
-    <!-- HERO -->
-    <section class="hero" aria-label="Symbol 1 hero">
-      <div class="hero-grid">
-        <div class="hero-media">
-          <img src="assets/faith/hero.jpg" alt="Faith hero image" />
-          <div class="hero-overlay"></div>
-          <div class="hero-text">
-            <div class="kicker"><span class="dot"></span>
-              <span class="lang en">Culture → Symbol 1</span>
-              <span class="lang zh">文化 → 符号 1</span>
-            </div>
-            <h1>
-              <span class="lang en">Faith: Temples, Ancestors, and Community Survival</span>
-              <span class="lang zh">信仰：庙宇、祖先与社群生存</span>
-            </h1>
-            <p>
-              <span class="lang en">
-                For Cantonese migrants, faith was not only belief. It was a social system: rituals, mutual aid, lineage memory,
-                and public culture that made “home” rebuildable in a foreign land.
-              </span>
-              <span class="lang zh">
-                对广东移民而言，信仰不只是“相信”。它是一套社会系统：仪式、互助、宗族记忆，以及让“家”得以重建的公共文化。
-              </span>
-            </p>
-          </div>
-        </div>
-
-        <aside class="hero-panel">
-          <div class="panel-title">
-            <span class="lang en">Featured</span><span class="lang zh">重点</span>
-          </div>
-
-          <div class="panel-block">
-            <div class="t">
-              <span class="lang en">Temple–Association Model</span>
-              <span class="lang zh">“庙宇—会馆”模式</span>
-            </div>
-            <div class="s">
-              <span class="lang en">Sacred + secular spaces fused into one cultural engine.</span>
-              <span class="lang zh">圣俗空间融合为一体，形成文化与互助的发动机。</span>
-            </div>
-          </div>
-
-          <div class="panel-tags" aria-label="tags">
-            <span class="pill"><span class="lang en">Mazu</span><span class="lang zh">妈祖</span></span>
-            <span class="pill"><span class="lang en">Guandi</span><span class="lang zh">关帝</span></span>
-            <span class="pill"><span class="lang en">Ancestor Worship</span><span class="lang zh">祖先崇拜</span></span>
-            <span class="pill"><span class="lang en">Lion Dance</span><span class="lang zh">舞狮</span></span>
-          </div>
-
-          <div class="scroll-hint">
-            <span class="lang en">Scroll to explore the gallery</span>
-            <span class="lang zh">向下滑动浏览画廊</span>
-            <div class="arrow">↓</div>
-          </div>
-        </aside>
+      <!-- TODO: replace image -->
+      <div class="hero">
+        <img src="images/symbols/symbol-1-hero.jpg" alt="Religious beliefs and ancestral worship">
       </div>
-    </section>
 
-    <!-- GALLERY -->
-    <section class="section" aria-label="gallery section">
-      <div class="section-head">
-        <div>
-          <h2>
-            <span class="lang en">Symbol Gallery</span>
-            <span class="lang zh">符号画廊</span>
-          </h2>
-          <p>
-            <span class="lang en">
-              Quick snapshots first. Tap “Explore” to zoom in and read the full story.
-            </span>
-            <span class="lang zh">
-              先看粗略概览。点击“Explore / 深入”进入聚焦模式阅读完整故事。
-            </span>
-          </p>
+      <div class="text">
+        <p>
+          Guangdong immigrants transplanted their spiritual landscape to the U.S. through a unique "Temple-Association"  model. This integration of sacred and secular spaces—exemplified by the Tin How Temple in San Francisco (est. 1852)—served as a vital cultural nexus. Beyond worshiping Mazu or Guandi, these sites functioned as social hubs where ancestor worship reinforced lineage identity and community cohesion. By recreating familiar ritual spaces, early immigrants transformed traditional Lingnan folk beliefs into a visible public culture in the West. This "regeneration" allowed the community to maintain its cultural "root" while navigating the challenges of life in a foreign land, ultimately enriching America's multicultural religious landscape through festive performances like lion dances and opera.
+        </p>
+
+        <div class="lang-note">
+          中文版本（可选）：如果你想要我把四个 Symbol 全部翻成中文并保持学术语气，我可以直接给你一套一致风格的中文文本。
         </div>
       </div>
 
-      <div class="grid" id="galleryGrid"></div>
-    </section>
-
-  </main>
-
-  <!-- ===== EXPLORE OVERLAY ===== -->
-  <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="viewer" role="dialog" aria-modal="true" aria-label="Explore viewer">
-      <div class="viewer-left">
-        <div class="zoom-stage" id="zoomStage">
-          <img class="zoom-img" id="zoomImg" alt="Focused image" />
-        </div>
-
-        <div class="viewer-nav prev" id="btnPrev" aria-label="Previous">‹</div>
-        <div class="viewer-nav next" id="btnNext" aria-label="Next">›</div>
-      </div>
-
-      <div class="viewer-right">
-        <div class="viewer-top">
-          <div>
-            <h3 class="viewer-title" id="viewerTitle"></h3>
-            <div class="viewer-sub" id="viewerMeta"></div>
-          </div>
-          <div class="viewer-controls">
-            <button class="iconbtn" id="zoomOut" title="Zoom out" aria-label="Zoom out">−</button>
-            <button class="iconbtn" id="zoomIn" title="Zoom in" aria-label="Zoom in">＋</button>
-            <button class="iconbtn" id="resetView" title="Reset view" aria-label="Reset view">↺</button>
-            <button class="iconbtn" id="closeOverlay" title="Close" aria-label="Close">✕</button>
-          </div>
-        </div>
-
-        <div class="viewer-body" id="viewerBody"></div>
-
-        <div class="thumbs" id="thumbs"></div>
-        <div class="hint">
-          <span class="lang en">Tip: drag the image to pan; use + / − to zoom.</span>
-          <span class="lang zh">提示：拖拽图片可移动；用 + / − 放大缩小。</span>
-        </div>
+      <div class="nav">
+        <a href="symbol-4-kungfu.html">← Previous: Symbol IV</a>
+        <a href="symbol-2-food.html">Next: Symbol II →</a>
       </div>
     </div>
   </div>
-
-  <script>
-    /* =========================
-       DATA (edit texts anytime)
-       ========================= */
-    const ITEMS = [
-      {
-        id: "mazu",
-        badgeEN: "Deity",
-        badgeZH: "神祇",
-        titleEN: "Mazu: Protection Across the Ocean",
-        titleZH: "妈祖：跨越海洋的护佑",
-        shortEN: "Sailors’ goddess becomes a diaspora symbol of safety and arrival.",
-        shortZH: "海神信仰在离散中转化为“安全与抵达”的象征。",
-        metaEN: "Focus: maritime migration • temple networks • public festivals",
-        metaZH: "聚焦：海路迁移 • 庙宇网络 • 节庆公共文化",
-        images: ["assets/faith/mazu-1.jpg","assets/faith/mazu-2.jpg"],
-        bodyEN: `
-          <p>Mazu worship traveled with Cantonese communities and gained new meaning overseas: she became a “portable protection” for people crossing dangerous waters and rebuilding life after arrival.</p>
-          <ul>
-            <li><b>Why it mattered:</b> spiritual reassurance + community gathering point.</li>
-            <li><b>How it functioned:</b> rituals, donations, mutual aid, and festival performances.</li>
-            <li><b>Public culture:</b> processions and lion dances made Cantonese presence visible.</li>
-          </ul>
-        `,
-        bodyZH: `
-          <p>妈祖信仰随广东社群漂洋过海，并在海外获得新的意义：她成了人们跨越险海、落地安家时的“可携带护佑”。</p>
-          <ul>
-            <li><b>为何重要：</b>提供精神安定，也提供聚集的中心。</li>
-            <li><b>如何运作：</b>仪式、捐助、互助网络与社群治理往往在此发生。</li>
-            <li><b>公共文化：</b>巡游与舞狮让粤人文化在公共空间“可见”。</li>
-          </ul>
-        `
-      },
-      {
-        id: "guandi",
-        badgeEN: "Deity",
-        badgeZH: "神祇",
-        titleEN: "Guandi: Justice, Trust, and Brotherhood",
-        titleZH: "关帝：公义、信用与结义",
-        shortEN: "A moral anchor for dispute mediation and social trust in immigrant life.",
-        shortZH: "在移民生活中，关帝成为调解纠纷与建立社会信用的道德锚点。",
-        metaEN: "Focus: morality • mediation • community legitimacy",
-        metaZH: "聚焦：道德秩序 • 纠纷调解 • 社群正当性",
-        images: ["assets/faith/guandi-1.jpg"],
-        bodyEN: `
-          <p>Guandi (Guan Yu) is often associated with righteousness and loyalty. In diaspora settings, that moral image can support community trust and conflict mediation.</p>
-          <ul>
-            <li><b>Symbolic role:</b> “justice” in a world where migrants faced legal vulnerability.</li>
-            <li><b>Social role:</b> legitimizing rules, pledges, and collective discipline.</li>
-            <li><b>Visual culture:</b> altars, plaques, and festival iconography.</li>
-          </ul>
-        `,
-        bodyZH: `
-          <p>关帝（关羽）常被理解为“义”与“信”的象征。在离散环境中，这种道德形象可支撑社群内部的信任与纠纷调解。</p>
-          <ul>
-            <li><b>象征作用：</b>在法律与种族处境脆弱时，提供一种“公义”的公共语言。</li>
-            <li><b>社会作用：</b>为规则、誓约与集体纪律提供正当性。</li>
-            <li><b>可见文化：</b>神龛、匾额与节庆图像反复出现。</li>
-          </ul>
-        `
-      },
-      {
-        id: "ancestor",
-        badgeEN: "Ritual",
-        badgeZH: "仪式",
-        titleEN: "Ancestor Worship: Lineage Memory as Infrastructure",
-        titleZH: "祖先崇拜：宗族记忆作为基础设施",
-        shortEN: "Rites keep identity coherent when family geography breaks apart.",
-        shortZH: "当家族被地理撕裂时，仪式让身份仍能保持连贯。",
-        metaEN: "Focus: lineage • continuity • intergenerational memory",
-        metaZH: "聚焦：宗族 • 延续 • 代际记忆",
-        images: ["assets/faith/ancestor-1.jpg"],
-        bodyEN: `
-          <p>Ancestor rituals are not only spiritual; they organize time, family responsibility, and belonging. In migrant life, they help rebuild continuity across borders.</p>
-          <ul>
-            <li><b>Continuity:</b> names, tablets, and offerings maintain lineage identity.</li>
-            <li><b>Community:</b> shared rites create cohesion beyond the nuclear family.</li>
-            <li><b>Memory:</b> practices transmit history to children who grow up abroad.</li>
-          </ul>
-        `,
-        bodyZH: `
-          <p>祖先仪式不只关乎“灵”，也在组织时间、责任与归属。对移民而言，它帮助在跨境生活中重建“连续性”。</p>
-          <ul>
-            <li><b>延续性：</b>姓氏、牌位与供奉维持宗族身份。</li>
-            <li><b>社群性：</b>共同的仪式把个体连成更大的共同体。</li>
-            <li><b>记忆传递：</b>让在海外长大的下一代仍能接触家族历史。</li>
-          </ul>
-        `
-      },
-      {
-        id: "model",
-        badgeEN: "Structure",
-        badgeZH: "结构",
-        titleEN: "Temple–Association Model: Sacred + Secular, Together",
-        titleZH: "“庙宇—会馆”模式：圣俗合一",
-        shortEN: "Temples became social hubs: jobs, translation, donations, safety nets.",
-        shortZH: "庙宇成为社会枢纽：工作信息、翻译互助、募捐与安全网。",
-        metaEN: "Focus: mutual aid • governance • diaspora survival",
-        metaZH: "聚焦：互助 • 治理 • 离散生存",
-        images: ["assets/faith/temple-association-1.jpg"],
-        bodyEN: `
-          <p>In many Cantonese communities, religious space and association space overlapped. This fusion turned belief into a working institution for everyday survival.</p>
-          <ul>
-            <li><b>Temple:</b> ritual, emotional stability, moral legitimacy.</li>
-            <li><b>Association:</b> organization, resources, protection, mediation.</li>
-            <li><b>Overlap:</b> a visible public culture that helped migrants hold together.</li>
-          </ul>
-        `,
-        bodyZH: `
-          <p>在许多广东社群里，庙宇空间与会馆空间相互重叠。这种融合把“信仰”变成可运作的机构，用于日常生存。</p>
-          <ul>
-            <li><b>庙宇：</b>仪式、情感稳定、道德正当性。</li>
-            <li><b>会馆：</b>组织力、资源、保护与调解。</li>
-            <li><b>重叠区：</b>形成对外可见的公共文化，让社群更紧密。</li>
-          </ul>
-        `
-      },
-      {
-        id: "liondance",
-        badgeEN: "Performance",
-        badgeZH: "表演",
-        titleEN: "Lion Dance: Faith Becomes Public Culture",
-        titleZH: "舞狮：信仰变成公共文化",
-        shortEN: "Ritual performance turns community identity into something visible.",
-        shortZH: "仪式性表演把社群身份变成“看得见”的存在。",
-        metaEN: "Focus: festivals • visibility • multicultural space",
-        metaZH: "聚焦：节庆 • 可见性 • 多元公共空间",
-        images: ["assets/faith/liondance-1.jpg"],
-        bodyEN: `
-          <p>Lion dance often appears in temple festivals and community events. It is both blessing and announcement: “we are here.”</p>
-          <ul>
-            <li><b>Ritual:</b> a performance of protection and fortune.</li>
-            <li><b>Community:</b> volunteers, donations, and youth training.</li>
-            <li><b>Public space:</b> makes Cantonese culture legible to outsiders.</li>
-          </ul>
-        `,
-        bodyZH: `
-          <p>舞狮常出现在庙会与社群活动中，它既是祈福，也是宣告：“我们在这里。”</p>
-          <ul>
-            <li><b>仪式性：</b>象征驱邪纳福与护佑。</li>
-            <li><b>社群性：</b>靠志愿者、募捐与青少年训练维系。</li>
-            <li><b>公共空间：</b>让粤人文化对外更容易被理解与看见。</li>
-          </ul>
-        `
-      },
-      {
-        id: "opera",
-        badgeEN: "Performance",
-        badgeZH: "表演",
-        titleEN: "Cantonese Opera: Sacred Stories, Shared Emotions",
-        titleZH: "粤剧：神圣叙事与共同情感",
-        shortEN: "Opera performances connect gods, ancestors, and everyday struggles.",
-        shortZH: "粤剧把神明、祖先与日常挣扎连接起来。",
-        metaEN: "Focus: soundscape • memory • intergenerational transmission",
-        metaZH: "聚焦：声音景观 • 记忆 • 代际传递",
-        images: ["assets/faith/opera-1.jpg"],
-        bodyEN: `
-          <p>Opera stages can appear near temples during festivals. Sound becomes memory: for some, it is the fastest way to feel “home” again.</p>
-          <ul>
-            <li><b>Soundscape:</b> drums, gongs, singing styles.</li>
-            <li><b>Transmission:</b> language and stories passed through performance.</li>
-            <li><b>Belonging:</b> shared emotions bind a diaspora audience together.</li>
-          </ul>
-        `,
-        bodyZH: `
-          <p>节庆时，粤剧舞台常与庙宇相邻。声音就是记忆：对许多人来说，这是最快“回到家”的方式。</p>
-          <ul>
-            <li><b>声音景观：</b>锣鼓点、唱腔、节奏。</li>
-            <li><b>文化传递：</b>语言与故事通过表演传给下一代。</li>
-            <li><b>归属感：</b>共同情绪把离散观众重新连在一起。</li>
-          </ul>
-        `
-      },
-    ];
-
-    /* =========================
-       Render Gallery Cards
-       ========================= */
-    const grid = document.getElementById("galleryGrid");
-
-    function cardTemplate(item){
-      return `
-        <article class="card reveal" data-id="${item.id}">
-          <div class="card-media">
-            <img src="${item.images[0]}" alt="${item.titleEN}">
-          </div>
-          <div class="card-bd">
-            <div class="title">
-              <span class="lang en">${item.titleEN}</span>
-              <span class="lang zh">${item.titleZH}</span>
-            </div>
-            <div class="desc">
-              <span class="lang en">${item.shortEN}</span>
-              <span class="lang zh">${item.shortZH}</span>
-            </div>
-            <div class="card-actions">
-              <span class="badge">
-                <span class="lang en">${item.badgeEN}</span>
-                <span class="lang zh">${item.badgeZH}</span>
-              </span>
-              <button class="btn" type="button" data-explore="${item.id}">
-                <span class="lang en">Explore</span>
-                <span class="lang zh">深入</span> →
-              </button>
-            </div>
-          </div>
-        </article>
-      `;
-    }
-
-    grid.innerHTML = ITEMS.map(cardTemplate).join("");
-
-    /* =========================
-       Scroll-in animation
-       ========================= */
-    const revealEls = Array.from(document.querySelectorAll(".reveal"));
-    const io = new IntersectionObserver((entries)=>{
-      for(const e of entries){
-        if(e.isIntersecting){
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      }
-    }, { threshold: 0.16 });
-    revealEls.forEach(el => io.observe(el));
-
-    /* =========================
-       Language toggle
-       ========================= */
-    const btnEN = document.getElementById("btnEN");
-    const btnZH = document.getElementById("btnZH");
-    function setLang(lang){
-      document.body.classList.toggle("lang-zh", lang === "zh");
-      btnEN.classList.toggle("active", lang === "en");
-      btnZH.classList.toggle("active", lang === "zh");
-    }
-    btnEN.addEventListener("click", ()=>setLang("en"));
-    btnZH.addEventListener("click", ()=>setLang("zh"));
-
-    /* =========================
-       Explore Viewer logic
-       ========================= */
-    const overlay = document.getElementById("overlay");
-    const closeOverlay = document.getElementById("closeOverlay");
-    const btnPrev = document.getElementById("btnPrev");
-    const btnNext = document.getElementById("btnNext");
-    const viewerTitle = document.getElementById("viewerTitle");
-    const viewerMeta = document.getElementById("viewerMeta");
-    const viewerBody = document.getElementById("viewerBody");
-    const thumbs = document.getElementById("thumbs");
-
-    const zoomStage = document.getElementById("zoomStage");
-    const zoomImg = document.getElementById("zoomImg");
-    const zoomIn = document.getElementById("zoomIn");
-    const zoomOut = document.getElementById("zoomOut");
-    const resetView = document.getElementById("resetView");
-
-    let currentIndex = 0;
-    let currentImgIndex = 0;
-
-    // pan+zoom state
-    let scale = 1;
-    let tx = 0, ty = 0;
-    let dragging = false;
-    let lastX = 0, lastY = 0;
-
-    function applyTransform(){
-      zoomImg.style.transform = `translate(-50%,-50%) translate(${tx}px, ${ty}px) scale(${scale})`;
-    }
-    function resetTransform(){
-      scale = 1;
-      tx = 0; ty = 0;
-      applyTransform();
-    }
-
-    function openViewerById(id){
-      const idx = ITEMS.findIndex(x => x.id === id);
-      if(idx === -1) return;
-      currentIndex = idx;
-      currentImgIndex = 0;
-      renderViewer();
-      overlay.classList.add("show");
-      overlay.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeViewer(){
-      overlay.classList.remove("show");
-      overlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-      zoomImg.classList.remove("ready");
-    }
-
-    function setZoomImage(src){
-      zoomImg.classList.remove("ready");
-      zoomImg.onload = ()=> zoomImg.classList.add("ready");
-      zoomImg.src = src;
-      resetTransform();
-    }
-
-    function renderViewer(){
-      const item = ITEMS[currentIndex];
-
-      viewerTitle.innerHTML = `
-        <span class="lang en">${item.titleEN}</span>
-        <span class="lang zh">${item.titleZH}</span>
-      `;
-      viewerMeta.innerHTML = `
-        <span class="lang en">${item.metaEN}</span>
-        <span class="lang zh">${item.metaZH}</span>
-      `;
-      viewerBody.innerHTML = `
-        <div class="lang en">${item.bodyEN}</div>
-        <div class="lang zh">${item.bodyZH}</div>
-      `;
-
-      // thumbs
-      thumbs.innerHTML = item.images.map((src, i)=>`
-        <div class="thumb ${i===currentImgIndex ? "active":""}" data-thumb="${i}">
-          <img src="${src}" alt="thumb ${i+1}">
-        </div>
-      `).join("");
-
-      setZoomImage(item.images[currentImgIndex]);
-
-      // re-activate bilingual display
-      // (because we inject innerHTML)
-      // nothing else needed — CSS toggle handles it.
-    }
-
-    function prevItem(){
-      currentIndex = (currentIndex - 1 + ITEMS.length) % ITEMS.length;
-      currentImgIndex = 0;
-      renderViewer();
-    }
-    function nextItem(){
-      currentIndex = (currentIndex + 1) % ITEMS.length;
-      currentImgIndex = 0;
-      renderViewer();
-    }
-
-    // click explore buttons
-    document.addEventListener("click", (e)=>{
-      const btn = e.target.closest("[data-explore]");
-      if(btn){
-        openViewerById(btn.getAttribute("data-explore"));
-      }
-      const th = e.target.closest("[data-thumb]");
-      if(th){
-        currentImgIndex = Number(th.getAttribute("data-thumb"));
-        renderViewer();
-      }
-    });
-
-    closeOverlay.addEventListener("click", closeViewer);
-    btnPrev.addEventListener("click", prevItem);
-    btnNext.addEventListener("click", nextItem);
-
-    overlay.addEventListener("click", (e)=>{
-      // click outside viewer closes
-      if(e.target === overlay) closeViewer();
-    });
-
-    document.addEventListener("keydown", (e)=>{
-      if(!overlay.classList.contains("show")) return;
-      if(e.key === "Escape") closeViewer();
-      if(e.key === "ArrowLeft") prevItem();
-      if(e.key === "ArrowRight") nextItem();
-      if(e.key === "+" || e.key === "=") { scale = Math.min(3.2, scale + 0.12); applyTransform(); }
-      if(e.key === "-" || e.key === "_") { scale = Math.max(1, scale - 0.12); applyTransform(); }
-    });
-
-    // zoom buttons
-    zoomIn.addEventListener("click", ()=>{ scale = Math.min(3.2, scale + 0.18); applyTransform(); });
-    zoomOut.addEventListener("click", ()=>{ scale = Math.max(1, scale - 0.18); applyTransform(); });
-    resetView.addEventListener("click", resetTransform);
-
-    // drag to pan
-    zoomStage.addEventListener("mousedown", (e)=>{
-      dragging = true;
-      lastX = e.clientX;
-      lastY = e.clientY;
-    });
-    window.addEventListener("mouseup", ()=> dragging=false);
-    window.addEventListener("mousemove", (e)=>{
-      if(!dragging) return;
-      const dx = e.clientX - lastX;
-      const dy = e.clientY - lastY;
-      lastX = e.clientX;
-      lastY = e.clientY;
-      tx += dx;
-      ty += dy;
-      applyTransform();
-    });
-
-    // wheel to zoom (desktop)
-    zoomStage.addEventListener("wheel", (e)=>{
-      e.preventDefault();
-      const delta = Math.sign(e.deltaY);
-      if(delta > 0) scale = Math.max(1, scale - 0.10);
-      else scale = Math.min(3.2, scale + 0.10);
-      applyTransform();
-    }, { passive:false });
-  </script>
 </body>
 </html>
+
