@@ -146,7 +146,7 @@
     .hero-subtitle {
       font-family: var(--font-heading);
       font-size: 1.5rem;
-      color: var(--text-main); /* Enforced #333333 via var */
+      color: var(--text-main);
       font-weight: 400;
       margin-top: 0.5rem;
     }
@@ -180,14 +180,14 @@
 
     .grid-2col { display: grid; gap: 4rem; align-items: start; }
     
-    /* --- Gallery Styles (Re-implemented for sliders) --- */
+    /* --- Gallery Styles --- */
     .gallery { width: 100%; position: relative; }
     
     .gallery-frame {
       width: 100%; 
-      height: 400px; /* Fixed height for consistent layout */
+      height: 400px;
       position: relative; 
-      background: #e0d8c8; /* Placeholder color */
+      background: #e0d8c8;
       border-radius: 4px; 
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -199,13 +199,11 @@
       pointer-events: none;
     }
     .gallery-slide.show { opacity: 1; pointer-events: auto; }
-    
-    /* Ensure images cover the area without distortion */
     .gallery-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
     
     .gallery-label {
       position: absolute; bottom: 0; left: 0; right: 0;
-      background: rgba(51, 51, 51, 0.85); /* Dark semi-transparent background */
+      background: rgba(51, 51, 51, 0.85);
       color: #f9f9f9; 
       padding: 12px 15px; 
       font-size: 13px; 
@@ -226,7 +224,65 @@
     }
     .nav-btn:hover { border-color: var(--accent-red); background: var(--accent-red); color: white; }
 
-    /* Static Image Frame for non-sliders */
+    /* --- Special Styling for Gold Rush Section --- */
+    .gold-rush-visuals {
+      position: relative;
+      height: 450px;
+      border-radius: 4px;
+      overflow: hidden;
+      /* The Background Image: Chinatown 1885 */
+      background-image: url('https://opensfhistory.org/Download/wnp37.04111.jpg');
+      background-size: cover;
+      background-position: center;
+      /* Flexbox to center the inset image */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* The Mask: Gradient from Section Color (Tan) to Transparent */
+    .gold-rush-visuals::before {
+      content: "";
+      position: absolute;
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%;
+      /* Gradient: Solid Tan on far left -> Transparent on right */
+      background: linear-gradient(to right, var(--bg-tan) 0%, rgba(217, 204, 183, 0.9) 10%, rgba(217, 204, 183, 0) 50%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .inset-image-wrapper {
+      position: relative;
+      z-index: 2; /* Sits above the gradient mask */
+      width: 60%; /* 60% width as requested */
+      background: #fff;
+      padding: 10px 10px 30px 10px; /* Polaroid style padding */
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      transform: rotate(-2deg); /* Slight artistic tilt */
+      transition: transform 0.3s;
+    }
+    
+    .inset-image-wrapper:hover { transform: rotate(0deg) scale(1.02); }
+
+    .inset-image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .inset-caption {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      color: #333;
+      text-align: center;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    /* Regular Image Frame */
     .image-frame {
       width: 100%;
       height: 400px;
@@ -286,10 +342,9 @@
     @media (max-width: 768px) {
       .hero-content { margin-top: 0; }
       .content-section { padding: 3rem 1.5rem; }
-      .image-frame, .gallery-frame { height: 250px; }
+      .gold-rush-visuals { height: 300px; }
       .phase-navigation { flex-direction: column; align-items: stretch; text-align: center; }
       .phase-link { justify-content: center; }
-      .phase-link.prev, .phase-link.next { text-align: center; }
     }
 
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1s, transform 1s; }
@@ -320,11 +375,11 @@
   
   <main>
 
-    <!-- 1. Gold Rushes (Tan) - Gallery -->
+    <!-- 1. Gold Rushes (Tan) - New Layout -->
     <section class="section-tan content-section">
       <div class="container">
         <div class="grid-2col fade-in">
-          <div class="text-col">
+          <div class="text-col" style="z-index: 5;">
             <h2 class="section-title">1848–1858: The North American Gold Rushes</h2>
             <div class="text-content text-main-90">
               <p>
@@ -335,24 +390,14 @@
               </p>
             </div>
           </div>
+          
           <div class="img-col">
-            <!-- Gallery 1: Gold Rush -->
-            <div class="gallery" id="gallery-1">
-              <div class="gallery-frame">
-                <div class="gallery-slide show">
-                  <img src="https://bit.ly/4pjRcU8" alt="Victoria Miners">
-                </div>
-                <div class="gallery-slide">
-                  <img src="https://www.huntington.org/sites/default/files/verso/featured/chinesearchives_1.jpg" alt="Auburn Ravine">
-                </div>
-                <div class="gallery-slide">
-                  <img src="https://opensfhistory.org/Download/wnp37.04111.jpg" alt="Chinatown 1885">
-                </div>
-                <div class="gallery-label" id="label-1">Chinese miners in 1850s Victoria</div>
-              </div>
-              <div class="gallery-nav">
-                <button class="nav-btn prev-btn"><i data-lucide="chevron-left" size="16"></i></button>
-                <button class="nav-btn next-btn"><i data-lucide="chevron-right" size="16"></i></button>
+            <!-- Custom Layout for Gold Rush Visuals -->
+            <div class="gold-rush-visuals">
+              <!-- Inset Image (Miners at Auburn Ravine) scaled to 60% -->
+              <div class="inset-image-wrapper">
+                <img src="https://www.huntington.org/sites/default/files/verso/featured/chinesearchives_1.jpg" alt="Miners at Auburn Ravine">
+                <div class="inset-caption">Miners at Auburn Ravine, California, 1852</div>
               </div>
             </div>
           </div>
@@ -380,7 +425,6 @@
              <div class="gallery" id="gallery-2">
               <div class="gallery-frame">
                 <div class="gallery-slide show">
-                  <!-- Use contain or adjust position if text gets cut off, but user asked for nice layout, cover is usually safest for filling the box -->
                   <img src="https://www.nps.gov/articles/000/images/Picture14_2.png" alt="Six Companies 1890" style="object-position: center top;">
                 </div>
                 <div class="gallery-slide">
@@ -574,15 +618,7 @@
       }
     }
 
-    // Initialize Gallery 1 (Gold Rush)
-    const captions1 = [
-      "Chinese miners in 1850s Victoria",
-      "Miners at Auburn Ravine, California, 1852",
-      "China town, 1885"
-    ];
-    new Gallery('gallery-1', captions1);
-
-    // Initialize Gallery 2 (Six Companies)
+    // Initialize Gallery 2 (Six Companies) - Note: Gallery 1 is removed
     const captions2 = [
       "Leaders of six companies, 1890",
       "Representatives of the Six Companies, 1943"
