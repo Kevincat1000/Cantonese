@@ -20,7 +20,7 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
 
-  <!-- jQuery & Ripples (Ensure these load before mapbox logic) -->
+  <!-- jQuery & Ripples -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
 
@@ -56,7 +56,7 @@
       width: 100vw;
       height: 65vh; 
       border-bottom: 1px solid #dcd8ce;
-      margin-top: 100px; /* Gallery moved down by 100px */
+      margin-top: 100px; 
     }
 
     .gallery-item {
@@ -66,21 +66,22 @@
       height: 100%;
       text-decoration: none;
       cursor: pointer;
-      border-right: 1px solid rgba(0,0,0,0.05); 
+      border-right: 1px solid rgba(0,0,0,0.05);
+      background-color: var(--bg);
     }
 
     .item-info {
       position: absolute;
-      top: -65px; /* Text moved up by 95px */
+      top: -65px; 
       left: 20px;
-      z-index: 20; /* Above images */
+      z-index: 30; 
       pointer-events: none; 
     }
 
     .item-number {
       display: block;
       font-family: 'Exo', sans-serif;
-      font-size: 11px; /* Smaller font */
+      font-size: 11px; 
       font-weight: 600;
       letter-spacing: 1px;
       color: #000;
@@ -91,7 +92,7 @@
     .item-title {
       display: block;
       font-family: 'Gentium Book Plus', serif;
-      font-size: 16px; /* Smaller font */
+      font-size: 16px; 
       line-height: 1.3;
       font-weight: 400;
       color: #1a1a1a;
@@ -104,16 +105,16 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      transition: filter 0.6s ease;
       filter: grayscale(100%) contrast(1.1); 
-      overflow: hidden; 
-      z-index: 1;
+      transition: filter 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+      z-index: 10;
     }
 
     .first-image {
       background-position: left center !important;
     }
 
+    /* Subtle mask overlay */
     .image-wrapper::after {
       content: '';
       position: absolute;
@@ -124,9 +125,9 @@
       background-color: var(--mask-color);
       mix-blend-mode: multiply; 
       opacity: 0.85; 
-      transition: opacity 0.6s ease;
-      z-index: 2; /* Mask sits on top of the image */
-      pointer-events: none; /* Allows mouse to trigger ripples on the wrapper underneath */
+      transition: opacity 0.8s ease;
+      z-index: 20;
+      pointer-events: none; /* Crucial: allows mouse to pass through to ripple layer */
     }
 
     .gallery-item:hover .image-wrapper {
@@ -175,7 +176,6 @@
       .gallery-item {
         height: 300px; 
         margin-bottom: 60px;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
       }
     }
   </style>
@@ -184,7 +184,6 @@
 <body>
   
   <main>
-    
     <div class="gallery-container">
         
         <!-- Phase 01 -->
@@ -229,22 +228,33 @@
         <div class="map-title">Migration map</div>
         <div id="diaspora-map"></div>
     </div>
-
   </main>
 
   <script>
     $(document).ready(function() {
-        // Initialize Ripples on the wrapper
-        // We use a slight delay to ensure images are ready and CSS filters don't block WebGL
         try {
+            // Apply ripples to the wrapper to capture the image as the surface
             $('.image-wrapper').ripples({
-                resolution: 512,
-                dropRadius: 20,
-                perturbance: 0.04,
-                interactive: true
+                resolution: 512,       // High resolution for smooth waves
+                dropRadius: 35,        // Larger radius like the reference site
+                perturbance: 0.02,     // Lower perturbance makes it look more like heavy water/liquid
+                interactive: true,
+                crossOrigin: ""
             });
+            
+            // Auto-drop a few ripples to show it's interactive on load
+            setInterval(function() {
+                var $el = $('.image-wrapper');
+                var x = Math.random() * $el.outerWidth();
+                var y = Math.random() * $el.outerHeight();
+                var dropRadius = 20;
+                var strength = 0.03 + Math.random() * 0.03;
+
+                $el.ripples('drop', x, y, dropRadius, strength);
+            }, 3000);
+
         } catch (e) {
-            console.error("Ripples plugin error: ", e);
+            console.error("Ripples failed:", e);
         }
     });
   </script>
