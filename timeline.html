@@ -56,7 +56,7 @@
       width: 100vw;
       height: 65vh; 
       border-bottom: 1px solid #dcd8ce;
-      margin-top: 100px; 
+      margin-top: 100px; /* Gallery shifted down 100px */
     }
 
     .gallery-item {
@@ -72,9 +72,9 @@
 
     .item-info {
       position: absolute;
-      top: -65px; 
+      top: -65px; /* Text shifted up 95px (30 - 95 = -65) */
       left: 20px;
-      z-index: 30; 
+      z-index: 50; 
       pointer-events: none; 
     }
 
@@ -106,7 +106,7 @@
       background-size: cover;
       background-position: center;
       filter: grayscale(100%) contrast(1.1); 
-      transition: filter 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+      transition: filter 0.8s ease;
       z-index: 10;
     }
 
@@ -114,7 +114,6 @@
       background-position: left center !important;
     }
 
-    /* Subtle mask overlay */
     .image-wrapper::after {
       content: '';
       position: absolute;
@@ -127,7 +126,7 @@
       opacity: 0.85; 
       transition: opacity 0.8s ease;
       z-index: 20;
-      pointer-events: none; /* Crucial: allows mouse to pass through to ripple layer */
+      pointer-events: none; /* Allows mouse to trigger ripples on the layer below */
     }
 
     .gallery-item:hover .image-wrapper {
@@ -160,7 +159,6 @@
       width: 50vw; 
       height: 50vw; 
       max-height: 500px; 
-      background-color: #e5e0d5; 
       border: 1px solid #dcd8ce;
     }
 
@@ -233,26 +231,13 @@
   <script>
     $(document).ready(function() {
         try {
-            // Apply ripples to the wrapper to capture the image as the surface
             $('.image-wrapper').ripples({
-                resolution: 512,       // High resolution for smooth waves
-                dropRadius: 35,        // Larger radius like the reference site
-                perturbance: 0.02,     // Lower perturbance makes it look more like heavy water/liquid
+                resolution: 512,
+                dropRadius: 45,      // Increased for a bigger "splash"
+                perturbance: 0.12,   // High perturbance creates the "large shaking" liquid effect
                 interactive: true,
                 crossOrigin: ""
             });
-            
-            // Auto-drop a few ripples to show it's interactive on load
-            setInterval(function() {
-                var $el = $('.image-wrapper');
-                var x = Math.random() * $el.outerWidth();
-                var y = Math.random() * $el.outerHeight();
-                var dropRadius = 20;
-                var strength = 0.03 + Math.random() * 0.03;
-
-                $el.ripples('drop', x, y, dropRadius, strength);
-            }, 3000);
-
         } catch (e) {
             console.error("Ripples failed:", e);
         }
