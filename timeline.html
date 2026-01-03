@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Header/Footer Injectors -->
@@ -19,13 +18,6 @@
   <!-- Mapbox CSS & JS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
-
-  <!-- jQuery & Ripples -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
-
-  <!-- External Mapbox Logic -->
-  <script src="./assets/mapbox.js" defer></script>
 
   <style>
     :root {
@@ -46,10 +38,9 @@
       overflow-x: hidden;
     }
 
-    body {
-      padding-top: var(--header-h);
-    }
+    body { padding-top: var(--header-h); }
 
+    /* Gallery Layout */
     .gallery-container {
       display: grid;
       grid-template-columns: repeat(4, 1fr); 
@@ -66,12 +57,12 @@
       height: 100%;
       text-decoration: none;
       cursor: pointer;
-      border-right: 1px solid rgba(0,0,0,0.05); 
+      overflow: visible; /* 确保滤镜边缘不被裁切 */
     }
 
     .item-info {
       position: absolute;
-      top: -65px; /* Shifted up by 95px relative to the original 30px top position */
+      top: -65px;
       left: 20px;
       z-index: 10;
       pointer-events: none; 
@@ -98,48 +89,47 @@
       opacity: 0.9;
     }
 
+    /* Image Wrapper with Turbulent Displace Effect */
     .image-wrapper {
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
-      transition: all 0.6s ease;
       filter: grayscale(100%) contrast(1.1); 
-      overflow: hidden; 
+      transition: filter 0.5s ease, transform 0.5s ease;
+      position: relative;
     }
 
-    .first-image {
-      background-position: left center !important;
-    }
+    .first-image { background-position: left center !important; }
 
+    /* The Mask Color Overlay */
     .image-wrapper::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       background-color: var(--mask-color);
       mix-blend-mode: multiply; 
       opacity: 0.85; 
       transition: opacity 0.6s ease;
     }
 
+    /* HOVER STATE: Trigger Filter & Remove Grayscale */
     .gallery-item:hover .image-wrapper {
-      filter: grayscale(0%) contrast(1); 
+      filter: grayscale(0%) contrast(1) url(#liquid-filter);
+      transform: scale(1.02); /* 轻微放大增加沉浸感 */
     }
 
     .gallery-item:hover .image-wrapper::after {
       opacity: 0; 
     }
 
+    /* Map Section */
     .map-section {
       width: 100%;
       padding: 80px 0; 
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
     }
 
     .map-title {
@@ -159,41 +149,43 @@
       border: 1px solid #dcd8ce;
     }
 
+    /* Hide SVG from view */
+    .svg-filters {
+      position: absolute;
+      width: 0;
+      height: 0;
+      visibility: hidden;
+    }
+
     @media (max-width: 768px) {
-      .gallery-container {
-        grid-template-columns: 1fr; 
-        height: auto;
-        margin-top: 80px;
-      }
-      .item-info {
-        top: -45px;
-      }
-      .gallery-item {
-        height: 300px; 
-        margin-bottom: 60px;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-      }
-      #diaspora-map {
-        width: 90vw; 
-        height: 300px;
-      }
+      .gallery-container { grid-template-columns: 1fr; height: auto; margin-top: 80px; }
+      .gallery-item { height: 300px; margin-bottom: 60px; }
+      #diaspora-map { width: 90vw; height: 300px; }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- SVG Turbulent Filter Definition -->
+  <svg class="svg-filters">
+    <filter id="liquid-filter">
+      <!-- baseFrequency 控制波动的密度，numOctaves 控制细节 -->
+      <feTurbulence id="turbulence" type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
+      <!-- scale 控制波动的强度 (置换幅度) -->
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="30" />
+    </filter>
+  </svg>
   
   <main>
-    
     <div class="gallery-container">
-        
         <!-- Phase 01 -->
         <a href="phase1.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">01. 17th–19th Centuries</span>
                 <span class="item-title">Early Migration within <br>Southeast Asia</span>
             </div>
-            <div class="image-wrapper ripple-effect first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
+            <div class="image-wrapper first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
         </a>
 
         <!-- Phase 02 -->
@@ -202,7 +194,7 @@
                 <span class="item-number">02. 1840s–1940s</span>
                 <span class="item-title">Building North America <br>& The Pacific</span>
             </div>
-            <div class="image-wrapper ripple-effect" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
+            <div class="image-wrapper" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
         </a>
 
         <!-- Phase 03 -->
@@ -211,7 +203,7 @@
                 <span class="item-number">03. 1965–1997</span>
                 <span class="item-title">Reforms, Refugees, <br>and New Waves</span>
             </div>
-            <div class="image-wrapper ripple-effect" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
+            <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
         </a>
 
         <!-- Phase 04 -->
@@ -220,32 +212,53 @@
                 <span class="item-number">04. 2000s–Present</span>
                 <span class="item-title">Diversification and <br>Cultural Resilience</span>
             </div>
-            <div class="image-wrapper ripple-effect" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
+            <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
         </a>
-
     </div>
 
     <div class="map-section">
         <div class="map-title">Migration map</div>
         <div id="diaspora-map"></div>
     </div>
-
   </main>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        try {
-            $('.ripple-effect').ripples({
-                resolution: 512,  
-                dropRadius: 25,   
-                perturbance: 0.04 
-            });
-        } catch (e) {
-            console.log("Ripples effect failed to load.");
+    /**
+     * 实现流体动态波动效果
+     * 原理：通过 JS 持续修改 SVG 滤镜的 baseFrequency 种子值，产生动态湍流
+     */
+    const turb = document.getElementById('turbulence');
+    let step = 0;
+    let requestID;
+
+    // 动画函数
+    function animate() {
+      step += 0.005; // 控制流动速度
+      // 稍微改变频率值，模拟水流不规则律动
+      const bfX = 0.015 + Math.cos(step) * 0.002;
+      const bfY = 0.02 + Math.sin(step) * 0.005;
+      
+      turb.setAttribute('baseFrequency', `${bfX} ${bfY}`);
+      requestID = requestAnimationFrame(animate);
+    }
+
+    // 仅在鼠标悬停在 Gallery 上时启动动画，节省性能
+    const items = document.querySelectorAll('.gallery-item');
+    
+    items.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        if (!requestID) animate();
+      });
+      
+      item.addEventListener('mouseleave', () => {
+        // 如果没有任何图片被 hover，则停止动画计算
+        const isAnyHovered = Array.from(items).some(i => i.matches(':hover'));
+        if (!isAnyHovered) {
+          cancelAnimationFrame(requestID);
+          requestID = null;
         }
+      });
     });
   </script>
 </body>
 </html>
-
-
