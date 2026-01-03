@@ -72,7 +72,7 @@
 
     .item-info {
       position: absolute;
-      top: -65px; /* Text shifted up 95px (30 - 95 = -65) */
+      top: -65px; /* Text shifted up 95px */
       left: 20px;
       z-index: 50; 
       pointer-events: none; 
@@ -105,8 +105,9 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      filter: grayscale(100%) contrast(1.1); 
-      transition: filter 0.8s ease;
+      /* Default state: grayscale and sharp */
+      filter: grayscale(100%) contrast(1.1) blur(0px); 
+      transition: filter 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
       z-index: 10;
     }
 
@@ -126,11 +127,12 @@
       opacity: 0.85; 
       transition: opacity 0.8s ease;
       z-index: 20;
-      pointer-events: none; /* Allows mouse to trigger ripples on the layer below */
+      pointer-events: none;
     }
 
+    /* Hover state: Remove grayscale, remove mask, and add BLUR for the ripple to "shake" */
     .gallery-item:hover .image-wrapper {
-      filter: grayscale(0%) contrast(1); 
+      filter: grayscale(0%) contrast(1) blur(2px); 
     }
 
     .gallery-item:hover .image-wrapper::after {
@@ -184,7 +186,6 @@
   <main>
     <div class="gallery-container">
         
-        <!-- Phase 01 -->
         <a href="phase1.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">01. 17th–19th Centuries</span>
@@ -193,7 +194,6 @@
             <div class="image-wrapper first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
         </a>
 
-        <!-- Phase 02 -->
         <a href="phase2.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">02. 1840s–1940s</span>
@@ -202,46 +202,7 @@
             <div class="image-wrapper" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
         </a>
 
-        <!-- Phase 03 -->
         <a href="phase3.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">03. 1965–1997</span>
                 <span class="item-title">Reforms, Refugees, <br>and New Waves</span>
-            </div>
-            <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
-        </a>
-
-        <!-- Phase 04 -->
-        <a href="phase4.html" class="gallery-item">
-            <div class="item-info">
-                <span class="item-number">04. 2000s–Present</span>
-                <span class="item-title">Diversification and <br>Cultural Resilience</span>
-            </div>
-            <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
-        </a>
-
-    </div>
-
-    <div class="map-section">
-        <div class="map-title">Migration map</div>
-        <div id="diaspora-map"></div>
-    </div>
-  </main>
-
-  <script>
-    $(document).ready(function() {
-        try {
-            $('.image-wrapper').ripples({
-                resolution: 512,
-                dropRadius: 45,      // Increased for a bigger "splash"
-                perturbance: 0.12,   // High perturbance creates the "large shaking" liquid effect
-                interactive: true,
-                crossOrigin: ""
-            });
-        } catch (e) {
-            console.error("Ripples failed:", e);
-        }
-    });
-  </script>
-</body>
-</html>
