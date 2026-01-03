@@ -22,7 +22,7 @@
       /* Palette */
       --bg-tan: #D9CCB7;     
       --bg-paper: #f5f0e5;   
-      --bg-dark-beige: #B8A88E; /* Dark Beige for Footer */
+      --bg-footer: #D9CCB7; /* Updated Footer Color */
       --accent-red: #a84d4d;
       --text-main: #333333;  
       
@@ -43,9 +43,8 @@
     }
 
     /* --- Footer Style Override --- */
-    /* Targeting the injected footer to be Dark Beige */
     footer, .footer {
-      background-color: var(--bg-dark-beige) !important;
+      background-color: var(--bg-footer) !important;
       color: var(--text-main) !important;
     }
 
@@ -342,21 +341,21 @@
       height: 100%;
     }
 
-    /* Link & Footer Spacing Adjustment */
+    /* Link & Footer Spacing Adjustment - TIGHTENED */
     .section-tan.last-section {
-      padding-bottom: 2rem !important; /* Reduced from default 5rem */
+      padding-bottom: 10px !important; /* Extremely small bottom padding for section */
     }
 
     .phase-navigation {
-      margin-top: 2rem; /* Reduced from 3rem */
-      padding-top: 2rem; 
+      margin-top: 1rem; /* Reduced space above line */
+      padding-top: 1rem; /* Reduced space below line */
       border-top: 1px solid rgba(51, 51, 51, 0.2);
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 20px;
-      margin-bottom: 10px; /* Minimal space before footer injection */
+      margin-bottom: 0; /* No margin below nav links */
     }
 
     .phase-link {
@@ -568,6 +567,7 @@
         <h2 class="section-title">1882–1943: Exclusion, Resistance, and Renewal</h2>
         
         <div class="grid-2col fade-in">
+          <!-- Left Column: All Text -->
           <div class="text-content text-main-90">
             <p>
               Following the completion of the Pacific Railroad, economic shifts fueled hostility specifically toward Cantonese labor. This culminated in the <strong>U.S. Chinese Exclusion Act of 1882</strong>, the first federal law banning a specific ethnic group. Canada followed with the 1885 Head Tax and the restrictive Chinese Immigration Act of 1923. These policies severed ties between Cantonese laborers and their hometowns and barred the entry of women, transforming North American Chinatowns into "Bachelor Societies" void of traditional family structures.
@@ -575,20 +575,20 @@
             <p>
               The community challenged these restrictions through legal channels. In 1898, Wong Kim Ark, a <strong>Cantonese</strong> descendant born in San Francisco, appealed his denied entry to the Supreme Court. The ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship (jus soli), securing the legal status of American-born Cantonese and facilitating the transition from temporary sojourners to permanent citizens.
             </p>
-          </div>
-          
-          <div class="text-content text-main-90">
-            <div class="image-frame" style="height: auto; min-height: 200px; margin-bottom: 20px;">
-              <img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif" alt="Wong Kim Ark Document">
-            </div>
-            <p class="image-caption">Wong Kim Ark Document, 1898</p>
-
-            <p style="margin-top: 2rem;">
+            <p>
               World War II marked a turning point. Acknowledging China as an ally, the U.S. repealed exclusion via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed suit in 1947, restoring voting rights. 
             </p>
             <p>
               Crucially, the War Brides Act of 1945 allowed the entry of Cantonese women, many wives of servicemen. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.
             </p>
+          </div>
+          
+          <!-- Right Column: Image Only -->
+          <div class="text-content text-main-90">
+            <div class="image-frame" style="height: auto; min-height: 200px; margin-bottom: 20px;">
+              <img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif" alt="Wong Kim Ark Document">
+            </div>
+            <p class="image-caption">Wong Kim Ark Document, 1898</p>
           </div>
         </div>
       </div>
