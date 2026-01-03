@@ -180,106 +180,97 @@
 
     .grid-2col { display: grid; gap: 4rem; align-items: start; }
     
-    /* --- Gallery Styles --- */
-    .gallery { width: 100%; position: relative; }
-    
-    .gallery-frame {
-      width: 100%; 
-      height: 400px;
-      position: relative; 
-      background: #e0d8c8;
-      border-radius: 4px; 
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    /* Custom Grid for 2/3 split */
+    .grid-2-3 { 
+        display: grid; 
+        grid-template-columns: 2fr 1fr; 
+        gap: 4rem; 
+        align-items: start; 
     }
-    
-    .gallery-slide {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      opacity: 0; transition: opacity 0.5s ease;
-      pointer-events: none;
-    }
-    .gallery-slide.show { opacity: 1; pointer-events: auto; }
-    .gallery-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-    
-    .gallery-label {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: rgba(51, 51, 51, 0.85);
-      color: #f9f9f9; 
-      padding: 12px 15px; 
-      font-size: 13px; 
-      text-align: center;
-      font-family: var(--font-heading);
-      font-weight: 600;
-    }
-    
-    .gallery-nav { display: flex; justify-content: center; gap: 16px; margin-top: 15px; }
-    
-    .nav-btn {
-      background: transparent; 
-      border: 1px solid var(--text-main); 
-      color: var(--text-main);
-      width: 32px; height: 32px; border-radius: 50%; 
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s;
-    }
-    .nav-btn:hover { border-color: var(--accent-red); background: var(--accent-red); color: white; }
 
     /* --- Special Styling for Gold Rush Section --- */
-    .gold-rush-visuals {
+    .gold-rush-container {
       position: relative;
-      height: 450px;
-      border-radius: 4px;
-      overflow: hidden;
-      /* The Background Image: Chinatown 1885 */
-      background-image: url('https://opensfhistory.org/Download/wnp37.04111.jpg');
-      background-size: cover;
-      background-position: center;
-      /* Flexbox to center the inset image */
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      height: 500px;
     }
 
-    /* The Mask: Gradient from Section Color (Tan) to Transparent */
-    .gold-rush-visuals::before {
-      content: "";
+    .chinatown-wrapper {
       position: absolute;
-      top: 0; 
-      left: 0; 
-      width: 100%; 
-      height: 100%;
-      /* Gradient: Solid Tan on far left -> Transparent on right */
-      background: linear-gradient(to right, var(--bg-tan) 0%, rgba(217, 204, 183, 0.9) 10%, rgba(217, 204, 183, 0) 50%);
+      bottom: 0;
+      right: 0;
+      width: 90%;
       z-index: 1;
-      pointer-events: none;
     }
 
-    .inset-image-wrapper {
-      position: relative;
-      z-index: 2; /* Sits above the gradient mask */
-      width: 60%; /* 60% width as requested */
+    .chinatown-wrapper img {
+      width: 100%;
+      border-radius: 4px;
+      display: block;
+      -webkit-mask-image: linear-gradient(to top left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to top left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+      opacity: 0.85; 
+    }
+
+    .chinatown-caption {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      color: #000;
+      text-align: right;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .miners-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60%;
       background: #fff;
-      padding: 10px 10px 30px 10px; /* Polaroid style padding */
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-      transform: rotate(-2deg); /* Slight artistic tilt */
-      transition: transform 0.3s;
+      padding: 8px 8px 25px 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      z-index: 5;
+      transform: rotate(-3deg);
+      transition: transform 0.3s ease;
     }
-    
-    .inset-image-wrapper:hover { transform: rotate(0deg) scale(1.02); }
 
-    .inset-image-wrapper img {
+    .miners-wrapper:hover { transform: rotate(0deg) scale(1.05); z-index: 10; }
+
+    .miners-wrapper img {
       width: 100%;
       height: auto;
       display: block;
     }
 
-    .inset-caption {
+    .miners-caption {
       font-family: var(--font-heading);
-      font-size: 0.8rem;
+      font-size: 13px;
       color: #333;
       text-align: center;
       margin-top: 8px;
-      font-weight: 600;
+      font-weight: 700;
+    }
+
+    /* --- Hawaii Stacked Images --- */
+    .hawaii-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .hawaii-img-frame {
+      width: 100%;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .hawaii-img-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     /* Regular Image Frame */
@@ -342,7 +333,12 @@
     @media (max-width: 768px) {
       .hero-content { margin-top: 0; }
       .content-section { padding: 3rem 1.5rem; }
-      .gold-rush-visuals { height: 300px; }
+      
+      .gold-rush-container { height: 400px; margin-top: 20px; }
+      .miners-wrapper { width: 70%; }
+      
+      .grid-2-3 { grid-template-columns: 1fr; gap: 2rem; }
+
       .phase-navigation { flex-direction: column; align-items: stretch; text-align: center; }
       .phase-link { justify-content: center; }
     }
@@ -375,11 +371,11 @@
   
   <main>
 
-    <!-- 1. Gold Rushes (Tan) - New Layout -->
+    <!-- 1. Gold Rushes (Tan) -->
     <section class="section-tan content-section">
       <div class="container">
         <div class="grid-2col fade-in">
-          <div class="text-col" style="z-index: 5;">
+          <div class="text-col">
             <h2 class="section-title">1848–1858: The North American Gold Rushes</h2>
             <div class="text-content text-main-90">
               <p>
@@ -392,81 +388,59 @@
           </div>
           
           <div class="img-col">
-            <!-- Custom Layout for Gold Rush Visuals -->
-            <div class="gold-rush-visuals">
-              <!-- Inset Image (Miners at Auburn Ravine) scaled to 60% -->
-              <div class="inset-image-wrapper">
-                <img src="https://www.huntington.org/sites/default/files/verso/featured/chinesearchives_1.jpg" alt="Miners at Auburn Ravine">
-                <div class="inset-caption">Miners at Auburn Ravine, California, 1852</div>
-              </div>
+            <div class="gold-rush-container">
+               <!-- Background Layer: Chinatown -->
+               <div class="chinatown-wrapper">
+                 <img src="https://opensfhistory.org/Download/wnp37.04111.jpg" alt="Chinatown 1885">
+                 <div class="chinatown-caption">China town, 1885</div>
+               </div>
+               
+               <!-- Top Layer: Miners Inset -->
+               <div class="miners-wrapper">
+                 <img src="https://www.huntington.org/sites/default/files/verso/featured/chinesearchives_1.jpg" alt="Miners at Auburn Ravine">
+                 <div class="miners-caption">Miners at Auburn Ravine, California, 1852</div>
+               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Six Companies (Paper) - Gallery -->
-    <section class="section-paper content-section">
-      <div class="container">
-        <div class="grid-2col grid-reverse fade-in">
-          <div class="text-col">
-            <h2 class="section-title">1849–1862: Institutional Power – The "Six Companies"</h2>
-            <div class="text-content text-main-90">
-              <p>
-                To maintain order and protection, Cantonese migrants established their first organization, the Sze Yup Association, in San Francisco in 1849. In 1854, the Taishanese group split off to form the Ning Yung Benevolent Association, which became the most powerful district association. 
-              </p>
-              <p>
-                By 1862, these Cantonese groups united to form the "Chinese Six Companies" (later the CCBA). Acting as the community's governing body, it managed banking, settled disputes, and organized legal defenses against discrimination. This transformed Cantonese migrants into an organized, self-governing entity with a robust economic structure and substantial social standing.
-              </p>
-            </div>
-          </div>
-          <div class="img-col">
-             <!-- Gallery 2: Six Companies -->
-             <div class="gallery" id="gallery-2">
-              <div class="gallery-frame">
-                <div class="gallery-slide show">
-                  <img src="https://www.nps.gov/articles/000/images/Picture14_2.png" alt="Six Companies 1890" style="object-position: center top;">
-                </div>
-                <div class="gallery-slide">
-                  <img src="https://www.foundsf.org/images/5/5a/Reps_of_Six_Companies_1943_AAB-6823.jpg" alt="Six Companies 1943" style="object-position: center top;">
-                </div>
-                <div class="gallery-label" id="label-2">Leaders of six companies, 1890</div>
-              </div>
-              <div class="gallery-nav">
-                <button class="nav-btn prev-btn"><i data-lucide="chevron-left" size="16"></i></button>
-                <button class="nav-btn next-btn"><i data-lucide="chevron-right" size="16"></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Section "Six Companies" REMOVED as requested -->
 
-    <!-- 3. Hawaii (Tan) -->
+    <!-- 2. Hawaii (Tan) -->
     <section class="section-tan content-section">
       <div class="container">
-        <h2 class="section-title">1850s–1900s: The Plantation Economy in Hawaii</h2>
         <div class="grid-2col fade-in">
-          <div class="text-content text-main-90">
-            <p>
-              A distinct stream of Cantonese migration transformed Hawaii, beginning with contract laborers in 1852. Unlike the Sze Yup-dominated mainland, Hawaii’s community was overwhelmingly Heungshan (Zhongshan), comprising roughly 75% of the Chinese population. 
-            </p>
-            <p>
-              Between 1852 and 1899, approximately 46,000 migrants arrived. By 1884, they constituted 22% of the total population and held 49% of plantation jobs, forming the backbone of the sugar industry. By the 1890s, they also dominated rice cultivation, successfully transferring South China’s agricultural technology to the Pacific.
-            </p>
-          </div>
-          <div>
-            <div class="image-frame" style="height: 350px;">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Chinese_Laborers_in_Sugar_Cane_Field%2C_Maui%2C_Hawaii_LCCN2003679659.jpg" alt="Hawaii Sugar Cane Field">
+          <!-- Left: Title & Text -->
+          <div class="text-col">
+            <h2 class="section-title">1850s–1900s: The Plantation Economy in Hawaii</h2>
+            <div class="text-content text-main-90">
+              <p>
+                A distinct stream of Cantonese migration transformed Hawaii, beginning with contract laborers in 1852. Unlike the Sze Yup-dominated mainland, Hawaii’s community was overwhelmingly Heungshan (Zhongshan), comprising roughly 75% of the Chinese population. 
+              </p>
+              <p>
+                Between 1852 and 1899, approximately 46,000 migrants arrived. By 1884, they constituted 22% of the total population and held 49% of plantation jobs, forming the backbone of the sugar industry. By the 1890s, they also dominated rice cultivation, successfully transferring South China’s agricultural technology to the Pacific.
+              </p>
             </div>
-            <p class="image-caption">Chinese laborers in sugar cane fields, Maui</p>
+          </div>
+          
+          <!-- Right: Stacked Images -->
+          <div class="img-col hawaii-stack">
+            <div class="hawaii-img-frame">
+              <img src="https://i0.wp.com/imagesofoldhawaii.com/wp-content/uploads/Chinese-water-buffalo-plowing-rice-field-Hawaii-Tai-Sing-Loo-KSBE.jpg" alt="Water Buffalo Plowing">
+            </div>
+            <div class="hawaii-img-frame">
+              <img src="https://www.khon2.com/wp-content/uploads/sites/8/2020/01/sugarcane-workers-USC-libraries-Cal-historical-society.jpg" alt="Sugarcane Workers">
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 4. Railroad (Paper) -->
-    <section class="section-paper content-section">
+    <!-- 3. Railroad (Tan) -->
+    <!-- Background changed to #D9CCB7 (section-tan) -->
+    <section class="section-tan content-section">
       <div class="container">
         <h2 class="section-title">1865–1869: The Transcontinental Railroad</h2>
         
@@ -490,24 +464,38 @@
       </div>
     </section>
 
-    <!-- 5. Burlingame Treaty (Tan) -->
+    <!-- 4. Burlingame Treaty (Tan) -->
+    <!-- Layout changed to 2/3 Text Left, 1/3 Image Right -->
     <section class="section-tan content-section">
       <div class="container fade-in">
-        <h2 class="section-title">1868: Diplomacy and Free Migration</h2>
-        <div class="width-60" style="max-width: 800px; margin: 0 auto;">
-          <div class="text-content text-main-90">
-            <p>
-              The Burlingame Treaty (1868) marked a high point in early U.S.–Qing relations. It affirmed reciprocal most-favored-nation treatment in travel and residence. Notably, it recognized the mutual advantage of free migration for trade, travel, or permanent residence while condemning coerced migration.
-            </p>
-            <p>
-              In this diplomatic context, the Qing government soon launched initiatives such as the Chinese Educational Mission (1872–1881). More broadly, the treaty’s language of “free migration” helped legitimize and protect transpacific mobility in the late 1860s and early 1870s. Combined with labor demand and established Cantonese migrant networks, it reinforced the United States as a major destination for Cantonese workers until the agreement was later curtailed and ultimately undermined by restrictive policies in the 1880s.
-            </p>
-          </div>
+        <div class="grid-2-3">
+            <!-- Left: 2/3 Width Text -->
+            <div class="text-col">
+                <h2 class="section-title">1868: Diplomacy and Free Migration</h2>
+                <div class="text-content text-main-90">
+                    <p>
+                    The Burlingame Treaty (1868) marked a high point in early U.S.–Qing relations. It affirmed reciprocal most-favored-nation treatment in travel and residence. Notably, it recognized the mutual advantage of free migration for trade, travel, or permanent residence while condemning coerced migration.
+                    </p>
+                    <p>
+                    In this diplomatic context, the Qing government soon launched initiatives such as the Chinese Educational Mission (1872–1881). More broadly, the treaty’s language of “free migration” helped legitimize and protect transpacific mobility in the late 1860s and early 1870s. Combined with labor demand and established Cantonese migrant networks, it reinforced the United States as a major destination for Cantonese workers until the agreement was later curtailed and ultimately undermined by restrictive policies in the 1880s.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: 1/3 Width Image -->
+            <div class="img-col">
+                <div class="image-frame" style="height: auto;">
+                    <img src="http://p6.itc.cn/images01/20201113/dad9443177a44b24afbb67ff90de09e2.jpeg" alt="Chinese Educational Mission Boys">
+                </div>
+                <p class="image-caption" style="text-align: left; font-size: 0.8rem; margin-top: 15px; opacity: 0.9;">
+                    From 1872 to 1875, the Qing government sent 120 boys, most around age 12, and about 70% from Guangdong, to study in the United States. Many students performed exceptionally well, with more than 50 being admitted to universities such as Yale and Columbia. In 1881, the Qing government ended the program and ordered them home, cutting their studies short; only five eventually returned and settled in the U.S.
+                </p>
+            </div>
         </div>
       </div>
     </section>
 
-    <!-- 6. Exclusion & Resistance (Paper) -->
+    <!-- 5. Exclusion & Resistance (Paper) -->
     <section class="section-paper content-section">
       <div class="container">
         <h2 class="section-title">1882–1943: Exclusion, Resistance, and Renewal</h2>
@@ -583,50 +571,8 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // 3. Gallery Logic (Reusable Class)
-    class Gallery {
-      constructor(id, captions) {
-        this.container = document.getElementById(id);
-        if(!this.container) return;
-        
-        this.slides = this.container.querySelectorAll('.gallery-slide');
-        this.label = this.container.querySelector('.gallery-label');
-        this.btnPrev = this.container.querySelector('.prev-btn');
-        this.btnNext = this.container.querySelector('.next-btn');
-        this.captions = captions;
-        this.index = 0;
 
-        // Init
-        this.update();
-
-        // Events
-        this.btnPrev.onclick = () => this.move(-1);
-        this.btnNext.onclick = () => this.move(1);
-      }
-
-      move(dir) {
-        this.slides[this.index].classList.remove('show');
-        this.index = (this.index + dir + this.slides.length) % this.slides.length;
-        this.slides[this.index].classList.add('show');
-        this.update();
-      }
-
-      update() {
-        if(this.captions && this.captions[this.index]) {
-          this.label.textContent = this.captions[this.index];
-        }
-      }
-    }
-
-    // Initialize Gallery 2 (Six Companies) - Note: Gallery 1 is removed
-    const captions2 = [
-      "Leaders of six companies, 1890",
-      "Representatives of the Six Companies, 1943"
-    ];
-    new Gallery('gallery-2', captions2);
-
-
-    // 4. RAILROAD CANVAS ANIMATION
+    // 3. RAILROAD CANVAS ANIMATION
     const canvas = document.getElementById('railroad-canvas');
     const ctx = canvas.getContext('2d');
     let width, height;
