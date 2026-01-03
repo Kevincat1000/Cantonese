@@ -40,7 +40,6 @@
 
     body { padding-top: var(--header-h); }
 
-    /* Gallery Layout */
     .gallery-container {
       display: grid;
       grid-template-columns: repeat(4, 1fr); 
@@ -57,7 +56,9 @@
       height: 100%;
       text-decoration: none;
       cursor: pointer;
-      overflow: visible; /* 确保滤镜边缘不被裁切 */
+      /* 关键：隐藏内部因滤镜产生的溢出边缘 */
+      overflow: hidden; 
+      border-right: 1px solid rgba(0,0,0,0.05);
     }
 
     .item-info {
@@ -68,16 +69,18 @@
       pointer-events: none; 
     }
 
-    .item-number {
+    /* 统一的编号/标签样式 */
+    .item-number, .map-title {
       display: block;
       font-family: 'Exo', sans-serif;
       font-size: 11px; 
       font-weight: 600;
       letter-spacing: 1px;
       color: #000;
-      margin-bottom: 4px;
       text-transform: uppercase;
     }
+
+    .item-number { margin-bottom: 4px; }
 
     .item-title {
       display: block;
@@ -89,20 +92,22 @@
       opacity: 0.9;
     }
 
-    /* Image Wrapper with Turbulent Displace Effect */
+    /* Image Wrapper */
     .image-wrapper {
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
       filter: grayscale(100%) contrast(1.1); 
-      transition: filter 0.5s ease, transform 0.5s ease;
+      transition: filter 0.4s ease, transform 0.6s ease;
       position: relative;
+      /* 初始状态微调，确保放大后不露白 */
+      transform: scale(1.01); 
     }
 
     .first-image { background-position: left center !important; }
 
-    /* The Mask Color Overlay */
+    /* Overlay Mask */
     .image-wrapper::after {
       content: '';
       position: absolute;
@@ -113,32 +118,29 @@
       transition: opacity 0.6s ease;
     }
 
-    /* HOVER STATE: Trigger Filter & Remove Grayscale */
+    /* Hover State */
     .gallery-item:hover .image-wrapper {
       filter: grayscale(0%) contrast(1) url(#liquid-filter);
-      transform: scale(1.02); /* 轻微放大增加沉浸感 */
+      /* 关键：hover时稍微放大图片，让波动的锯齿边缘隐藏在容器外面 */
+      transform: scale(1.15); 
     }
 
     .gallery-item:hover .image-wrapper::after {
       opacity: 0; 
     }
 
-    /* Map Section */
+    /* Map Section Styles */
     .map-section {
       width: 100%;
-      padding: 80px 0; 
+      padding: 100px 0; 
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
     .map-title {
-        margin-bottom: 20px;
-        font-family: 'Exo', sans-serif;
-        letter-spacing: 1px;
-        font-size: 12px;
-        text-transform: uppercase;
-        color: #666;
+        margin-bottom: 25px;
+        /* 继承了上面定义的 Exo 11px 样式 */
     }
 
     #diaspora-map {
@@ -149,17 +151,16 @@
       border: 1px solid #dcd8ce;
     }
 
-    /* Hide SVG from view */
+    /* SVG Filter Definition */
     .svg-filters {
       position: absolute;
-      width: 0;
-      height: 0;
+      width: 0; height: 0;
       visibility: hidden;
     }
 
     @media (max-width: 768px) {
       .gallery-container { grid-template-columns: 1fr; height: auto; margin-top: 80px; }
-      .gallery-item { height: 300px; margin-bottom: 60px; }
+      .gallery-item { height: 300px; margin-bottom: 80px; border-right: none; }
       #diaspora-map { width: 90vw; height: 300px; }
     }
   </style>
@@ -167,19 +168,19 @@
 
 <body>
 
-  <!-- SVG Turbulent Filter Definition -->
+  <!-- SVG Turbulent Filter -->
   <svg class="svg-filters">
     <filter id="liquid-filter">
-      <!-- baseFrequency 控制波动的密度，numOctaves 控制细节 -->
-      <feTurbulence id="turbulence" type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
-      <!-- scale 控制波动的强度 (置换幅度) -->
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="30" />
+      <!-- baseFrequency 决定水纹的精细度，numOctaves 增加层次感 -->
+      <feTurbulence id="turbulence" type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
+      <!-- scale 决定波浪的大小 -->
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" />
     </filter>
   </svg>
   
   <main>
     <div class="gallery-container">
-        <!-- Phase 01 -->
+        
         <a href="phase1.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">01. 17th–19th Centuries</span>
@@ -188,7 +189,6 @@
             <div class="image-wrapper first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
         </a>
 
-        <!-- Phase 02 -->
         <a href="phase2.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">02. 1840s–1940s</span>
@@ -197,7 +197,6 @@
             <div class="image-wrapper" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
         </a>
 
-        <!-- Phase 03 -->
         <a href="phase3.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">03. 1965–1997</span>
@@ -206,7 +205,6 @@
             <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
         </a>
 
-        <!-- Phase 04 -->
         <a href="phase4.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">04. 2000s–Present</span>
@@ -214,35 +212,33 @@
             </div>
             <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
         </a>
+
     </div>
 
     <div class="map-section">
         <div class="map-title">Migration map</div>
         <div id="diaspora-map"></div>
     </div>
+
   </main>
 
   <script>
-    /**
-     * 实现流体动态波动效果
-     * 原理：通过 JS 持续修改 SVG 滤镜的 baseFrequency 种子值，产生动态湍流
-     */
     const turb = document.getElementById('turbulence');
     let step = 0;
-    let requestID;
+    let requestID = null;
 
-    // 动画函数
     function animate() {
-      step += 0.005; // 控制流动速度
-      // 稍微改变频率值，模拟水流不规则律动
-      const bfX = 0.015 + Math.cos(step) * 0.002;
-      const bfY = 0.02 + Math.sin(step) * 0.005;
+      // 增加 step 的步进（从 0.005 增加到 0.02），使波动变快
+      step += 0.015; 
+      
+      // 动态改变频率值，模拟急促的水流
+      const bfX = 0.02 + Math.cos(step) * 0.01;
+      const bfY = 0.02 + Math.sin(step) * 0.01;
       
       turb.setAttribute('baseFrequency', `${bfX} ${bfY}`);
       requestID = requestAnimationFrame(animate);
     }
 
-    // 仅在鼠标悬停在 Gallery 上时启动动画，节省性能
     const items = document.querySelectorAll('.gallery-item');
     
     items.forEach(item => {
@@ -251,7 +247,6 @@
       });
       
       item.addEventListener('mouseleave', () => {
-        // 如果没有任何图片被 hover，则停止动画计算
         const isAnyHovered = Array.from(items).some(i => i.matches(':hover'));
         if (!isAnyHovered) {
           cancelAnimationFrame(requestID);
