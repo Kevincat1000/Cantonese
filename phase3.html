@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phase III: 1965–2000 - Reforms, Refugees, and New Waves</title>
+  <title>Phase III: 1965–1997 - Reforms, Refugees, and New Waves</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,10 +105,7 @@
     .grid-2col { display: grid; gap: 3rem; align-items: start; }
     #section-1965 .grid-2col { grid-template-columns: 1fr 1fr; }
     
-    /* Layout for 1975s: 
-       Left Column (1.4fr) holds large media.
-       Right Column (1fr) holds text.
-    */
+    /* Layout for 1975s: Left Column (1.4fr), Right Column (1fr) */
     .video-text-grid { grid-template-columns: 1.4fr 1fr; } 
 
     /* --- Section 1965 Background --- */
@@ -136,17 +133,15 @@
     .vertical-media-stack {
       display: flex;
       flex-direction: column;
-      gap: 30px; /* Space between rows */
+      gap: 30px;
     }
 
-    /* Video Row Layout: Video (left) + Quote (right) */
     .media-row {
       display: flex;
-      align-items: stretch; /* Stretch quote to match video height */
+      align-items: stretch;
       gap: 20px;
     }
 
-    /* Base style for media containers */
     .media-container {
       border-radius: 4px;
       overflow: hidden;
@@ -160,9 +155,9 @@
       display: block;
     }
 
-    /* Specific: Video Box */
+    /* Video Box */
     .video-box {
-      flex: 1.5; /* Takes 60% of the row space */
+      flex: 1.5; 
       aspect-ratio: 16/9;
       cursor: pointer;
     }
@@ -175,14 +170,13 @@
     .video-box:hover img { opacity: 0.7; }
     .video-box:hover { transform: scale(1.01); transition: transform 0.3s; }
 
-    /* Quote Box Style - REMOVED LEFT BORDER */
+    /* Quote Box */
     .quote-box {
-      flex: 1; /* Takes remaining space */
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-left: 0; /* Removed padding since border is gone */
-      /* Minimal styling */
+      padding-left: 0;
       font-family: var(--font-heading);
       font-size: 0.95rem;
       font-style: italic;
@@ -198,9 +192,9 @@
       font-style: normal;
     }
 
-    /* Specific: Large Images (Full Width of Column) */
+    /* Large Images (Full Width) */
     .large-image-box {
-      width: 100%; /* Fills the entire left grid column */
+      width: 100%;
       aspect-ratio: 16/9;
     }
 
@@ -248,7 +242,6 @@
       #section-1965 { padding-top: 4rem; padding-bottom: 4rem; }
       #section-1965 .grid-2col, .video-text-grid { grid-template-columns: 1fr; }
       .video-text-grid { gap: 2rem; }
-      /* Mobile: Quote moves below video */
       .media-row { flex-direction: column; gap: 10px; }
       .quote-box { padding-top: 10px; border-top: 1px solid #ddd; text-align: center; }
       .phase-navigation { flex-direction: column; }
@@ -258,7 +251,6 @@
 
 <body>
 
-  <!-- Modal -->
   <div class="modal-overlay" id="videoModal">
     <div class="modal-close-btn" onclick="closeModal()">✕</div>
     <div class="modal-content">
@@ -278,7 +270,7 @@
     <canvas id="bubble-canvas"></canvas>
     <div class="hero-content">
       <span class="hero-label">Timeline / Phase III</span>
-      <h1 class="hero-title">1965–2000</h1>
+      <h1 class="hero-title">1965–1997</h1>
       <h2 class="hero-subtitle">Reforms, Refugees, and New Waves</h2>
     </div>
   </header>
@@ -304,7 +296,7 @@
       <div class="section-bg-caption">Chinatown in San Francisco, 1967</div>
     </section>
 
-    <!-- SECTION 1975-1980s: Optimized Layout -->
+    <!-- SECTION 1975-1980s: Layout Optimized -->
     <section class="content-section">
       <div class="container fade-in">
         <h2 class="section-title">1975–1980s: The Refugee Crisis and Commercial Revitalization</h2>
@@ -316,13 +308,11 @@
             
             <!-- Row 1: Video (Left) + Quote (Right) -->
             <div class="slide-in-left media-row">
-                <!-- Video takes ~60% of this row -->
                 <div class="media-container video-box" onclick="openModal('https://www.youtube.com/embed/refugee-placeholder?autoplay=1')">
                   <img src="https://media.timeout.com/images/105878143/750/562/image.jpg" alt="Video Thumbnail">
                   <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
                 </div>
                 
-                <!-- Quote takes ~40% -->
                 <div class="quote-box">
                     "We left everything behind. The boat was our only hope, and the ocean our only path to freedom."
                     <div class="quote-author">— Refugee Interview, 1980</div>
@@ -347,7 +337,7 @@
 
           </div>
 
-          <!-- RIGHT COLUMN: Text (Top aligned with Media) -->
+          <!-- RIGHT COLUMN: Text -->
           <div class="text-content">
             <p style="margin-top: 0;">
               The end of the Vietnam War and the rise of communist rule triggered a massive humanitarian crisis. Within this chaos, the Hoa (ethnic Chinese in Vietnam), most of whom spoke Cantonese, faced severe political pressure and the seizure of their businesses. Beginning in 1978, hundreds of thousands fled as "boat people" to camps in Southeast Asia.
@@ -367,14 +357,13 @@
       </div>
     </section>
 
-    <!-- SECTION 1984-2000 -->
+    <!-- SECTION 1984-1997 -->
     <section class="content-section">
       <div class="container fade-in">
-        <h2 class="section-title">1984–2000: The Hong Kong Migration and Suburban Growth</h2>
+        <h2 class="section-title">1984–1997: The Hong Kong Migration and Suburban Growth</h2>
         
         <div class="grid-2col video-text-grid">
            <div class="img-col vertical-media-stack">
-            <!-- Reuse structure for consistency -->
             <div class="media-row">
                 <div class="media-container video-box" onclick="openModal('https://www.youtube.com/embed/hk-placeholder-1?autoplay=1')">
                   <img src="https://static01.nyt.com/images/2019/08/18/world/18hongkong-rally-toronto1/merlin_159165713_5f6e61fe-90ef-48dc-9a3b-ed597373ccfa-superJumbo.jpg" alt="HK Video 1">
@@ -391,7 +380,6 @@
                   <img src="https://images.unsplash.com/photo-1596525737276-80f4f9526715?q=80&w=1000&auto=format&fit=crop" alt="HK Video 2">
                   <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
                </div>
-               <!-- Spacer or another quote could go here -->
                <div style="flex:1;"></div>
             </div>
           </div>
@@ -416,10 +404,10 @@
         <h2 class="section-title">Summary: Transformation Through Migration</h2>
         <div class="text-content" style="width: 100%;">
           <p>
-            The period from 1965 to 2000 fundamentally reshaped the Cantonese diaspora in North America. Legal reforms opened doors that had been closed for decades, allowing diverse groups to arrive: educated professionals from Hong Kong, resilient refugees from Vietnam, and ambitious entrepreneurs seeking new opportunities.
+            The period from 1965 to 1997 fundamentally reshaped the Cantonese diaspora in North America. Legal reforms opened doors that had been closed for decades, allowing diverse groups to arrive: educated professionals from Hong Kong, resilient refugees from Vietnam, and ambitious entrepreneurs seeking new opportunities.
           </p>
           <p>
-            By 2000, the Cantonese diaspora had evolved from marginalized laborers into a sophisticated, economically powerful, and culturally diverse transnational community. This transformation set the stage for continued growth and adaptation in the decades to come.
+            By 1997, the Cantonese diaspora had evolved from marginalized laborers into a sophisticated, economically powerful, and culturally diverse transnational community. This transformation set the stage for continued growth and adaptation in the decades to come.
           </p>
         </div>
         <div class="phase-navigation">
@@ -466,7 +454,7 @@
       if (e.target === modal) closeModal();
     });
 
-    // --- ENLARGED BUBBLE CANVAS ---
+    // --- GRAY HOLLOW -> FLASH COLOR BUBBLES ---
     const canvas = document.getElementById('bubble-canvas');
     const ctx = canvas.getContext('2d');
     let width, height;
@@ -478,7 +466,7 @@
     window.addEventListener('resize', resize);
     resize();
 
-    class FlashBubble {
+    class EvolutionBubble {
         constructor() {
             this.init(true); 
         }
@@ -487,11 +475,10 @@
             this.x = Math.random() * width;
             this.y = startRandomY ? Math.random() * height : height + 50;
             
-            // MAGNIFIED SIZES (100% bigger start, 50% bigger end)
-            // Was: 2+3, 8+15. 
-            // Now: Start 5-15px. End 18-40px.
-            this.baseRadius = 5 + Math.random() * 10; 
-            this.targetRadius = 18 + Math.random() * 25; 
+            // Reduced Final Size by 20% compared to previous large version
+            // Was: 18+25. Now: 14+20.
+            this.baseRadius = 5 + Math.random() * 8; 
+            this.targetRadius = 14 + Math.random() * 20; 
             
             this.speed = 0.2 + Math.random() * 0.4; 
             this.offset1 = Math.random() * 1000;
@@ -505,8 +492,11 @@
             this.y -= this.speed;
             this.x += Math.sin(this.time + this.offset1) * 0.5;
             
-            // Random Flash trigger
-            if(Math.random() > 0.99) this.flash = 1.0;
+            // Trigger Flash logic only if above threshold (middle screen)
+            let progress = 1 - (this.y / (height + 50));
+            if (progress > 0.45 && Math.random() > 0.99) {
+                 this.flash = 1.0;
+            }
             if(this.flash > 0) this.flash *= 0.92;
             
             if (this.y < -100) this.init();
@@ -517,42 +507,71 @@
             if(rawProgress < 0) rawProgress = 0;
             if(rawProgress > 1) rawProgress = 1;
 
-            // Growth
-            const sizeProgress = Math.pow(rawProgress, 2.5); 
-            const currentRadius = this.baseRadius + (this.targetRadius - this.baseRadius) * sizeProgress;
-            
-            // VISIBILITY BOOST
-            // Start alpha higher so they are visible at bottom
-            const alpha = 0.4 + (rawProgress * 0.3);
+            // 1. SIZE LOGIC
+            // Stay small until 0.45, then grow
+            let sizeMultiplier = 1;
+            if (rawProgress > 0.45) {
+                // Growth from 0.45 to 0.8
+                let growthProgress = (rawProgress - 0.45) * 3; 
+                if(growthProgress > 1) growthProgress = 1;
+                sizeMultiplier = 1 + (growthProgress * ((this.targetRadius / this.baseRadius) - 1));
+            }
+            const currentRadius = this.baseRadius * sizeMultiplier;
 
-            let saturation = 0 + (this.flash * 80); 
-            saturation += rawProgress * 10; 
+            // 2. STATE LOGIC
+            const threshold = 0.45; // Below title vs Above title
 
             ctx.beginPath();
-            const gradient = ctx.createRadialGradient(
-                this.x - currentRadius/3, this.y - currentRadius/3, currentRadius * 0.1, 
-                this.x, this.y, currentRadius
-            );
-            
-            const brightness = 80 + (this.flash * 20);
-
-            gradient.addColorStop(0, `hsla(${this.hue}, ${saturation}%, 100%, ${alpha + this.flash})`);
-            gradient.addColorStop(0.4, `hsla(${this.hue}, ${saturation}%, ${brightness}%, ${alpha})`);
-            gradient.addColorStop(1, `hsla(${this.hue}, ${saturation}%, 90%, ${alpha * 0.5})`);
-            
-            ctx.fillStyle = gradient;
             ctx.arc(this.x, this.y, currentRadius, 0, Math.PI * 2);
-            ctx.fill();
-            
-            ctx.strokeStyle = `rgba(255,255,255, ${alpha * 0.5 + this.flash})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
+
+            if (rawProgress < threshold) {
+                // STATE 1: GRAY HOLLOW (Silent)
+                // Stroke only, very faint gray fill
+                ctx.fillStyle = `rgba(180, 180, 180, 0.05)`; 
+                ctx.strokeStyle = `rgba(160, 160, 160, 0.4)`;
+                ctx.lineWidth = 1;
+                ctx.fill();
+                ctx.stroke();
+            } else {
+                // STATE 2: ENTITY + FLASH + COLOR GRADIENT
+                // Calculate transition (0 to 1) just above threshold
+                let transition = (rawProgress - threshold) * 4;
+                if(transition > 1) transition = 1;
+
+                // Saturation increases as it goes higher
+                // Start low (silver/gray), increase to color
+                let baseSaturation = (rawProgress - threshold) * 120; // 0 -> 60%
+                let finalSaturation = baseSaturation + (this.flash * 80); // Flash spikes color
+
+                // Brightness
+                let brightness = 85 + (this.flash * 15);
+
+                // Alpha
+                let alpha = 0.2 + (rawProgress * 0.2);
+
+                const gradient = ctx.createRadialGradient(
+                    this.x - currentRadius/3, this.y - currentRadius/3, currentRadius * 0.1, 
+                    this.x, this.y, currentRadius
+                );
+
+                gradient.addColorStop(0, `hsla(${this.hue}, ${finalSaturation}%, 100%, ${alpha + this.flash})`);
+                gradient.addColorStop(0.4, `hsla(${this.hue}, ${finalSaturation}%, ${brightness}%, ${alpha})`);
+                gradient.addColorStop(1, `hsla(${this.hue}, ${finalSaturation}%, 90%, ${alpha * 0.5})`);
+
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                // Stroke gets brighter with flash
+                ctx.strokeStyle = `rgba(255,255,255, ${alpha * 0.5 + this.flash})`;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+            }
         }
     }
 
     const bubbles = [];
     for (let i = 0; i < 70; i++) {
-        bubbles.push(new FlashBubble());
+        bubbles.push(new EvolutionBubble());
     }
 
     function animate() {
