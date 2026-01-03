@@ -71,7 +71,7 @@
 
     .item-info {
       position: absolute;
-      top: -65px; /* Shifted up by 95px relative to the original 30px top position */
+      top: -65px; 
       left: 20px;
       z-index: 10;
       pointer-events: none; 
@@ -103,15 +103,17 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      transition: all 0.6s ease;
+      transition: filter 0.6s ease; /* 移除全属性过渡，防止干扰 ripple canvas */
       filter: grayscale(100%) contrast(1.1); 
       overflow: hidden; 
+      position: relative;
     }
 
     .first-image {
       background-position: left center !important;
     }
 
+    /* 遮罩层 */
     .image-wrapper::after {
       content: '';
       position: absolute;
@@ -123,6 +125,8 @@
       mix-blend-mode: multiply; 
       opacity: 0.85; 
       transition: opacity 0.6s ease;
+      z-index: 1; /* 放在 canvas 下面或上面取决于想要的效果，这里放在底层 */
+      pointer-events: none;
     }
 
     .gallery-item:hover .image-wrapper {
@@ -184,16 +188,14 @@
 <body>
   
   <main>
-    
     <div class="gallery-container">
-        
         <!-- Phase 01 -->
         <a href="phase1.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">01. 17th–19th Centuries</span>
                 <span class="item-title">Early Migration within <br>Southeast Asia</span>
             </div>
-            <div class="image-wrapper ripple-effect first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
+            <div class="image-wrapper first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
         </a>
 
         <!-- Phase 02 -->
@@ -202,7 +204,7 @@
                 <span class="item-number">02. 1840s–1940s</span>
                 <span class="item-title">Building North America <br>& The Pacific</span>
             </div>
-            <div class="image-wrapper ripple-effect" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
+            <div class="image-wrapper" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
         </a>
 
         <!-- Phase 03 -->
@@ -211,7 +213,7 @@
                 <span class="item-number">03. 1965–1997</span>
                 <span class="item-title">Reforms, Refugees, <br>and New Waves</span>
             </div>
-            <div class="image-wrapper ripple-effect" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
+            <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
         </a>
 
         <!-- Phase 04 -->
@@ -220,29 +222,52 @@
                 <span class="item-number">04. 2000s–Present</span>
                 <span class="item-title">Diversification and <br>Cultural Resilience</span>
             </div>
-            <div class="image-wrapper ripple-effect" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
+            <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
         </a>
-
     </div>
 
     <div class="map-section">
         <div class="map-title">Migration map</div>
         <div id="diaspora-map"></div>
     </div>
-
   </main>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        try {
-            $('.ripple-effect').ripples({
-                resolution: 512,  
-                dropRadius: 25,   
-                perturbance: 0.04 
-            });
-        } catch (e) {
-            console.log("Ripples effect failed to load.");
-        }
+    $(document).ready(function() {
+        // 1. 初始化所有图片，增强 perturbance 让抖动感更强
+        const $wrappers = $('.image-wrapper').ripples({
+            resolution: 512,
+            dropRadius: 30, // 水滴半径
+            perturbance: 0.12, // 抖动系数（越大越抖）
+            interactive: false // 禁用插件自带的静默监听，改为下方手动精准控制
+        });
+
+        // 2. 针对每一项进行 Hover 监听
+        $('.gallery-item').on('mouseenter', function(e) {
+            const $target = $(this).find('.image-wrapper');
+            const offset = $target.offset();
+            const x = e.pageX - offset.left;
+            const y = e.pageY - offset.top;
+            
+            // 鼠标进入瞬间触发一个较强的“冲击波”
+            $target.ripples('drop', x, y, 50, 0.15);
+        });
+
+        $('.gallery-item').on('mousemove', function(e) {
+            const $target = $(this).find('.image-wrapper');
+            const offset = $target.offset();
+            const x = e.pageX - offset.left;
+            const y = e.pageY - offset.top;
+
+            // 随着鼠标移动产生连续的小波纹，创造“抖动”感
+            // 只有当前被 hover 的 $target 会产生反应
+            $target.ripples('drop', x, y, 25, 0.08);
+        });
+
+        // 兼容性修正：如果窗口缩放，更新 canvas 尺寸
+        $(window).on('resize', function() {
+            $wrappers.ripples('updateSize');
+        });
     });
   </script>
 </body>
