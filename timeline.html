@@ -12,17 +12,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Header/Footer Injectors (保持不变) -->
+  <!-- Header/Footer Injectors -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
-  <!-- Mapbox -->
+  <!-- Mapbox CSS & JS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
 
   <!-- jQuery & Ripples -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+
+  <!-- External Mapbox Logic -->
+  <script src="./assets/mapbox.js" defer></script>
 
   <style>
     :root {
@@ -35,14 +38,17 @@
     * { box-sizing: border-box; }
     
     body, html {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       background-color: var(--bg);
       font-family: 'Gentium Book Plus', serif;
       color: var(--text);
       overflow-x: hidden;
     }
 
-    body { padding-top: var(--header-h); }
+    body {
+      padding-top: var(--header-h);
+    }
 
     .gallery-container {
       display: grid;
@@ -59,15 +65,15 @@
       width: 100%;
       height: 100%;
       text-decoration: none;
-      /* 注意：这里不能写 overflow: hidden，否则 01-04 的字会消失 */
+      cursor: pointer;
+      border-right: 1px solid rgba(0,0,0,0.05); 
     }
 
-    /* 文字信息层 */
     .item-info {
       position: absolute;
-      top: -65px; 
+      top: -65px; /* Shifted up by 95px relative to the original 30px top position */
       left: 20px;
-      z-index: 100; /* 确保文字在最顶层 */
+      z-index: 10;
       pointer-events: none; 
     }
 
@@ -92,54 +98,85 @@
       opacity: 0.9;
     }
 
-    /* 图片包裹容器：执行水纹效果的层 */
     .image-wrapper {
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
-      transition: filter 0.6s ease;
+      transition: all 0.6s ease;
       filter: grayscale(100%) contrast(1.1); 
-      overflow: hidden; /* 这里控制水纹不漏出来 */
-      position: relative;
+      overflow: hidden; 
     }
 
-    /* 遮罩颜色层 */
+    .first-image {
+      background-position: left center !important;
+    }
+
     .image-wrapper::after {
       content: '';
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background-color: var(--mask-color);
       mix-blend-mode: multiply; 
       opacity: 0.85; 
       transition: opacity 0.6s ease;
-      pointer-events: none;
-      z-index: 1; 
     }
 
-    /* Hover 状态：颜色恢复，遮罩消失 */
     .gallery-item:hover .image-wrapper {
       filter: grayscale(0%) contrast(1); 
     }
+
     .gallery-item:hover .image-wrapper::after {
       opacity: 0; 
     }
 
-    /* Canvas 强制置顶以产生扭曲感 */
-    canvas {
-      position: absolute;
-      top: 0; left: 0;
-      z-index: 2; /* 在遮罩层之上 */
-      pointer-events: none;
+    .map-section {
+      width: 100%;
+      padding: 80px 0; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    .map-section { width: 100%; padding: 80px 0; display: flex; flex-direction: column; align-items: center; }
-    #diaspora-map { width: 50vw; height: 500px; background-color: #e5e0d5; border: 1px solid #dcd8ce; }
+    .map-title {
+        margin-bottom: 20px;
+        font-family: 'Exo', sans-serif;
+        letter-spacing: 1px;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #666;
+    }
+
+    #diaspora-map {
+      width: 50vw; 
+      height: 50vw; 
+      max-height: 500px; 
+      background-color: #e5e0d5; 
+      border: 1px solid #dcd8ce;
+    }
 
     @media (max-width: 768px) {
-      .gallery-container { grid-template-columns: 1fr; height: auto; margin-top: 80px; }
-      .gallery-item { height: 300px; margin-bottom: 80px; }
-      .item-info { top: -50px; }
+      .gallery-container {
+        grid-template-columns: 1fr; 
+        height: auto;
+        margin-top: 80px;
+      }
+      .item-info {
+        top: -45px;
+      }
+      .gallery-item {
+        height: 300px; 
+        margin-bottom: 60px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+      }
+      #diaspora-map {
+        width: 90vw; 
+        height: 300px;
+      }
     }
   </style>
 </head>
@@ -147,6 +184,7 @@
 <body>
   
   <main>
+    
     <div class="gallery-container">
         
         <!-- Phase 01 -->
@@ -155,7 +193,7 @@
                 <span class="item-number">01. 17th–19th Centuries</span>
                 <span class="item-title">Early Migration within <br>Southeast Asia</span>
             </div>
-            <div class="image-wrapper" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
+            <div class="image-wrapper ripple-effect first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
         </a>
 
         <!-- Phase 02 -->
@@ -164,7 +202,7 @@
                 <span class="item-number">02. 1840s–1940s</span>
                 <span class="item-title">Building North America <br>& The Pacific</span>
             </div>
-            <div class="image-wrapper" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
+            <div class="image-wrapper ripple-effect" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
         </a>
 
         <!-- Phase 03 -->
@@ -173,7 +211,7 @@
                 <span class="item-number">03. 1965–1997</span>
                 <span class="item-title">Reforms, Refugees, <br>and New Waves</span>
             </div>
-            <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
+            <div class="image-wrapper ripple-effect" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
         </a>
 
         <!-- Phase 04 -->
@@ -182,7 +220,7 @@
                 <span class="item-number">04. 2000s–Present</span>
                 <span class="item-title">Diversification and <br>Cultural Resilience</span>
             </div>
-            <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
+            <div class="image-wrapper ripple-effect" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
         </a>
 
     </div>
@@ -191,52 +229,23 @@
         <div class="map-title">Migration map</div>
         <div id="diaspora-map"></div>
     </div>
+
   </main>
 
   <script>
-    $(document).ready(function() {
-        const $wrappers = $('.image-wrapper');
-
-        // 初始化 Ripples
-        $wrappers.ripples({
-            resolution: 512,
-            dropRadius: 35,
-            perturbance: 0.12, // 确保这个值足够高，才能产生“底图晃动”的效果
-            interactive: false // 关闭默认交互，由 JS 精确控制
-        });
-
-        $('.gallery-item').on('mouseenter', function(e) {
-            const $wrapper = $(this).find('.image-wrapper');
-            const offset = $wrapper.offset();
-            
-            // 开始播放当前图片的水纹
-            $wrapper.ripples('play');
-            
-            // 鼠标进入位置产生一个大水纹
-            $wrapper.ripples('drop', e.pageX - offset.left, e.pageY - offset.top, 50, 0.12);
-        });
-
-        $('.gallery-item').on('mousemove', function(e) {
-            const $wrapper = $(this).find('.image-wrapper');
-            const offset = $wrapper.offset();
-            
-            // 鼠标移动产生持续水纹
-            $wrapper.ripples('drop', e.pageX - offset.left, e.pageY - offset.top, 25, 0.05);
-        });
-
-        $('.gallery-item').on('mouseleave', function() {
-            const $wrapper = $(this).find('.image-wrapper');
-            
-            // 核心修复：一旦离开，立即暂停该图片的所有计算
-            // 这样它就不会干扰其他正在被 hover 的图片
-            $wrapper.ripples('pause');
-        });
-
-        // 窗口尺寸变化处理
-        $(window).on('resize', function() {
-            $wrappers.ripples('updateSize');
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        try {
+            $('.ripple-effect').ripples({
+                resolution: 512,  
+                dropRadius: 25,   
+                perturbance: 0.04 
+            });
+        } catch (e) {
+            console.log("Ripples effect failed to load.");
+        }
     });
   </script>
 </body>
 </html>
+
+
