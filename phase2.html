@@ -200,7 +200,6 @@
       right: 0;
       width: 90%;
       z-index: 1;
-      /* Moved down 40px as requested */
       transform: translateY(40px);
     }
 
@@ -253,9 +252,7 @@
     }
 
     /* --- Hawaii Stacked Images --- */
-    .hawaii-section {
-      padding-top: 3rem !important; /* Reduced whitespace */
-    }
+    .hawaii-section { padding-top: 3rem !important; }
 
     .hawaii-stack {
       display: flex;
@@ -265,7 +262,7 @@
     
     .hawaii-img-frame {
       width: 100%;
-      max-width: 320px; /* Reduced by 20% from 400px */
+      max-width: 320px; 
       margin-left: auto;
       margin-right: auto;
       border-radius: 4px;
@@ -273,41 +270,41 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     
-    .hawaii-img-frame img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+    .hawaii-img-frame img { width: 100%; height: auto; display: block; }
 
     /* --- Letter Feature (Diplomacy) --- */
-    .letter-feature {
+    /* Updated for 50/50 split and larger image */
+    .letter-feature-wide {
       display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 20px;
-      margin-top: 30px;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
       background: rgba(255,255,255,0.5);
-      padding: 20px;
+      padding: 30px;
       border-radius: 8px;
       border: 1px solid rgba(0,0,0,0.05);
+      align-items: start;
     }
 
-    .letter-image img {
+    .letter-img-col img {
       width: 100%;
+      height: auto;
       border-radius: 4px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       transition: transform 0.3s;
     }
-    .letter-image img:hover { transform: scale(1.05); }
+    .letter-img-col img:hover { transform: scale(1.02); }
 
     .letter-caption {
       font-family: var(--font-body);
-      font-size: 0.9rem;
-      line-height: 1.5;
-      color: #4a4a4a;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #333;
     }
     .letter-caption strong {
       display: block;
-      margin-bottom: 5px;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
       color: var(--accent-red);
       font-family: var(--font-heading);
     }
@@ -377,7 +374,9 @@
       .miners-wrapper { width: 70%; }
       
       .grid-2-3 { grid-template-columns: 1fr; gap: 2rem; }
-      .letter-feature { grid-template-columns: 1fr; }
+      
+      /* Letter Feature Mobile */
+      .letter-feature-wide { grid-template-columns: 1fr; }
 
       .phase-navigation { flex-direction: column; align-items: stretch; text-align: center; }
       .phase-link { justify-content: center; }
@@ -429,13 +428,11 @@
           
           <div class="img-col">
             <div class="gold-rush-container">
-               <!-- Background Layer: Chinatown (Moved down 40px) -->
                <div class="chinatown-wrapper">
                  <img src="https://opensfhistory.org/Download/wnp37.04111.jpg" alt="Chinatown 1885">
                  <div class="chinatown-caption">China town, 1885</div>
                </div>
                
-               <!-- Top Layer: Miners Inset -->
                <div class="miners-wrapper">
                  <img src="https://www.huntington.org/sites/default/files/verso/featured/chinesearchives_1.jpg" alt="Miners at Auburn Ravine">
                  <div class="miners-caption">Miners at Auburn Ravine, California, 1852</div>
@@ -446,11 +443,10 @@
       </div>
     </section>
 
-    <!-- 2. Hawaii (Tan) - Reduced Padding, Smaller Images -->
+    <!-- 2. Hawaii (Tan) -->
     <section class="section-tan content-section hawaii-section">
       <div class="container">
         <div class="grid-2col fade-in">
-          <!-- Left: Title & Text -->
           <div class="text-col">
             <h2 class="section-title">1850s–1900s: The Plantation Economy in Hawaii</h2>
             <div class="text-content text-main-90">
@@ -463,7 +459,6 @@
             </div>
           </div>
           
-          <!-- Right: Stacked Images (20% Smaller) -->
           <div class="img-col hawaii-stack">
             <div class="hawaii-img-frame">
               <img src="https://i0.wp.com/imagesofoldhawaii.com/wp-content/uploads/Chinese-water-buffalo-plowing-rice-field-Hawaii-Tai-Sing-Loo-KSBE.jpg" alt="Water Buffalo Plowing">
@@ -477,16 +472,20 @@
     </section>
 
     <!-- 3. Railroad (Tan) -->
-    <section class="section-tan content-section">
+    <!-- Reduced Top Padding -->
+    <section class="section-tan content-section" style="padding-top: 2rem;">
       <div class="container">
         <h2 class="section-title">1865–1869: The Transcontinental Railroad</h2>
         
         <div class="grid-2col fade-in">
           <div>
-            <div class="image-frame" style="height: 450px;">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/East_and_West_Shaking_Hands_at_Laying_Last_Rail.jpg" alt="Meeting of the lines">
+            <!-- Increased height to match text -->
+            <div class="image-frame" style="height: 550px;">
+              <img src="https://today.ucsd.edu/news_uploads/chinese-and-the-iron-road-1-160113.jpg" alt="50th Anniversary Float">
             </div>
-             <p class="image-caption">"East and West Shaking Hands", Promontory Summit, 1869</p>
+             <p class="image-caption">
+               Ging Cui, Wong Fook, and Lee Shao, three of the eight Chinese workers who put the last rail in place, on a float at the 50th Anniversary celebration of the completion of the transcontinental railroad in Ogden, Utah. Photo by courtesy of Amon Carter Museum of American Art Archives, Fort Worth, TX
+             </p>
           </div>
 
           <div class="text-content text-main-90">
@@ -502,11 +501,11 @@
     </section>
 
     <!-- 4. Burlingame Treaty (Paper/Light Beige) -->
-    <!-- Changed background to section-paper -->
-    <section class="section-paper content-section">
+    <!-- Reduced bottom padding to minimize gap to next section -->
+    <section class="section-paper content-section" style="padding-bottom: 2rem;">
       <div class="container fade-in">
         <div class="grid-2-3">
-            <!-- Left: 2/3 Width Text + New Letter Feature -->
+            <!-- Left: 2/3 Width Text -->
             <div class="text-col">
                 <h2 class="section-title">1868: Diplomacy and Free Migration</h2>
                 <div class="text-content text-main-90">
@@ -516,23 +515,10 @@
                     <p>
                     In this diplomatic context, the Qing government soon launched initiatives such as the Chinese Educational Mission (1872–1881). More broadly, the treaty’s language of “free migration” helped legitimize and protect transpacific mobility in the late 1860s and early 1870s. Combined with labor demand and established Cantonese migrant networks, it reinforced the United States as a major destination for Cantonese workers until the agreement was later curtailed and ultimately undermined by restrictive policies in the 1880s.
                     </p>
-
-                    <!-- NEW: Letter Feature -->
-                    <div class="letter-feature">
-                      <div class="letter-image">
-                        <img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg" alt="1871 Letter">
-                      </div>
-                      <div class="letter-caption">
-                        <strong>Letter from 1871</strong>
-                        In this 1871 letter from San Francisco, Zhencong explains why he left Xinning/Taishan, Guangdong: poverty at home pushed him to go abroad to earn a living and secure a better future. He reassures his elder brother that he is safe, reports receiving news that the family is well, and most importantly, sends money (a $20 silver draft) for rice and daily necessities, carefully listing earlier remittances and the messengers who carried them.
-                        <br><br>
-                        The message highlights a central motive behind many Cantonese migrations to the United States: working overseas to support the household through remittances, rather than simply seeking personal adventure or permanent departure. It also reflects a strong family-centered worldview—duties to parents, and a sense that an individual’s success abroad is measured by what he can send back and how he honors the family.
-                      </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Right: 1/3 Width Educational Mission Image -->
+            <!-- Right: 1/3 Width Image -->
             <div class="img-col">
                 <div class="image-frame" style="height: auto;">
                     <img src="http://p6.itc.cn/images01/20201113/dad9443177a44b24afbb67ff90de09e2.jpeg" alt="Chinese Educational Mission Boys">
@@ -542,6 +528,20 @@
                 </p>
             </div>
         </div>
+
+        <!-- NEW: Wide Letter Feature (Moved outside grid) -->
+        <div class="letter-feature-wide">
+            <div class="letter-img-col">
+              <img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg" alt="1871 Letter">
+            </div>
+            <div class="letter-caption">
+              <strong>Letter from 1871</strong>
+              In this 1871 letter from San Francisco, Zhencong explains why he left Xinning/Taishan, Guangdong: poverty at home pushed him to go abroad to earn a living and secure a better future. He reassures his elder brother that he is safe, reports receiving news that the family is well, and most importantly, sends money (a $20 silver draft) for rice and daily necessities, carefully listing earlier remittances and the messengers who carried them.
+              <br><br>
+              The message highlights a central motive behind many Cantonese migrations to the United States: working overseas to support the household through remittances, rather than simply seeking personal adventure or permanent departure. It also reflects a strong family-centered worldview—duties to parents, and a sense that an individual’s success abroad is measured by what he can send back and how he honors the family.
+            </div>
+        </div>
+
       </div>
     </section>
 
