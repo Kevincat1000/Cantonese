@@ -35,11 +35,11 @@
       background-color: var(--bg);
       font-family: 'Gentium Book Plus', serif;
       color: var(--text);
-      overflow-x: hidden;
     }
 
     body { padding-top: var(--header-h); }
 
+    /* --- Gallery Section --- */
     .gallery-container {
       display: grid;
       grid-template-columns: repeat(4, 1fr); 
@@ -56,19 +56,18 @@
       height: 100%;
       text-decoration: none;
       cursor: pointer;
-      /* 这里不能加 overflow: hidden，否则上面的文字会消失 */
     }
 
-    /* 文字信息层 */
+    /* 编号和标题样式 */
     .item-info {
       position: absolute;
-      top: -65px; /* 文字向上偏移 */
+      top: -65px;
       left: 20px;
-      z-index: 20; /* 确保在最上层 */
+      z-index: 10;
       pointer-events: none; 
     }
 
-    /* 统一的编号/标签样式 */
+    /* 核心字体定义：01编号与Map标题通用 */
     .item-number, .map-title {
       display: block;
       font-family: 'Exo', sans-serif;
@@ -77,6 +76,7 @@
       letter-spacing: 1px;
       color: #000;
       text-transform: uppercase;
+      line-height: 1.2;
     }
 
     .item-number { margin-bottom: 4px; }
@@ -91,16 +91,15 @@
       opacity: 0.9;
     }
 
-    /* 新增图片裁剪容器：用来限制水纹不超出长方形 */
+    /* 图片裁剪容器：保证水纹不溢出 */
     .image-container {
       width: 100%;
       height: 100%;
-      overflow: hidden; /* 裁剪在这里执行 */
+      overflow: hidden; /* 关键：裁剪抖动边缘 */
       position: relative;
       border-right: 1px solid rgba(0,0,0,0.05);
     }
 
-    /* 实际的图片层 */
     .image-wrapper {
       width: 100%;
       height: 100%;
@@ -109,12 +108,11 @@
       filter: grayscale(100%) contrast(1.1); 
       transition: filter 0.4s ease, transform 0.6s ease;
       position: relative;
-      transform: scale(1.01); /* 初始微扩，防止边缘白边 */
+      transform: scale(1.01); 
     }
 
     .first-image { background-position: left center !important; }
 
-    /* 颜色遮罩 */
     .image-wrapper::after {
       content: '';
       position: absolute;
@@ -125,62 +123,68 @@
       transition: opacity 0.6s ease;
     }
 
-    /* 悬停效果 */
+    /* Hover: 触发滤镜和轻微缩放 */
     .gallery-item:hover .image-wrapper {
       filter: grayscale(0%) contrast(1) url(#liquid-filter);
-      transform: scale(1.08); /* 稍微放大，配合裁剪容器隐藏水纹边缘 */
+      transform: scale(1.08); 
     }
 
     .gallery-item:hover .image-wrapper::after {
       opacity: 0; 
     }
 
-    /* 地图区域样式 */
+    /* --- Migration Map Section --- */
     .map-section {
       width: 100%;
-      padding: 100px 0; 
+      padding: 100px 0; /* 上下留白 */
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      clear: both;
     }
 
     .map-title {
-        margin-bottom: 25px;
-        /* 已通过上面的 .map-title 定义了与编号一致的字体 */
+      margin-bottom: 25px;
+      text-align: center;
+      /* 这里的样式已在上面 .item-number, .map-title 中统一定义 */
     }
 
     #diaspora-map {
       width: 50vw; 
       height: 50vw; 
       max-height: 500px; 
+      min-height: 300px; /* 确保在小屏幕也有高度 */
       background-color: #e5e0d5; 
       border: 1px solid #dcd8ce;
+      position: relative;
     }
 
-    /* SVG 滤镜定义 */
+    /* 隐藏 SVG 资源 */
     .svg-filters {
       position: absolute;
       width: 0; height: 0;
       visibility: hidden;
     }
 
+    /* 响应式 */
     @media (max-width: 768px) {
       .gallery-container { grid-template-columns: 1fr; height: auto; margin-top: 80px; }
       .gallery-item { height: 300px; margin-bottom: 80px; }
-      #diaspora-map { width: 90vw; height: 300px; }
+      .item-info { top: -45px; }
+      #diaspora-map { width: 90vw; height: 350px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- SVG Turbulent Filter -->
+  <!-- SVG Filter for Liquid Effect -->
   <svg class="svg-filters">
     <filter id="liquid-filter">
-      <!-- baseFrequency 决定纹理密度 -->
       <feTurbulence id="turbulence" type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
-      <!-- scale 决定变形幅度：从之前的 40 降到 18，让变形变轻微 -->
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" />
+      <!-- scale="16" 提供细腻不夸张的抖动 -->
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" />
     </filter>
   </svg>
   
@@ -230,15 +234,17 @@
                 <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
             </div>
         </a>
-
     </div>
 
+    <!-- Map Section: 确保这里的 HTML 结构完整 -->
     <div class="map-section">
         <div class="map-title">Migration map</div>
         <div id="diaspora-map"></div>
     </div>
-
   </main>
+
+  <!-- External Mapbox Logic (确保 ./assets/mapbox.js 存在并能正确寻找 #diaspora-map) -->
+  <script src="./assets/mapbox.js" defer></script>
 
   <script>
     const turb = document.getElementById('turbulence');
@@ -246,9 +252,7 @@
     let requestID = null;
 
     function animate() {
-      // 保持较快的水流感
-      step += 0.012; 
-      
+      step += 0.015; // 保持较快的水流频率
       const bfX = 0.02 + Math.cos(step) * 0.008;
       const bfY = 0.02 + Math.sin(step) * 0.01;
       
@@ -257,7 +261,6 @@
     }
 
     const items = document.querySelectorAll('.gallery-item');
-    
     items.forEach(item => {
       item.addEventListener('mouseenter', () => {
         if (!requestID) animate();
