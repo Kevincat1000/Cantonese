@@ -9,7 +9,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Header/Footer Injectors (保持不变) -->
+  <script src="./assets/header.js" defer></script>
+  <script src="./assets/footer.js" defer></script>
+
+  <!-- Mapbox -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
 
   <!-- jQuery & Ripples -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -23,10 +32,13 @@
       --mask-color: #e3bd28; 
     }
 
+    * { box-sizing: border-box; }
+    
     body, html {
       margin: 0; padding: 0;
       background-color: var(--bg);
       font-family: 'Gentium Book Plus', serif;
+      color: var(--text);
       overflow-x: hidden;
     }
 
@@ -37,24 +49,25 @@
       grid-template-columns: repeat(4, 1fr); 
       width: 100vw;
       height: 65vh; 
-      margin-top: 100px; 
       border-bottom: 1px solid #dcd8ce;
+      margin-top: 100px; 
     }
 
     .gallery-item {
       position: relative;
       display: block;
+      width: 100%;
       height: 100%;
       text-decoration: none;
-      overflow: hidden; /* 裁剪溢出的水纹 */
-      border-right: 1px solid rgba(0,0,0,0.05); 
+      /* 注意：这里不能写 overflow: hidden，否则 01-04 的字会消失 */
     }
 
+    /* 文字信息层 */
     .item-info {
       position: absolute;
       top: -65px; 
       left: 20px;
-      z-index: 20; /* 确保文字在水纹之上 */
+      z-index: 100; /* 确保文字在最顶层 */
       pointer-events: none; 
     }
 
@@ -63,29 +76,35 @@
       font-family: 'Exo', sans-serif;
       font-size: 11px; 
       font-weight: 600;
-      text-transform: uppercase;
+      letter-spacing: 1px;
       color: #000;
       margin-bottom: 4px;
+      text-transform: uppercase;
     }
 
     .item-title {
       display: block;
+      font-family: 'Gentium Book Plus', serif;
       font-size: 16px; 
+      line-height: 1.3;
+      font-weight: 400;
       color: #1a1a1a;
+      opacity: 0.9;
     }
 
-    /* 核心修改：图片容器层 */
+    /* 图片包裹容器：执行水纹效果的层 */
     .image-wrapper {
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
+      transition: filter 0.6s ease;
       filter: grayscale(100%) contrast(1.1); 
-      transition: filter 0.5s ease;
+      overflow: hidden; /* 这里控制水纹不漏出来 */
       position: relative;
     }
 
-    /* 遮罩层修改：使用 pointer-events:none 确保不拦截鼠标 */
+    /* 遮罩颜色层 */
     .image-wrapper::after {
       content: '';
       position: absolute;
@@ -93,34 +112,34 @@
       background-color: var(--mask-color);
       mix-blend-mode: multiply; 
       opacity: 0.85; 
-      transition: opacity 0.5s ease;
-      z-index: 2; /* 放在底层图片和 Canvas 之间，或者顶层 */
+      transition: opacity 0.6s ease;
       pointer-events: none;
+      z-index: 1; 
     }
 
-    /* 当 Hover 时，显示彩色并隐藏遮罩 */
+    /* Hover 状态：颜色恢复，遮罩消失 */
     .gallery-item:hover .image-wrapper {
-      filter: grayscale(0%) contrast(1.1); 
+      filter: grayscale(0%) contrast(1); 
     }
     .gallery-item:hover .image-wrapper::after {
       opacity: 0; 
     }
 
-    /* 强制控制 Ripples 生成的 Canvas */
+    /* Canvas 强制置顶以产生扭曲感 */
     canvas {
       position: absolute;
       top: 0; left: 0;
-      z-index: 5; /* 确保水纹在最上层产生扭曲视觉 */
-      pointer-events: none; /* 让鼠标穿透 Canvas */
-      transition: opacity 0.3s ease;
+      z-index: 2; /* 在遮罩层之上 */
+      pointer-events: none;
     }
 
-    .map-section { padding: 80px 0; text-align: center; }
-    #diaspora-map { width: 50vw; height: 400px; background: #eee; margin: 0 auto; }
+    .map-section { width: 100%; padding: 80px 0; display: flex; flex-direction: column; align-items: center; }
+    #diaspora-map { width: 50vw; height: 500px; background-color: #e5e0d5; border: 1px solid #dcd8ce; }
 
     @media (max-width: 768px) {
-      .gallery-container { grid-template-columns: 1fr; height: auto; }
-      .gallery-item { height: 300px; margin-bottom: 60px; }
+      .gallery-container { grid-template-columns: 1fr; height: auto; margin-top: 80px; }
+      .gallery-item { height: 300px; margin-bottom: 80px; }
+      .item-info { top: -50px; }
     }
   </style>
 </head>
@@ -129,6 +148,7 @@
   
   <main>
     <div class="gallery-container">
+        
         <!-- Phase 01 -->
         <a href="phase1.html" class="gallery-item">
             <div class="item-info">
@@ -164,6 +184,7 @@
             </div>
             <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
         </a>
+
     </div>
 
     <div class="map-section">
@@ -176,47 +197,44 @@
     $(document).ready(function() {
         const $wrappers = $('.image-wrapper');
 
-        // 1. 初始化 Ripples：关键是高 perturbance
+        // 初始化 Ripples
         $wrappers.ripples({
             resolution: 512,
             dropRadius: 35,
-            perturbance: 0.15, // 大幅提高扭曲度，让底图“晃”起来
-            interactive: false
+            perturbance: 0.12, // 确保这个值足够高，才能产生“底图晃动”的效果
+            interactive: false // 关闭默认交互，由 JS 精确控制
         });
 
-        // 默认让 Canvas 透明，离开时好控制
-        $('canvas').css('opacity', 0);
-
         $('.gallery-item').on('mouseenter', function(e) {
-            const $target = $(this).find('.image-wrapper');
+            const $wrapper = $(this).find('.image-wrapper');
+            const offset = $wrapper.offset();
             
-            // 立即显示并播放当前图片的水纹
-            $target.find('canvas').css('opacity', 1);
-            $target.ripples('play');
-
-            // 进入时给一个初始冲击
-            const offset = $target.offset();
-            $target.ripples('drop', e.pageX - offset.left, e.pageY - offset.top, 50, 0.15);
+            // 开始播放当前图片的水纹
+            $wrapper.ripples('play');
+            
+            // 鼠标进入位置产生一个大水纹
+            $wrapper.ripples('drop', e.pageX - offset.left, e.pageY - offset.top, 50, 0.12);
         });
 
         $('.gallery-item').on('mousemove', function(e) {
-            const $target = $(this).find('.image-wrapper');
-            const offset = $target.offset();
+            const $wrapper = $(this).find('.image-wrapper');
+            const offset = $wrapper.offset();
             
-            // 手动触发水纹：当前鼠标位置
-            $target.ripples('drop', e.pageX - offset.left, e.pageY - offset.top, 30, 0.06);
+            // 鼠标移动产生持续水纹
+            $wrapper.ripples('drop', e.pageX - offset.left, e.pageY - offset.top, 25, 0.05);
         });
 
         $('.gallery-item').on('mouseleave', function() {
-            const $target = $(this).find('.image-wrapper');
+            const $wrapper = $(this).find('.image-wrapper');
             
-            // 关键：离开后立即淡出 Canvas 并暂停
-            $target.find('canvas').css('opacity', 0);
-            
-            // 延迟一点点彻底停止，防止视觉上太突兀，但能确保切到下一张时本张已静止
-            setTimeout(() => {
-                $target.ripples('pause');
-            }, 300);
+            // 核心修复：一旦离开，立即暂停该图片的所有计算
+            // 这样它就不会干扰其他正在被 hover 的图片
+            $wrapper.ripples('pause');
+        });
+
+        // 窗口尺寸变化处理
+        $(window).on('resize', function() {
+            $wrappers.ripples('updateSize');
         });
     });
   </script>
