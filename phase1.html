@@ -37,312 +37,177 @@
       overflow-x: hidden;
     }
 
-    /* --- 1. Nav --- */
+    /* --- Nav --- */
     .nav-float {
-      position: fixed;
-      top: 30px;
-      left: 30px;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      text-decoration: none;
-      color: var(--text-dark); 
-      transition: all 0.3s ease;
+      position: fixed; top: 30px; left: 30px; z-index: 1000; display: flex; align-items: center; gap: 15px;
+      text-decoration: none; color: var(--text-dark); transition: all 0.3s ease;
     }
-    
     .nav-float.on-dark { color: white; }
     .nav-float.on-dark .nav-icon-circle { border-color: rgba(255,255,255,0.4); }
-
     .nav-icon-circle {
-      width: 50px;
-      height: 50px;
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(5px);
+      width: 50px; height: 50px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; transition: all 0.3s ease; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px);
     }
-
     .nav-text {
-      font-family: var(--font-heading);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: all 0.3s ease;
-      font-weight: 600;
+      font-family: var(--font-heading); font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+      opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; font-weight: 600;
     }
-
-    .nav-float:hover .nav-icon-circle {
-      background-color: var(--accent-red);
-      border-color: var(--accent-red);
-      color: #fff;
-      transform: scale(1.1);
-    }
-
-    .nav-float:hover .nav-text {
-      opacity: 1;
-      transform: translateX(0);
-      color: var(--accent-red);
-    }
+    .nav-float:hover .nav-icon-circle { background-color: var(--accent-red); border-color: var(--accent-red); color: #fff; transform: scale(1.1); }
+    .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); color: var(--accent-red); }
     .nav-float.on-dark:hover .nav-text { color: var(--accent-red); }
 
-    /* --- 2. Hero --- */
+    /* --- Hero --- */
     .hero-section {
-      position: relative;
-      height: 100vh; 
-      width: 100%;
-      background-color: var(--bg-paper);
-      display: flex;
-      align-items: center;
-      padding: 0 5%;
-      overflow: hidden;
+      position: relative; height: 100vh; width: 100%; background-color: var(--bg-paper); display: flex;
+      align-items: center; padding: 0 5%; overflow: hidden;
     }
-
-    .hero-content {
-      position: relative;
-      z-index: 10;
-      max-width: 800px;
-      color: var(--text-dark);
-      margin-top: -50px;
-    }
-
+    .hero-content { position: relative; z-index: 10; max-width: 800px; color: var(--text-dark); margin-top: -50px; }
     .hero-label {
-      font-family: var(--font-heading);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: var(--accent-red);
-      margin-bottom: 1.5rem;
-      display: block;
-      font-weight: 700;
-      font-size: 0.9rem;
+      font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px; color: var(--accent-red);
+      margin-bottom: 1.5rem; display: block; font-weight: 700; font-size: 0.9rem;
     }
-
     .hero-title {
-      font-family: var(--font-heading);
-      font-size: 3.5rem;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      color: #1a1a1a;
+      font-family: var(--font-heading); font-size: 3.5rem; line-height: 1.1; margin-bottom: 1rem;
+      font-weight: 700; color: #1a1a1a;
     }
-
-    .hero-subtitle {
-      font-family: var(--font-heading);
-      font-size: 1.8rem;
-      color: #4a5568;
-      font-weight: 400;
-      margin-top: 0.5rem;
-    }
-
+    .hero-subtitle { font-family: var(--font-heading); font-size: 1.8rem; color: #4a5568; font-weight: 400; margin-top: 0.5rem; }
+    
+    /* Boat: Reduced size by 50% & Mobile Fix */
     .hero-boat {
-      position: absolute;
-      right: 5%;
-      bottom: 20%;
-      width: 180px;
-      height: auto;
-      z-index: 1;
-      opacity: 0.9;
-      pointer-events: none;
-      transform: translateX(-30px); 
-      animation: sailRight 2s ease-out forwards;
+      position: absolute; right: 5%; bottom: 20%;
+      width: 180px; /* Reduced from 360px */
+      height: auto; z-index: 1; opacity: 0.9; pointer-events: none;
+      transform: translateX(-30px); animation: sailRight 2s ease-out forwards;
     }
+    @keyframes sailRight { from { transform: translateX(-30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-    @keyframes sailRight {
-      from { transform: translateX(-30px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    /* --- 3. Content Layout --- */
-    .container {
-      max-width: 1152px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
+    /* --- Layout & Sections --- */
+    .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
     .content-section { 
-      padding: 4rem 2rem;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      padding: 4rem 2rem; 
+      /* Fade Transition Setup */
+      opacity: 0; 
+      transform: translateY(30px); 
+      transition: opacity 1s ease, transform 1s ease;
     }
-    .content-section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .content-section.first-section { padding-top: 5rem; }
+    .content-section.section-visible { opacity: 1; transform: translateY(0); }
     
     .section-teal { background-color: var(--bg-teal); color: var(--text-white); }
-    
     .section-paper {
-      background-color: var(--bg-paper);
-      color: var(--text-dark);
+      background-color: var(--bg-paper); color: var(--text-dark);
       background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px);
     }
 
     .section-title {
-      font-family: var(--font-heading);
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      line-height: 1.3;
-      margin-top: 0;
-      position: relative;
-      padding-left: 20px;
-      border-left: 5px solid var(--accent-red);
-      padding-bottom: 0;
+      font-family: var(--font-heading); font-size: 24px; font-weight: 700; margin-bottom: 1.5rem;
+      line-height: 1.3; margin-top: 0; position: relative; padding-left: 20px; border-left: 5px solid var(--accent-red);
     }
-
     .text-content { font-size: 1.05rem; line-height: 1.7; width: 100%; }
     .text-content p { margin-bottom: 1.2rem; }
     .text-white-90 { color: rgba(255, 255, 255, 0.9); }
     .text-dark-90 { color: rgba(35, 29, 22, 0.9); }
 
+    /* Grids */
     .grid-2col { display: grid; gap: 2rem; align-items: start; }
-    .grid-2-1 { grid-template-columns: 1fr; }
-    .grid-1-1 { grid-template-columns: 1fr; }
-    .width-60 { width: 100%; }
-
+    .grid-2-1 { grid-template-columns: 1fr; } 
+    
+    /* Vietnam Section Specific Layout */
+    .vietnam-layout { display: flex; flex-direction: column; gap: 2rem; }
+    
     /* Gallery */
-    .gallery { width: 100%; margin-top: 0; }
+    .gallery { width: 100%; }
     .gallery-frame {
-      width: 100%; height: 350px;
-      position: relative; background: #000; border-radius: 8px; overflow: hidden;
+      width: 100%; height: 350px; position: relative; background: #000; border-radius: 8px; overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-    .gallery-slide {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      opacity: 0; transition: opacity 0.4s ease;
-    }
+    .gallery-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.4s ease; }
     .gallery-slide.show { opacity: 1; }
     .gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
-    
     .gallery-label {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(45, 123, 115, 0.95), rgba(45, 123, 115, 0.7));
-      color: white; padding: 14px; font-size: 13px; text-align: center;
-      font-family: var(--font-heading);
+      position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(45, 123, 115, 0.95), rgba(45, 123, 115, 0.7));
+      color: white; padding: 14px; font-size: 13px; text-align: center; font-family: var(--font-heading);
     }
-    
     .gallery-nav { display: flex; justify-content: center; gap: 16px; margin-top: 10px; }
     .nav-btn {
-      background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white;
-      width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; width: 32px; height: 32px;
+      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
     .nav-btn:hover { border-color: var(--accent-red); background: var(--accent-red); }
 
-    /* Map & Images */
-    .map-container {
-      margin-top: 2rem;
-      opacity: 0;
-      transform: translateX(50px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .map-container.visible { animation: slideIn 1.5s ease forwards; }
-    .map-image { width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    /* Images */
     .caption { font-size: 0.85rem; text-align: center; margin-top: 8px; font-family: var(--font-heading); opacity: 0.8; }
-
     .historical-images { display: grid; gap: 3rem; margin-top: 2rem; }
-    
-    .temple-image-wrapper {
-      position: relative; width: 100%; height: 360px; perspective: 1000px;
-    }
-    .temple-flip-inner {
-      position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d;
-    }
+    .temple-image-wrapper { position: relative; width: 100%; height: 360px; perspective: 1000px; }
+    .temple-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
     .temple-image-wrapper:hover .temple-flip-inner { transform: rotateY(180deg); }
     .temple-image {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
       backface-visibility: hidden; border-radius: 8px;
     }
     .temple-image.final { transform: rotateY(180deg); }
-    
     .historical-image { width: 100%; height: 360px; object-fit: cover; border-radius: 8px; }
-
+    
     .colonial-images { display: grid; gap: 2rem; margin-top: 2rem; }
     .colonial-image { width: 100%; height: 340px; object-fit: cover; border-radius: 8px; }
-
+    
     .tin-boom-layout { display: grid; gap: 2rem; margin-top: 1rem; }
-    .tin-mine-wrapper {
-      height: 300px; opacity: 0; transform: translateX(-50px);
-    }
-    .tin-mine-wrapper.visible { animation: slideInLeft 1.5s ease forwards; }
+    .tin-mine-wrapper { height: 300px; }
     .tin-mine-image { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
-
+    
     .loke-yew-layout { display: grid; gap: 2rem; }
     .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(255,255,255,0.1); border-radius: 8px; }
 
-    /* Compact Link */
+    /* Compact Link Section - Tightened */
     .phase-navigation {
-      margin-top: 2.5rem;
-      padding-top: 1.5rem;
-      padding-bottom: 0;
-      border-top: 1px solid rgba(255,255,255,0.2);
-      text-align: right;
+      margin-top: 10px; padding-top: 10px; padding-bottom: 5px;
+      border-top: 1px solid rgba(255,255,255,0.15); text-align: right;
     }
-    .last-section { padding-bottom: 3rem; }
-
+    .last-section { padding-bottom: 2rem; } /* Reduced padding */
+    
     .phase-link {
       text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 10px;
-      font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem;
-      transition: color 0.3s;
+      font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; transition: color 0.3s;
     }
     .phase-link:hover { color: var(--accent-red); }
     .phase-arrow { transition: transform 0.3s; }
     .phase-link:hover .phase-arrow { transform: translateX(5px); }
 
-    @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
-    @keyframes slideInLeft { to { opacity: 1; transform: translateX(0); } }
-
-    /* Desktop Media Query */
+    /* Media Queries */
     @media (min-width: 900px) {
       .grid-2col { grid-template-columns: 1fr 1fr; }
       .grid-2-1 { grid-template-columns: 1.5fr 1fr; }
-      .grid-1-1 { grid-template-columns: 1fr 1fr; }
-      .width-60 { max-width: 100%; }
       
-      .map-container {
-        margin-top: 0;
-      }
+      /* Vietnam 50/50 Layout - Map Taller */
+      .vietnam-layout { flex-direction: row; align-items: flex-start; }
+      .vietnam-text { width: 50%; padding-right: 2rem; }
+      .vietnam-map { width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      
+      /* Map Height Control: ~480px (approx 20% taller than average text block) */
+      .map-image { width: 90%; height: 480px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin-top: -20px; }
       
       .historical-images { grid-template-columns: 1fr 1fr; margin-top: -60px; }
       .colonial-images { grid-template-columns: 1fr 1fr; }
       .tin-boom-layout { grid-template-columns: 1fr 1fr; align-items: center; }
       .loke-yew-layout { grid-template-columns: 300px 1fr; }
-      
       .hero-title { font-size: 4.5rem; }
     }
 
     @media (max-width: 768px) {
       .hero-section { height: auto; min-height: 100vh; padding: 100px 20px 40px; }
-      .hero-boat {
-        position: relative;
-        right: auto;
-        bottom: auto;
-        width: 100%;
-        max-width: 150px;
-        margin-top: 20px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        animation: none;
-        opacity: 1;
-        transform: none;
+      /* Mobile Boat Fix: Centered, No Animation, No Overflow */
+      .hero-boat { 
+        position: relative; right: auto; bottom: auto; left: auto;
+        width: 150px; 
+        margin: 30px auto 0; display: block;
+        transform: none; animation: none; opacity: 1; 
       }
       .hero-content { margin-top: 0; }
+      .vietnam-map .map-image { width: 100%; height: auto; margin-top: 0; }
     }
   </style>
 </head>
 
 <body>
-
   <!-- Nav -->
   <a href="timeline.html" class="nav-float" id="nav-btn">
     <div class="nav-icon-circle">
@@ -353,56 +218,34 @@
 
   <!-- Hero -->
   <header class="hero-section">
-    <div class="hero-content" id="hero-text">
+    <div class="hero-content">
       <span class="hero-label">Timeline / Phase I</span>
       <h1 class="hero-title">17th–19th Centuries</h1>
       <h2 class="hero-subtitle">Early Migration within Southeast Asia</h2>
     </div>
-    <img src="images/Boat.pic.png" alt="Sailing boat" class="hero-boat" id="hero-boat">
+    <img src="images/Boat.pic.png" alt="Sailing boat" class="hero-boat">
   </header>
   
   <main>
-    <!-- Section 1: Siam -->
+    <!-- Section 1: Siam (Teal) -->
     <section class="section-teal content-section first-section">
       <div class="container">
         <div class="grid-2col grid-2-1">
           <div>
             <h2 class="section-title text-white">1640s–1770s: Early Migration to Siam</h2>
             <div class="text-content text-white-90">
-              <p>
-                Following the Qing dynasty's conquest of South China (c. 1644–1660s), significant Cantonese
-                migration occurred. Ming loyalists and refugees fled south by sea to escape warfare, while
-                widespread corruption and hardship under Qing rule compelled many farmers and artisans to seek
-                livelihoods abroad.
-              </p>
-              <p>
-                 Maritime routes linked Guangdong's coastal communities to Siam (Thailand),
-                Cambodia, and Cochinchina, where local rulers welcomed
-                Cantonese traders and skilled workers for their commercial and fiscal value.
-              </p>
-              <p>
-                By 1700, the Chinese population in Ayutthaya reportedly exceeded 3,000. This community expanded
-                significantly throughout the 18th century, with Cantonese immigrants becoming prominent in royal
-                monopolies, navigation, commerce, and urban crafts.
-              </p>
+              <p>Following the Qing dynasty's conquest of South China (c. 1644–1660s), significant Cantonese migration occurred. Ming loyalists and refugees fled south by sea to escape warfare, while widespread corruption and hardship under Qing rule compelled many farmers and artisans to seek livelihoods abroad.</p>
+              <p>Maritime routes linked Guangdong's coastal communities to Siam (Thailand), Cambodia, and Cochinchina, where local rulers welcomed Cantonese traders and skilled workers for their commercial and fiscal value.</p>
+              <p>By 1700, the Chinese population in Ayutthaya reportedly exceeded 3,000. This community expanded significantly throughout the 18th century, with Cantonese immigrants becoming prominent in royal monopolies, navigation, commerce, and urban crafts.</p>
             </div>
           </div>
-          
-          <!-- Gallery -->
           <div class="gallery">
             <div class="gallery-frame">
-              <div class="gallery-slide show">
-                <img src="https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg" alt="Slide 1">
-              </div>
-              <div class="gallery-slide">
-                <img src="https://www.meisterdrucke.ie/kunstwerke/1260px/French_School_-_View_of_Ayutthaya_with_royal_barges_from_Voyage_du_Siam_des_Peres_Jesuites_by_Gu_-_%28MeisterDrucke-444314%29.jpg" alt="Slide 2">
-              </div>
-              <div class="gallery-slide">
-                <img src="https://exploration.marinersmuseum.org/wp-content/uploads/sites/2/2014/04/Chinese_junk_1804-450x351.jpg" alt="Slide 3">
-              </div>
+              <div class="gallery-slide show"><img src="https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg" alt="Slide 1"></div>
+              <div class="gallery-slide"><img src="https://www.meisterdrucke.ie/kunstwerke/1260px/French_School_-_View_of_Ayutthaya_with_royal_barges_from_Voyage_du_Siam_des_Peres_Jesuites_by_Gu_-_%28MeisterDrucke-444314%29.jpg" alt="Slide 2"></div>
+              <div class="gallery-slide"><img src="https://exploration.marinersmuseum.org/wp-content/uploads/sites/2/2014/04/Chinese_junk_1804-450x351.jpg" alt="Slide 3"></div>
               <div class="gallery-label" id="label">View of Judea, the Capital of Siam (c. 1662 - c. 1663)</div>
             </div>
-            
             <div class="gallery-nav">
               <button class="nav-btn" id="prev"><i data-lucide="chevron-left" size="16"></i></button>
               <div style="display:flex; align-items:center; font-size:14px; color:rgba(255,255,255,0.8); gap:5px;">
@@ -415,28 +258,22 @@
       </div>
     </section>
     
-    <!-- Section 2: Vietnam -->
+    <!-- Section 2: Vietnam (Teal) - Split Layout -->
     <section class="section-teal content-section" id="vietnam-section">
       <div class="container">
         <h2 class="section-title text-white">1680s–1790s: Establishment in Southern Vietnam</h2>
         
-        <div class="grid-2col grid-1-1">
-          <div class="text-content text-white-90">
-            <p>
-              Around 1680, Mo Jiu, a refugee from Leizhou, Guangdong, developed the Hà Tiên area. He formally
-              established a semi-autonomous principality there in 1708, placing it under the suzerainty of the
-              Vietnamese Nguyễn lords. This polity functioned as a sanctuary and major hub for Cantonese and
-              other Chinese migrants prior to French colonization.
-            </p>
-            <p>
-              During the Tây Sơn conflicts, ethnic Chinese merchants, primarily Cantonese, founded a new
-              settlement adjacent to Saigon in 1778. This settlement evolved into Chợ Lớn ("Big Market"). 
-              Despite suffering severe persecution and violence in 1782, survivors rebuilt the community. 
-              By the end of the 18th century, the Cantonese population in Cochinchina was estimated at 30,000–40,000, controlling key rice and silk trade routes.
-            </p>
+        <div class="vietnam-layout">
+          <!-- Left: Text -->
+          <div class="vietnam-text">
+            <div class="text-content text-white-90">
+              <p>Around 1680, Mo Jiu, a refugee from Leizhou, Guangdong, developed the Hà Tiên area. He formally established a semi-autonomous principality there in 1708, placing it under the suzerainty of the Vietnamese Nguyễn lords. This polity functioned as a sanctuary and major hub for Cantonese and other Chinese migrants prior to French colonization.</p>
+              <p>During the Tây Sơn conflicts, ethnic Chinese merchants, primarily Cantonese, founded a new settlement adjacent to Saigon in 1778. This settlement evolved into Chợ Lớn ("Big Market"). Despite suffering severe persecution and violence in 1782, survivors rebuilt the community. By the end of the 18th century, the Cantonese population in Cochinchina was estimated at 30,000–40,000, controlling key rice and silk trade routes.</p>
+            </div>
           </div>
           
-          <div class="map-container">
+          <!-- Right: Map (Centered, Taller) -->
+          <div class="vietnam-map">
             <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map of Southern Asia" class="map-image">
             <p class="caption text-white-90">Antique Map of Southern Asia by Walker (c.1840)</p>
           </div>
@@ -444,7 +281,7 @@
       </div>
     </section>
     
-    <!-- Section 3: Historical Images -->
+    <!-- Section 3: Historical Images (Teal) -->
     <section class="section-teal content-section">
       <div class="container">
         <div class="historical-images">
@@ -457,7 +294,6 @@
             </div>
             <p class="caption text-white-90">Thien Hau Temple, Saigon, established in 1760</p>
           </div>
-          
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/A_voyage_to_Cochinchina%2C_in_the_years_1792_and_1793._To_which_is_annexed_an_account_of_a_journey_made_in_the_years_1801_and_1802%2C_to_the_residence_of_the_chief_of_the_Booshuana_nation_%281806%29_%2814766269094%29.jpg/1600px-thumbnail.jpg" alt="Voyage" class="historical-image">
             <p class="caption text-white-90">A voyage to Cochinchina, 1790s</p>
@@ -471,26 +307,14 @@
       <div class="container">
         <h2 class="section-title text-dark">1786–1820s: Expansion into British Colonial Ports</h2>
         <div class="text-content text-dark-90">
-          <p>
-            From the late 18th century, British colonial ports reshaped Guangdong migration routes. Penang
-            (est. 1786) offered security and strong commercial prospects. In the 1790s, the Ghee Hin Kongsi 
-            emerged as one of the earliest major Chinese brotherhoods in Penang. Strongly associated with Cantonese networks, it organized labor, protection, and mutual aid, anchoring Cantonese community life in the Straits Settlements.
-            Penang's Ng Fook Thong (founded in 1819), often cited as an early Cantonese school in Malaya, also served as a temple gathering hub for Cantonese migrants.
-          </p>
-          <p>
-            Following the establishment of Singapore in 1819, Cantonese migrants integrated into the colony's expanding economy. 
-            In 1822, Cho Ah Chee established the first Cantonese dialect association, the Ning Yeung Wui Kuan. 
-            This marked a pivotal moment of institutional consolidation for Singapore's Cantonese community.
-            By the early 1900s, many Cantonese migrants lived in Singapore shophouses, where shopfronts and upstairs lodging kept work and community tightly linked.
-          </p>
+          <p>From the late 18th century, British colonial ports reshaped Guangdong migration routes. Penang (est. 1786) offered security and strong commercial prospects. In the 1790s, the Ghee Hin Kongsi emerged as one of the earliest major Chinese brotherhoods in Penang. Strongly associated with Cantonese networks, it organized labor, protection, and mutual aid, anchoring Cantonese community life in the Straits Settlements.</p>
+          <p>Penang’s Ng Fook Thong (founded in 1819), often cited as an early Cantonese school in Malaya, also served as a temple gathering hub for Cantonese migrants. Following the establishment of Singapore in 1819, Cantonese migrants integrated into the colony's expanding economy. In 1822, Cho Ah Chee established the first Cantonese dialect association, the Ning Yeung Wui Kuan.</p>
         </div>
-        
         <div class="colonial-images">
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="http://bit.ly/4924hNh" alt="Penang School" class="colonial-image">
             <p class="caption text-dark-90">Penang Ng Fook Thong (est. 1819)</p>
           </div>
-          
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="https://sgarchi.wordpress.com/wp-content/uploads/2020/05/shophouses1900.jpg" alt="Shophouses" class="colonial-image">
             <p class="caption text-dark-90">Early 1900s Singapore Shophouses</p>
@@ -503,7 +327,6 @@
     <section class="section-paper content-section" style="padding-top: 1.5rem;">
       <div class="container">
         <h2 class="section-title text-dark">1840s–1870s: The Malayan Tin Boom</h2>
-        
         <div class="tin-boom-layout">
           <div>
             <div class="tin-mine-wrapper">
@@ -511,14 +334,8 @@
             </div>
             <p class="caption text-dark-90">Open-cast Tin Mine in Malaya, 1900s</p>
           </div>
-          
           <div class="text-content text-dark-90">
-            <p>
-              With the discovery of rich tin deposits in Perak, Selangor, and Negeri Sembilan, a new wave
-              of migration occurred between the 1840s and 1870s. During this period, Cantonese laborers
-              and capitalists moved from Penang and Singapore into the interior mining districts of the
-              Malay Peninsula.
-            </p>
+            <p>With the discovery of rich tin deposits in Perak, Selangor, and Negeri Sembilan, a new wave of migration occurred between the 1840s and 1870s. During this period, Cantonese laborers and capitalists moved from Penang and Singapore into the interior mining districts of the Malay Peninsula.</p>
           </div>
         </div>
       </div>
@@ -528,26 +345,19 @@
     <section class="section-teal content-section last-section">
       <div class="container">
         <h2 class="section-title text-white">Summary: Social Mobility</h2>
-        
         <div class="loke-yew-layout">
           <div>
             <img src="https://bit.ly/4phrjVa" alt="Loke Yew" class="loke-yew-image">
             <p class="caption text-white-90">Loke Yew (1846-1917). Cantonese migrant turned<br>Malayan tin tycoon and philanthropist.</p>
           </div>
-          
           <div class="text-content text-white-90">
-            <p>
-              By the turn of the 19th century, the total Cantonese population in Southeast Asia remained
-              relatively modest, yet they occupied a unique niche. Through the Ghee Hin brotherhoods and clan
-              associations, they organized both labor and capital. By the late 19th century, a distinct class
-              of magnates emerged, controlling tin mines, revenue farms, and vast commercial networks.
-            </p>
+            <p>By the turn of the 19th century, the total Cantonese population in Southeast Asia remained relatively modest, yet they occupied a unique niche. Through the Ghee Hin brotherhoods and clan associations, they organized both labor and capital. By the late 19th century, a distinct class of magnates emerged, controlling tin mines, revenue farms, and vast commercial networks.</p>
           </div>
         </div>
         
         <div class="phase-navigation">
           <a href="phase2.html" class="phase-link">
-            <span>Phase II: 1840s–1940s<br><span style="font-size:0.8em; opacity:0.8; font-weight:400;">Building North America & The Pacific</span></span>
+            <span>Phase II: 1840s–1940s <span style="font-size:0.8em; opacity:0.8; font-weight:400; margin-left: 5px;">Building North America & The Pacific</span></span>
             <i data-lucide="arrow-right" class="phase-arrow"></i>
           </a>
         </div>
@@ -558,18 +368,18 @@
   <script>
     lucide.createIcons();
 
+    /* Nav Button Color Transition */
     const navBtn = document.getElementById('nav-btn');
-    const heroHeight = window.innerHeight;
-
+    const heroHeight = window.innerHeight; 
     window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        if(scrollY > heroHeight - 50) {
+        if(window.scrollY > heroHeight - 50) {
             navBtn.classList.add('on-dark');
         } else {
             navBtn.classList.remove('on-dark');
         }
     });
 
+    /* Gallery Logic */
     const captions = [
       "View of Judea, the Capital of Siam (c. 1662 - c. 1663)",
       "View of Ayutthaya with royal barges, 1688",
@@ -587,36 +397,24 @@
       label.textContent = captions[index];
       num.textContent = index + 1;
     }
-    
     document.getElementById('prev').onclick = () => go(index - 1);
     document.getElementById('next').onclick = () => go(index + 1);
 
-    const sectionObserver = new IntersectionObserver((entries) => {
+    /* Smooth Fade In on Scroll (Removes harsh color cuts) */
+    const fadeObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add('section-visible');
+        } else {
+          /* Optional: remove class to fade out when scrolling up/down away */
+           // entry.target.classList.remove('section-visible'); 
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
 
     document.querySelectorAll('.content-section').forEach(section => {
-      sectionObserver.observe(section);
+      fadeObserver.observe(section);
     });
-
-    const elementObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          elementObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-
-    const mapContainer = document.querySelector('.map-container');
-    if (mapContainer) elementObserver.observe(mapContainer);
-    
-    const tinWrapper = document.querySelector('.tin-mine-wrapper');
-    if (tinWrapper) elementObserver.observe(tinWrapper);
   </script>
 </body>
 </html>
