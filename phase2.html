@@ -273,7 +273,6 @@
     .hawaii-img-frame img { width: 100%; height: auto; display: block; }
 
     /* --- Letter Feature (Diplomacy) --- */
-    /* Updated for 50/50 split and larger image */
     .letter-feature-wide {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -297,14 +296,16 @@
 
     .letter-caption {
       font-family: var(--font-body);
-      font-size: 1rem;
+      /* Changed to small text */
+      font-size: 0.85rem;
       line-height: 1.6;
       color: #333;
+      opacity: 0.95;
     }
     .letter-caption strong {
       display: block;
-      font-size: 1.2rem;
-      margin-bottom: 10px;
+      font-size: 1rem;
+      margin-bottom: 8px;
       color: var(--accent-red);
       font-family: var(--font-heading);
     }
@@ -320,10 +321,19 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
     .image-frame img { width: 100%; height: 100%; object-fit: cover; }
+    
     .image-caption {
       font-family: var(--font-heading);
       font-size: 0.85rem; margin-top: 10px; opacity: 0.8;
       text-align: center; font-style: italic; color: var(--text-main);
+    }
+
+    /* Specific utility for bottom alignment in columns */
+    .col-flex-bottom {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
     }
 
     /* Link */
@@ -375,8 +385,9 @@
       
       .grid-2-3 { grid-template-columns: 1fr; gap: 2rem; }
       
-      /* Letter Feature Mobile */
       .letter-feature-wide { grid-template-columns: 1fr; }
+      
+      .image-frame { height: 300px; } /* Reset fixed height for mobile */
 
       .phase-navigation { flex-direction: column; align-items: stretch; text-align: center; }
       .phase-link { justify-content: center; }
@@ -472,28 +483,32 @@
     </section>
 
     <!-- 3. Railroad (Tan) -->
-    <!-- Reduced Top Padding -->
     <section class="section-tan content-section" style="padding-top: 2rem;">
       <div class="container">
         <h2 class="section-title">1865–1869: The Transcontinental Railroad</h2>
         
         <div class="grid-2col fade-in">
+          <!-- Left Column: Image Only -->
           <div>
-            <!-- Increased height to match text -->
             <div class="image-frame" style="height: 550px;">
               <img src="https://today.ucsd.edu/news_uploads/chinese-and-the-iron-road-1-160113.jpg" alt="50th Anniversary Float">
             </div>
-             <p class="image-caption">
-               Ging Cui, Wong Fook, and Lee Shao, three of the eight Chinese workers who put the last rail in place, on a float at the 50th Anniversary celebration of the completion of the transcontinental railroad in Ogden, Utah. Photo by courtesy of Amon Carter Museum of American Art Archives, Fort Worth, TX
-             </p>
           </div>
 
-          <div class="text-content text-main-90">
-            <p>
-              During the construction of the Central Pacific Railroad, more than 12,000 Chinese laborers were recruited. Roughly 90% were Cantonese-speaking migrants from Guangdong, predominantly from the Sze Yup region. These workers formed the backbone of the project.
-            </p>
-            <p>
-              Estimates suggest that several hundred to over one thousand laborers perished, often due to extreme cold, avalanches, and blasting accidents. From 1863 to 1869, the Central Pacific completed roughly 690 miles of track from Sacramento to Promontory Summit, joining the Union Pacific on May 10, 1869. The contributions of these Cantonese laborers were pivotal in accelerating U.S. economic integration and national expansion.
+          <!-- Right Column: Text + Caption at bottom -->
+          <div class="text-content text-main-90 col-flex-bottom">
+            <div>
+              <p>
+                During the construction of the Central Pacific Railroad, more than 12,000 Chinese laborers were recruited. Roughly 90% were Cantonese-speaking migrants from Guangdong, predominantly from the Sze Yup region. These workers formed the backbone of the project.
+              </p>
+              <p>
+                Estimates suggest that several hundred to over one thousand laborers perished, often due to extreme cold, avalanches, and blasting accidents. From 1863 to 1869, the Central Pacific completed roughly 690 miles of track from Sacramento to Promontory Summit, joining the Union Pacific on May 10, 1869. The contributions of these Cantonese laborers were pivotal in accelerating U.S. economic integration and national expansion.
+              </p>
+            </div>
+
+            <!-- Moved Caption Here -->
+            <p class="image-caption" style="text-align: left; margin-top: 20px;">
+               Ging Cui, Wong Fook, and Lee Shao, three of the eight Chinese workers who put the last rail in place, on a float at the 50th Anniversary celebration of the completion of the transcontinental railroad in Ogden, Utah. Photo by courtesy of Amon Carter Museum of American Art Archives, Fort Worth, TX
             </p>
           </div>
         </div>
@@ -501,7 +516,6 @@
     </section>
 
     <!-- 4. Burlingame Treaty (Paper/Light Beige) -->
-    <!-- Reduced bottom padding to minimize gap to next section -->
     <section class="section-paper content-section" style="padding-bottom: 2rem;">
       <div class="container fade-in">
         <div class="grid-2-3">
@@ -529,11 +543,12 @@
             </div>
         </div>
 
-        <!-- NEW: Wide Letter Feature (Moved outside grid) -->
+        <!-- Wide Letter Feature -->
         <div class="letter-feature-wide">
             <div class="letter-img-col">
               <img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg" alt="1871 Letter">
             </div>
+            <!-- Letter Caption now smaller -->
             <div class="letter-caption">
               <strong>Letter from 1871</strong>
               In this 1871 letter from San Francisco, Zhencong explains why he left Xinning/Taishan, Guangdong: poverty at home pushed him to go abroad to earn a living and secure a better future. He reassures his elder brother that he is safe, reports receiving news that the family is well, and most importantly, sends money (a $20 silver draft) for rice and daily necessities, carefully listing earlier remittances and the messengers who carried them.
