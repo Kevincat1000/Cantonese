@@ -56,16 +56,15 @@
       height: 100%;
       text-decoration: none;
       cursor: pointer;
-      /* 关键：隐藏内部因滤镜产生的溢出边缘 */
-      overflow: hidden; 
-      border-right: 1px solid rgba(0,0,0,0.05);
+      /* 这里不能加 overflow: hidden，否则上面的文字会消失 */
     }
 
+    /* 文字信息层 */
     .item-info {
       position: absolute;
-      top: -65px;
+      top: -65px; /* 文字向上偏移 */
       left: 20px;
-      z-index: 10;
+      z-index: 20; /* 确保在最上层 */
       pointer-events: none; 
     }
 
@@ -92,7 +91,16 @@
       opacity: 0.9;
     }
 
-    /* Image Wrapper */
+    /* 新增图片裁剪容器：用来限制水纹不超出长方形 */
+    .image-container {
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* 裁剪在这里执行 */
+      position: relative;
+      border-right: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* 实际的图片层 */
     .image-wrapper {
       width: 100%;
       height: 100%;
@@ -101,13 +109,12 @@
       filter: grayscale(100%) contrast(1.1); 
       transition: filter 0.4s ease, transform 0.6s ease;
       position: relative;
-      /* 初始状态微调，确保放大后不露白 */
-      transform: scale(1.01); 
+      transform: scale(1.01); /* 初始微扩，防止边缘白边 */
     }
 
     .first-image { background-position: left center !important; }
 
-    /* Overlay Mask */
+    /* 颜色遮罩 */
     .image-wrapper::after {
       content: '';
       position: absolute;
@@ -118,18 +125,17 @@
       transition: opacity 0.6s ease;
     }
 
-    /* Hover State */
+    /* 悬停效果 */
     .gallery-item:hover .image-wrapper {
       filter: grayscale(0%) contrast(1) url(#liquid-filter);
-      /* 关键：hover时稍微放大图片，让波动的锯齿边缘隐藏在容器外面 */
-      transform: scale(1.15); 
+      transform: scale(1.08); /* 稍微放大，配合裁剪容器隐藏水纹边缘 */
     }
 
     .gallery-item:hover .image-wrapper::after {
       opacity: 0; 
     }
 
-    /* Map Section Styles */
+    /* 地图区域样式 */
     .map-section {
       width: 100%;
       padding: 100px 0; 
@@ -140,7 +146,7 @@
 
     .map-title {
         margin-bottom: 25px;
-        /* 继承了上面定义的 Exo 11px 样式 */
+        /* 已通过上面的 .map-title 定义了与编号一致的字体 */
     }
 
     #diaspora-map {
@@ -151,7 +157,7 @@
       border: 1px solid #dcd8ce;
     }
 
-    /* SVG Filter Definition */
+    /* SVG 滤镜定义 */
     .svg-filters {
       position: absolute;
       width: 0; height: 0;
@@ -160,7 +166,7 @@
 
     @media (max-width: 768px) {
       .gallery-container { grid-template-columns: 1fr; height: auto; margin-top: 80px; }
-      .gallery-item { height: 300px; margin-bottom: 80px; border-right: none; }
+      .gallery-item { height: 300px; margin-bottom: 80px; }
       #diaspora-map { width: 90vw; height: 300px; }
     }
   </style>
@@ -171,46 +177,58 @@
   <!-- SVG Turbulent Filter -->
   <svg class="svg-filters">
     <filter id="liquid-filter">
-      <!-- baseFrequency 决定水纹的精细度，numOctaves 增加层次感 -->
+      <!-- baseFrequency 决定纹理密度 -->
       <feTurbulence id="turbulence" type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
-      <!-- scale 决定波浪的大小 -->
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" />
+      <!-- scale 决定变形幅度：从之前的 40 降到 18，让变形变轻微 -->
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" />
     </filter>
   </svg>
   
   <main>
     <div class="gallery-container">
         
+        <!-- Phase 01 -->
         <a href="phase1.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">01. 17th–19th Centuries</span>
                 <span class="item-title">Early Migration within <br>Southeast Asia</span>
             </div>
-            <div class="image-wrapper first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
+            <div class="image-container">
+                <div class="image-wrapper first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
+            </div>
         </a>
 
+        <!-- Phase 02 -->
         <a href="phase2.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">02. 1840s–1940s</span>
                 <span class="item-title">Building North America <br>& The Pacific</span>
             </div>
-            <div class="image-wrapper" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
+            <div class="image-container">
+                <div class="image-wrapper" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
+            </div>
         </a>
 
+        <!-- Phase 03 -->
         <a href="phase3.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">03. 1965–1997</span>
                 <span class="item-title">Reforms, Refugees, <br>and New Waves</span>
             </div>
-            <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
+            <div class="image-container">
+                <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
+            </div>
         </a>
 
+        <!-- Phase 04 -->
         <a href="phase4.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">04. 2000s–Present</span>
                 <span class="item-title">Diversification and <br>Cultural Resilience</span>
             </div>
-            <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
+            <div class="image-container">
+                <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
+            </div>
         </a>
 
     </div>
@@ -228,11 +246,10 @@
     let requestID = null;
 
     function animate() {
-      // 增加 step 的步进（从 0.005 增加到 0.02），使波动变快
-      step += 0.015; 
+      // 保持较快的水流感
+      step += 0.012; 
       
-      // 动态改变频率值，模拟急促的水流
-      const bfX = 0.02 + Math.cos(step) * 0.01;
+      const bfX = 0.02 + Math.cos(step) * 0.008;
       const bfY = 0.02 + Math.sin(step) * 0.01;
       
       turb.setAttribute('baseFrequency', `${bfX} ${bfY}`);
