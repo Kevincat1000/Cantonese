@@ -69,11 +69,11 @@
       overflow: hidden;
     }
 
-    #dream-canvas {
+    #bubble-canvas {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
       z-index: 1;
-      opacity: 0.8;
+      opacity: 1; /* Bubbles handle their own transparency */
       pointer-events: none;
     }
 
@@ -83,6 +83,10 @@
       text-align: center;
       max-width: 900px;
       padding: 2rem;
+      /* Add a subtle glass effect to text container so bubbles behind are visible but text pops */
+      background: rgba(229, 240, 245, 0.3);
+      backdrop-filter: blur(2px);
+      border-radius: 12px;
     }
 
     /* --- Section 1965 Styles --- */
@@ -139,12 +143,11 @@
     
     /* Specific Grid Layouts */
     #section-1965 .grid-2col { grid-template-columns: 1fr 1fr; }
-    /* Adjusted grid for 1975 section: Left (Video+Images) is roughly 40%, Right (Text) is 60% */
     .video-text-grid { grid-template-columns: 0.8fr 1.2fr; }
 
     .img-col-placeholder { display: block; }
 
-    /* Vertical stack styles for the left column */
+    /* Vertical stack styles */
     .vertical-media-stack {
       display: flex;
       flex-direction: column;
@@ -192,7 +195,7 @@
       cursor: pointer;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       transition: transform 0.3s ease;
-      margin-bottom: 5px; /* Slight margin before caption */
+      margin-bottom: 5px; 
     }
     .video-thumbnail:hover {
       transform: scale(1.02);
@@ -222,24 +225,43 @@
       color: var(--accent-red);
       pointer-events: none;
     }
-    .media-caption {
+    
+    /* Caption for Video (Left Aligned) */
+    .video-caption-text {
       font-family: var(--font-heading);
       font-size: 0.85rem;
       font-style: italic;
       margin-top: 0;
       margin-bottom: 10px;
       opacity: 0.8;
-      text-align: left;
+      text-align: left; /* Video caption stays left */
     }
 
-    /* --- Image in Left Column Styles --- */
+    /* --- NEW STYLES FOR REDUCED IMAGE SIZE --- */
+    .reduced-size-wrapper {
+        width: 70%; /* 70% of the container width */
+        margin-right: auto; /* Keeps it left aligned within the column */
+        margin-left: 0;
+        margin-top: 25px;
+    }
+    
     .side-image {
-        width: 100%;
+        width: 100%; /* Fill the 70% wrapper */
         height: auto;
         border-radius: 4px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         display: block;
-        margin-bottom: 5px;
+    }
+
+    /* Caption for Reduced Images (Centered) */
+    .image-caption-text {
+        font-family: var(--font-heading);
+        font-size: 0.85rem;
+        font-style: italic;
+        margin-top: 8px;
+        opacity: 0.8;
+        text-align: center; /* Centered relative to the image */
+        display: block;
     }
 
     /* --- Video Modal Styles --- */
@@ -301,12 +323,10 @@
     
     @media (max-width: 768px) {
       .content-section { padding: 3rem 1.5rem; }
-      /* Reset layouts for mobile */
       #section-1965 { padding-top: 4rem; padding-bottom: 4rem; }
       #section-1965 .grid-2col, .video-text-grid { grid-template-columns: 1fr; }
       .grid-reverse .text-col { order: 1; }
       .grid-reverse .img-col { order: 2; }
-      
       .phase-navigation { flex-direction: column; }
     }
   </style>
@@ -329,8 +349,9 @@
     <span class="nav-text">Back to Timeline</span>
   </a>
 
+  <!-- HERO: American Dream Bubbles -->
   <header class="hero-section">
-    <canvas id="dream-canvas"></canvas>
+    <canvas id="bubble-canvas"></canvas>
     <div class="hero-content">
       <span class="hero-label">Timeline / Phase III</span>
       <h1 class="hero-title">1965–1997</h1>
@@ -359,39 +380,39 @@
       <div class="section-bg-caption">Chinatown in San Francisco, 1967</div>
     </section>
 
-    <!-- SECTION 1975-1980s: Layout Updated -->
+    <!-- SECTION 1975-1980s: Images resized to 70% -->
     <section class="content-section">
       <div class="container fade-in">
         <h2 class="section-title">1975–1980s: The Refugee Crisis and Commercial Revitalization</h2>
         
         <div class="grid-2col video-text-grid">
-          <!-- Left Column: Video Stacked with 2 Images -->
+          <!-- Left Column: Video Stacked with 2 Scaled Images -->
           <div class="img-col vertical-media-stack">
             
-            <!-- 1. Video -->
+            <!-- 1. Video (100% Width) -->
             <div class="slide-in-left">
                 <div class="video-thumbnail" onclick="openModal('https://www.youtube.com/embed/refugee-placeholder?autoplay=1')">
                   <img src="https://media.timeout.com/images/105878143/750/562/image.jpg" alt="Video Thumbnail">
                   <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
                 </div>
-                <p class="media-caption">Interview from A from Vietnam</p>
+                <p class="video-caption-text">Interview from A from Vietnam</p>
             </div>
 
-            <!-- 2. Image: Boat People -->
-            <div class="slide-in-left" style="margin-top: 15px;">
+            <!-- 2. Image: Boat People (70% Width, Left Aligned Box, Centered Caption) -->
+            <div class="slide-in-left reduced-size-wrapper">
                 <img src="https://borgenproject.org/wp-content/uploads/Vietnamese-Boat-People-2-845x684.jpg" alt="Vietnamese Refugees" class="side-image">
-                <p class="media-caption">Vietnamese boat people arriving at refugee camp, 1979</p>
+                <p class="image-caption-text">Vietnamese boat people arriving at refugee camp, 1979</p>
             </div>
 
-            <!-- 3. Image: Little Saigon -->
-            <div class="slide-in-left" style="margin-top: 15px;">
+            <!-- 3. Image: Little Saigon (70% Width, Left Aligned Box, Centered Caption) -->
+            <div class="slide-in-left reduced-size-wrapper">
                 <img src="https://www.westminster-ca.gov/home/showpublishedimage/962/637454428643270000" alt="Little Saigon" class="side-image">
-                <p class="media-caption">Little Saigon commercial district, Westminster, California</p>
+                <p class="image-caption-text">Little Saigon commercial district, Westminster, California</p>
             </div>
 
           </div>
 
-          <!-- Right Column: Full Restored Text -->
+          <!-- Right Column: Full Text -->
           <div class="text-content">
             <p>
               The end of the Vietnam War and the rise of communist rule triggered a massive humanitarian crisis. Within this chaos, the Hoa (ethnic Chinese in Vietnam), most of whom spoke Cantonese, faced severe political pressure and the seizure of their businesses. Beginning in 1978, hundreds of thousands fled as "boat people" to camps in Southeast Asia.
@@ -411,7 +432,7 @@
       </div>
     </section>
 
-    <!-- SECTION 1984-1997: 2 Videos Left, Text Right -->
+    <!-- SECTION 1984-1997 -->
     <section class="content-section">
       <div class="container fade-in">
         <h2 class="section-title">1984–1997: The Hong Kong Migration and Suburban Growth</h2>
@@ -424,14 +445,14 @@
               <img src="https://static01.nyt.com/images/2019/08/18/world/18hongkong-rally-toronto1/merlin_159165713_5f6e61fe-90ef-48dc-9a3b-ed597373ccfa-superJumbo.jpg" alt="HK Video 1">
               <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
             </div>
-            <p class="media-caption">Interview from A from HK</p>
+            <p class="video-caption-text">Interview from A from HK</p>
 
             <!-- Video 2 -->
             <div class="video-thumbnail" style="margin-top: 20px;" onclick="openModal('https://www.youtube.com/embed/hk-placeholder-2?autoplay=1')">
                <img src="https://images.unsplash.com/photo-1596525737276-80f4f9526715?q=80&w=1000&auto=format&fit=crop" alt="HK Video 2">
                <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
              </div>
-             <p class="media-caption">Interview from B from HK</p>
+             <p class="video-caption-text">Interview from B from HK</p>
           </div>
 
           <!-- Right Column: Text -->
@@ -510,8 +531,8 @@
       }
     });
 
-    // --- NEW "DREAM" CANVAS LOGIC ---
-    const canvas = document.getElementById('dream-canvas');
+    // --- "AMERICAN DREAM BUBBLES" CANVAS ---
+    const canvas = document.getElementById('bubble-canvas');
     const ctx = canvas.getContext('2d');
     let width, height;
     
@@ -522,85 +543,85 @@
     window.addEventListener('resize', resize);
     resize();
 
-    class DreamParticle {
+    class Bubble {
         constructor() {
-            this.reset();
-            this.x = Math.random() * width; 
-            this.y = Math.random() * height;
+            this.init();
         }
 
-        reset() {
-            this.x = -20;
-            this.y = height + Math.random() * 50; // Start below or left
-            // Movement: Up and Right
-            this.speedX = 0.5 + Math.random() * 0.8;
-            this.speedY = 0.2 + Math.random() * 0.5;
-            this.size = 2 + Math.random() * 6; // Varying bubble sizes
+        init() {
+            // Start below the screen
+            this.x = Math.random() * width;
+            this.y = height + Math.random() * 100;
+            
+            // Bigger bubbles for "dream" feel
+            this.radius = 15 + Math.random() * 40; 
+            
+            // Float speed
+            this.speedY = 0.3 + Math.random() * 0.7;
+            
+            // Side wobble
+            this.wobble = Math.random() * Math.PI * 2;
+            this.wobbleSpeed = 0.02 + Math.random() * 0.02;
+            this.wobbleDistance = 0.5 + Math.random() * 1;
+
+            // Subtle Color hue
+            this.hue = Math.random() * 360; 
         }
 
         update() {
-            this.x += this.speedX;
             this.y -= this.speedY;
+            this.wobble += this.wobbleSpeed;
+            this.x += Math.sin(this.wobble) * this.wobbleDistance;
 
-            // Reset if goes off screen right or top
-            if (this.x > width + 20 || this.y < -20) {
-                this.reset();
-                this.x = -20; // Ensure it restarts from left
-                this.y = Math.random() * height + 200;
+            // Reset if goes off top
+            if (this.y < -this.radius * 2) {
+                this.init();
             }
         }
 
         draw() {
             ctx.beginPath();
             
-            // COLOR TRANSITION LOGIC
-            // Calculate progress across screen (0.0 to 1.0)
-            const progress = Math.min(Math.max(this.x / width, 0), 1);
-            
-            let r, g, b, a;
-            
-            if (progress < 0.2) {
-                // Gray/Dull start
-                r = 150; g = 150; b = 150; a = 0.2;
-            } else {
-                // Interpolate to Colorful Dream
-                // Gold: 255, 215, 0 | Red: 168, 77, 77 | Blue: 100, 200, 255
-                const randomColor = Math.random();
-                if(randomColor > 0.66) {
-                     // Gold-ish
-                     r = 210 + (progress * 45); 
-                     g = 180 + (progress * 35); 
-                     b = 100;
-                } else if (randomColor > 0.33) {
-                     // Pink/Red-ish
-                     r = 168 + (progress * 80);
-                     g = 77 + (progress * 50);
-                     b = 77 + (progress * 100);
-                } else {
-                     // Cyan/Blue-ish
-                     r = 100;
-                     g = 180 + (progress * 20);
-                     b = 200 + (progress * 55);
-                }
-                a = 0.1 + (progress * 0.4); // Become more visible/vibrant
-            }
+            // Create a radial gradient to simulate 3D bubble surface
+            // Light source is offset to top-left (-radius/3, -radius/3)
+            const gradient = ctx.createRadialGradient(
+                this.x - this.radius/3, 
+                this.y - this.radius/3, 
+                this.radius * 0.1, 
+                this.x, 
+                this.y, 
+                this.radius
+            );
 
-            ctx.fillStyle = `rgba(${Math.floor(r)}, ${Math.floor(g)}, ${Math.floor(b)}, ${a})`;
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            // Specular Highlight (White)
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+            // Transparent Body
+            gradient.addColorStop(0.2, `hsla(${this.hue}, 60%, 80%, 0.1)`);
+            gradient.addColorStop(0.8, `hsla(${this.hue}, 60%, 80%, 0.2)`);
+            // Rim (Slightly more opaque)
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.4)');
+
+            ctx.fillStyle = gradient;
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             ctx.fill();
+
+            // Rim stroke
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
         }
     }
 
-    const particles = [];
-    for (let i = 0; i < 80; i++) {
-        particles.push(new DreamParticle());
+    const bubbles = [];
+    for (let i = 0; i < 50; i++) {
+        bubbles.push(new Bubble());
     }
 
     function animate() {
         ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
+        bubbles.forEach(b => {
+            b.update();
+            b.draw();
         });
         requestAnimationFrame(animate);
     }
