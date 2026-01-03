@@ -19,9 +19,6 @@
       --text-main: #4a4a4a;
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
-      /* Unified Media Size Variables */
-      --media-width: 280px; 
-      --media-height: 180px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -106,11 +103,13 @@
 
     /* --- Grid Systems --- */
     .grid-2col { display: grid; gap: 3rem; align-items: start; }
-    
     #section-1965 .grid-2col { grid-template-columns: 1fr 1fr; }
     
-    /* Layout for 1975s: Wider Left Column for Video+Quote, Narrower Right for Text */
-    .video-text-grid { grid-template-columns: 1.3fr 1fr; } 
+    /* Layout for 1975s: 
+       Left Column (1.4fr) holds large media.
+       Right Column (1fr) holds text.
+    */
+    .video-text-grid { grid-template-columns: 1.4fr 1fr; } 
 
     /* --- Section 1965 Background --- */
     #section-1965 {
@@ -133,77 +132,85 @@
     }
     .img-col-placeholder { display: block; }
 
-    /* --- UNIFIED MEDIA STYLES (Video & Images) --- */
+    /* --- UNIFIED MEDIA STYLES --- */
     .vertical-media-stack {
       display: flex;
       flex-direction: column;
-      gap: 25px; /* Spacing between rows */
+      gap: 30px; /* Space between rows */
     }
 
+    /* Video Row Layout: Video (left) + Quote (right) */
     .media-row {
       display: flex;
-      align-items: flex-start; /* Align top of video with top of quote */
+      align-items: stretch; /* Stretch quote to match video height */
       gap: 20px;
     }
 
-    /* Fixed size for all visual media */
-    .unified-media-box {
-      width: var(--media-width);
-      height: var(--media-height);
+    /* Base style for media containers */
+    .media-container {
       border-radius: 4px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      flex-shrink: 0; /* Prevent shrinking */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       position: relative;
       background: #000;
     }
-    
-    .unified-media-box img {
+    .media-container img {
       width: 100%; height: 100%; object-fit: cover;
       transition: opacity 0.3s;
+      display: block;
     }
 
-    /* Video Play Icon */
-    .unified-media-box .play-icon {
+    /* Specific: Video Box */
+    .video-box {
+      flex: 1.5; /* Takes 60% of the row space */
+      aspect-ratio: 16/9;
+      cursor: pointer;
+    }
+    .video-box .play-icon {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 40px; height: 40px; background: rgba(255,255,255,0.9);
+      width: 45px; height: 45px; background: rgba(255,255,255,0.9);
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
       color: var(--accent-red); pointer-events: none;
     }
-    .unified-media-box:hover { cursor: pointer; transform: scale(1.01); transition: transform 0.3s; }
-    .unified-media-box:hover img { opacity: 0.7; }
+    .video-box:hover img { opacity: 0.7; }
+    .video-box:hover { transform: scale(1.01); transition: transform 0.3s; }
 
-    /* Quote Box Style */
+    /* Quote Box Style - REMOVED LEFT BORDER */
     .quote-box {
-      flex-grow: 1; /* Take remaining space */
-      padding: 10px 15px;
-      border-left: 3px solid var(--accent-red);
-      background: rgba(255,255,255,0.4);
-      border-radius: 0 4px 4px 0;
-      font-family: var(--font-heading);
-      font-size: 0.9rem;
-      font-style: italic;
-      color: #555;
+      flex: 1; /* Takes remaining space */
       display: flex;
       flex-direction: column;
       justify-content: center;
-      min-height: 100px; /* Aesthetic height */
+      padding-left: 0; /* Removed padding since border is gone */
+      /* Minimal styling */
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: #555;
+      line-height: 1.4;
     }
     .quote-author {
       font-weight: 700;
       font-size: 0.75rem;
-      margin-top: 8px;
+      margin-top: 10px;
       text-transform: uppercase;
       color: var(--accent-red);
+      font-style: normal;
+    }
+
+    /* Specific: Large Images (Full Width of Column) */
+    .large-image-box {
+      width: 100%; /* Fills the entire left grid column */
+      aspect-ratio: 16/9;
     }
 
     .image-caption-center {
-      width: var(--media-width);
+      width: 100%;
       text-align: center;
       font-family: var(--font-heading);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       opacity: 0.8;
-      margin-top: 5px;
+      margin-top: 8px;
       font-style: italic;
     }
 
@@ -221,7 +228,7 @@
     .modal-content { width: 80%; max-width: 1000px; aspect-ratio: 16/9; background: black; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
     .modal-content iframe { width: 100%; height: 100%; border: none; }
 
-    /* --- Footer / Last Section --- */
+    /* --- Footer --- */
     .last-section { padding-top: 1rem !important; padding-bottom: 10px !important; }
     .phase-navigation { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(74, 74, 74, 0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 0; }
     .phase-link { text-decoration: none; color: var(--text-main); display: inline-flex; align-items: center; gap: 15px; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; transition: color 0.3s; }
@@ -243,7 +250,7 @@
       .video-text-grid { gap: 2rem; }
       /* Mobile: Quote moves below video */
       .media-row { flex-direction: column; gap: 10px; }
-      .quote-box { border-left: none; border-top: 3px solid var(--accent-red); width: var(--media-width); border-radius: 0 0 4px 4px;}
+      .quote-box { padding-top: 10px; border-top: 1px solid #ddd; text-align: center; }
       .phase-navigation { flex-direction: column; }
     }
   </style>
@@ -272,7 +279,7 @@
     <div class="hero-content">
       <span class="hero-label">Timeline / Phase III</span>
       <h1 class="hero-title">1965–1997</h1>
-      <h2 class="hero-subtitle">Reforms, Refugees, and American Dream</h2>
+      <h2 class="hero-subtitle">Reforms, Refugees, and New Waves</h2>
     </div>
   </header>
   
@@ -297,42 +304,42 @@
       <div class="section-bg-caption">Chinatown in San Francisco, 1967</div>
     </section>
 
-    <!-- SECTION 1975-1980s: Layout Optimized -->
+    <!-- SECTION 1975-1980s: Optimized Layout -->
     <section class="content-section">
       <div class="container fade-in">
         <h2 class="section-title">1975–1980s: The Refugee Crisis and Commercial Revitalization</h2>
         
         <div class="grid-2col video-text-grid">
           
-          <!-- LEFT COLUMN: Media Stack -->
+          <!-- LEFT COLUMN: Large Media Stack -->
           <div class="vertical-media-stack">
             
-            <!-- Row 1: Video + Quote -->
+            <!-- Row 1: Video (Left) + Quote (Right) -->
             <div class="slide-in-left media-row">
-                <!-- Unified Box 1 -->
-                <div class="unified-media-box" onclick="openModal('https://www.youtube.com/embed/refugee-placeholder?autoplay=1')">
+                <!-- Video takes ~60% of this row -->
+                <div class="media-container video-box" onclick="openModal('https://www.youtube.com/embed/refugee-placeholder?autoplay=1')">
                   <img src="https://media.timeout.com/images/105878143/750/562/image.jpg" alt="Video Thumbnail">
                   <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
                 </div>
                 
-                <!-- Quote Box (Right of Video) -->
+                <!-- Quote takes ~40% -->
                 <div class="quote-box">
                     "We left everything behind. The boat was our only hope, and the ocean our only path to freedom."
                     <div class="quote-author">— Refugee Interview, 1980</div>
                 </div>
             </div>
 
-            <!-- Row 2: Image 1 (Same Size) -->
+            <!-- Row 2: Large Image 1 (Full Column Width) -->
             <div class="slide-in-left">
-                <div class="unified-media-box">
+                <div class="media-container large-image-box">
                     <img src="https://borgenproject.org/wp-content/uploads/Vietnamese-Boat-People-2-845x684.jpg" alt="Vietnamese Refugees">
                 </div>
                 <p class="image-caption-center">Vietnamese boat people arriving at refugee camp, 1979</p>
             </div>
 
-            <!-- Row 3: Image 2 (Same Size) -->
+            <!-- Row 3: Large Image 2 (Full Column Width) -->
             <div class="slide-in-left">
-                <div class="unified-media-box">
+                <div class="media-container large-image-box">
                     <img src="https://www.westminster-ca.gov/home/showpublishedimage/962/637454428643270000" alt="Little Saigon">
                 </div>
                 <p class="image-caption-center">Little Saigon commercial district, Westminster, California</p>
@@ -367,23 +374,25 @@
         
         <div class="grid-2col video-text-grid">
            <div class="img-col vertical-media-stack">
-            <!-- Reuse unified style for these videos too -->
+            <!-- Reuse structure for consistency -->
             <div class="media-row">
-                <div class="unified-media-box" onclick="openModal('https://www.youtube.com/embed/hk-placeholder-1?autoplay=1')">
+                <div class="media-container video-box" onclick="openModal('https://www.youtube.com/embed/hk-placeholder-1?autoplay=1')">
                   <img src="https://static01.nyt.com/images/2019/08/18/world/18hongkong-rally-toronto1/merlin_159165713_5f6e61fe-90ef-48dc-9a3b-ed597373ccfa-superJumbo.jpg" alt="HK Video 1">
                   <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
                 </div>
                 <div class="quote-box">
-                    "We weren't just moving; we were bringing our investments and our future with us."
+                    "We brought our investments and our future."
                     <div class="quote-author">— HK Immigrant, 1990</div>
                 </div>
             </div>
 
             <div class="media-row">
-               <div class="unified-media-box" onclick="openModal('https://www.youtube.com/embed/hk-placeholder-2?autoplay=1')">
+               <div class="media-container video-box" style="flex: 1.5;" onclick="openModal('https://www.youtube.com/embed/hk-placeholder-2?autoplay=1')">
                   <img src="https://images.unsplash.com/photo-1596525737276-80f4f9526715?q=80&w=1000&auto=format&fit=crop" alt="HK Video 2">
                   <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
                </div>
+               <!-- Spacer or another quote could go here -->
+               <div style="flex:1;"></div>
             </div>
           </div>
 
@@ -457,7 +466,7 @@
       if (e.target === modal) closeModal();
     });
 
-    // --- GRAY-TO-COLOR FLASH BUBBLES ---
+    // --- ENLARGED BUBBLE CANVAS ---
     const canvas = document.getElementById('bubble-canvas');
     const ctx = canvas.getContext('2d');
     let width, height;
@@ -478,16 +487,15 @@
             this.x = Math.random() * width;
             this.y = startRandomY ? Math.random() * height : height + 50;
             
-            // Reduced sizes
-            this.baseRadius = 2 + Math.random() * 3; 
-            this.targetRadius = 8 + Math.random() * 15; 
+            // MAGNIFIED SIZES (100% bigger start, 50% bigger end)
+            // Was: 2+3, 8+15. 
+            // Now: Start 5-15px. End 18-40px.
+            this.baseRadius = 5 + Math.random() * 10; 
+            this.targetRadius = 18 + Math.random() * 25; 
             
             this.speed = 0.2 + Math.random() * 0.4; 
             this.offset1 = Math.random() * 1000;
-            
-            // Random flash color hue
             this.hue = Math.random() * 360; 
-            
             this.flash = 0; 
             this.time = Math.random() * 100;
         }
@@ -497,11 +505,8 @@
             this.y -= this.speed;
             this.x += Math.sin(this.time + this.offset1) * 0.5;
             
-            // Random Flash trigger (1% chance per frame)
-            if(Math.random() > 0.99) {
-                this.flash = 1.0;
-            }
-            // Decay
+            // Random Flash trigger
+            if(Math.random() > 0.99) this.flash = 1.0;
             if(this.flash > 0) this.flash *= 0.92;
             
             if (this.y < -100) this.init();
@@ -512,19 +517,15 @@
             if(rawProgress < 0) rawProgress = 0;
             if(rawProgress > 1) rawProgress = 1;
 
-            // Delayed growth
+            // Growth
             const sizeProgress = Math.pow(rawProgress, 2.5); 
             const currentRadius = this.baseRadius + (this.targetRadius - this.baseRadius) * sizeProgress;
             
-            // VISIBILITY FIX AT BOTTOM:
-            // Ensure alpha is at least 0.3 even at bottom
-            const alpha = 0.3 + (rawProgress * 0.3);
+            // VISIBILITY BOOST
+            // Start alpha higher so they are visible at bottom
+            const alpha = 0.4 + (rawProgress * 0.3);
 
-            // GRAY TO COLOR LOGIC:
-            // Base saturation is low (Grayish), Flash adds Saturation
-            // Base Saturation = 0 (Gray), Flash adds 80%
             let saturation = 0 + (this.flash * 80); 
-            // Also slight saturation increase as it goes up (optional, kept low here to emphasize flash)
             saturation += rawProgress * 10; 
 
             ctx.beginPath();
@@ -533,8 +534,7 @@
                 this.x, this.y, currentRadius
             );
             
-            // When flashing, make center white/bright
-            const brightness = 80 + (this.flash * 20); // 80% lightness base -> 100%
+            const brightness = 80 + (this.flash * 20);
 
             gradient.addColorStop(0, `hsla(${this.hue}, ${saturation}%, 100%, ${alpha + this.flash})`);
             gradient.addColorStop(0.4, `hsla(${this.hue}, ${saturation}%, ${brightness}%, ${alpha})`);
@@ -544,7 +544,6 @@
             ctx.arc(this.x, this.y, currentRadius, 0, Math.PI * 2);
             ctx.fill();
             
-            // Stroke flashes white
             ctx.strokeStyle = `rgba(255,255,255, ${alpha * 0.5 + this.flash})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
