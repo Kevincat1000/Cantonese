@@ -73,7 +73,7 @@
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
       z-index: 1;
-      opacity: 1; /* Bubbles handle their own transparency */
+      opacity: 1; 
       pointer-events: none;
     }
 
@@ -83,10 +83,9 @@
       text-align: center;
       max-width: 900px;
       padding: 2rem;
-      /* Add a subtle glass effect to text container so bubbles behind are visible but text pops */
-      background: rgba(229, 240, 245, 0.3);
-      backdrop-filter: blur(2px);
-      border-radius: 12px;
+      /* REMOVED: background, backdrop-filter, border-radius */
+      /* Added text-shadow to ensure readability without the box */
+      text-shadow: 0 0 20px rgba(229, 240, 245, 0.8);
     }
 
     /* --- Section 1965 Styles --- */
@@ -226,7 +225,6 @@
       pointer-events: none;
     }
     
-    /* Caption for Video (Left Aligned) */
     .video-caption-text {
       font-family: var(--font-heading);
       font-size: 0.85rem;
@@ -234,33 +232,32 @@
       margin-top: 0;
       margin-bottom: 10px;
       opacity: 0.8;
-      text-align: left; /* Video caption stays left */
+      text-align: left; 
     }
 
-    /* --- NEW STYLES FOR REDUCED IMAGE SIZE --- */
+    /* --- STYLES FOR REDUCED IMAGE SIZE --- */
     .reduced-size-wrapper {
-        width: 70%; /* 70% of the container width */
-        margin-right: auto; /* Keeps it left aligned within the column */
+        width: 70%; 
+        margin-right: auto; 
         margin-left: 0;
         margin-top: 25px;
     }
     
     .side-image {
-        width: 100%; /* Fill the 70% wrapper */
+        width: 100%; 
         height: auto;
         border-radius: 4px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         display: block;
     }
 
-    /* Caption for Reduced Images (Centered) */
     .image-caption-text {
         font-family: var(--font-heading);
         font-size: 0.85rem;
         font-style: italic;
         margin-top: 8px;
         opacity: 0.8;
-        text-align: center; /* Centered relative to the image */
+        text-align: center; 
         display: block;
     }
 
@@ -349,7 +346,7 @@
     <span class="nav-text">Back to Timeline</span>
   </a>
 
-  <!-- HERO: American Dream Bubbles -->
+  <!-- HERO: Dream Bubbles (Updated) -->
   <header class="hero-section">
     <canvas id="bubble-canvas"></canvas>
     <div class="hero-content">
@@ -380,7 +377,7 @@
       <div class="section-bg-caption">Chinatown in San Francisco, 1967</div>
     </section>
 
-    <!-- SECTION 1975-1980s: Images resized to 70% -->
+    <!-- SECTION 1975-1980s -->
     <section class="content-section">
       <div class="container fade-in">
         <h2 class="section-title">1975–1980s: The Refugee Crisis and Commercial Revitalization</h2>
@@ -398,13 +395,13 @@
                 <p class="video-caption-text">Interview from A from Vietnam</p>
             </div>
 
-            <!-- 2. Image: Boat People (70% Width, Left Aligned Box, Centered Caption) -->
+            <!-- 2. Image: Boat People (70% Width) -->
             <div class="slide-in-left reduced-size-wrapper">
                 <img src="https://borgenproject.org/wp-content/uploads/Vietnamese-Boat-People-2-845x684.jpg" alt="Vietnamese Refugees" class="side-image">
                 <p class="image-caption-text">Vietnamese boat people arriving at refugee camp, 1979</p>
             </div>
 
-            <!-- 3. Image: Little Saigon (70% Width, Left Aligned Box, Centered Caption) -->
+            <!-- 3. Image: Little Saigon (70% Width) -->
             <div class="slide-in-left reduced-size-wrapper">
                 <img src="https://www.westminster-ca.gov/home/showpublishedimage/962/637454428643270000" alt="Little Saigon" class="side-image">
                 <p class="image-caption-text">Little Saigon commercial district, Westminster, California</p>
@@ -412,7 +409,7 @@
 
           </div>
 
-          <!-- Right Column: Full Text -->
+          <!-- Right Column: Full Text Restored -->
           <div class="text-content">
             <p>
               The end of the Vietnam War and the rise of communist rule triggered a massive humanitarian crisis. Within this chaos, the Hoa (ethnic Chinese in Vietnam), most of whom spoke Cantonese, faced severe political pressure and the seizure of their businesses. Beginning in 1978, hundreds of thousands fled as "boat people" to camps in Southeast Asia.
@@ -531,7 +528,7 @@
       }
     });
 
-    // --- "AMERICAN DREAM BUBBLES" CANVAS ---
+    // --- DREAMY BUBBLE CANVAS (Updated) ---
     const canvas = document.getElementById('bubble-canvas');
     const ctx = canvas.getContext('2d');
     let width, height;
@@ -543,78 +540,87 @@
     window.addEventListener('resize', resize);
     resize();
 
-    class Bubble {
+    class DreamBubble {
         constructor() {
-            this.init();
+            this.init(true); 
         }
 
-        init() {
-            // Start below the screen
+        init(startRandomY = false) {
             this.x = Math.random() * width;
-            this.y = height + Math.random() * 100;
+            this.y = startRandomY ? Math.random() * height : height + 50;
             
-            // Bigger bubbles for "dream" feel
-            this.radius = 15 + Math.random() * 40; 
+            // Start very small
+            this.baseRadius = 4 + Math.random() * 6; 
+            // End significantly larger
+            this.targetRadius = 25 + Math.random() * 50; 
             
-            // Float speed
-            this.speedY = 0.3 + Math.random() * 0.7;
+            this.speed = 0.2 + Math.random() * 0.4; 
             
-            // Side wobble
-            this.wobble = Math.random() * Math.PI * 2;
-            this.wobbleSpeed = 0.02 + Math.random() * 0.02;
-            this.wobbleDistance = 0.5 + Math.random() * 1;
-
-            // Subtle Color hue
+            // Offsets for sine wave motion
+            this.offset1 = Math.random() * 1000;
+            this.offset2 = Math.random() * 1000;
+            
             this.hue = Math.random() * 360; 
+            this.time = Math.random() * 100;
         }
 
         update() {
-            this.y -= this.speedY;
-            this.wobble += this.wobbleSpeed;
-            this.x += Math.sin(this.wobble) * this.wobbleDistance;
-
-            // Reset if goes off top
-            if (this.y < -this.radius * 2) {
+            this.time += 0.005; 
+            this.y -= this.speed;
+            
+            // Drifting x movement
+            this.x += Math.sin(this.time + this.offset1) * 0.5 + Math.cos(this.time * 0.5 + this.offset2) * 0.3;
+            
+            if (this.y < -100) {
                 this.init();
             }
         }
 
         draw() {
-            ctx.beginPath();
+            // Calculate progress: 0 (bottom) -> 1 (top)
+            let rawProgress = 1 - (this.y / (height + 50));
+            if(rawProgress < 0) rawProgress = 0;
+            if(rawProgress > 1) rawProgress = 1;
+
+            // EXPONENTIAL SIZE GROWTH
+            // Bubble stays small for the first 50% of the screen, then grows rapidly
+            // Power of 2.5 ensures delayed growth
+            const sizeProgress = Math.pow(rawProgress, 2.5); 
             
-            // Create a radial gradient to simulate 3D bubble surface
-            // Light source is offset to top-left (-radius/3, -radius/3)
+            const currentRadius = this.baseRadius + (this.targetRadius - this.baseRadius) * sizeProgress;
+            
+            // COLOR LOGIC
+            // Saturation increases with height (Gray -> Colorful)
+            const saturation = rawProgress * 90; 
+            const alpha = 0.1 + (rawProgress * 0.3);
+
+            ctx.beginPath();
             const gradient = ctx.createRadialGradient(
-                this.x - this.radius/3, 
-                this.y - this.radius/3, 
-                this.radius * 0.1, 
-                this.x, 
-                this.y, 
-                this.radius
+                this.x - currentRadius/3, this.y - currentRadius/3, currentRadius * 0.1, 
+                this.x, this.y, currentRadius
             );
-
-            // Specular Highlight (White)
-            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
-            // Transparent Body
-            gradient.addColorStop(0.2, `hsla(${this.hue}, 60%, 80%, 0.1)`);
-            gradient.addColorStop(0.8, `hsla(${this.hue}, 60%, 80%, 0.2)`);
-            // Rim (Slightly more opaque)
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.4)');
-
+            
+            // Highlight
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha + 0.4})`);
+            // Body 
+            gradient.addColorStop(0.4, `hsla(${this.hue}, ${saturation}%, 85%, ${alpha})`);
+            // Rim
+            gradient.addColorStop(1, `hsla(${this.hue}, ${saturation}%, 90%, ${alpha * 0.5})`);
+            
             ctx.fillStyle = gradient;
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.arc(this.x, this.y, currentRadius, 0, Math.PI * 2);
             ctx.fill();
-
-            // Rim stroke
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-            ctx.lineWidth = 1;
+            
+            // Subtle outline
+            ctx.strokeStyle = `rgba(255,255,255, ${alpha * 0.5})`;
+            ctx.lineWidth = 0.5;
             ctx.stroke();
         }
     }
 
     const bubbles = [];
-    for (let i = 0; i < 50; i++) {
-        bubbles.push(new Bubble());
+    for (let i = 0; i < 60; i++) {
+        bubbles.push(new DreamBubble());
     }
 
     function animate() {
