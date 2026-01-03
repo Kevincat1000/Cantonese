@@ -56,7 +56,7 @@
       width: 100vw;
       height: 65vh; 
       border-bottom: 1px solid #dcd8ce;
-      margin-top: 100px; /* Gallery shifted down 100px */
+      margin-top: 100px;
     }
 
     .gallery-item {
@@ -68,11 +68,12 @@
       cursor: pointer;
       border-right: 1px solid rgba(0,0,0,0.05);
       background-color: var(--bg);
+      overflow: hidden;
     }
 
     .item-info {
       position: absolute;
-      top: -65px; /* Text shifted up 95px */
+      top: -65px;
       left: 20px;
       z-index: 50; 
       pointer-events: none; 
@@ -105,9 +106,8 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      /* Default state: grayscale and sharp */
-      filter: grayscale(100%) contrast(1.1) blur(0px); 
-      transition: filter 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+      filter: grayscale(100%) contrast(1.1); 
+      transition: filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
       z-index: 10;
     }
 
@@ -125,14 +125,14 @@
       background-color: var(--mask-color);
       mix-blend-mode: multiply; 
       opacity: 0.85; 
-      transition: opacity 0.8s ease;
+      transition: opacity 0.6s ease;
       z-index: 20;
       pointer-events: none;
     }
 
-    /* Hover state: Remove grayscale, remove mask, and add BLUR for the ripple to "shake" */
+    /* Hover state */
     .gallery-item:hover .image-wrapper {
-      filter: grayscale(0%) contrast(1) blur(2px); 
+      filter: grayscale(0%) contrast(1); 
     }
 
     .gallery-item:hover .image-wrapper::after {
@@ -206,3 +206,115 @@
             <div class="item-info">
                 <span class="item-number">03. 1965–1997</span>
                 <span class="item-title">Reforms, Refugees, <br>and New Waves</span>
+            </div>
+            <div class="image-wrapper" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Vietnamese_refugees_on_boat.jpg/1200px-Vietnamese_refugees_on_boat.jpg');"></div>
+        </a>
+
+        <a href="phase4.html" class="gallery-item">
+            <div class="item-info">
+                <span class="item-number">04. 1997–Present</span>
+                <span class="item-title">Global Networks <br>& New Identities</span>
+            </div>
+            <div class="image-wrapper" style="background-image: url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800');"></div>
+        </a>
+
+    </div>
+
+    <section class="map-section">
+        <h3 class="map-title">Cantonese Diaspora Map</h3>
+        <div id="diaspora-map"></div>
+    </section>
+  </main>
+
+  <script>
+    $(document).ready(function() {
+      // Check if WebGL is supported for ripples
+      function isWebGLSupported() {
+        try {
+          var canvas = document.createElement('canvas');
+          return !!(window.WebGLRenderingContext && 
+            (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+        } catch(e) {
+          return false;
+        }
+      }
+
+      if (isWebGLSupported()) {
+        $('.image-wrapper').each(function() {
+          var $wrapper = $(this);
+          var bgImage = $wrapper.css('background-image');
+          
+          // Extract URL from background-image
+          var urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
+          if (urlMatch && urlMatch[1]) {
+            try {
+              // Initialize ripples with stronger settings
+              $wrapper.ripples({
+                resolution: 256,
+                dropRadius: 25,
+                perturbance: 0.06,
+                interactive: false // We'll control it manually
+              });
+            } catch(e) {
+              console.log('Ripples init error:', e);
+            }
+          }
+        });
+
+        // Variables for continuous ripple effect
+        var rippleIntervals = {};
+
+        $('.gallery-item').each(function(index) {
+          var $item = $(this);
+          var $wrapper = $item.find('.image-wrapper');
+
+          $item.on('mouseenter', function(e) {
+            // Create continuous ripple disturbance
+            var width = $wrapper.width();
+            var height = $wrapper.height();
+            
+            // Initial strong drop at mouse position
+            var rect = $wrapper[0].getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            
+            try {
+              $wrapper.ripples('drop', x, y, 30, 0.1);
+            } catch(err) {}
+
+            // Continuous random drops for shake effect
+            rippleIntervals[index] = setInterval(function() {
+              var randX = Math.random() * width;
+              var randY = Math.random() * height;
+              var randRadius = 15 + Math.random() * 25;
+              var randStrength = 0.03 + Math.random() * 0.05;
+              
+              try {
+                $wrapper.ripples('drop', randX, randY, randRadius, randStrength);
+              } catch(err) {}
+            }, 80); // Drop every 80ms for continuous distortion
+
+          }).on('mousemove', function(e) {
+            // Add drops following mouse movement
+            var rect = $wrapper[0].getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            
+            try {
+              $wrapper.ripples('drop', x, y, 20, 0.04);
+            } catch(err) {}
+
+          }).on('mouseleave', function() {
+            // Stop continuous drops
+            if (rippleIntervals[index]) {
+              clearInterval(rippleIntervals[index]);
+              rippleIntervals[index] = null;
+            }
+          });
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
