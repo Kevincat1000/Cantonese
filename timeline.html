@@ -64,7 +64,7 @@
       display: block;
       width: 100%;
       height: 100%;
-      overflow: hidden;
+      /* Removed overflow:hidden to allow text to move up outside the box */
       text-decoration: none;
       cursor: pointer;
       border-right: 1px solid rgba(0,0,0,0.05); 
@@ -72,8 +72,8 @@
 
     .item-info {
       position: absolute;
-      top: 30px;
-      left: 30px;
+      top: -65px; /* Shifted up by 95px (Original 30px - 95px = -65px) */
+      left: 20px;
       z-index: 10;
       pointer-events: none; 
     }
@@ -81,19 +81,19 @@
     .item-number {
       display: block;
       font-family: 'Exo', sans-serif;
-      font-size: 13px;
+      font-size: 11px; /* Smaller font size */
       font-weight: 600;
       letter-spacing: 1px;
       color: #000;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       text-transform: uppercase;
     }
 
     .item-title {
       display: block;
       font-family: 'Gentium Book Plus', serif;
-      font-size: 22px; 
-      line-height: 1.2;
+      font-size: 16px; /* Smaller font size */
+      line-height: 1.3;
       font-weight: 400;
       color: #1a1a1a;
       opacity: 0.9;
@@ -106,6 +106,7 @@
       background-position: center;
       transition: all 0.6s ease;
       filter: grayscale(100%) contrast(1.1); 
+      overflow: hidden; /* Keep ripple effect contained */
     }
 
     .first-image {
@@ -163,10 +164,14 @@
       .gallery-container {
         grid-template-columns: 1fr; 
         height: auto;
-        margin-top: 50px;
+        margin-top: 80px;
+      }
+      .item-info {
+        top: -45px;
       }
       .gallery-item {
         height: 300px; 
+        margin-bottom: 60px;
         border-bottom: 1px solid rgba(0,0,0,0.05);
       }
       #diaspora-map {
@@ -183,34 +188,38 @@
     
     <div class="gallery-container">
         
+        <!-- Phase 01 -->
         <a href="phase1.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">01. 17th–19th Centuries</span>
-                <span class="item-title">Early Migration within Southeast Asia</span>
+                <span class="item-title">Early Migration within <br>Southeast Asia</span>
             </div>
             <div class="image-wrapper ripple-effect first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
         </a>
 
+        <!-- Phase 02 -->
         <a href="phase2.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">02. 1840s–1940s</span>
-                <span class="item-title">Building North America & The Pacific</span>
+                <span class="item-title">Building North America <br>& The Pacific</span>
             </div>
             <div class="image-wrapper ripple-effect" style="background-image: url('https://blog.lrei.org/asians-in-america/files/2019/05/railroad_workers.jpg.size-custom-crop.1086x0-1024x566.jpg');"></div>
         </a>
 
+        <!-- Phase 03 -->
         <a href="phase3.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">03. 1965–1997</span>
-                <span class="item-title">Reforms, Refugees, and New Waves</span>
+                <span class="item-title">Reforms, Refugees, <br>and New Waves</span>
             </div>
             <div class="image-wrapper ripple-effect" style="background-image: url('https://images.unsplash.com/photo-1548505224-b58603632f81?q=80&w=1200&auto=format&fit=crop');"></div>
         </a>
 
+        <!-- Phase 04 -->
         <a href="phase4.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">04. 2000s–Present</span>
-                <span class="item-title">Diversification and Cultural Resilience</span>
+                <span class="item-title">Diversification and <br>Cultural Resilience</span>
             </div>
             <div class="image-wrapper ripple-effect" style="background-image: url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=1200&auto=format&fit=crop');"></div>
         </a>
