@@ -9,23 +9,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Header/Footer Injectors -->
-  <script src="./assets/header.js" defer></script>
-  <script src="./assets/footer.js" defer></script>
-
-  <!-- Mapbox CSS & JS -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
 
   <!-- jQuery & Ripples -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
-
-  <!-- External Mapbox Logic -->
-  <script src="./assets/mapbox.js" defer></script>
 
   <style>
     :root {
@@ -35,37 +23,30 @@
       --mask-color: #e3bd28; 
     }
 
-    * { box-sizing: border-box; }
-    
     body, html {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       background-color: var(--bg);
       font-family: 'Gentium Book Plus', serif;
-      color: var(--text);
       overflow-x: hidden;
     }
 
-    body {
-      padding-top: var(--header-h);
-    }
+    body { padding-top: var(--header-h); }
 
     .gallery-container {
       display: grid;
       grid-template-columns: repeat(4, 1fr); 
       width: 100vw;
       height: 65vh; 
-      border-bottom: 1px solid #dcd8ce;
       margin-top: 100px; 
+      border-bottom: 1px solid #dcd8ce;
     }
 
     .gallery-item {
       position: relative;
       display: block;
-      width: 100%;
       height: 100%;
       text-decoration: none;
-      cursor: pointer;
+      overflow: hidden; /* 裁剪溢出的水纹 */
       border-right: 1px solid rgba(0,0,0,0.05); 
     }
 
@@ -73,7 +54,7 @@
       position: absolute;
       top: -65px; 
       left: 20px;
-      z-index: 10;
+      z-index: 20; /* 确保文字在水纹之上 */
       pointer-events: none; 
     }
 
@@ -82,105 +63,64 @@
       font-family: 'Exo', sans-serif;
       font-size: 11px; 
       font-weight: 600;
-      letter-spacing: 1px;
+      text-transform: uppercase;
       color: #000;
       margin-bottom: 4px;
-      text-transform: uppercase;
     }
 
     .item-title {
       display: block;
-      font-family: 'Gentium Book Plus', serif;
       font-size: 16px; 
-      line-height: 1.3;
-      font-weight: 400;
       color: #1a1a1a;
-      opacity: 0.9;
     }
 
+    /* 核心修改：图片容器层 */
     .image-wrapper {
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
-      transition: filter 0.6s ease; /* 移除全属性过渡，防止干扰 ripple canvas */
       filter: grayscale(100%) contrast(1.1); 
-      overflow: hidden; 
+      transition: filter 0.5s ease;
       position: relative;
     }
 
-    .first-image {
-      background-position: left center !important;
-    }
-
-    /* 遮罩层 */
+    /* 遮罩层修改：使用 pointer-events:none 确保不拦截鼠标 */
     .image-wrapper::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       background-color: var(--mask-color);
       mix-blend-mode: multiply; 
       opacity: 0.85; 
-      transition: opacity 0.6s ease;
-      z-index: 1; /* 放在 canvas 下面或上面取决于想要的效果，这里放在底层 */
+      transition: opacity 0.5s ease;
+      z-index: 2; /* 放在底层图片和 Canvas 之间，或者顶层 */
       pointer-events: none;
     }
 
+    /* 当 Hover 时，显示彩色并隐藏遮罩 */
     .gallery-item:hover .image-wrapper {
-      filter: grayscale(0%) contrast(1); 
+      filter: grayscale(0%) contrast(1.1); 
     }
-
     .gallery-item:hover .image-wrapper::after {
       opacity: 0; 
     }
 
-    .map-section {
-      width: 100%;
-      padding: 80px 0; 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    /* 强制控制 Ripples 生成的 Canvas */
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+      z-index: 5; /* 确保水纹在最上层产生扭曲视觉 */
+      pointer-events: none; /* 让鼠标穿透 Canvas */
+      transition: opacity 0.3s ease;
     }
 
-    .map-title {
-        margin-bottom: 20px;
-        font-family: 'Exo', sans-serif;
-        letter-spacing: 1px;
-        font-size: 12px;
-        text-transform: uppercase;
-        color: #666;
-    }
-
-    #diaspora-map {
-      width: 50vw; 
-      height: 50vw; 
-      max-height: 500px; 
-      background-color: #e5e0d5; 
-      border: 1px solid #dcd8ce;
-    }
+    .map-section { padding: 80px 0; text-align: center; }
+    #diaspora-map { width: 50vw; height: 400px; background: #eee; margin: 0 auto; }
 
     @media (max-width: 768px) {
-      .gallery-container {
-        grid-template-columns: 1fr; 
-        height: auto;
-        margin-top: 80px;
-      }
-      .item-info {
-        top: -45px;
-      }
-      .gallery-item {
-        height: 300px; 
-        margin-bottom: 60px;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-      }
-      #diaspora-map {
-        width: 90vw; 
-        height: 300px;
-      }
+      .gallery-container { grid-template-columns: 1fr; height: auto; }
+      .gallery-item { height: 300px; margin-bottom: 60px; }
     }
   </style>
 </head>
@@ -195,7 +135,7 @@
                 <span class="item-number">01. 17th–19th Centuries</span>
                 <span class="item-title">Early Migration within <br>Southeast Asia</span>
             </div>
-            <div class="image-wrapper first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
+            <div class="image-wrapper" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
         </a>
 
         <!-- Phase 02 -->
@@ -234,41 +174,45 @@
 
   <script>
     $(document).ready(function() {
-        // 1. 初始化所有图片，增强 perturbance 让抖动感更强
-        const $wrappers = $('.image-wrapper').ripples({
+        const $wrappers = $('.image-wrapper');
+
+        // 1. 初始化 Ripples：关键是高 perturbance
+        $wrappers.ripples({
             resolution: 512,
-            dropRadius: 30, // 水滴半径
-            perturbance: 0.12, // 抖动系数（越大越抖）
-            interactive: false // 禁用插件自带的静默监听，改为下方手动精准控制
+            dropRadius: 35,
+            perturbance: 0.15, // 大幅提高扭曲度，让底图“晃”起来
+            interactive: false
         });
 
-        // 2. 针对每一项进行 Hover 监听
+        // 默认让 Canvas 透明，离开时好控制
+        $('canvas').css('opacity', 0);
+
         $('.gallery-item').on('mouseenter', function(e) {
             const $target = $(this).find('.image-wrapper');
-            const offset = $target.offset();
-            const x = e.pageX - offset.left;
-            const y = e.pageY - offset.top;
             
-            // 鼠标进入瞬间触发一个较强的“冲击波”
-            $target.ripples('drop', x, y, 50, 0.15);
+            // 立即显示并播放当前图片的水纹
+            $target.find('canvas').css('opacity', 1);
+            $target.ripples('play');
+
+            // 进入时给一个初始冲击
+            const offset = $target.offset();
+            $target.ripples('drop', e.pageX - offset.left, e.pageY - offset.top, 50, 0.15);
         });
 
         $('.gallery-item').on('mousemove', function(e) {
             const $target = $(this).find('.image-wrapper');
             const offset = $target.offset();
-            const x = e.pageX - offset.left;
-            const y = e.pageY - offset.top;
-
-            // 随着鼠标移动产生连续的小波纹，创造“抖动”感
-            // 只有当前被 hover 的 $target 会产生反应
-            $target.ripples('drop', x, y, 25, 0.08);
+            
+            // 手动触发水纹：当前鼠标位置
+            $target.ripples('drop', e.pageX - offset.left, e.pageY - offset.top, 30, 0.06);
         });
 
-        // 兼容性修正：如果窗口缩放，更新 canvas 尺寸
-        $(window).on('resize', function() {
-            $wrappers.ripples('updateSize');
-        });
-    });
-  </script>
-</body>
-</html>
+        $('.gallery-item').on('mouseleave', function() {
+            const $target = $(this).find('.image-wrapper');
+            
+            // 关键：离开后立即淡出 Canvas 并暂停
+            $target.find('canvas').css('opacity', 0);
+            
+            // 延迟一点点彻底停止，防止视觉上太突兀，但能确保切到下一张时本张已静止
+            setTimeout(() => {
+                $target.ripples('paus
