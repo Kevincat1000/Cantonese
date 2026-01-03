@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phase II: 1840s–1940s - Building North America</title>
+  <title>Phase II: 1848–1947 - Building North America</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,11 +19,11 @@
 
   <style>
     :root {
-      /* New Color Palette */
-      --bg-tan: #D9CCB7;     /* Replaces Teal */
-      --bg-paper: #f5f0e5;   /* Pure solid beige */
+      /* Palette */
+      --bg-tan: #D9CCB7;     
+      --bg-paper: #f5f0e5;   
       --accent-red: #a84d4d;
-      --text-main: #333333;  /* Unified dark text */
+      --text-main: #333333;  
       
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
@@ -58,7 +58,7 @@
     .nav-icon-circle {
       width: 50px;
       height: 50px;
-      border: 1px solid rgba(51, 51, 51, 0.2); /* Darker border for visibility */
+      border: 1px solid rgba(51, 51, 51, 0.2);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -120,7 +120,7 @@
       text-align: center;
       max-width: 900px;
       padding: 0 20px;
-      text-shadow: 0 0 30px var(--bg-paper); /* Halo to read text over canvas lines */
+      text-shadow: 0 0 30px var(--bg-paper);
     }
 
     .hero-label {
@@ -146,7 +146,7 @@
     .hero-subtitle {
       font-family: var(--font-heading);
       font-size: 1.5rem;
-      color: #4a5568;
+      color: var(--text-main); /* Enforced #333333 via var */
       font-weight: 400;
       margin-top: 0.5rem;
     }
@@ -160,7 +160,6 @@
 
     .content-section { padding: 5rem 2rem; }
     
-    /* Updated Colors */
     .section-tan { background-color: var(--bg-tan); color: var(--text-main); }
     .section-paper { background-color: var(--bg-paper); color: var(--text-main); }
 
@@ -177,14 +176,57 @@
 
     .text-content { font-size: 1.1rem; line-height: 1.8; width: 100%; }
     .text-content p { margin-bottom: 1.5rem; }
-    
-    /* Text utility - all dark now */
     .text-main-90 { color: rgba(51, 51, 51, 0.9); }
 
-    /* Layout Grids */
     .grid-2col { display: grid; gap: 4rem; align-items: start; }
     
-    /* Images */
+    /* --- Gallery Styles (Re-implemented for sliders) --- */
+    .gallery { width: 100%; position: relative; }
+    
+    .gallery-frame {
+      width: 100%; 
+      height: 400px; /* Fixed height for consistent layout */
+      position: relative; 
+      background: #e0d8c8; /* Placeholder color */
+      border-radius: 4px; 
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .gallery-slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0; transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    .gallery-slide.show { opacity: 1; pointer-events: auto; }
+    
+    /* Ensure images cover the area without distortion */
+    .gallery-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    
+    .gallery-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(51, 51, 51, 0.85); /* Dark semi-transparent background */
+      color: #f9f9f9; 
+      padding: 12px 15px; 
+      font-size: 13px; 
+      text-align: center;
+      font-family: var(--font-heading);
+      font-weight: 600;
+    }
+    
+    .gallery-nav { display: flex; justify-content: center; gap: 16px; margin-top: 15px; }
+    
+    .nav-btn {
+      background: transparent; 
+      border: 1px solid var(--text-main); 
+      color: var(--text-main);
+      width: 32px; height: 32px; border-radius: 50%; 
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { border-color: var(--accent-red); background: var(--accent-red); color: white; }
+
+    /* Static Image Frame for non-sliders */
     .image-frame {
       width: 100%;
       height: 400px;
@@ -193,25 +235,12 @@
       overflow: hidden;
       position: relative;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
     }
-    
-    .image-frame:hover { transform: translateY(-5px); }
-    
-    .image-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
+    .image-frame img { width: 100%; height: 100%; object-fit: cover; }
     .image-caption {
       font-family: var(--font-heading);
-      font-size: 0.85rem;
-      margin-top: 10px;
-      opacity: 0.8;
-      text-align: center;
-      font-style: italic;
-      color: var(--text-main);
+      font-size: 0.85rem; margin-top: 10px; opacity: 0.8;
+      text-align: center; font-style: italic; color: var(--text-main);
     }
 
     /* Link */
@@ -240,19 +269,11 @@
     
     .phase-link.prev { text-align: left; }
     .phase-link.next { text-align: right; }
-    
     .phase-link:hover { color: var(--accent-red); }
     .phase-arrow { transition: transform 0.3s; }
     .phase-link:hover .phase-arrow.right { transform: translateX(5px); }
     .phase-link:hover .phase-arrow.left { transform: translateX(-5px); }
-    
-    .link-sub {
-      display: block; 
-      font-size: 0.8em; 
-      opacity: 0.7; 
-      font-weight: 400; 
-      margin-top: 4px;
-    }
+    .link-sub { display: block; font-size: 0.8em; opacity: 0.7; font-weight: 400; margin-top: 4px; }
 
     /* Media Queries */
     @media (min-width: 900px) {
@@ -265,13 +286,12 @@
     @media (max-width: 768px) {
       .hero-content { margin-top: 0; }
       .content-section { padding: 3rem 1.5rem; }
-      .image-frame { height: 250px; }
+      .image-frame, .gallery-frame { height: 250px; }
       .phase-navigation { flex-direction: column; align-items: stretch; text-align: center; }
       .phase-link { justify-content: center; }
       .phase-link.prev, .phase-link.next { text-align: center; }
     }
 
-    /* Animation Classes */
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1s, transform 1s; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
@@ -293,14 +313,14 @@
     <canvas id="railroad-canvas"></canvas>
     <div class="hero-content">
       <span class="hero-label">Timeline / Phase II</span>
-      <h1 class="hero-title">1840s–1940s</h1>
+      <h1 class="hero-title">1848–1947</h1>
       <h2 class="hero-subtitle">Building North America & The Pacific</h2>
     </div>
   </header>
   
   <main>
 
-    <!-- 1. Gold Rushes (Tan) -->
+    <!-- 1. Gold Rushes (Tan) - Gallery -->
     <section class="section-tan content-section">
       <div class="container">
         <div class="grid-2col fade-in">
@@ -316,16 +336,31 @@
             </div>
           </div>
           <div class="img-col">
-            <div class="image-frame">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Head_of_Auburn_Ravine_1852.jpg/1280px-Head_of_Auburn_Ravine_1852.jpg" alt="Gold Miners 1852">
+            <!-- Gallery 1: Gold Rush -->
+            <div class="gallery" id="gallery-1">
+              <div class="gallery-frame">
+                <div class="gallery-slide show">
+                  <img src="https://bit.ly/4pjRcU8" alt="Victoria Miners">
+                </div>
+                <div class="gallery-slide">
+                  <img src="https://www.huntington.org/sites/default/files/verso/featured/chinesearchives_1.jpg" alt="Auburn Ravine">
+                </div>
+                <div class="gallery-slide">
+                  <img src="https://opensfhistory.org/Download/wnp37.04111.jpg" alt="Chinatown 1885">
+                </div>
+                <div class="gallery-label" id="label-1">Chinese miners in 1850s Victoria</div>
+              </div>
+              <div class="gallery-nav">
+                <button class="nav-btn prev-btn"><i data-lucide="chevron-left" size="16"></i></button>
+                <button class="nav-btn next-btn"><i data-lucide="chevron-right" size="16"></i></button>
+              </div>
             </div>
-            <p class="image-caption">Gold mining in the ravines, early 1850s</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Six Companies (Paper) -->
+    <!-- 2. Six Companies (Paper) - Gallery -->
     <section class="section-paper content-section">
       <div class="container">
         <div class="grid-2col grid-reverse fade-in">
@@ -341,10 +376,23 @@
             </div>
           </div>
           <div class="img-col">
-            <div class="image-frame">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Six_companies_SF.jpg" alt="The Six Companies">
+             <!-- Gallery 2: Six Companies -->
+             <div class="gallery" id="gallery-2">
+              <div class="gallery-frame">
+                <div class="gallery-slide show">
+                  <!-- Use contain or adjust position if text gets cut off, but user asked for nice layout, cover is usually safest for filling the box -->
+                  <img src="https://www.nps.gov/articles/000/images/Picture14_2.png" alt="Six Companies 1890" style="object-position: center top;">
+                </div>
+                <div class="gallery-slide">
+                  <img src="https://www.foundsf.org/images/5/5a/Reps_of_Six_Companies_1943_AAB-6823.jpg" alt="Six Companies 1943" style="object-position: center top;">
+                </div>
+                <div class="gallery-label" id="label-2">Leaders of six companies, 1890</div>
+              </div>
+              <div class="gallery-nav">
+                <button class="nav-btn prev-btn"><i data-lucide="chevron-left" size="16"></i></button>
+                <button class="nav-btn next-btn"><i data-lucide="chevron-right" size="16"></i></button>
+              </div>
             </div>
-            <p class="image-caption">Leaders of the Six Companies (CCBA)</p>
           </div>
         </div>
       </div>
@@ -481,7 +529,7 @@
     // 1. Initialize Icons
     lucide.createIcons();
 
-    // 2. Intersection Observer for Fade-in Animations
+    // 2. Intersection Observer
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -489,17 +537,64 @@
         }
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+    // 3. Gallery Logic (Reusable Class)
+    class Gallery {
+      constructor(id, captions) {
+        this.container = document.getElementById(id);
+        if(!this.container) return;
+        
+        this.slides = this.container.querySelectorAll('.gallery-slide');
+        this.label = this.container.querySelector('.gallery-label');
+        this.btnPrev = this.container.querySelector('.prev-btn');
+        this.btnNext = this.container.querySelector('.next-btn');
+        this.captions = captions;
+        this.index = 0;
 
-    // 3. RAILROAD CANVAS ANIMATION
+        // Init
+        this.update();
+
+        // Events
+        this.btnPrev.onclick = () => this.move(-1);
+        this.btnNext.onclick = () => this.move(1);
+      }
+
+      move(dir) {
+        this.slides[this.index].classList.remove('show');
+        this.index = (this.index + dir + this.slides.length) % this.slides.length;
+        this.slides[this.index].classList.add('show');
+        this.update();
+      }
+
+      update() {
+        if(this.captions && this.captions[this.index]) {
+          this.label.textContent = this.captions[this.index];
+        }
+      }
+    }
+
+    // Initialize Gallery 1 (Gold Rush)
+    const captions1 = [
+      "Chinese miners in 1850s Victoria",
+      "Miners at Auburn Ravine, California, 1852",
+      "China town, 1885"
+    ];
+    new Gallery('gallery-1', captions1);
+
+    // Initialize Gallery 2 (Six Companies)
+    const captions2 = [
+      "Leaders of six companies, 1890",
+      "Representatives of the Six Companies, 1943"
+    ];
+    new Gallery('gallery-2', captions2);
+
+
+    // 4. RAILROAD CANVAS ANIMATION
     const canvas = document.getElementById('railroad-canvas');
     const ctx = canvas.getContext('2d');
-
     let width, height;
     
-    // Resize handling
     function resize() {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
@@ -507,45 +602,34 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Animation Variables
     let offset = 0;
-    const speed = 2; // Speed of the train movement
+    const speed = 2; 
     
-    // Draw Loop
     function draw() {
       ctx.clearRect(0, 0, width, height);
-      
-      // -- Configuration --
-      const horizonY = height * 0.45; // Horizon line height
+      const horizonY = height * 0.45; 
       const vanishingX = width / 2;
       const vanishingY = horizonY;
-      
       const trackWidthBottom = Math.min(600, width * 0.8);
       const trackWidthTop = 10; 
       
-      // -- 1. Ground/Sky --
-      // Transparent sky, very subtle ground shade to match beige paper
+      // Sky/Ground
       ctx.fillStyle = "rgba(51, 51, 51, 0.03)";
       ctx.fillRect(0, horizonY, width, height - horizonY);
 
-      // -- 2. Draw Rails (Perspective Lines) --
+      // Rails
       ctx.beginPath();
-      ctx.strokeStyle = "#5a4a3a"; // Dark brownish grey
+      ctx.strokeStyle = "#5a4a3a"; 
       ctx.lineWidth = 4;
       ctx.lineCap = 'round';
-      
-      // Left Rail
       ctx.moveTo(vanishingX - trackWidthTop/2, vanishingY);
       ctx.lineTo(vanishingX - trackWidthBottom/2, height + 50);
-      
-      // Right Rail
       ctx.moveTo(vanishingX + trackWidthTop/2, vanishingY);
       ctx.lineTo(vanishingX + trackWidthBottom/2, height + 50);
       ctx.stroke();
 
-      // -- 3. Draw Sleepers (Ties) --
+      // Ties
       offset = (offset + speed * 0.002) % 1; 
-      
       ctx.lineWidth = 3;
       ctx.strokeStyle = "#5a4a3a";
 
@@ -553,17 +637,11 @@
       for (let i = 0; i < numTies; i++) {
         let baseT = (i / numTies) + offset;
         if (baseT > 1) baseT -= 1;
-        
-        // Logarithmic perspective
         let perspectiveT = Math.pow(baseT, 4); 
-        
         let y = vanishingY + (height - vanishingY + 50) * perspectiveT;
-        
         if (y < vanishingY + 5) continue;
-
         let progress = (y - vanishingY) / (height - vanishingY + 50);
         let currentWidth = trackWidthTop + (trackWidthBottom - trackWidthTop) * progress;
-
         ctx.beginPath();
         let wobble = (Math.random() - 0.5) * 2; 
         ctx.moveTo(vanishingX - currentWidth/2, y + wobble);
@@ -571,17 +649,15 @@
         ctx.stroke();
       }
 
-      // -- 4. Draw Mine Cart (Simple Sketch) --
+      // Cart
       const cartW = 180;
       const cartH = 120;
       const cartX = width/2 - cartW/2;
       const cartY = height * 0.75;
-      
       const shakeY = Math.sin(Date.now() / 50) * 1.5;
 
       ctx.save();
       ctx.translate(0, shakeY);
-      
       ctx.strokeStyle = "#333333";
       ctx.lineWidth = 3;
 
@@ -593,20 +669,18 @@
       ctx.fill();
       ctx.stroke();
 
-      // Body (Trapezoid)
+      // Body
       ctx.beginPath();
       ctx.moveTo(cartX, cartY); 
       ctx.lineTo(cartX + cartW, cartY); 
       ctx.lineTo(cartX + cartW - 20, cartY + cartH); 
       ctx.lineTo(cartX + 20, cartY + cartH); 
       ctx.closePath();
-      
-      // Fill with solid paper color to hide rails behind it
       ctx.fillStyle = "#f5f0e5"; 
       ctx.fill();
       ctx.stroke();
       
-      // Detail lines
+      // Details
       ctx.beginPath();
       ctx.moveTo(cartX + 10, cartY + 10);
       ctx.lineTo(cartX + 10, cartY + cartH - 10);
@@ -617,21 +691,18 @@
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Gold/Rocks
+      // Gold
       ctx.beginPath();
       ctx.moveTo(cartX + 20, cartY);
       ctx.quadraticCurveTo(cartX + cartW/2, cartY - 40, cartX + cartW - 20, cartY);
       ctx.fillStyle = "rgba(51, 51, 51, 0.2)"; 
       ctx.fill();
       ctx.stroke();
-
       ctx.restore();
 
       requestAnimationFrame(draw);
     }
-
     draw();
-
   </script>
 </body>
 </html>
