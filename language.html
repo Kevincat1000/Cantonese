@@ -3,40 +3,79 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Language - Cantonese in Americas</title>
+  <title>Language - Cantonese in Americas & The Rise of Mandarin</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <!-- Global style -->
-  <link rel="stylesheet" href="./assets/style.css" />
-
-  <!-- Header and Footer injectors -->
+  <!-- Header Injector (Make sure this file exists in your assets folder) -->
   <script src="./assets/header.js" defer></script>
-  <script src="./assets/footer.js" defer></script>
 
   <style>
     :root { 
       --header-h: 73px; 
       --bg-color: #F5F0E5;
-      --text-color: #2c2c2c;
+      --text-color: #000000;
       --caption-color: #555;
+      --main-font: 'Gentium Book Plus', serif;
+      --theme-red: #a21a1a;
+      --theme-gold: #c5a059;
+      --theme-teal: #2D7B73;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scrollbar-gutter: stable; }
+    
+    html { 
+      scrollbar-gutter: stable;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      height: 100%;
+      overflow-y: scroll;
+    }
 
     body {
       background: var(--bg-color);
-      font-family: 'Gentium Book Plus', serif;
+      font-family: var(--main-font);
       line-height: 1.6;
+      min-height: 100%;
+      color: var(--text-color);
+    }
+
+    /* HEADER STYLES (Placeholder to ensure visibility) */
+    header[data-site-header="1"] {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+      background: var(--bg-color); /* Fallback */
+    }
+    .header-hidden {
+      transform: translateY(-100%);
+    }
+
+    .snap-item {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .first-section-wrapper {
       padding-top: var(--header-h, 73px);
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
     }
 
     .page-wrapper {
       overflow-x: hidden;
+      width: 100%;
     }
 
     .content-inner {
@@ -46,9 +85,7 @@
     }
 
     @media (min-width: 1024px) {
-      .content-inner {
-        padding: 0 2rem 3rem;
-      }
+      .content-inner { padding: 0 2rem 3rem; }
     }
 
     /* ===== Flashcard Grid ===== */
@@ -58,13 +95,8 @@
       gap: 1rem;
     }
 
-    @media (max-width: 980px) {
-      .flash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 520px) {
-      .flash-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 980px) { .flash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 520px) { .flash-grid { grid-template-columns: 1fr; } }
 
     .flashcard {
       position: relative;
@@ -123,12 +155,14 @@
       font-weight: 700;
       color: #1a1a1a;
       line-height: 1.1;
+      font-family: inherit; 
     }
 
     .face-text {
       margin: 0;
       color: #2d3748;
       line-height: 1.5;
+      font-family: inherit;
     }
 
     /* ===== Research Section ===== */
@@ -140,13 +174,15 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      opacity: 0;
-      transition: opacity 1.5s ease;
       background-color: #0a0a0a;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      pointer-events: none; 
     }
 
     #research-section.is-visible {
       opacity: 1;
+      pointer-events: auto;
     }
 
     #particle-canvas {
@@ -174,7 +210,7 @@
       margin: 0 0 10px 0;
       color: #d4af37;
       font-weight: normal;
-      font-family: 'Georgia', serif;
+      font-family: 'Georgia', serif; 
     }
 
     .research-content-box h2 {
@@ -183,6 +219,7 @@
       color: #a0a0a0;
       margin-bottom: 30px;
       font-weight: normal;
+      font-family: inherit;
     }
 
     .research-content-box p {
@@ -190,6 +227,7 @@
       line-height: 1.8;
       margin: 0;
       color: #e0e0e0;
+      font-family: inherit;
     }
 
     .research-content-box .highlight {
@@ -198,31 +236,25 @@
     }
 
     @media (max-width: 768px) {
-      .research-content-box {
-        margin: 0 1rem;
-        padding: 30px;
-      }
-      .research-content-box h1 {
-        font-size: 2rem;
-      }
-      .research-content-box p {
-        font-size: 1rem;
-      }
+      .research-content-box { margin: 0 1rem; padding: 30px; }
+      .research-content-box h1 { font-size: 2rem; }
+      .research-content-box p { font-size: 1rem; }
     }
 
-    /* ===== Evolution Timeline Section ===== */
+    /* ===== Evolution Timeline Section (Narrative 1) ===== */
     #evolution-section {
       position: relative;
       background: var(--bg-color);
-      height: 100vh;
+      min-height: 100vh; 
+      height: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 40px 0;
+      padding: 60px 0;
       box-sizing: border-box;
     }
 
-    #textureCanvas {
+    .texture-canvas {
       position: absolute;
       top: 0;
       left: 0;
@@ -237,35 +269,16 @@
     .evolution-container {
       position: relative;
       z-index: 1;
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 30px;
+      padding: 0 60px;
+      width: 100%;
     }
 
-    .evolution-header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .evolution-header h2 {
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
-      font-size: 2.4rem;
-      font-weight: normal;
-      color: var(--text-color);
-      margin-bottom: 0.3rem;
-    }
-
-    .evolution-header p {
-      font-size: 1rem;
-      color: var(--caption-color);
-      font-style: italic;
-    }
-
-    /* Horizontal Era Grid */
     .era-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+      grid-template-columns: 1fr;
+      gap: 40px 25px;
       align-items: start;
     }
 
@@ -284,47 +297,8 @@
       transform: translateY(0);
     }
 
-    /* Staggered delays */
-    .era-section:nth-child(1) { transition-delay: 0s; }
-    .era-section:nth-child(2) { transition-delay: 1s; }
-    .era-section:nth-child(3) { transition-delay: 2s; }
-
-    .image-container {
-      width: 100%;
-      height: calc(100vh - 320px);
-      max-height: 380px;
-      margin-bottom: 0;
-      border: 10px solid #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      background-color: #fff;
-      overflow: hidden;
-    }
-
-    .era-image {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* First two images show top, crop bottom */
-    .era-section:nth-child(1) .era-image,
-    .era-section:nth-child(2) .era-image {
-      object-position: top;
-    }
-    
-    .caption {
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
-      font-size: 0.85rem;
-      color: var(--caption-color);
-      line-height: 1.4;
-      margin-top: 12px;
-      margin-bottom: 0;
-    }
-    .caption span { display: block; }
-
     .era-title {
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      font-family: inherit;
       font-size: 1.1rem;
       font-weight: normal;
       margin: 0 0 12px 0;
@@ -332,188 +306,489 @@
       color: var(--text-color);
     }
 
-    .era-subtitle {
+    .era-title-large {
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .era-section-expanded {
+      grid-column: 1 / -1;
+      text-align: left;
+    }
+
+    .era-subtitle-main {
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: bold;
+      color: #a21a1a;
+      margin: 0 0 24px 0; 
+      line-height: 1.4;
+    }
+
+    .era-columns {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 50px;
+      align-items: center; 
+      margin-top: 20px;
+    }
+
+    .era-column p {
+      font-family: inherit;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-color);
+      margin: 0;
+      text-align: justify;
+    }
+
+    .era-column-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .era-column-image img {
+      width: 100%;
+      border: 8px solid #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.12);
       display: block;
-      margin-top: 5px;
+    }
+
+    .era-column-caption {
+      display: block;
+      font-family: inherit;
+      font-size: 0.8rem;
+      color: var(--caption-color);
+      margin-top: 12px; 
+      text-align: center;
     }
 
     @media (max-width: 1000px) {
-      #evolution-section {
-        height: auto;
-        min-height: 100vh;
-        padding: 60px 0;
-      }
-      .era-grid {
+      #evolution-section { padding: 100px 0 60px; }
+      .evolution-container { padding: 0 30px; }
+      .era-columns { grid-template-columns: 1fr; gap: 30px; align-items: start; }
+      .era-column-image img { max-width: 320px; margin: 0 auto; }
+      .era-title-large { font-size: 24px; }
+    }
+
+    /* =========================================
+       HEGEMONY SECTION (B & C)
+       ========================================= */
+    #hegemony-unified {
+      position: relative;
+      background-color: var(--bg-color); 
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .newspaper-bg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.15;
+      mix-blend-mode: multiply;
+    }
+
+    .newspaper-wrapper {
+      width: 100%;
+      height: 100%;
+      transform: scale(1.5) rotate(-5deg);
+      transform-origin: center center;
+    }
+
+    .newspaper-blend-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.2) sepia(0.3);
+    }
+
+    .unified-content-container {
+      position: relative;
+      z-index: 2;
+      max-width: 1000px;
+      width: 90%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      padding: 40px 0;
+    }
+
+    .content-block {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .content-block.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .surnames-block { transition-delay: 0.3s; }
+
+    .content-block p {
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
+    .highlight-text {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--text-color);
+      border-left: 4px solid var(--theme-gold);
+      padding-left: 20px;
+      margin-bottom: 25px;
+    }
+
+    .bg-caption {
+      display: block;
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.4);
+      font-style: italic;
+      text-align: left;
+    }
+
+    /* --- Visual Slider --- */
+    .pronunciation-visualizer {
+      margin-top: 25px; 
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .visual-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .char-col {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--theme-red);
+      margin-right: 15px; 
+      flex-shrink: 0;
+      width: 40px; 
+      text-align: center;
+      font-family: inherit;
+    }
+
+    .slider-track {
+      flex-grow: 1;
+      height: 36px;
+      background: linear-gradient(to right, rgba(197, 160, 89, 0.2) 0%, rgba(0,0,0,0.05) 100%);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slider-track::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 55%;
+      background: linear-gradient(to right, var(--theme-gold), rgba(197, 160, 89, 0.1));
+      border-radius: 18px;
+      opacity: 0.3;
+    }
+
+    .slider-label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .cantonese-side { align-items: flex-start; padding-left: 10px; }
+    .mandarin-side { align-items: flex-end; padding-right: 10px; text-align: right; }
+
+    .label-name {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(0,0,0,0.5);
+      margin-bottom: 0px;
+      font-family: inherit;
+    }
+
+    .pinyin-highlight {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #000;
+      text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+      font-family: inherit;
+    }
+
+    .pinyin-dim {
+      font-size: 1rem;
+      color: #666; 
+      filter: blur(0.3px);
+      font-family: inherit;
+    }
+
+    @media (max-width: 900px) {
+      .unified-content-container { grid-template-columns: 1fr; gap: 40px; padding: 40px 20px; }
+      .newspaper-wrapper { transform: scale(1.2) rotate(0deg); }
+      .pronunciation-visualizer { gap: 10px; }
+      .char-col { font-size: 28px; width: 30px; margin-right: 10px; }
+      .slider-track { height: 32px; }
+    }
+
+    /* =========================================
+       NEW DIGLOSSIA SECTIONS (Parts 6 & 7)
+       ========================================= */
+
+    /* Shared Styles for New Sections */
+    .diglossia-section-style {
+      background-color: #f5f0e5; /* Match Main BG */
+      padding: 60px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; 
+    }
+
+    .diglossia-content-container {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 30px;
+      width: 100%;
+    }
+
+    /* Title Styling */
+    .diglossia-main-title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-align: left;
+      margin-bottom: 20px; /* Reduced gap */
+      margin-top: 0;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: visible;
+    }
+    
+    @media (max-width: 1024px) {
+        .diglossia-main-title { white-space: normal; font-size: 1.6rem; }
+    }
+
+    .diglossia-content-container p {
+      font-family: inherit;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-color);
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    /* --- Part 1 Grid (Text + Book) --- */
+    .diglossia-top-grid {
+      display: grid;
+      grid-template-columns: 4fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .highlight-box {
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-left: 4px solid;
+      background: rgba(255,255,255,0.5);
+      font-size: 0.95rem;
+    }
+    .mandarin-box { border-color: #4682b4; color: #2c5270; }
+    
+    /* Cantonese Box Color */
+    .cantonese-box { 
+        border-color: var(--theme-teal); 
+        color: var(--theme-teal); 
+        font-weight: bold;
+    }
+
+    .official-status-note {
+      background: rgba(197, 160, 89, 0.15);
+      padding: 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    .official-status-note h5 { margin: 0 0 10px 0; font-size: 1rem; }
+    .official-status-note ul { margin: 0; padding-left: 20px; }
+    .official-status-note li { margin-bottom: 8px; }
+
+    .book-figure {
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    
+    /* UPDATED: Book image 50% width, no hover effects */
+    .book-figure img { 
+      width: 50%; 
+      height: auto; 
+      display: block; 
+      border: 1px solid #eee;
+      margin: 0 auto; /* Center it */
+    }
+    .caption-main { display: block; font-weight: bold; margin-top: 15px; color: var(--theme-red); font-size: 14px; }
+    .caption-sub { font-size: 14px; }
+
+    /* Simple book figure with 150px width and shadow */
+    .book-figure-simple {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .book-figure-simple img { 
+      width: 150px; 
+      height: auto; 
+      display: block; 
+      margin: 0 auto;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    
+    .book-figure-simple figcaption {
+      margin-top: 12px;
+    }
+    
+    .book-figure-simple .caption-line {
+      display: block;
+      font-size: 14px;
+      color: #000000;
+      line-height: 1.5;
+    }
+
+    /* --- Part 2 Grid (B & C + Evidence) --- */
+    .institutional-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 10px; /* Further Reduced gap before visual evidence */
+    }
+
+    /* --- Visual Comparison Section --- */
+    .visual-comparison-section {
+      text-align: center;
+      margin-top: 0;
+    }
+    
+    .comparison-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px; /* Reduced gap */
+      position: relative;
+      display: inline-block;
+    }
+
+    .comparison-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .comparison-figure { flex: 1; margin: 0; text-align: left; }
+    
+    /* UPDATED: Image height 200px */
+    .img-wrapper {
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      height: 200px; /* Reduced from 300px */
+    }
+    .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .comparison-figure:hover img { transform: scale(1.05); }
+
+    /* Styling the contrast */
+    .old-era .img-wrapper { border-bottom: 5px solid var(--theme-red); }
+    /* UPDATED: Filter removed, keeping original greyish tone */
+    .sepia-tone img { filter: none; } 
+
+    .new-era .img-wrapper { border-bottom: 5px solid #4682b4; }
+    .cool-tone img { filter: saturate(1.2) contrast(1.1); }
+
+    /* UPDATED: Caption Styles (All Black, 14px) */
+    .caption-year { display: block; margin-top: 10px; }
+
+    /* Enforce black and small font */
+    .old-era .caption-year, .old-era .caption-sub,
+    .new-era .caption-year, .new-era .caption-sub {
+        color: #000000 !important;
+        font-size: 14px !important;
+        font-weight: normal;
+        line-height: 1.4;
+    }
+
+    .shift-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--caption-color);
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .shift-arrow svg { fill: var(--caption-color); margin-top: 5px; }
+
+    /* Responsive Adjustments for New Sections */
+    @media (max-width: 900px) {
+      .diglossia-top-grid, .institutional-grid, .comparison-grid {
         grid-template-columns: 1fr;
+        flex-direction: column;
         gap: 40px;
-        max-width: 500px;
-        margin: 0 auto;
       }
-      .image-container {
-        height: 320px;
-        max-height: none;
-      }
-      .era-title { font-size: 1.2rem; }
-      .evolution-header h2 { font-size: 2rem; }
-      /* Reset delays for mobile vertical layout */
-      .era-section:nth-child(1) { transition-delay: 0s; }
-      .era-section:nth-child(2) { transition-delay: 1s; }
-      .era-section:nth-child(3) { transition-delay: 2s; }
+      .book-figure { max-width: 400px; margin: 0 auto; }
+      .book-figure img { width: 40%; } /* Smaller on mobile */
+      .shift-arrow { transform: rotate(90deg); margin: 20px 0; }
+      .comparison-figure { width: 100%; }
+      .img-wrapper { height: 200px; }
+      .diglossia-main-title { white-space: normal; }
     }
   </style>
 </head>
 
 <body>
-  <div class="page-wrapper">
-    <div class="container">
-      <div class="content-inner">
-        <div style="height: 1rem;"></div>
+  <!-- HEADER RE-ADDED (Empty container for JS injection) -->
+  <header data-site-header="1"></header>
 
-        <div class="flash-grid">
-
-          <!-- 1 飲茶 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">飲茶</h3>
-                <p class="face-text" style="font-size:18px;">(Yam Cha)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Drinking tea</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Going for dim sum (often for brunch or lunch), eating the food, and socializing.
-                </p>
-              </div>
-            </div>
+  <!-- PART 1 & 2: Header (injected) & Flashcards -->
+  <section class="snap-item first-section-wrapper">
+    <div class="page-wrapper">
+      <div class="container">
+        <div class="content-inner">
+          <div class="flash-grid">
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">飲茶</h3><p class="face-text" style="font-size:18px;">(Yam Cha)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Drinking tea</h3><p class="face-text" style="font-size:18px;">Going for dim sum (often for brunch or lunch), eating the food, and socializing.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">食檸檬</h3><p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Eating lemons</h3><p class="face-text" style="font-size:18px;">Being rejected when asking someone out.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">放飛機</h3><p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3><p class="face-text" style="font-size:18px;">Breaking a promise to meet.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">吹水</h3><p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Blowing water</h3><p class="face-text" style="font-size:18px;">Chit-chatting; sometimes implies bragging or bluffing.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">食咗飯未？</h3><p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3><p class="face-text" style="font-size:18px;">A casual greeting meaning "hello" or "how are you?"</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3><p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3><p class="face-text" style="font-size:18px;">"You're frustrating me." A classic parent complaint.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">炒魷魚</h3><p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3><p class="face-text" style="font-size:18px;">Getting fired.</p></div></div></div>
+            <div class="flashcard"><button type="button"></button><div class="flashcard-inner"><div class="card-face"><h3 class="face-title" style="font-size:48px;">雞同鴨講</h3><p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p></div><div class="card-face card-back"><h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3><p class="face-text" style="font-size:18px;">Mutual lack of understanding; unable to communicate due to language barriers.</p></div></div></div>
           </div>
-
-          <!-- 2 食檸檬 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">食檸檬</h3>
-                <p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Eating lemons</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Being rejected when asking someone out.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3 放飛機 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">放飛機</h3>
-                <p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Breaking a promise to meet.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4 吹水 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">吹水</h3>
-                <p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Blowing water</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Chit-chatting; sometimes implies bragging or bluffing.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 5 食咗飯未？ -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">食咗飯未？</h3>
-                <p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
-                <p class="face-text" style="font-size:18px;">
-                  A casual greeting meaning "hello" or "how are you?"
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 6 生舊叉燒好過生你 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3>
-                <p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3>
-                <p class="face-text" style="font-size:18px;">
-                  "You're frustrating me." A classic parent complaint.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 7 炒魷魚 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">炒魷魚</h3>
-                <p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Getting fired.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 8 雞同鴨講 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">雞同鴨講</h3>
-                <p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Mutual lack of understanding; unable to communicate due to language barriers.
-                </p>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Research Section with Particle Animation -->
-  <section id="research-section">
+  <!-- PART 3: Research Section with Particle Animation -->
+  <section id="research-section" class="snap-item">
     <canvas id="particle-canvas"></canvas>
     
     <div class="research-content-box">
@@ -528,84 +803,253 @@
     </div>
   </section>
 
-  <!-- Evolution of Cantonese Section -->
-  <section id="evolution-section">
-    <canvas id="textureCanvas"></canvas>
+  <!-- PART 4: Evolution of Cantonese Section (Narrative 1) -->
+  <section id="evolution-section" class="snap-item">
+    <canvas id="textureCanvas1" class="texture-canvas"></canvas>
     
     <div class="evolution-container">
-      <div class="evolution-header">
-        <h2>The Evolution of Cantonese</h2>
-        <p>A visual journey through language, power, and identity</p>
-      </div>
-
       <div class="era-grid">
-        <!-- Section 1 -->
-        <div class="era-section">
-          <h3 class="era-title">1. The Era of Hegemony (1850s–1970s)<br><span class="era-subtitle">"Survival License"</span></h3>
-          <div class="image-container">
-            <img src="https://www.bobeckertphotography.com/uploads/1/2/6/7/126794906/img034-street-scene-w-child-san-francisco-chinatown-2-email_orig.jpg" 
-                 alt="Street scene in San Francisco Chinatown, 1970s" class="era-image">
-          </div>
-          <div class="caption">
-            <span>Signage in Cantonese, 1970s</span>
-            <span>By Bob Eckert</span>
-          </div>
-        </div>
-
-        <!-- Section 2 -->
-        <div class="era-section">
-          <h3 class="era-title">2. Diglossia and Displacement (1980s–2000)<br><span class="era-subtitle">The Rise of Mandarin</span></h3>
-          <div class="image-container">
-            <img src="https://pictures.abebooks.com/isbn/9780893462949-us.jpg" 
-                 alt="Pinyin Chinese-English Dictionary Cover" class="era-image">
-          </div>
-          <div class="caption">
-            <span>Chinese pronunciation "Pinyin" book,</span>
-            <span>published in 1987</span>
-          </div>
-        </div>
-
-        <!-- Section 3 -->
-        <div class="era-section">
-          <h3 class="era-title">3. The Great Reversal (2000s–Present)<br><span class="era-subtitle">Cantonese recast as heritage</span></h3>
-          <div class="image-container">
-            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/d3/24/b5/caption.jpg?w=1200&h=-1&s=1" 
-                 alt="Modern food court signage in Flushing" class="era-image">
-          </div>
-          <div class="caption">
-            <span>Mandarin signage in mall's food court,</span>
-            <span>Flushing, 2024</span>
+        <!-- Section 1 ONLY -->
+        <div class="era-section era-section-expanded">
+          <h3 class="era-title era-title-large">1. The Era of Hegemony, 1850s–1970s: Cantonese as "Survival License"</h3>
+          <div class="era-columns">
+            <div class="era-column era-column-left">
+              <h4 class="era-subtitle-main">A. Huiguan Power: Associations as Gatekeepers of Social Protection</h4>
+              <p>Early Cantonese dominance was not just about numbers; it was about institutional power. In the 19th and 20th-century Chinatowns, native-place associations (huiguan), such as the Chinese Consolidated Benevolent Association (CCBA, often known as the "Six Companies" in San Francisco) acted like a government. They dominated trades like hand laundries, cigar making, and shoe manufacturing. They settled disputes, provided welfare, controlled remittance networks and steamship tickets, and fought legal battles against discrimination. In a context of exclusion and racialized vulnerability, these associations became a practical infrastructure of social protection—the only safety net available.</p>
+              <p>Because Guangdong native networks deeply shaped these institutions, Cantonese was the price of admission. Speaking the language was not a choice; it was a necessity. It functioned as a "survival license." Without Cantonese, a Chinese immigrant could not borrow money, find a job, or access legal protection. The community's support system was effectively closed to anyone who did not speak the language.</p>
+            </div>
+            <div class="era-column era-column-right">
+              <div class="era-column-image">
+                <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg" alt="Ning Yeung Association, San Francisco, 1891">
+              </div>
+              <span class="era-column-caption">Ning Yeung Association, San Francisco, 1891</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- PART 5: The Era of Hegemony Continued (B & C Unified) -->
+  <section id="hegemony-unified" class="snap-item">
+    <canvas id="textureCanvas3" class="texture-canvas"></canvas>
+    <div class="newspaper-bg-layer">
+      <div class="newspaper-wrapper">
+        <img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" alt="The Golden Hills' News Background" class="newspaper-blend-img">
+      </div>
+    </div>
+
+    <div class="unified-content-container">
+      
+      <!-- B. Media Hegemony Content -->
+      <div class="content-block media-block">
+        <h4 class="era-subtitle-main">B. Media Hegemony: The Public Voice</h4>
+        <p class="highlight-text">
+          Cantonese dominance was also reproduced through media institutions. San Francisco's early Chinese press was written exclusively for a Cantonese-speaking labor class.
+        </p>
+        <p>
+          <i>The Golden Hills' News</i> (1854), the first Chinese newspaper in the U.S., circulated among early migrants. In the early 20th century, major papers such as <i>Chung Sai Yat Po</i> (1900–1951) shaped political and civic discourse for decades, also spelled in Cantonese. Even when these newspapers discussed modern issues, they spoke to a Cantonese world.
+        </p>
+        <p>
+          The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was "inside" the community's political imagination and which linguistic groups were peripheral.
+        </p>
+        <span class="bg-caption">Background: The Golden Hills' News, San Francisco, 1854</span>
+      </div>
+
+      <!-- C. Surnames and Signs Content & Visualization -->
+      <div class="content-block surnames-block">
+        <h4 class="era-subtitle-main">C. Surnames and Signs: The "Standard Sound"</h4>
+        <p>
+          A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: "Lee," "Wong," and "Chan" became the norm, rather than the Mandarin pinyin "Li," "Wang," or "Chen."
+        </p>
+        <p>
+          This was more than just spelling. It signaled that Cantonese was the "standard sound" of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.
+        </p>
+
+        <!-- Compact Pronunciation Visual Slider -->
+        <div class="pronunciation-visualizer">
+          <!-- Lee/Li -->
+          <div class="visual-row">
+            <div class="char-col">李</div>
+            <div class="slider-track">
+              <div class="slider-label cantonese-side">
+                <span class="label-name">Cantonese</span>
+                <span class="pinyin-highlight">Lee</span>
+              </div>
+              <div class="slider-label mandarin-side">
+                <span class="pinyin-dim">Li</span>
+                <span class="label-name">Mandarin</span>
+              </div>
+            </div>
+          </div>
+          <!-- Wong/Wang -->
+          <div class="visual-row">
+            <div class="char-col">王</div>
+            <div class="slider-track">
+              <div class="slider-label cantonese-side">
+                <span class="label-name">Cantonese</span>
+                <span class="pinyin-highlight">Wong</span>
+              </div>
+              <div class="slider-label mandarin-side">
+                <span class="pinyin-dim">Wang</span>
+                <span class="label-name">Mandarin</span>
+              </div>
+            </div>
+          </div>
+          <!-- Chan/Chen -->
+          <div class="visual-row">
+            <div class="char-col">陈</div>
+            <div class="slider-track">
+              <div class="slider-label cantonese-side">
+                <span class="label-name">Cantonese</span>
+                <span class="pinyin-highlight">Chan</span>
+              </div>
+              <div class="slider-label mandarin-side">
+                <span class="pinyin-dim">Chen</span>
+                <span class="label-name">Mandarin</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 6: Diglossia Page 1 (Title + A) -->
+  <section id="diglossia-page1" class="snap-item diglossia-section-style">
+    <canvas id="textureCanvasDiglossia1" class="texture-canvas"></canvas>
+    
+    <div class="diglossia-content-container">
+      
+      <!-- Main Title (Compacted) -->
+      <div class="content-block visible">
+        <h3 class="diglossia-main-title">
+          2. Diglossia and Displacement, 1960s–2000: The Rise of Mandarin as "High" Variety
+        </h3>
+      </div>
+
+      <!-- Top Grid: Section A Text vs Book Image -->
+      <div class="diglossia-top-grid">
+        <!-- Left Column: Text -->
+        <div class="content-block">
+          <h4 class="era-subtitle-main">A. Reframing Diglossia: "High/Low" Inside Chinese</h4>
+          <p>
+            Classically, sociolinguists describe "diglossia" as a system where a "High" language is used for official business and a "Low" language is used for family life. In North American communities today, this split increasingly operates within the Chinese language itself.
+          </p>
+          <div class="highlight-box mandarin-box">
+            <strong>Mandarin as "High":</strong> Treated as official, educated, and globally useful.
+          </div>
+          <div class="highlight-box cantonese-box">
+            <strong>Cantonese as "Low":</strong> Primarily used at home and in elder services.
+          </div>
+          <p>
+            Since the 1950s, China established Mandarin as the sole official language. Cantonese retains cultural value but is losing institutional power.
+          </p>
+          
+          <!-- Official Status Note -->
+          <div class="official-status-note content-block">
+            <h5><span style="color:var(--theme-gold);">★</span> Official Exceptions</h5>
+            <ul>
+              <li><strong>Hong Kong:</strong> Under Basic Law, Cantonese serves as the language of government, law, and education.</li>
+              <li><strong>Macau:</strong> Cantonese functions as the official oral medium alongside Portuguese.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right Column: 1987 Book Image -->
+        <div class="content-block img-col-right">
+          <figure class="book-figure-simple">
+            <img src="https://m.media-amazon.com/images/I/51fK9IFMpiL._SY445_SX342_FMwebp_.jpg" alt="Intermediate Chinese Reader, 1987">
+            <figcaption>
+              <span class="caption-line">Symbol of Standardization</span>
+              <span class="caption-line">Mandarin pronunciation "pinyin", published in 1987.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 7: Diglossia Page 2 (B, C + Evidence) -->
+  <section id="diglossia-page2" class="snap-item diglossia-section-style">
+    <canvas id="textureCanvasDiglossia2" class="texture-canvas"></canvas>
+
+    <div class="diglossia-content-container">
+      <!-- Middle Grid: B & C Institutional Drivers -->
+      <div class="institutional-grid">
+        <div class="content-block">
+          <h4 class="era-subtitle-main">B. Institutional Production of "Standard" Chinese</h4>
+          <!-- CONDENSED TEXT -->
+          <p>
+            Heritage education is a primary site of hierarchy. In many schools, Mandarin is enforced as the only "proper" identity, rendering Cantonese secondary or invisible. This redefines authenticity: students learn that legitimate "Chinese" is simply what formal curricula recognize—Mandarin by default.
+          </p>
+        </div>
+        <div class="content-block">
+          <h4 class="era-subtitle-main">C. The Supply Chain Disruption</h4>
+          <!-- UPDATED TEXT -->
+          <p>
+            1965 US Immigration Act and 1979 diplomatic normalization opened doors to migrants from all Chinese provinces, not just Guangdong. New arrivals poured in from Beijing, Shanghai, and Fujian, where Mandarin is the common language.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom Section: Visual Comparison -->
+      <div class="visual-comparison-section content-block">
+        <h3 class="comparison-title">Visual Evidence: The Landscape Shift</h3>
+        
+        <div class="comparison-grid">
+          <!-- Old Image (1970s) -->
+          <figure class="comparison-figure old-era">
+            <div class="img-wrapper sepia-tone">
+              <img src="https://www.bobeckertphotography.com/uploads/1/2/6/7/126794906/img032-people-lined-along-street-san-francisco-chinatown-2-email_orig.jpg" alt="San Francisco Chinatown 1970s">
+            </div>
+            <figcaption>
+              <span class="caption-year">1970s: The Cantonese Era</span>
+              <span class="caption-sub">Chinatown in San Francisco, 1970s by Bob Eckert. A streetscape dominated by Cantonese social fabric.</span>
+            </figcaption>
+          </figure>
+
+          <!-- Shift Indicator -->
+          <div class="shift-arrow">
+            <span>SHIFT</span>
+            <svg viewBox="0 0 24 24" width="40" height="40" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>
+          </div>
+
+          <!-- New Image (2024) -->
+          <figure class="comparison-figure new-era">
+            <div class="img-wrapper cool-tone">
+              <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/d3/24/b5/caption.jpg" alt="Flushing Foodcourt 2024">
+            </div>
+            <figcaption>
+              <span class="caption-year">2024: The Mandarin Hub</span>
+              <span class="caption-sub">Foodcourt in Flushing, New York, 2024. A modern, multi-regional space often operated in Mandarin.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <script>
+    // Header Auto-hide Script
     (function () {
       "use strict";
-
       let lastScrollTop = 0;
       const scrollThreshold = 100;
       const scrollDelta = 5;
-
       window.addEventListener("scroll", function () {
         const header = document.querySelector("header[data-site-header='1']");
         if (!header) return;
-
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
         if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
-
         if (scrollTop < scrollThreshold) {
           header.classList.remove("header-hidden");
           lastScrollTop = scrollTop;
           return;
         }
-
         if (scrollTop > lastScrollTop) header.classList.add("header-hidden");
         else header.classList.remove("header-hidden");
-
         lastScrollTop = scrollTop;
       }, { passive: true });
     })();
@@ -615,24 +1059,20 @@
       const canvas = document.getElementById('particle-canvas');
       const ctx = canvas.getContext('2d');
       const section = document.getElementById('research-section');
-
       let particles = [];
       let animationFrame;
       const characters = ['食', '揾', '同', '乡', '家', '货', '钱', '语'];
       let isActive = false;
 
       function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = section.clientWidth;
+        canvas.height = section.clientHeight;
       }
       window.addEventListener('resize', resize);
-      resize();
+      setTimeout(resize, 100);
 
       class Particle {
-        constructor() {
-          this.init();
-        }
-
+        constructor() { this.init(); }
         init() {
           this.x = Math.random() * canvas.width;
           this.y = Math.random() * canvas.height;
@@ -643,17 +1083,13 @@
           this.alpha = 0;
           this.targetAlpha = Math.random() * 0.5 + 0.1;
         }
-
         update() {
           this.x += this.speedX;
           this.y += this.speedY;
-
           if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
           if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-
           if (this.alpha < this.targetAlpha) this.alpha += 0.005;
         }
-
         draw() {
           ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
           ctx.font = `${this.size}px serif`;
@@ -663,45 +1099,45 @@
 
       function initParticles() {
         particles = [];
-        for (let i = 0; i < 60; i++) {
-          particles.push(new Particle());
-        }
+        for (let i = 0; i < 60; i++) { particles.push(new Particle()); }
       }
 
       function animate() {
         if (!isActive) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach(p => {
-          p.update();
-          p.draw();
-        });
-        
+        particles.forEach(p => { p.update(); p.draw(); });
         animationFrame = requestAnimationFrame(animate);
       }
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            isActive = true;
-            section.classList.add('is-visible');
-            initParticles();
-            animate();
+            if (!isActive) {
+                isActive = true;
+                section.classList.add('is-visible');
+                resize();
+                initParticles();
+                animate();
+            }
           } else {
-            isActive = false;
-            section.classList.remove('is-visible');
-            cancelAnimationFrame(animationFrame);
+            if (isActive) {
+                isActive = false;
+                section.classList.remove('is-visible');
+                cancelAnimationFrame(animationFrame);
+            }
           }
         });
-      }, { threshold: 0.3 });
-
+      }, { threshold: 0.4 });
       observer.observe(section);
 
-      window.addEventListener('mousemove', (e) => {
+      section.addEventListener('mousemove', (e) => {
         if (!isActive) return;
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
         particles.forEach(p => {
-          let dx = e.clientX - p.x;
-          let dy = e.clientY - p.y;
+          let dx = mouseX - p.x;
+          let dy = mouseY - p.y;
           let dist = Math.sqrt(dx*dx + dy*dy);
           if (dist < 150) {
             p.x -= dx * 0.02;
@@ -711,21 +1147,25 @@
       });
     })();
 
-    // Canvas Texture for Evolution Section
-    (function() {
-      const canvas = document.getElementById('textureCanvas');
+    // Reusable Canvas Texture Drawing Function
+    function drawPaperTexture(canvasId, sectionId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return; 
       const ctx = canvas.getContext('2d');
-      const section = document.getElementById('evolution-section');
+      const section = document.getElementById(sectionId);
+      if (!section) return;
 
       function resizeCanvas() {
-        canvas.width = section.offsetWidth;
-        canvas.height = section.offsetHeight;
-        drawTexture();
+        canvas.width = section.clientWidth;
+        canvas.height = section.clientHeight;
+        draw();
       }
 
-      function drawTexture() {
+      function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'rgba(100, 90, 80, 0.05)'; 
+        // Standard texture for all sections
+        const fillStyle = 'rgba(100, 90, 80, 0.05)';
+        ctx.fillStyle = fillStyle; 
         for (let i = 0; i < canvas.width; i += 3) {
           for (let j = 0; j < canvas.height; j += 3) {
             if (Math.random() > 0.6) {
@@ -737,40 +1177,42 @@
       }
 
       window.addEventListener('resize', resizeCanvas);
-      setTimeout(resizeCanvas, 100);
-    })();
+      // Use IntersectionObserver to draw only when needed
+      const observer = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+              resizeCanvas();
+              observer.disconnect();
+          }
+      });
+      observer.observe(section);
+    }
 
-    // Scroll Animation for Era Sections (staggered)
+    // Apply texture to sections
+    drawPaperTexture('textureCanvas1', 'evolution-section');
+    drawPaperTexture('textureCanvas3', 'hegemony-unified');
+    drawPaperTexture('textureCanvasDiglossia1', 'diglossia-page1');
+    drawPaperTexture('textureCanvasDiglossia2', 'diglossia-page2');
+
+    // Scroll Animation
     (function() {
-      const eraGrid = document.querySelector('.era-grid');
-      const sections = document.querySelectorAll('.era-section');
-
+      const sections = document.querySelectorAll('.era-section, .content-block, .comparison-figure');
       const observerOptions = {
-        root: null,
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
+        root: null, threshold: 0.15, rootMargin: "0px"
       };
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Add visible class to all sections when grid is in view
-            sections.forEach(section => {
-              section.classList.add('visible');
-            });
-          } else {
-            // Remove visible class when grid leaves view
-            sections.forEach(section => {
-              section.classList.remove('visible');
-            });
+            entry.target.classList.add('visible');
           }
         });
       }, observerOptions);
-
-      if (eraGrid) {
-        observer.observe(eraGrid);
-      }
+      
+      sections.forEach(section => {
+          observer.observe(section);
+      });
     })();
   </script>
 </body>
 </html>
+
+
