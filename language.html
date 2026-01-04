@@ -4,28 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cantonese as Linguistic Capital</title>
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Header/Footer Injectors -->
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
   <style>
     :root {
       --bg: #f5f0e5; 
       --text: #1a1a1a;
-      --header-h: 60px; 
       --accent: #a84d4d;
-      --secondary-text: #666;
-      --left-width: 38%; /* 左侧栏宽度 */
+      --left-width: 420px; /* 略微加宽左栏以适应32px标题 */
     }
     * { box-sizing: border-box; scroll-behavior: smooth; }
 
     body, html {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       background-color: var(--bg);
       font-family: 'Gentium Book Plus', serif;
       color: var(--text);
@@ -33,169 +28,108 @@
     }
 
     /* --- 布局核心 --- */
-    .main-container {
-      display: flex;
-      min-height: 100vh;
-    }
+    .main-container { display: flex; min-height: 100vh; }
 
-    /* --- 左侧固定面板 (Fixed) --- */
+    /* --- 左侧固定栏 --- */
     .left-panel {
       width: var(--left-width);
       height: 100vh;
-      position: fixed; /* 彻底固定，不随滚动条移动 */
-      left: 0;
-      top: 0;
-      padding: 80px 50px 60px 60px;
+      position: fixed;
+      left: 0; top: 0;
+      padding: 60px 40px 60px 60px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-between; /* 顶部标题和底部导航分居两端 */
       border-right: 1px solid rgba(0,0,0,0.05);
-      z-index: 10;
+      z-index: 100;
     }
 
-    /* 主标题改为 Exo，缩小并强制两行 */
+    /* 32号 Exo 标题，两行 */
     .main-headline {
       font-family: 'Exo', sans-serif;
-      font-size: 2.4rem; /* 稍微小一点 */
+      font-size: 32px;
       line-height: 1.1;
       font-weight: 800;
       margin: 0;
       text-transform: uppercase;
       letter-spacing: -0.5px;
-      max-width: 300px; /* 限制宽度强制换行 */
+      max-width: 250px; /* 限制宽度强制在 Linguistic 处换行 */
     }
-
     .sub-headline {
       font-family: 'Exo', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 400;
-      margin-top: 15px;
-      color: var(--secondary-text);
-      letter-spacing: 0.5px;
+      font-size: 14px;
+      margin-top: 10px;
+      opacity: 0.6;
     }
 
-    .keywords {
+    /* 28号 居中关键词 */
+    .keywords-center {
+      position: absolute;
+      top: 50%;
+      left: 60px;
+      transform: translateY(-50%); /* 垂直居中 */
       font-family: 'Exo', sans-serif;
-      font-size: 2rem;
+      font-size: 28px;
       font-weight: 700;
-      margin-top: 50px;
       letter-spacing: 2px;
-      line-height: 1.3;
+      line-height: 1.2;
       color: var(--text);
     }
 
-    /* 左下角小字导航 */
+    /* 导航链接：黑色，对齐 */
     .nav-list {
       list-style: none;
-      padding: 0;
-      margin: 0;
+      padding: 0; margin: 0;
       font-family: 'Exo', sans-serif;
-      font-size: 0.8rem;
-      line-height: 1.5;
-      max-width: 90%;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .nav-item {
+      margin-bottom: 22px;
+      display: block;
+      text-decoration: none;
+      color: #000; /* 纯黑 */
+      transition: opacity 0.2s;
+    }
+    .nav-item:hover { opacity: 0.7; }
+
+    .nav-row-1 { display: flex; font-weight: 600; }
+    .nav-num { width: 22px; flex-shrink: 0; } /* 序号位宽度 */
+    .nav-row-2 { 
+      display: block; 
+      padding-left: 22px; /* 与上行“The”对齐 */
+      font-weight: 400;
+      margin-top: 2px;
     }
 
-    .nav-list li {
-      margin-bottom: 12px;
-      opacity: 0.6;
-      transition: all 0.3s ease;
-    }
-    .nav-list li:hover { opacity: 1; color: var(--accent); }
-    .nav-list a { text-decoration: none; color: inherit; display: block; }
-
-    /* --- 右侧滚动区域 --- */
+    /* --- 右侧滚动内容 --- */
     .right-panel {
-      margin-left: var(--left-width); /* 为固定左栏留出空间 */
+      margin-left: var(--left-width);
       width: calc(100% - var(--left-width));
-      padding: 80px 10% 120px 8%;
+      padding: 100px 10% 120px 10%;
     }
 
-    /* --- 内容样式 --- */
-    .content-section { margin-bottom: 140px; }
-
+    .content-section { margin-bottom: 150px; }
     .section-label {
       font-family: 'Exo', sans-serif;
-      font-size: 10px; 
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-      display: block;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px; display: block;
     }
-
-    h2 {
-      font-size: 2.5rem;
-      font-weight: 400;
-      line-height: 1.1;
-      margin-bottom: 40px;
-      letter-spacing: -0.5px;
-    }
-
-    h3 {
-      font-family: 'Exo', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-top: 45px;
-      margin-bottom: 18px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .section-body {
-      font-size: 1.2rem;
-      line-height: 1.75;
-      color: #222;
-    }
+    h2 { font-size: 2.4rem; font-weight: 400; line-height: 1.1; margin-bottom: 40px; }
+    .section-body { font-size: 1.2rem; line-height: 1.75; color: #222; }
     .section-body p { margin-bottom: 1.8rem; }
-
-    /* 媒体与引用 */
-    .media-container {
-      margin: 50px 0;
-      background: #eeeae0;
-      padding: 12px;
-    }
-    .media-container img {
-      width: 100%;
-      height: auto;
-      filter: grayscale(1);
-      transition: filter 0.6s ease;
-    }
-    .media-container:hover img { filter: grayscale(0); }
     
-    .caption {
-      font-size: 0.85rem;
-      margin-top: 12px;
-      font-style: italic;
-      text-align: right;
-      color: var(--secondary-text);
-    }
+    .media-container { margin: 50px 0; background: #eeeae0; padding: 12px; }
+    .media-container img { width: 100%; height: auto; filter: grayscale(1); transition: filter 0.6s; }
+    .media-container:hover img { filter: grayscale(0); }
+    .caption { font-size: 0.85rem; margin-top: 12px; font-style: italic; text-align: right; opacity: 0.6; }
 
-    .quote-box {
-      border-left: 3px solid var(--accent);
-      padding: 10px 0 10px 30px;
-      margin: 40px 0;
-      font-style: italic;
-      font-size: 1.1rem;
-      color: #444;
-    }
-
-    /* 响应式：针对平板和手机进行堆叠 */
-    @media (max-width: 1100px) {
+    @media (max-width: 1200px) {
       .main-container { flex-direction: column; }
-      .left-panel { 
-        position: relative; 
-        width: 100%; 
-        height: auto; 
-        padding: 60px 30px;
-        border-right: none;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-      }
-      .right-panel { 
-        margin-left: 0; 
-        width: 100%; 
-        padding: 60px 30px; 
-      }
+      .left-panel { position: relative; width: 100%; height: auto; padding: 40px; border-right: none; }
+      .keywords-center { position: relative; top: 0; left: 0; transform: none; margin: 40px 0; }
+      .right-panel { margin-left: 0; width: 100%; padding: 40px; }
     }
   </style>
 </head>
@@ -204,90 +138,82 @@
   <div class="main-container">
     <!-- 左侧固定栏 -->
     <aside class="left-panel">
-      <div>
+      <!-- 顶部标题 -->
+      <header>
         <h1 class="main-headline">Cantonese as<br>Linguistic Capital</h1>
         <p class="sub-headline">The Revaluation from Survival to Heritage</p>
-        <div class="keywords">POWER<br>HIERARCHY<br>IDENTITY</div>
+      </header>
+
+      <!-- 中间垂直居中关键词 -->
+      <div class="keywords-center">
+        POWER<br>HIERARCHY<br>IDENTITY
       </div>
 
-      <!-- 左下角导航小字 -->
-      <ul class="nav-list">
-        <li><a href="#sec1">1. The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</a></li>
-        <li><a href="#sec2">2. Diglossia and Displacement, 1960s–Present: The Rise of Mandarin as “High” Variety</a></li>
-        <li><a href="#sec3">3. The Great Reversal, 2000s–Present: Current Demographic Realities</a></li>
-        <li><a href="#sec4">4. Identity and Resistance</a></li>
-      </ul>
+      <!-- 底部导航 -->
+      <nav>
+        <div class="nav-list">
+          <a href="#sec1" class="nav-item">
+            <span class="nav-row-1"><span class="nav-num">1.</span>The Era of Hegemony, 1850s–1970s</span>
+            <span class="nav-row-2">Cantonese as “Survival License”</span>
+          </a>
+          
+          <a href="#sec2" class="nav-item">
+            <span class="nav-row-1"><span class="nav-num">2.</span>Diglossia and Displacement, 1960s–Present</span>
+            <span class="nav-row-2">The Rise of Mandarin as “High” Variety</span>
+          </a>
+
+          <a href="#sec3" class="nav-item">
+            <span class="nav-row-1"><span class="nav-num">3.</span>The Great Reversal, 2000s–Present</span>
+            <span class="nav-row-2">Current Demographic Realities</span>
+          </a>
+
+          <a href="#sec4" class="nav-item">
+            <span class="nav-row-1"><span class="nav-num">4.</span>Identity and Resistance</span>
+            <span class="nav-row-2">Cultural Reclamation and Authenticity</span>
+          </a>
+        </div>
+      </nav>
     </aside>
 
     <!-- 右侧滚动内容 -->
     <article class="right-panel">
       
-      <!-- 章节 1 -->
       <section id="sec1" class="content-section">
-        <span class="section-label">Chapter 01</span>
-        <h2>The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</h2>
+        <span class="section-label">01. Hegemony</span>
+        <h2>The Era of Hegemony, 1850s–1970s</h2>
         <div class="section-body">
-          <h3>A. Huiguan Power: Associations as Gatekeepers</h3>
-          <p>Early Cantonese dominance was not just about numbers—it was about institutional power. In the 19th and 20th-century Chinatowns, native-place associations (huiguan), such as the Chinese Consolidated Benevolent Association (CCBA), acted like a government. They dominated trades like hand laundries, cigar making, and shoe manufacturing.</p>
-          <p>Because Guangdong native networks deeply shaped these institutions, <strong>Cantonese was the price of admission.</strong> Without Cantonese, a Chinese immigrant could not borrow money, find a job, or access legal protection. The community’s support system was effectively closed to anyone who did not speak the language.</p>
-
+          <p>Early Cantonese dominance was not just about numbers—it was about institutional power. In the 19th and 20th-century Chinatowns, native-place associations (huiguan) acted like a government. They dominated trades, settled disputes, and provided welfare.</p>
+          <p><strong>Cantonese was the price of admission.</strong> Without it, an immigrant could not borrow money, find a job, or access legal protection. The community’s support system was effectively closed to anyone who did not speak the language.</p>
+          
           <div class="media-container">
-            <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg" alt="Historical SF Chinatown">
-            <p class="caption">I.W. Taber, “3546 The New Chinese Joss House, Waverly Place, San Francisco,” c.1891.</p>
+            <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg" alt="Historical SF">
+            <p class="caption">I.W. Taber, “3546 The New Chinese Joss House, San Francisco,” c.1891.</p>
           </div>
-
-          <h3>B. Media Hegemony: The Public Voice</h3>
-          <p>San Francisco’s early Chinese press was written exclusively for a Cantonese-speaking labor class. Major papers such as <em>Chung Sai Yat Po</em> (1900–1951) shaped political and civic discourse for decades. By making Cantonese the default language of news and opinion, these papers established who was “inside” the community’s political imagination.</p>
-
-          <h3>C. Surnames and Signs</h3>
-          <p>In many older Chinatowns, English spellings of surnames historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin “Li,” “Wang,” or “Chen.” This signaled that Cantonese was the “standard sound” of public life.</p>
         </div>
       </section>
 
-      <!-- 章节 2 -->
       <section id="sec2" class="content-section">
-        <span class="section-label">Chapter 02</span>
-        <h2>Diglossia and Displacement, 1960s–Present</h2>
+        <span class="section-label">02. Displacement</span>
+        <h2>Diglossia and Displacement</h2>
         <div class="section-body">
-          <p>Classically, sociolinguists describe “diglossia” as a system where a “High” language is used for official business and a “Low” language for family life. Today, Mandarin is treated as the “High” variety—official, educated, and globally useful. Meanwhile, Cantonese is pushed toward the “Low” variety—associated with family, local history, and the elderly.</p>
-          
-          <div class="quote-box">
-            Cantonese is recognized as an official language in only two territories worldwide: Hong Kong and Macau. In practice, it remains a language of government, law, and education there.
-          </div>
-
-          <h3>Institutional Production of “Standard” Chinese</h3>
-          <p>Heritage education is a primary site where this hierarchy is produced. In many schools, Mandarin is enforced as the only "proper" identity. Students learn that legitimate “Chinese” is what schools, tests, and formal curricula recognize—often Mandarin by default.</p>
+          <p>Sociolinguists describe “diglossia” as a system where a “High” language is used for official business and a “Low” language for family life. Mandarin is increasingly treated as the “High” variety—official, educated, and globally useful. Meanwhile, Cantonese is pushed toward the “Low” variety.</p>
+          <p>Heritage education is a primary site where this hierarchy is produced. In many schools, Mandarin is enforced as the only "proper" identity, rendering other repertoires invisible.</p>
         </div>
       </section>
 
-      <!-- 章节 3 -->
       <section id="sec3" class="content-section">
-        <span class="section-label">Chapter 03</span>
-        <h2>The Great Reversal, 2000s–Present</h2>
+        <span class="section-label">03. The Reversal</span>
+        <h2>The Great Reversal</h2>
         <div class="section-body">
-          <p>Cantonese in North America now confronts a form of double marginality: External pressure from English and internal displacement by Mandarin’s prestige.</p>
-          
-          <h3>A. Canada vs. the United States</h3>
-          <p>The 2021 Census in Canada confirmed Mandarin as the leading Chinese language (~679,000 speakers), widening the gap over the aging demographic of 553,000 Cantonese speakers. In the U.S., estimates for 2025 show approximately 2.6 million Mandarin speakers compared to roughly 0.55 million Cantonese speakers.</p>
-
-          <h3>B. San Francisco as “Fortress”</h3>
-          <p>Language service data from San Francisco demonstrates that Cantonese remains critical for "operational accessibility." In 2025, Cantonese Limited English Proficiency (LEP) interactions reached 20%, while Mandarin, though growing, accounted for only about 5%.</p>
+          <p>Canada’s 2021 Census confirmed Mandarin as the leading Chinese language (~679,000 speakers), surpassing the aging Cantonese demographic. In the U.S., Mandarin surpassed Cantonese around 2010, though Cantonese remains vital for institutional access in legacy Chinatowns like San Francisco.</p>
         </div>
       </section>
 
-      <!-- 章节 4 -->
       <section id="sec4" class="content-section">
-        <span class="section-label">Chapter 04</span>
+        <span class="section-label">04. Identity</span>
         <h2>Identity and Resistance</h2>
         <div class="section-body">
-          <p>If Cantonese is no longer the dominant economic credential, its value does not disappear—it shifts. Cantonese is increasingly revalued as a <strong>heritage asset</strong>. Mandarin is now valued for its "Commodification," while Cantonese is valued for its "Authenticity"—a marker of specific regional roots and Hong Kong identity.</p>
-
-          <div class="quote-box">
-            The emergence of a "Cantonese Renaissance" among youth activists suggests a conscious effort to preserve the language not for economic utility, but for cultural continuity.
-          </div>
-
-          <h3>Conclusion: What the Reversal Means</h3>
-          <p>The function of Cantonese in North America has fundamentally shifted. Traditional Cantonese immigrant origins no longer hold a monopoly on what it means to be “Chinese.” Yet, this very pressure has politicized the language, turning it into a new site of resistance and cultural reclamation.</p>
+          <p>If Cantonese is no longer the dominant economic credential, its value shifts to <strong>Authenticity</strong>. It becomes a marker of regional roots, Hong Kong identity, and diasporic history. The emergence of a "Cantonese Renaissance" among youth activists suggests a conscious effort to preserve the language for cultural continuity rather than economic utility.</p>
         </div>
       </section>
 
