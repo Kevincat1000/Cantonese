@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phase IV: 2000s–Present - Diversification and Resilience</title>
+  <title>Phase IV: 2000–Present - Diversification and Resilience</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@
       --bg-tan: #D9CCB7;     
       --bg-paper: #f5f0e5;   
       --accent-red: #a84d4d;
-      --dark-red: #701a1a; /* 用户指定核心色 */
+      --dark-red: #701a1a; 
       --text-main: #333333;  
       --text-light: #f5f0e5;
       
@@ -90,7 +90,7 @@
       color: var(--accent-red);
     }
 
-    /* --- 2. Hero (Modern Connectivity Canvas) --- */
+    /* --- 2. Hero --- */
     .hero-section {
       position: relative;
       height: 100vh; 
@@ -118,7 +118,6 @@
       text-align: center;
       max-width: 900px;
       padding: 0 20px;
-      text-shadow: 0 0 20px var(--bg-paper);
     }
 
     .hero-label {
@@ -149,7 +148,7 @@
       margin-top: 0.5rem;
     }
 
-    /* --- 3. Content Layouts --- */
+    /* --- 3. Content --- */
     .container {
       max-width: 1152px;
       margin: 0 auto;
@@ -161,7 +160,6 @@
       transition: background-color 1.5s ease; 
     }
 
-    /* 深红背景样式 */
     .section-dark-red {
       background-color: var(--dark-red);
       color: var(--text-light);
@@ -169,10 +167,6 @@
     
     .section-dark-red .section-title {
       border-left-color: var(--bg-tan);
-    }
-
-    .section-dark-red .image-caption {
-      color: var(--bg-tan);
     }
 
     .section-title {
@@ -186,7 +180,7 @@
       border-left: 5px solid var(--accent-red);
     }
 
-    .text-content { font-size: 1.15rem; line-height: 1.8; }
+    .text-content { font-size: 1.15rem; line-height: 1.8; width: 100%; }
     .grid-2col { display: grid; gap: 4rem; align-items: start; }
 
     /* Animations */
@@ -198,7 +192,6 @@
       border-radius: 4px;
       overflow: hidden;
       box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-      background: rgba(0,0,0,0.1);
     }
     .image-frame img { width: 100%; height: auto; display: block; transition: transform 0.6s ease; }
     .image-frame:hover img { transform: scale(1.05); }
@@ -209,15 +202,18 @@
       margin-top: 12px;
       opacity: 0.8;
       font-style: italic;
+      color: var(--bg-tan);
     }
 
-    /* Phase Navigation Adjustments for Dark Background */
+    /* --- Footer Navigation (精简版) --- */
     .phase-navigation {
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(245, 240, 229, 0.2); /* 浅色边框 */
+      margin-top: 5px; /* 减至5px */
+      padding-top: 5px; /* 减至5px */
+      padding-bottom: 5px; /* 减至5px */
+      border-top: 1px solid rgba(245, 240, 229, 0.2);
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between; /* 左右分布 */
+      align-items: center;
     }
     
     .phase-link {
@@ -225,14 +221,15 @@
       color: var(--text-light);
       display: inline-flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       font-family: var(--font-heading);
       font-weight: 700;
       transition: all 0.3s;
+      font-size: 1rem;
     }
     
-    .phase-link:hover { color: var(--bg-tan); transform: translateX(-5px); }
-    .link-sub { display: block; font-size: 0.8em; opacity: 0.7; font-weight: 400; margin-top: 4px; }
+    .phase-link:hover { color: var(--bg-tan); }
+    .link-sub { display: block; font-size: 0.75em; opacity: 0.7; font-weight: 400; margin-top: 2px; }
 
     @media (min-width: 900px) {
       .hero-title { font-size: 5rem; }
@@ -240,7 +237,7 @@
     }
     @media (max-width: 768px) {
       .grid-2col { grid-template-columns: 1fr; gap: 2rem; }
-      .content-section { padding: 4rem 1.5rem; }
+      .phase-navigation { flex-direction: column; gap: 15px; align-items: flex-start; }
     }
   </style>
 </head>
@@ -255,19 +252,19 @@
     <span class="nav-text">Back to Timeline</span>
   </a>
 
-  <!-- Hero Section (Light Cover) -->
+  <!-- Hero Section (2000s -> 2000) -->
   <header class="hero-section">
     <canvas id="network-canvas"></canvas>
     <div class="hero-content">
       <span class="hero-label">Timeline / Phase IV</span>
-      <h1 class="hero-title">2000s–Present</h1>
+      <h1 class="hero-title">2000–Present</h1>
       <h2 class="hero-subtitle">Diversification and Cultural Resilience</h2>
     </div>
   </header>
   
   <main>
 
-    <!-- 1. Modern Migration (Paper/Light Background) -->
+    <!-- 1. Modern Migration -->
     <section class="content-section">
       <div class="container">
         <div class="grid-2col fade-content">
@@ -284,22 +281,19 @@
           </div>
           <div class="img-col">
             <div class="image-frame">
-              <!-- 使用具有现代感、全球化特征的图片 -->
               <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000" alt="Professionals and Education">
             </div>
-            <p class="image-caption">The new generation: Education and professional excellence define the contemporary diaspora.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Cantonese Renaissance (Deep Red Background #701a1a) -->
+    <!-- 2. Cantonese Renaissance (Dark Red) -->
     <section class="content-section section-dark-red">
       <div class="container">
         <div class="grid-2col fade-content" style="align-items: center;">
           <div class="img-col">
             <div class="image-frame">
-              <!-- 使用体现粤语文化活力、都市感的图片 -->
               <img src="https://images.unsplash.com/photo-1543157145-f78c636d023d?auto=format&fit=crop&q=80&w=1000" alt="Cultural Identity">
             </div>
             <p class="image-caption">Resilience through language: Cantonese remains a vibrant home language for over half a million Americans.</p>
@@ -320,21 +314,26 @@
       </div>
     </section>
 
-    <!-- 3. Legacy (Also Deep Red Background #701a1a) -->
+    <!-- 3. Legacy (Dark Red, Full Width Text) -->
     <section class="content-section section-dark-red" style="padding-top: 0;">
       <div class="container fade-content">
         <h2 class="section-title">Legacy into the Future</h2>
-        <div class="text-content" style="max-width: 900px;">
-          <p style="font-size: 1.25rem; margin-bottom: 3rem;">
+        <div class="text-content">
+          <p style="font-size: 1.25rem; margin-bottom: 4rem;">
             From the gold mines of the 19th century to the tech hubs of the 21st, the Cantonese journey in North America is a testament to endurance. What began as a quest for survival has blossomed into a sophisticated, transnational identity that continues to shape the cultural landscape of the Pacific Rim.
           </p>
         </div>
 
-        <!-- Navigation Links -->
+        <!-- Navigation Links (Left: Prev Phase, Right: Return) -->
         <div class="phase-navigation">
             <a href="phase3.html" class="phase-link">
                 <i data-lucide="arrow-left"></i>
                 <span>Phase III: 1950s–1990s<br><span class="link-sub">Global Dispersion & Identity</span></span>
+            </a>
+
+            <a href="timeline.html" class="phase-link">
+                <span style="text-align: right;">Return to Timeline<br><span class="link-sub">Overview of All Phases</span></span>
+                <i data-lucide="layout-grid"></i>
             </a>
         </div>
       </div>
@@ -343,10 +342,8 @@
   </main>
 
   <script>
-    // 1. Initialize Icons
     lucide.createIcons();
 
-    // 2. Intersection Observer for fade-in animations
     const observerOptions = { threshold: 0.15 };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -358,8 +355,7 @@
 
     document.querySelectorAll('.fade-content').forEach(el => observer.observe(el));
 
-    // 3. MODERN GLOBAL CONNECTIVITY CANVAS
-    // 模拟21世纪全球化、互联网连接的线条动画
+    // CANVAS ANIMATION
     const canvas = document.getElementById('network-canvas');
     const ctx = canvas.getContext('2d');
     let width, height, particles = [];
@@ -389,38 +385,25 @@
       ctx.fillStyle = "#a84d4d";
       ctx.strokeStyle = "rgba(168, 77, 77, 0.2)";
       ctx.lineWidth = 1;
-      
       particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        
+        p.x += p.vx; p.y += p.vy;
         if(p.x < 0 || p.x > width) p.vx *= -1;
         if(p.y < 0 || p.y > height) p.vy *= -1;
-        
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Draw connections
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
         for(let j=i+1; j<particles.length; j++) {
           const p2 = particles[j];
           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
           if(dist < 180) {
             ctx.globalAlpha = 1 - (dist / 180);
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
             ctx.globalAlpha = 1;
           }
         }
       });
       requestAnimationFrame(draw);
     }
-
     window.addEventListener('resize', resize);
-    resize();
-    draw();
+    resize(); draw();
   </script>
 </body>
 </html>
