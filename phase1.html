@@ -72,10 +72,9 @@
     }
     .hero-subtitle { font-family: var(--font-heading); font-size: 1.8rem; color: #4a5568; font-weight: 400; margin-top: 0.5rem; }
     
-    /* Boat: Reduced size by 50% & Mobile Fix */
     .hero-boat {
       position: absolute; right: 5%; bottom: 20%;
-      width: 180px; /* Reduced from 360px */
+      width: 180px; 
       height: auto; z-index: 1; opacity: 0.9; pointer-events: none;
       transform: translateX(-30px); animation: sailRight 2s ease-out forwards;
     }
@@ -85,7 +84,6 @@
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
     .content-section { 
       padding: 4rem 2rem; 
-      /* Fade Transition Setup */
       opacity: 0; 
       transform: translateY(30px); 
       transition: opacity 1s ease, transform 1s ease;
@@ -97,6 +95,9 @@
       background-color: var(--bg-paper); color: var(--text-dark);
       background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px);
     }
+
+    /* 最后一页间距深度压缩 */
+    .last-section { padding-bottom: 10px !important; }
 
     .section-title {
       font-family: var(--font-heading); font-size: 24px; font-weight: 700; margin-bottom: 1.5rem;
@@ -111,7 +112,7 @@
     .grid-2col { display: grid; gap: 2rem; align-items: start; }
     .grid-2-1 { grid-template-columns: 1fr; } 
     
-    /* Vietnam Section Specific Layout */
+    /* Vietnam Section */
     .vietnam-layout { display: flex; flex-direction: column; gap: 2rem; }
     
     /* Gallery */
@@ -127,10 +128,10 @@
       position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(45, 123, 115, 0.95), rgba(45, 123, 115, 0.7));
       color: white; padding: 14px; font-size: 13px; text-align: center; font-family: var(--font-heading);
     }
-    .gallery-nav { display: flex; justify-content: center; gap: 16px; margin-top: 10px; }
+    .gallery-nav { display: flex; justify: center; gap: 16px; margin-top: 10px; }
     .nav-btn {
       background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; width: 32px; height: 32px;
-      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify: center;
     }
     .nav-btn:hover { border-color: var(--accent-red); background: var(--accent-red); }
 
@@ -157,12 +158,14 @@
     .loke-yew-layout { display: grid; gap: 2rem; }
     .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(255,255,255,0.1); border-radius: 8px; }
 
-    /* Compact Link Section - Tightened */
+    /* Compact Link Section - 深度压缩 */
     .phase-navigation {
-      margin-top: 10px; padding-top: 10px; padding-bottom: 5px;
-      border-top: 1px solid rgba(255,255,255,0.15); text-align: right;
+      margin-top: 5px; 
+      padding-top: 10px; 
+      padding-bottom: 5px;
+      border-top: 1px solid rgba(255,255,255,0.15); 
+      text-align: right;
     }
-    .last-section { padding-bottom: 2rem; } /* Reduced padding */
     
     .phase-link {
       text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 10px;
@@ -176,15 +179,10 @@
     @media (min-width: 900px) {
       .grid-2col { grid-template-columns: 1fr 1fr; }
       .grid-2-1 { grid-template-columns: 1.5fr 1fr; }
-      
-      /* Vietnam 50/50 Layout - Map Taller */
       .vietnam-layout { flex-direction: row; align-items: flex-start; }
       .vietnam-text { width: 50%; padding-right: 2rem; }
-      .vietnam-map { width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-      
-      /* Map Height Control: ~480px (approx 20% taller than average text block) */
+      .vietnam-map { width: 50%; display: flex; flex-direction: column; align-items: center; justify: center; }
       .map-image { width: 90%; height: 480px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin-top: -20px; }
-      
       .historical-images { grid-template-columns: 1fr 1fr; margin-top: -60px; }
       .colonial-images { grid-template-columns: 1fr 1fr; }
       .tin-boom-layout { grid-template-columns: 1fr 1fr; align-items: center; }
@@ -194,13 +192,7 @@
 
     @media (max-width: 768px) {
       .hero-section { height: auto; min-height: 100vh; padding: 100px 20px 40px; }
-      /* Mobile Boat Fix: Centered, No Animation, No Overflow */
-      .hero-boat { 
-        position: relative; right: auto; bottom: auto; left: auto;
-        width: 150px; 
-        margin: 30px auto 0; display: block;
-        transform: none; animation: none; opacity: 1; 
-      }
+      .hero-boat { position: relative; right: auto; bottom: auto; left: auto; width: 150px; margin: 30px auto 0; display: block; transform: none; animation: none; opacity: 1; }
       .hero-content { margin-top: 0; }
       .vietnam-map .map-image { width: 100%; height: auto; margin-top: 0; }
     }
@@ -210,9 +202,7 @@
 <body>
   <!-- Nav -->
   <a href="timeline.html" class="nav-float" id="nav-btn">
-    <div class="nav-icon-circle">
-      <i data-lucide="arrow-left"></i>
-    </div>
+    <div class="nav-icon-circle"><i data-lucide="arrow-left"></i></div>
     <span class="nav-text">Back to Timeline</span>
   </a>
 
@@ -227,7 +217,7 @@
   </header>
   
   <main>
-    <!-- Section 1: Siam (Teal) -->
+    <!-- Section 1: Siam -->
     <section class="section-teal content-section first-section">
       <div class="container">
         <div class="grid-2col grid-2-1">
@@ -258,30 +248,26 @@
       </div>
     </section>
     
-    <!-- Section 2: Vietnam (Teal) - Split Layout -->
+    <!-- Section 2: Vietnam -->
     <section class="section-teal content-section" id="vietnam-section">
       <div class="container">
         <h2 class="section-title text-white">1680s–1790s: Establishment in Southern Vietnam</h2>
-        
         <div class="vietnam-layout">
-          <!-- Left: Text -->
           <div class="vietnam-text">
             <div class="text-content text-white-90">
               <p>Around 1680, Mo Jiu, a refugee from Leizhou, Guangdong, developed the Hà Tiên area. He formally established a semi-autonomous principality there in 1708, placing it under the suzerainty of the Vietnamese Nguyễn lords. This polity functioned as a sanctuary and major hub for Cantonese and other Chinese migrants prior to French colonization.</p>
               <p>During the Tây Sơn conflicts, ethnic Chinese merchants, primarily Cantonese, founded a new settlement adjacent to Saigon in 1778. This settlement evolved into Chợ Lớn ("Big Market"). Despite suffering severe persecution and violence in 1782, survivors rebuilt the community. By the end of the 18th century, the Cantonese population in Cochinchina was estimated at 30,000–40,000, controlling key rice and silk trade routes.</p>
             </div>
           </div>
-          
-          <!-- Right: Map (Centered, Taller) -->
           <div class="vietnam-map">
-            <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map of Southern Asia" class="map-image">
+            <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map" class="map-image">
             <p class="caption text-white-90">Antique Map of Southern Asia by Walker (c.1840)</p>
           </div>
         </div>
       </div>
     </section>
     
-    <!-- Section 3: Historical Images (Teal) -->
+    <!-- Section 3: Historical Images -->
     <section class="section-teal content-section">
       <div class="container">
         <div class="historical-images">
@@ -302,7 +288,7 @@
       </div>
     </section>
     
-    <!-- Section 4: British Ports (Paper) -->
+    <!-- Section 4: British Ports -->
     <section class="section-paper content-section">
       <div class="container">
         <h2 class="section-title text-dark">1786–1820s: Expansion into British Colonial Ports</h2>
@@ -323,7 +309,7 @@
       </div>
     </section>
     
-    <!-- Section 5: Tin Boom (Paper) -->
+    <!-- Section 5: Tin Boom -->
     <section class="section-paper content-section" style="padding-top: 1.5rem;">
       <div class="container">
         <h2 class="section-title text-dark">1840s–1870s: The Malayan Tin Boom</h2>
@@ -341,23 +327,25 @@
       </div>
     </section>
     
-    <!-- Section 6: Summary (Teal) -->
+    <!-- Section 6: Summary & Footer Navigation -->
     <section class="section-teal content-section last-section">
       <div class="container">
         <h2 class="section-title text-white">Summary: Social Mobility</h2>
         <div class="loke-yew-layout">
           <div>
             <img src="https://bit.ly/4phrjVa" alt="Loke Yew" class="loke-yew-image">
-            <p class="caption text-white-90">Loke Yew (1846-1917). Cantonese migrant turned<br>Malayan tin tycoon and philanthropist.</p>
+            <p class="caption text-white-90">Loke Yew (1846-1917). Cantonese tycoon.</p>
           </div>
           <div class="text-content text-white-90">
             <p>By the turn of the 19th century, the total Cantonese population in Southeast Asia remained relatively modest, yet they occupied a unique niche. Through the Ghee Hin brotherhoods and clan associations, they organized both labor and capital. By the late 19th century, a distinct class of magnates emerged, controlling tin mines, revenue farms, and vast commercial networks.</p>
           </div>
         </div>
         
+        <!-- Navigation Link Area (Depth Compressed) -->
         <div class="phase-navigation">
           <a href="phase2.html" class="phase-link">
-            <span>Phase II: 1840s–1940s <span style="font-size:0.8em; opacity:0.8; font-weight:400; margin-left: 5px;"></Br>Building North America & The Pacific</span></span                                                                                                                                                    
+            <span>Phase II: 1840s–1940s<br>
+            <span style="font-size:0.8em; opacity:0.8; font-weight:400;">Building North America & The Pacific</span></span>                                                                                                                                                    
             <i data-lucide="arrow-right" class="phase-arrow"></i>
           </a>
         </div>
@@ -368,18 +356,13 @@
   <script>
     lucide.createIcons();
 
-    /* Nav Button Color Transition */
     const navBtn = document.getElementById('nav-btn');
     const heroHeight = window.innerHeight; 
     window.addEventListener('scroll', () => {
-        if(window.scrollY > heroHeight - 50) {
-            navBtn.classList.add('on-dark');
-        } else {
-            navBtn.classList.remove('on-dark');
-        }
+        if(window.scrollY > heroHeight - 50) navBtn.classList.add('on-dark');
+        else navBtn.classList.remove('on-dark');
     });
 
-    /* Gallery Logic */
     const captions = [
       "View of Judea, the Capital of Siam (c. 1662 - c. 1663)",
       "View of Ayutthaya with royal barges, 1688",
@@ -400,21 +383,10 @@
     document.getElementById('prev').onclick = () => go(index - 1);
     document.getElementById('next').onclick = () => go(index + 1);
 
-    /* Smooth Fade In on Scroll (Removes harsh color cuts) */
     const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('section-visible');
-        } else {
-          /* Optional: remove class to fade out when scrolling up/down away */
-           // entry.target.classList.remove('section-visible'); 
-        }
-      });
-    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
-
-    document.querySelectorAll('.content-section').forEach(section => {
-      fadeObserver.observe(section);
-    });
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('section-visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.content-section').forEach(section => fadeObserver.observe(section));
   </script>
 </body>
 </html>
