@@ -69,7 +69,7 @@
     .section-body { font-family: 'Gentium Book Plus', serif; font-size: 16px; line-height: 1.8; color: #000; }
     .section-body p { margin-bottom: 1.5rem; }
 
-    /* --- 姓氏组件 (浅灰色小字) --- */
+    /* --- 姓氏组件 (灰色极小字) --- */
     .surname-comparison { margin: 20px auto; display: flex; flex-direction: column; gap: 8px; max-width: 420px; }
     .surname-row { display: flex; align-items: center; gap: 15px; margin-bottom: 5px; }
     .char-red { font-size: 22px; color: var(--accent-red); width: 35px; text-align: center; }
@@ -80,7 +80,7 @@
     .pill-side { display: flex; flex-direction: column; }
     .lang-tag { font-family: 'Exo', sans-serif; font-size: 9px; text-transform: uppercase; color: #999; font-weight: 500; }
     .surname-main { font-size: 16px; font-weight: 700; color: #000; margin-top: -2px; }
-    .surname-mandarin { font-size: 16px; font-weight: 500; color: #000; margin-top: -2px; }
+    .surname-mandarin { font-size: 16px; font-weight: 600; color: #000; margin-top: -2px; }
 
     /* --- 景观对比：上下递进特效 --- */
     .landscape-reveal-container { margin: 20px 0 80px 0; width: 100%; }
@@ -94,13 +94,15 @@
       padding: 10px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
-    .reveal-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal-item.visible { opacity: 1; transform: translateY(0); }
     .landscape-img { width: 100%; height: auto; display: block; }
     .sepia { filter: grayscale(1) contrast(1.1); }
     .landscape-caption { font-family: 'Exo', sans-serif; font-size: 12px; margin-top: 15px; border-top: 1px solid #000; padding-top: 10px; color: #333; line-height: 1.4; }
+
+    /* 报纸图片样式 (B部分) */
+    .news-flex { display: flex; gap: 30px; margin: 30px 0; justify-content: center; } 
+    .news-item { width: 170px; }
+    .news-img { width: 170px; height: 250px; object-fit: cover; object-position: center; filter: none; }
 
     /* 样式框 */
     .border-highlight-box { border: 1px solid #000; padding: 25px; margin: 30px 0; }
@@ -150,14 +152,20 @@
           <p>Because Guangdong native networks deeply shaped these institutions, Cantonese was the price of admission. Speaking the language was not a choice; it was a necessity. It functioned as a “survival license.” Without Cantonese, a Chinese immigrant could not borrow money, find a job, or access legal protection. The community’s support system was effectively closed to anyone who did not speak the language.</p>
           
           <div class="slideshow-container">
-            <div class="mySlides" style="display: block;"><img src="https://www.foundsf.org/images/d/d3/Chinatwn%246-companies-officers.jpg"><div class="slide-caption">Officers of the Six Companies in 1890, Bancroft Library.</div></div>
-            <div class="mySlides"><img src="https://www.foundsf.org/images/5/5a/Reps_of_Six_Companies_1943_AAB-6823.jpg"><div class="slide-caption">Representatives of the Six Companies in 1943. SF Public Library.</div></div>
-            <div class="mySlides"><img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg"><div class="slide-caption">Ning Yung Benevolent Association, I.W. Taber, 1891.</div></div>
+            <div class="mySlides" style="display: block;"><img src="https://www.foundsf.org/images/d/d3/Chinatwn%246-companies-officers.jpg"><div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Officers of the Six Companies in 1890, Bancroft Library.</div></div>
+            <div class="mySlides"><img src="https://www.foundsf.org/images/5/5a/Reps_of_Six_Companies_1943_AAB-6823.jpg"><div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Representatives of the Six Companies in 1943. SF Public Library.</div></div>
+            <div class="mySlides"><img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg"><div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Ning Yung Benevolent Association, I.W. Taber, 1891.</div></div>
             <button class="prev" onclick="plusSlides(-1)">❮</button><button class="next" onclick="plusSlides(1)">❯</button>
           </div>
 
           <h3>B. Media Hegemony: The Public Voice</h3>
           <p>Cantonese dominance was also reproduced through media institutions. The first U.S. Chinese newspaper, Kim Shan Jit San Luk / Golden Hills’ News (April 22, 1854), was founded to serve the growing immigrant population and was written in classical-style Chinese, yet its very title appears in Cantonese romanization (“Kim Shan”), and its contents circulated through Cantonese-speaking associations, shops, and communities, who often read aloud, debated, and retold in Cantonese, turning print into a shared Cantonese civic soundscape. In the early twentieth century, Chung Sai Yat Po (1900–1951) became one of the major Chinese-language dailies in Chinatown. Even when it addressed “modern” issues, it did so through institutions and audiences anchored in Cantonese community life. The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was “inside” the community’s political imagination and which linguistic groups were peripheral.</p>
+
+          <!-- 恢复：Section B 报纸图片 -->
+          <div class="news-flex">
+            <div class="news-item"><img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" class="news-img"><div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 10px; text-align: center;">The Golden Hills’ News, 1854</div></div>
+            <div class="news-item"><img src="https://maxrambod.cdn.bibliopolis.com/pictures/22049.jpg" class="news-img"><div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 10px; text-align: center;">Chung Sai Yat Po, 1949</div></div>
+          </div>
 
           <h3>C. Surnames and Signs: Cantonese as the Default Public Pronunciation</h3>
           <p>A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin “Li,” “Wang,” or “Chen.” This signaled that Cantonese was the “standard sound” of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.</p>
@@ -195,15 +203,12 @@
             <h3>C. The Supply Chain Disruption: State Standardization</h3>
             <p>1965 US Immigration Act and 1979 diplomatic normalization opened doors to migrants from all Chinese provinces, not just Guangdong. New arrivals poured in from Mandarin-speaking regions, fundamentally shifting the linguistic landscape.</p>
 
-            <!-- 景观递进特效展示 -->
             <div class="landscape-reveal-container">
-              <span class="section-label" style="text-align: center; margin-bottom: 40px;">Visual Evidence: The Landscape Shift</span>
-              
+              <span class="section-label" style="text-align: center; margin-bottom: 25px;">Visual Evidence: The Landscape Shift</span>
               <div class="reveal-item">
                 <img src="https://www.bobeckertphotography.com/uploads/1/2/6/7/126794906/img032-people-lined-along-street-san-francisco-chinatown-2-email_orig.jpg" class="landscape-img sepia">
                 <div class="landscape-caption"><strong>1970s San Francisco</strong><br>Legacy soundscape: Street signs and community life anchored in Cantonese traditional characters. Photo by Bob Eckert.</div>
               </div>
-
               <div class="reveal-item">
                 <img src="https://media.timeout.com/images/105501181/750/422/image.jpg" class="landscape-img">
                 <div class="landscape-caption"><strong>2024 Flushing, NY</strong><br>Mandarin visual dominance: Simplified characters and Pinyin-based signage reflecting new demographic centers.</div>
@@ -231,52 +236,4 @@
         <div class="section-body">
             <p>Mandarin is now valued primarily for its "Commodification"—its convertibility into global market opportunities. In contrast, Cantonese is valued for its "Authenticity"—a marker of specific regional roots, Hong Kong identity, and diasporic history. While no longer the universal "key" to the ethnic economy, Cantonese persists as a critical resource for intergenerational connection and community organizing. The emergence of a "Cantonese Renaissance" among youth activists suggests a conscious effort to preserve the language not for economic utility, but for cultural continuity.</p>
             <h3>Conclusion: What the Reversal Means</h3>
-            <p>The function of Cantonese in North America has fundamentally shifted. Traditional Cantonese immigrant origins no longer holds a monopoly on what it meant to be “Chinese.” Mandarin’s economic power rises alongside English assimilation pressures, leaving Cantonese squeezed in the middle. Yet, this very pressure has politicized the language, turning it into a new site of resistance and cultural reclamation.</p>
-        </div>
-      </section>
-
-    </article>
-  </div>
-
-  <script>
-    // --- 幻灯片逻辑 ---
-    let slideIndex = 1;
-    function plusSlides(n) { showSlides(slideIndex += n); }
-    function showSlides(n) {
-      let slides = document.getElementsByClassName("mySlides");
-      if (n > slides.length) {slideIndex = 1}
-      if (n < 1) {slideIndex = slides.length}
-      for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-      slides[slideIndex-1].style.display = "block";
-    }
-
-    // --- 滚动递进显示特效 ---
-    const observerOptions = { threshold: 0.2 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
-
-    // --- Header 智能显隐 ---
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', function() {
-      const header = document.querySelector('header') || document.querySelector('.site-header');
-      if (!header) return;
-      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      if (currentScroll < 0) currentScroll = 0;
-      if (currentScroll > lastScrollTop && currentScroll > 80) {
-        header.classList.add('header-hidden');
-      } else if (currentScroll < lastScrollTop) {
-        header.classList.remove('header-hidden');
-      }
-      lastScrollTop = currentScroll;
-    }, false);
-  </script>
-
-</body>
-</html>
+            <p>The function of Cantonese in North America has fundamentally shifted. Traditional Cantonese immigrant origins no longer holds a monopoly on what it meant to be “Chinese.” Mandarin’s economic power rises alongside English assimilation pressures, leaving Cantonese squeezed in the middle. Yet, this very pressure has politicized the language, turning it in
