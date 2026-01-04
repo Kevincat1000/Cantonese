@@ -1,75 +1,280 @@
-<div class="unified-content-container">
-  
-  <!-- B. Media Hegemony Content -->
-  <div class="content-block media-block">
-    <h4 class="era-subtitle-main">B. Media Hegemony: The Public Voice</h4>
-    <p class="highlight-text">
-      Cantonese dominance was also reproduced through media institutions. San Francisco's early Chinese press was written exclusively for a Cantonese-speaking labor class.
-    </p>
-    <p>
-      <i>The Golden Hills' News</i> (1854), the first Chinese newspaper in the U.S., circulated among early migrants. In the early 20th century, major papers such as <i>Chung Sai Yat Po</i> (1900–1951) shaped political and civic discourse for decades, also spelled in Cantonese. Even when these newspapers discussed modern issues, they spoke to a Cantonese world.
-    </p>
-    <p>
-      The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was "inside" the community's political imagination and which linguistic groups were peripheral.
-    </p>
-    <span class="bg-caption">Background: The Golden Hills' News, San Francisco, 1854</span>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Language - Cantonese in Americas</title>
 
-  <!-- C. Surnames and Signs Content & Visualization -->
-  <div class="content-block surnames-block">
-    <h4 class="era-subtitle-main">C. Surnames and Signs: The "Standard Sound"</h4>
-    <p>
-      A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: "Lee," "Wong," and "Chan" became the norm, rather than the Mandarin pinyin "Li," "Wang," or "Chen."
-    </p>
-    <p>
-      This was more than just spelling. It signaled that Cantonese was the "standard sound" of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.
-    </p>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Compact Pronunciation Visual Slider -->
-    <div class="pronunciation-visualizer">
-      <!-- Lee/Li -->
-      <div class="visual-row">
-        <div class="char-col">李</div>
-        <div class="slider-track">
-          <div class="slider-label cantonese-side">
-            <span class="label-name">Cantonese</span>
-            <span class="pinyin-highlight">Lee</span>
-          </div>
-          <div class="slider-label mandarin-side">
-            <span class="pinyin-dim">Li</span>
-            <span class="label-name">Mandarin</span>
-          </div>
-        </div>
-      </div>
-      <!-- Wong/Wang -->
-      <div class="visual-row">
-        <div class="char-col">王</div>
-        <div class="slider-track">
-          <div class="slider-label cantonese-side">
-            <span class="label-name">Cantonese</span>
-            <span class="pinyin-highlight">Wong</span>
-          </div>
-          <div class="slider-label mandarin-side">
-            <span class="pinyin-dim">Wang</span>
-            <span class="label-name">Mandarin</span>
-          </div>
-        </div>
-      </div>
-      <!-- Chan/Chen -->
-      <div class="visual-row">
-        <div class="char-col">陈</div>
-        <div class="slider-track">
-          <div class="slider-label cantonese-side">
-            <span class="label-name">Cantonese</span>
-            <span class="pinyin-highlight">Chan</span>
-          </div>
-          <div class="slider-label mandarin-side">
-            <span class="pinyin-dim">Chen</span>
-            <span class="label-name">Mandarin</span>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- Header/Footer Injectors -->
+  <script src="./assets/header.js" defer></script>
+  <script src="./assets/footer.js" defer></script>
 
-  </div>
-</div>
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg: #f5f0e5; 
+      --text: #1a1a1a;
+      --header-h: 48px; 
+      --theme-red: #a84d4d;
+      --theme-teal: #2d7b73;
+      --theme-gold: #c5a059;
+      --font-body: 'Gentium Book Plus', serif;
+      --font-heading: 'Exo', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body, html {
+      background-color: var(--bg);
+      font-family: var(--font-body);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body { padding-top: var(--header-h); }
+
+    /* --- 1. Hero Section (New Cover with Canvas) --- */
+    .hero-container {
+      position: relative;
+      width: 100%;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-color: var(--bg);
+    }
+
+    #particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.6; /* 降低粒子透明度使其更优雅 */
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      max-width: 900px;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-label {
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--theme-red);
+      margin-bottom: 1.5rem;
+      display: block;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 1.4rem;
+      line-height: 1.6;
+      color: #4a5568;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .hero-highlight {
+      font-weight: 700;
+      color: var(--text);
+      border-bottom: 2px solid var(--theme-gold);
+    }
+
+    /* --- 2. Flashcards Section --- */
+    .flash-section {
+      padding: 80px 0;
+      background-color: var(--bg);
+    }
+
+    .container {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .flash-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .flashcard {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      perspective: 1000px;
+    }
+
+    .flashcard-inner {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .flashcard:hover .flashcard-inner { transform: rotateY(180deg); }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .card-front { background: #fdfcf8; }
+    .card-back { transform: rotateY(180deg); background: #fff; border-color: var(--theme-red); }
+
+    .card-front h3 { font-size: 2.5rem; font-family: var(--font-heading); color: var(--text); margin-bottom: 0.5rem; }
+    .card-front p { font-family: var(--font-body); font-style: italic; color: var(--theme-teal); }
+    .card-back h4 { font-size: 1.2rem; font-family: var(--font-heading); color: var(--theme-red); margin-bottom: 10px; }
+    .card-back p { font-size: 0.95rem; line-height: 1.4; }
+
+    /* --- 3. Content Sections (Narrative) --- */
+    .content-section { padding: 100px 0; }
+    .section-dark { background-color: var(--theme-red); color: #fff; }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      border-left: 5px solid var(--theme-gold);
+      padding-left: 25px;
+    }
+
+    .grid-2col { display: grid; grid-template-columns: 2fr 1.2fr; gap: 4rem; align-items: start; }
+    
+    .body-text { font-size: 1.15rem; line-height: 1.8; margin-bottom: 1.5rem; text-align: justify; }
+
+    .image-box {
+      background: #fff;
+      padding: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 4px;
+    }
+    .image-box img { width: 100%; height: auto; display: block; }
+    .image-caption { font-size: 0.85rem; color: #666; margin-top: 10px; text-align: center; font-style: italic; }
+
+    /* --- Pronunciation Slider (The Surname Part) --- */
+    .visualizer-container {
+      background: rgba(255,255,255,0.5);
+      padding: 30px;
+      border-radius: 8px;
+      margin-top: 40px;
+    }
+
+    .visual-row { display: flex; align-items: center; margin-bottom: 15px; }
+    .char-col { font-size: 2rem; font-weight: 700; width: 60px; color: var(--theme-red); font-family: var(--font-heading); }
+    .slider-track {
+      flex: 1; height: 40px; background: rgba(0,0,0,0.05); border-radius: 20px;
+      display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+      position: relative; overflow: hidden;
+    }
+    .slider-track::before {
+      content: ''; position: absolute; left: 0; width: 60%; height: 100%; 
+      background: var(--theme-gold); opacity: 0.2;
+    }
+    .label-set { z-index: 2; display: flex; flex-direction: column; }
+    .lang-label { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; color: #888; }
+    .pinyin-val { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+
+    /* --- Responsive --- */
+    @media (max-width: 900px) {
+      .flash-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid-2col { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2.5rem; }
+    }
+    @media (max-width: 500px) {
+      .flash-grid { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <main>
+    <!-- Hero Cover -->
+    <section class="hero-container">
+      <canvas id="particle-canvas"></canvas>
+      <div class="hero-content">
+        <span class="hero-label">The Linguistic Journey</span>
+        <h1 class="hero-title">Cantonese as Linguistic Capital</h1>
+        <p class="hero-subtitle">
+          Beyond communication, <span class="hero-highlight">language is capital.</span> 
+          For over a century, Cantonese served as the primary currency of North American Chinatowns, 
+          granting access to employment, protection, and social belonging.
+        </p>
+      </div>
+    </section>
+
+    <!-- Flashcards Grid -->
+    <section class="flash-section">
+      <div class="container">
+        <div class="flash-grid">
+          <!-- Card 1 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="card-face card-front"><h3>飲茶</h3><p>(Yam Cha)</p></div>
+              <div class="card-face card-back"><h4>Drinking tea</h4><p>Going for dim sum, eating, and socializing.</p></div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="card-face card-front"><h3>食檸檬</h3><p>(Sik Ning Mung)</p></div>
+              <div class="card-face card-back"><h4>Eating lemons</h4><p>Being rejected when asking someone out.</p></div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="card-face card-front"><h3>放飛機</h3><p>(Fong Fei Gei)</p></div>
+              <div class="card-face card-back"><h4>Throwing an airplane</h4><p>Breaking a promise to meet.</p></div>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="card-face card-front"><h3>吹水</h3><p>(Ceoi Seoi)</p></div>
+              <div class="card-face card-back"><h4>Blowing water</h4><p>Chit-chatting; sometimes implies bragging.</p></div>
+            </div>
+          </div>
+          <!-- Card 5 -->
+          <div class="flashcard">
+            <div class="flashcard-inner">
+              <div class="card-face card-front"><h3>炒魷魚</h3><p>(Caau Yau Yu)</p></d
