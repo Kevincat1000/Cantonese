@@ -1,776 +1,310 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Language - Cantonese in Americas</title>
-
+  <title>Cantonese as Linguistic Capital</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Global style -->
-  <link rel="stylesheet" href="./assets/style.css" />
-
-  <!-- Header and Footer injectors -->
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Header/Footer Injectors -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
-
   <style>
-    :root { 
-      --header-h: 73px; 
-      --bg-color: #F5F0E5;
-      --text-color: #2c2c2c;
-      --caption-color: #555;
+    :root {
+      --bg: #f5f0e5; /* 象牙色背景 */
+      --text: #1a1a1a;
+      --header-h: 60px; 
+      --accent: #a84d4d; /* 强调红 */
+      --secondary-text: #555;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scrollbar-gutter: stable; }
+    * { box-sizing: border-box; scroll-behavior: smooth; }
 
-    body {
-      background: var(--bg-color);
+    body, html {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
       font-family: 'Gentium Book Plus', serif;
-      line-height: 1.6;
-      padding-top: var(--header-h, 73px);
-    }
-
-    .page-wrapper {
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    .content-inner {
-      padding: 0 1rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
+    /* --- 布局结构 --- */
+    .main-wrapper {
+      display: flex;
+      min-height: calc(100vh - var(--header-h));
+      padding-top: var(--header-h);
     }
 
-    @media (min-width: 1024px) {
-      .content-inner {
-        padding: 0 2rem 3rem;
-      }
-    }
-
-    /* ===== Flashcard Grid ===== */
-    .flash-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    @media (max-width: 980px) {
-      .flash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 520px) {
-      .flash-grid { grid-template-columns: 1fr; }
-    }
-
-    .flashcard {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      perspective: 1100px;
-    }
-
-    .flashcard button {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      padding: 0;
-      background: transparent;
-      cursor: pointer;
-      border-radius: 14px;
-    }
-
-    .flashcard-inner {
-      position: absolute;
-      inset: 0;
-      transform-style: preserve-3d;
-      transition: transform 0.55s cubic-bezier(.2,.8,.2,1);
-    }
-
-    .flashcard:hover .flashcard-inner,
-    .flashcard:focus-within .flashcard-inner {
-      transform: rotateY(180deg);
-    }
-
-    .card-face {
-      position: absolute;
-      inset: 0;
-      border: 1.25px solid #000;
-      border-radius: 14px;
-      background: #F5F0E5;
-      box-shadow: none;
-      backface-visibility: hidden;
+    /* --- 左侧固定面板 --- */
+    .left-panel {
+      width: 40%;
+      height: calc(100vh - var(--header-h));
+      position: sticky;
+      top: var(--header-h);
+      padding: 60px 40px 40px 60px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-      text-align: center;
+      justify-content: space-between;
+      border-right: 1px solid rgba(0,0,0,0.05);
     }
 
-    .card-back {
-      transform: rotateY(180deg);
-      background: #FFFFFF;
-    }
-
-    .face-title {
-      margin: 0 0 0.5rem 0;
-      font-weight: 700;
-      color: #1a1a1a;
-      line-height: 1.1;
-    }
-
-    .face-text {
+    .main-headline {
+      font-family: 'Gentium Book Plus', serif;
+      font-size: 3.5rem;
+      line-height: 1;
+      font-weight: 400;
       margin: 0;
-      color: #2d3748;
-      line-height: 1.5;
+      text-transform: uppercase;
+      letter-spacing: -1px;
     }
 
-    /* ===== Research Section ===== */
-    #research-section {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      opacity: 0;
-      transition: opacity 1.5s ease;
-      background-color: #0a0a0a;
-    }
-
-    #research-section.is-visible {
-      opacity: 1;
-    }
-
-    #particle-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-    }
-
-    .research-content-box {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      padding: 40px;
-      background: rgba(10, 10, 10, 0.7);
-      backdrop-filter: blur(5px);
-      border-left: 1px solid #d4af37;
-    }
-
-    .research-content-box h1 {
-      font-size: 3rem;
-      line-height: 1.1;
-      margin: 0 0 10px 0;
-      color: #d4af37;
-      font-weight: normal;
-      font-family: 'Georgia', serif;
-    }
-
-    .research-content-box h2 {
+    .sub-headline {
+      font-family: 'Exo', sans-serif;
       font-size: 1.2rem;
-      font-style: italic;
-      color: #a0a0a0;
-      margin-bottom: 30px;
-      font-weight: normal;
+      font-weight: 300;
+      margin-top: 20px;
+      color: var(--secondary-text);
+      letter-spacing: 1px;
     }
 
-    .research-content-box p {
-      font-size: 1.25rem;
-      line-height: 1.8;
+    .keywords {
+      font-family: 'Exo', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-top: 40px;
+      letter-spacing: 2px;
+      color: var(--text);
+    }
+
+    .nav-list {
+      list-style: none;
+      padding: 0;
       margin: 0;
-      color: #e0e0e0;
+      font-family: 'Exo', sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      max-width: 320px;
     }
 
-    .research-content-box .highlight {
-      color: white;
-      font-weight: bold;
+    .nav-list li {
+      margin-bottom: 15px;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+      cursor: pointer;
+    }
+    .nav-list li:hover { opacity: 1; color: var(--accent); }
+    .nav-list a { text-decoration: none; color: inherit; }
+
+    /* --- 右侧滚动区域 --- */
+    .right-panel {
+      width: 60%;
+      padding: 60px 80px;
     }
 
-    @media (max-width: 768px) {
-      .research-content-box {
-        margin: 0 1rem;
-        padding: 30px;
-      }
-      .research-content-box h1 {
-        font-size: 2rem;
-      }
-      .research-content-box p {
-        font-size: 1rem;
-      }
+    .content-section {
+      margin-bottom: 120px;
     }
 
-    /* ===== Evolution Timeline Section ===== */
-    #evolution-section {
-      position: relative;
-      background: var(--bg-color);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 40px 0;
-      box-sizing: border-box;
+    .section-label {
+      font-family: 'Exo', sans-serif;
+      font-size: 11px; 
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 15px;
+      display: block;
     }
 
-    #textureCanvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      opacity: 0.5;
-      pointer-events: none;
-      mix-blend-mode: multiply;
-    }
-
-    .evolution-container {
-      position: relative;
-      z-index: 1;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 30px;
-    }
-
-    .evolution-header {
-      text-align: center;
+    h2 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      line-height: 1.2;
       margin-bottom: 30px;
     }
 
-    .evolution-header h2 {
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
-      font-size: 2.4rem;
-      font-weight: normal;
-      color: var(--text-color);
-      margin-bottom: 0.3rem;
-    }
-
-    .evolution-header p {
-      font-size: 1rem;
-      color: var(--caption-color);
-      font-style: italic;
-    }
-
-    /* Horizontal Era Grid */
-    .era-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-      align-items: start;
-    }
-
-    .era-section {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                  transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .era-section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Staggered delays */
-    .era-section:nth-child(1) { transition-delay: 0s; }
-    .era-section:nth-child(2) { transition-delay: 1s; }
-    .era-section:nth-child(3) { transition-delay: 2s; }
-
-    .image-container {
-      width: 100%;
-      height: calc(100vh - 320px);
-      max-height: 380px;
-      margin-bottom: 0;
-      border: 10px solid #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      background-color: #fff;
-      overflow: hidden;
-    }
-
-    .era-image {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* First two images show top, crop bottom */
-    .era-section:nth-child(1) .era-image,
-    .era-section:nth-child(2) .era-image {
-      object-position: top;
-    }
-    
-    .caption {
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
-      font-size: 0.85rem;
-      color: var(--caption-color);
-      line-height: 1.4;
-      margin-top: 12px;
-      margin-bottom: 0;
-    }
-    .caption span { display: block; }
-
-    .era-title {
-      font-family: 'Georgia', 'Times New Roman', Times, serif;
+    h3 {
+      font-family: 'Exo', sans-serif;
       font-size: 1.1rem;
-      font-weight: normal;
-      margin: 0 0 12px 0;
-      line-height: 1.4;
-      color: var(--text-color);
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
     }
 
-    .era-subtitle {
+    .section-body {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .section-body p { margin-bottom: 1.5rem; }
+
+    /* 图片样式 */
+    .media-container {
+      margin: 40px 0;
+      background: #e9e4d9;
+      padding: 10px;
+    }
+    .media-container img {
+      width: 100%;
+      height: auto;
       display: block;
-      margin-top: 5px;
+      filter: grayscale(0.3);
+      transition: filter 0.5s;
+    }
+    .media-container img:hover { filter: grayscale(0); }
+    .caption {
+      font-size: 0.8rem;
+      margin-top: 10px;
+      font-style: italic;
+      color: var(--secondary-text);
+      text-align: right;
     }
 
-    @media (max-width: 1000px) {
-      #evolution-section {
-        height: auto;
-        min-height: 100vh;
-        padding: 60px 0;
+    .data-highlight {
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+      margin: 30px 0;
+      font-style: italic;
+      color: #555;
+    }
+
+    /* 响应式 */
+    @media (max-width: 1024px) {
+      .main-wrapper { flex-direction: column; }
+      .left-panel { 
+        width: 100%; 
+        height: auto; 
+        position: relative; 
+        top: 0; 
+        padding: 40px 20px;
+        border-right: none;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
       }
-      .era-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        max-width: 500px;
-        margin: 0 auto;
-      }
-      .image-container {
-        height: 320px;
-        max-height: none;
-      }
-      .era-title { font-size: 1.2rem; }
-      .evolution-header h2 { font-size: 2rem; }
-      /* Reset delays for mobile vertical layout */
-      .era-section:nth-child(1) { transition-delay: 0s; }
-      .era-section:nth-child(2) { transition-delay: 1s; }
-      .era-section:nth-child(3) { transition-delay: 2s; }
+      .right-panel { width: 100%; padding: 40px 20px; }
+      .main-headline { font-size: 2.5rem; }
     }
   </style>
 </head>
-
 <body>
-  <div class="page-wrapper">
-    <div class="container">
-      <div class="content-inner">
-        <div style="height: 1rem;"></div>
 
-        <div class="flash-grid">
-
-          <!-- 1 飲茶 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">飲茶</h3>
-                <p class="face-text" style="font-size:18px;">(Yam Cha)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Drinking tea</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Going for dim sum (often for brunch or lunch), eating the food, and socializing.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2 食檸檬 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">食檸檬</h3>
-                <p class="face-text" style="font-size:18px;">(Sik Ning Mung)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Eating lemons</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Being rejected when asking someone out.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3 放飛機 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">放飛機</h3>
-                <p class="face-text" style="font-size:18px;">(Fong Fei Gei)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Throwing an airplane</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Breaking a promise to meet.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4 吹水 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">吹水</h3>
-                <p class="face-text" style="font-size:18px;">(Ceoi Seoi)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Blowing water</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Chit-chatting; sometimes implies bragging or bluffing.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 5 食咗飯未？ -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">食咗飯未？</h3>
-                <p class="face-text" style="font-size:18px;">(Sik Jo Faan Mei?)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Have you eaten yet?</h3>
-                <p class="face-text" style="font-size:18px;">
-                  A casual greeting meaning "hello" or "how are you?"
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 6 生舊叉燒好過生你 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">生舊叉燒好過生你</h3>
-                <p class="face-text" style="font-size:18px;">(Sang Gau Char Siu Hou Gwo Sang Nei)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Better to give birth to char siu</h3>
-                <p class="face-text" style="font-size:18px;">
-                  "You're frustrating me." A classic parent complaint.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 7 炒魷魚 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">炒魷魚</h3>
-                <p class="face-text" style="font-size:18px;">(Caau Yau Yu)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Stir-fried squid</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Getting fired.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 8 雞同鴨講 -->
-          <div class="flashcard">
-            <button type="button"></button>
-            <div class="flashcard-inner">
-              <div class="card-face">
-                <h3 class="face-title" style="font-size:48px;">雞同鴨講</h3>
-                <p class="face-text" style="font-size:18px;">(Gai Tung Aap Gong)</p>
-              </div>
-              <div class="card-face card-back">
-                <h3 class="face-title" style="font-size:48px;">Chicken talking to a duck</h3>
-                <p class="face-text" style="font-size:18px;">
-                  Mutual lack of understanding; unable to communicate due to language barriers.
-                </p>
-              </div>
-            </div>
-          </div>
-
-        </div>
+  <main class="main-wrapper">
+    <!-- 左侧固定部分 -->
+    <aside class="left-panel">
+      <div>
+        <h1 class="main-headline">Cantonese as <br>Linguistic Capital</h1>
+        <p class="sub-headline">The Revaluation from Survival to Heritage</p>
+        <div class="keywords">POWER <br>HIERARCHY <br>IDENTITY</div>
       </div>
-    </div>
-  </div>
 
-  <!-- Research Section with Particle Animation -->
-  <section id="research-section">
-    <canvas id="particle-canvas"></canvas>
-    
-    <div class="research-content-box">
-      <h1>Cantonese as Linguistic Capital: <br>The Revaluation from Survival to Heritage</h1>
-      <h2>Power, Hierarchy, and Identity in the North American Chinese Diaspora</h2>
+      <ul class="nav-list">
+        <li><a href="#section1">1. The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</a></li>
+        <li><a href="#section2">2. Diglossia and Displacement, 1960s–Present: The Rise of Mandarin as “High” Variety</a></li>
+        <li><a href="#section3">3. The Great Reversal, 2000s–Present: Current Demographic Realities</a></li>
+        <li><a href="#section4">4. Identity and Resistance: From Utility to Authenticity</a></li>
+      </ul>
+    </aside>
+
+    <!-- 右侧内容部分 -->
+    <article class="right-panel">
       
-      <p>
-        Beyond communication, <span class="highlight">language is capital.</span> 
-        For over a century, Cantonese served as the dominant "currency" of North American Chinatowns, a 
-        resource granting access to employment, protection, and social belonging.
-      </p>
-    </div>
-  </section>
+      <!-- Section 1 -->
+      <section id="section1" class="content-section">
+        <span class="section-label">Phase I: Hegemony</span>
+        <h2>The Era of Hegemony, 1850s–1970s</h2>
+        
+        <div class="section-body">
+          <h3>A. Huiguan Power: Associations as Gatekeepers</h3>
+          <p>Early Cantonese dominance was not just about numbers—it was about institutional power. In the 19th and 20th-century Chinatowns, native-place associations (huiguan), such as the CCBA, acted like a government. They dominated trades, settled disputes, and provided welfare.</p>
+          <p>Because Guangdong native networks deeply shaped these institutions, <strong>Cantonese was the price of admission</strong>. It functioned as a “survival license.” Without it, an immigrant could not borrow money or find work.</p>
 
-  <!-- Evolution of Cantonese Section -->
-  <section id="evolution-section">
-    <canvas id="textureCanvas"></canvas>
-    
-    <div class="evolution-container">
-      <div class="evolution-header">
-        <h2>The Evolution of Cantonese</h2>
-        <p>A visual journey through language, power, and identity</p>
-      </div>
+          <div class="media-container">
+            <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg" alt="San Francisco Joss House">
+            <div class="caption">I.W. Taber, “3546 The New Chinese Joss House, Waverly Place, San Francisco,” c.1891.</div>
+          </div>
 
-      <div class="era-grid">
-        <!-- Section 1 -->
-        <div class="era-section">
-          <h3 class="era-title">1. The Era of Hegemony (1850s–1970s)<br><span class="era-subtitle">"Survival License"</span></h3>
-          <div class="image-container">
-            <img src="https://www.bobeckertphotography.com/uploads/1/2/6/7/126794906/img034-street-scene-w-child-san-francisco-chinatown-2-email_orig.jpg" 
-                 alt="Street scene in San Francisco Chinatown, 1970s" class="era-image">
-          </div>
-          <div class="caption">
-            <span>Signage in Cantonese, 1970s</span>
-            <span>By Bob Eckert</span>
-          </div>
+          <h3>B. Media Hegemony: The Public Voice</h3>
+          <p>Major papers such as <em>Chung Sai Yat Po</em> (1900–1951) shaped political discourse. By making Cantonese the default language of news, these papers established who was “inside” the community’s political imagination.</p>
+
+          <h3>C. Surnames and Signs</h3>
+          <p>English spellings tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm. This signaled that Cantonese was the “standard sound” of public life in North America.</p>
         </div>
+      </section>
 
-        <!-- Section 2 -->
-        <div class="era-section">
-          <h3 class="era-title">2. Diglossia and Displacement (1980s–2000)<br><span class="era-subtitle">The Rise of Mandarin</span></h3>
-          <div class="image-container">
-            <img src="https://pictures.abebooks.com/isbn/9780893462949-us.jpg" 
-                 alt="Pinyin Chinese-English Dictionary Cover" class="era-image">
+      <!-- Section 2 -->
+      <section id="section2" class="content-section">
+        <span class="section-label">Phase II: Displacement</span>
+        <h2>Diglossia and Displacement, 1960s–Present</h2>
+        
+        <div class="section-body">
+          <h3>A. Reframing Diglossia: “High/Low”</h3>
+          <p>In North American communities, Mandarin is increasingly treated as the “High” variety—official and globally useful. Meanwhile, Cantonese is pushed toward the “Low” variety—associated with family, local history, and the elderly.</p>
+          
+          <div class="data-highlight">
+            Note: Cantonese remains an official language in only two territories: Hong Kong and Macau, where it serves government, law, and education.
           </div>
-          <div class="caption">
-            <span>Chinese pronunciation "Pinyin" book,</span>
-            <span>published in 1987</span>
-          </div>
-        </div>
 
-        <!-- Section 3 -->
-        <div class="era-section">
-          <h3 class="era-title">3. The Great Reversal (2000s–Present)<br><span class="era-subtitle">Cantonese recast as heritage</span></h3>
-          <div class="image-container">
-            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/d3/24/b5/caption.jpg?w=1200&h=-1&s=1" 
-                 alt="Modern food court signage in Flushing" class="era-image">
-          </div>
-          <div class="caption">
-            <span>Mandarin signage in mall's food court,</span>
-            <span>Flushing, 2024</span>
-          </div>
+          <h3>B. Institutional Production of “Standard” Chinese</h3>
+          <p>Heritage schools often enforce Mandarin as the only "proper" identity. Students learn that legitimate “Chinese” is what formal curricula recognize, rendering Cantonese invisible.</p>
+
+          <h3>C. Supply Chain Disruption</h3>
+          <p>The 1965 US Immigration Act and 1979 normalization opened doors to all Chinese provinces. New arrivals from Beijing and Shanghai shifted the linguistic center of gravity.</p>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
+
+      <!-- Section 3 -->
+      <section id="section3" class="content-section">
+        <span class="section-label">Phase III: The Reversal</span>
+        <h2>The Great Reversal, 2000s–Present</h2>
+        
+        <div class="section-body">
+          <p>Cantonese now confronts a form of double marginality: External pressure from English and internal displacement by Mandarin’s institutional prestige.</p>
+
+          <h3>A. Canada vs. the United States</h3>
+          <p>In Canada, the 2021 Census confirmed Mandarin as the leading Chinese language (~679,000 speakers) over Cantonese (~553,000). In the U.S., Mandarin surpassed Cantonese around 2010, reaching 2.6 million speakers by 2025 compared to 0.55 million for Cantonese.</p>
+
+          <h3>B. San Francisco as “Fortress”</h3>
+          <p>Despite the shift, San Francisco's 2025 Language Access Ordinance report shows Cantonese LEP interactions at 20%, while Mandarin accounts for only 5%. Cantonese remains critical for "operational accessibility."</p>
+        </div>
+      </section>
+
+      <!-- Section 4 -->
+      <section id="section4" class="content-section">
+        <span class="section-label">Phase IV: Resistance</span>
+        <h2>Identity and Resistance</h2>
+        
+        <div class="section-body">
+          <p>As Cantonese loses its role as an economic credential, it is revalued as a <strong>heritage asset</strong>. Its value has shifted from "Survival" to "Authenticity."</p>
+          <p>Mandarin is valued for its <em>Commodification</em>—its convertibility into global market opportunities. In contrast, Cantonese is valued for its <em>Authenticity</em>—a marker of specific regional roots and Hong Kong identity.</p>
+
+          <div class="data-highlight">
+            "The emergence of a 'Cantonese Renaissance' among youth activists suggests a conscious effort to preserve the language not for economic utility, but for cultural continuity."
+          </div>
+
+          <h3>Conclusion: What the Reversal Means</h3>
+          <p>This transformation signals the end of an era. The contemporary diaspora is shaped by a new internal hierarchy. Yet, this very pressure has politicized the language, turning it into a new site of resistance and cultural reclamation.</p>
+        </div>
+      </section>
+
+    </article>
+  </main>
 
   <script>
-    (function () {
-      "use strict";
-
-      let lastScrollTop = 0;
-      const scrollThreshold = 100;
-      const scrollDelta = 5;
-
-      window.addEventListener("scroll", function () {
-        const header = document.querySelector("header[data-site-header='1']");
-        if (!header) return;
-
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
-
-        if (scrollTop < scrollThreshold) {
-          header.classList.remove("header-hidden");
-          lastScrollTop = scrollTop;
-          return;
-        }
-
-        if (scrollTop > lastScrollTop) header.classList.add("header-hidden");
-        else header.classList.remove("header-hidden");
-
-        lastScrollTop = scrollTop;
-      }, { passive: true });
-    })();
-
-    // Particle Animation for Research Section
-    (function() {
-      const canvas = document.getElementById('particle-canvas');
-      const ctx = canvas.getContext('2d');
-      const section = document.getElementById('research-section');
-
-      let particles = [];
-      let animationFrame;
-      const characters = ['食', '揾', '同', '乡', '家', '货', '钱', '语'];
-      let isActive = false;
-
-      function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
-      class Particle {
-        constructor() {
-          this.init();
-        }
-
-        init() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.char = characters[Math.floor(Math.random() * characters.length)];
-          this.size = Math.random() * 15 + 10;
-          this.speedX = (Math.random() - 0.5) * 1.5;
-          this.speedY = (Math.random() - 0.5) * 1.5;
-          this.alpha = 0;
-          this.targetAlpha = Math.random() * 0.5 + 0.1;
-        }
-
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-
-          if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-          if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-
-          if (this.alpha < this.targetAlpha) this.alpha += 0.005;
-        }
-
-        draw() {
-          ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
-          ctx.font = `${this.size}px serif`;
-          ctx.fillText(this.char, this.x, this.y);
-        }
-      }
-
-      function initParticles() {
-        particles = [];
-        for (let i = 0; i < 60; i++) {
-          particles.push(new Particle());
-        }
-      }
-
-      function animate() {
-        if (!isActive) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach(p => {
-          p.update();
-          p.draw();
-        });
-        
-        animationFrame = requestAnimationFrame(animate);
-      }
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            isActive = true;
-            section.classList.add('is-visible');
-            initParticles();
-            animate();
-          } else {
-            isActive = false;
-            section.classList.remove('is-visible');
-            cancelAnimationFrame(animationFrame);
-          }
-        });
-      }, { threshold: 0.3 });
-
-      observer.observe(section);
-
-      window.addEventListener('mousemove', (e) => {
-        if (!isActive) return;
-        particles.forEach(p => {
-          let dx = e.clientX - p.x;
-          let dy = e.clientY - p.y;
-          let dist = Math.sqrt(dx*dx + dy*dy);
-          if (dist < 150) {
-            p.x -= dx * 0.02;
-            p.y -= dy * 0.02;
-          }
+    // 监听导航点击平滑滚动（可选，CSS中已有 scroll-behavior）
+    document.querySelectorAll('.nav-list a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        document.querySelector(targetId).scrollIntoView({
+          behavior: 'smooth'
         });
       });
-    })();
-
-    // Canvas Texture for Evolution Section
-    (function() {
-      const canvas = document.getElementById('textureCanvas');
-      const ctx = canvas.getContext('2d');
-      const section = document.getElementById('evolution-section');
-
-      function resizeCanvas() {
-        canvas.width = section.offsetWidth;
-        canvas.height = section.offsetHeight;
-        drawTexture();
-      }
-
-      function drawTexture() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'rgba(100, 90, 80, 0.05)'; 
-        for (let i = 0; i < canvas.width; i += 3) {
-          for (let j = 0; j < canvas.height; j += 3) {
-            if (Math.random() > 0.6) {
-              let size = Math.random() * 1.5 + 0.5;
-              ctx.fillRect(i, j, size, size);
-            }
-          }
-        }
-      }
-
-      window.addEventListener('resize', resizeCanvas);
-      setTimeout(resizeCanvas, 100);
-    })();
-
-    // Scroll Animation for Era Sections (staggered)
-    (function() {
-      const eraGrid = document.querySelector('.era-grid');
-      const sections = document.querySelectorAll('.era-section');
-
-      const observerOptions = {
-        root: null,
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // Add visible class to all sections when grid is in view
-            sections.forEach(section => {
-              section.classList.add('visible');
-            });
-          } else {
-            // Remove visible class when grid leaves view
-            sections.forEach(section => {
-              section.classList.remove('visible');
-            });
-          }
-        });
-      }, observerOptions);
-
-      if (eraGrid) {
-        observer.observe(eraGrid);
-      }
-    })();
+    });
   </script>
 </body>
 </html>
