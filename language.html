@@ -22,7 +22,7 @@
       --left-width: 420px;
       --header-h: 60px;
       --pill-grad: linear-gradient(90deg, #d9d1b9 0%, #e9e4d9 100%);
-      --deep-beige: #d9d1b9; /* 深米色背景 */
+      --official-beige: #D9CCB7; /* 要求的深米色 */
     }
 
     * { box-sizing: border-box; scroll-behavior: smooth; }
@@ -37,7 +37,6 @@
 
     .main-container { display: flex; min-height: 100vh; padding-top: var(--header-h); }
 
-    /* --- 左侧固定栏 --- */
     .left-panel {
       width: var(--left-width); height: calc(100vh - var(--header-h));
       position: fixed; left: 0; top: var(--header-h);
@@ -58,7 +57,6 @@
     .nav-desc { font-weight: 400; }
     .nav-item:hover { color: var(--accent-red); }
 
-    /* --- 右侧内容区域 --- */
     .right-panel { margin-left: var(--left-width); width: calc(100% - var(--left-width)); padding: 60px 10% 120px 8%; }
     .content-section { margin-bottom: 140px; }
     .section-label { font-family: 'Exo', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-red); margin-bottom: 25px; display: block; }
@@ -69,16 +67,17 @@
     .section-body { font-family: 'Gentium Book Plus', serif; font-size: 16px; line-height: 1.8; color: #000; }
     .section-body p { margin-bottom: 1.5rem; }
 
-    /* --- 姓氏组件 (居中调整) --- */
+    /* --- 姓氏组件 (删减空白) --- */
     .surname-comparison {
-      margin: 60px auto; /* 上下间距加大，水平居中 */
+      margin: 20px auto; 
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 8px; /* 减小间隙 */
       max-width: 420px; 
+      justify-content: center;
     }
-    .surname-row { display: flex; align-items: center; gap: 15px; }
-    .char-red { font-size: 22px; color: var(--accent-red); font-family: 'Gentium Book Plus', serif; width: 35px; text-align: center; }
+    .surname-row { display: flex; align-items: center; gap: 15px; margin-bottom: 5px; }
+    .char-red { font-size: 22px; color: var(--accent-red); width: 35px; text-align: center; }
     .pill-box {
       flex-grow: 1;
       background: var(--pill-grad);
@@ -87,39 +86,41 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 55px; 
+      height: 42px; /* 进一步压缩高度 */
     }
     .lang-tag { font-family: 'Gentium Book Plus', serif; font-size: 8px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.6; }
-    .surname-main { font-size: 18px; font-weight: 700; }
-    .surname-mandarin { font-size: 16px; font-weight: 400; opacity: 0.7; }
+    .surname-main { font-size: 16px; font-weight: 700; }
+    .surname-mandarin { font-size: 14px; opacity: 0.7; }
 
-    /* --- 特殊内容框样式 --- */
-    .border-highlight-box {
-      border: 1px solid #000;
-      padding: 25px;
-      margin: 30px 0;
-      line-height: 1.6;
-    }
-    .beige-bg-box {
-      background-color: var(--deep-beige);
-      padding: 25px;
-      margin: 30px 0;
-      font-size: 15px;
-    }
+    /* --- 高亮框 --- */
+    .border-highlight-box { border: 1px solid #000; padding: 25px; margin: 30px 0; }
+    .beige-bg-box { background-color: var(--official-beige); padding: 25px; margin: 30px 0; }
     .box-title { font-weight: 700; margin-bottom: 10px; display: block; }
 
-    /* --- 幻灯片与图片保持不变 --- */
+    /* --- 幻灯片样式修复 --- */
     .slideshow-container { position: relative; margin: 40px 0 10px 0; background: #eeeae0; padding: 12px; }
     .mySlides { display: none; text-align: center; }
     .mySlides img { width: 100%; height: 400px; object-fit: cover; }
     .slide-caption { font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center; color: #000; }
-    .news-flex { display: flex; gap: 30px; margin: 30px 0; justify-content: center; } 
-    .news-img { width: 170px; height: 250px; object-fit: cover; object-position: center; }
+    
+    .prev, .next { cursor: pointer; position: absolute; top: 40%; padding: 16px; color: #000; font-weight: bold; font-size: 24px; background: rgba(255,255,255,0.4); z-index: 50; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border: none; }
+    .next { right: 20px; } .prev { left: 20px; }
+    .prev:hover, .next:hover { background: rgba(255,255,255,0.8); }
+
+    /* --- 视觉证据：对比设计 --- */
+    .landscape-shift-wrap { margin: 60px 0; text-align: center; }
+    .comparison-flex { display: flex; gap: 30px; justify-content: center; align-items: flex-start; margin-top: 30px; }
+    .landscape-item { width: 45%; max-width: 350px; }
+    .landscape-img { width: 100%; height: 280px; object-fit: cover; border: 1px solid rgba(0,0,0,0.1); padding: 5px; background: #fff; }
+    .sepia { filter: grayscale(1) contrast(1.1); } /* 1970s 效果 */
+    .landscape-caption { font-family: 'Exo', sans-serif; font-size: 12px; margin-top: 15px; line-height: 1.4; color: #333; text-align: left; border-top: 1px solid #ddd; padding-top: 8px; }
 
     @media (max-width: 1200px) {
       .main-container { flex-direction: column; }
       .left-panel { position: relative; width: 100%; height: auto; top: 0; padding: 40px; border-right: none; }
       .right-panel { margin-left: 0; width: 100%; padding: 40px; }
+      .comparison-flex { flex-direction: column; align-items: center; }
+      .landscape-item { width: 100%; }
     }
   </style>
 </head>
@@ -152,23 +153,28 @@
           <p>Early Cantonese dominance was not just about numbers; it was about institutional power. To maintain order and protection, Cantonese migrants founded the Sze Yup Association in 1849; in 1854, the Taishanese split off to form the Ning Yung Benevolent Association, which grew into the most influential district group. By 1862, these major Cantonese huiguan united as the “Chinese Six Companies” in San Francisco (later the CCBA), functioning like a Chinatown government.</p>
           
           <div class="slideshow-container">
-            <div class="mySlides"><img src="https://www.foundsf.org/images/d/d3/Chinatwn%246-companies-officers.jpg"><div class="slide-caption">Officers of the Six Companies in 1890, Bancroft Library.</div></div>
-            <div class="mySlides"><img src="https://www.foundsf.org/images/5/5a/Reps_of_Six_Companies_1943_AAB-6823.jpg"><div class="slide-caption">Representatives of the Six Companies in 1943. SF Public Library.</div></div>
-            <div class="mySlides"><img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg"><div class="slide-caption">Ning Yung Benevolent Association, I.W. Taber, 1891.</div></div>
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a><a class="next" onclick="plusSlides(1)">&#10095;</a>
+            <div class="mySlides" style="display: block;">
+              <img src="https://www.foundsf.org/images/d/d3/Chinatwn%246-companies-officers.jpg">
+              <div class="slide-caption">Officers of the Six Companies in 1890, Bancroft Library.</div>
+            </div>
+            <div class="mySlides">
+              <img src="https://www.foundsf.org/images/5/5a/Reps_of_Six_Companies_1943_AAB-6823.jpg">
+              <div class="slide-caption">Representatives of the Six Companies in 1943. SF Public Library.</div>
+            </div>
+            <div class="mySlides">
+              <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg">
+              <div class="slide-caption">Ning Yung Benevolent Association, I.W. Taber, 1891.</div>
+            </div>
+            <button class="prev" onclick="plusSlides(-1)">❮</button>
+            <button class="next" onclick="plusSlides(1)">❯</button>
           </div>
 
           <h3>B. Media Hegemony: The Public Voice</h3>
           <p>Cantonese dominance was also reproduced through media institutions. Kim Shan Jit San Luk / Golden Hills’ News (1854), was founded to serve the growing immigrant population and was written in classical-style Chinese, yet its very title appears in Cantonese romanization (“Kim Shan”).</p>
-          <div class="news-flex">
-            <div class="news-item"><img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" class="news-img"><div class="slide-caption">The Golden Hills’ News, 1854</div></div>
-            <div class="news-item"><img src="https://maxrambod.cdn.bibliopolis.com/pictures/22049.jpg" class="news-img"><div class="slide-caption">Chung Sai Yat Po, 1949</div></div>
-          </div>
 
           <h3>C. Surnames and Signs: Cantonese as the Default Public Pronunciation</h3>
-          <p>A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin “Li,” “Wang,” or “Chen.” This signaled that Cantonese was the “standard sound” of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.</p>
+          <p>In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin “Li,” “Wang,” or “Chen.” This signaled that Cantonese was the “standard sound” of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.</p>
 
-          <!-- 居中姓氏对比 -->
           <div class="surname-comparison">
             <div class="surname-row">
               <div class="char-red">李</div>
@@ -201,29 +207,50 @@
         <h2>2. Diglossia and Displacement, 1960s–Present: The Rise of Mandarin as “High” Variety</h2>
         <div class="section-body">
             <h3>A. Reframing Diglossia: “High/Low” Inside Chinese</h3>
-            <p>Classically, sociolinguists describe “diglossia” as a system in which a “High” language is used for official business and a “Low” language is used for everyday life, such as family interactions. Since the 1950s, China established Mandarin as the sole official language. Cantonese retains cultural value but is losing institutional power. In North American communities today, this split increasingly operates within the Chinese language itself. Mandarin is treated as the “High” variety—official, educated, and globally useful. Meanwhile, Cantonese is pushed toward the “Low” variety—associated with family, local history, and the elderly.</p>
+            <p>Classically, sociolinguists describe “diglossia” as a system in which a “High” language is used for official business and a “Low” language is used for everyday life. Mandarin is treated as the “High” variety—official, educated, and globally useful. Meanwhile, Cantonese is pushed toward the “Low” variety—associated with family, local history, and the elderly.</p>
             
-            <!-- 边框高亮框 -->
             <div class="border-highlight-box">
               <strong>Mandarin as "High":</strong> Treated as official, educated, and globally useful.<br>
               <strong>Cantonese as "Low":</strong> Primarily used at home and in elder services.
             </div>
 
-            <!-- 深米色背景框 -->
             <div class="beige-bg-box">
               <span class="box-title">★ Official Exceptions</span>
               <strong>Hong Kong:</strong> Under Basic Law, Cantonese serves as the language of government, law, and education.<br>
               <strong>Macau:</strong> Cantonese functions as the official oral medium alongside Portuguese.
             </div>
 
-            <h3>B. Institutional Production of “standard” Chinese</h3>
-            <p>Heritage education is a primary site where this hierarchy is produced. In many Chinese heritage schools, classrooms become arenas where Mandarin is enforced as the only "proper" identity. Students learn that legitimate “Chinese” is what schools, tests, and formal curricula recognize—often Mandarin by default.</p>
+            <h3>B. Institutional Production of “Standard” Chinese</h3>
+            <p>Heritage education is a primary site of hierarchy. In many schools, Mandarin is enforced as the only “proper” Chinese, rendering Cantonese secondary or invisible. This redefines authenticity: students learn that legitimate “Chinese” is simply what formal curricula and tests recognize as Mandarin by default. For many U.S.-raised Cantonese descendants, this means English becomes dominant through schooling, Cantonese remains the home language shaped by parents, yet Mandarin literacy is still required through afterschool programs for exams and credits—producing a familiar hierarchy in which English holds the highest status and proficiency, Mandarin is valued next as the testable standard, and Cantonese is positioned lowest as a largely private, non-credentialed language.</p>
+            
             <h3>C. The Supply Chain Disruption: State Standardization</h3>
-            <p>1965 US Immigration Act and 1979 diplomatic normalization opened doors to migrants from all Chinese provinces, not just Guangdong. New arrivals poured in from Beijing, Shanghai, and Fujian, where Mandarin is the common language.</p>
+            <p>1965 US Immigration Act and 1979 diplomatic normalization opened doors to migrants from all Chinese provinces. New arrivals poured in from Mandarin-speaking regions, fundamentally shifting the linguistic landscape.</p>
+
+            <!-- 视觉证据：景观变迁 -->
+            <div class="landscape-shift-wrap">
+              <span class="section-label" style="text-align: center;">Visual Evidence: The Landscape Shift</span>
+              <div class="comparison-flex">
+                <div class="landscape-item">
+                  <img src="https://www.bobeckertphotography.com/uploads/1/2/6/7/126794906/img032-people-lined-along-street-san-francisco-chinatown-2-email_orig.jpg" class="landscape-img sepia">
+                  <div class="landscape-caption">
+                    <strong>1970s San Francisco</strong><br>
+                    Legacy soundscape: Street signs and community life anchored in Cantonese traditional characters and romanization. 
+                    <em>Photo by Bob Eckert.</em>
+                  </div>
+                </div>
+                <div class="landscape-item" style="margin-top: 40px;">
+                  <img src="https://media.timeout.com/images/105501181/750/422/image.jpg" class="landscape-img">
+                  <div class="landscape-caption">
+                    <strong>2024 Flushing, NY</strong><br>
+                    Mandarin visual dominance: Simplified characters and Pinyin-based signage reflecting new demographic and economic centers.
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
       </section>
 
-      <!-- Section 3 & 4 (保持内容不变) -->
+      <!-- Section 3 & 4 (内容同前) -->
       <section id="sec3" class="content-section">
         <span class="section-label">03 / The Reversal</span>
         <h2>3. The Great Reversal, 2000s–Present: Current Demographic Realities</h2>
@@ -231,7 +258,7 @@
             <h3>A. Comparative Signals: Canada vs. the United States</h3>
             <p>Canada provides a clear macro-signal. The 2021 Census confirmed Mandarin as the leading Chinese language (~679,000 speakers) over the aging demographic of ~553,000 Cantonese speakers.</p>
             <h3>B. San Francisco as “Fortress”</h3>
-            <p>Language service data from San Francisco demonstrates that Cantonese remains critical. The 2025 OCEIA report notes Cantonese LEP interactions reached 20%; meanwhile, Mandarin accounted for only 5%.</p>
+            <p>The 2025 OCEIA report notes Cantonese LEP interactions reached 20%; meanwhile, Mandarin accounted for only 5%.</p>
         </div>
       </section>
 
@@ -241,7 +268,7 @@
         <div class="section-body">
             <p>Mandarin is now valued for its "Commodification"—its economic convertibility. In contrast, Cantonese is valued for its "Authenticity"—a marker of specific regional roots and diasporic history.</p>
             <h3>Conclusion: What the Reversal Means</h3>
-            <p>The contemporary diaspora is shaped by a new internal hierarchy: Mandarin’s economic power rises alongside English assimilation pressures, leaving Cantonese squeezed in the middle, yet turning it into a new site of resistance.</p>
+            <p>The function of Cantonese in North America has fundamentally shifted, turning it into a new site of resistance and cultural reclamation.</p>
         </div>
       </section>
 
@@ -249,18 +276,22 @@
   </div>
 
   <script>
+    // --- 幻灯片修复逻辑 ---
     let slideIndex = 1;
-    showSlides(slideIndex);
-    function plusSlides(n) { showSlides(slideIndex += n); }
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
     function showSlides(n) {
-      let i;
       let slides = document.getElementsByClassName("mySlides");
-      if (n > slides.length) {slideIndex = 1}    
+      if (n > slides.length) {slideIndex = 1}
       if (n < 1) {slideIndex = slides.length}
-      for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-      slides[slideIndex-1].style.display = "block";  
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slides[slideIndex-1].style.display = "block";
     }
 
+    // --- Header 智能显隐 ---
     let lastScrollTop = 0;
     window.addEventListener('scroll', function() {
       const header = document.querySelector('header') || document.querySelector('.site-header');
