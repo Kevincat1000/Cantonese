@@ -11,39 +11,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Header/Footer Injectors -->
+  <!-- Header Injector -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
-  <!-- Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
-    :root {
-      --bg: #f5f0e5; 
-      --text: #1a1a1a;
+    :root { 
       --header-h: 48px; 
-      --theme-red: #a84d4d;
-      --theme-teal: #2d7b73;
+      --bg-color: #F5F0E5;
+      --text-color: #1a1a1a;
+      --theme-red: #a21a1a;
+      --theme-teal: #2D7B73;
       --theme-gold: #c5a059;
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
     }
-
+    
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
-    body, html {
-      background-color: var(--bg);
+    body {
+      background: var(--bg-color);
       font-family: var(--font-body);
-      color: var(--text);
+      color: var(--text-color);
       line-height: 1.6;
-      overflow-x: hidden;
+      padding-top: var(--header-h);
     }
 
-    body { padding-top: var(--header-h); }
-
-    /* --- 1. Hero Section (New Cover with Canvas) --- */
-    .hero-container {
+    /* ===== 1. Hero / Research Section (Restored as Cover) ===== */
+    #hero-cover {
       position: relative;
       width: 100%;
       height: 90vh;
@@ -51,73 +46,60 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      background-color: var(--bg);
+      background-color: var(--bg-color);
     }
 
     #particle-canvas {
       position: absolute;
       top: 0;
       left: 0;
+      z-index: 1;
       width: 100%;
       height: 100%;
-      z-index: 1;
-      opacity: 0.6; /* 降低粒子透明度使其更优雅 */
+      opacity: 0.7;
     }
 
-    .hero-content {
+    .hero-content-box {
       position: relative;
-      z-index: 10;
+      z-index: 2;
       max-width: 900px;
+      padding: 40px;
       text-align: center;
-      padding: 0 20px;
     }
 
-    .hero-label {
-      font-family: var(--font-heading);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: var(--theme-red);
-      margin-bottom: 1.5rem;
-      display: block;
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
-
-    .hero-title {
+    .hero-content-box h1 {
       font-family: var(--font-heading);
       font-size: 3.5rem;
       line-height: 1.1;
-      margin-bottom: 1.5rem;
-      font-weight: 700;
-      color: var(--text);
+      margin-bottom: 20px;
+      color: var(--text-color);
     }
 
-    .hero-subtitle {
+    .hero-content-box h2 {
       font-family: var(--font-body);
       font-size: 1.4rem;
-      line-height: 1.6;
-      color: #4a5568;
-      max-width: 700px;
-      margin: 0 auto;
+      font-style: italic;
+      color: var(--theme-red);
+      margin-bottom: 30px;
     }
 
-    .hero-highlight {
-      font-weight: 700;
-      color: var(--text);
+    .hero-content-box p {
+      font-size: 1.25rem;
+      max-width: 750px;
+      margin: 0 auto;
+      color: #333;
+    }
+
+    .hero-content-box .highlight {
+      font-weight: bold;
       border-bottom: 2px solid var(--theme-gold);
     }
 
-    /* --- 2. Flashcards Section --- */
+    /* ===== 2. Flashcards Section (Restored Flip Effect) ===== */
     .flash-section {
       padding: 80px 0;
-      background-color: var(--bg);
     }
-
-    .container {
-      max-width: 1152px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
     .flash-grid {
       display: grid;
@@ -127,154 +109,255 @@
 
     .flashcard {
       position: relative;
+      width: 100%;
       aspect-ratio: 1 / 1;
-      perspective: 1000px;
+      perspective: 1100px;
     }
 
     .flashcard-inner {
       position: absolute;
       inset: 0;
       transform-style: preserve-3d;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
     }
 
-    .flashcard:hover .flashcard-inner { transform: rotateY(180deg); }
+    .flashcard:hover .flashcard-inner {
+      transform: rotateY(180deg);
+    }
 
     .card-face {
       position: absolute;
       inset: 0;
-      backface-visibility: hidden;
       border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 8px;
+      border-radius: 14px;
+      background: #FFFFFF;
+      backface-visibility: hidden;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 1.5rem;
       text-align: center;
-      background: #fff;
     }
 
     .card-front { background: #fdfcf8; }
-    .card-back { transform: rotateY(180deg); background: #fff; border-color: var(--theme-red); }
+    .card-back { transform: rotateY(180deg); border-color: var(--theme-red); }
 
-    .card-front h3 { font-size: 2.5rem; font-family: var(--font-heading); color: var(--text); margin-bottom: 0.5rem; }
-    .card-front p { font-family: var(--font-body); font-style: italic; color: var(--theme-teal); }
-    .card-back h4 { font-size: 1.2rem; font-family: var(--font-heading); color: var(--theme-red); margin-bottom: 10px; }
-    .card-back p { font-size: 0.95rem; line-height: 1.4; }
+    .card-front h3 { font-family: var(--font-heading); font-size: 40px; margin-bottom: 10px; }
+    .card-front p { color: var(--theme-teal); font-style: italic; }
+    .card-back h3 { font-family: var(--font-heading); font-size: 20px; color: var(--theme-red); margin-bottom: 10px; }
+    .card-back p { font-size: 16px; line-height: 1.4; }
 
-    /* --- 3. Content Sections (Narrative) --- */
-    .content-section { padding: 100px 0; }
-    .section-dark { background-color: var(--theme-red); color: #fff; }
-
-    .section-title {
-      font-family: var(--font-heading);
-      font-size: 2.5rem;
-      line-height: 1.1;
-      margin-bottom: 2rem;
-      border-left: 5px solid var(--theme-gold);
-      padding-left: 25px;
-    }
-
-    .grid-2col { display: grid; grid-template-columns: 2fr 1.2fr; gap: 4rem; align-items: start; }
+    /* ===== 3. Narrative Sections (Hegemony & Diglossia) ===== */
+    .content-section { padding: 80px 0; position: relative; }
+    .texture-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.4; pointer-events: none; }
     
-    .body-text { font-size: 1.15rem; line-height: 1.8; margin-bottom: 1.5rem; text-align: justify; }
-
-    .image-box {
-      background: #fff;
-      padding: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border-radius: 4px;
-    }
-    .image-box img { width: 100%; height: auto; display: block; }
-    .image-caption { font-size: 0.85rem; color: #666; margin-top: 10px; text-align: center; font-style: italic; }
-
-    /* --- Pronunciation Slider (The Surname Part) --- */
-    .visualizer-container {
-      background: rgba(255,255,255,0.5);
-      padding: 30px;
-      border-radius: 8px;
-      margin-top: 40px;
+    .section-title {
+      font-family: var(--font-heading); font-size: 2rem; font-weight: 700; margin-bottom: 2rem;
+      padding-left: 20px; border-left: 5px solid var(--theme-gold);
     }
 
-    .visual-row { display: flex; align-items: center; margin-bottom: 15px; }
-    .char-col { font-size: 2rem; font-weight: 700; width: 60px; color: var(--theme-red); font-family: var(--font-heading); }
+    .era-columns { display: grid; grid-template-columns: 2fr 1fr; gap: 50px; align-items: start; }
+    .era-column p { margin-bottom: 1.5rem; font-size: 1.05rem; text-align: justify; }
+
+    .era-subtitle-main { font-size: 1.2rem; font-weight: bold; color: var(--theme-red); margin-bottom: 15px; display: block; }
+    
+    .era-column-image img { width: 100%; border: 8px solid #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .era-column-caption { display: block; font-size: 0.85rem; color: #666; margin-top: 10px; text-align: center; font-style: italic; }
+
+    /* Visual Visualizer ( lee/li ) */
+    .pronunciation-visualizer { margin-top: 30px; display: flex; flex-direction: column; gap: 12px; }
+    .visual-row { display: flex; align-items: center; gap: 15px; }
+    .char-col { font-size: 32px; font-weight: bold; color: var(--theme-red); width: 40px; }
     .slider-track {
-      flex: 1; height: 40px; background: rgba(0,0,0,0.05); border-radius: 20px;
-      display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
-      position: relative; overflow: hidden;
+      flex: 1; height: 36px; background: rgba(0,0,0,0.05); border-radius: 18px;
+      display: flex; justify-content: space-between; align-items: center; padding: 0 15px; position: relative;
     }
-    .slider-track::before {
-      content: ''; position: absolute; left: 0; width: 60%; height: 100%; 
-      background: var(--theme-gold); opacity: 0.2;
-    }
-    .label-set { z-index: 2; display: flex; flex-direction: column; }
-    .lang-label { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; color: #888; }
-    .pinyin-val { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .slider-track::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 55%; background: var(--theme-gold); opacity: 0.15; border-radius: 18px; }
 
-    /* --- Responsive --- */
-    @media (max-width: 900px) {
+    /* Responsive */
+    @media (max-width: 980px) {
       .flash-grid { grid-template-columns: repeat(2, 1fr); }
-      .grid-2col { grid-template-columns: 1fr; }
-      .hero-title { font-size: 2.5rem; }
+      .era-columns { grid-template-columns: 1fr; }
+      .hero-content-box h1 { font-size: 2.5rem; }
     }
-    @media (max-width: 500px) {
-      .flash-grid { grid-template-columns: 1fr; }
-    }
-
+    @media (max-width: 520px) { .flash-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 
 <body>
+  <header data-site-header="1"></header>
 
-  <main>
-    <!-- Hero Cover -->
-    <section class="hero-container">
-      <canvas id="particle-canvas"></canvas>
-      <div class="hero-content">
-        <span class="hero-label">The Linguistic Journey</span>
-        <h1 class="hero-title">Cantonese as Linguistic Capital</h1>
-        <p class="hero-subtitle">
-          Beyond communication, <span class="hero-highlight">language is capital.</span> 
-          For over a century, Cantonese served as the primary currency of North American Chinatowns, 
-          granting access to employment, protection, and social belonging.
-        </p>
+  <!-- 1. RESTORED HERO COVER -->
+  <section id="hero-cover">
+    <canvas id="particle-canvas"></canvas>
+    <div class="hero-content-box">
+      <h1>Cantonese as Linguistic Capital</h1>
+      <h2>Power, Hierarchy, and Identity in the North American Chinese Diaspora</h2>
+      <p>
+        Beyond communication, <span class="highlight">language is capital.</span> 
+        For over a century, Cantonese served as the dominant "currency" of North American Chinatowns, 
+        granting access to employment, protection, and social belonging.
+      </p>
+    </div>
+  </section>
+
+  <!-- 2. RESTORED FLASHCARDS -->
+  <section class="flash-section">
+    <div class="container">
+      <div class="flash-grid">
+        <!-- Card 1 -->
+        <div class="flashcard">
+          <div class="flashcard-inner">
+            <div class="card-face card-front"><h3>飲茶</h3><p>(Yam Cha)</p></div>
+            <div class="card-face card-back"><h3>Drinking tea</h3><p>Going for dim sum, eating the food, and socializing.</p></div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="flashcard">
+          <div class="flashcard-inner">
+            <div class="card-face card-front"><h3>食檸檬</h3><p>(Sik Ning Mung)</p></div>
+            <div class="card-face card-back"><h3>Eating lemons</h3><p>Being rejected when asking someone out.</p></div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="flashcard">
+          <div class="flashcard-inner">
+            <div class="card-face card-front"><h3>放飛機</h3><p>(Fong Fei Gei)</p></div>
+            <div class="card-face card-back"><h3>Throwing an airplane</h3><p>Breaking a promise to meet.</p></div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="flashcard">
+          <div class="flashcard-inner">
+            <div class="card-face card-front"><h3>吹水</h3><p>(Ceoi Seoi)</p></div>
+            <div class="card-face card-back"><h3>Blowing water</h3><p>Chit-chatting; sometimes implies bragging or bluffing.</p></div>
+          </div>
+        </div>
+        <!-- 继续 5-8 -->
+        <div class="flashcard">
+          <div class="flashcard-inner">
+            <div class="card-face card-front"><h3>食咗飯未？</h3><p>(Sik Jo Faan Mei?)</p></div>
+            <div class="card-face card-back"><h3>Have you eaten?</h3><p>A casual greeting meaning "hello" or "how are you?"</p></div>
+          </div>
+        </div>
+        <div class="flashcard">
+          <div class="flashcard-inner">
+            <div class="card-face card-front"><h3>炒魷魚</h3><p>(Caau Yau Yu)</p></div>
+            <div class="card-face card-back"><h3>Stir-fried squid</h3><p>Getting fired from a job.</p></div>
+          </div>
+        </div>
+        <div class="flashcard">
+          <div class="flashcard-inner">
+            <div class="card-face card-front"><h3>鸡同鸭讲</h3><p>(Gai Tung Aap Gong)</p></div>
+            <div class="card-face card-back"><h3>Chicken & Duck</h3><p>Mutual lack of understanding due to language barriers.</p></div>
+          </div>
+        </div>
+        <div class="flashcard">
+          <div class="flashcard-inner">
+            <div class="card-face card-front"><h3>叉烧</h3><p>(Char Siu)</p></div>
+            <div class="card-face card-back"><h3>Better to give birth to char siu</h3><p>A classic Cantonese parent's complaint about a child.</p></div>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Flashcards Grid -->
-    <section class="flash-section">
-      <div class="container">
-        <div class="flash-grid">
-          <!-- Card 1 -->
-          <div class="flashcard">
-            <div class="flashcard-inner">
-              <div class="card-face card-front"><h3>飲茶</h3><p>(Yam Cha)</p></div>
-              <div class="card-face card-back"><h4>Drinking tea</h4><p>Going for dim sum, eating, and socializing.</p></div>
-            </div>
+  <!-- 3. RESTORED EVOLUTION CONTENT -->
+  <section id="evolution-section" class="content-section">
+    <canvas id="textureCanvas1" class="texture-canvas"></canvas>
+    <div class="container">
+      <h2 class="section-title">1. The Era of Hegemony, 1850s–1970s</h2>
+      <div class="era-columns">
+        <div class="era-column">
+          <span class="era-subtitle-main">Huiguan Power: Associations as Gatekeepers</span>
+          <p>In 19th and 20th-century Chinatowns, native-place associations (huiguan) acted like a government. They dominated trades, settled disputes, and provided welfare. Because Guangdong native networks deeply shaped these institutions, <strong>Cantonese was the price of admission.</strong></p>
+          <p>Speaking the language functioned as a "survival license." Without it, a Chinese immigrant could not borrow money, find a job, or access protection. The community's support system was effectively closed to anyone who did not speak the language.</p>
+          
+          <div class="pronunciation-visualizer">
+            <div class="visual-row"><div class="char-col">李</div><div class="slider-track"><span>Cantonese: <b>Lee</b></span><span style="color:#888;">Mandarin: Li</span></div></div>
+            <div class="visual-row"><div class="char-col">陈</div><div class="slider-track"><span>Cantonese: <b>Chan</b></span><span style="color:#888;">Mandarin: Chen</span></div></div>
           </div>
-          <!-- Card 2 -->
-          <div class="flashcard">
-            <div class="flashcard-inner">
-              <div class="card-face card-front"><h3>食檸檬</h3><p>(Sik Ning Mung)</p></div>
-              <div class="card-face card-back"><h4>Eating lemons</h4><p>Being rejected when asking someone out.</p></div>
-            </div>
+        </div>
+        <div class="era-column">
+          <div class="era-column-image">
+            <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg" alt="Ning Yeung Association">
+            <span class="era-column-caption">Ning Yeung Association, San Francisco, 1891</span>
           </div>
-          <!-- Card 3 -->
-          <div class="flashcard">
-            <div class="flashcard-inner">
-              <div class="card-face card-front"><h3>放飛機</h3><p>(Fong Fei Gei)</p></div>
-              <div class="card-face card-back"><h4>Throwing an airplane</h4><p>Breaking a promise to meet.</p></div>
-            </div>
-          </div>
-          <!-- Card 4 -->
-          <div class="flashcard">
-            <div class="flashcard-inner">
-              <div class="card-face card-front"><h3>吹水</h3><p>(Ceoi Seoi)</p></div>
-              <div class="card-face card-back"><h4>Blowing water</h4><p>Chit-chatting; sometimes implies bragging.</p></div>
-            </div>
-          </div>
-          <!-- Card 5 -->
-          <div class="flashcard">
-            <div class="flashcard-inner">
-              <div class="card-face card-front"><h3>炒魷魚</h3><p>(Caau Yau Yu)</p></d
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // PARTICLE ANIMATION (Light Background Version)
+    (function() {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      const characters = ['食', '揾', '同', '乡', '家', '货', '钱', '语', '粤', '饮'];
+      const colors = ['#a21a1a', '#2D7B73', '#c5a059']; // 朱红, 墨绿, 金
+      let particles = [];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = document.getElementById('hero-cover').offsetHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() { this.init(); }
+        init() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.char = characters[Math.floor(Math.random() * characters.length)];
+          this.color = colors[Math.floor(Math.random() * colors.colors)]; // Default to red if undefined
+          this.size = Math.random() * 20 + 15;
+          this.speedX = (Math.random() - 0.5) * 1;
+          this.speedY = (Math.random() - 0.5) * 1;
+          this.alpha = 0;
+          this.maxAlpha = Math.random() * 0.5 + 0.1;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
+        update() {
+          this.x += this.speedX; this.y += this.speedY;
+          if (this.alpha < this.maxAlpha) this.alpha += 0.005;
+          if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+          if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+        }
+        draw() {
+          ctx.globalAlpha = this.alpha;
+          ctx.fillStyle = this.color;
+          ctx.font = `${this.size}px serif`;
+          ctx.fillText(this.char, this.x, this.y);
+        }
+      }
+
+      for (let i = 0; i < 50; i++) particles.push(new Particle());
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // TEXTURE CANVAS (Simple Paper Grain)
+    function drawTexture(id) {
+      const canvas = document.getElementById(id);
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      ctx.fillStyle = 'rgba(100, 90, 80, 0.03)';
+      for (let i = 0; i < canvas.width; i += 4) {
+        for (let j = 0; j < canvas.height; j += 4) {
+          if (Math.random() > 0.5) ctx.fillRect(i, j, 1, 1);
+        }
+      }
+    }
+    window.onload = () => drawTexture('textureCanvas1');
+  </script>
+</body>
+</html>
