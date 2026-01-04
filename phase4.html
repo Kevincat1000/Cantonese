@@ -3,549 +3,424 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phase IV: 2000s–Present - Cantonese Migration</title>
-
+  <title>Phase IV: 2000s–Present - Diversification and Resilience</title>
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
+    :root {
+      /* Palette */
+      --bg-tan: #D9CCB7;     
+      --bg-paper: #f5f0e5;   
+      --accent-red: #a84d4d;
+      --dark-red: #701a1a; /* 用户指定核心色 */
+      --text-main: #333333;  
+      --text-light: #f5f0e5;
+      
+      --font-body: 'Gentium Book Plus', serif;
+      --font-heading: 'Exo', sans-serif;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; height: 100%; }
-
+    
+    html { scroll-behavior: smooth; }
+    
     body {
-      font-family: 'Gentium Book Plus', serif;
+      font-family: var(--font-body);
       line-height: 1.6;
-      background-color: #8A4046;
-      min-height: 100vh;
+      background-color: var(--bg-paper);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    /* --- 1. Nav --- */
+    .nav-float {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      z-index: 1000;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
+      color: var(--text-main); 
+      transition: all 0.3s ease;
     }
-
-    /* ✅ Sticky footer layout */
-    main {
-      flex: 1;
+    
+    .nav-icon-circle {
+      width: 50px;
+      height: 50px;
+      border: 1px solid rgba(51, 51, 51, 0.2);
+      border-radius: 50%;
       display: flex;
-      flex-direction: column;
-    }
-    main > footer { margin-top: auto; }
-
-    .font-heading { font-family: 'Gentium Book Plus', serif; }
-
-    .section-burgundy { background-color: #8A4046; }
-    .section-paper {
-      background-color: #f5f0e5;
-      background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.02) 2px,
-        rgba(0,0,0,0.02) 3px
-      );
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(5px);
     }
 
+    .nav-text {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .nav-float:hover .nav-icon-circle {
+      background-color: var(--accent-red);
+      border-color: var(--accent-red);
+      color: #fff;
+    }
+
+    .nav-float:hover .nav-text {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--accent-red);
+    }
+
+    /* --- 2. Hero (Modern Connectivity Canvas) --- */
+    .hero-section {
+      position: relative;
+      height: 100vh; 
+      width: 100%;
+      background-color: var(--bg-paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #network-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.4;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 20px;
+      text-shadow: 0 0 20px var(--bg-paper);
+    }
+
+    .hero-label {
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent-red);
+      margin-bottom: 1rem;
+      display: block;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      color: var(--text-main);
+      font-weight: 400;
+      margin-top: 0.5rem;
+    }
+
+    /* --- 3. Content Layouts --- */
     .container {
       max-width: 1152px;
       margin: 0 auto;
       padding: 0 2rem;
     }
 
-    .hero-section {
-      padding: calc(4.5rem + env(safe-area-inset-top, 0px)) 2rem 2rem;
-      min-height: 200px;
+    .content-section { 
+      padding: 6rem 2rem;
+      transition: background-color 1.5s ease; 
     }
 
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      align-items: flex-start;
-      position: relative;
-      min-height: 140px;
+    /* 深红背景样式 */
+    .section-dark-red {
+      background-color: var(--dark-red);
+      color: var(--text-light);
+    }
+    
+    .section-dark-red .section-title {
+      border-left-color: var(--bg-tan);
     }
 
-    .hero-title {
-      font-size: 1.875rem;
-      color: #FFFFFF;
-      line-height: 1.03;
+    .section-dark-red .image-caption {
+      color: var(--bg-tan);
     }
-
-    .hero-subtitle {
-      font-size: 1.125rem;
-      color: #FFFFFF;
-      line-height: 1.08;
-    }
-
-    .boat {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 120px;
-      width: auto;
-      opacity: 0.9;
-    }
-
-    body.ready .boat { animation: sailing 3s ease-out forwards; }
-
-    @keyframes sailing {
-      from { transform: translateY(-50%) translateX(0); }
-      to   { transform: translateY(-50%) translateX(-80px); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      body.ready .boat { animation: none; transform: translateY(-50%) translateX(-80px); }
-    }
-
-    .content-section { padding: 4rem 2rem; }
-    .content-section.first-section { padding-top: 1.5rem; }
 
     .section-title {
-      font-size: 21px;
-      margin-bottom: 1.1rem;
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
       position: relative;
-      padding-bottom: 12px;
-      line-height: 1.25;
+      padding-left: 20px;
+      border-left: 5px solid var(--accent-red);
     }
 
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 80px;
-      height: 3px;
-      background-color: #cc5e3e;
-    }
+    .text-content { font-size: 1.15rem; line-height: 1.8; }
+    .grid-2col { display: grid; gap: 4rem; align-items: start; }
 
-    .text-white { color: white; }
-    .text-dark { color: #231d16; }
-    .text-white-90 { color: rgba(255, 255, 255, 0.95); }
-    .text-dark-90 { color: rgba(35, 29, 22, 0.9); }
+    /* Animations */
+    .fade-content { opacity: 0; transform: translateY(30px); transition: all 1.2s ease-out; }
+    .fade-content.visible { opacity: 1; transform: translateY(0); }
 
-    .text-content {
-      font-size: 16px;
-      line-height: 24px;
+    .image-frame {
       width: 100%;
-    }
-    .text-content p { margin-bottom: 1rem; }
-
-    .grid-2col { display: grid; gap: 2rem; align-items: start; }
-    .width-60 { max-width: 560px; width: 100%; }
-
-    .gallery { width: 80%; margin-left: auto; }
-    .gallery-frame {
-      width: 100%;
-      height: 315px;
-      position: relative;
-      background: #f0f0f0;
-      border-radius: 8px;
+      border-radius: 4px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      background: rgba(0,0,0,0.1);
     }
-    .gallery-slide {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-    .gallery-slide.show { opacity: 1; }
-    .gallery-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .image-frame img { width: 100%; height: auto; display: block; transition: transform 0.6s ease; }
+    .image-frame:hover img { transform: scale(1.05); }
+
+    .image-caption {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      margin-top: 12px;
+      opacity: 0.8;
+      font-style: italic;
     }
 
-    .gallery-label {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(138, 64, 70, 0.95), rgba(138, 64, 70, 0.7));
-      color: white;
-      padding: 18px 16px 14px;
-      font-size: 14px;
-      text-align: center;
-      font-weight: 600;
-      z-index: 10;
-    }
-
-    .gallery-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 16px;
-      height: 40px;
-    }
-
-    .nav-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: transparent;
-      color: white;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .nav-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-
-    .nav-info { display: flex; align-items: center; gap: 8px; font-size: 15px; }
-    .nav-current, .nav-total { color: rgba(255, 255, 255, 0.85); }
-    .nav-divider { width: 48px; height: 2px; background: rgba(255, 255, 255, 0.5); }
-
+    /* Phase Navigation Adjustments for Dark Background */
     .phase-navigation {
-      margin-top: 3rem;
+      margin-top: 4rem;
       padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-top: 1px solid rgba(245, 240, 229, 0.2); /* 浅色边框 */
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
     }
-
+    
     .phase-link {
+      text-decoration: none;
+      color: var(--text-light);
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
-      color: #FFFFFF;
-      text-decoration: none;
-      font-size: 1.125rem;
-      line-height: 1.4;
-      font-weight: bold;
-      transition: transform 0.25s ease;
+      gap: 15px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      transition: all 0.3s;
     }
-    .phase-link.prev:hover { transform: translateX(-5px); }
-    .phase-link-text { border-bottom: 2px solid #FFFFFF; padding-bottom: 4px; }
+    
+    .phase-link:hover { color: var(--bg-tan); transform: translateX(-5px); }
+    .link-sub { display: block; font-size: 0.8em; opacity: 0.7; font-weight: 400; margin-top: 4px; }
 
-    .phase-arrow {
-      font-size: 1.5rem;
-      font-weight: bold;
+    @media (min-width: 900px) {
+      .hero-title { font-size: 5rem; }
+      .grid-2col { grid-template-columns: 1fr 1fr; }
     }
-
-    @media (min-width: 768px) {
-      .hero-content {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
-      }
-      .hero-title { font-size: 3rem; }
-      .hero-subtitle { font-size: 1.25rem; }
-      .boat { display: block; }
-      .grid-2col { grid-template-columns: repeat(2, 1fr); }
-      .grid-2-1 { grid-template-columns: 1.6fr 1.4fr; }
-      .width-60 { max-width: 60%; }
-    }
-
-    @media (max-width: 767px) {
-      .gallery { width: 100%; margin-left: 0; }
-      .gallery-frame { height: 252px; }
-      .phase-navigation { flex-direction: column; gap: 1rem; }
-      .phase-link { font-size: 1rem; }
-      .phase-arrow { font-size: 1.25rem; }
-    }
-
-    /* =========================
-       ✅ NEW: Phase4 Footer (darker than #8A4046)
-       ========================= */
-    :root{
-      --footer-bg: #5F1F28; /* deeper red to contrast with #8A4046 */
-      --footer-fg: #ffffff;
-    }
-
-    .site-footer{
-      background: var(--footer-bg);
-      color: var(--footer-fg);
-      min-height: 96px;
-      padding: 18px 0 14px;
-    }
-
-    .footer-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .footer-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap: wrap;
-    }
-
-    .footer-btn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.35);
-      background: transparent;
-      color:#fff;
-      font: 600 14px/1 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      cursor:pointer;
-      text-decoration:none;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .footer-btn:hover{
-      background: rgba(255,255,255,0.10);
-      border-color: rgba(255,255,255,0.55);
-      transform: translateY(-1px);
-    }
-
-    .footer-btn:active{ transform: translateY(0px); }
-
-    .footer-meta{
-      font: 12px/1.3 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      color: rgba(255,255,255,0.75);
-      text-align:right;
-    }
-
-    @media (max-width: 640px){
-      .footer-inner{ justify-content:center; }
-      .footer-meta{ width:100%; text-align:center; }
+    @media (max-width: 768px) {
+      .grid-2col { grid-template-columns: 1fr; gap: 2rem; }
+      .content-section { padding: 4rem 1.5rem; }
     }
   </style>
 </head>
 
 <body>
-  <main>
-    <section class="section-burgundy hero-section" id="top">
-      <div class="container hero-content">
-        <div>
-          <h1 class="hero-title font-heading">Phase IV: 2000s–Present</h1>
-          <h2 class="hero-subtitle">Diversification and Cultural Resilience</h2>
-        </div>
-        <img src="images/Boat.pic.png" alt="Sailing boat" class="boat">
-      </div>
-    </section>
 
-    <section class="section-burgundy content-section first-section">
-      <div class="container">
-        <h2 class="section-title text-white font-heading">The New Era: Education, Investment, and Family</h2>
-
-        <div class="grid-2col grid-2-1">
-          <div>
-            <div class="text-content text-white-90">
-              <p>
-                In the 21st century, Cantonese migration to North America has evolved beyond the economic survivalism of previous eras into a nuanced movement driven by education, investment, family reunification, and lifestyle aspirations. The demographic profile of migrants has shifted significantly. It now includes technical elites, professionals, and wealthy entrepreneurs seeking global asset allocation, alongside a growing wave of international students and accompanying families.
-              </p>
-              <p>
-                This influx has injected a more diverse cultural dynamism into the United States, reinforcing the community's vitality. Contemporary Cantonese migrants bring with them not just capital and skills, but also renewed connections to Hong Kong, Guangdong, and the broader Pearl River Delta, creating transnational networks that span the Pacific.
-              </p>
-            </div>
-          </div>
-
-          <div class="gallery">
-            <div class="gallery-frame">
-              <div class="gallery-slide show">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Monterey_Park_CA.jpg/1280px-Monterey_Park_CA.jpg" alt="Monterey Park, CA">
-              </div>
-              <div class="gallery-slide">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Richmond_BC_Chinese_signage.jpg/1024px-Richmond_BC_Chinese_signage.jpg" alt="Richmond, BC">
-              </div>
-              <div class="gallery-slide">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Markham_Pacific_Mall.jpg/1024px-Markham_Pacific_Mall.jpg" alt="Markham, ON">
-              </div>
-
-              <div class="gallery-label" id="label">Monterey Park, California - A Suburban Chinese Center</div>
-            </div>
-
-            <div class="gallery-nav">
-              <button class="nav-btn" id="prev" aria-label="Previous">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-
-              <div class="nav-info">
-                <span class="nav-current" id="num">1</span>
-                <div class="nav-divider"></div>
-                <span class="nav-total">3</span>
-              </div>
-
-              <button class="nav-btn" id="next" aria-label="Next">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section-paper content-section" style="background-image: none;">
-      <div class="container">
-        <h2 class="section-title text-dark font-heading">The Cantonese Renaissance: Language and Cultural Preservation</h2>
-        <div class="text-content text-dark-90">
-          <p>
-            Despite the increasing dominance of Mandarin in global commerce and education, Cantonese retains a strong foothold in North America. Current estimates project that approximately 530,000 U.S. residents continue to use Cantonese as their primary home language in 2025. This linguistic resilience is supported by established communities in major metropolitan areas, including San Francisco, Los Angeles, New York, and Vancouver.
-          </p>
-          <p>
-            A visible "Cantonese Renaissance" has emerged, where younger generations, utilizing social media platforms, podcasts, YouTube channels, and community organizations, are actively preserving their linguistic identity. Initiatives such as Cantonese language classes, cultural festivals, film screenings, and music events have proliferated. This movement ensures that Cantonese remains not just a relic of the railroad era, but a living, evolving component of modern American society—a bridge between heritage and contemporary identity.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-burgundy content-section">
-      <div class="container">
-        <h2 class="section-title text-white font-heading">Looking Forward: A Transnational Future</h2>
-
-        <div class="width-60">
-          <div class="text-content text-white-90">
-            <p>
-              As we move deeper into the 21st century, the Cantonese diaspora in North America stands at a crossroads. The community faces both challenges—such as linguistic shift toward Mandarin and English among younger generations—and opportunities, including strengthened cultural institutions, digital connectivity, and renewed pride in Cantonese identity.
-            </p>
-            <p>
-              From the Pearl River Delta to the Pacific Coast, from Gold Mountain to Silicon Valley, the Cantonese journey across nearly four centuries has been one of resilience, adaptation, and contribution. Today's Cantonese North Americans are the inheritors of this legacy—a testament to the enduring power of migration, community, and cultural preservation across generations and oceans.
-            </p>
-          </div>
-        </div>
-
-        <div class="phase-navigation">
-          <a href="phase3.html#top" class="phase-link prev">
-            <span class="phase-arrow prev">←</span>
-            <span class="phase-link-text">Phase III: 1965–1997<br>Reforms, Refugees, and New Waves</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-
-
-
-    
-    
- <footer class="site-footer">
-  <div class="container">
-    <div
-      class="footer-inner"
-      style="
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:16px;
-        flex-wrap:wrap;
-      "
-    >
-      <!-- LEFT: share buttons -->
-      <div class="footer-actions" style="justify-content:flex-start;">
-        <button class="footer-btn" type="button" data-share="x">X</button>
-        <button class="footer-btn" type="button" data-share="instagram">Instagram</button>
-        <button class="footer-btn" type="button" data-share="facebook">Facebook</button>
-      </div>
-
-      <!-- RIGHT: copyright text -->
-      <div class="footer-meta" style="text-align:right;">
-        © 2025 Cantonese in the Americas · contact: kw30928@gmail.com
-      </div>
+  <!-- Nav -->
+  <a href="timeline.html" class="nav-float">
+    <div class="nav-icon-circle">
+      <i data-lucide="arrow-left"></i>
     </div>
-  </div>
-</footer>
+    <span class="nav-text">Back to Timeline</span>
+  </a>
 
+  <!-- Hero Section (Light Cover) -->
+  <header class="hero-section">
+    <canvas id="network-canvas"></canvas>
+    <div class="hero-content">
+      <span class="hero-label">Timeline / Phase IV</span>
+      <h1 class="hero-title">2000s–Present</h1>
+      <h2 class="hero-subtitle">Diversification and Cultural Resilience</h2>
+    </div>
+  </header>
+  
+  <main>
 
+    <!-- 1. Modern Migration (Paper/Light Background) -->
+    <section class="content-section">
+      <div class="container">
+        <div class="grid-2col fade-content">
+          <div class="text-col">
+            <h2 class="section-title">A New Era of Movement</h2>
+            <div class="text-content">
+              <p style="margin-bottom: 1.5rem;">
+                In the 21st century, Cantonese migration to North America has evolved beyond the economic survivalism of previous eras into a nuanced movement driven by education, investment, family reunification, and lifestyle aspirations.
+              </p>
+              <p>
+                The demographic profile of migrants has shifted significantly. It now includes technical elites, professionals, and wealthy entrepreneurs seeking global asset allocation, alongside a growing wave of international students and accompanying families. This influx has injected a more diverse cultural dynamism into the United States, reinforcing the community’s vitality.
+              </p>
+            </div>
+          </div>
+          <div class="img-col">
+            <div class="image-frame">
+              <!-- 使用具有现代感、全球化特征的图片 -->
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000" alt="Professionals and Education">
+            </div>
+            <p class="image-caption">The new generation: Education and professional excellence define the contemporary diaspora.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- 2. Cantonese Renaissance (Deep Red Background #701a1a) -->
+    <section class="content-section section-dark-red">
+      <div class="container">
+        <div class="grid-2col fade-content" style="align-items: center;">
+          <div class="img-col">
+            <div class="image-frame">
+              <!-- 使用体现粤语文化活力、都市感的图片 -->
+              <img src="https://images.unsplash.com/photo-1543157145-f78c636d023d?auto=format&fit=crop&q=80&w=1000" alt="Cultural Identity">
+            </div>
+            <p class="image-caption">Resilience through language: Cantonese remains a vibrant home language for over half a million Americans.</p>
+          </div>
 
+          <div class="text-col">
+            <h2 class="section-title">The Cantonese Renaissance</h2>
+            <div class="text-content">
+              <p style="margin-bottom: 1.5rem;">
+                Despite the increasing dominance of Mandarin in global commerce and education, Cantonese retains a strong foothold in North America. Current estimates project that approximately <strong>530,000 U.S. residents</strong> continue to use Cantonese as their primary home language in 2025.
+              </p>
+              <p>
+                This linguistic resilience is further supported by a visible <strong>"Cantonese Renaissance,"</strong> where younger generations, utilizing social media and community organizations, are actively preserving their linguistic identity. This movement ensures that Cantonese remains not just a relic of the railroad era, but a living, evolving component of modern American society.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- 3. Legacy (Also Deep Red Background #701a1a) -->
+    <section class="content-section section-dark-red" style="padding-top: 0;">
+      <div class="container fade-content">
+        <h2 class="section-title">Legacy into the Future</h2>
+        <div class="text-content" style="max-width: 900px;">
+          <p style="font-size: 1.25rem; margin-bottom: 3rem;">
+            From the gold mines of the 19th century to the tech hubs of the 21st, the Cantonese journey in North America is a testament to endurance. What began as a quest for survival has blossomed into a sophisticated, transnational identity that continues to shape the cultural landscape of the Pacific Rim.
+          </p>
+        </div>
 
+        <!-- Navigation Links -->
+        <div class="phase-navigation">
+            <a href="phase3.html" class="phase-link">
+                <i data-lucide="arrow-left"></i>
+                <span>Phase III: 1950s–1990s<br><span class="link-sub">Global Dispersion & Identity</span></span>
+            </a>
+        </div>
+      </div>
+    </section>
 
-
-
-    
-
-    
   </main>
 
   <script>
-    window.addEventListener('load', () => {
-      document.body.classList.add('ready');
-    });
+    // 1. Initialize Icons
+    lucide.createIcons();
 
-    // Gallery
-    const captions = [
-      "Monterey Park, California - A Suburban Chinese Center",
-      "Richmond, BC - Modern Cantonese Community",
-      "Markham, Ontario - Pacific Mall Area"
-    ];
+    // 2. Intersection Observer for fade-in animations
+    const observerOptions = { threshold: 0.15 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
 
-    let index = 0;
-    const slides = document.querySelectorAll('.gallery-slide');
-    const label = document.getElementById('label');
-    const num = document.getElementById('num');
+    document.querySelectorAll('.fade-content').forEach(el => observer.observe(el));
 
-    function go(n) {
-      slides[index].classList.remove('show');
-      index = (n + slides.length) % slides.length;
-      slides[index].classList.add('show');
-      label.textContent = captions[index];
-      num.textContent = index + 1;
+    // 3. MODERN GLOBAL CONNECTIVITY CANVAS
+    // 模拟21世纪全球化、互联网连接的线条动画
+    const canvas = document.getElementById('network-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+    
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initParticles();
     }
 
-    document.getElementById('prev').addEventListener('click', () => go(index - 1));
-    document.getElementById('next').addEventListener('click', () => go(index + 1));
-
-    // Footer share + email link
-    (function(){
-      const url = window.location.href;
-
-      const mailBtn = document.querySelector('.footer-email');
-      if (mailBtn) {
-        mailBtn.href = mailBtn.href.replace('%5BPAGE_LINK%5D', encodeURIComponent(url));
-      }
-
-      async function copyLink(){
-        try{
-          await navigator.clipboard.writeText(url);
-          alert('Link copied!');
-        } catch(e){
-          const tmp = document.createElement('textarea');
-          tmp.value = url;
-          document.body.appendChild(tmp);
-          tmp.select();
-          document.execCommand('copy');
-          tmp.remove();
-          alert('Link copied!');
-        }
-      }
-
-      function shareTwitter(){
-        const shareUrl =
-          'https://twitter.com/intent/tweet?text=' +
-          encodeURIComponent('Cantonese in Americas') +
-          '&url=' + encodeURIComponent(url);
-        window.open(shareUrl, '_blank', 'noopener,noreferrer');
-      }
-
-      function shareFacebook(){
-        const shareUrl =
-          'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
-        window.open(shareUrl, '_blank', 'noopener,noreferrer');
-      }
-
-      document.querySelectorAll('[data-share]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const mode = btn.getAttribute('data-share');
-          if (mode === 'copy') copyLink();
-          if (mode === 'twitter') shareTwitter();
-          if (mode === 'facebook') shareFacebook();
+    function initParticles() {
+      particles = [];
+      const density = Math.floor(width / 50);
+      for(let i=0; i<density; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r: Math.random() * 2 + 1
         });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "#a84d4d";
+      ctx.strokeStyle = "rgba(168, 77, 77, 0.2)";
+      ctx.lineWidth = 1;
+      
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        
+        if(p.x < 0 || p.x > width) p.vx *= -1;
+        if(p.y < 0 || p.y > height) p.vy *= -1;
+        
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw connections
+        for(let j=i+1; j<particles.length; j++) {
+          const p2 = particles[j];
+          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          if(dist < 180) {
+            ctx.globalAlpha = 1 - (dist / 180);
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
       });
-    })();
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
   </script>
 </body>
 </html>
