@@ -21,7 +21,6 @@
       --sub-head-grey: #4a4a4a;
       --left-width: 420px;
       --header-h: 60px;
-      /* 胶囊渐变色 */
       --pill-grad: linear-gradient(90deg, #d9d1b9 0%, #e9e4d9 100%);
     }
 
@@ -69,62 +68,36 @@
     .section-body { font-family: 'Gentium Book Plus', serif; font-size: 16px; line-height: 1.8; color: #000; }
     .section-body p { margin-bottom: 1.5rem; }
 
-    /* --- 姓氏对比设计样式 --- */
+    /* --- 姓氏组件 (缩小30%) --- */
     .surname-comparison {
       margin: 40px 0;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      max-width: 600px;
+      gap: 15px;
+      max-width: 420px; /* 宽度缩减 */
     }
-    .surname-row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
+    .surname-row { display: flex; align-items: center; gap: 15px; }
     .char-red {
-      font-size: 48px;
+      font-size: 22px; /* 限制在22以下 */
       color: var(--accent-red);
       font-family: 'Gentium Book Plus', serif;
-      width: 50px;
+      width: 35px;
       text-align: center;
     }
     .pill-box {
       flex-grow: 1;
       background: var(--pill-grad);
-      border-radius: 50px;
-      padding: 10px 30px;
+      border-radius: 40px;
+      padding: 0 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 70px;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+      height: 50px; /* 高度减至50px */
     }
-    .pill-side {
-      display: flex;
-      flex-direction: column;
-    }
-    .pill-left { align-items: flex-start; }
-    .pill-right { align-items: flex-end; }
-
-    .lang-tag {
-      font-family: 'Gentium Book Plus', serif;
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      opacity: 0.5;
-    }
-    .surname-main {
-      font-size: 22px;
-      font-weight: 700;
-      font-family: 'Gentium Book Plus', serif;
-    }
-    .surname-mandarin {
-      font-size: 18px;
-      font-weight: 400;
-      font-family: 'Gentium Book Plus', serif;
-      opacity: 0.7;
-    }
+    .pill-side { display: flex; flex-direction: column; }
+    .lang-tag { font-family: 'Gentium Book Plus', serif; font-size: 8px; letter-spacing: 1px; text-transform: uppercase; opacity: 0.6; }
+    .surname-main { font-size: 18px; font-weight: 700; font-family: 'Gentium Book Plus', serif; }
+    .surname-mandarin { font-size: 16px; font-weight: 400; font-family: 'Gentium Book Plus', serif; opacity: 0.7; }
 
     /* --- 幻灯片样式 --- */
     .slideshow-container { position: relative; margin: 40px 0 10px 0; background: #eeeae0; padding: 12px; }
@@ -138,11 +111,17 @@
     .dot { cursor: pointer; height: 10px; width: 10px; margin: 0 5px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
     .active, .dot:hover { background-color: var(--accent-red); }
 
-    /* --- 报纸图片布局 --- */
-    .news-flex { display: flex; gap: 20px; margin: 30px 0; justify-content: flex-start; }
-    .news-item { width: 200px; }
-    .news-img { width: 200px; height: 280px; object-fit: cover; object-position: top; filter: grayscale(1); transition: filter 0.6s; }
-    .news-img:hover { filter: grayscale(0); }
+    /* --- 报纸图片布局 (居中/无特效/剪裁) --- */
+    .news-flex { display: flex; gap: 30px; margin: 30px 0; justify-content: center; } /* 居中 */
+    .news-item { width: 170px; } /* 宽度缩减模拟剪裁 */
+    .news-img { 
+        width: 170px; 
+        height: 250px; 
+        object-fit: cover; 
+        object-position: center; /* 剪裁边缘 */
+        filter: none; /* 取消灰度 */
+        transition: none; /* 取消特效 */
+    }
 
     @media (max-width: 1200px) {
       .main-container { flex-direction: column; }
@@ -176,8 +155,10 @@
         <h2>1. The Era of Hegemony, 1850s–1970s: Cantonese as “Survival License”</h2>
         <div class="section-body">
           <h3>A. Huiguan Power: Associations as Gatekeepers of Social Protection</h3>
-          <p>Early Cantonese dominance was not just about numbers; it was about institutional power. To maintain order and protection, Cantonese migrants founded the Sze Yup Association in 1849; in 1854, the Taishanese split off to form the Ning Yung Benevolent Association, which grew into the most influential district group. By 1862, these major Cantonese huiguan united as the “Chinese Six Companies” in San Francisco (later the CCBA), functioning like a Chinatown government.</p>
+          <p>Early Cantonese dominance was not just about numbers; it was about institutional power. To maintain order and protection, Cantonese migrants founded the Sze Yup Association in 1849; in 1854, the Taishanese split off to form the Ning Yung Benevolent Association, which grew into the most influential district group. By 1862, these major Cantonese huiguan united as the “Chinese Six Companies” in San Francisco (later the CCBA), functioning like a Chinatown government. They dominated trades like hand laundries, cigar making, and shoe manufacturing. They settled disputes, provided welfare, controlled remittance networks and steamship tickets, and fought legal battles against discrimination.</p>
           
+          <p>Because Guangdong native networks deeply shaped these institutions, Cantonese was the price of admission. Speaking the language was not a choice; it was a necessity. It functioned as a “survival license.” Without Cantonese, a Chinese immigrant could not borrow money, find a job, or access legal protection. The community’s support system was effectively closed to anyone who did not speak the language.</p>
+
           <div class="slideshow-container">
             <div class="mySlides"><img src="https://www.foundsf.org/images/d/d3/Chinatwn%246-companies-officers.jpg"><div class="slide-caption">Officers of the Six Companies in 1890, Bancroft Library.</div></div>
             <div class="mySlides"><img src="https://www.foundsf.org/images/5/5a/Reps_of_Six_Companies_1943_AAB-6823.jpg"><div class="slide-caption">Representatives of the Six Companies in 1943. SF Public Library.</div></div>
@@ -187,7 +168,7 @@
           <div class="dot-container"><span class="dot" onclick="currentSlide(1)"></span><span class="dot" onclick="currentSlide(2)"></span><span class="dot" onclick="currentSlide(3)"></span></div>
 
           <h3>B. Media Hegemony: The Public Voice</h3>
-          <p>Cantonese dominance was also reproduced through media institutions. The first U.S. Chinese newspaper, <em>Kim Shan Jit San Luk</em> / Golden Hills’ News (1854), was founded to serve the growing immigrant population. Its very title appears in Cantonese romanization (“Kim Shan”).</p>
+          <p>Cantonese dominance was also reproduced through media institutions. The first U.S. Chinese newspaper, Kim Shan Jit San Luk / Golden Hills’ News (April 22, 1854), was founded to serve the growing immigrant population and was written in classical-style Chinese, yet its very title appears in Cantonese romanization (“Kim Shan”), and its contents circulated through Cantonese-speaking associations, shops, and communities, who often read aloud, debated, and retold in Cantonese, turning print into a shared Cantonese civic soundscape. In the early twentieth century, Chung Sai Yat Po (1900–1951) became one of the major Chinese-language dailies in Chinatown. Even when it addressed “modern” issues, it did so through institutions and audiences anchored in Cantonese community life. The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was “inside” the community’s political imagination and which linguistic groups were peripheral.</p>
 
           <div class="news-flex">
             <div class="news-item"><img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" class="news-img"><div class="slide-caption">The Golden Hills’ News, 1854</div></div>
@@ -195,66 +176,45 @@
           </div>
 
           <h3>C. Surnames and Signs: Cantonese as the Default Public Pronunciation</h3>
-          <p>In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin “Li,” “Wang,” or “Chen.” This signaled that Cantonese was the “standard sound” of public life.</p>
+          <p>A third layer of evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: “Lee,” “Wong,” and “Chan” became the norm, rather than the Mandarin pinyin “Li,” “Wang,” or “Chen.” This signaled that Cantonese was the “standard sound” of public life. In the eyes of the community and the broader American public, Cantonese was not just a dialect; it was the accepted standard for being Chinese in North America.</p>
 
-          <!-- 姓氏设计插入点 -->
           <div class="surname-comparison">
-            <!-- Row 1 -->
             <div class="surname-row">
               <div class="char-red">李</div>
               <div class="pill-box">
-                <div class="pill-side pill-left">
-                  <span class="lang-tag">Cantonese</span>
-                  <span class="surname-main">Lee</span>
-                </div>
-                <div class="pill-side pill-right">
-                  <span class="surname-mandarin">Li</span>
-                  <span class="lang-tag">Mandarin</span>
-                </div>
+                <div class="pill-side"><span class="lang-tag">Cantonese</span><span class="surname-main">Lee</span></div>
+                <div class="pill-side" style="align-items: flex-end;"><span class="surname-mandarin">Li</span><span class="lang-tag">Mandarin</span></div>
               </div>
             </div>
-            <!-- Row 2 -->
             <div class="surname-row">
               <div class="char-red">王</div>
               <div class="pill-box">
-                <div class="pill-side pill-left">
-                  <span class="lang-tag">Cantonese</span>
-                  <span class="surname-main">Wong</span>
-                </div>
-                <div class="pill-side pill-right">
-                  <span class="surname-mandarin">Wang</span>
-                  <span class="lang-tag">Mandarin</span>
-                </div>
+                <div class="pill-side"><span class="lang-tag">Cantonese</span><span class="surname-main">Wong</span></div>
+                <div class="pill-side" style="align-items: flex-end;"><span class="surname-mandarin">Wang</span><span class="lang-tag">Mandarin</span></div>
               </div>
             </div>
-            <!-- Row 3 -->
             <div class="surname-row">
               <div class="char-red">陈</div>
               <div class="pill-box">
-                <div class="pill-side pill-left">
-                  <span class="lang-tag">Cantonese</span>
-                  <span class="surname-main">Chan</span>
-                </div>
-                <div class="pill-side pill-right">
-                  <span class="surname-mandarin">Chen</span>
-                  <span class="lang-tag">Mandarin</span>
-                </div>
+                <div class="pill-side"><span class="lang-tag">Cantonese</span><span class="surname-main">Chan</span></div>
+                <div class="pill-side" style="align-items: flex-end;"><span class="surname-mandarin">Chen</span><span class="lang-tag">Mandarin</span></div>
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      <!-- Section 2, 3, 4 (内容同前，保持完整) -->
+      <!-- Section 2, 3, 4 正文无删减 -->
       <section id="sec2" class="content-section">
         <span class="section-label">02 / Diglossia</span>
         <h2>2. Diglossia and Displacement, 1960s–Present: The Rise of Mandarin as “High” Variety</h2>
         <div class="section-body">
             <h3>A. Reframing Diglossia: “High/Low” Inside Chinese</h3>
-            <p>Classically, sociolinguists describe “diglossia” as a system where a “High” language is used for official business and a “Low” language is used for family life. In North American communities today, this split increasingly operates within the Chinese language itself. Mandarin is treated as the “High” variety—official, educated, and globally useful. Meanwhile, Cantonese is pushed toward the “Low” variety—associated with family, local history, and the elderly.</p>
+            <p>Classically, sociolinguists describe “diglossia” as a system where a “High” language is used for official business and a “Low” language is used for family life. In North American communities today, this split increasingly operates within the Chinese language itself. Mandarin is treated as the “High” variety—official, educated, and globally useful. Meanwhile, Cantonese is pushed toward the “Low” variety—associated with family, local history, and the elderly. This does not mean Cantonese lacks value; rather, its value is being moved away from institutional power.</p>
             <h3>B. Institutional Production of “standard” Chinese</h3>
-            <p>Heritage education is a primary site where this hierarchy is produced. In many Chinese heritage schools, classrooms become arenas where Mandarin is enforced as the only "proper" identity. Students learn that legitimate “Chinese” is what schools, tests, and formal curricula recognize—often Mandarin by default.</p>
+            <p>Heritage education is a primary site where this hierarchy is produced. In many Chinese heritage schools, classrooms become arenas where Mandarin is enforced as the only "proper" identity. Other repertoires, including Cantonese, are often treated as secondary or invisible. The outcome is not only a language shift, but a redefinition of authenticity. Students learn that legitimate “Chinese” is what schools, tests, and formal curricula recognize—often Mandarin by default.</p>
+            <h3>C. The Supply Chain Disruption: State Standardization</h3>
+            <p>1965 US Immigration Act and 1979 diplomatic normalization opened doors to migrants from all Chinese provinces, not just Guangdong. New arrivals poured in from Beijing, Shanghai, and Fujian, where Mandarin is the common language.</p>
         </div>
       </section>
 
@@ -263,9 +223,11 @@
         <h2>3. The Great Reversal, 2000s–Present: Current Demographic Realities</h2>
         <div class="section-body">
             <h3>A. Comparative Signals: Canada vs. the United States</h3>
-            <p>Canada provides a clear macro-signal of linguistic re-ranking. The 2021 Census confirmed Mandarin as the leading Chinese language with approximately 679,000 speakers, widening the gap over the aging demographic of 553,000 Cantonese speakers.</p>
+            <p>Canada provides a clear macro-signal of linguistic re-ranking. The 2021 Census confirmed Mandarin as the leading Chinese language with approximately 679,000 speakers, widening the gap over the aging demographic of 553,000 Cantonese speakers. Furthermore, Cantonese counts have declined in key hubs like Toronto since the 2016 peak. The U.S. landscape is more spatially fragmented, even though Mandarin surpassed Cantonese nationally around 2010. By 2025, estimates show approximately 2.6 million Mandarin speakers compared to roughly 0.55 million Cantonese speakers.</p>
             <h3>B. San Francisco as “Fortress”: Institutional Demand Still High</h3>
-            <p>The 2025 Language Access Ordinance report by OCEIA notes that Cantonese LEP interactions totaled approximately 20% among all languages; meanwhile, Mandarin accounted for only about 5%.</p>
+            <p>Language service data from San Francisco demonstrates that Cantonese remains critical for "operational accessibility" of public services. The 2025 Language Access Ordinance (LAO) summary report by OCEIA (covering FY2023–2024) notes that self-reported Limited English Proficiency (LEP) interactions reached a record high. In the analysis of this data, Cantonese LEP interactions totaled approximately 20% among all languages; meanwhile, Mandarin showed the fastest growth and accounted for only about 5% of interactions.</p>
+            <h3>C. Linguistic Landscape as Evidence of Revaluation</h3>
+            <p>The reversal also appears in the public landscape: signage, service counters, translated public materials, and the semiotics of “what Chinese looks like.” When the public Chinese increasingly defaults to Mandarin-centered forms—often pinyin, Cantonese becomes less visible as the presumed public standard, even when spoken widely.</p>
         </div>
       </section>
 
@@ -273,9 +235,10 @@
         <span class="section-label">04 / Identity</span>
         <h2>4. Identity and Resistance</h2>
         <div class="section-body">
-            <p>Mandarin is now valued primarily for its "Commodification"—its convertibility into economic opportunities. In contrast, Cantonese is valued for its "Authenticity"—a marker of specific regional roots, Hong Kong identity, and diasporic history.</p>
+            <p>If Cantonese is no longer the dominant economic credential, its value does not disappear—it shifts. Cantonese is increasingly revalued as a heritage asset. The decline of Cantonese as a "market requirement" has catalyzed its re-emergence as a site of cultural resistance. Cantonese is frequently framed as a “bonus” skill for elder care and community services, rather than a core credential for upward mobility. Mandarin is now valued primarily for its "Commodification"—its convertibility into economic opportunities in the global market. In contrast, Cantonese is valued for its "Authenticity"—a marker of specific regional roots, Hong Kong identity, and diasporic history.</p>
+            <p>While no longer the universal "key" to the ethnic economy, Cantonese persists as a critical resource for intergenerational connection and community organizing. The emergence of a "Cantonese Renaissance" among youth activists suggests a conscious effort to preserve the language not for economic utility, but for cultural continuity.</p>
             <h3>Conclusion: What the Reversal Means</h3>
-            <p>Traditional Cantonese immigrant origins no longer holds a monopoly on what it meant to be “Chinese” in North America. This pressure has politicized the language, turning it into a new site of resistance and cultural reclamation.</p>
+            <p>The function of Cantonese in North America has fundamentally shifted. Traditional Cantonese immigrant origins no longer holds a monopoly on what it meant to be “Chinese” in North America. The contemporary diaspora is shaped by a new internal hierarchy: Mandarin’s economic power rises alongside English assimilation pressures, leaving Cantonese squeezed in the middle. Yet, this very pressure has politicized the language, turning it into a new site of resistance and cultural reclamation.</p>
         </div>
       </section>
 
