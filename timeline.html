@@ -58,7 +58,6 @@
       cursor: pointer;
     }
 
-    /* 编号和标题样式 */
     .item-info {
       position: absolute;
       top: -65px;
@@ -67,7 +66,6 @@
       pointer-events: none; 
     }
 
-    /* 核心字体定义：01编号与Map标题通用 */
     .item-number, .map-title {
       display: block;
       font-family: 'Exo', sans-serif;
@@ -91,11 +89,11 @@
       opacity: 0.9;
     }
 
-    /* 图片裁剪容器：保证水纹不溢出 */
+
     .image-container {
       width: 100%;
       height: 100%;
-      overflow: hidden; /* 关键：裁剪抖动边缘 */
+      overflow: hidden; 
       position: relative;
       border-right: 1px solid rgba(0,0,0,0.05);
     }
@@ -123,7 +121,7 @@
       transition: opacity 0.6s ease;
     }
 
-    /* Hover: 触发滤镜和轻微缩放 */
+
     .gallery-item:hover .image-wrapper {
       filter: grayscale(0%) contrast(1) url(#liquid-filter);
       transform: scale(1.08); 
@@ -136,7 +134,7 @@
     /* --- Migration Map Section --- */
     .map-section {
       width: 100%;
-      padding: 100px 0; /* 上下留白 */
+      padding: 100px 0; 
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -147,27 +145,24 @@
     .map-title {
       margin-bottom: 25px;
       text-align: center;
-      /* 这里的样式已在上面 .item-number, .map-title 中统一定义 */
     }
 
     #diaspora-map {
       width: 50vw; 
       height: 50vw; 
       max-height: 500px; 
-      min-height: 300px; /* 确保在小屏幕也有高度 */
+      min-height: 300px; 
       background-color: #e5e0d5; 
       border: 1px solid #dcd8ce;
       position: relative;
     }
 
-    /* 隐藏 SVG 资源 */
     .svg-filters {
       position: absolute;
       width: 0; height: 0;
       visibility: hidden;
     }
 
-    /* 响应式 */
     @media (max-width: 768px) {
       .gallery-container { grid-template-columns: 1fr; height: auto; margin-top: 80px; }
       .gallery-item { height: 300px; margin-bottom: 80px; }
@@ -183,7 +178,6 @@
   <svg class="svg-filters">
     <filter id="liquid-filter">
       <feTurbulence id="turbulence" type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
-      <!-- scale="16" 提供细腻不夸张的抖动 -->
       <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" />
     </filter>
   </svg>
@@ -205,7 +199,7 @@
         <!-- Phase 02 -->
         <a href="phase2.html" class="gallery-item">
             <div class="item-info">
-                <span class="item-number">02. 1840s–1940s</span>
+                <span class="item-number">02. 1848–1947</span>
                 <span class="item-title">Building North America <br>& The Pacific</span>
             </div>
             <div class="image-container">
@@ -216,8 +210,8 @@
         <!-- Phase 03 -->
         <a href="phase3.html" class="gallery-item">
             <div class="item-info">
-                <span class="item-number">03. 1965–1997</span>
-                <span class="item-title">Reforms, Refugees, <br>and New Waves</span>
+                <span class="item-number">03. 1965–2000</span>
+              <span class="item-title">Reforms, Refugees, and American Dream</span>
             </div>
             <div class="image-container">
                 <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
@@ -227,7 +221,7 @@
         <!-- Phase 04 -->
         <a href="phase4.html" class="gallery-item">
             <div class="item-info">
-                <span class="item-number">04. 2000s–Present</span>
+                <span class="item-number">04. 2000–Present</span>
                 <span class="item-title">Diversification and <br>Cultural Resilience</span>
             </div>
             <div class="image-container">
@@ -236,14 +230,12 @@
         </a>
     </div>
 
-    <!-- Map Section: 确保这里的 HTML 结构完整 -->
     <div class="map-section">
         <div class="map-title">Migration map</div>
         <div id="diaspora-map"></div>
     </div>
   </main>
 
-  <!-- External Mapbox Logic (确保 ./assets/mapbox.js 存在并能正确寻找 #diaspora-map) -->
   <script src="./assets/mapbox.js" defer></script>
 
   <script>
@@ -252,7 +244,7 @@
     let requestID = null;
 
     function animate() {
-      step += 0.015; // 保持较快的水流频率
+      step += 0.015; 
       const bfX = 0.02 + Math.cos(step) * 0.008;
       const bfY = 0.02 + Math.sin(step) * 0.01;
       
