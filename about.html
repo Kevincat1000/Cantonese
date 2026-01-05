@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blank Template - Cantonese in Americas</title>
-  <!-- Google Fonts: 保持一致的字体库 -->
+  <title>About - Cantonese in Americas</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Header/Footer Injectors: 保持组件注入逻辑 -->
+
+  <!-- Header/Footer Injectors -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
+
   <style>
     :root {
-      /* 保持原始配色方案 */
-      --bg: 
-#f5f0e5; 
-      --text: 
-#1a1a1a;
-      --header-h: 48px; 
-      --accent: 
-#a84d4d; /* 继承自 Phase 页面的红 */
+      --bg: #f5f0e5;
+      --text: #1a1a1a;
+      --header-h: 48px;
+      --accent: #a84d4d;
     }
+
     * { box-sizing: border-box; }
 
     body, html {
@@ -33,19 +33,22 @@
       color: var(--text);
       -webkit-font-smoothing: antialiased;
     }
-    /* 预留 Header 空间 */
+
+    /* Reserve Header Space */
     body { padding-top: var(--header-h); }
-    /* --- 通用页面容器 --- */
+
+    /* Page Container */
     .page-container {
       max-width: 1152px;
       margin: 0 auto;
       padding: 80px 20px;
       min-height: calc(100vh - var(--header-h));
     }
-    /* --- 预设文本样式 (继承自原有风格) --- */
+
+    /* Typography */
     .section-label {
       font-family: 'Exo', sans-serif;
-      font-size: 11px; 
+      font-size: 11px;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -53,6 +56,7 @@
       margin-bottom: 10px;
       display: block;
     }
+
     .section-title {
       font-family: 'Exo', sans-serif;
       font-size: 2.5rem;
@@ -60,35 +64,44 @@
       line-height: 1.1;
       margin-bottom: 1.5rem;
     }
+
     .section-body {
       font-size: 1.15rem;
       line-height: 1.7;
       opacity: 0.9;
+      max-width: 78ch;
     }
-    /* --- 响应式适配 --- */
+
+    .section-body p {
+      margin: 0 0 1rem 0;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
       .page-container { padding: 40px 20px; }
       .section-title { font-size: 1.8rem; }
     }
   </style>
 </head>
+
 <body>
-  <!-- 主内容区域 -->
   <main>
     <div class="page-container">
+      <span class="section-label">About</span>
+      <h1 class="section-title">Why I’m Making This</h1>
 
-        <!-- 这里是您的内容占位符 -->
-        <span class="section-label">Label Name</span>
-        <h1 class="section-title">Page Heading</h1>
+      <div class="section-body">
+        <p>Hi, I’m Kevin. This project started in a pretty simple way. I really like dim sum. Growing up, it was something I looked forward to. Over time, I started wondering how Cantonese traditions ended up so far from where they began.</p>
 
-        <div class="section-body">
-            <p>Your content goes here. The styling for fonts, colors, and background has been preserved from the original timeline page.</p>
-        </div>
+        <p>Last summer, I had the chance to go to Hong Kong, and that experience made everything feel more real. It pushed me to look beyond just enjoying the culture and start asking questions about where it came from and how it travels.</p>
+
+        <p>I like filming and recording things, so I decided to explore this through interviews and documentation instead of just reading about it. For this project, I’m talking to people from different generations about their families, the languages they speak, and the traditions they keep. The goal is to understand how Cantonese culture moves across places and time through the lens of ordinary routines and everyday stories.</p>
+      </div>
     </div>
   </main>
-  <!-- JS 脚本挂载点 -->
+
   <script>
-    // 在此添加页面专属逻辑
+    // Page-specific logic (optional)
   </script>
 </body>
-</html> 
+</html>
