@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
@@ -20,17 +20,14 @@
 
   <style>
     /* ---------------------------------------------------------
-       DESIGN SYSTEM & VARIABLES
-       Background: #f5f0e5 (Beige/Paper)
-       Fonts: Exo (Headings), Gentium (Body)
+       VARIABLES & BASE
     --------------------------------------------------------- */
     :root {
       --bg-color: #f5f0e5;
-      --text-main: #1a1a1a;
-      --text-muted: #555555;
-      --header-h: 50px; /* Assumed header height */
-      --content-gap: 40px; /* Required gap */
-      --total-offset: calc(var(--header-h) + var(--content-gap));
+      --text-color: #1a1a1a;
+      --drop-cap-color: #701a1a; /* Dark Red requested */
+      --header-h: 50px; 
+      --content-gap: 40px; 
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,121 +35,125 @@
     html, body {
       height: 100%;
       width: 100%;
-      overflow: hidden; /* Force one page feel */
+      overflow: hidden; /* Lock to one page */
     }
 
     body {
       background-color: var(--bg-color);
-      color: var(--text-main);
+      color: var(--text-color);
       font-family: "Gentium Book Plus", serif;
-      /* Padding top to push content down 40px below header */
-      padding-top: var(--total-offset); 
+      padding-top: calc(var(--header-h) + var(--content-gap)); 
     }
 
     /* ---------------------------------------------------------
-       MAIN GRID LAYOUT
-       Left: 45% (Visuals) | Right: 55% (Text)
+       LAYOUT: Split Screen
     --------------------------------------------------------- */
-    .one-page-layout {
+    .split-layout {
       display: grid;
-      grid-template-columns: 42% 58%;
-      height: calc(100vh - var(--total-offset));
+      grid-template-columns: 45% 55%; /* Adjust width ratio as needed */
+      height: calc(100vh - (var(--header-h) + var(--content-gap)));
       width: 100%;
-      max-width: 1440px;
-      margin: 0 auto;
+      max-width: 100%;
     }
 
     /* ---------------------------------------------------------
-       LEFT COLUMN: Visuals & Stats
+       LEFT PANE: Image & Stats
     --------------------------------------------------------- */
     .left-pane {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between; /* Top/Middle/Bottom distribution */
-      padding-bottom: 2rem;
       position: relative;
+      background-color: var(--bg-color);
+      /* Center the image vertically */
+      display: flex;
+      align-items: center; 
+      /* No padding to ensure image touches edges */
+      padding: 0;
     }
 
-    /* 1. Top Whitespace (Priority 3) */
-    .left-spacer {
-      flex-grow: 1; 
-      min-height: 50px;
+    /* Dragon Image */
+    .dragon-wrapper {
+      width: 100%; /* Touch middle line */
+      margin-left: 0; /* Touch left screen edge */
+      display: flex;
+      justify-content: center;
     }
 
-    /* 2. Dragon Photo (Priority 4) */
-    /* Requirements: No edge left, Shrink 30% */
-    .dragon-container {
-      width: 70%; /* Shrink width by ~30% relative to column */
-      align-self: flex-start; /* Stick to left edge */
-      margin-bottom: 2rem;
-    }
-
-    .dragon-container img {
-      width: 100%;
+    .dragon-wrapper img {
+      width: 100%; /* Fill the container width */
       height: auto;
       display: block;
-      /* Artistic Blending */
+      /* Optional: Blend mode for better integration with bg */
       mix-blend-mode: multiply; 
-      filter: sepia(0.4) contrast(1.1) brightness(0.9);
-      
-      /* Optional: Fade out slightly to the right for "no edge" feel */
-      mask-image: linear-gradient(to right, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
-      -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+      filter: sepia(0.2) contrast(1.1);
     }
 
-    /* 3. By The Numbers (Priority 5) */
-    /* Requirements: Compact size, fit in page */
+    /* Stats: Bottom Left Fixed Position */
     .stats-container {
-      padding-left: 3rem; /* Indent slightly from left edge */
-      padding-right: 2rem;
+      position: absolute;
+      left: 40px;   /* Requested distance */
+      bottom: 40px; /* Requested distance */
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 10;
     }
 
-    .stats-label {
+    .stats-title {
       font-family: 'Exo', sans-serif;
-      font-size: 0.75rem; /* Small label */
       font-weight: 700;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      border-bottom: 1px solid #1a1a1a;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid #000;
+      padding-bottom: 4px;
       display: inline-block;
-      margin-bottom: 1rem;
-      opacity: 0.6;
+      margin-bottom: 0.5rem;
+      color: #000;
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+    .stats-row {
+      display: flex;
+      gap: 3rem; /* Space between columns */
     }
 
-    .stat-box h4 {
+    .stat-item h4 {
       font-family: 'Exo', sans-serif;
-      font-weight: 800;
-      font-size: 1.5rem; /* Significantly smaller */
-      color: #2b3a42;
-      line-height: 1.1;
+      font-weight: 700;
+      font-size: 18px; /* Requested size */
+      color: #000;     /* Requested color */
+      margin-bottom: 2px;
+      line-height: 1.2;
     }
 
-    .stat-box p {
+    .stat-item p {
       font-family: 'Exo', sans-serif;
-      font-size: 0.7rem;
-      margin-top: 0.2rem;
-      color: #666;
-      line-height: 1.3;
+      font-weight: 400;
+      font-size: 12px;
+      color: #000;     /* Requested color */
+      opacity: 0.8;
     }
 
     /* ---------------------------------------------------------
-       RIGHT COLUMN: Text Content (Priority 2)
+       RIGHT PANE: Text Content
     --------------------------------------------------------- */
     .right-pane {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 0 4rem 2rem 2rem;
+      justify-content: center; /* Vertical Center */
+      padding: 0 4rem 4rem 4rem; /* Right spacing */
     }
 
-    .content-block {
-      max-width: 680px;
+    .content-wrapper {
+      max-width: 700px;
+    }
+
+    /* Sub-heading updates: No border, new text */
+    h2.sub-heading {
+      font-family: 'Exo', sans-serif;
+      font-weight: 400;
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 1rem;
+      /* Removed border-left: 3px solid #8c3b2b; */
     }
 
     h1.main-title {
@@ -160,59 +161,43 @@
       font-weight: 800;
       font-size: 3.5rem;
       line-height: 0.95;
-      margin-bottom: 1.5rem;
       text-transform: uppercase;
-      letter-spacing: -0.01em;
       color: #1a1a1a;
-    }
-
-    h2.sub-heading {
-      font-family: 'Exo', sans-serif;
-      font-weight: 400;
-      font-size: 1.1rem;
       margin-bottom: 2rem;
-      color: #555;
-      border-left: 3px solid #8c3b2b;
-      padding-left: 1rem;
     }
 
-    /* Requirement: 12pt font size */
     .text-body {
-      font-size: 12pt; 
-      line-height: 1.6; /* Good readability */
+      font-size: 12pt; /* Requested size */
+      line-height: 1.6;
       color: #222;
       text-align: justify;
     }
 
     .text-body p {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
-    
-    /* Drop cap for artistic impact */
+
+    /* Drop Cap Update */
     .text-body p:first-child::first-letter {
       font-family: 'Exo', sans-serif;
-      font-weight: 700;
-      font-size: 3.2em;
+      font-weight: 800;
+      font-size: 3.5rem;
       float: left;
       line-height: 0.8;
       margin-right: 0.15em;
       margin-top: 0.05em;
+      color: var(--drop-cap-color); /* #701a1a */
     }
 
     /* ---------------------------------------------------------
-       RESPONSIVE
+       RESPONSIVE (Mobile Fallback)
     --------------------------------------------------------- */
     @media (max-width: 1024px) {
       body { overflow: auto; height: auto; }
-      .one-page-layout { 
-        grid-template-columns: 1fr; 
-        height: auto;
-        padding-bottom: 4rem;
-      }
-      .left-pane { padding: 0; order: 2; margin-top: 2rem; }
-      .right-pane { padding: 0 2rem; order: 1; }
-      .dragon-container { width: 100%; margin-left: 0; }
-      .stats-container { padding-left: 2rem; }
+      .split-layout { grid-template-columns: 1fr; height: auto; display: block; }
+      .left-pane { height: auto; min-height: 400px; margin-bottom: 2rem; }
+      .stats-container { position: relative; left: 40px; bottom: 0; margin-top: 2rem; margin-bottom: 2rem; }
+      .right-pane { padding: 2rem 2rem 4rem 2rem; }
     }
   </style>
 </head>
@@ -222,42 +207,45 @@
   <!-- Header Placeholder -->
   <div id="header-container"></div>
 
-  <main class="one-page-layout">
+  <main class="split-layout">
     
     <!-- LEFT SIDE -->
     <aside class="left-pane">
-      <!-- 3. Left Top Whitespace -->
-      <div class="left-spacer"></div>
-
-      <!-- 4. Left Middle Dragon Photo (No Edge Left, 70% Width) -->
-      <div class="dragon-container">
+      
+      <!-- Dragon Photo: Centered, Touching Edges (0px) -->
+      <div class="dragon-wrapper">
         <img src="https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg" alt="Dragon Parade">
       </div>
 
-      <!-- 5. Left Bottom Numbers (Small Font) -->
+      <!-- Stats: Fixed 40px from Left & Bottom -->
       <div class="stats-container">
-        <span class="stats-label">By The Numbers</span>
-        <div class="stats-grid">
-          <div class="stat-box">
+        <div class="stats-title">BY THE NUMBERS</div>
+        
+        <div class="stats-row">
+          <div class="stat-item">
             <h4>1848</h4>
             <p>First Arrival</p>
           </div>
-          <div class="stat-box">
+          
+          <div class="stat-item">
             <h4>530k</h4>
-            <p>Speakers</p>
+            <p>U.S. Home Speakers</p>
           </div>
-          <div class="stat-box">
+          
+          <div class="stat-item">
             <h4>30M+</h4>
-            <p>Diaspora</p>
+            <p>Global Cantonese Diaspora</p>
           </div>
         </div>
       </div>
+
     </aside>
 
-    <!-- RIGHT SIDE (Priority 2) -->
+    <!-- RIGHT SIDE -->
     <article class="right-pane">
-      <div class="content-block">
-        <h2 class="sub-heading">Public History & Cultural Research</h2>
+      <div class="content-wrapper">
+        <!-- New Text, No Border -->
+        <h2 class="sub-heading">Public History · Oral History · Cultural Research</h2>
         <h1 class="main-title">CANTONESE<br>IN AMERICAS</h1>
         
         <div class="text-body">
