@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="preload">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,13 +21,16 @@
 
   <style>
     :root {
-      --bg: #f5f0e5; 
+      --bg: #f5f0e5;
       --text: #1a1a1a;
-      --mask-color: #e3bd28; 
+      --mask-color: #e3bd28;
+
+      /* ✅ for anti-shake: default header height, JS will sync to real height */
+      --header-h: 60px;
     }
 
     * { box-sizing: border-box; }
-    
+
     body, html {
       margin: 0;
       padding: 0;
@@ -37,14 +40,17 @@
       width: 100%;
       overflow-x: hidden;
       scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* --- Header Style --- */
     header {
-      position: fixed !important; 
+      position: fixed !important;
       top: 0; left: 0; width: 100%;
-      z-index: 9999; 
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+      z-index: 9999;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+      background-color: var(--bg);
     }
     header.hide { transform: translateY(-100%) !important; }
 
@@ -53,18 +59,20 @@
       width: 100%;
       min-height: 100vh;
       display: block;
-      padding-top: 22vh; 
+
+      /* ✅ use header var so it won't jump when injected */
+      padding-top: calc(var(--header-h) + 22vh);
       padding-bottom: 100px;
     }
 
     /* --- Gallery Section --- */
     .gallery-container {
       display: grid;
-      grid-template-columns: repeat(4, 1fr); 
-      gap: 25px; 
-      padding: 0 40px; 
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      padding: 0 40px;
       width: 100%;
-      height: 55vh; 
+      height: 55vh;
       min-height: 400px;
       position: relative;
     }
@@ -83,16 +91,16 @@
       position: absolute;
       bottom: 100%; left: 0; width: 100%;
       padding-bottom: 15px;
-      text-align: left; 
+      text-align: left;
       z-index: 10;
-      pointer-events: none; 
+      pointer-events: none;
     }
 
     .item-number {
       display: block;
       font-family: 'Exo', sans-serif;
-      font-size: 10px; 
-      font-weight: 700; 
+      font-size: 10px;
+      font-weight: 700;
       letter-spacing: 0.5px;
       color: #000;
       text-transform: uppercase;
@@ -102,7 +110,7 @@
     .item-title {
       display: block;
       font-family: 'Gentium Book Plus', serif;
-      font-size: 16px; 
+      font-size: 16px;
       line-height: 1.3;
       font-weight: 400;
       color: #1a1a1a;
@@ -112,7 +120,7 @@
     .image-container {
       width: 100%;
       height: 100%;
-      overflow: hidden; 
+      overflow: hidden;
       position: relative;
       border-right: 1px solid rgba(0,0,0,0.05);
     }
@@ -122,10 +130,10 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      filter: grayscale(100%) contrast(1.1); 
+      filter: grayscale(100%) contrast(1.1);
       transition: filter 0.4s ease, transform 0.6s ease;
       position: relative;
-      transform: scale(1.01); 
+      transform: scale(1.01);
     }
     .first-image { background-position: left center !important; }
 
@@ -134,21 +142,21 @@
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
       background-color: var(--mask-color);
-      mix-blend-mode: multiply; 
-      opacity: 0.85; 
+      mix-blend-mode: multiply;
+      opacity: 0.85;
       transition: opacity 0.6s ease;
     }
 
     .gallery-item:hover .image-wrapper {
       filter: grayscale(0%) contrast(1) url(#liquid-filter);
-      transform: scale(1.05); 
+      transform: scale(1.05);
     }
     .gallery-item:hover .image-wrapper::after { opacity: 0; }
 
     /* --- Migration Map Section --- */
     .map-section {
       width: 100%;
-      margin-top: 120px; 
+      margin-top: 120px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -160,7 +168,7 @@
       margin-bottom: 25px;
       text-align: center;
       font-family: 'Exo', sans-serif;
-      font-size: 10px; 
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.5px;
       color: #000;
@@ -168,9 +176,9 @@
     }
 
     #diaspora-map {
-      width: 60vw; 
-      height: 400px; 
-      background-color: #e5e0d5; 
+      width: 60vw;
+      height: 400px;
+      background-color: #e5e0d5;
       border: 1px solid #dcd8ce;
     }
 
@@ -179,27 +187,24 @@
     /* --- Scroll Down Arrow (Centered, 30px) --- */
     .scroll-arrow-container {
       position: fixed;
-      bottom: 25px; /* 距离底部 25px */
-      left: 50%;    /* 水平居中 */
-      transform: translateX(-50%); /* 修正居中偏移 */
-      
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 50;
       cursor: pointer;
       opacity: 1;
       transition: opacity 0.5s ease;
     }
 
-    /* 隐藏状态 */
     .scroll-arrow-container.fade-out {
       opacity: 0;
       pointer-events: none;
     }
 
     .scroll-arrow-svg {
-      width: 14px;  /* 宽度 */
-      height: 30px; /* 高度固定为 30px */
+      width: 14px;
+      height: 30px;
       display: block;
-      /* 上下浮动动画 */
       animation: float 2s ease-in-out infinite;
     }
 
@@ -215,26 +220,32 @@
       50% { transform: translateY(6px); }
     }
 
-    .scroll-arrow-container:hover .scroll-arrow-svg {
-      animation-play-state: paused;
-    }
+    .scroll-arrow-container:hover .scroll-arrow-svg { animation-play-state: paused; }
 
     /* --- Responsive --- */
     @media (max-width: 900px) {
-      main { padding-top: 150px; } 
+      main { padding-top: calc(var(--header-h) + 150px); }
       .gallery-container { grid-template-columns: repeat(2, 1fr); height: auto; gap: 50px; }
       .gallery-item { height: 40vh; margin-bottom: 40px; }
     }
     @media (max-width: 600px) {
-      main { padding-top: 120px; }
+      main { padding-top: calc(var(--header-h) + 120px); }
       .gallery-container { grid-template-columns: 1fr; height: auto; padding: 0 30px; gap: 60px; }
       .gallery-item { height: 350px; }
       .item-info { position: static; margin-bottom: 10px; }
     }
+
+    /* ===== Page-only anti-shake patch (same method as language/culture) ===== */
+    html.preload body { opacity: 0; }
+    body { transition: opacity .15s ease; }
+    #header-injection-point { height: var(--header-h); }
   </style>
 </head>
 
 <body>
+
+  <!-- ✅ reserve header space before header.js injection -->
+  <div id="header-injection-point"></div>
 
   <svg class="svg-filters">
     <filter id="liquid-filter">
@@ -242,79 +253,113 @@
       <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" />
     </filter>
   </svg>
-  
+
   <main>
     <div class="gallery-container">
-        <!-- Gallery Items -->
-        <a href="phase1.html" class="gallery-item">
-            <div class="item-info">
-                <span class="item-number">01. 17th–19th Centuries</span>
-                <span class="item-title">Early Migration within <br>Southeast Asia</span>
-            </div>
-            <div class="image-container">
-                <div class="image-wrapper first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
-            </div>
-        </a>
-        <a href="phase2.html" class="gallery-item">
-            <div class="item-info">
-                <span class="item-number">02. 1848–1947</span>
-                <span class="item-title">Building North America <br>& The Pacific</span>
-            </div>
-            <div class="image-container">
-                <div class="image-wrapper" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
-            </div>
-        </a>
-        <a href="phase3.html" class="gallery-item">
-            <div class="item-info">
-                <span class="item-number">03. 1965–2000</span>
-              <span class="item-title">Reforms, Refugees, and<br>American Dream</span>
-            </div>
-            <div class="image-container">
-                <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
-            </div>
-        </a>
-        <a href="phase4.html" class="gallery-item">
-            <div class="item-info">
-                <span class="item-number">04. 2000–Present</span>
-                <span class="item-title">Diversification and <br>Cultural Resilience</span>
-            </div>
-            <div class="image-container">
-                <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
-            </div>
-        </a>
+      <a href="phase1.html" class="gallery-item">
+        <div class="item-info">
+          <span class="item-number">01. 17th–19th Centuries</span>
+          <span class="item-title">Early Migration within <br>Southeast Asia</span>
+        </div>
+        <div class="image-container">
+          <div class="image-wrapper first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
+        </div>
+      </a>
+
+      <a href="phase2.html" class="gallery-item">
+        <div class="item-info">
+          <span class="item-number">02. 1848–1947</span>
+          <span class="item-title">Building North America <br>& The Pacific</span>
+        </div>
+        <div class="image-container">
+          <div class="image-wrapper" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
+        </div>
+      </a>
+
+      <a href="phase3.html" class="gallery-item">
+        <div class="item-info">
+          <span class="item-number">03. 1965–2000</span>
+          <span class="item-title">Reforms, Refugees, and<br>American Dream</span>
+        </div>
+        <div class="image-container">
+          <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
+        </div>
+      </a>
+
+      <a href="phase4.html" class="gallery-item">
+        <div class="item-info">
+          <span class="item-number">04. 2000–Present</span>
+          <span class="item-title">Diversification and <br>Cultural Resilience</span>
+        </div>
+        <div class="image-container">
+          <div class="image-wrapper" style="background-image: url('https://cdn.crowdriff.com/in-use/058b1d66-9cc0-d505-0b55-e3543a3c5c89/1080.jpg');"></div>
+        </div>
+      </a>
     </div>
 
-    <!-- Scroll Indicator Arrow (Centered, 30px) -->
+    <!-- Scroll Indicator Arrow -->
     <div class="scroll-arrow-container" id="scrollArrow">
-        <svg class="scroll-arrow-svg" viewBox="0 0 14 30" preserveAspectRatio="none">
-            <!-- 竖线 -->
-            <line x1="7" y1="0" x2="7" y2="28" class="arrow-path" />
-            <!-- 箭头左翼 -->
-            <line x1="7" y1="28" x2="1" y2="20" class="arrow-path" />
-            <!-- 箭头右翼 -->
-            <line x1="7" y1="28" x2="13" y2="20" class="arrow-path" />
-        </svg>
+      <svg class="scroll-arrow-svg" viewBox="0 0 14 30" preserveAspectRatio="none">
+        <line x1="7" y1="0" x2="7" y2="28" class="arrow-path" />
+        <line x1="7" y1="28" x2="1" y2="20" class="arrow-path" />
+        <line x1="7" y1="28" x2="13" y2="20" class="arrow-path" />
+      </svg>
     </div>
 
     <div class="map-section" id="mapSection">
-        <div class="map-title">Migration map</div>
-        <div id="diaspora-map"></div>
+      <div class="map-title">Migration map</div>
+      <div id="diaspora-map"></div>
     </div>
   </main>
 
   <script>
+    // === Header injection anti-shake + auto header height sync (same method as language/culture) ===
+    (function () {
+      function syncHeaderHeight() {
+        const header = document.querySelector('header') || document.querySelector('.site-header');
+        if (!header) return false;
+
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        if (h > 0) {
+          document.documentElement.style.setProperty('--header-h', h + 'px');
+          const injection = document.getElementById('header-injection-point');
+          if (injection) injection.style.height = h + 'px';
+          return true;
+        }
+        return false;
+      }
+
+      function markReady() {
+        document.body.classList.add('header-ready');
+        document.documentElement.classList.remove('preload');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let tries = 0;
+        (function waitHeader() {
+          tries++;
+          if (syncHeaderHeight()) { markReady(); return; }
+          if (tries > 60) { markReady(); return; }
+          requestAnimationFrame(waitHeader);
+        })();
+
+        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
+      });
+    })();
+
     // --- 1. Water Ripple Effect ---
     const turb = document.getElementById('turbulence');
     let step = 0;
     let requestID = null;
 
     function animate() {
-      step += 0.015; 
+      step += 0.015;
       const bfX = 0.02 + Math.cos(step) * 0.008;
       const bfY = 0.02 + Math.sin(step) * 0.01;
       turb.setAttribute('baseFrequency', `${bfX} ${bfY}`);
       requestID = requestAnimationFrame(animate);
     }
+
     const items = document.querySelectorAll('.gallery-item');
     items.forEach(item => {
       item.addEventListener('mouseenter', () => { if (!requestID) animate(); });
@@ -329,32 +374,34 @@
     const arrow = document.getElementById('scrollArrow');
     const mapSection = document.getElementById('mapSection');
 
-    // 点击滚动
     arrow.addEventListener('click', () => {
-        mapSection.scrollIntoView({ behavior: 'smooth' });
+      mapSection.scrollIntoView({ behavior: 'smooth' });
     });
 
     window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
-        const currentScrollY = window.scrollY;
-        
-        // Header Hide Logic
-        if (header) {
-            if (currentScrollY > lastScrollY && currentScrollY > 50) {
-                header.classList.add('hide');
-            } else {
-                header.classList.remove('hide');
-            }
-        }
+      // ✅ only start hide/show after header is ready
+      if (!document.body.classList.contains('header-ready')) return;
 
-        // Arrow Fade Out Logic (超过200px淡出)
-        if (currentScrollY > 200) {
-            arrow.classList.add('fade-out');
+      const header = document.querySelector('header') || document.querySelector('.site-header');
+      const currentScrollY = window.scrollY;
+
+      // Header Hide Logic
+      if (header) {
+        if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          header.classList.add('hide');
         } else {
-            arrow.classList.remove('fade-out');
+          header.classList.remove('hide');
         }
+      }
 
-        lastScrollY = currentScrollY;
+      // Arrow Fade Out Logic
+      if (currentScrollY > 200) {
+        arrow.classList.add('fade-out');
+      } else {
+        arrow.classList.remove('fade-out');
+      }
+
+      lastScrollY = currentScrollY;
     });
   </script>
 </body>
