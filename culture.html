@@ -176,56 +176,56 @@
     /* ============================================================
        ✅ Symbol03 special: tiled photo + transparent “glass mask”
        ============================================================ */
-    #symbol03{
-      /* 这就是你第三张 Lion Dance 图：平铺 */
-      background-image: url("https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840");
-      background-repeat: repeat;
-      background-size: 520px auto;   /* 想更密：改小，比如 380px；想更稀：改大 */
-      background-position: center top;
-      overflow: hidden;
-    }
+    /* ✅ Symbol03: single background image (no 9 tiles) + lighter sharp mask */
+#symbol03{
+  background-image: url("https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840");
+  background-repeat: no-repeat;     /* ✅ 不重复：只显示 1 张 */
+  background-size: cover;           /* ✅ 铺满整个 section */
+  background-position: center;      /* ✅ 居中 */
+  overflow: hidden;
+}
 
-    /* 让两栏不要把背景遮住 */
-    #symbol03 .col-content{
-      background: transparent;
-      position: relative;
-    }
-    #symbol03 .col-image{
-      background: transparent;
-    }
+/* 让两栏不要遮住背景 */
+#symbol03 .col-content{
+  background: transparent;
+  position: relative;
+}
+#symbol03 .col-image{
+  background: transparent;
+}
 
-    /* 左侧文字蒙版：透明 + 渐变 + blur + 细边框 + 阴影 */
-    #symbol03 .col-content::before{
-      content:"";
-      position:absolute;
-      inset: 46px 6%;
-      border-radius: 18px;
-      background: linear-gradient(
-        135deg,
-        rgba(245,240,229,0.86),
-        rgba(245,240,229,0.58)
-      );
-      border: 1px solid rgba(255,255,255,0.35);
-      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 0;
-    }
-    #symbol03 .col-content > *{
-      position: relative;
-      z-index: 1;
-    }
+/* ✅ 左侧文字蒙版：无圆角 + 更轻更透（不遮挡图片） */
+#symbol03 .col-content::before{
+  content:"";
+  position:absolute;
+  inset: 46px 6%;
+  border-radius: 0;                 /* ✅ 无圆角 */
+  background: linear-gradient(
+    135deg,
+    rgba(245,240,229,0.34),
+    rgba(245,240,229,0.16)
+  );                                 /* ✅ 更浅 */
+  border: 1px solid rgba(255,255,255,0.20);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+  z-index: 0;
+}
+#symbol03 .col-content > *{
+  position: relative;
+  z-index: 1;
+}
 
-    /* 第三段右侧不再放单张 cover 图（否则看不出平铺） */
-    #symbol03 .col-image img{
-      display:none;
-    }
+/* 右侧不放 cover 图片（保持背景能看到） */
+#symbol03 .col-image img{ display:none; }
 
-    /* 移动端：第三段直接隐藏空的 image 栏，避免 350px 空白 */
-    @media (max-width: 768px){
-      #symbol03 .col-image{ display:none; }
-      #symbol03 .col-content::before{ inset: 26px 12px; }
-    }
+/* 移动端：避免空的 image 栏 */
+@media (max-width: 768px){
+  #symbol03 .col-image{ display:none; }
+  #symbol03 .col-content::before{ inset: 26px 12px; }
+}
+
   </style>
 </head>
 
