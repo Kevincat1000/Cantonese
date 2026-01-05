@@ -25,135 +25,99 @@
     :root {
       --bg-color: #f5f0e5;
       --text-color: #1a1a1a;
-      --drop-cap-color: #701a1a; /* Dark Red requested */
+      --drop-cap-color: #701a1a;
       --header-h: 50px; 
       --content-gap: 40px; 
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow: hidden; /* Lock to one page */
+    html {
+      /* Remove fixed height to allow scrolling on zoom */
+      height: auto; 
     }
 
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
       font-family: "Gentium Book Plus", serif;
-      padding-top: calc(var(--header-h) + var(--content-gap)); 
+      padding-top: calc(var(--header-h) + var(--content-gap));
+      /* Allow vertical scroll if content overflows */
+      overflow-x: hidden; 
+      width: 100%;
     }
 
     /* ---------------------------------------------------------
-       LAYOUT: Split Screen
+       LAYOUT SYSTEM (Grid Area Strategy)
+       This allows us to reorder elements easily on mobile
     --------------------------------------------------------- */
-    .split-layout {
+    .main-grid {
       display: grid;
-      grid-template-columns: 45% 55%; /* Adjust width ratio as needed */
-      height: calc(100vh - (var(--header-h) + var(--content-gap)));
       width: 100%;
       max-width: 100%;
+      /* Desktop Layout: 2 Columns */
+      grid-template-columns: 45% 55%; 
+      /* Rows: Auto size based on content, but ensure at least full screen */
+      min-height: calc(100vh - (var(--header-h) + var(--content-gap)));
+      
+      /* Named areas for precise placement */
+      grid-template-areas: 
+        "img  content"
+        "stat content";
     }
 
     /* ---------------------------------------------------------
-       LEFT PANE: Image & Stats
+       1. DRAGON PHOTO (Area: img)
     --------------------------------------------------------- */
-    .left-pane {
-      position: relative;
-      background-color: var(--bg-color);
-      /* Center the image vertically */
+    .section-img {
+      grid-area: img;
       display: flex;
-      align-items: center; 
-      /* No padding to ensure image touches edges */
-      padding: 0;
+      align-items: center; /* Vertical Center */
+      justify-content: flex-start; /* Left Align */
+      padding-bottom: 2rem; /* Space before stats if needed */
     }
 
-    /* Dragon Image */
     .dragon-wrapper {
-      width: 100%; /* Touch middle line */
-      margin-left: 0; /* Touch left screen edge */
-      display: flex;
-      justify-content: center;
+      /* Request: Shrink 30%, so width is 70% of the column */
+      width: 70%; 
+      margin-left: 0;
     }
 
     .dragon-wrapper img {
-      width: 100%; /* Fill the container width */
+      width: 100%;
       height: auto;
       display: block;
-      /* Optional: Blend mode for better integration with bg */
       mix-blend-mode: multiply; 
       filter: sepia(0.2) contrast(1.1);
     }
 
-    /* Stats: Bottom Left Fixed Position */
-    .stats-container {
-      position: absolute;
-      left: 40px;   /* Requested distance */
-      bottom: 40px; /* Requested distance */
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      z-index: 10;
-    }
-
-    .stats-title {
-      font-family: 'Exo', sans-serif;
-      font-weight: 700;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      border-bottom: 1px solid #000;
-      padding-bottom: 4px;
-      display: inline-block;
-      margin-bottom: 0.5rem;
-      color: #000;
-    }
-
-    .stats-row {
-      display: flex;
-      gap: 3rem; /* Space between columns */
-    }
-
-    .stat-item h4 {
-      font-family: 'Exo', sans-serif;
-      font-weight: 700;
-      font-size: 18px; /* Requested size */
-      color: #000;     /* Requested color */
-      margin-bottom: 2px;
-      line-height: 1.2;
-    }
-
-    .stat-item p {
-      font-family: 'Exo', sans-serif;
-      font-weight: 400;
-      font-size: 12px;
-      color: #000;     /* Requested color */
-      opacity: 0.8;
-    }
-
     /* ---------------------------------------------------------
-       RIGHT PANE: Text Content
+       2. RIGHT CONTENT (Area: content)
     --------------------------------------------------------- */
-    .right-pane {
+    .section-content {
+      grid-area: content;
       display: flex;
       flex-direction: column;
       justify-content: center; /* Vertical Center */
-      padding: 0 4rem 4rem 4rem; /* Right spacing */
+      
+      /* Request: Move down 30px */
+      padding-top: 30px; 
+      padding-right: 4rem;
+      padding-bottom: 4rem;
+      padding-left: 0; /* Align to the 45/55 split line */
     }
 
     .content-wrapper {
       max-width: 700px;
     }
 
-    /* Sub-heading updates: No border, new text */
+    /* Sub-heading: 14pt (~19px) */
     h2.sub-heading {
       font-family: 'Exo', sans-serif;
       font-weight: 400;
-      font-size: 1.1rem;
+      font-size: 19px; /* Requested 14pt approx */
       color: #555;
       margin-bottom: 1rem;
-      /* Removed border-left: 3px solid #8c3b2b; */
     }
 
     h1.main-title {
@@ -167,17 +131,15 @@
     }
 
     .text-body {
-      font-size: 12pt; /* Requested size */
+      font-size: 12pt; 
       line-height: 1.6;
       color: #222;
       text-align: justify;
     }
 
-    .text-body p {
-      margin-bottom: 1.5rem;
-    }
+    .text-body p { margin-bottom: 1.5rem; }
 
-    /* Drop Cap Update */
+    /* Drop Cap */
     .text-body p:first-child::first-letter {
       font-family: 'Exo', sans-serif;
       font-weight: 800;
@@ -186,18 +148,116 @@
       line-height: 0.8;
       margin-right: 0.15em;
       margin-top: 0.05em;
-      color: var(--drop-cap-color); /* #701a1a */
+      color: var(--drop-cap-color);
     }
 
     /* ---------------------------------------------------------
-       RESPONSIVE (Mobile Fallback)
+       3. STATS / NUMBERS (Area: stat)
+    --------------------------------------------------------- */
+    .section-stats {
+      grid-area: stat;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* Push to bottom */
+      
+      /* Request: 40px from left and bottom */
+      padding-left: 40px;
+      padding-bottom: 40px; 
+    }
+
+    .stats-container {
+      /* Ensure it doesn't overlap image if screen is very short */
+      margin-top: auto; 
+    }
+
+    .stats-title {
+      font-family: 'Exo', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid #000;
+      padding-bottom: 4px;
+      display: inline-block;
+      
+      /* Request: Reduce space between line and numbers by half */
+      margin-bottom: 0.25rem; 
+      color: #000;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap; /* Safety for very small screens */
+    }
+
+    .stat-item h4 {
+      font-family: 'Exo', sans-serif;
+      font-weight: 700;
+      /* Request: 18px size */
+      font-size: 18px; 
+      color: #000;
+      margin-bottom: 2px;
+      line-height: 1.2;
+    }
+
+    .stat-item p {
+      font-family: 'Exo', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      color: #000;
+      opacity: 0.8;
+    }
+
+    /* ---------------------------------------------------------
+       MOBILE / TABLET RESPONSIVE (< 1024px)
     --------------------------------------------------------- */
     @media (max-width: 1024px) {
-      body { overflow: auto; height: auto; }
-      .split-layout { grid-template-columns: 1fr; height: auto; display: block; }
-      .left-pane { height: auto; min-height: 400px; margin-bottom: 2rem; }
-      .stats-container { position: relative; left: 40px; bottom: 0; margin-top: 2rem; margin-bottom: 2rem; }
-      .right-pane { padding: 2rem 2rem 4rem 2rem; }
+      .main-grid {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+        /* Reset grid areas */
+        grid-template-areas: none;
+        padding-bottom: 2rem;
+      }
+
+      /* 1. First: Photo */
+      .section-img {
+        order: 1;
+        width: 100%;
+        padding-bottom: 1rem;
+        justify-content: center;
+      }
+      .dragon-wrapper {
+        /* Mobile: Adaptive width */
+        width: 100%;
+        max-width: 600px; /* Cap it so it's not huge on tablets */
+      }
+
+      /* 2. Second: Content (Subheader -> Title -> Text) */
+      .section-content {
+        order: 2;
+        padding: 1rem 2rem;
+      }
+      h1.main-title {
+        font-size: 2.5rem; /* Smaller title on mobile */
+      }
+      h2.sub-heading {
+        font-size: 16px; 
+      }
+
+      /* 3. Third: Numbers */
+      .section-stats {
+        order: 3;
+        padding: 2rem; /* Reset fixed 40px padding to normal padding */
+        padding-top: 0;
+      }
+      .stats-row {
+        gap: 2rem;
+        justify-content: space-between;
+      }
     }
   </style>
 </head>
@@ -207,20 +267,36 @@
   <!-- Header Placeholder -->
   <div id="header-container"></div>
 
-  <main class="split-layout">
+  <main class="main-grid">
     
-    <!-- LEFT SIDE -->
-    <aside class="left-pane">
-      
-      <!-- Dragon Photo: Centered, Touching Edges (0px) -->
+    <!-- 1. Dragon Photo Section -->
+    <div class="section-img">
       <div class="dragon-wrapper">
         <img src="https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg" alt="Dragon Parade">
       </div>
+    </div>
 
-      <!-- Stats: Fixed 40px from Left & Bottom -->
+    <!-- 2. Text Content Section -->
+    <div class="section-content">
+      <div class="content-wrapper">
+        <h2 class="sub-heading">Public History · Oral History · Cultural Research</h2>
+        <h1 class="main-title">CANTONESE<br>IN AMERICAS</h1>
+        
+        <div class="text-body">
+          <p>
+            Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.
+          </p>
+          <p>
+            This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Stats Section -->
+    <div class="section-stats">
       <div class="stats-container">
         <div class="stats-title">BY THE NUMBERS</div>
-        
         <div class="stats-row">
           <div class="stat-item">
             <h4>1848</h4>
@@ -238,26 +314,7 @@
           </div>
         </div>
       </div>
-
-    </aside>
-
-    <!-- RIGHT SIDE -->
-    <article class="right-pane">
-      <div class="content-wrapper">
-        <!-- New Text, No Border -->
-        <h2 class="sub-heading">Public History · Oral History · Cultural Research</h2>
-        <h1 class="main-title">CANTONESE<br>IN AMERICAS</h1>
-        
-        <div class="text-body">
-          <p>
-            Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.
-          </p>
-          <p>
-            This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.
-          </p>
-        </div>
-      </div>
-    </article>
+    </div>
 
   </main>
 
