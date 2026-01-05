@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cantonese Culture Symbols</title>
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +22,7 @@
       --text: #1a1a1a;
       --accent: #a84d4d;
 
-      /* ✅ 为 header 注入预留空间（会被 JS 自动校准为真实高度） */
+      /* ✅ header 高度默认值（JS 会自动校准） */
       --header-h: 60px;
     }
 
@@ -35,7 +36,20 @@
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
+
+    /* ✅ 与 language 页一致：header 下拉隐藏（不动 header.js / style.css，仅本页补齐） */
+    header, .site-header {
+      position: fixed !important;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 3000;
+      background-color: var(--bg);
+      transition: transform 0.4s ease-in-out !important;
+      will-change: transform;
+    }
+    .header-hidden { transform: translateY(-100%) !important; }
 
     /* --- 分栏布局 (Split Layout) --- */
     .section-split {
@@ -65,13 +79,13 @@
 
     /* 图片区域 */
     .col-image {
-        display: flex; /* 确保内部图片填满容器 */
+      display: flex;
     }
     
     .col-image img {
       width: 100%;
-      height: 100%; /* 强制图片高度跟随父容器（即跟随文字栏高度） */
-      object-fit: cover; /* 裁剪图片以适应比例，不拉伸 */
+      height: 100%;
+      object-fit: cover;
       display: block;
     }
 
@@ -98,7 +112,7 @@
     }
 
     p {
-      font-size: 14px; /* 保持14px */
+      font-size: 14px;
       line-height: 1.9;
       margin-bottom: 20px;
       color: #333;
@@ -132,23 +146,22 @@
     }
     
     .arrow-right-center {
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
     }
     .arrow-left-center {
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
     }
 
     /* --- 移动端适配 --- */
     @media (max-width: 768px) {
       .section-split { flex-direction: column; }
       .col-content, .col-image { flex-basis: auto; width: 100%; }
-      /* 移动端给图片一个固定高度，否则太扁或太高 */
       .col-image { height: 350px; } 
-      .section-split .col-image { order: -1; } /* 图片总是在上方 */
+      .section-split .col-image { order: -1; }
       .col-content { padding: 40px 20px; }
       .arrow-nav { display: none; }
     }
@@ -157,13 +170,14 @@
     html.preload body { opacity: 0; }
     body { transition: opacity .15s ease; }
 
-    /* 给 header 注入点预留高度（JS 会用真实 header 高度覆盖） */
+    /* ✅ 给 header 注入点预留高度，避免首屏闪动 */
     #header-injection-point { height: var(--header-h); }
   </style>
 </head>
+
 <body>
 
-  <!-- ✅ Header 注入点：预留空间，防止首屏闪动/顶下去 -->
+  <!-- ✅ Header 注入点：预留空间 -->
   <div id="header-injection-point"></div>
 
   <main style="padding-top: var(--header-h);">
@@ -181,10 +195,9 @@
         <p>However, beyond the worship of deities, the most profound ritual was Ancestral Worship. For the Cantonese, venerating one’s lineage was the "priority" during festivals, often surpassing the worship of gods. As people living in a foreign land, this ritual was an act of not forgetting one's roots. Families would respectfully bring out ancestral spirit tablets and burn incense, not merely to pray, but to "report" to their forebears.</p>
       </div>
       <div class="col-image">
-        <!-- 用户提供的第一张图片 -->
         <img src="images/temple1.jpg" alt="Religious Beliefs">
         <a href="#symbol02" class="arrow-nav arrow-right-center">
-             <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
     </section>
@@ -194,7 +207,7 @@
       <div class="col-image">
         <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=2029&auto=format&fit=crop" alt="Dim Sum">
         <a href="#symbol03" class="arrow-nav arrow-left-center">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
       <div class="col-content">
@@ -220,10 +233,10 @@
         <p>Along with this is the Dragon Lantern parade. While the Lion highlights individual skill and agility, the Dragon requires dozens of people moving together as one, symbolizing the need for teamwork to survive. Together, these performances turned city streets into stages for celebration, driving away bad luck and social pressure, and welcoming good fortune.</p>
       </div>
       <div class="col-image">
-         <img src="https://images.unsplash.com/photo-1613426837086-686959145657?q=80&w=2070&auto=format&fit=crop" alt="Lion Dance">
-         <a href="#symbol04" class="arrow-nav arrow-right-center">
-             <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-         </a>
+        <img src="https://images.unsplash.com/photo-1613426837086-686959145657?q=80&w=2070&auto=format&fit=crop" alt="Lion Dance">
+        <a href="#symbol04" class="arrow-nav arrow-right-center">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
     </section>
 
@@ -232,7 +245,7 @@
       <div class="col-image">
         <img src="https://images.unsplash.com/photo-1534051657805-4c079212574e?q=80&w=2070&auto=format&fit=crop" alt="Chinese Opera">
         <a href="#symbol05" class="arrow-nav arrow-left-center">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
       <div class="col-content">
@@ -260,7 +273,7 @@
       <div class="col-image">
         <img src="https://images.unsplash.com/photo-1552069273-0498b537df38?q=80&w=1965&auto=format&fit=crop" alt="Martial Arts">
         <a href="#symbol01" class="arrow-nav arrow-right-center">
-             <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
         </a>
       </div>
     </section>
@@ -268,7 +281,7 @@
   </main>
 
   <script>
-    // === Header injection anti-flash (page-only, no change to header.js/style.css) ===
+    // === Header injection anti-flash + auto header height sync ===
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
@@ -277,7 +290,6 @@
         const h = Math.ceil(header.getBoundingClientRect().height);
         if (h > 0) {
           document.documentElement.style.setProperty('--header-h', h + 'px');
-
           const injection = document.getElementById('header-injection-point');
           if (injection) injection.style.height = h + 'px';
           return true;
@@ -294,20 +306,34 @@
         let tries = 0;
         (function waitHeader() {
           tries++;
-          if (syncHeaderHeight()) {
-            markReady();
-            return;
-          }
-          if (tries > 60) {
-            markReady();
-            return;
-          }
+          if (syncHeaderHeight()) { markReady(); return; }
+          if (tries > 60) { markReady(); return; }
           requestAnimationFrame(waitHeader);
         })();
 
         window.addEventListener('load', () => syncHeaderHeight(), { once: true });
       });
     })();
+
+    // === Header hide-on-scroll (same as language page) ===
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function () {
+      if (!document.body.classList.contains('header-ready')) return;
+
+      const header = document.querySelector('header') || document.querySelector('.site-header');
+      if (!header) return;
+
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll < 0) currentScroll = 0;
+
+      if (currentScroll > lastScrollTop && currentScroll > 80) {
+        header.classList.add('header-hidden');
+      } else if (currentScroll < lastScrollTop) {
+        header.classList.remove('header-hidden');
+      }
+
+      lastScrollTop = currentScroll;
+    }, false);
   </script>
 
 </body>
