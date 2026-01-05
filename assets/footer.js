@@ -14,7 +14,7 @@
         font-size: 12px;
         color: #000;
         line-height: 1;
-        font-weight: 700;
+        font-weight: 600;
       }
 
       footer[data-site-footer="1"] .footer-content {
