@@ -14,6 +14,7 @@
         font-size: 12px;
         color: #000;
         line-height: 1;
+        font-weight: 700;
       }
 
       footer[data-site-footer="1"] .footer-content {
@@ -36,6 +37,7 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        text-transform: uppercase;
       }
 
       footer[data-site-footer="1"] .footer-contact {
@@ -75,8 +77,10 @@
         <div class="footer-content">
           <div class="footer-left">Designing for a more connected world.</div>
           <div class="footer-center">
-            <a href="mailto:kw30928@gmail.com" class="footer-contact">Contact me</a>
-            <div class="footer-copyright">© 2025 Kevin W.</div>
+
+            <a href="mailto:kw30928@gmail.com" class="footer-contact">CONTACT ME</a>
+   
+            <div class="footer-copyright">© 2026 KEVIN W.</div>
           </div>
         </div>
       </footer>
