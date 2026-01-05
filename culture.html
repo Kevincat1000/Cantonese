@@ -17,12 +17,9 @@
 
   <style>
     :root {
-      /* 背景色统一为米色 */
       --bg: #f5f0e5; 
       --text: #1a1a1a;
       --accent: #a84d4d;
-
-      /* ✅ header 高度默认值（JS 会自动校准） */
       --header-h: 60px;
     }
 
@@ -37,9 +34,11 @@
       -webkit-font-smoothing: antialiased;
       scroll-behavior: smooth;
       overflow-x: hidden;
+      
+      /* ✅ 修改点 1: 字体大小改为 16px */
+      font-size: 16px;
     }
 
-    /* ✅ 与 language 页一致：header 下拉隐藏（不动 header.js / style.css，仅本页补齐） */
     header, .site-header {
       position: fixed !important;
       top: 0; left: 0;
@@ -57,36 +56,44 @@
       flex-wrap: wrap;
       width: 100%;
       position: relative;
-      align-items: stretch; /* 确保左右两栏高度一致 */
-    }
-
-    /* 左右两栏基础设置 */
-    .col-content, .col-image {
-      flex: 1;
-      flex-basis: 50%;
-      position: relative;
-      min-width: 320px;
+      /* ✅ 关键: 让左右两栏高度拉伸一致 */
+      align-items: stretch; 
     }
 
     /* 文字内容区域 */
     .col-content {
+      flex: 1;
+      flex-basis: 50%;
       background-color: var(--bg);
-      padding: 30px 8%;
       display: flex;
       flex-direction: column;
       justify-content: center; /* 文字垂直居中 */
+      
+      /* ✅ 修改点 2 & 4: 
+         - 上下 padding 减少到 15px (原来是30px)，减少留白。
+         - 左侧 padding 调整为 40px，确保靠左对齐 Logo。
+      */
+      padding: 15px 40px 15px 40px; 
     }
 
-    /* 图片区域 */
+    /* 图片区域 - 关键修改 */
     .col-image {
-      display: flex;
-      position: relative;
+      flex: 1;
+      flex-basis: 50%;
+      position: relative; /* 作为定位基准 */
+      min-width: 320px;
     }
     
+    /* ✅ 修改点 3: 强制图片与文字栏等高
+       原理：将图片设为绝对定位，让文字栏的高度决定整行的高度，图片自动填充。
+    */
     .col-image img {
+      position: absolute;
+      top: 0; 
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: cover; /* 裁剪图片适应高度，不变形 */
       display: block;
     }
 
@@ -98,7 +105,7 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       color: #701a1a;
-      margin-bottom: 20px;
+      margin-bottom: 10px; /* 稍微减少间距 */
       display: block;
     }
 
@@ -107,20 +114,21 @@
       font-weight: 600;
       font-size: 1.8rem;
       text-transform: uppercase;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem; /* 减少标题下方留白 */
       line-height: 1.2;
       color: #000;
+      margin-top: 0;
     }
 
     p {
-      font-size: 14px;
-      line-height: 1.9;
-      margin-bottom: 20px;
+      /* ✅ 确保段落也是 16px */
+      font-size: 16px;
+      line-height: 1.6; /* 稍微紧凑一点的行高 */
+      margin-bottom: 16px;
       color: #000;
       text-align: justify;
     }
 
-    /* Photo credit styling */
     .photo-credit {
       position: absolute;
       bottom: 12px;
@@ -141,145 +149,94 @@
     @media (max-width: 768px) {
       .section-split { flex-direction: column; }
       .col-content, .col-image { flex-basis: auto; width: 100%; }
-      .col-image { height: 350px; } 
+      
+      /* 移动端恢复图片占据固定高度，因为文字在下方 */
+      .col-image { height: 300px; } 
+      .col-image img { position: relative; } /* 恢复正常流 */
+      
       .section-split .col-image { order: -1; }
-      .col-content { padding: 40px 20px; }
+      .col-content { padding: 30px 20px; }
     }
 
-    /* ===== Page-only anti-flash patch (no change to header.js / style.css) ===== */
     html.preload body { opacity: 0; }
     body { transition: opacity .15s ease; }
-
-    /* ✅ 给 header 注入点预留高度，避免首屏闪动 */
     #header-injection-point { height: var(--header-h); }
 
     /* ============================================================
-       ✅ Symbol03 special: tiled photo + transparent "glass mask"
+       Symbol03 特殊处理 (保持原样，背景图模式天然等高)
        ============================================================ */
-    /* ✅ Symbol03: single background image (no 9 tiles) + lighter sharp mask */
-#symbol03{
-  background-image: url("https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840");
-  background-repeat: no-repeat;     /* ✅ 不重复：只显示 1 张 */
-  background-size: cover;           /* ✅ 铺满整个 section */
-  background-position: center;      /* ✅ 居中 */
-  overflow: hidden;
-}
+    #symbol03 {
+      background-image: url("https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+    #symbol03 .col-content {
+      background: transparent;
+      position: relative;
+    }
+    #symbol03 .col-image {
+      background: transparent;
+    }
+    #symbol03 .col-content::before {
+      content:"";
+      position:absolute;
+      inset: 20px 40px; /* 调整蒙版位置以匹配新的 padding */
+      border-radius: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(245,240,229,0.85) 0%,
+        rgba(245,240,229,0.65) 60%,
+        rgba(245,240,229,0.3) 100%
+      );
+      backdrop-filter: blur(5px);
+      z-index: 0;
+    }
+    #symbol03 .col-content > * { position: relative; z-index: 1; }
+    #symbol03 .col-image img { display:none; }
 
-/* 让两栏不要遮住背景 */
-#symbol03 .col-content{
-  background: transparent;
-  position: relative;
-}
-#symbol03 .col-image{
-  background: transparent;
-}
-
-/* ✅ 左侧文字蒙版：无圆角 + 更轻更透（不遮挡图片） */
-#symbol03 .col-content::before{
-  content:"";
-  position:absolute;
-  inset: 46px 6%;
-  border-radius: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(245,240,229,0.72) 0%,
-    rgba(245,240,229,0.48) 55%,
-    rgba(245,240,229,0.18) 100%
-  );
-  box-shadow: 0 12px 34px rgba(0,0,0,0.12);
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-#symbol03 .col-content > *{
-  position: relative;
-  z-index: 1;
-}
-
-/* 右侧不放 cover 图片（保持背景能看到） */
-#symbol03 .col-image img{ display:none; }
-
-/* 移动端：避免空的 image 栏 */
-@media (max-width: 768px){
-  #symbol03 .col-image{ display:none; }
-  #symbol03 .col-content::before{ inset: 26px 12px; }
-}
-
-    /* Symbol04 special layout for video and image */
-    #symbol04 {
-      align-items: stretch;
+    @media (max-width: 768px) {
+      #symbol03 .col-image { display:none; }
+      #symbol03 .col-content::before { inset: 0; background: rgba(245,240,229,0.9); }
     }
 
+    /* ============================================================
+       Symbol04 (视频+图片) 特殊处理：确保高度跟随文字
+       ============================================================ */
     #symbol04 .col-image {
       display: flex;
       flex-direction: column;
-      padding: 0;
-      gap: 0;
     }
-
+    
     #symbol04 .video-container {
-      flex: 0 0 auto;
+      flex: 0 0 auto; /* 视频保持原有比例高度 */
       width: 100%;
       position: relative;
-      padding-top: 56.25%; /* 16:9 aspect ratio */
+      padding-top: 56.25%;
       background: #000;
     }
-
     #symbol04 .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
     }
-
     #symbol04 .video-caption {
-      padding: 12px 16px;
+      flex: 0 0 auto;
+      padding: 8px 16px;
       background: var(--bg);
-      font-size: 12px;
-      font-family: 'Exo', sans-serif;
-      color: #333;
+      font-size: 11px;
       text-align: center;
-      line-height: 1.5;
+      color: #333;
     }
-
     #symbol04 .image-container {
-      flex: 1;
+      flex: 1; /* 占据剩余空间 */
       position: relative;
-      min-height: 0;
+      min-height: 100px; /* 确保至少有一点高度 */
     }
-
     #symbol04 .image-container img {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center;
-    }
-
-    @media (max-width: 768px) {
-      #symbol04 .col-image {
-        height: auto;
-        min-height: 600px;
-      }
-      
-      #symbol04 .video-container {
-        padding-top: 56.25%;
-      }
-    }
-
-    /* Symbol05 special: image height matches text column */
-    #symbol05 {
-      align-items: stretch;
-    }
-
-    #symbol05 .col-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
     }
 
   </style>
@@ -287,9 +244,9 @@
 
 <body>
 
-  <!-- ✅ Header 注入点：预留空间 -->
   <div id="header-injection-point"></div>
 
+  <!-- padding-top 减少，移除 main 自身的多余 padding -->
   <main style="padding-top: var(--header-h);">
     
     <!-- Culture Symbol 01: Religion -->
@@ -336,8 +293,6 @@
         
         <p>Along with this is the Dragon Lantern parade. While the Lion highlights individual skill and agility, the Dragon requires dozens of people moving together as one, symbolizing the need for teamwork to survive. Together, these performances turned city streets into stages for celebration, driving away bad luck and social pressure, and welcoming good fortune.</p>
       </div>
-
-      <!-- 右栏保留（用于布局），但不放 cover 图片，让背景平铺可见 -->
       <div class="col-image">
         <img src="https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840" alt="Lion Dance">
         <div class="photo-credit">The Lunar New Year Parade on San Francisco in 2023. Photo: Tayfun Coskun via Getty Images</div>
@@ -348,7 +303,7 @@
     <section id="symbol04" class="section-split">
       <div class="col-image">
         <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/mldcDidGJCg" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/S2gZqWq8n6k?si=123" allowfullscreen></iframe>
         </div>
         <div class="video-caption">
           SKAI ISYOURGOD-《大展鸿图》Grand Ambitions<br>(Inspired by the 1957 Cantonese Opera "Princess Cheung Ping")
@@ -387,12 +342,10 @@
   </main>
 
   <script>
-    // === Header injection anti-flash + auto header height sync ===
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
         if (!header) return false;
-
         const h = Math.ceil(header.getBoundingClientRect().height);
         if (h > 0) {
           document.documentElement.style.setProperty('--header-h', h + 'px');
@@ -402,12 +355,10 @@
         }
         return false;
       }
-
       function markReady() {
         document.body.classList.add('header-ready');
         document.documentElement.classList.remove('preload');
       }
-
       document.addEventListener('DOMContentLoaded', () => {
         let tries = 0;
         (function waitHeader() {
@@ -416,33 +367,24 @@
           if (tries > 60) { markReady(); return; }
           requestAnimationFrame(waitHeader);
         })();
-
         window.addEventListener('load', () => syncHeaderHeight(), { once: true });
       });
     })();
-
-    // === Header hide-on-scroll (same as language page) ===
     let lastScrollTop = 0;
     window.addEventListener('scroll', function () {
       if (!document.body.classList.contains('header-ready')) return;
-
       const header = document.querySelector('header') || document.querySelector('.site-header');
       if (!header) return;
-
       let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
       if (currentScroll < 0) currentScroll = 0;
-
       if (currentScroll > lastScrollTop && currentScroll > 80) {
         header.classList.add('header-hidden');
       } else if (currentScroll < lastScrollTop) {
         header.classList.remove('header-hidden');
       }
-
       lastScrollTop = currentScroll;
     }, false);
   </script>
 
 </body>
 </html>
-
-
