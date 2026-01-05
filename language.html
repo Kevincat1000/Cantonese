@@ -13,6 +13,19 @@
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
+  <style id="header-preload">
+    /* Prevent flash: reserve space for header before it loads */
+    #header-injection-point {
+      height: 60px;
+      background-color: #f5f0e5;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 3000;
+    }
+  </style>
+
   <style>
     :root {
       --bg: #f5f0e5; 
