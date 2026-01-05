@@ -3,143 +3,318 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Culture Symbols - Cantonese in Americas</title>
-
+  <title>Symbols of Cantonese Culture</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-  <!-- Global style -->
-  <link rel="stylesheet" href="./assets/style.css" />
-
-  <!-- Header injector -->
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
   <script src="./assets/header.js" defer></script>
+  <script src="./assets/footer.js" defer></script>
 
   <style>
-    :root { --header-h: 73px; }
+    :root {
+      --bg: #ffffff; 
+      --text: #1a1a1a;
+      --accent: #a84d4d;
+      
+      /* 这里的蓝色和棕色对应你图4和图5的色块 */
+      --block-blue: #2A4F6E; 
+      --block-brown: #5C3A2A; 
+    }
 
-    html, body {
+    * { box-sizing: border-box; }
+
+    body, html {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background: #F5F0E5;
+      background-color: var(--bg);
       font-family: 'Gentium Book Plus', serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
     }
 
-    .page-wrapper {
-      height: calc(100vh - var(--header-h));
-      overflow: hidden;
+    /* 模拟导航栏 */
+    .mock-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      border-bottom: 2px solid #000;
+      font-family: 'Exo', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
       position: relative;
-      background: #F5F0E5;
+      background: white;
+      z-index: 100;
+    }
+    .mock-nav-group { display: flex; gap: 30px; }
+    
+    /* 页面大标题 */
+    .page-header {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .page-header h1 {
+      font-family: 'Exo', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
-    /* ===== Stage ===== */
-    .culture-stage{
+    /* --- 分栏布局 --- */
+    .section-split {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      min-height: 80vh;
       position: relative;
+      border-top: 1px solid #eee;
+    }
+
+    .col-content, .col-image {
+      flex: 1;
+      flex-basis: 50%;
+      position: relative;
+      min-width: 300px;
+    }
+
+    .col-content {
+      padding: 60px 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .col-image img {
       width: 100%;
       height: 100%;
-      overflow: hidden;
-      background: #F5F0E5;
-    }
-
-    .culture-bg{
-      position: absolute;
-      inset: 0;
-      background: url("images/culture-bg.jpg") center / cover no-repeat;
-    }
-
-    /* subtle vignette */
-    .culture-bg::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(
-        circle at 50% 65%,
-        rgba(245,240,229,0) 0%,
-        rgba(245,240,229,0.15) 50%,
-        rgba(245,240,229,0.35) 100%
-      );
-      pointer-events:none;
-    }
-
-    /* ===== Symbol row ===== */
-    .symbol-row{
-      position:absolute;
-      left:50%;
-      top: 74%;                 /* 往下移一点 */
-      transform: translateX(-50%);
-      display:flex;
-      gap: 28px;                /* 紧凑但不挤 */
-      z-index:6;
-    }
-
-    .symbol-btn{
-      text-decoration:none;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-    }
-
-    /* === ICON 本体（放大后版本）=== */
-    .symbol-btn img{
-      width: 126px;
-      height: 126px;
-      border-radius: 50%;
       object-fit: cover;
-      transition: transform .2s ease;
+      display: block;
     }
 
-    .symbol-btn:hover img{
-      transform: scale(1.05);
+    /* --- 字体设置 --- */
+    .section-label {
+      font-family: 'Exo', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 15px;
+      display: block;
     }
 
-    /* ===== Mobile ===== */
-    @media (max-width: 640px){
-      .symbol-row{
-        top: 78%;
-        gap: 18px;
-      }
-      .symbol-btn img{
-        width: 84px;
-        height: 84px;
-      }
+    .subtitle {
+      font-family: 'Exo', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem; /* 标题大小 */
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      color: #333;
+    }
+
+    /* 核心修改：正文字体不超过14px */
+    p {
+      font-size: 14px; /* 固定为14px */
+      line-height: 1.8; /* 增加行距提升阅读体验 */
+      margin-bottom: 20px;
+      color: #333;
+      text-align: justify; /* 两端对齐让文字块更整齐 */
+    }
+
+    /* --- 全屏背景区域 (Symbol 3) --- */
+    .section-full-bg {
+      min-height: 70vh;
+      /* 舞狮/灯笼相关背景图 */
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1613426837086-686959145657?q=80&w=2070&auto=format&fit=crop'); 
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      padding: 60px 8%;
+      color: white;
+    }
+    .section-full-bg .col-text-overlay {
+      max-width: 700px;
+    }
+    .section-full-bg p, .section-full-bg .subtitle, .section-full-bg .section-label { 
+      color: white; 
+    }
+
+    /* --- 彩色背景覆盖样式 --- */
+    .bg-blue { background-color: var(--block-blue); color: white; }
+    .bg-brown { background-color: var(--block-brown); color: white; }
+    
+    .bg-blue p, .bg-brown p, 
+    .bg-blue .subtitle, .bg-brown .subtitle,
+    .bg-blue .section-label, .bg-brown .section-label {
+      color: white;
+    }
+
+    /* --- 导航箭头样式 --- */
+    .arrow-nav {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      z-index: 10;
+      background: rgba(0,0,0,0.1); /* 轻微背景增加可见度 */
+    }
+    .arrow-nav:hover { transform: scale(1.1); background: rgba(0,0,0,0.2); }
+    .arrow-nav svg { width: 50px; height: 50px; stroke: white; stroke-width: 2; fill: none; }
+    
+    .arrow-right-center {
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+    }
+    .arrow-left-center {
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      .mock-nav { display: none; }
+      .section-split { flex-direction: column; }
+      .col-content, .col-image { flex-basis: auto; width: 100%; }
+      .col-image { height: 300px; order: -1; /* 图片在上方 */ }
+      .section-reverse .col-image { order: -1; }
+      .page-header h1 { font-size: 1.8rem; }
+      .subtitle { font-size: 1.5rem; }
+      .col-content { padding: 40px 20px; }
+      .arrow-nav { display: none; } /* 移动端隐藏箭头 */
     }
   </style>
 </head>
-
 <body>
-  <!-- header injected by ./assets/header.js -->
 
-  <div class="page-wrapper">
-    <section class="culture-stage" aria-label="Culture Symbols">
-      <div class="culture-bg" role="img" aria-label="Cantonese cultural background"></div>
+  <!-- 顶部导航 -->
+  <nav class="mock-nav" id="top">
+    <div class="mock-nav-group">
+      <span>CULTURE</span>
+      <span>HERITAGE</span>
+    </div>
+    <div class="mock-nav-group">
+      <span>CN | EN</span>
+      <span>ARCHIVE</span>
+    </div>
+  </nav>
 
-      <div class="symbol-row">
-        <a class="symbol-btn" href="symbol-1-faith.html" aria-label="Faith">
-          <img src="images/icon-faith.png" alt="Faith">
-        </a>
+  <main>
+    
+    <div class="page-header">
+      <h1>Cultural Symbols</h1>
+    </div>
 
-        <a class="symbol-btn" href="symbol-2-food.html" aria-label="Food">
-          <img src="images/icon-food.png" alt="Food">
-        </a>
-
-        <a class="symbol-btn" href="symbol-3-opera.html" aria-label="Opera">
-          <img src="images/icon-opera.png" alt="Opera">
-        </a>
-
-        <a class="symbol-btn" href="symbol-4-kungfu.html" aria-label="Kung Fu">
-          <img src="images/icon-kungfu.png" alt="Kung Fu">
-        </a>
-
-        <a class="symbol-btn" href="symbol-5-lion.html" aria-label="Lion Dance">
-          <img src="images/icon-lion.png" alt="Lion Dance">
+    <!-- SYMBOL 1: RELIGION (对应图1) -->
+    <section id="symbol1" class="section-split">
+      <div class="col-content">
+        <span class="section-label">Symbol 1</span>
+        <h2 class="subtitle">Religious Beliefs and Ancestral Worship</h2>
+        
+        <p>Guangdong immigrants transplanted their spiritual landscape to the U.S. through a unique "Temple-Association" model. This integration of sacred and secular spaces—exemplified by the Tin How Temple in San Francisco (est. 1852)—served as a vital cultural nexus. Central to this spiritual ecosystem were specific deities chosen for the immigrant experience. Mazu (Tin How), originally a mortal woman from Fujian during the Song Dynasty, was deified into the Goddess of the Sea. For immigrants who survived the perilous voyage across the Pacific, she was the supreme guardian of wanderers and those drifting on the ocean.</p>
+        
+        <p>Equally significant was Guandi, the God of War, who embodied righteousness, loyalty, and justice. The Cantonese reverence for Guandi is deeply rooted in their history as a migratory group moving south from the Central Plains. Throughout their historical migrations, they credited Guandi’s justice for their protection; thus, wherever they established a new foothold, Guandi was enshrined as the guardian who had accompanied them from their ancestral lands.</p>
+        
+        <p>However, beyond the worship of deities, the most profound ritual was Ancestral Worship. For the Cantonese, venerating one’s lineage was the "priority" during festivals, often surpassing the worship of gods. As people living in a foreign land, this ritual was an act of not forgetting one's roots. Families would respectfully bring out ancestral spirit tablets and burn incense, not merely to pray, but to "report" to their forebears. They would inform their ancestors that they had successfully settled down and continued the family line in the West.</p>
+      </div>
+      <div class="col-image">
+        <!-- 建议图片：寺庙/香火/屋顶 -->
+        <img src="https://images.unsplash.com/photo-1599893259838-89b21f3b2e55?q=80&w=1935&auto=format&fit=crop" alt="Temple Roof">
+        <!-- 箭头 -> 下一页 -->
+        <a href="#symbol2" class="arrow-nav arrow-right-center" style="right: auto; left: 0; background:none;">
+             <!-- 这里如果没有箭头需求可以去掉，或者保留作为装饰 -->
         </a>
       </div>
     </section>
-  </div>
+
+    <!-- SYMBOL 2: CUISINE (对应图2) -->
+    <section id="symbol2" class="section-split">
+      <div class="col-image">
+        <!-- 建议图片：早茶/蒸笼 -->
+        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=2029&auto=format&fit=crop" alt="Dim Sum">
+      </div>
+      <div class="col-content">
+        <span class="section-label">Symbol 2</span>
+        <h2 class="subtitle">Cantonese Cuisine</h2>
+        
+        <p>The evolution of Cantonese cuisine in the West is a journey from desperate survival to cultural dominance. During the Chinese Exclusion Act era, the restaurant business was one of the few legal loopholes for employment. From a handful of eateries in the 1850s to over 50,000 across the U.S. today, Cantonese food became the economic bedrock of the diaspora. Immigrants adapted their complex culinary heritage into dishes like "Chow Mein" and "Chop Suey," leading to the linguistic integration of terms like "Dim Sum," "Wok," and "Bok Choy" into the global lexicon.</p>
+        
+        <p>This influence is most profound in the tradition of Yum Cha (drink morning tea with dim sum). Rooted in the classic "One Cup, Two Pieces" custom, a pot of tea with two baskets of dim sum, this practice is far more than a brunch. It embodies the art of "slow living." This ritual acts as a sanctuary from the rush of the outside world, inviting people to pause, sip, and connect over hot tea. By turning a simple meal into a shared experience of leisure, Yum Cha has evolved into a global staple, proving that the most meaningful cultural exchange happens not just through food, but through the time spent enjoying it.</p>
+      </div>
+    </section>
+
+    <!-- SYMBOL 3: LION DANCE (对应图3 - 全屏背景) -->
+    <section id="symbol3" class="section-full-bg">
+        <div class="col-text-overlay">
+            <span class="section-label">Symbol 3</span>
+            <h2 class="subtitle">The Lion Dance and Dragon Lanterns</h2>
+            
+            <p>The Cantonese Lion Dance has long been regarded as a lucky symbol capable of driving away evil spirits and bringing good luck. As a unique mix of martial arts, dance, and music, it represents the community's energetic spirit, a lively contrast to the quiet soul of the temple.</p>
+            
+            <p>For immigrants, this tradition was more than just holiday entertainment; it was an active ceremony that claimed "public space" for an excluded community. Accompanied by the loud beat of drums and cymbals, the Lion Dance announced the Chinese presence in Western cities, turning quiet neighborhoods into vibrant cultural scenes. The main act of Cai Qing (plucking the greens), where the lion "eats" a lettuce head containing a red envelope, serves as a strong symbol of the immigrant spirit.</p>
+            
+            <p>Along with this is the Dragon Lantern parade. While the Lion highlights individual skill and agility, the Dragon requires dozens of people moving together as one, symbolizing the need for teamwork to survive. Together, these performances turned city streets into stages for celebration, driving away bad luck and social pressure, and welcoming good fortune.</p>
+        </div>
+    </section>
+
+    <!-- SYMBOL 4: OPERA (对应图4 - 蓝色背景) -->
+    <section id="symbol4" class="section-split">
+        <div class="col-content bg-blue">
+            <span class="section-label" style="color: #aebfd1;">Symbol 4</span>
+            <h2 class="subtitle">Cantonese Opera</h2>
+
+            <p>Cantonese Opera serves as a classic stage art that mixes singing, speaking, acting, and acrobatic fighting, combined with music, costumes, and makeup. It created a unique atmosphere known as the "Commoner's Symphony," where the audience would enjoy snacks while watching the show. This accessible and communal atmosphere allowed the opera to quickly weave itself into the fabric of daily life, offering spiritual comfort to early immigrants.</p>
+            
+            <p>The opera arrived with the first wave of Cantonese immigrants. The first troupe, Hong Fook Tong, began performing in San Francisco in 1852. Over the next fifty years, the city saw the opening of countless theaters. During the first golden age in the 1870s, San Francisco’s Chinatown had four theaters operating at once.</p>
+            
+            <p>Print media played a crucial role in this success. With four daily Chinese newspapers in San Francisco, the press helped promote these shows. These theaters played a vital role in community life. They were not just for entertainment; they created a space for Cantonese merchants and the public to connect, shaping a modern and culturally rich image of Chinatown.</p>
+        </div>
+        <div class="col-image">
+            <!-- 建议图片：粤剧/戏台 -->
+            <img src="https://images.unsplash.com/photo-1534051657805-4c079212574e?q=80&w=2070&auto=format&fit=crop" alt="Chinese Opera">
+            
+            <!-- 箭头: 跳转到下一页 (Symbol 5) -->
+            <a href="#symbol5" class="arrow-nav arrow-right-center">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- SYMBOL 5: KUNG FU (对应图5 - 棕色背景) -->
+    <section id="symbol5" class="section-split section-reverse">
+        <div class="col-image">
+            <!-- 建议图片：武术/功夫/动作 -->
+            <img src="https://images.unsplash.com/photo-1552069273-0498b537df38?q=80&w=1965&auto=format&fit=crop" alt="Martial Arts">
+            
+            <!-- 箭头: 跳转回顶部 -->
+            <a href="#top" class="arrow-nav arrow-left-center">
+                <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </a>
+        </div>
+        <div class="col-content bg-brown">
+            <span class="section-label" style="color: #d1bba1;">Symbol 5</span>
+            <h2 class="subtitle">Martial Arts Cinema and "Kung Fu"</h2>
+
+            <p>The global success of "Kung Fu" comes from the survival needs of the Cantonese people. Its roots go back to the chaotic time between the Ming and Qing dynasties, when soldiers running from the war brought fighting skills south to Guangdong. In a time of constant war and social unrest, made worse by the Opium Wars, martial arts were not a sport, but a tool for survival. These skills became popular among ordinary people, becoming a key way for workers and citizens to protect themselves in a dangerous world.</p>
+            
+            <p>Hong Kong movies later turned these local traditions into a genre focused on justice and community. The success of the word "Kung Fu," which comes directly from Cantonese, shows how this culture is linked to global pop culture. From the "Kung Fu Craze" started by Bruce Lee in the 1970s to the action scenes in The Matrix designed by Yuen Woo-ping, Hong Kong cinema shared more than just movies; it shared a "body language." This change through movies turned a local survival skill into a worldwide symbol of strength and discipline, placing Cantonese culture into the global story.</p>
+        </div>
+    </section>
+
+  </main>
 </body>
 </html>
