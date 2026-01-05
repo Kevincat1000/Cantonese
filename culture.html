@@ -4,12 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cantonese Culture Symbols</title>
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <!-- Header/Footer 注入脚本 -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
@@ -20,6 +21,9 @@
       --bg: #f5f0e5; 
       --text: #1a1a1a;
       --accent: #a84d4d;
+
+      /* ✅ 预留一个默认值，避免首次渲染跳动（会在脚本里自动校准） */
+      --header-offset: 80px;
     }
 
     * { box-sizing: border-box; }
@@ -34,12 +38,26 @@
       scroll-behavior: smooth;
     }
 
+    /* ✅ 关键：header注入完成前先隐藏main，避免“先上后下”的闪动 */
+    html.header-loading main {
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+    }
+    html.header-ready main {
+      opacity: 1;
+      transform: none;
+      transition: opacity .22s ease, transform .22s ease;
+    }
+
+    /* ✅ 只有当header是 fixed/sticky 时，这个 padding 才会在脚本里被设置为真实高度；否则会归零 */
+    main { padding-top: var(--header-offset); }
+
     /* --- 分栏布局 (Split Layout) --- */
     .section-split {
       display: flex;
       flex-wrap: wrap;
       width: 100%;
-      /* 关键修改：去掉固定高度，让内容撑开高度 */
       position: relative;
       align-items: stretch; /* 确保左右两栏高度一致 */
     }
@@ -62,14 +80,12 @@
     }
 
     /* 图片区域 */
-    .col-image {
-        display: flex; /* 确保内部图片填满容器 */
-    }
+    .col-image { display: flex; }
     
     .col-image img {
       width: 100%;
-      height: 100%; /* 强制图片高度跟随父容器（即跟随文字栏高度） */
-      object-fit: cover; /* 裁剪图片以适应比例，不拉伸 */
+      height: 100%;
+      object-fit: cover;
       display: block;
     }
 
@@ -96,7 +112,7 @@
     }
 
     p {
-      font-size: 14px; /* 保持14px */
+      font-size: 14px;
       line-height: 1.9;
       margin-bottom: 20px;
       color: #333;
@@ -130,30 +146,72 @@
     }
     
     .arrow-right-center {
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
     }
     .arrow-left-center {
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
     }
 
     /* --- 移动端适配 --- */
     @media (max-width: 768px) {
       .section-split { flex-direction: column; }
       .col-content, .col-image { flex-basis: auto; width: 100%; }
-      /* 移动端给图片一个固定高度，否则太扁或太高 */
       .col-image { height: 350px; } 
-      .section-split .col-image { order: -1; } /* 图片总是在上方 */
+      .section-split .col-image { order: -1; }
       .col-content { padding: 40px 20px; }
       .arrow-nav { display: none; }
+
+      /* 移动端通常header更矮，默认值稍微小一点更稳（也会被脚本最终校准） */
+      :root { --header-offset: 64px; }
     }
   </style>
-</head>
-<body>
 
+  <!-- ✅ 闪动修复脚本：等待header注入完成后再显示main，并自动校准顶部占位 -->
+  <script>
+    (function () {
+      const root = document.documentElement;
+      root.classList.add('header-loading');
+
+      function done() {
+        root.classList.remove('header-loading');
+        root.classList.add('header-ready');
+      }
+
+      function syncHeaderOffset() {
+        const header = document.querySelector('header');
+        if (!header) return false;
+
+        const pos = getComputedStyle(header).position;
+        const needsOffset = (pos === 'fixed' || pos === 'sticky');
+
+        const h = needsOffset ? Math.ceil(header.getBoundingClientRect().height || 0) : 0;
+        root.style.setProperty('--header-offset', (h ? h + 'px' : '0px'));
+
+        done();
+        return true;
+      }
+
+      // 在 DOMContentLoaded 之后再找header（header.js是defer，会在这之前执行完）
+      window.addEventListener('DOMContentLoaded', () => {
+        let tries = 0;
+        const maxTries = 60; // ~1s (60帧)
+
+        (function tick() {
+          if (syncHeaderOffset()) return;
+          tries++;
+          if (tries >= maxTries) { done(); return; } // 万一header加载失败也别一直隐藏
+          requestAnimationFrame(tick);
+        })();
+      });
+    })();
+  </script>
+</head>
+
+<body>
   <main>
     
     <!-- Culture Symbol 01: Religion -->
@@ -169,7 +227,6 @@
         <p>However, beyond the worship of deities, the most profound ritual was Ancestral Worship. For the Cantonese, venerating one’s lineage was the "priority" during festivals, often surpassing the worship of gods. As people living in a foreign land, this ritual was an act of not forgetting one's roots. Families would respectfully bring out ancestral spirit tablets and burn incense, not merely to pray, but to "report" to their forebears.</p>
       </div>
       <div class="col-image">
-        <!-- 用户提供的第一张图片 -->
         <img src="images/temple.jpg" alt="Religious Beliefs">
         <a href="#symbol02" class="arrow-nav arrow-right-center">
              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
