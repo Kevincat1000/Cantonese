@@ -13,19 +13,6 @@
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
-  <style id="header-preload">
-    /* Prevent flash: reserve space for header before it loads */
-    #header-injection-point {
-      height: 60px;
-      background-color: #f5f0e5;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 3000;
-    }
-  </style>
-
   <style>
     :root {
       --bg: #f5f0e5; 
@@ -40,9 +27,6 @@
 
     * { box-sizing: border-box; scroll-behavior: smooth; }
     body, html { margin: 0; padding: 0; background-color: var(--bg); color: var(--text-black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-    
-    /* Prevent content flash by reserving header space immediately */
-    body { padding-top: var(--header-h); }
 
     /* Header 逻辑 */
     header, .site-header {
@@ -52,7 +36,7 @@
     }
     .header-hidden { transform: translateY(-100%) !important; }
 
-    .main-container { display: flex; min-height: 100vh; }
+    .main-container { display: flex; min-height: 100vh; padding-top: var(--header-h); }
 
     /* --- 左侧固定栏 --- */
     .left-panel {
@@ -328,3 +312,5 @@
 
 </body>
 </html>
+
+
