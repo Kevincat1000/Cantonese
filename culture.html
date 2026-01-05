@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="preload">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,6 +20,9 @@
       --bg: #f5f0e5; 
       --text: #1a1a1a;
       --accent: #a84d4d;
+
+      /* ✅ 为 header 注入预留空间（会被 JS 自动校准为真实高度） */
+      --header-h: 60px;
     }
 
     * { box-sizing: border-box; }
@@ -39,7 +42,6 @@
       display: flex;
       flex-wrap: wrap;
       width: 100%;
-      /* 关键修改：去掉固定高度，让内容撑开高度 */
       position: relative;
       align-items: stretch; /* 确保左右两栏高度一致 */
     }
@@ -150,11 +152,21 @@
       .col-content { padding: 40px 20px; }
       .arrow-nav { display: none; }
     }
+
+    /* ===== Page-only anti-flash patch (no change to header.js / style.css) ===== */
+    html.preload body { opacity: 0; }
+    body { transition: opacity .15s ease; }
+
+    /* 给 header 注入点预留高度（JS 会用真实 header 高度覆盖） */
+    #header-injection-point { height: var(--header-h); }
   </style>
 </head>
 <body>
 
-  <main>
+  <!-- ✅ Header 注入点：预留空间，防止首屏闪动/顶下去 -->
+  <div id="header-injection-point"></div>
+
+  <main style="padding-top: var(--header-h);">
     
     <!-- Culture Symbol 01: Religion -->
     <section id="symbol01" class="section-split">
@@ -254,7 +266,49 @@
     </section>
 
   </main>
+
+  <script>
+    // === Header injection anti-flash (page-only, no change to header.js/style.css) ===
+    (function () {
+      function syncHeaderHeight() {
+        const header = document.querySelector('header') || document.querySelector('.site-header');
+        if (!header) return false;
+
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        if (h > 0) {
+          document.documentElement.style.setProperty('--header-h', h + 'px');
+
+          const injection = document.getElementById('header-injection-point');
+          if (injection) injection.style.height = h + 'px';
+          return true;
+        }
+        return false;
+      }
+
+      function markReady() {
+        document.body.classList.add('header-ready');
+        document.documentElement.classList.remove('preload');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let tries = 0;
+        (function waitHeader() {
+          tries++;
+          if (syncHeaderHeight()) {
+            markReady();
+            return;
+          }
+          if (tries > 60) {
+            markReady();
+            return;
+          }
+          requestAnimationFrame(waitHeader);
+        })();
+
+        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
+      });
+    })();
+  </script>
+
 </body>
 </html>
-
-
