@@ -64,8 +64,7 @@
       background-color: var(--bg);
       display: flex;
       flex-direction: column;
-      /* 默认垂直居中，但#symbol05会覆盖 */
-      justify-content: center; 
+      justify-content: center; /* 垂直居中 */
       
       /* 全局标准间距：上50, 右40, 下40, 左40 */
       padding: 50px 40px 40px 40px; 
@@ -159,7 +158,6 @@
       
       /* 
          ✅ 修复 Symbol03 (舞狮) 手机端字体溢出 
-         调整了 margin 和 padding，确保玻璃盒子内的文字不会溢出。
       */
       #symbol03 .col-content {
         margin: 20px 15px; /* 左右边距缩小 */
@@ -174,6 +172,10 @@
         justify-content: flex-start !important; /* 文字从顶部开始 */
       }
     }
+
+    html.preload body { opacity: 0; }
+    body { transition: opacity .15s ease; }
+    #header-injection-point { height: var(--header-h); }
 
     /* ============================================================
        Symbol03 (舞狮) 修复版：更透 + 无圆角
@@ -261,7 +263,7 @@
       object-fit: cover;
     }
     
-    /* 移动端适配 Symbol04 图片高度，增加高度 */
+    /* 移动端适配 Symbol04 图片高度 */
     @media (max-width: 768px) {
       #symbol04 .col-image { height: 400px; }
     }
@@ -273,11 +275,6 @@
 
   <div id="header-injection-point"></div>
 
-  <!-- 
-    ✅ 核心修复：main 标签不再添加 padding-top。
-    Header 的高度由 header-injection-point div 控制。
-    这样 header 下方就不会有额外的空白了。
-  -->
   <main>
     
     <!-- Culture Symbol 01: Religion -->
@@ -334,12 +331,9 @@
     <section id="symbol04" class="section-split">
       <div class="col-image">
         <div class="video-container">
-          <!-- 
-            ✅ YouTube 链接已更新为 embed 格式，请检查 src 属性内的视频 ID。
-            如果需要更换视频，请修改此处 ID。
-          -->
+          <!-- ✅ YouTube EMBED 修正版 -->
           <iframe 
-            src="https://www.youtube.com/watch?v=mldcDidGJCg" 
+            src="https://www.youtube.com/embed/S2gZqWq8n6k" 
             title="YouTube video player" 
             frameborder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
