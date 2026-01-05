@@ -5,17 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cantonese in Americas - Introduction</title>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
 
+  <!-- Scripts -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
   <style>
+    /* ---------------------------------------------------------
+       VARIABLES & BASE
+    --------------------------------------------------------- */
     :root {
       --bg-color: #f5f0e5;
       --text-color: #1a1a1a;
@@ -27,23 +33,18 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html {
-      min-height: 100vh;
+      /* Remove fixed height to allow scrolling on zoom */
+      height: auto; 
     }
 
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
       font-family: "Gentium Book Plus", serif;
+      padding-top: calc(var(--header-h) + var(--content-gap));
+      /* Allow vertical scroll if content overflows */
       overflow-x: hidden; 
-      overflow-y: auto;
       width: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #header-container {
-      flex-shrink: 0;
     }
 
     .main-grid {
@@ -51,26 +52,18 @@
       width: 100%;
       max-width: 100%;
       grid-template-columns: 45% 55%; 
-      flex: 1;
-      min-height: 0;
-      padding-top: var(--content-gap);
-      
+      min-height: calc(100vh - (var(--header-h) + var(--content-gap)));
       grid-template-areas: 
         "img  content"
         "stat content";
     }
 
-    #footer-container {
-      flex-shrink: 0;
-      margin-top: auto;
-    }
-
     .section-img {
       grid-area: img;
       display: flex;
-      align-items: center;
+      align-items: center; 
       justify-content: flex-start;
-      padding-bottom: 2rem;
+      padding-bottom: 2rem; 
     }
 
     .dragon-wrapper {
@@ -86,26 +79,31 @@
       filter: sepia(0.2) contrast(1.1);
     }
 
+    /* ---------------------------------------------------------
+       2. RIGHT CONTENT (Area: content)
+    --------------------------------------------------------- */
     .section-content {
       grid-area: content;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: center; 
       
+      /* Request: Move down 30px */
       padding-top: 30px; 
       padding-right: 4rem;
-      padding-bottom: 2rem;
-      padding-left: 0;
+      padding-bottom: 4rem;
+      padding-left: 0; 
     }
 
     .content-wrapper {
       max-width: 700px;
     }
 
+    /* Sub-heading: 14pt (~19px) */
     h2.sub-heading {
       font-family: 'Exo', sans-serif;
       font-weight: 400;
-      font-size: 14px;
+      font-size: 14px; 
       color: #555;
       margin-bottom: 1rem;
     }
@@ -123,12 +121,13 @@
     .text-body {
       font-size: 12pt; 
       line-height: 1.6;
-      color: #222;
+      color: #000;
       text-align: justify;
     }
 
     .text-body p { margin-bottom: 1.5rem; }
 
+    /* Drop Cap */
     .text-body p:first-child::first-letter {
       font-family: 'Exo', sans-serif;
       font-weight: 800;
@@ -140,14 +139,16 @@
       color: var(--drop-cap-color);
     }
 
+    /* ---------------------------------------------------------
+       3. STATS / NUMBERS (Area: stat)
+    --------------------------------------------------------- */
     .section-stats {
       grid-area: stat;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      
+      justify-content: flex-end; 
       padding-left: 40px;
-      padding-bottom: 40px; 
+      padding-bottom: 10px; 
     }
 
     .stats-container {
@@ -163,7 +164,6 @@
       border-bottom: 1px solid #000;
       padding-bottom: 4px;
       display: inline-block;
-      
       margin-bottom: 0.25rem; 
       color: #000;
     }
@@ -171,12 +171,13 @@
     .stats-row {
       display: flex;
       gap: 3rem;
-      flex-wrap: wrap;
+      flex-wrap: wrap; 
     }
 
     .stat-item h4 {
       font-family: 'Exo', sans-serif;
       font-weight: 700;
+      /* Request: 18px size */
       font-size: 18px; 
       color: #000;
       margin-bottom: 2px;
@@ -191,21 +192,21 @@
       opacity: 0.8;
     }
 
+    /* ---------------------------------------------------------
+       MOBILE / TABLET RESPONSIVE (< 1024px)
+    --------------------------------------------------------- */
     @media (max-width: 1024px) {
-      body {
-        min-height: 100vh;
-      }
-
       .main-grid {
         display: flex;
         flex-direction: column;
         height: auto;
         min-height: auto;
+        /* Reset grid areas */
         grid-template-areas: none;
         padding-bottom: 2rem;
-        flex: 1;
       }
 
+      /* 1. First: Photo */
       .section-img {
         order: 1;
         width: 100%;
@@ -214,9 +215,7 @@
       }
       .dragon-wrapper {
         width: 100%;
-        max-width: 600px;
-      }
-
+        max-width: 600px; 
       .section-content {
         order: 2;
         padding: 1rem 2rem;
@@ -227,10 +226,9 @@
       h2.sub-heading {
         font-size: 16px; 
       }
-
       .section-stats {
         order: 3;
-        padding: 2rem;
+        padding: 2rem; 
         padding-top: 0;
       }
       .stats-row {
@@ -243,20 +241,23 @@
 
 <body>
 
+  <!-- Header Placeholder -->
   <div id="header-container"></div>
 
   <main class="main-grid">
     
+    <!-- 1. Dragon Photo Section -->
     <div class="section-img">
       <div class="dragon-wrapper">
         <img src="https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg" alt="Dragon Parade">
       </div>
     </div>
 
+    <!-- 2. Text Content Section -->
     <div class="section-content">
       <div class="content-wrapper">
         <h2 class="sub-heading">Public History · Oral History · Cultural Research</h2>
-        <h1 class="main-title">CANTONESE<br>IN THE AMERICAS</h1>
+        <h1 class="main-title">CANTONESE IN<br>THE AMERICAS</h1>
         
         <div class="text-body">
           <p>
@@ -269,6 +270,7 @@
       </div>
     </div>
 
+    <!-- 3. Stats Section -->
     <div class="section-stats">
       <div class="stats-container">
         <div class="stats-title">BY THE NUMBERS</div>
@@ -293,7 +295,10 @@
 
   </main>
 
+  <!-- Footer Placeholder -->
   <div id="footer-container"></div>
 
 </body>
 </html>
+
+
