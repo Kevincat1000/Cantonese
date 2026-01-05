@@ -20,7 +20,7 @@
       --bg: #f5f0e5; 
       --text: #1a1a1a;
       --accent: #a84d4d;
-      --header-h: 60px; /* JS会自动更新此值 */
+      --header-h: 88px; /* ✅ 给一个更稳的默认值（最终会被JS自动更新） */
     }
 
     * { box-sizing: border-box; }
@@ -48,6 +48,16 @@
     }
     .header-hidden { transform: translateY(-100%) !important; }
 
+    /* ✅ 关键：header没注入完成前，不让内容露出来 */
+    html.preload body { opacity: 0; }
+    body { transition: opacity .15s ease; }
+
+    /* ✅ 顶部占位始终存在，避免header出现后顶内容 */
+    #header-injection-point {
+      height: var(--header-h);
+      min-height: var(--header-h);
+    }
+
     /* --- 分栏布局 (Split Layout) --- */
     .section-split {
       display: flex;
@@ -64,18 +74,14 @@
       background-color: var(--bg);
       display: flex;
       flex-direction: column;
-      justify-content: center; /* 垂直居中 */
-      
-      /* 全局标准间距：上50, 右40, 下40, 左40 */
+      justify-content: center;
       padding: 50px 40px 40px 40px; 
     }
 
     /* 针对第一个板块消除顶部留白 */
-    #symbol01 .col-content {
-      padding-top: 5px !important; 
-    }
+    #symbol01 .col-content { padding-top: 5px !important; }
 
-    /* 图片区域：绝对定位实现等高 */
+    /* 图片区域 */
     .col-image {
       flex: 1;
       flex-basis: 50%;
@@ -85,8 +91,7 @@
     
     .col-image img {
       position: absolute;
-      top: 0; 
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover; 
@@ -143,39 +148,25 @@
 
     /* --- 移动端适配 --- */
     @media (max-width: 768px) {
+      :root { --header-h: 72px; }
+
       .section-split { flex-direction: column; }
       .col-content, .col-image { flex-basis: auto; width: 100%; }
-      
-      /* 调整移动端图片高度，避免过度裁剪 */
       .col-image { height: 350px; } 
       .col-image img { position: relative; } 
-      
-      .section-split .col-image { order: -1; } /* 图片在文字上方 */
+      .section-split .col-image { order: -1; }
       .col-content { padding: 30px 20px; }
-      
-      /* 移动端第一个板块的顶部留白 */
       #symbol01 .col-content { padding-top: 20px !important; }
-      
-      /* 
-         ✅ 修复 Symbol03 (舞狮) 手机端字体溢出 
-      */
+
       #symbol03 .col-content {
-        margin: 20px 15px; /* 左右边距缩小 */
-        padding: 30px 20px !important; /* 增加上下内边距 */
+        margin: 20px 15px;
+        padding: 30px 20px !important;
       }
-      
-      /* 
-         ✅ 修复 Symbol05 (李小龙) 手机端内容排列
-         将文字垂直居中改为从顶部开始排列。
-      */
+
       #symbol05 .col-content {
-        justify-content: flex-start !important; /* 文字从顶部开始 */
+        justify-content: flex-start !important;
       }
     }
-
-    html.preload body { opacity: 0; }
-    body { transition: opacity .15s ease; }
-    #header-injection-point { height: var(--header-h); }
 
     /* ============================================================
        Symbol03 (舞狮) 修复版：更透 + 无圆角
@@ -189,7 +180,6 @@
     }
 
     #symbol03 .col-content {
-      /* 透明度调整：更透 */
       background: linear-gradient(
         135deg,
         rgba(245, 240, 229, 0.60) 0%,
@@ -197,12 +187,8 @@
       );
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      
       margin: 60px 40px; 
-      
-      /* 去除圆角 */
       border-radius: 0; 
-      
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
       flex: 0 1 50%; 
       height: fit-content; 
@@ -214,12 +200,11 @@
     }
     #symbol03 .col-image img { display: none; }
 
-    /* 移动端适配 Symbol03 */
     @media (max-width: 768px) {
       #symbol03 { padding: 20px 0; }
       #symbol03 .col-content {
-        margin: 20px 15px; /* 左右边距缩小 */
-        padding: 30px 20px !important; /* 增加上下内边距 */
+        margin: 20px 15px;
+        padding: 30px 20px !important;
         flex: 1 1 auto;
       }
       #symbol03 .col-image { display: none; }
@@ -237,7 +222,7 @@
       flex: 0 0 auto; 
       width: 100%;
       position: relative;
-      padding-top: 56.25%; /* 16:9 比例 */
+      padding-top: 56.25%;
       background: #000;
     }
     #symbol04 .video-container iframe {
@@ -263,11 +248,9 @@
       object-fit: cover;
     }
     
-    /* 移动端适配 Symbol04 图片高度 */
     @media (max-width: 768px) {
       #symbol04 .col-image { height: 400px; }
     }
-
   </style>
 </head>
 
@@ -276,17 +259,13 @@
   <div id="header-injection-point"></div>
 
   <main>
-    
     <!-- Culture Symbol 01: Religion -->
     <section id="symbol01" class="section-split">
       <div class="col-content">
         <span class="section-label">Culture Symbol 01</span>
         <h2 class="subtitle">Religious Beliefs and Ancestral Worship</h2>
-        
         <p>Guangdong immigrants transplanted their spiritual landscape to the U.S. through a unique "Temple-Association" model. This integration of sacred and secular spaces—exemplified by the Tin How Temple in San Francisco (est. 1852)—served as a vital cultural nexus. Central to this spiritual ecosystem were specific deities chosen for the immigrant experience. Mazu (Tin How), originally a mortal woman from Fujian during the Song Dynasty, was deified into the Goddess of the Sea. For immigrants who survived the perilous voyage across the Pacific, she was the supreme guardian of wanderers and those drifting on the ocean.</p>
-        
         <p>Equally significant was Guandi, the God of War, who embodied righteousness, loyalty, and justice. The Cantonese reverence for Guandi is deeply rooted in their history as a migratory group moving south from the Central Plains. Throughout their historical migrations, they credited Guandi's justice for their protection; thus, wherever they established a new foothold, Guandi was enshrined as the guardian who had accompanied them from their ancestral lands.</p>
-        
         <p>However, beyond the worship of deities, the most profound ritual was Ancestral Worship. For the Cantonese, venerating one's lineage was the "priority" during festivals, often surpassing the worship of gods. As people living in a foreign land, this ritual was an act of not forgetting one's roots. Families would respectfully bring out ancestral spirit tablets and burn incense, not merely to pray, but to "report" to their forebears.</p>
       </div>
       <div class="col-image">
@@ -302,9 +281,7 @@
       <div class="col-content">
         <span class="section-label">Culture Symbol 02</span>
         <h2 class="subtitle">Cantonese Cuisine</h2>
-        
         <p>The evolution of Cantonese cuisine in the West is a journey from desperate survival to cultural dominance. During the Chinese Exclusion Act era, the restaurant business was one of the few legal loopholes for employment. From a handful of eateries in the 1850s to over 50,000 across the U.S. today, Cantonese food became the economic bedrock of the diaspora. Immigrants adapted their complex culinary heritage into dishes like "Chow Mein" and "Chop Suey," leading to the linguistic integration of terms like "Dim Sum," "Wok," and "Bok Choy" into the global lexicon.</p>
-        
         <p>This influence is most profound in the tradition of Yum Cha (drink morning tea with dim sum). Rooted in the classic "One Cup, Two Pieces" custom, a pot of tea with two baskets of dim sum, this practice is far more than a brunch. It embodies the art of "slow living." This ritual acts as a sanctuary from the rush of the outside world, inviting people to pause, sip, and connect over hot tea. By turning a simple meal into a shared experience of leisure, Yum Cha has evolved into a global staple.</p>
       </div>
     </section>
@@ -314,11 +291,8 @@
       <div class="col-content">
         <span class="section-label">Culture Symbol 03</span>
         <h2 class="subtitle">The Lion Dance and Dragon Lanterns</h2>
-        
         <p>The Cantonese Lion Dance has long been regarded as a lucky symbol capable of driving away evil spirits and bringing good luck. As a unique mix of martial arts, dance, and music, it represents the community's energetic spirit, a lively contrast to the quiet soul of the temple.</p>
-        
         <p>For immigrants, this tradition was more than just holiday entertainment; it was an active ceremony that claimed "public space" for an excluded community. Accompanied by the loud beat of drums and cymbals, the Lion Dance announced the Chinese presence in Western cities, turning quiet neighborhoods into vibrant cultural scenes. The main act of Cai Qing (plucking the greens), where the lion "eats" a lettuce head containing a red envelope, serves as a strong symbol of the immigrant spirit.</p>
-        
         <p>Along with this is the Dragon Lantern parade. While the Lion highlights individual skill and agility, the Dragon requires dozens of people moving together as one, symbolizing the need for teamwork to survive. Together, these performances turned city streets into stages for celebration, driving away bad luck and social pressure, and welcoming good fortune.</p>
       </div>
 
@@ -331,9 +305,8 @@
     <section id="symbol04" class="section-split">
       <div class="col-image">
         <div class="video-container">
-          <!-- ✅ YouTube EMBED 修正版 -->
           <iframe 
-            src="https://www.youtube.com/watch?v=mldcDidGJCg" 
+            src="https://www.youtube.com/embed/S2gZqWq8n6k" 
             title="YouTube video player" 
             frameborder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -351,11 +324,8 @@
       <div class="col-content">
         <span class="section-label">Culture Symbol 04</span>
         <h2 class="subtitle">Cantonese Opera</h2>
-
         <p>Cantonese Opera serves as a classic stage art that mixes singing, speaking, acting, and acrobatic fighting, combined with music, costumes, and makeup. It created a unique atmosphere known as the "Commoner's Symphony," where the audience would enjoy snacks while watching the show. This accessible and communal atmosphere allowed the opera to quickly weave itself into the fabric of daily life, offering spiritual comfort to early immigrants.</p>
-        
         <p>The opera arrived with the first wave of Cantonese immigrants. The first troupe, Hong Fook Tong, began performing in San Francisco in 1852. Over the next fifty years, the city saw the opening of countless theaters. During the first golden age in the 1870s, San Francisco's Chinatown had four theaters operating at once.</p>
-        
         <p>Print media played a crucial role in this success. With four daily Chinese newspapers in San Francisco, the press helped promote these shows. These theaters played a vital role in community life. They were not just for entertainment; they created a space for Cantonese merchants and the public to connect, shaping a modern and culturally rich image of Chinatown.</p>
       </div>
     </section>
@@ -365,61 +335,94 @@
       <div class="col-content">
         <span class="section-label">Culture Symbol 05</span>
         <h2 class="subtitle">Martial Arts Cinema and "Kung Fu"</h2>
-
         <p>The global success of "Kung Fu" comes from the survival needs of the Cantonese people. Its roots go back to the chaotic time between the Ming and Qing dynasties, when soldiers running from the war brought fighting skills south to Guangdong. In a time of constant war and social unrest, made worse by the Opium Wars, martial arts were not a sport, but a tool for survival. These skills became popular among ordinary people, becoming a key way for workers and citizens to protect themselves in a dangerous world.</p>
-        
         <p>Hong Kong movies later turned these local traditions into a genre focused on justice and community. The success of the word "Kung Fu," which comes directly from Cantonese, shows how this culture is linked to global pop culture. From the "Kung Fu Craze" started by Bruce Lee in the 1970s to the action scenes in The Matrix designed by Yuen Woo-ping, Hong Kong cinema shared more than just movies; it shared a "body language."</p>
       </div>
       <div class="col-image">
         <img src="https://www.walterfilm.com/wp-content/uploads/2018/10/EnterTheDragon.jpg" alt="Martial Arts">
       </div>
     </section>
-
   </main>
 
+  <!-- ✅ 闪动修复：MutationObserver 等 header 真正注入后再显示页面 -->
   <script>
     (function () {
+      const root = document.documentElement;
+      const injection = document.getElementById('header-injection-point');
+
+      function getHeader() {
+        return document.querySelector('header') || document.querySelector('.site-header');
+      }
+
       function syncHeaderHeight() {
-        const header = document.querySelector('header') || document.querySelector('.site-header');
+        const header = getHeader();
         if (!header) return false;
-        const h = Math.ceil(header.getBoundingClientRect().height);
-        if (h > 0) {
-          document.documentElement.style.setProperty('--header-h', h + 'px');
-          const injection = document.getElementById('header-injection-point');
-          if (injection) injection.style.height = h + 'px';
-          return true;
-        }
-        return false;
+
+        const h = Math.ceil(header.getBoundingClientRect().height || 0);
+        if (!h) return false;
+
+        root.style.setProperty('--header-h', h + 'px');
+        if (injection) injection.style.height = h + 'px';
+        return true;
       }
-      function markReady() {
+
+      function reveal() {
+        root.classList.remove('preload');
         document.body.classList.add('header-ready');
-        document.documentElement.classList.remove('preload');
       }
+
       document.addEventListener('DOMContentLoaded', () => {
-        let tries = 0;
-        (function waitHeader() {
-          tries++;
-          if (syncHeaderHeight()) { markReady(); return; }
-          if (tries > 60) { markReady(); return; }
-          requestAnimationFrame(waitHeader);
-        })();
-        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
+        // 1) 先尝试一次（如果header已经在了，立刻放行）
+        if (syncHeaderHeight()) reveal();
+
+        // 2) 监听 DOM：header 一旦被注入就立刻校准高度并放行
+        const obs = new MutationObserver(() => {
+          if (syncHeaderHeight()) {
+            reveal();
+            obs.disconnect();
+          }
+        });
+        obs.observe(document.body, { childList: true, subtree: true });
+
+        // 3) 字体加载会改变header高度，补一刀
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(() => syncHeaderHeight()).catch(() => {});
+        }
+
+        // 4) load兜底：如果header注入失败，也要显示页面（避免黑屏）
+        window.addEventListener('load', () => {
+          if (!document.body.classList.contains('header-ready')) {
+            // 若此时header终于出现，优先校准；否则直接放行
+            syncHeaderHeight();
+            reveal();
+          } else {
+            // 已放行也再校准一次，避免高度二次变化
+            syncHeaderHeight();
+            setTimeout(syncHeaderHeight, 200);
+          }
+        }, { once: true });
+
+        window.addEventListener('resize', syncHeaderHeight);
       });
+
+      // ✅ scroll隐藏header（保持你原逻辑，但用passive更稳）
+      let lastScrollTop = 0;
+      window.addEventListener('scroll', function () {
+        if (!document.body.classList.contains('header-ready')) return;
+        const header = getHeader();
+        if (!header) return;
+
+        let currentScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+        if (currentScroll < 0) currentScroll = 0;
+
+        if (currentScroll > lastScrollTop && currentScroll > 80) {
+          header.classList.add('header-hidden');
+        } else if (currentScroll < lastScrollTop) {
+          header.classList.remove('header-hidden');
+        }
+        lastScrollTop = currentScroll;
+      }, { passive: true });
     })();
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', function () {
-      if (!document.body.classList.contains('header-ready')) return;
-      const header = document.querySelector('header') || document.querySelector('.site-header');
-      if (!header) return;
-      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      if (currentScroll < 0) currentScroll = 0;
-      if (currentScroll > lastScrollTop && currentScroll > 80) {
-        header.classList.add('header-hidden');
-      } else if (currentScroll < lastScrollTop) {
-        header.classList.remove('header-hidden');
-      }
-      lastScrollTop = currentScroll;
-    }, false);
   </script>
 
 </body>
