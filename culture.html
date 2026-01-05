@@ -64,19 +64,16 @@
       background-color: var(--bg);
       display: flex;
       flex-direction: column;
-      justify-content: center; /* 垂直居中 */
+      /* 默认垂直居中，但#symbol05会覆盖 */
+      justify-content: center; 
       
       /* 全局标准间距：上50, 右40, 下40, 左40 */
       padding: 50px 40px 40px 40px; 
     }
 
-    /* 
-       === 【关键修复】针对第一个板块消除顶部留白 ===
-       因为 Header 上方已经有占位符了，这里我们将 padding-top 设为 0 或者极小值。
-       这样文字就会紧紧贴在 Header 阴影下方。
-    */
+    /* 针对第一个板块消除顶部留白 */
     #symbol01 .col-content {
-      padding-top: 5px !important; /* 强制覆盖全局的 50px */
+      padding-top: 5px !important; 
     }
 
     /* 图片区域：绝对定位实现等高 */
@@ -107,7 +104,7 @@
       color: #701a1a;
       margin-bottom: 15px; 
       display: block;
-      margin-top: 0; /* 确保没有顶部外边距 */
+      margin-top: 0; 
     }
 
     .subtitle {
@@ -118,7 +115,7 @@
       margin-bottom: 20px;
       line-height: 1.1;
       color: #000;
-      margin-top: 0; /* 确保没有顶部外边距 */
+      margin-top: 0; 
     }
 
     p {
@@ -149,17 +146,34 @@
     @media (max-width: 768px) {
       .section-split { flex-direction: column; }
       .col-content, .col-image { flex-basis: auto; width: 100%; }
-      .col-image { height: 300px; } 
+      
+      /* 调整移动端图片高度，避免过度裁剪 */
+      .col-image { height: 350px; } 
       .col-image img { position: relative; } 
-      .section-split .col-image { order: -1; }
+      
+      .section-split .col-image { order: -1; } /* 图片在文字上方 */
       .col-content { padding: 30px 20px; }
-      /* 移动端稍微给一点呼吸空间 */
+      
+      /* 移动端第一个板块的顶部留白 */
       #symbol01 .col-content { padding-top: 20px !important; }
+      
+      /* 
+         ✅ 修复 Symbol03 (舞狮) 手机端字体溢出 
+         调整了 margin 和 padding，确保玻璃盒子内的文字不会溢出。
+      */
+      #symbol03 .col-content {
+        margin: 20px 15px; /* 左右边距缩小 */
+        padding: 30px 20px !important; /* 增加上下内边距 */
+      }
+      
+      /* 
+         ✅ 修复 Symbol05 (李小龙) 手机端内容排列
+         将文字垂直居中改为从顶部开始排列。
+      */
+      #symbol05 .col-content {
+        justify-content: flex-start !important; /* 文字从顶部开始 */
+      }
     }
-
-    html.preload body { opacity: 0; }
-    body { transition: opacity .15s ease; }
-    #header-injection-point { height: var(--header-h); }
 
     /* ============================================================
        Symbol03 (舞狮) 修复版：更透 + 无圆角
@@ -173,7 +187,7 @@
     }
 
     #symbol03 .col-content {
-      /* 透明度调整：更透 (0.6 -> 0.4) */
+      /* 透明度调整：更透 */
       background: linear-gradient(
         135deg,
         rgba(245, 240, 229, 0.60) 0%,
@@ -198,9 +212,14 @@
     }
     #symbol03 .col-image img { display: none; }
 
+    /* 移动端适配 Symbol03 */
     @media (max-width: 768px) {
       #symbol03 { padding: 20px 0; }
-      #symbol03 .col-content { margin: 20px; flex: 1 1 auto; }
+      #symbol03 .col-content {
+        margin: 20px 15px; /* 左右边距缩小 */
+        padding: 30px 20px !important; /* 增加上下内边距 */
+        flex: 1 1 auto;
+      }
       #symbol03 .col-image { display: none; }
     }
 
@@ -216,7 +235,7 @@
       flex: 0 0 auto; 
       width: 100%;
       position: relative;
-      padding-top: 56.25%;
+      padding-top: 56.25%; /* 16:9 比例 */
       background: #000;
     }
     #symbol04 .video-container iframe {
@@ -241,22 +260,23 @@
       width: 100%; height: 100%;
       object-fit: cover;
     }
+    
+    /* 移动端适配 Symbol04 图片高度，增加高度 */
+    @media (max-width: 768px) {
+      #symbol04 .col-image { height: 400px; }
+    }
 
   </style>
 </head>
 
 <body>
 
-  <!-- 
-    ✅ 1. 占位符：它负责占据 Header 的高度。
-    Header 是 fixed 的，这行代码会让页面内容自动往下移一个 Header 的高度。
-  -->
   <div id="header-injection-point"></div>
 
   <!-- 
-    ✅ 2. 核心修复：
-    删除了 style="padding-top:..."。
-    之前这里重复加了 padding，导致双倍空白。现在只靠上面的 div 占位，空白会消失。
+    ✅ 核心修复：main 标签不再添加 padding-top。
+    Header 的高度由 header-injection-point div 控制。
+    这样 header 下方就不会有额外的空白了。
   -->
   <main>
     
@@ -314,9 +334,18 @@
     <section id="symbol04" class="section-split">
       <div class="col-image">
         <div class="video-container">
-          <!-- ✅ 请在此处粘贴您的新 YouTube 链接 -->
-          <!-- 默认保留了之前的链接，如果不改，直接运行即可 -->
-          <iframe src="https://www.youtube.com/watch?v=mldcDidGJCg" allowfullscreen></iframe>
+          <!-- 
+            ✅ YouTube 链接已更新为 embed 格式，请检查 src 属性内的视频 ID。
+            如果需要更换视频，请修改此处 ID。
+          -->
+          <iframe 
+            src="https://www.youtube.com/embed/S2gZqWq8n6k" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+          </iframe>
         </div>
         <div class="video-caption">
           SKAI ISYOURGOD-《大展鸿图》Grand Ambitions<br>(Inspired by the 1957 Cantonese Opera "Princess Cheung Ping")
