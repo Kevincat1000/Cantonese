@@ -34,13 +34,12 @@
         padding-top:0;
       }
 
-      /* ✅ 核心修改区域：让 Header 始终撑满屏幕，并固定 40px 间距 */
       header[data-site-header="1"] .header-container{
-        width: 100%;        /* 强制占满屏幕宽度 */
-        max-width: none;    /* 移除之前的 1280px 限制，防止大屏居中 */
-        margin: 0;          /* 移除 margin: 0 auto */
-        padding: 0 40px;    /* 保持左右固定的 40px 间距 */
-        box-sizing: border-box; /* 确保 padding 不会撑破宽度 */
+        width: 100%;       
+        max-width: none;   
+        margin: 0;         
+        padding: 0 40px;   
+        box-sizing: border-box; 
       }
 
       header[data-site-header="1"] .header-content{
@@ -94,7 +93,7 @@
       }
 
       header[data-site-header="1"] .nav-link{
-        color:#333;
+        color:#050505;
         text-decoration:none;
         font-size:14px;
         font-weight:600;
@@ -211,7 +210,7 @@
         color:#333;
         text-decoration:none;
         font-size:16px;
-        font-weight:500;
+        font-weight:600;
         transition:background-color .2s, color .2s;
       }
 
