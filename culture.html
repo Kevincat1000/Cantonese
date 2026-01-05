@@ -80,6 +80,7 @@
     /* 图片区域 */
     .col-image {
       display: flex;
+      position: relative;
     }
     
     .col-image img {
@@ -96,7 +97,7 @@
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--accent);
+      color: #000; /* Changed to black */
       margin-bottom: 20px;
       display: block;
     }
@@ -119,41 +120,21 @@
       text-align: justify;
     }
 
-    /* --- 导航箭头样式 --- */
-    .arrow-nav {
+    /* Photo credit styling */
+    .photo-credit {
       position: absolute;
-      width: 80px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      bottom: 12px;
+      right: 12px;
+      font-size: 10px;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4px 8px;
+      border-radius: 2px;
       z-index: 10;
-      background: rgba(0,0,0,0.1);
-      backdrop-filter: blur(2px);
-    }
-    .arrow-nav:hover { 
-      transform: scale(1.05); 
-      background: rgba(0,0,0,0.3);
-    }
-    .arrow-nav svg { 
-      width: 40px; 
-      height: 40px; 
-      stroke: white; 
-      stroke-width: 1.5; 
-      fill: none; 
-    }
-    
-    .arrow-right-center {
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-    }
-    .arrow-left-center {
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
+      font-family: 'Exo', sans-serif;
+      line-height: 1.3;
+      max-width: 250px;
+      text-align: right;
     }
 
     /* --- 移动端适配 --- */
@@ -163,7 +144,6 @@
       .col-image { height: 350px; } 
       .section-split .col-image { order: -1; }
       .col-content { padding: 40px 20px; }
-      .arrow-nav { display: none; }
     }
 
     /* ===== Page-only anti-flash patch (no change to header.js / style.css) ===== */
@@ -174,7 +154,7 @@
     #header-injection-point { height: var(--header-h); }
 
     /* ============================================================
-       ✅ Symbol03 special: tiled photo + transparent “glass mask”
+       ✅ Symbol03 special: tiled photo + transparent "glass mask"
        ============================================================ */
     /* ✅ Symbol03: single background image (no 9 tiles) + lighter sharp mask */
 #symbol03{
@@ -227,6 +207,65 @@
   #symbol03 .col-content::before{ inset: 26px 12px; }
 }
 
+    /* Symbol04 special layout for video and image */
+    #symbol04 .col-image {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      gap: 0;
+    }
+
+    #symbol04 .video-container {
+      flex: 0 0 auto;
+      width: 100%;
+      position: relative;
+      padding-top: 56.25%; /* 16:9 aspect ratio */
+      background: #000;
+    }
+
+    #symbol04 .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    #symbol04 .video-caption {
+      padding: 12px 16px;
+      background: var(--bg);
+      font-size: 12px;
+      font-family: 'Exo', sans-serif;
+      color: #333;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    #symbol04 .image-container {
+      flex: 1;
+      position: relative;
+      min-height: 300px;
+    }
+
+    #symbol04 .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: left bottom;
+    }
+
+    @media (max-width: 768px) {
+      #symbol04 .col-image {
+        height: auto;
+        min-height: 600px;
+      }
+      
+      #symbol04 .video-container {
+        padding-top: 56.25%;
+      }
+    }
+
   </style>
 </head>
 
@@ -245,15 +284,12 @@
         
         <p>Guangdong immigrants transplanted their spiritual landscape to the U.S. through a unique "Temple-Association" model. This integration of sacred and secular spaces—exemplified by the Tin How Temple in San Francisco (est. 1852)—served as a vital cultural nexus. Central to this spiritual ecosystem were specific deities chosen for the immigrant experience. Mazu (Tin How), originally a mortal woman from Fujian during the Song Dynasty, was deified into the Goddess of the Sea. For immigrants who survived the perilous voyage across the Pacific, she was the supreme guardian of wanderers and those drifting on the ocean.</p>
         
-        <p>Equally significant was Guandi, the God of War, who embodied righteousness, loyalty, and justice. The Cantonese reverence for Guandi is deeply rooted in their history as a migratory group moving south from the Central Plains. Throughout their historical migrations, they credited Guandi’s justice for their protection; thus, wherever they established a new foothold, Guandi was enshrined as the guardian who had accompanied them from their ancestral lands.</p>
+        <p>Equally significant was Guandi, the God of War, who embodied righteousness, loyalty, and justice. The Cantonese reverence for Guandi is deeply rooted in their history as a migratory group moving south from the Central Plains. Throughout their historical migrations, they credited Guandi's justice for their protection; thus, wherever they established a new foothold, Guandi was enshrined as the guardian who had accompanied them from their ancestral lands.</p>
         
-        <p>However, beyond the worship of deities, the most profound ritual was Ancestral Worship. For the Cantonese, venerating one’s lineage was the "priority" during festivals, often surpassing the worship of gods. As people living in a foreign land, this ritual was an act of not forgetting one's roots. Families would respectfully bring out ancestral spirit tablets and burn incense, not merely to pray, but to "report" to their forebears.</p>
+        <p>However, beyond the worship of deities, the most profound ritual was Ancestral Worship. For the Cantonese, venerating one's lineage was the "priority" during festivals, often surpassing the worship of gods. As people living in a foreign land, this ritual was an act of not forgetting one's roots. Families would respectfully bring out ancestral spirit tablets and burn incense, not merely to pray, but to "report" to their forebears.</p>
       </div>
       <div class="col-image">
         <img src="images/temple1.jpg" alt="Religious Beliefs">
-        <a href="#symbol02" class="arrow-nav arrow-right-center">
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
       </div>
     </section>
 
@@ -261,9 +297,6 @@
     <section id="symbol02" class="section-split">
       <div class="col-image">
         <img src="https://i.redd.it/4nqtfaaf33981.jpg" alt="Dim Sum">
-        <a href="#symbol03" class="arrow-nav arrow-left-center">
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
       </div>
       <div class="col-content">
         <span class="section-label">Culture Symbol 02</span>
@@ -288,22 +321,25 @@
         <p>Along with this is the Dragon Lantern parade. While the Lion highlights individual skill and agility, the Dragon requires dozens of people moving together as one, symbolizing the need for teamwork to survive. Together, these performances turned city streets into stages for celebration, driving away bad luck and social pressure, and welcoming good fortune.</p>
       </div>
 
-      <!-- 右栏保留（用于布局+箭头），但不放 cover 图片，让背景平铺可见 -->
+      <!-- 右栏保留（用于布局），但不放 cover 图片，让背景平铺可见 -->
       <div class="col-image">
         <img src="https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840" alt="Lion Dance">
-        <a href="#symbol04" class="arrow-nav arrow-right-center">
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        <div class="photo-credit">The Lunar New Year Parade on San Francisco in 2023. Photo: Tayfun Coskun via Getty Images</div>
       </div>
     </section>
 
     <!-- Culture Symbol 04: Opera -->
     <section id="symbol04" class="section-split">
       <div class="col-image">
-        <img src="https://images.unsplash.com/photo-1534051657805-4c079212574e?q=80&w=2070&auto=format&fit=crop" alt="Chinese Opera">
-        <a href="#symbol05" class="arrow-nav arrow-left-center">
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/mldcDidGJCg" allowfullscreen></iframe>
+        </div>
+        <div class="video-caption">
+          SKAI ISYOURGOD-《大展鸿图》Grand Ambitions (Inspired by the 1957 Cantonese Opera "Princess Cheung Ping")
+        </div>
+        <div class="image-container">
+          <img src="https://nfassetoss.southcn.com/__asset/0bdf1f0b31/86cc519f06.jpeg" alt="Cantonese Opera">
+        </div>
       </div>
       <div class="col-content">
         <span class="section-label">Culture Symbol 04</span>
@@ -311,7 +347,7 @@
 
         <p>Cantonese Opera serves as a classic stage art that mixes singing, speaking, acting, and acrobatic fighting, combined with music, costumes, and makeup. It created a unique atmosphere known as the "Commoner's Symphony," where the audience would enjoy snacks while watching the show. This accessible and communal atmosphere allowed the opera to quickly weave itself into the fabric of daily life, offering spiritual comfort to early immigrants.</p>
         
-        <p>The opera arrived with the first wave of Cantonese immigrants. The first troupe, Hong Fook Tong, began performing in San Francisco in 1852. Over the next fifty years, the city saw the opening of countless theaters. During the first golden age in the 1870s, San Francisco’s Chinatown had four theaters operating at once.</p>
+        <p>The opera arrived with the first wave of Cantonese immigrants. The first troupe, Hong Fook Tong, began performing in San Francisco in 1852. Over the next fifty years, the city saw the opening of countless theaters. During the first golden age in the 1870s, San Francisco's Chinatown had four theaters operating at once.</p>
         
         <p>Print media played a crucial role in this success. With four daily Chinese newspapers in San Francisco, the press helped promote these shows. These theaters played a vital role in community life. They were not just for entertainment; they created a space for Cantonese merchants and the public to connect, shaping a modern and culturally rich image of Chinatown.</p>
       </div>
@@ -329,9 +365,6 @@
       </div>
       <div class="col-image">
         <img src="https://images.unsplash.com/photo-1552069273-0498b537df38?q=80&w=1965&auto=format&fit=crop" alt="Martial Arts">
-        <a href="#symbol01" class="arrow-nav arrow-right-center">
-          <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-        </a>
       </div>
     </section>
 
