@@ -54,7 +54,7 @@
     }
     header.hide { transform: translateY(-100%) !important; }
 
-    /* ✅ 修复空白的关键：隐藏占位div，让 padding 独自负责间距 */
+    /* ✅ 隐藏占位div，防止双重间距 */
     #header-injection-point {
       display: none !important;
     }
@@ -65,8 +65,8 @@
       min-height: 100vh;
       display: block;
 
-      /* ✅ 保持你要求的设置不变 */
-      padding-top: calc(var(--header-h) + 22vh);
+      /* ✅ 修改点：从 22vh 减小到 12vh，让整体内容上移，实现视觉垂直居中 */
+      padding-top: calc(var(--header-h) + 12vh);
       padding-bottom: 100px;
     }
 
@@ -77,7 +77,8 @@
       gap: 25px;
       padding: 0 40px;
       width: 100%;
-      height: 55vh;
+      /* 图片高度占屏幕55%，配合上面的 12vh padding，正好居中 */
+      height: 55vh; 
       min-height: 400px;
       position: relative;
     }
@@ -95,7 +96,7 @@
     .item-info {
       position: absolute;
       bottom: 100%; left: 0; width: 100%;
-      padding-bottom: 15px;
+      padding-bottom: 15px; /* 文字和图片之间的间距 */
       text-align: left;
       z-index: 10;
       pointer-events: none;
@@ -229,13 +230,15 @@
 
     /* --- Responsive --- */
     @media (max-width: 900px) {
-      main { padding-top: calc(var(--header-h) + 150px); }
+      /* ✅ 修改点：移动端也对应上移，保持居中感 */
+      main { padding-top: calc(var(--header-h) + 8vh); }
       .gallery-container { grid-template-columns: repeat(2, 1fr); height: auto; gap: 50px; }
       .gallery-item { height: 40vh; margin-bottom: 40px; }
       #diaspora-map { width: 90vw; }
     }
     @media (max-width: 600px) {
-      main { padding-top: calc(var(--header-h) + 120px); }
+      /* ✅ 修改点：小屏幕上移 */
+      main { padding-top: calc(var(--header-h) + 6vh); }
       .gallery-container { grid-template-columns: 1fr; height: auto; padding: 0 30px; gap: 60px; }
       .gallery-item { height: 350px; }
       .item-info { position: static; margin-bottom: 10px; }
@@ -319,7 +322,7 @@
   </main>
 
   <script>
-    // === Header Sync logic (Updates --header-h variable) ===
+    // === Header Sync logic ===
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
@@ -327,9 +330,7 @@
 
         const h = Math.ceil(header.getBoundingClientRect().height);
         if (h > 0) {
-          // Updates the CSS variable so 'calc' works correctly
           document.documentElement.style.setProperty('--header-h', h + 'px');
-          // No need to set injection point height since we display:none it
           return true;
         }
         return false;
@@ -375,7 +376,7 @@
       });
     });
 
-    // --- Header & Scroll Arrow Logic ---
+    // --- Scroll & Arrow Logic ---
     let lastScrollY = window.scrollY;
     const arrow = document.getElementById('scrollArrow');
     const mapSection = document.getElementById('mapSection');
