@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blank Template - Cantonese in Americas</title>
+  <!-- Google Fonts: 保持一致的字体库 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Header/Footer Injectors: 保持组件注入逻辑 -->
+  <script src="./assets/header.js" defer></script>
+  <script src="./assets/footer.js" defer></script>
+  <style>
+    :root {
+      /* 保持原始配色方案 */
+      --bg: 
+#f5f0e5; 
+      --text: 
+#1a1a1a;
+      --header-h: 48px; 
+      --accent: 
+#a84d4d; /* 继承自 Phase 页面的红 */
+    }
+    * { box-sizing: border-box; }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      font-family: 'Gentium Book Plus', serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* 预留 Header 空间 */
+    body { padding-top: var(--header-h); }
+    /* --- 通用页面容器 --- */
+    .page-container {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 80px 20px;
+      min-height: calc(100vh - var(--header-h));
+    }
+    /* --- 预设文本样式 (继承自原有风格) --- */
+    .section-label {
+      font-family: 'Exo', sans-serif;
+      font-size: 11px; 
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .section-title {
+      font-family: 'Exo', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .section-body {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      opacity: 0.9;
+    }
+    /* --- 响应式适配 --- */
+    @media (max-width: 768px) {
+      .page-container { padding: 40px 20px; }
+      .section-title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 主内容区域 -->
+  <main>
+    <div class="page-container">
+
+        <!-- 这里是您的内容占位符 -->
+        <span class="section-label">Label Name</span>
+        <h1 class="section-title">Page Heading</h1>
+
+        <div class="section-body">
+            <p>Your content goes here. The styling for fonts, colors, and background has been preserved from the original timeline page.</p>
+        </div>
+    </div>
+  </main>
+  <!-- JS 脚本挂载点 -->
+  <script>
+    // 在此添加页面专属逻辑
+  </script>
+</body>
+</html> 
