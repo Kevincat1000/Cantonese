@@ -27,6 +27,9 @@
 
     * { box-sizing: border-box; scroll-behavior: smooth; }
     body, html { margin: 0; padding: 0; background-color: var(--bg); color: var(--text-black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    
+    /* Prevent content flash by reserving header space immediately */
+    body { padding-top: var(--header-h); }
 
     /* Header 逻辑 */
     header, .site-header {
@@ -36,7 +39,7 @@
     }
     .header-hidden { transform: translateY(-100%) !important; }
 
-    .main-container { display: flex; min-height: 100vh; padding-top: var(--header-h); }
+    .main-container { display: flex; min-height: 100vh; }
 
     /* --- 左侧固定栏 --- */
     .left-panel {
