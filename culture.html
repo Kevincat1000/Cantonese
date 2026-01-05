@@ -16,10 +16,10 @@
 
   <style>
     :root {
-      /* 核心背景色改为米色 */
+      /* 背景色统一为米色 */
       --bg: #f5f0e5; 
       --text: #1a1a1a;
-      --accent: #a84d4d; /* 强调色（如标签颜色） */
+      --accent: #a84d4d;
     }
 
     * { box-sizing: border-box; }
@@ -39,8 +39,9 @@
       display: flex;
       flex-wrap: wrap;
       width: 100%;
-      min-height: 85vh; /* 增加一点高度让画面更舒展 */
+      /* 关键修改：去掉固定高度，让内容撑开高度 */
       position: relative;
+      align-items: stretch; /* 确保左右两栏高度一致 */
     }
 
     /* 左右两栏基础设置 */
@@ -53,18 +54,22 @@
 
     /* 文字内容区域 */
     .col-content {
-      background-color: var(--bg); /* 统一背景色 */
+      background-color: var(--bg);
       padding: 60px 8%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: center; /* 文字垂直居中 */
     }
 
     /* 图片区域 */
+    .col-image {
+        display: flex; /* 确保内部图片填满容器 */
+    }
+    
     .col-image img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: 100%; /* 强制图片高度跟随父容器（即跟随文字栏高度） */
+      object-fit: cover; /* 裁剪图片以适应比例，不拉伸 */
       display: block;
     }
 
@@ -91,11 +96,11 @@
     }
 
     p {
-      font-size: 14px; /* 严格限制 14px */
-      line-height: 1.9; /* 稍微增加行高提升 14px 字体的阅读舒适度 */
+      font-size: 14px; /* 保持14px */
+      line-height: 1.9;
       margin-bottom: 20px;
       color: #333;
-      text-align: justify; /* 两端对齐 */
+      text-align: justify;
     }
 
     /* --- 导航箭头样式 --- */
@@ -109,7 +114,6 @@
       cursor: pointer;
       transition: all 0.3s ease;
       z-index: 10;
-      /* 放在图片上的半透明背景，确保可见 */
       background: rgba(0,0,0,0.1);
       backdrop-filter: blur(2px);
     }
@@ -125,7 +129,6 @@
       fill: none; 
     }
     
-    /* 箭头位置 */
     .arrow-right-center {
         top: 50%;
         right: 0;
@@ -139,15 +142,13 @@
 
     /* --- 移动端适配 --- */
     @media (max-width: 768px) {
-      .section-split { flex-direction: column; min-height: auto; }
+      .section-split { flex-direction: column; }
       .col-content, .col-image { flex-basis: auto; width: 100%; }
-      .col-image { height: 350px; }
-      
-      /* 移动端统一顺序：图片在上，文字在下 */
-      .section-split .col-image { order: -1; }
-      
+      /* 移动端给图片一个固定高度，否则太扁或太高 */
+      .col-image { height: 350px; } 
+      .section-split .col-image { order: -1; } /* 图片总是在上方 */
       .col-content { padding: 40px 20px; }
-      .arrow-nav { display: none; } /* 移动端通常不需要悬浮箭头 */
+      .arrow-nav { display: none; }
     }
   </style>
 </head>
@@ -156,7 +157,6 @@
   <main>
     
     <!-- Culture Symbol 01: Religion -->
-    <!-- 布局：文字左，图片右 -->
     <section id="symbol01" class="section-split">
       <div class="col-content">
         <span class="section-label">Culture Symbol 01</span>
@@ -169,8 +169,8 @@
         <p>However, beyond the worship of deities, the most profound ritual was Ancestral Worship. For the Cantonese, venerating one’s lineage was the "priority" during festivals, often surpassing the worship of gods. As people living in a foreign land, this ritual was an act of not forgetting one's roots. Families would respectfully bring out ancestral spirit tablets and burn incense, not merely to pray, but to "report" to their forebears.</p>
       </div>
       <div class="col-image">
-        <img src="https://images.unsplash.com/photo-1599893259838-89b21f3b2e55?q=80&w=1935&auto=format&fit=crop" alt="Temple Roof">
-        <!-- 箭头: 去 Symbol 02 -->
+        <!-- 用户提供的第一张图片 -->
+        <img src="https://lh3.googleusercontent.com/pw/ACtC-3crmXnOqt09EgBRifiqUblj_1t3xmYIhdeRk3D2hEqnzkpKBi37rhvzi7j3HR64Cl3OtBZdnbIzKyD0FFdm8HQvl9_AY-mj2n7-X6g-2A4_o58S4n9hhmEXqyGqmKBMpmLu2nppHt7UHVxT51u5LRlkdA=w1800-h2400-no" alt="Religious Beliefs">
         <a href="#symbol02" class="arrow-nav arrow-right-center">
              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -178,11 +178,9 @@
     </section>
 
     <!-- Culture Symbol 02: Cuisine -->
-    <!-- 布局：图片左，文字右 (交替) -->
     <section id="symbol02" class="section-split">
       <div class="col-image">
         <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=2029&auto=format&fit=crop" alt="Dim Sum">
-        <!-- 箭头: 去 Symbol 03 -->
         <a href="#symbol03" class="arrow-nav arrow-left-center">
             <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -198,7 +196,6 @@
     </section>
 
     <!-- Culture Symbol 03: Lion Dance -->
-    <!-- 布局：文字左，图片右 (交替) -->
     <section id="symbol03" class="section-split">
       <div class="col-content">
         <span class="section-label">Culture Symbol 03</span>
@@ -212,7 +209,6 @@
       </div>
       <div class="col-image">
          <img src="https://images.unsplash.com/photo-1613426837086-686959145657?q=80&w=2070&auto=format&fit=crop" alt="Lion Dance">
-         <!-- 箭头: 去 Symbol 04 -->
          <a href="#symbol04" class="arrow-nav arrow-right-center">
              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
          </a>
@@ -220,11 +216,9 @@
     </section>
 
     <!-- Culture Symbol 04: Opera -->
-    <!-- 布局：图片左，文字右 (交替) -->
     <section id="symbol04" class="section-split">
       <div class="col-image">
         <img src="https://images.unsplash.com/photo-1534051657805-4c079212574e?q=80&w=2070&auto=format&fit=crop" alt="Chinese Opera">
-        <!-- 箭头: 去 Symbol 05 -->
         <a href="#symbol05" class="arrow-nav arrow-left-center">
             <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -242,7 +236,6 @@
     </section>
 
     <!-- Culture Symbol 05: Kung Fu -->
-    <!-- 布局：文字左，图片右 (交替) -->
     <section id="symbol05" class="section-split">
       <div class="col-content">
         <span class="section-label">Culture Symbol 05</span>
@@ -254,7 +247,6 @@
       </div>
       <div class="col-image">
         <img src="https://images.unsplash.com/photo-1552069273-0498b537df38?q=80&w=1965&auto=format&fit=crop" alt="Martial Arts">
-        <!-- 箭头: 回到顶部 (symbol01) -->
         <a href="#symbol01" class="arrow-nav arrow-right-center">
              <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
         </a>
