@@ -20,7 +20,7 @@
       --bg: #f5f0e5; 
       --text: #1a1a1a;
       --accent: #a84d4d;
-      --header-h: 60px;
+      --header-h: 60px; /* JS会自动更新此值 */
     }
 
     * { box-sizing: border-box; }
@@ -34,8 +34,7 @@
       -webkit-font-smoothing: antialiased;
       scroll-behavior: smooth;
       overflow-x: hidden;
-      
-      /* ✅ 修改点 1: 字体大小改为 16px */
+      /* 保持要求的 16px 字体 */
       font-size: 16px;
     }
 
@@ -56,44 +55,53 @@
       flex-wrap: wrap;
       width: 100%;
       position: relative;
-      /* ✅ 关键: 让左右两栏高度拉伸一致 */
+      /* 关键：确保左右高度一致 */
       align-items: stretch; 
     }
 
-    /* 文字内容区域 */
+    /* === 核心修改：文字内容区域 === */
     .col-content {
       flex: 1;
       flex-basis: 50%;
       background-color: var(--bg);
       display: flex;
       flex-direction: column;
-      justify-content: center; /* 文字垂直居中 */
+      justify-content: center; /* 垂直居中 */
       
-      /* ✅ 修改点 2 & 4: 
-         - 上下 padding 减少到 15px (原来是30px)，减少留白。
-         - 左侧 padding 调整为 40px，确保靠左对齐 Logo。
+      /* 
+         ✅ 修改点：按照您的要求调整间距
+         Top: 40px
+         Bottom: 25px
+         Left/Right: 40px (确保左侧与Logo对齐)
       */
-      padding: 15px 40px 15px 40px; 
+      padding: 40px 40px 25px 40px; 
     }
 
-    /* 图片区域 - 关键修改 */
+    /* === 核心修改：针对第一个板块减少 Header 下方留白 === */
+    #symbol01 .col-content {
+      /* 
+         第一板块特殊处理：
+         因为 Header 已经有了高度，这里将上内边距减少，
+         让文字看起来紧贴导航栏下方，消除多余的大片空白。
+      */
+      padding-top: 10px; 
+    }
+
+    /* 图片区域：绝对定位实现等高 */
     .col-image {
       flex: 1;
       flex-basis: 50%;
-      position: relative; /* 作为定位基准 */
+      position: relative; 
       min-width: 320px;
     }
     
-    /* ✅ 修改点 3: 强制图片与文字栏等高
-       原理：将图片设为绝对定位，让文字栏的高度决定整行的高度，图片自动填充。
-    */
     .col-image img {
       position: absolute;
       top: 0; 
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover; /* 裁剪图片适应高度，不变形 */
+      object-fit: cover; 
       display: block;
     }
 
@@ -105,7 +113,7 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       color: #701a1a;
-      margin-bottom: 10px; /* 稍微减少间距 */
+      margin-bottom: 15px; /* 稍微拉开标签和标题的距离 */
       display: block;
     }
 
@@ -114,17 +122,16 @@
       font-weight: 600;
       font-size: 1.8rem;
       text-transform: uppercase;
-      margin-bottom: 1rem; /* 减少标题下方留白 */
-      line-height: 1.2;
+      margin-bottom: 20px;
+      line-height: 1.1;
       color: #000;
       margin-top: 0;
     }
 
     p {
-      /* ✅ 确保段落也是 16px */
       font-size: 16px;
-      line-height: 1.6; /* 稍微紧凑一点的行高 */
-      margin-bottom: 16px;
+      line-height: 1.7; /* 增加一点行高，阅读更舒适 */
+      margin-bottom: 20px; /* 段落之间的间距 */
       color: #000;
       text-align: justify;
     }
@@ -150,12 +157,15 @@
       .section-split { flex-direction: column; }
       .col-content, .col-image { flex-basis: auto; width: 100%; }
       
-      /* 移动端恢复图片占据固定高度，因为文字在下方 */
+      /* 移动端恢复图片固定高度 */
       .col-image { height: 300px; } 
-      .col-image img { position: relative; } /* 恢复正常流 */
+      .col-image img { position: relative; } 
       
       .section-split .col-image { order: -1; }
       .col-content { padding: 30px 20px; }
+      
+      /* 移动端第一个板块不需要减少太多，保持正常呼吸感 */
+      #symbol01 .col-content { padding-top: 30px; }
     }
 
     html.preload body { opacity: 0; }
@@ -163,46 +173,58 @@
     #header-injection-point { height: var(--header-h); }
 
     /* ============================================================
-       Symbol03 特殊处理 (保持原样，背景图模式天然等高)
+       ✅ Symbol03 (舞狮) 修复版：解决文字溢出问题
        ============================================================ */
     #symbol03 {
       background-image: url("https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840");
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
-      overflow: hidden;
+      /* 这里的 align-items: center 确保玻璃盒子在垂直方向居中 */
+      align-items: center; 
     }
+
+    /* 
+       完全重写 .col-content 样式 
+       不再使用 pseudo-element inset，而是让 div 自身变成玻璃盒子 
+    */
     #symbol03 .col-content {
-      background: transparent;
-      position: relative;
+      background: linear-gradient(
+        135deg,
+        rgba(245, 240, 229, 0.85) 0%,
+        rgba(245, 240, 229, 0.75) 100%
+      );
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      
+      /* 像卡片一样浮在背景上 */
+      margin: 60px 40px; /* 上下留白，左右留白 */
+      border-radius: 4px; /* 轻微圆角 */
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      
+      /* 确保背景随文字内容自动撑开 */
+      flex: 0 1 50%; /* 宽度占约一半 */
+      height: fit-content; /* 高度随内容自适应 */
     }
+
+    /* 右侧占位栏隐藏，让背景图露出来 */
     #symbol03 .col-image {
       background: transparent;
+      pointer-events: none;
     }
-    #symbol03 .col-content::before {
-      content:"";
-      position:absolute;
-      inset: 20px 40px; /* 调整蒙版位置以匹配新的 padding */
-      border-radius: 0;
-      background: linear-gradient(
-        90deg,
-        rgba(245,240,229,0.85) 0%,
-        rgba(245,240,229,0.65) 60%,
-        rgba(245,240,229,0.3) 100%
-      );
-      backdrop-filter: blur(5px);
-      z-index: 0;
-    }
-    #symbol03 .col-content > * { position: relative; z-index: 1; }
-    #symbol03 .col-image img { display:none; }
+    #symbol03 .col-image img { display: none; }
 
     @media (max-width: 768px) {
-      #symbol03 .col-image { display:none; }
-      #symbol03 .col-content::before { inset: 0; background: rgba(245,240,229,0.9); }
+      #symbol03 { padding: 20px 0; }
+      #symbol03 .col-content {
+        margin: 20px;
+        flex: 1 1 auto;
+      }
+      #symbol03 .col-image { display: none; }
     }
 
     /* ============================================================
-       Symbol04 (视频+图片) 特殊处理：确保高度跟随文字
+       Symbol04 (视频+图片)
        ============================================================ */
     #symbol04 .col-image {
       display: flex;
@@ -210,7 +232,7 @@
     }
     
     #symbol04 .video-container {
-      flex: 0 0 auto; /* 视频保持原有比例高度 */
+      flex: 0 0 auto; 
       width: 100%;
       position: relative;
       padding-top: 56.25%;
@@ -228,9 +250,9 @@
       color: #333;
     }
     #symbol04 .image-container {
-      flex: 1; /* 占据剩余空间 */
+      flex: 1; 
       position: relative;
-      min-height: 100px; /* 确保至少有一点高度 */
+      min-height: 100px; 
     }
     #symbol04 .image-container img {
       position: absolute;
@@ -246,7 +268,7 @@
 
   <div id="header-injection-point"></div>
 
-  <!-- padding-top 减少，移除 main 自身的多余 padding -->
+  <!-- 主体内容 -->
   <main style="padding-top: var(--header-h);">
     
     <!-- Culture Symbol 01: Religion -->
@@ -293,8 +315,9 @@
         
         <p>Along with this is the Dragon Lantern parade. While the Lion highlights individual skill and agility, the Dragon requires dozens of people moving together as one, symbolizing the need for teamwork to survive. Together, these performances turned city streets into stages for celebration, driving away bad luck and social pressure, and welcoming good fortune.</p>
       </div>
+
       <div class="col-image">
-        <img src="https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840" alt="Lion Dance">
+        <!-- 背景图在 CSS 中设置，这里保留 credit 即可 -->
         <div class="photo-credit">The Lunar New Year Parade on San Francisco in 2023. Photo: Tayfun Coskun via Getty Images</div>
       </div>
     </section>
