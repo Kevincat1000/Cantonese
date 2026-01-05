@@ -34,11 +34,13 @@
         padding-top:0;
       }
 
+      /* ✅ 核心修改区域：让 Header 始终撑满屏幕，并固定 40px 间距 */
       header[data-site-header="1"] .header-container{
-        max-width:1280px;
-        margin:0 auto;
-        /* ✅ 修改点：左右间距固定为 40px，与 Culture 页面的文字对齐 */
-        padding:0 40px; 
+        width: 100%;        /* 强制占满屏幕宽度 */
+        max-width: none;    /* 移除之前的 1280px 限制，防止大屏居中 */
+        margin: 0;          /* 移除 margin: 0 auto */
+        padding: 0 40px;    /* 保持左右固定的 40px 间距 */
+        box-sizing: border-box; /* 确保 padding 不会撑破宽度 */
       }
 
       header[data-site-header="1"] .header-content{
@@ -55,11 +57,10 @@
         text-align:center;
         text-decoration:none;
         color:inherit;
-        /* 为了让文字严格左对齐 40px 线，稍微减少 Logo 自身的左内边距，或者保持现状视视觉效果而定 */
         padding:0 .5rem 0 0; 
         display: flex;
         flex-direction: column;
-        align-items: flex-start; /* 确保 Logo 文字左对齐 */
+        align-items: flex-start;
       }
 
       header[data-site-header="1"] .logo-main{
@@ -221,7 +222,6 @@
       }
 
       @media (min-width:1024px){
-        /* ✅ 修改点：删除了这里对 padding 的覆盖，保持 40px 不变 */
         header[data-site-header="1"] .nav-menu{ gap:1.5rem; }
       }
     `;
