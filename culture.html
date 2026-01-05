@@ -172,6 +172,60 @@
 
     /* ✅ 给 header 注入点预留高度，避免首屏闪动 */
     #header-injection-point { height: var(--header-h); }
+
+    /* ============================================================
+       ✅ Symbol03 special: tiled photo + transparent “glass mask”
+       ============================================================ */
+    #symbol03{
+      /* 这就是你第三张 Lion Dance 图：平铺 */
+      background-image: url("https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840");
+      background-repeat: repeat;
+      background-size: 520px auto;   /* 想更密：改小，比如 380px；想更稀：改大 */
+      background-position: center top;
+      overflow: hidden;
+    }
+
+    /* 让两栏不要把背景遮住 */
+    #symbol03 .col-content{
+      background: transparent;
+      position: relative;
+    }
+    #symbol03 .col-image{
+      background: transparent;
+    }
+
+    /* 左侧文字蒙版：透明 + 渐变 + blur + 细边框 + 阴影 */
+    #symbol03 .col-content::before{
+      content:"";
+      position:absolute;
+      inset: 46px 6%;
+      border-radius: 18px;
+      background: linear-gradient(
+        135deg,
+        rgba(245,240,229,0.86),
+        rgba(245,240,229,0.58)
+      );
+      border: 1px solid rgba(255,255,255,0.35);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 0;
+    }
+    #symbol03 .col-content > *{
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 第三段右侧不再放单张 cover 图（否则看不出平铺） */
+    #symbol03 .col-image img{
+      display:none;
+    }
+
+    /* 移动端：第三段直接隐藏空的 image 栏，避免 350px 空白 */
+    @media (max-width: 768px){
+      #symbol03 .col-image{ display:none; }
+      #symbol03 .col-content::before{ inset: 26px 12px; }
+    }
   </style>
 </head>
 
@@ -232,6 +286,8 @@
         
         <p>Along with this is the Dragon Lantern parade. While the Lion highlights individual skill and agility, the Dragon requires dozens of people moving together as one, symbolizing the need for teamwork to survive. Together, these performances turned city streets into stages for celebration, driving away bad luck and social pressure, and welcoming good fortune.</p>
       </div>
+
+      <!-- 右栏保留（用于布局+箭头），但不放 cover 图片，让背景平铺可见 -->
       <div class="col-image">
         <img src="https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840" alt="Lion Dance">
         <a href="#symbol04" class="arrow-nav arrow-right-center">
