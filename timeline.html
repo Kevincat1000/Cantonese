@@ -39,7 +39,6 @@
     }
 
     /* --- Header Style (配合 JS 隐藏) --- */
-    /* 假设 header.js 注入的标签是 <header> */
     header {
       position: fixed;
       top: 0;
@@ -55,12 +54,10 @@
     main {
       width: 100%;
       min-height: 100vh;
-      display: block; /* 取消 Flex 垂直居中，改用 Padding 控制位置 */
+      display: block;
       /* 
-         关键调整：
-         使用 padding-top 将内容顶下来。
-         22vh 大约会让图片顶部位于屏幕 1/3 处，
-         整体视觉重心会落在屏幕下方 0.618 - 0.7 的位置。
+         往下移：使用 padding-top 将内容顶下来。
+         22vh 配合图片高度，使视觉重心位于页面约 0.7 处 (黄金比例偏下)
       */
       padding-top: 22vh; 
       padding-bottom: 100px;
@@ -74,7 +71,7 @@
       padding: 0 40px; 
       
       width: 100%;
-      height: 55vh; /* 图片保持较高的高度 */
+      height: 55vh; 
       min-height: 400px;
       
       position: relative;
@@ -89,36 +86,41 @@
       cursor: pointer;
     }
 
-    /* 
-       Item Info - 恢复最早版本排版
-    */
+    /* --- Typography & Text Positioning --- */
     .item-info {
       position: absolute;
-      /* 放在图片上方，因为 main 有 huge padding-top，这里绝对不会被遮挡 */
-      top: -90px; 
+      /* 
+         让文字块紧贴图片顶部 
+         bottom: 100% 表示位于容器顶部上方
+      */
+      bottom: 100%; 
       left: 0; 
       width: 100%;
-      text-align: left; /* 恢复左对齐 */
+      padding-bottom: 15px; /* 文字与图片之间的空隙 */
+      
+      text-align: left; /* 左对齐 */
       z-index: 10;
       pointer-events: none; 
     }
 
+    /* 编号样式：10px, 粗体, Exo */
     .item-number {
       display: block;
       font-family: 'Exo', sans-serif;
-      font-size: 13px; /* 恢复清晰的大小 */
-      font-weight: 700; /* 恢复粗体 */
+      font-size: 10px; 
+      font-weight: 700; 
       letter-spacing: 0.5px;
       color: #000;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
+    /* 标题样式：16px, Gentium Book Plus */
     .item-title {
       display: block;
       font-family: 'Gentium Book Plus', serif;
-      font-size: 22px; /* 恢复较大的标题字号 */
-      line-height: 1.25;
+      font-size: 16px; 
+      line-height: 1.3;
       font-weight: 400;
       color: #1a1a1a;
     }
@@ -167,19 +169,23 @@
     /* --- Migration Map Section --- */
     .map-section {
       width: 100%;
-      margin-top: 120px; /* Map 距离 Gallery 远一点 */
+      margin-top: 120px; 
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
 
+    /* Map 标题：与编号样式保持一致 (10px, Bold, Exo) */
     .map-title {
       margin-bottom: 25px;
       text-align: center;
+      
       font-family: 'Exo', sans-serif;
-      font-size: 12px;
-      letter-spacing: 1px;
+      font-size: 10px; 
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #000;
       text-transform: uppercase;
     }
 
@@ -198,14 +204,14 @@
 
     /* --- Responsive Fixes --- */
     @media (max-width: 900px) {
-      main { padding-top: 150px; } /* 平板上稍微靠上一点 */
+      main { padding-top: 150px; } 
       .gallery-container {
         grid-template-columns: repeat(2, 1fr);
         height: auto;
         gap: 50px;
       }
-      .gallery-item { height: 40vh; margin-bottom: 30px; }
-      .item-info { top: -80px; }
+      .gallery-item { height: 40vh; margin-bottom: 40px; }
+      .item-info { position: absolute; bottom: 100%; }
     }
 
     @media (max-width: 600px) {
@@ -214,10 +220,10 @@
         grid-template-columns: 1fr; 
         height: auto; 
         padding: 0 30px; 
-        gap: 80px; 
+        gap: 60px; 
       }
       .gallery-item { height: 350px; }
-      .item-info { position: static; margin-bottom: 15px; }
+      .item-info { position: static; margin-bottom: 10px; }
     }
   </style>
 </head>
@@ -311,7 +317,7 @@
     // --- 2. Header Hide Logic ---
     document.addEventListener("DOMContentLoaded", function() {
         let lastScrollY = window.scrollY;
-        const header = document.querySelector('header'); // 确保你的 header.js 生成了 <header> 标签
+        const header = document.querySelector('header');
         
         if (header) {
             window.addEventListener('scroll', () => {
