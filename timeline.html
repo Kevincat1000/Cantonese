@@ -23,8 +23,8 @@
     :root {
       --bg: #f5f0e5; 
       --text: #1a1a1a;
-      --header-h: 60px; /* 预留给 Header 的高度 */
       --mask-color: #e3bd28; 
+      --header-height: 60px;
     }
 
     * { box-sizing: border-box; }
@@ -36,37 +36,53 @@
       font-family: 'Gentium Book Plus', serif;
       color: var(--text);
       width: 100%;
-      overflow-x: hidden; /* 防止水平滚动 */
+      overflow-x: hidden;
     }
 
     /* 
-       Main Container 
-       使用 Flexbox 实现垂直居中 
+       Header Container Style (配合 JS 隐藏) 
+       假设 header.js 生成的 header 是 fixed 定位的 
+    */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      transition: transform 0.4s ease-in-out;
+      z-index: 100;
+    }
+
+    /* 当添加 .hide 类时隐藏 Header */
+    header.hide {
+      transform: translateY(-100%);
+    }
+
+    /* 
+       Main Layout - Golden Ratio / Vertical Centering
+       使用 Flexbox 将内容置于屏幕视觉中心
     */
     main {
       width: 100%;
-      min-height: 100vh;
+      min-height: 100vh; /* 占满全屏高度 */
       display: flex;
       flex-direction: column;
-      justify-content: center; /* 垂直居中内容 */
-      padding-top: var(--header-h);
+      justify-content: center; /* 垂直居中 */
+      padding-top: 40px; /* 稍微给顶部一点呼吸空间 */
     }
 
     /* --- Gallery Section --- */
     .gallery-container {
       display: grid;
-      /* 4列等宽 */
       grid-template-columns: repeat(4, 1fr); 
-      /* 图片间距 25px */
       gap: 25px; 
-      /* 左右页面边距 40px */
       padding: 0 40px; 
       
       width: 100%;
-      /* 限制图片区域的高度，使其看起来协调 */
-      height: 60vh; 
-      min-height: 400px;
-      margin-bottom: 60px;
+      /* 设置高度为视口高度的 55%，符合黄金分割的视觉舒适区 */
+      height: 55vh; 
+      min-height: 380px;
+      max-height: 600px;
+      
+      margin: 0 auto; /* 水平居中 */
       position: relative;
     }
 
@@ -80,40 +96,39 @@
     }
 
     /* 
-       Item Info (Text above image)
-       文字位于图片上方正中间
+       Item Info - 回归小字体 & 优雅排版
     */
     .item-info {
       position: absolute;
-      top: -85px; /* 距离图片顶部的距离 */
+      /* 将文字定位在图片上方，留出适当间距 */
+      bottom: 100%; 
       left: 0;
-      width: 100%; /* 占满容器宽度以实现居中 */
-      text-align: center; /* 文字居中 */
+      width: 100%; 
+      text-align: center;
       z-index: 10;
       pointer-events: none; 
-      padding: 0 10px;
+      padding-bottom: 20px; /* 文字和图片之间的留白 */
     }
 
-    .item-number, .map-title {
+    .item-number {
       display: block;
       font-family: 'Exo', sans-serif;
-      font-size: 11px; 
+      font-size: 10px; /* 极小字体 */
       font-weight: 600;
-      letter-spacing: 1px;
-      color: #000;
+      letter-spacing: 2px; /* 增加字间距，增加高级感 */
+      color: #555; /* 颜色调浅 */
       text-transform: uppercase;
-      line-height: 1.2;
+      margin-bottom: 6px;
     }
-
-    .item-number { margin-bottom: 8px; }
 
     .item-title {
       display: block;
       font-family: 'Gentium Book Plus', serif;
-      font-size: 18px; 
-      line-height: 1.3;
+      font-size: 15px; /* 回归原来的小号字体 */
+      line-height: 1.35;
       font-weight: 400;
-      color: #1a1a1a;
+      color: #000;
+      letter-spacing: 0.5px;
     }
 
     /* Image Box */
@@ -122,8 +137,7 @@
       height: 100%;
       overflow: hidden; 
       position: relative;
-      /* 简单的边框装饰 */
-      border: 1px solid rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.08); /* 极细的边框增加精致感 */
     }
 
     .image-wrapper {
@@ -131,13 +145,12 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      filter: grayscale(100%) contrast(1.1); 
-      transition: filter 0.4s ease, transform 0.6s ease;
+      filter: grayscale(100%) contrast(1.05); 
+      transition: filter 0.5s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       position: relative;
       transform: scale(1.01); 
     }
 
-    /* 特殊调整第一张图片的位置 */
     .first-image { background-position: left center !important; }
 
     /* 黄色遮罩层 */
@@ -147,15 +160,14 @@
       top: 0; left: 0; width: 100%; height: 100%;
       background-color: var(--mask-color);
       mix-blend-mode: multiply; 
-      opacity: 0.85; 
+      opacity: 0.8; 
       transition: opacity 0.6s ease;
     }
 
     /* Hover Effects */
     .gallery-item:hover .image-wrapper {
-      /* 引用 SVG 滤镜 */
       filter: grayscale(0%) contrast(1) url(#liquid-filter);
-      transform: scale(1.05); 
+      transform: scale(1.06); 
     }
 
     .gallery-item:hover .image-wrapper::after {
@@ -165,20 +177,23 @@
     /* --- Migration Map Section --- */
     .map-section {
       width: 100%;
-      padding: 60px 0 100px 0; 
+      /* 增加上间距，让 Map 和上面的 Gallery 稍微分开 */
+      margin-top: 80px; 
+      padding-bottom: 100px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: var(--bg);
-      position: relative;
-      z-index: 5;
     }
 
     .map-title {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       text-align: center;
-      font-size: 14px;
+      font-family: 'Exo', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #333;
     }
 
     #diaspora-map {
@@ -188,48 +203,32 @@
       border: 1px solid #dcd8ce;
     }
 
-    /* SVG Hidden but active */
+    /* SVG Hidden */
     .svg-filters {
       position: absolute;
       width: 0; height: 0;
       visibility: hidden;
     }
 
-    /* --- Mobile / Responsive Fixes --- */
+    /* --- Responsive Fixes --- */
     @media (max-width: 900px) {
       .gallery-container {
-        grid-template-columns: repeat(2, 1fr); /* 平板显示2列 */
+        grid-template-columns: repeat(2, 1fr);
         height: auto;
-        margin-top: 40px;
+        gap: 60px; /* 平板上增加垂直间距 */
       }
-      .item-info { position: static; margin-bottom: 15px; margin-top: 30px; }
+      .gallery-item { height: 40vh; }
     }
 
     @media (max-width: 600px) {
-      /* 手机端单列 */
       .gallery-container { 
         grid-template-columns: 1fr; 
         height: auto; 
-        padding: 0 20px; /* 手机端缩小左右边距 */
-        margin-top: 20px;
-        gap: 50px;
+        padding: 0 30px; 
+        gap: 80px; /* 手机上图片间距拉大 */
       }
-      
-      .gallery-item { 
-        height: 350px; /* 给图片固定高度 */
-        margin-bottom: 0; 
-      }
-      
-      .item-info { 
-        position: static; /* 手机端文字不绝对定位，改为流式布局 */
-        margin-bottom: 10px;
-        text-align: center;
-      }
-      
-      #diaspora-map { width: 90vw; height: 300px; }
-      
-      /* 修复导航栏遮挡问题：增加顶部内边距 */
-      main { padding-top: 80px; display: block; }
+      .gallery-item { height: 350px; }
+      .item-info { padding-bottom: 10px; }
     }
   </style>
 </head>
@@ -298,36 +297,53 @@
     </div>
   </main>
 
-  <!-- JS Logic for Water Effect -->
+  <!-- Scripts -->
   <script>
+    // --- 1. Water Ripple Effect Logic ---
     const turb = document.getElementById('turbulence');
     let step = 0;
     let requestID = null;
 
     function animate() {
       step += 0.015; 
-      // 动态调整 baseFrequency 以产生水纹流动感
       const bfX = 0.02 + Math.cos(step) * 0.008;
       const bfY = 0.02 + Math.sin(step) * 0.01;
-      
       turb.setAttribute('baseFrequency', `${bfX} ${bfY}`);
       requestID = requestAnimationFrame(animate);
     }
 
     const items = document.querySelectorAll('.gallery-item');
     items.forEach(item => {
-      item.addEventListener('mouseenter', () => {
-        if (!requestID) animate();
-      });
-      
+      item.addEventListener('mouseenter', () => { if (!requestID) animate(); });
       item.addEventListener('mouseleave', () => {
-        // 只有当没有任何一个 item 被 hover 时才停止动画，节省性能
         const isAnyHovered = Array.from(items).some(i => i.matches(':hover'));
-        if (!isAnyHovered) {
-          cancelAnimationFrame(requestID);
-          requestID = null;
-        }
+        if (!isAnyHovered) { cancelAnimationFrame(requestID); requestID = null; }
       });
+    });
+
+    // --- 2. Header Scroll Logic (Hide on scroll down) ---
+    // 等待页面加载完毕，确保 header 元素存在
+    document.addEventListener("DOMContentLoaded", function() {
+        let lastScrollY = window.scrollY;
+        
+        // 尝试获取 header，如果你是通过 header.js 注入的，可能需要给它一个特定的 ID 或 class
+        // 这里假设 header 标签就是 <header>
+        const header = document.querySelector('header') || document.querySelector('.site-header'); 
+
+        if (header) {
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                
+                // 向下滚动超过 50px 且当前滚动位置大于上次位置 -> 隐藏
+                if (currentScrollY > lastScrollY && currentScrollY > 50) {
+                    header.classList.add('hide');
+                } else {
+                    // 向上滚动 -> 显示
+                    header.classList.remove('hide');
+                }
+                lastScrollY = currentScrollY;
+            });
+        }
     });
   </script>
 </body>
