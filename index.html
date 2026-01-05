@@ -5,23 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cantonese in Americas - Introduction</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
 
-  <!-- Scripts -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
   <style>
-    /* ---------------------------------------------------------
-       VARIABLES & BASE
-    --------------------------------------------------------- */
     :root {
       --bg-color: #f5f0e5;
       --text-color: #1a1a1a;
@@ -33,8 +27,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html {
-      /* Remove fixed height to allow scrolling on zoom */
-      height: auto; 
+      height: 100vh;
+      overflow: hidden;
     }
 
     body {
@@ -42,43 +36,33 @@
       color: var(--text-color);
       font-family: "Gentium Book Plus", serif;
       padding-top: calc(var(--header-h) + var(--content-gap));
-      /* Allow vertical scroll if content overflows */
       overflow-x: hidden; 
+      overflow-y: auto;
       width: 100%;
+      height: 100vh;
     }
 
-    /* ---------------------------------------------------------
-       LAYOUT SYSTEM (Grid Area Strategy)
-       This allows us to reorder elements easily on mobile
-    --------------------------------------------------------- */
     .main-grid {
       display: grid;
       width: 100%;
       max-width: 100%;
-      /* Desktop Layout: 2 Columns */
       grid-template-columns: 45% 55%; 
-      /* Rows: Auto size based on content, but ensure at least full screen */
-      min-height: calc(100vh - (var(--header-h) + var(--content-gap)));
+      height: calc(100vh - var(--header-h) - var(--content-gap) - 60px);
       
-      /* Named areas for precise placement */
       grid-template-areas: 
         "img  content"
         "stat content";
     }
 
-    /* ---------------------------------------------------------
-       1. DRAGON PHOTO (Area: img)
-    --------------------------------------------------------- */
     .section-img {
       grid-area: img;
       display: flex;
-      align-items: center; /* Vertical Center */
-      justify-content: flex-start; /* Left Align */
-      padding-bottom: 2rem; /* Space before stats if needed */
+      align-items: center;
+      justify-content: flex-start;
+      padding-bottom: 2rem;
     }
 
     .dragon-wrapper {
-      /* Request: Shrink 30%, so width is 70% of the column */
       width: 70%; 
       margin-left: 0;
     }
@@ -91,31 +75,26 @@
       filter: sepia(0.2) contrast(1.1);
     }
 
-    /* ---------------------------------------------------------
-       2. RIGHT CONTENT (Area: content)
-    --------------------------------------------------------- */
     .section-content {
       grid-area: content;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* Vertical Center */
+      justify-content: center;
       
-      /* Request: Move down 30px */
       padding-top: 30px; 
       padding-right: 4rem;
-      padding-bottom: 4rem;
-      padding-left: 0; /* Align to the 45/55 split line */
+      padding-bottom: 2rem;
+      padding-left: 0;
     }
 
     .content-wrapper {
       max-width: 700px;
     }
 
-    /* Sub-heading: 14pt (~19px) */
     h2.sub-heading {
       font-family: 'Exo', sans-serif;
       font-weight: 400;
-      font-size: 19px; /* Requested 14pt approx */
+      font-size: 14px;
       color: #555;
       margin-bottom: 1rem;
     }
@@ -139,7 +118,6 @@
 
     .text-body p { margin-bottom: 1.5rem; }
 
-    /* Drop Cap */
     .text-body p:first-child::first-letter {
       font-family: 'Exo', sans-serif;
       font-weight: 800;
@@ -151,22 +129,17 @@
       color: var(--drop-cap-color);
     }
 
-    /* ---------------------------------------------------------
-       3. STATS / NUMBERS (Area: stat)
-    --------------------------------------------------------- */
     .section-stats {
       grid-area: stat;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end; /* Push to bottom */
+      justify-content: flex-end;
       
-      /* Request: 40px from left and bottom */
       padding-left: 40px;
       padding-bottom: 40px; 
     }
 
     .stats-container {
-      /* Ensure it doesn't overlap image if screen is very short */
       margin-top: auto; 
     }
 
@@ -180,7 +153,6 @@
       padding-bottom: 4px;
       display: inline-block;
       
-      /* Request: Reduce space between line and numbers by half */
       margin-bottom: 0.25rem; 
       color: #000;
     }
@@ -188,13 +160,12 @@
     .stats-row {
       display: flex;
       gap: 3rem;
-      flex-wrap: wrap; /* Safety for very small screens */
+      flex-wrap: wrap;
     }
 
     .stat-item h4 {
       font-family: 'Exo', sans-serif;
       font-weight: 700;
-      /* Request: 18px size */
       font-size: 18px; 
       color: #000;
       margin-bottom: 2px;
@@ -209,21 +180,26 @@
       opacity: 0.8;
     }
 
-    /* ---------------------------------------------------------
-       MOBILE / TABLET RESPONSIVE (< 1024px)
-    --------------------------------------------------------- */
     @media (max-width: 1024px) {
+      html {
+        height: auto;
+        overflow: visible;
+      }
+
+      body {
+        height: auto;
+        overflow-y: visible;
+      }
+
       .main-grid {
         display: flex;
         flex-direction: column;
         height: auto;
         min-height: auto;
-        /* Reset grid areas */
         grid-template-areas: none;
         padding-bottom: 2rem;
       }
 
-      /* 1. First: Photo */
       .section-img {
         order: 1;
         width: 100%;
@@ -231,27 +207,24 @@
         justify-content: center;
       }
       .dragon-wrapper {
-        /* Mobile: Adaptive width */
         width: 100%;
-        max-width: 600px; /* Cap it so it's not huge on tablets */
+        max-width: 600px;
       }
 
-      /* 2. Second: Content (Subheader -> Title -> Text) */
       .section-content {
         order: 2;
         padding: 1rem 2rem;
       }
       h1.main-title {
-        font-size: 2.5rem; /* Smaller title on mobile */
+        font-size: 2.5rem;
       }
       h2.sub-heading {
         font-size: 16px; 
       }
 
-      /* 3. Third: Numbers */
       .section-stats {
         order: 3;
-        padding: 2rem; /* Reset fixed 40px padding to normal padding */
+        padding: 2rem;
         padding-top: 0;
       }
       .stats-row {
@@ -264,23 +237,20 @@
 
 <body>
 
-  <!-- Header Placeholder -->
   <div id="header-container"></div>
 
   <main class="main-grid">
     
-    <!-- 1. Dragon Photo Section -->
     <div class="section-img">
       <div class="dragon-wrapper">
         <img src="https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg" alt="Dragon Parade">
       </div>
     </div>
 
-    <!-- 2. Text Content Section -->
     <div class="section-content">
       <div class="content-wrapper">
         <h2 class="sub-heading">Public History · Oral History · Cultural Research</h2>
-        <h1 class="main-title">CANTONESE<br>IN AMERICAS</h1>
+        <h1 class="main-title">CANTONESE<br>IN THE AMERICAS</h1>
         
         <div class="text-body">
           <p>
@@ -293,7 +263,6 @@
       </div>
     </div>
 
-    <!-- 3. Stats Section -->
     <div class="section-stats">
       <div class="stats-container">
         <div class="stats-title">BY THE NUMBERS</div>
@@ -318,10 +287,7 @@
 
   </main>
 
-  <!-- Footer Placeholder -->
   <div id="footer-container"></div>
 
 </body>
 </html>
-
-
