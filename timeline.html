@@ -24,7 +24,6 @@
       --bg: #f5f0e5; 
       --text: #1a1a1a;
       --mask-color: #e3bd28; 
-      --header-height: 60px;
     }
 
     * { box-sizing: border-box; }
@@ -39,34 +38,32 @@
       overflow-x: hidden;
     }
 
-    /* 
-       Header Container Style (配合 JS 隐藏) 
-       假设 header.js 生成的 header 是 fixed 定位的 
-    */
+    /* --- Header Style (配合 JS 隐藏) --- */
+    /* 假设 header.js 注入的标签是 <header> */
     header {
       position: fixed;
       top: 0;
       width: 100%;
-      transition: transform 0.4s ease-in-out;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       z-index: 100;
     }
-
-    /* 当添加 .hide 类时隐藏 Header */
     header.hide {
       transform: translateY(-100%);
     }
 
-    /* 
-       Main Layout - Golden Ratio / Vertical Centering
-       使用 Flexbox 将内容置于屏幕视觉中心
-    */
+    /* --- Main Layout --- */
     main {
       width: 100%;
-      min-height: 100vh; /* 占满全屏高度 */
-      display: flex;
-      flex-direction: column;
-      justify-content: center; /* 垂直居中 */
-      padding-top: 40px; /* 稍微给顶部一点呼吸空间 */
+      min-height: 100vh;
+      display: block; /* 取消 Flex 垂直居中，改用 Padding 控制位置 */
+      /* 
+         关键调整：
+         使用 padding-top 将内容顶下来。
+         22vh 大约会让图片顶部位于屏幕 1/3 处，
+         整体视觉重心会落在屏幕下方 0.618 - 0.7 的位置。
+      */
+      padding-top: 22vh; 
+      padding-bottom: 100px;
     }
 
     /* --- Gallery Section --- */
@@ -77,12 +74,9 @@
       padding: 0 40px; 
       
       width: 100%;
-      /* 设置高度为视口高度的 55%，符合黄金分割的视觉舒适区 */
-      height: 55vh; 
-      min-height: 380px;
-      max-height: 600px;
+      height: 55vh; /* 图片保持较高的高度 */
+      min-height: 400px;
       
-      margin: 0 auto; /* 水平居中 */
       position: relative;
     }
 
@@ -96,39 +90,37 @@
     }
 
     /* 
-       Item Info - 回归小字体 & 优雅排版
+       Item Info - 恢复最早版本排版
     */
     .item-info {
       position: absolute;
-      /* 将文字定位在图片上方，留出适当间距 */
-      bottom: 100%; 
-      left: 0;
-      width: 100%; 
-      text-align: center;
+      /* 放在图片上方，因为 main 有 huge padding-top，这里绝对不会被遮挡 */
+      top: -90px; 
+      left: 0; 
+      width: 100%;
+      text-align: left; /* 恢复左对齐 */
       z-index: 10;
       pointer-events: none; 
-      padding-bottom: 20px; /* 文字和图片之间的留白 */
     }
 
     .item-number {
       display: block;
       font-family: 'Exo', sans-serif;
-      font-size: 10px; /* 极小字体 */
-      font-weight: 600;
-      letter-spacing: 2px; /* 增加字间距，增加高级感 */
-      color: #555; /* 颜色调浅 */
+      font-size: 13px; /* 恢复清晰的大小 */
+      font-weight: 700; /* 恢复粗体 */
+      letter-spacing: 0.5px;
+      color: #000;
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .item-title {
       display: block;
       font-family: 'Gentium Book Plus', serif;
-      font-size: 15px; /* 回归原来的小号字体 */
-      line-height: 1.35;
+      font-size: 22px; /* 恢复较大的标题字号 */
+      line-height: 1.25;
       font-weight: 400;
-      color: #000;
-      letter-spacing: 0.5px;
+      color: #1a1a1a;
     }
 
     /* Image Box */
@@ -137,7 +129,7 @@
       height: 100%;
       overflow: hidden; 
       position: relative;
-      border: 1px solid rgba(0,0,0,0.08); /* 极细的边框增加精致感 */
+      border-right: 1px solid rgba(0,0,0,0.05);
     }
 
     .image-wrapper {
@@ -145,29 +137,27 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      filter: grayscale(100%) contrast(1.05); 
-      transition: filter 0.5s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      filter: grayscale(100%) contrast(1.1); 
+      transition: filter 0.4s ease, transform 0.6s ease;
       position: relative;
       transform: scale(1.01); 
     }
 
     .first-image { background-position: left center !important; }
 
-    /* 黄色遮罩层 */
     .image-wrapper::after {
       content: '';
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
       background-color: var(--mask-color);
       mix-blend-mode: multiply; 
-      opacity: 0.8; 
+      opacity: 0.85; 
       transition: opacity 0.6s ease;
     }
 
-    /* Hover Effects */
     .gallery-item:hover .image-wrapper {
       filter: grayscale(0%) contrast(1) url(#liquid-filter);
-      transform: scale(1.06); 
+      transform: scale(1.05); 
     }
 
     .gallery-item:hover .image-wrapper::after {
@@ -177,9 +167,7 @@
     /* --- Migration Map Section --- */
     .map-section {
       width: 100%;
-      /* 增加上间距，让 Map 和上面的 Gallery 稍微分开 */
-      margin-top: 80px; 
-      padding-bottom: 100px;
+      margin-top: 120px; /* Map 距离 Gallery 远一点 */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -187,13 +175,12 @@
     }
 
     .map-title {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       text-align: center;
       font-family: 'Exo', sans-serif;
-      font-size: 11px;
-      letter-spacing: 1.5px;
+      font-size: 12px;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      color: #333;
     }
 
     #diaspora-map {
@@ -203,7 +190,6 @@
       border: 1px solid #dcd8ce;
     }
 
-    /* SVG Hidden */
     .svg-filters {
       position: absolute;
       width: 0; height: 0;
@@ -212,30 +198,32 @@
 
     /* --- Responsive Fixes --- */
     @media (max-width: 900px) {
+      main { padding-top: 150px; } /* 平板上稍微靠上一点 */
       .gallery-container {
         grid-template-columns: repeat(2, 1fr);
         height: auto;
-        gap: 60px; /* 平板上增加垂直间距 */
+        gap: 50px;
       }
-      .gallery-item { height: 40vh; }
+      .gallery-item { height: 40vh; margin-bottom: 30px; }
+      .item-info { top: -80px; }
     }
 
     @media (max-width: 600px) {
+      main { padding-top: 120px; }
       .gallery-container { 
         grid-template-columns: 1fr; 
         height: auto; 
         padding: 0 30px; 
-        gap: 80px; /* 手机上图片间距拉大 */
+        gap: 80px; 
       }
       .gallery-item { height: 350px; }
-      .item-info { padding-bottom: 10px; }
+      .item-info { position: static; margin-bottom: 15px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- SVG Filter for Liquid Effect -->
   <svg class="svg-filters">
     <filter id="liquid-filter">
       <feTurbulence id="turbulence" type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
@@ -297,9 +285,8 @@
     </div>
   </main>
 
-  <!-- Scripts -->
   <script>
-    // --- 1. Water Ripple Effect Logic ---
+    // --- 1. Water Ripple Effect ---
     const turb = document.getElementById('turbulence');
     let step = 0;
     let requestID = null;
@@ -321,24 +308,17 @@
       });
     });
 
-    // --- 2. Header Scroll Logic (Hide on scroll down) ---
-    // 等待页面加载完毕，确保 header 元素存在
+    // --- 2. Header Hide Logic ---
     document.addEventListener("DOMContentLoaded", function() {
         let lastScrollY = window.scrollY;
+        const header = document.querySelector('header'); // 确保你的 header.js 生成了 <header> 标签
         
-        // 尝试获取 header，如果你是通过 header.js 注入的，可能需要给它一个特定的 ID 或 class
-        // 这里假设 header 标签就是 <header>
-        const header = document.querySelector('header') || document.querySelector('.site-header'); 
-
         if (header) {
             window.addEventListener('scroll', () => {
                 const currentScrollY = window.scrollY;
-                
-                // 向下滚动超过 50px 且当前滚动位置大于上次位置 -> 隐藏
                 if (currentScrollY > lastScrollY && currentScrollY > 50) {
                     header.classList.add('hide');
                 } else {
-                    // 向上滚动 -> 显示
                     header.classList.remove('hide');
                 }
                 lastScrollY = currentScrollY;
