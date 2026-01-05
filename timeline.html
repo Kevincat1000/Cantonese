@@ -11,22 +11,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Mapbox CSS & JS -->
+  <!-- Mapbox CSS & JS (Library) -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
 
-  <!-- Header/Footer Injectors -->
+  <!-- Custom Scripts -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
+  <!-- ✅ 你的 Mapbox 本地脚本 -->
+  <script src="./assets/mapbox.js" defer></script>
 
   <style>
     :root {
       --bg: #f5f0e5;
       --text: #1a1a1a;
       --mask-color: #e3bd28;
-
-      /* ✅ for anti-shake: default header height, JS will sync to real height */
-      --header-h: 60px;
+      --header-h: 60px; /* Default fallback */
     }
 
     * { box-sizing: border-box; }
@@ -54,13 +54,18 @@
     }
     header.hide { transform: translateY(-100%) !important; }
 
+    /* ✅ 修复空白的关键：隐藏占位div，让 padding 独自负责间距 */
+    #header-injection-point {
+      display: none !important;
+    }
+
     /* --- Main Layout --- */
     main {
       width: 100%;
       min-height: 100vh;
       display: block;
 
-      /* ✅ use header var so it won't jump when injected */
+      /* ✅ 保持你要求的设置不变 */
       padding-top: calc(var(--header-h) + 22vh);
       padding-bottom: 100px;
     }
@@ -184,7 +189,7 @@
 
     .svg-filters { position: absolute; width: 0; height: 0; visibility: hidden; }
 
-    /* --- Scroll Down Arrow (Centered, 30px) --- */
+    /* --- Scroll Down Arrow --- */
     .scroll-arrow-container {
       position: fixed;
       bottom: 25px;
@@ -227,6 +232,7 @@
       main { padding-top: calc(var(--header-h) + 150px); }
       .gallery-container { grid-template-columns: repeat(2, 1fr); height: auto; gap: 50px; }
       .gallery-item { height: 40vh; margin-bottom: 40px; }
+      #diaspora-map { width: 90vw; }
     }
     @media (max-width: 600px) {
       main { padding-top: calc(var(--header-h) + 120px); }
@@ -235,16 +241,15 @@
       .item-info { position: static; margin-bottom: 10px; }
     }
 
-    /* ===== Page-only anti-shake patch (same method as language/culture) ===== */
+    /* Anti-shake patch */
     html.preload body { opacity: 0; }
     body { transition: opacity .15s ease; }
-    #header-injection-point { height: var(--header-h); }
   </style>
 </head>
 
 <body>
 
-  <!-- ✅ reserve header space before header.js injection -->
+  <!-- Header Placeholder (Hidden by CSS) -->
   <div id="header-injection-point"></div>
 
   <svg class="svg-filters">
@@ -308,12 +313,13 @@
 
     <div class="map-section" id="mapSection">
       <div class="map-title">Migration map</div>
+      <!-- Mapbox Container -->
       <div id="diaspora-map"></div>
     </div>
   </main>
 
   <script>
-    // === Header injection anti-shake + auto header height sync (same method as language/culture) ===
+    // === Header Sync logic (Updates --header-h variable) ===
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
@@ -321,9 +327,9 @@
 
         const h = Math.ceil(header.getBoundingClientRect().height);
         if (h > 0) {
+          // Updates the CSS variable so 'calc' works correctly
           document.documentElement.style.setProperty('--header-h', h + 'px');
-          const injection = document.getElementById('header-injection-point');
-          if (injection) injection.style.height = h + 'px';
+          // No need to set injection point height since we display:none it
           return true;
         }
         return false;
@@ -347,7 +353,7 @@
       });
     })();
 
-    // --- 1. Water Ripple Effect ---
+    // --- Water Ripple Effect ---
     const turb = document.getElementById('turbulence');
     let step = 0;
     let requestID = null;
@@ -369,23 +375,23 @@
       });
     });
 
-    // --- 2. Header & Scroll Arrow Logic ---
+    // --- Header & Scroll Arrow Logic ---
     let lastScrollY = window.scrollY;
     const arrow = document.getElementById('scrollArrow');
     const mapSection = document.getElementById('mapSection');
 
-    arrow.addEventListener('click', () => {
-      mapSection.scrollIntoView({ behavior: 'smooth' });
-    });
+    if (arrow && mapSection) {
+        arrow.addEventListener('click', () => {
+            mapSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
 
     window.addEventListener('scroll', () => {
-      // ✅ only start hide/show after header is ready
       if (!document.body.classList.contains('header-ready')) return;
 
       const header = document.querySelector('header') || document.querySelector('.site-header');
       const currentScrollY = window.scrollY;
 
-      // Header Hide Logic
       if (header) {
         if (currentScrollY > lastScrollY && currentScrollY > 50) {
           header.classList.add('hide');
@@ -394,11 +400,12 @@
         }
       }
 
-      // Arrow Fade Out Logic
-      if (currentScrollY > 200) {
-        arrow.classList.add('fade-out');
-      } else {
-        arrow.classList.remove('fade-out');
+      if (arrow) {
+        if (currentScrollY > 200) {
+          arrow.classList.add('fade-out');
+        } else {
+          arrow.classList.remove('fade-out');
+        }
       }
 
       lastScrollY = currentScrollY;
