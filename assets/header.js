@@ -27,7 +27,7 @@
       }
 
       body{
-        padding-top:var(--header-h, 48px);
+        padding-top:var(--header-h, 55px);
       }
 
       body.no-header-space{
@@ -48,36 +48,40 @@
         justify-content:space-between;
         padding:.5rem 0;
         gap:1rem;
-        height:48px;
+        min-height:55px;
         box-sizing:border-box;
       }
 
       header[data-site-header="1"] .logo{
-        text-align:center;
+        text-align:left;
         text-decoration:none;
         color:inherit;
         padding:0 .5rem 0 0; 
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        justify-content: center;
       }
 
       header[data-site-header="1"] .logo-main{
         font-family:'Exo', sans-serif;
         font-size:18px;
-        font-weight:700;
+        font-weight:800;
         color:#701a1a;
-        letter-spacing:.5px;
-        line-height:1.2;
+        letter-spacing:0.02em; 
+        line-height:1;
+        text-transform: uppercase;
       }
 
       header[data-site-header="1"] .logo-sub{
         font-family:'Exo', sans-serif;
-        font-size:14px;
-        font-weight:700;
+        font-size:11px;
+        font-weight:600;
         color:#701a1a;
-        letter-spacing:2px;
+        letter-spacing:0.15em;
         line-height:1.2;
+        margin-top:2px;
+        text-transform: uppercase;
       }
 
       header[data-site-header="1"] .nav-menu{
@@ -186,13 +190,13 @@
       header[data-site-header="1"] .mobile-nav-menu{
         display:none;
         position:fixed;
-        top:var(--header-h, 48px);
+        top:var(--header-h, 55px);
         left:0; right:0;
         background:#F5F0E5;
         border-bottom:1px solid #e5e5e5;
         box-shadow:0 4px 6px -1px rgba(0,0,0,.1);
         z-index:990;
-        max-height:calc(100vh - var(--header-h, 48px));
+        max-height:calc(100vh - var(--header-h, 55px));
         overflow-y:auto;
       }
 
@@ -238,7 +242,7 @@
           <div class="header-content">
             <a href="index.html" class="logo" aria-label="Home">
               <div class="logo-main">CANTONESE</div>
-              <div class="logo-sub">IN AMERICAS</div>
+              <div class="logo-sub">IN THE AMERICAS</div>
             </a>
 
             <nav class="nav-menu" aria-label="Primary">
