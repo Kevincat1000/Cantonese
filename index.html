@@ -53,8 +53,6 @@
       grid-template-areas: 
         "img  content"
         "stat content";
-      
-      /* CHANGE 1: Move the entire grid content down by 30px */
       padding-top: 30px;
     }
 
@@ -64,7 +62,7 @@
     .section-img {
       grid-area: img;
       display: flex;
-      align-items: flex-start; /* Aligns image to top of its cell */
+      align-items: flex-start; 
       justify-content: flex-start;
       padding-bottom: 2rem; 
     }
@@ -130,8 +128,6 @@
     }
 
     .text-body p { margin-bottom: 1.5rem; }
-
-    /* Remove bottom margin from last paragraph to ensure alignment is strict */
     .text-body p:last-child { margin-bottom: 0; }
 
     .text-body p:first-child::first-letter {
@@ -152,9 +148,7 @@
       grid-area: stat;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end; /* Pushes content to the bottom */
-      
-      /* CHANGE 3: Left 40px and Bottom 50px (Matches Right Side) */
+      justify-content: flex-end;
       padding-left: 40px;
       padding-bottom: 50px; 
     }
@@ -210,7 +204,6 @@
         min-height: auto;
         grid-template-areas: none;
         padding-bottom: 2rem;
-        /* Reset the top padding on mobile if needed */
         padding-top: 0; 
       }
 
@@ -249,19 +242,15 @@
 
 <body>
 
-  <!-- Header Placeholder -->
   <div id="header-container"></div>
 
   <main class="main-grid">
-    
-    <!-- 1. Dragon Photo Section -->
     <div class="section-img">
       <div class="dragon-wrapper">
         <img src="https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg" alt="Dragon Parade">
       </div>
     </div>
 
-    <!-- 2. Text Content Section -->
     <div class="section-content">
       <div class="content-wrapper">
         <h2 class="sub-heading">Public History · Oral History · Cultural Research</h2>
