@@ -3,224 +3,255 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cantonese in Americas - Public History & Cultural Research</title>
+  <title>Cantonese in Americas - Introduction</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;600;800&display=swap" rel="stylesheet">
 
   <!-- Global style -->
   <link rel="stylesheet" href="./assets/style.css" />
 
-  <!-- Header injector -->
-  <link rel="preload" href="./assets/header.js" as="script">
+  <!-- Scripts -->
   <script src="./assets/header.js" defer></script>
-
-  <!-- Footer injector -->
-  <link rel="preload" href="./assets/footer.js" as="script">
   <script src="./assets/footer.js" defer></script>
 
   <style>
-    :root { --header-h: 48px; }
+    /* Reset & Base */
+    :root {
+      --bg-color: #f5f0e5;
+      --text-color: #2b2623;
+      --accent-color: #8c3b2b; /* 类似龙照片中的暗红色调/深褐色 */
+      --header-offset: 88px; /* 48px header + 40px spacing */
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body{
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
       font-family: "Gentium Book Plus", serif;
-      line-height: 1.6;
-      color: #333;
-      background: #fff;
-      padding-top: var(--header-h, 48px);
+      overflow-x: hidden;
+      /* 确保header不遮挡内容，且留出要求的40px距离 */
+      padding-top: var(--header-offset); 
     }
 
-    .container{
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1rem;
+    /* Main Grid Layout */
+    .art-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: calc(100vh - var(--header-offset));
+      max-width: 100%;
+      margin: 0;
     }
 
-    @media (min-width:1024px){
-      .container{ padding: 0 2rem; }
+    @media (min-width: 1024px) {
+      .art-layout {
+        grid-template-columns: 45% 55%; /* 左45% 右55% */
+        height: calc(100vh - var(--header-offset)); /* 一屏显示 */
+        overflow: hidden; /* 保持一页感，内容溢出可单独滚动 */
+      }
     }
 
-    /* Hero Section */
-    .hero{
+    /* Left Side: Visuals & Stats */
+    .left-pane {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* 上中下分布 */
+      padding: 2rem 3rem;
       position: relative;
-      height: 500px;
+    }
+
+    /* Priority 3: Top Whitespace */
+    .spacer-top {
+      flex: 1; /* 占据顶部空间 */
+      min-height: 10vh; 
+    }
+
+    /* Priority 4: Dragon Photo */
+    .dragon-visual {
+      flex: 2;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      background:
-        linear-gradient(rgba(0, 48, 87, 0.7), rgba(0, 48, 87, 0.7)),
-        url('https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg');
-      background-size: cover;
-      background-position: center;
+      margin: 2rem 0;
     }
 
-    .hero-content{
-      text-align: center;
-      z-index: 10;
-      padding: 1rem;
+    .dragon-visual img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      display: block;
+      /* 让图片看起来更像印在纸上，融入背景 */
+      filter: sepia(0.3) contrast(1.1);
+      mix-blend-mode: multiply; 
+      opacity: 0.9;
     }
 
-    .hero h1{
+    /* Priority 5: By The Numbers */
+    .stats-container {
+      flex: 1;
+      border-top: 2px solid var(--text-color);
+      padding-top: 1.5rem;
+    }
+
+    .stats-title {
       font-family: 'Exo', sans-serif;
-      font-size: clamp(2.5rem, 5vw, 3.75rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .hero p{
-      font-family: 'Exo', sans-serif;
-      font-size: clamp(1.25rem, 3vw, 1.875rem);
-      font-weight: 400;
-    }
-
-    /* Introduction Section */
-    .intro-section{
-      background: #2C5266;
-      color: white;
-      padding: 4rem 1rem;
-    }
-
-    .intro-section h2{
-      font-family: 'Exo', sans-serif;
-      font-size: clamp(1.875rem, 4vw, 2.25rem);
-      color: #d6d0ac;
-      margin-bottom: 3rem;
-    }
-
-    .intro-text{
-      max-width: 56rem;
-      margin: 0 auto;
-    }
-
-    .intro-text p{
-      font-size: 1.125rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
       margin-bottom: 1.5rem;
-      line-height: 1.8;
+      opacity: 0.7;
     }
 
-    .intro-text a{
-      color: white;
-      text-decoration: underline;
-    }
-
-    .intro-text a:hover{ opacity: 0.85; }
-
-    /* Statistics */
-    .stats{ margin-top: 3rem; }
-
-    .stats h3{
-      font-family: 'Exo', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 2rem;
-      letter-spacing: 0.05em;
-    }
-
-    .stats-grid{
+    .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
     }
 
-    .stat-item{ text-align: left; }
-
-    .stat-number{
+    .stat-item h4 {
       font-family: 'Exo', sans-serif;
-      font-size: 1.875rem;
-      font-weight: 700;
-      color: #8BA888;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+      line-height: 1;
       margin-bottom: 0.5rem;
-      white-space: nowrap;
+      color: #3e3832;
     }
 
-    .stat-divider{
-      border-bottom: 2px dotted #8BA888;
-      margin-bottom: 1rem;
+    .stat-item p {
+      font-family: 'Exo', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+      opacity: 0.8;
     }
 
-    .stat-description{ font-size: 0.95rem; }
+    /* Priority 2: Right Side Content */
+    .right-pane {
+      padding: 0 4rem 4rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* 如果文字很多，右侧可以独立滚动 */
+      overflow-y: auto; 
+    }
+
+    .content-wrapper {
+      max-width: 800px;
+    }
+
+    h1.main-title {
+      font-family: 'Exo', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      color: var(--text-color);
+      letter-spacing: -0.02em;
+    }
+
+    h2.sub-title {
+      font-family: 'Exo', sans-serif;
+      font-weight: 300;
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+      font-style: italic;
+      color: #555;
+    }
+
+    .text-body p {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      text-align: justify; /* 艺术对齐 */
+    }
+    
+    .text-body p:first-of-type::first-letter {
+      font-size: 3.5rem;
+      float: left;
+      margin-right: 0.5rem;
+      line-height: 0.8;
+      font-family: 'Exo', sans-serif;
+      font-weight: 800;
+    }
+
+    /* Mobile Responsive Adjustments */
+    @media (max-width: 1023px) {
+      .left-pane { padding: 2rem; order: 2; } /* 手机上图片放下面或者中间 */
+      .right-pane { padding: 2rem; order: 1; min-height: auto; }
+      .spacer-top { display: none; }
+      .stats-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .dragon-visual img { max-width: 100%; }
+      h1.main-title { font-size: 3rem; }
+    }
   </style>
 </head>
 
 <body>
-  <!-- Header will be injected by ./assets/header.js -->
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Cantonese in Americas</h1>
-      <p>Public History · Oral History · Cultural Research</p>
-    </div>
-  </section>
+  <!-- Header Placeholder (Injected by JS) -->
+  <div id="header-container"></div>
 
-  <section class="intro-section">
-    <div class="container">
-      <div class="intro-text">
-        <h2>Introduction</h2>
+  <main class="art-layout">
+    
+    <!-- Left Pane: Visuals & Data -->
+    <aside class="left-pane">
+      <!-- 3. Left Top Whitespace -->
+      <div class="spacer-top"></div>
 
-        <p>Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.</p>
+      <!-- 4. Left Middle Dragon Photo -->
+      <div class="dragon-visual">
+        <!-- 使用您之前代码中的图片源，并添加混合模式CSS -->
+        <img src="https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg" alt="Golden Dragon Parade History">
+      </div>
 
-        <p>This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.</p>
-
-        <div class="stats">
-          <h3>BY THE NUMBERS:</h3>
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-number">175+ Years</div>
-              <div class="stat-divider"></div>
-              <p class="stat-description">Documented migration since the 1848 Gold Rush.</p>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">530,000+</div>
-              <div class="stat-divider"></div>
-              <p class="stat-description">U.S. residents speaking Cantonese at home.</p>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">30 Million+</div>
-              <div class="stat-divider"></div>
-              <p class="stat-description">Descendants in a vast global diaspora.</p>
-            </div>
+      <!-- 5. Left Bottom Numbers -->
+      <div class="stats-container">
+        <div class="stats-title">By The Numbers</div>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <h4>1848</h4>
+            <p>Migration Began</p>
+          </div>
+          <div class="stat-item">
+            <h4>530k</h4>
+            <p>Speakers in US</p>
+          </div>
+          <div class="stat-item">
+            <h4>30M+</h4>
+            <p>Global Diaspora</p>
           </div>
         </div>
-
       </div>
-    </div>
-  </section>
+    </aside>
 
-  <!-- Footer will be injected by ./assets/footer.js -->
+    <!-- Right Pane: Content (Priority 2) -->
+    <article class="right-pane">
+      <div class="content-wrapper">
+        <h2 class="sub-title">Public History & Cultural Research</h2>
+        <h1 class="main-title">Cantonese<br>In Americas</h1>
+        
+        <div class="text-body">
+          <p>
+            Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.
+          </p>
+          <p>
+            This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.
+          </p>
+        </div>
+      </div>
+    </article>
 
-  <script>
-    (function () {
-      "use strict";
+  </main>
 
-      let lastScrollTop = 0;
-      const scrollThreshold = 100;
-      const scrollDelta = 5;
+  <!-- Footer Placeholder (Injected by JS) -->
+  <div id="footer-container"></div>
 
-      window.addEventListener("scroll", function () {
-        const header = document.querySelector("header[data-site-header='1']");
-        if (!header) return;
-
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (Math.abs(lastScrollTop - scrollTop) <= scrollDelta) return;
-
-        if (scrollTop < scrollThreshold) {
-          header.classList.remove("header-hidden");
-          lastScrollTop = scrollTop;
-          return;
-        }
-
-        if (scrollTop > lastScrollTop) header.classList.add("header-hidden");
-        else header.classList.remove("header-hidden");
-
-        lastScrollTop = scrollTop;
-      }, { passive: true });
-    })();
-  </script>
 </body>
 </html>
