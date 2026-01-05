@@ -36,37 +36,23 @@
       color: var(--text);
       width: 100%;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
     /* --- Header Style --- */
-    /* 
-       重要：即使 header.js 没有加载完成，
-       我们也预先定义 header 的行为，确保过渡动画流畅。
-    */
     header {
-      position: fixed !important; /* 强制固定定位 */
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 9999; /* 确保在最上层 */
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* 平滑过渡 */
+      position: fixed !important; 
+      top: 0; left: 0; width: 100%;
+      z-index: 9999; 
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
     }
-
-    /* 隐藏状态的样式 */
-    header.hide {
-      transform: translateY(-100%) !important; /* 强制向上移动隐藏 */
-    }
+    header.hide { transform: translateY(-100%) !important; }
 
     /* --- Main Layout --- */
     main {
       width: 100%;
       min-height: 100vh;
       display: block;
-      /* 
-         黄金比例布局：
-         使用 padding-top: 22vh 将图片向下推，
-         使其位于屏幕视觉重心的黄金分割点附近。
-      */
       padding-top: 22vh; 
       padding-bottom: 100px;
     }
@@ -77,11 +63,9 @@
       grid-template-columns: repeat(4, 1fr); 
       gap: 25px; 
       padding: 0 40px; 
-      
       width: 100%;
       height: 55vh; 
       min-height: 400px;
-      
       position: relative;
     }
 
@@ -94,21 +78,16 @@
       cursor: pointer;
     }
 
-    /* --- Typography & Positioning --- */
+    /* --- Typography --- */
     .item-info {
       position: absolute;
-      /* 紧贴图片上方 */
-      bottom: 100%; 
-      left: 0; 
-      width: 100%;
+      bottom: 100%; left: 0; width: 100%;
       padding-bottom: 15px;
-      
       text-align: left; 
       z-index: 10;
       pointer-events: none; 
     }
 
-    /* 编号：Exo, 10px, 粗体 */
     .item-number {
       display: block;
       font-family: 'Exo', sans-serif;
@@ -120,7 +99,6 @@
       margin-bottom: 6px;
     }
 
-    /* 标题：Gentium, 16px */
     .item-title {
       display: block;
       font-family: 'Gentium Book Plus', serif;
@@ -130,7 +108,7 @@
       color: #1a1a1a;
     }
 
-    /* Image Box */
+    /* Image Styles */
     .image-container {
       width: 100%;
       height: 100%;
@@ -149,7 +127,6 @@
       position: relative;
       transform: scale(1.01); 
     }
-
     .first-image { background-position: left center !important; }
 
     .image-wrapper::after {
@@ -166,10 +143,7 @@
       filter: grayscale(0%) contrast(1) url(#liquid-filter);
       transform: scale(1.05); 
     }
-
-    .gallery-item:hover .image-wrapper::after {
-      opacity: 0; 
-    }
+    .gallery-item:hover .image-wrapper::after { opacity: 0; }
 
     /* --- Migration Map Section --- */
     .map-section {
@@ -179,9 +153,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      scroll-margin-top: 100px;
     }
 
-    /* Map Title：与编号字体一致 */
     .map-title {
       margin-bottom: 25px;
       text-align: center;
@@ -200,32 +174,60 @@
       border: 1px solid #dcd8ce;
     }
 
-    .svg-filters {
-      position: absolute;
-      width: 0; height: 0;
-      visibility: hidden;
+    .svg-filters { position: absolute; width: 0; height: 0; visibility: hidden; }
+
+    /* --- Scroll Down Arrow (Centered, 30px) --- */
+    .scroll-arrow-container {
+      position: fixed;
+      bottom: 25px; /* 距离底部 25px */
+      left: 50%;    /* 水平居中 */
+      transform: translateX(-50%); /* 修正居中偏移 */
+      
+      z-index: 50;
+      cursor: pointer;
+      opacity: 1;
+      transition: opacity 0.5s ease;
     }
 
-    /* --- Responsive Fixes --- */
+    /* 隐藏状态 */
+    .scroll-arrow-container.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .scroll-arrow-svg {
+      width: 14px;  /* 宽度 */
+      height: 30px; /* 高度固定为 30px */
+      display: block;
+      /* 上下浮动动画 */
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .arrow-path {
+      fill: none;
+      stroke: #000;
+      stroke-width: 1.5px;
+      stroke-linecap: square;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    .scroll-arrow-container:hover .scroll-arrow-svg {
+      animation-play-state: paused;
+    }
+
+    /* --- Responsive --- */
     @media (max-width: 900px) {
       main { padding-top: 150px; } 
-      .gallery-container {
-        grid-template-columns: repeat(2, 1fr);
-        height: auto;
-        gap: 50px;
-      }
+      .gallery-container { grid-template-columns: repeat(2, 1fr); height: auto; gap: 50px; }
       .gallery-item { height: 40vh; margin-bottom: 40px; }
-      .item-info { position: absolute; bottom: 100%; }
     }
-
     @media (max-width: 600px) {
       main { padding-top: 120px; }
-      .gallery-container { 
-        grid-template-columns: 1fr; 
-        height: auto; 
-        padding: 0 30px; 
-        gap: 60px; 
-      }
+      .gallery-container { grid-template-columns: 1fr; height: auto; padding: 0 30px; gap: 60px; }
       .gallery-item { height: 350px; }
       .item-info { position: static; margin-bottom: 10px; }
     }
@@ -243,7 +245,7 @@
   
   <main>
     <div class="gallery-container">
-        <!-- Phase 01 -->
+        <!-- Gallery Items -->
         <a href="phase1.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">01. 17th–19th Centuries</span>
@@ -253,8 +255,6 @@
                 <div class="image-wrapper first-image" style="background-image: url('https://www.historicvietnam.com/wp-content/uploads/2020/01/cropped-Cover-image-FRONT-b-1.jpg');"></div>
             </div>
         </a>
-
-        <!-- Phase 02 -->
         <a href="phase2.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">02. 1848–1947</span>
@@ -264,8 +264,6 @@
                 <div class="image-wrapper" style="background-image: url('https://newsarchive.berkeley.edu/news/media/releases/2005/04/images/china_train.jpg');"></div>
             </div>
         </a>
-
-        <!-- Phase 03 -->
         <a href="phase3.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">03. 1965–2000</span>
@@ -275,8 +273,6 @@
                 <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
             </div>
         </a>
-
-        <!-- Phase 04 -->
         <a href="phase4.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">04. 2000–Present</span>
@@ -288,7 +284,19 @@
         </a>
     </div>
 
-    <div class="map-section">
+    <!-- Scroll Indicator Arrow (Centered, 30px) -->
+    <div class="scroll-arrow-container" id="scrollArrow">
+        <svg class="scroll-arrow-svg" viewBox="0 0 14 30" preserveAspectRatio="none">
+            <!-- 竖线 -->
+            <line x1="7" y1="0" x2="7" y2="28" class="arrow-path" />
+            <!-- 箭头左翼 -->
+            <line x1="7" y1="28" x2="1" y2="20" class="arrow-path" />
+            <!-- 箭头右翼 -->
+            <line x1="7" y1="28" x2="13" y2="20" class="arrow-path" />
+        </svg>
+    </div>
+
+    <div class="map-section" id="mapSection">
         <div class="map-title">Migration map</div>
         <div id="diaspora-map"></div>
     </div>
@@ -307,7 +315,6 @@
       turb.setAttribute('baseFrequency', `${bfX} ${bfY}`);
       requestID = requestAnimationFrame(animate);
     }
-
     const items = document.querySelectorAll('.gallery-item');
     items.forEach(item => {
       item.addEventListener('mouseenter', () => { if (!requestID) animate(); });
@@ -317,28 +324,36 @@
       });
     });
 
-    // --- 2. 修复版 Header 隐藏逻辑 ---
-    // 不再等待 DOMContentLoaded，也不假设 header 一开始就存在
-    // 而是每次滚动时动态查找 header，适应动态插入的情况
+    // --- 2. Header & Scroll Arrow Logic ---
     let lastScrollY = window.scrollY;
-    
-    window.addEventListener('scroll', () => {
-        // 尝试获取 header (这里假设 header.js 插入了 <header> 标签)
-        const header = document.querySelector('header');
-        
-        // 如果 header 还没被插入到页面中，直接返回，等下次滚动再试
-        if (!header) return;
+    const arrow = document.getElementById('scrollArrow');
+    const mapSection = document.getElementById('mapSection');
 
+    // 点击滚动
+    arrow.addEventListener('click', () => {
+        mapSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
         const currentScrollY = window.scrollY;
         
-        // 向下滚动 且 滚动超过 50px -> 隐藏
-        // 向上滚动 -> 显示
-        if (currentScrollY > lastScrollY && currentScrollY > 50) {
-            header.classList.add('hide');
-        } else {
-            header.classList.remove('hide');
+        // Header Hide Logic
+        if (header) {
+            if (currentScrollY > lastScrollY && currentScrollY > 50) {
+                header.classList.add('hide');
+            } else {
+                header.classList.remove('hide');
+            }
         }
-        
+
+        // Arrow Fade Out Logic (超过200px淡出)
+        if (currentScrollY > 200) {
+            arrow.classList.add('fade-out');
+        } else {
+            arrow.classList.remove('fade-out');
+        }
+
         lastScrollY = currentScrollY;
     });
   </script>
