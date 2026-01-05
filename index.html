@@ -32,17 +32,14 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html {
-      /* Remove fixed height to allow scrolling on zoom */
-      height: auto; 
-    }
+    html { height: auto; }
 
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
       font-family: "Gentium Book Plus", serif;
+      /* Initial gap from fixed header */
       padding-top: calc(var(--header-h) + var(--content-gap));
-      /* Allow vertical scroll if content overflows */
       overflow-x: hidden; 
       width: 100%;
     }
@@ -56,12 +53,18 @@
       grid-template-areas: 
         "img  content"
         "stat content";
+      
+      /* CHANGE 1: Move the entire grid content down by 30px */
+      padding-top: 30px;
     }
 
+    /* ---------------------------------------------------------
+       1. LEFT PHOTO (Area: img)
+    --------------------------------------------------------- */
     .section-img {
       grid-area: img;
       display: flex;
-      align-items: center; 
+      align-items: flex-start; /* Aligns image to top of its cell */
       justify-content: flex-start;
       padding-bottom: 2rem; 
     }
@@ -88,18 +91,19 @@
       flex-direction: column;
       justify-content: center; 
       
-      /* Request: Move down 30px */
-      padding-top: 30px; 
       padding-right: 4rem;
-      padding-bottom: 4rem;
-      padding-left: 0; 
+      padding-left: 0;
+      
+      /* CHANGE 2: Removed top padding (moved to grid) 
+         and set bottom padding to 50px to match Stats side */
+      padding-top: 0;
+      padding-bottom: 50px;
     }
 
     .content-wrapper {
       max-width: 700px;
     }
 
-    /* Sub-heading: 14pt (~19px) */
     h2.sub-heading {
       font-family: 'Exo', sans-serif;
       font-weight: 400;
@@ -127,7 +131,9 @@
 
     .text-body p { margin-bottom: 1.5rem; }
 
-    /* Drop Cap */
+    /* Remove bottom margin from last paragraph to ensure alignment is strict */
+    .text-body p:last-child { margin-bottom: 0; }
+
     .text-body p:first-child::first-letter {
       font-family: 'Exo', sans-serif;
       font-weight: 800;
@@ -146,9 +152,11 @@
       grid-area: stat;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end; 
+      justify-content: flex-end; /* Pushes content to the bottom */
+      
+      /* CHANGE 3: Left 40px and Bottom 50px (Matches Right Side) */
       padding-left: 40px;
-      padding-bottom: 10px; 
+      padding-bottom: 50px; 
     }
 
     .stats-container {
@@ -164,7 +172,7 @@
       border-bottom: 1px solid #000;
       padding-bottom: 4px;
       display: inline-block;
-      margin-bottom: 0.25rem; 
+      margin-bottom: 0.5rem; 
       color: #000;
     }
 
@@ -177,7 +185,6 @@
     .stat-item h4 {
       font-family: 'Exo', sans-serif;
       font-weight: 700;
-      /* Request: 18px size */
       font-size: 18px; 
       color: #000;
       margin-bottom: 2px;
@@ -201,12 +208,12 @@
         flex-direction: column;
         height: auto;
         min-height: auto;
-        /* Reset grid areas */
         grid-template-areas: none;
         padding-bottom: 2rem;
+        /* Reset the top padding on mobile if needed */
+        padding-top: 0; 
       }
 
-      /* 1. First: Photo */
       .section-img {
         order: 1;
         width: 100%;
@@ -216,6 +223,7 @@
       .dragon-wrapper {
         width: 100%;
         max-width: 600px; 
+      }
       .section-content {
         order: 2;
         padding: 1rem 2rem;
@@ -300,5 +308,3 @@
 
 </body>
 </html>
-
-
