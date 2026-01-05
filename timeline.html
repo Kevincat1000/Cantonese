@@ -11,19 +11,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Header/Footer Injectors -->
-  <script src="./assets/header.js" defer></script>
-  <script src="./assets/footer.js" defer></script>
-
   <!-- Mapbox CSS & JS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
+
+  <!-- Header/Footer Injectors -->
+  <script src="./assets/header.js" defer></script>
+  <script src="./assets/footer.js" defer></script>
 
   <style>
     :root {
       --bg: #f5f0e5; 
       --text: #1a1a1a;
-      --header-h: 48px; 
+      --header-h: 60px; /* 预留给 Header 的高度 */
       --mask-color: #e3bd28; 
     }
 
@@ -35,18 +35,39 @@
       background-color: var(--bg);
       font-family: 'Gentium Book Plus', serif;
       color: var(--text);
+      width: 100%;
+      overflow-x: hidden; /* 防止水平滚动 */
     }
 
-    body { padding-top: var(--header-h); }
+    /* 
+       Main Container 
+       使用 Flexbox 实现垂直居中 
+    */
+    main {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* 垂直居中内容 */
+      padding-top: var(--header-h);
+    }
 
     /* --- Gallery Section --- */
     .gallery-container {
       display: grid;
+      /* 4列等宽 */
       grid-template-columns: repeat(4, 1fr); 
-      width: 100vw;
-      height: 65vh; 
-      border-bottom: 1px solid #dcd8ce;
-      margin-top: 100px; 
+      /* 图片间距 25px */
+      gap: 25px; 
+      /* 左右页面边距 40px */
+      padding: 0 40px; 
+      
+      width: 100%;
+      /* 限制图片区域的高度，使其看起来协调 */
+      height: 60vh; 
+      min-height: 400px;
+      margin-bottom: 60px;
+      position: relative;
     }
 
     .gallery-item {
@@ -58,12 +79,19 @@
       cursor: pointer;
     }
 
+    /* 
+       Item Info (Text above image)
+       文字位于图片上方正中间
+    */
     .item-info {
       position: absolute;
-      top: -65px;
-      left: 20px;
+      top: -85px; /* 距离图片顶部的距离 */
+      left: 0;
+      width: 100%; /* 占满容器宽度以实现居中 */
+      text-align: center; /* 文字居中 */
       z-index: 10;
       pointer-events: none; 
+      padding: 0 10px;
     }
 
     .item-number, .map-title {
@@ -77,25 +105,25 @@
       line-height: 1.2;
     }
 
-    .item-number { margin-bottom: 4px; }
+    .item-number { margin-bottom: 8px; }
 
     .item-title {
       display: block;
       font-family: 'Gentium Book Plus', serif;
-      font-size: 16px; 
+      font-size: 18px; 
       line-height: 1.3;
       font-weight: 400;
       color: #1a1a1a;
-      opacity: 0.9;
     }
 
-
+    /* Image Box */
     .image-container {
       width: 100%;
       height: 100%;
       overflow: hidden; 
       position: relative;
-      border-right: 1px solid rgba(0,0,0,0.05);
+      /* 简单的边框装饰 */
+      border: 1px solid rgba(0,0,0,0.05);
     }
 
     .image-wrapper {
@@ -109,8 +137,10 @@
       transform: scale(1.01); 
     }
 
+    /* 特殊调整第一张图片的位置 */
     .first-image { background-position: left center !important; }
 
+    /* 黄色遮罩层 */
     .image-wrapper::after {
       content: '';
       position: absolute;
@@ -121,10 +151,11 @@
       transition: opacity 0.6s ease;
     }
 
-
+    /* Hover Effects */
     .gallery-item:hover .image-wrapper {
+      /* 引用 SVG 滤镜 */
       filter: grayscale(0%) contrast(1) url(#liquid-filter);
-      transform: scale(1.08); 
+      transform: scale(1.05); 
     }
 
     .gallery-item:hover .image-wrapper::after {
@@ -134,40 +165,71 @@
     /* --- Migration Map Section --- */
     .map-section {
       width: 100%;
-      padding: 100px 0; 
+      padding: 60px 0 100px 0; 
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      clear: both;
+      background-color: var(--bg);
+      position: relative;
+      z-index: 5;
     }
 
     .map-title {
       margin-bottom: 25px;
       text-align: center;
+      font-size: 14px;
     }
 
     #diaspora-map {
-      width: 50vw; 
-      height: 50vw; 
-      max-height: 500px; 
-      min-height: 300px; 
+      width: 60vw; 
+      height: 400px; 
       background-color: #e5e0d5; 
       border: 1px solid #dcd8ce;
-      position: relative;
     }
 
+    /* SVG Hidden but active */
     .svg-filters {
       position: absolute;
       width: 0; height: 0;
       visibility: hidden;
     }
 
-    @media (max-width: 768px) {
-      .gallery-container { grid-template-columns: 1fr; height: auto; margin-top: 80px; }
-      .gallery-item { height: 300px; margin-bottom: 80px; }
-      .item-info { top: -45px; }
-      #diaspora-map { width: 90vw; height: 350px; }
+    /* --- Mobile / Responsive Fixes --- */
+    @media (max-width: 900px) {
+      .gallery-container {
+        grid-template-columns: repeat(2, 1fr); /* 平板显示2列 */
+        height: auto;
+        margin-top: 40px;
+      }
+      .item-info { position: static; margin-bottom: 15px; margin-top: 30px; }
+    }
+
+    @media (max-width: 600px) {
+      /* 手机端单列 */
+      .gallery-container { 
+        grid-template-columns: 1fr; 
+        height: auto; 
+        padding: 0 20px; /* 手机端缩小左右边距 */
+        margin-top: 20px;
+        gap: 50px;
+      }
+      
+      .gallery-item { 
+        height: 350px; /* 给图片固定高度 */
+        margin-bottom: 0; 
+      }
+      
+      .item-info { 
+        position: static; /* 手机端文字不绝对定位，改为流式布局 */
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      
+      #diaspora-map { width: 90vw; height: 300px; }
+      
+      /* 修复导航栏遮挡问题：增加顶部内边距 */
+      main { padding-top: 80px; display: block; }
     }
   </style>
 </head>
@@ -211,7 +273,7 @@
         <a href="phase3.html" class="gallery-item">
             <div class="item-info">
                 <span class="item-number">03. 1965–2000</span>
-              <span class="item-title">Reforms, Refugees,and<br>American Dream</span>
+              <span class="item-title">Reforms, Refugees, and<br>American Dream</span>
             </div>
             <div class="image-container">
                 <div class="image-wrapper" style="background-image: url('https://s.hdnux.com/photos/50/60/05/10682743/4/1920x0.jpg');"></div>
@@ -236,8 +298,7 @@
     </div>
   </main>
 
-  <script src="./assets/mapbox.js" defer></script>
-
+  <!-- JS Logic for Water Effect -->
   <script>
     const turb = document.getElementById('turbulence');
     let step = 0;
@@ -245,6 +306,7 @@
 
     function animate() {
       step += 0.015; 
+      // 动态调整 baseFrequency 以产生水纹流动感
       const bfX = 0.02 + Math.cos(step) * 0.008;
       const bfY = 0.02 + Math.sin(step) * 0.01;
       
@@ -259,6 +321,7 @@
       });
       
       item.addEventListener('mouseleave', () => {
+        // 只有当没有任何一个 item 被 hover 时才停止动画，节省性能
         const isAnyHovered = Array.from(items).some(i => i.matches(':hover'));
         if (!isAnyHovered) {
           cancelAnimationFrame(requestID);
