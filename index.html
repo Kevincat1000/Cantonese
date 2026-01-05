@@ -1,5 +1,6 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="preload">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +21,8 @@
       --bg-color: #f5f0e5;
       --text-color: #1a1a1a;
       --drop-cap-color: #701a1a;
+
+      /* ✅ default header height; JS will sync real height */
       --header-h: 50px;
       --content-gap: 40px;
     }
@@ -41,15 +44,22 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+
+      /* ✅ keep your original spacing logic */
       padding-top: calc(var(--header-h) + var(--content-gap));
     }
 
+    /* ✅ reserve space for injected header so content won't jump */
     #header-container {
-      position: absolute;
+      position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
+      z-index: 3000;
+      height: var(--header-h);
+      background: var(--bg-color);
     }
-    
+
     #footer-container {
       margin-top: auto;
       width: 100%;
@@ -194,7 +204,7 @@
         padding-bottom: 0;
         margin-bottom: 1rem;
       }
-      
+
       .dragon-wrapper {
         width: 100%;
         margin-bottom: 0;
@@ -227,6 +237,10 @@
         font-size: 2.5rem;
       }
     }
+
+    /* ===== Page-only anti-flash patch (same method) ===== */
+    html.preload body { opacity: 0; }
+    body { transition: opacity .15s ease; }
   </style>
 </head>
 
@@ -235,7 +249,7 @@
   <div id="header-container"></div>
 
   <main class="main-grid">
-    
+
     <div class="left-section">
       <div class="dragon-wrapper">
         <img src="https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg" alt="Dragon Parade">
@@ -248,12 +262,12 @@
             <h4>1848</h4>
             <p>First Arrival</p>
           </div>
-          
+
           <div class="stat-item">
             <h4>530k</h4>
             <p>U.S. Home Speakers</p>
           </div>
-          
+
           <div class="stat-item">
             <h4>30M+</h4>
             <p>Global Cantonese Diaspora</p>
@@ -266,7 +280,7 @@
       <div class="content-wrapper">
         <h2 class="sub-heading">Public History · Oral History · Cultural Research</h2>
         <h1 class="main-title">CANTONESE IN<br>THE AMERICAS</h1>
-        
+
         <div class="text-body">
           <p>
             Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.
@@ -282,5 +296,41 @@
 
   <div id="footer-container"></div>
 
+  <script>
+    // === Same anti-shake logic: sync real header height AFTER header.js injects ===
+    (function () {
+      function syncHeaderHeight() {
+        const header = document.querySelector('header') || document.querySelector('.site-header');
+        if (!header) return false;
+
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        if (h > 0) {
+          document.documentElement.style.setProperty('--header-h', h + 'px');
+          const holder = document.getElementById('header-container');
+          if (holder) holder.style.height = h + 'px';
+          return true;
+        }
+        return false;
+      }
+
+      function markReady() {
+        document.documentElement.classList.remove('preload');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let tries = 0;
+        (function waitHeader() {
+          tries++;
+          if (syncHeaderHeight()) { markReady(); return; }
+          if (tries > 60) { markReady(); return; }
+          requestAnimationFrame(waitHeader);
+        })();
+
+        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
+      });
+    })();
+  </script>
+
 </body>
 </html>
+```
