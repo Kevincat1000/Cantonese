@@ -57,7 +57,7 @@
       align-items: stretch; 
     }
 
-    /* === 核心修改：全局文字内容区域 === */
+    /* === 全局文字内容区域 === */
     .col-content {
       flex: 1;
       flex-basis: 50%;
@@ -66,20 +66,17 @@
       flex-direction: column;
       justify-content: center; /* 垂直居中 */
       
-      /* 
-         ✅ 修改点：严格按照您的要求设置间距
-         Top: 50px
-         Right: 40px
-         Bottom: 40px
-         Left: 40px
-      */
+      /* 全局标准间距：上50, 右40, 下40, 左40 */
       padding: 50px 40px 40px 40px; 
     }
 
-    /* 针对第一个板块微调，防止 Header 下方留白过大，
-       如果觉得太紧凑，可以将 padding-top 改回 50px */
+    /* 
+       === 【关键修复】针对第一个板块消除顶部留白 ===
+       因为 Header 上方已经有占位符了，这里我们将 padding-top 设为 0 或者极小值。
+       这样文字就会紧紧贴在 Header 阴影下方。
+    */
     #symbol01 .col-content {
-      padding-top: 20px; 
+      padding-top: 5px !important; /* 强制覆盖全局的 50px */
     }
 
     /* 图片区域：绝对定位实现等高 */
@@ -110,6 +107,7 @@
       color: #701a1a;
       margin-bottom: 15px; 
       display: block;
+      margin-top: 0; /* 确保没有顶部外边距 */
     }
 
     .subtitle {
@@ -120,7 +118,7 @@
       margin-bottom: 20px;
       line-height: 1.1;
       color: #000;
-      margin-top: 0;
+      margin-top: 0; /* 确保没有顶部外边距 */
     }
 
     p {
@@ -155,7 +153,8 @@
       .col-image img { position: relative; } 
       .section-split .col-image { order: -1; }
       .col-content { padding: 30px 20px; }
-      #symbol01 .col-content { padding-top: 30px; }
+      /* 移动端稍微给一点呼吸空间 */
+      #symbol01 .col-content { padding-top: 20px !important; }
     }
 
     html.preload body { opacity: 0; }
@@ -163,7 +162,7 @@
     #header-injection-point { height: var(--header-h); }
 
     /* ============================================================
-       ✅ Symbol03 (舞狮) 修复版：更透 + 去圆角
+       Symbol03 (舞狮) 修复版：更透 + 无圆角
        ============================================================ */
     #symbol03 {
       background-image: url("https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840");
@@ -174,7 +173,7 @@
     }
 
     #symbol03 .col-content {
-      /* ✅ 修改：透明度降低 (0.85 -> 0.60, 0.75 -> 0.40) */
+      /* 透明度调整：更透 (0.6 -> 0.4) */
       background: linear-gradient(
         135deg,
         rgba(245, 240, 229, 0.60) 0%,
@@ -185,7 +184,7 @@
       
       margin: 60px 40px; 
       
-      /* ✅ 修改：去除圆角 */
+      /* 去除圆角 */
       border-radius: 0; 
       
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
@@ -201,10 +200,7 @@
 
     @media (max-width: 768px) {
       #symbol03 { padding: 20px 0; }
-      #symbol03 .col-content {
-        margin: 20px;
-        flex: 1 1 auto;
-      }
+      #symbol03 .col-content { margin: 20px; flex: 1 1 auto; }
       #symbol03 .col-image { display: none; }
     }
 
@@ -251,9 +247,18 @@
 
 <body>
 
+  <!-- 
+    ✅ 1. 占位符：它负责占据 Header 的高度。
+    Header 是 fixed 的，这行代码会让页面内容自动往下移一个 Header 的高度。
+  -->
   <div id="header-injection-point"></div>
 
-  <main style="padding-top: var(--header-h);">
+  <!-- 
+    ✅ 2. 核心修复：
+    删除了 style="padding-top:..."。
+    之前这里重复加了 padding，导致双倍空白。现在只靠上面的 div 占位，空白会消失。
+  -->
+  <main>
     
     <!-- Culture Symbol 01: Religion -->
     <section id="symbol01" class="section-split">
@@ -287,7 +292,7 @@
       </div>
     </section>
 
-    <!-- Culture Symbol 03: Lion Dance (Updated Glass Effect) -->
+    <!-- Culture Symbol 03: Lion Dance -->
     <section id="symbol03" class="section-split">
       <div class="col-content">
         <span class="section-label">Culture Symbol 03</span>
@@ -305,11 +310,12 @@
       </div>
     </section>
 
-    <!-- Culture Symbol 04: Opera (YouTube Link Update) -->
+    <!-- Culture Symbol 04: Opera -->
     <section id="symbol04" class="section-split">
       <div class="col-image">
         <div class="video-container">
-          <!-- ✅ 如果您想修改链接，请替换 src 引号内的内容 -->
+          <!-- ✅ 请在此处粘贴您的新 YouTube 链接 -->
+          <!-- 默认保留了之前的链接，如果不改，直接运行即可 -->
           <iframe src="https://www.youtube.com/embed/S2gZqWq8n6k?si=123" allowfullscreen></iframe>
         </div>
         <div class="video-caption">
