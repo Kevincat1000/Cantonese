@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cantonese in Americas</title>
-
-  <!-- Fonts -->
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -39,10 +38,8 @@
       overflow-x: hidden;
     }
 
-    /* Header 随页面滚动 */
-    #header-wrapper, 
-    #header-wrapper header, 
-    .site-header {
+    header[data-site-header="1"],
+    header[data-site-header="1"] .mobile-nav-menu {
       position: absolute !important;
       top: 0 !important;
       left: 0 !important;
@@ -54,7 +51,7 @@
     main {
       width: 100%;
       flex: 1;
-      padding-top: 100px; 
+      padding-top: 100px;
       padding-bottom: 100px;
     }
 
@@ -99,10 +96,9 @@
       color: #000;
     }
 
-    /* 信息块容器 */
     .info-wrapper {
       position: absolute;
-      right: 20px; 
+      right: 20px;
       top: -4px;
       display: flex;
       flex-direction: column;
@@ -115,7 +111,6 @@
       gap: 12px;
     }
 
-    /* CSS 极细括号 (1px) */
     .css-bracket {
       width: 8px;
       border-top: 1px solid var(--bracket-color);
@@ -123,10 +118,10 @@
       margin-top: 2px;
       margin-bottom: 2px;
     }
+
     .bracket-left { border-left: 1px solid var(--bracket-color); }
     .bracket-right { border-right: 1px solid var(--bracket-color); }
 
-    /* 内部文字固定宽度，确保对齐 */
     .inner-info {
       display: flex;
       flex-direction: column;
@@ -150,7 +145,6 @@
       max-width: 210px;
     }
 
-    /* 视频缩略图 */
     .video-thumb {
       width: 50%;
       aspect-ratio: 16 / 9;
@@ -210,7 +204,6 @@
       transform: scale(1.1);
     }
 
-    /* 弹窗 */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -224,7 +217,7 @@
     .modal-overlay.active { display: flex; }
 
     .modal-content {
-      width: 70%; /* Desktop 默认宽度 */
+      width: 70%;
       aspect-ratio: 16 / 9;
       background: #000;
       box-shadow: 0 30px 60px rgba(0,0,0,0.1);
@@ -248,7 +241,6 @@
     }
     .close-btn:hover { background: rgba(112, 26, 26, 0.06); }
 
-    /* --- 手机端适配 --- */
     @media (max-width: 768px) {
       :root { --title-x: 50vw; }
       main { padding-top: 80px; }
@@ -281,17 +273,13 @@
 
       .video-thumb { width: 90%; order: 4; }
       
-      /* ✅ 修复手机端视频弹窗宽度 */
       .modal-content {
         width: 95%;
       }
       
-      /* 手机端关闭按钮稍微调小一点，防止挡住视频 */
       .close-btn {
-        top: 15px;
-        left: 15px;
-        width: 40px;
-        height: 40px;
+        top: 15px; left: 15px;
+        width: 40px; height: 40px;
         font-size: 24px;
       }
 
@@ -310,7 +298,6 @@
 
   <main>
 
-    <!-- [ A ] ANDY LEE -->
     <div class="row">
       <div class="left-col">
         <div class="section-title">INTERVIEW FILES</div>
@@ -344,7 +331,6 @@
       </div>
     </div>
 
-    <!-- [ B ] PHOEBE -->
     <div class="row">
       <div class="left-col">
         <div class="info-wrapper">
@@ -370,7 +356,6 @@
       </div>
     </div>
 
-    <!-- [ C ] HEDY -->
     <div class="row">
       <div class="left-col">
         <div class="info-wrapper">
@@ -396,13 +381,11 @@
       </div>
     </div>
 
-    <!-- [ D ] -->
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ D ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_D"></div></div>
     </div>
 
-    <!-- [ E ] -->
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ E ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_E"></div></div>
@@ -410,7 +393,6 @@
 
     <div style="height: 80px;"></div>
 
-    <!-- CULTURE RECORD SECTION -->
     <div class="row" id="culture-section-start">
       <div class="left-col">
         <div class="section-title">CULTURE RECORD</div>
@@ -428,7 +410,6 @@
 
   <div id="footer-container"></div>
 
-  <!-- 视频弹窗 -->
   <div class="modal-overlay" id="modalOverlay">
     <button class="close-btn" id="closeBtn" aria-label="Close">×</button>
     <div class="modal-content">
