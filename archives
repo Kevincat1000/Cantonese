@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" class="preload">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Cantonese in Americas</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Scripts (ONLY injectors) -->
+  <script src="./assets/header.js" defer></script>
+  <script src="./assets/footer.js" defer></script>
+
+  <style>
+    :root {
+      --bg-color: #f5f0e5;
+      --text-color: #000000;
+      --header-h: 60px; /* fallback; JS will sync real height */
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Exo', sans-serif;
+      font-size: 12px;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #header-injection-point { width: 100%; }
+    #header-spacer {
+      height: var(--header-h);
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    main {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+
+    .content-wrapper {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 60px;
+    }
+
+    .text-column {
+      flex: 6;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .image-column {
+      flex: 4;
+      position: relative;
+    }
+
+    .text-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 20px;
+    }
+
+    .label {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1.4;
+      white-space: nowrap;
+      color: #000;
+    }
+
+    .text-content {
+      line-height: 1.8;
+      text-align: justify;
+      text-justify: inter-word;
+      font-weight: 400;
+      color: #000;
+    }
+
+    .text-content p { margin-bottom: 15px; }
+    .text-content p:last-child { margin-bottom: 0; }
+
+    .image-container {
+      width: 100%;
+      height: 350px;
+      background-color: #ddd;
+      overflow: hidden;
+      position: relative;
+      filter: grayscale(100%) contrast(1.1);
+    }
+
+    .image-inner {
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop');
+      background-position: center;
+      background-size: cover;
+    }
+
+    .image-container::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=');
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    footer, #footer-container, .site-footer { flex-shrink: 0; }
+
+    @media (max-width: 900px) {
+      .content-wrapper { flex-direction: column-reverse; gap: 30px; }
+      .image-container { height: 250px; }
+      .text-row { grid-template-columns: 1fr; gap: 8px; }
+    }
+
+    /* ✅ Anti-flash: hide until header height is synced (safe + minimal) */
+    html.preload body { opacity: 0; }
+    body { transition: opacity .15s ease; }
+  </style>
+</head>
+
+<body>
+  <!-- header.js will inject header here -->
+  <div id="header-injection-point"></div>
+  <!-- reserve space so content doesn't jump -->
+  <div id="header-spacer" aria-hidden="true"></div>
+
+  <main>
+    <div class="content-wrapper">
+
+      <!-- Left Column -->
+      <div class="text-column">
+
+        <!-- About Me -->
+        <div class="text-row">
+          <div class="label">
+            About Me &<br>This Project
+          </div>
+          <div class="text-content">
+            <p>
+              Hi, I’m Kevin. This project started in a pretty simple way: I really like dim sum. Growing up, it was something I always looked forward to, but over time, I started wondering how these traditions traveled so far from where they began. Visiting Hong Kong last summer made everything feel real to me. It pushed me to look beyond just enjoying the culture and start asking questions about where it comes from.
+            </p>
+            <p>
+              I started working on this six months ago, and I plan to spend the next year finishing it. I like filming and recording things, so instead of just reading textbooks, I decided to learn through interviews. I’m talking to people from different generations about their families, their languages, and the traditions they keep. My goal is to understand how Cantonese culture moves across places and time through the lens of ordinary routines and everyday stories.
+            </p>
+          </div>
+        </div>
+
+        <!-- Note -->
+        <div class="text-row">
+          <div class="label">Note</div>
+          <div class="text-content">
+            <p>
+              In this project, the term 'Cantonese' is employed in a broad geographic and historical sense to denote migrants from Guangdong Province and their descendants across the diaspora. While diverse groups like the Hakka and Teochew existed, the social dynamics of early Chinatowns established Cantonese as the dominant lingua franca, compelling these communities to adopt the vernacular for survival. Thus, 'Cantonese' here reflects a collective historical identity rather than a strict linguistic category.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column -->
+      <div class="image-column">
+        <div class="image-container">
+          <div class="image-inner"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script>
+    (function () {
+      const spacer = document.getElementById('header-spacer');
+
+      function findHeaderEl() {
+        // header.js might inject <header> or .site-header
+        return document.querySelector('header') || document.querySelector('.site-header');
+      }
+
+      function syncHeaderHeight() {
+        const header = findHeaderEl();
+        if (!header) return false;
+
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        if (h > 0) {
+          document.documentElement.style.setProperty('--header-h', h + 'px');
+          if (spacer) spacer.style.height = h + 'px';
+          return true;
+        }
+        return false;
+      }
+
+      function showPage() {
+        document.documentElement.classList.remove('preload');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let tries = 0;
+        (function tick() {
+          tries++;
+          if (syncHeaderHeight()) { showPage(); return; }
+          if (tries > 80) { showPage(); return; } // fail-safe
+          requestAnimationFrame(tick);
+        })();
+
+        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
+        window.addEventListener('resize', () => syncHeaderHeight());
+      });
+    })();
+  </script>
+</body>
+</html>
