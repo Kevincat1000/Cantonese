@@ -18,9 +18,12 @@
     :root {
       --bg-color: #f5f0e5;
       --text-black: #000000;
-      --accent-maroon: #701a1a;
+      --accent-green: #3c6d3c;
       --header-h: 60px;
       --video-gap: 25px;
+
+      /* ✅ 标题在屏幕左侧约 20% 的位置（桌面端） */
+      --title-x: 20vw;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,22 +39,28 @@
       overflow-x: hidden;
     }
 
-    /* --- Header 隐藏逻辑修复 --- */
+    /* ✅ 2) Header 不再固定：让它跟随页面自然滚动 */
     #header-wrapper {
-      position: fixed;
-      top: 0;
+      position: static;
       width: 100%;
-      z-index: 2000;
-      transition: top 0.4s ease-in-out;
-      background-color: var(--bg-color); /* 确保背景不透明 */
+      z-index: auto;
+      background-color: var(--bg-color);
     }
-    .header-up { top: -100px !important; } /* 隐藏高度 */
+
+    /* 如果 header.js 里给 header / .site-header 写了定位，这里提高选择器优先级覆盖它（不使用 important） */
+    #header-wrapper header,
+    #header-wrapper .site-header {
+      position: static;
+      top: auto;
+      left: auto;
+      right: auto;
+    }
 
     /* --- 布局核心 --- */
     main {
       width: 100%;
       flex: 1;
-      padding-top: 80px; /* 留出header空间 */
+      padding-top: 40px;   /* ✅ 现在不需要为 fixed header 让位了 */
       padding-bottom: 100px;
     }
 
@@ -74,10 +83,10 @@
       padding-left: 40px; /* 视频离中线 40px */
     }
 
-    /* 栏目标题：Exo 600, 14px, 黑色, 左边栏居中 */
+    /* ✅ 1) 左侧标题“离左边屏幕约 20%”对齐显示 */
     .section-title {
       position: absolute;
-      left: 50%;
+      left: var(--title-x);
       transform: translateX(-50%);
       top: 0;
       font-size: 14px;
@@ -85,16 +94,17 @@
       color: var(--text-black);
       text-transform: uppercase;
       white-space: nowrap;
+      pointer-events: none; /* 避免遮挡点击区域（安全处理） */
     }
 
-    /* 括号：Exo 400, 14px, #701a1a, 离中线 5px */
+    /* ✅ 3) 括号/字母颜色改为 #3c6d3c */
     .bracket-label {
       position: absolute;
       right: 5px;
       top: 0;
       font-size: 14px;
       font-weight: 400;
-      color: var(--accent-maroon);
+      color: var(--accent-green);
     }
 
     /* 视频缩略图 */
@@ -135,7 +145,7 @@
       left: 30px;
       width: 45px;
       height: 45px;
-      background: var(--accent-maroon);
+      background: var(--accent-green); /* 顺手统一一下关闭按钮颜色（可删） */
       color: #fff;
       border-radius: 50%;
       display: flex;
@@ -148,6 +158,8 @@
 
     /* --- 手机端程序调整 --- */
     @media (max-width: 768px) {
+      :root { --title-x: 50vw; } /* 手机端标题居中更自然（你也可以删掉这一行） */
+
       .row {
         flex-direction: column;
         align-items: center;
@@ -182,7 +194,7 @@
       }
       /* 第二板块的标题逻辑同理 */
       #culture-section-start .section-title {
-        display: block !important;
+        display: block;
       }
     }
 
@@ -194,11 +206,8 @@
   <div id="header-wrapper">
     <div id="header-injection-point"></div>
   </div>
-  
-  <div id="header-spacer" style="height: var(--header-h);" aria-hidden="true"></div>
 
   <main>
-    
     <!-- INTERVIEW FILES SECTION -->
     <div class="row">
       <div class="left-col">
@@ -243,7 +252,6 @@
       <div class="left-col"><div class="bracket-label">[ G ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_G"></div></div>
     </div>
-
   </main>
 
   <div id="footer-container"></div>
@@ -257,23 +265,6 @@
   </div>
 
   <script>
-    // --- Header 滚动隐藏/显示逻辑修复 ---
-    let lastScrollTop = 0;
-    const headerWrapper = document.getElementById('header-wrapper');
-
-    window.addEventListener('scroll', function() {
-      let st = window.pageYOffset || document.documentElement.scrollTop;
-      
-      if (st > lastScrollTop && st > 100) {
-        // 向下滚动 -> 隐藏
-        headerWrapper.classList.add('header-up');
-      } else {
-        // 向上滚动 -> 显示
-        headerWrapper.classList.remove('header-up');
-      }
-      lastScrollTop = st <= 0 ? 0 : st;
-    }, false);
-
     // --- 弹窗逻辑 ---
     const overlay = document.getElementById('modalOverlay');
     const iframe = document.getElementById('videoIframe');
@@ -290,26 +281,14 @@
 
     closeBtn.addEventListener('click', () => {
       overlay.classList.remove('active');
-      iframe.src = ""; 
+      iframe.src = "";
       document.body.style.overflow = 'auto';
     });
 
-    // --- 同步高度逻辑 ---
-    (function () {
-      function sync() {
-        const header = document.querySelector('header') || document.querySelector('.site-header');
-        if (header) {
-          const h = header.offsetHeight;
-          document.documentElement.style.setProperty('--header-h', h + 'px');
-          document.getElementById('header-spacer').style.height = h + 'px';
-        }
-      }
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(sync, 500);
-        document.documentElement.classList.remove('preload');
-      });
-      window.addEventListener('resize', sync);
-    })();
+    // --- preload 去闪动 ---
+    document.addEventListener('DOMContentLoaded', () => {
+      document.documentElement.classList.remove('preload');
+    });
   </script>
 </body>
 </html>
