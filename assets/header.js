@@ -1,7 +1,6 @@
 (function () {
   "use strict";
 
-  // --- 配置区域：您的所有页面列表 ---
   const PAGES_TO_SCAN = [
     { url: "index.html", title: "Home" },
     { url: "about.html", title: "About Us" },
@@ -18,17 +17,14 @@
 
   const HEADER_SEL = "header[data-site-header='1']";
 
-  // --- 1. CSS 样式 ---
   function insertHeaderStyles() {
     if (document.getElementById("header-styles")) return;
 
     const css = `
       html { scrollbar-gutter: stable; }
       
-      /* 高亮颜色 */
       mark.search-highlight { background-color: #3c6d3c; color: #ffffff; padding: 0 2px; border-radius: 2px; }
 
-      /* Header 基础样式 */
       header[data-site-header="1"]{
         background:#F5F0E5; border-bottom:none; position:fixed; top:0; left:0; right:0; z-index:1000;
         transform:translateY(0); transition:transform .28s ease-in-out;
@@ -42,24 +38,20 @@
       header[data-site-header="1"] .header-container{ width: 100%; max-width: none; margin: 0; padding: 0 40px; box-sizing: border-box; }
       header[data-site-header="1"] .header-content{ display:flex; align-items:center; justify-content:space-between; padding:.5rem 0; gap:1rem; min-height:55px; box-sizing:border-box; }
       
-      /* Logo */
       header[data-site-header="1"] .logo{ text-align:left; text-decoration:none; color:inherit; padding:0 .5rem 0 0; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
       header[data-site-header="1"] .logo-main{ font-family:'Exo', sans-serif; font-size:18px; font-weight:800; color:#701a1a; letter-spacing:0.02em; line-height:1; text-transform: uppercase; }
       header[data-site-header="1"] .logo-sub{ font-family:'Exo', sans-serif; font-size:11px; font-weight:600; color:#701a1a; letter-spacing:0.15em; line-height:1.2; margin-top:2px; text-transform: uppercase; }
 
-      /* Desktop Nav */
       header[data-site-header="1"] .nav-menu{ display:none; align-items:center; justify-content:flex-end; gap:1.25rem; margin-left:auto; }
       @media (min-width:768px){ header[data-site-header="1"] .nav-menu{ display:flex; } }
       
       header[data-site-header="1"] .nav-link{ color:#050505; text-decoration:none; font-size:14px; font-weight:600; letter-spacing:.3px; transition:color .25s; display:inline-flex; align-items:center; padding:.5rem 0; cursor:pointer; line-height:1.5; white-space:nowrap; }
       header[data-site-header="1"] .nav-link:hover{ color:#701a1a; }
 
-      /* --- Desktop Search (电脑端搜索) --- */
       header[data-site-header="1"] .header-search{ display:none; align-items:center; gap:.5rem; position: relative; }
       @media (min-width:768px){ header[data-site-header="1"] .header-search{ display:flex; } }
       
-      /* 修复：宽度固定为 200px，移除聚焦变长效果 */
-      header[data-site-header="1"] .header-search input{ width:200px; height:32px; border-radius:6px; border:1px solid #E5DBCA; background:#F5F0E5; padding:0 10px; font-size:14px; line-height:32px; outline:none; }
+      header[data-site-header="1"] .header-search input{ width:160px; height:32px; border-radius:6px; border:1px solid #E5DBCA; background:#F5F0E5; padding:0 10px; font-size:14px; line-height:32px; outline:none; }
       header[data-site-header="1"] .header-search input::placeholder{ color:#888; }
       header[data-site-header="1"] .header-search input:focus{ border-color:#8B2332; }
       
@@ -67,7 +59,6 @@
       header[data-site-header="1"] .header-search button:hover{ color:#8B2332; border-color:#8B2332; }
       header[data-site-header="1"] .header-search button svg{ width:16px; height:16px; }
 
-      /* Dropdown Results (Desktop) - 米色背景 */
       .search-results-dropdown { position: absolute; top: 100%; right: 0; width: 300px; background: #F5F0E5; border: 1px solid #E5DBCA; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 8px; max-height: 400px; overflow-y: auto; z-index: 1001; display: none; }
       .search-results-dropdown.active { display: block; }
       
@@ -77,7 +68,6 @@
       .search-result-snippet { display: block; color: #666; font-size: 12px; line-height: 1.4; }
       .search-no-results { padding: 12px; color: #888; font-size: 13px; text-align: center; }
       
-      /* --- Mobile Menu & Search (手机端) --- */
       header[data-site-header="1"] .mobile-menu-btn{ display:block; background:none; border:none; cursor:pointer; padding:.5rem; color:#333; }
       @media (min-width:768px){ header[data-site-header="1"] .mobile-menu-btn{ display:none; } }
       header[data-site-header="1"] .mobile-menu-btn svg{ width:22px; height:22px; }
@@ -85,9 +75,8 @@
       header[data-site-header="1"] .mobile-nav-menu{ display:none; position:fixed; top:var(--header-h, 55px); left:0; right:0; background:#F5F0E5; border-bottom:1px solid #e5e5e5; box-shadow:0 4px 6px -1px rgba(0,0,0,.1); z-index:990; max-height:calc(100vh - var(--header-h, 55px)); overflow-y:auto; }
       header[data-site-header="1"] .mobile-nav-menu.active{ display:block; }
       
-      /* Mobile Search Styling */
       .mobile-search-wrapper { padding: 15px 20px; border-bottom: 1px solid #E5DBCA; }
-      .mobile-search-inner { display: flex; align-items: center; background: #fff; border: 1px solid #E5DBCA; border-radius: 6px; padding: 0 10px; height: 40px; }
+      .mobile-search-inner { display: flex; align-items: center; background: #F5F0E5; border: 1px solid #E5DBCA; border-radius: 6px; padding: 0 10px; height: 40px; }
       .mobile-search-inner svg { width: 20px; height: 20px; color: #888; margin-right: 8px; flex-shrink: 0; }
       .mobile-search-inner input { border: none; background: transparent; height: 100%; width: 100%; font-size: 16px; outline: none; color: #333; }
       
@@ -106,9 +95,7 @@
     document.head.appendChild(style);
   }
 
-  // --- 2. HTML 结构插入 ---
   function insertHeaderHTML() {
-    // 如果 Body 还没准备好，等一下再插
     if (!document.body) return;
 
     const headerHTML = `
@@ -120,7 +107,6 @@
               <div class="logo-sub">IN THE AMERICAS</div>
             </a>
             
-            <!-- Desktop Nav & Search -->
             <nav class="nav-menu" aria-label="Primary">
               <a href="about.html" class="nav-link">About</a>
               <a href="timeline.html" class="nav-link">Timeline</a>
@@ -139,7 +125,6 @@
             <button class="mobile-menu-btn" id="mobileMenuBtn"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg></button>
           </div>
 
-          <!-- Mobile Nav Menu (With Search) -->
           <nav class="mobile-nav-menu" id="mobileNavMenu">
             <div class="mobile-search-wrapper" id="mobileSearchWrapper">
                <div class="mobile-search-inner">
@@ -181,13 +166,11 @@
     window.addEventListener("load", () => requestAnimationFrame(update), { once: true });
   }
 
-  // --- 3. 核心：数据抓取与搜索逻辑 ---
   function initAutoIndexSearch() {
     let searchIndex = [];
     let isIndexed = false;
     let isFetching = false;
 
-    // 抓取数据
     async function fetchData() {
       if (isIndexed || isFetching) return;
       isFetching = true;
@@ -210,20 +193,17 @@
       isIndexed = true;
     }
 
-    // 绑定搜索逻辑
     function bindSearch(wrapperId, inputId, resultsId) {
       const wrapper = document.getElementById(wrapperId);
       const input = document.getElementById(inputId);
       const resultsContainer = document.getElementById(resultsId);
       if (!wrapper || !input || !resultsContainer) return;
 
-      // 聚焦时抓取
       input.addEventListener("focus", async () => {
         await fetchData();
         if (input.value.trim()) performSearch(input.value.trim());
       });
 
-      // 输入时搜索
       input.addEventListener("input", (e) => performSearch(e.target.value.trim()));
 
       function performSearch(query) {
@@ -275,21 +255,17 @@
         resultsContainer.classList.add("active");
       }
 
-      // 点击外部关闭
       document.addEventListener("click", (e) => {
-        // 只有当点击既不在Wrapper内，也不在Results内时才关闭
         if (!wrapper.contains(e.target)) {
             resultsContainer.classList.remove("active");
         }
       });
     }
 
-    // 绑定两套搜索框
     bindSearch("desktopSearchWrapper", "desktopSearchInput", "desktopSearchResults");
     bindSearch("mobileSearchWrapper", "mobileSearchInput", "mobileSearchResults");
   }
 
-  // --- 4. 高亮逻辑 ---
   function initHighlighter() {
     const params = new URLSearchParams(window.location.search);
     const term = params.get("highlight");
@@ -319,7 +295,6 @@
     if (firstMark) setTimeout(() => firstMark.scrollIntoView({ behavior: "smooth", block: "center" }), 500);
   }
 
-  // --- 5. 手机菜单逻辑 ---
   function initMobileMenu() {
     const headerEl = document.querySelector(HEADER_SEL);
     if (!headerEl) return;
@@ -336,12 +311,10 @@
       a.addEventListener("click", () => setOpen(false));
     });
     document.addEventListener("click", (e) => {
-      // 防止点击搜索框时关闭菜单
       if (!btn.contains(e.target) && !menu.contains(e.target)) setOpen(false);
     });
   }
 
-  // --- 6. 启动 ---
   function boot() {
     insertHeaderStyles();
     insertHeaderHTML();
