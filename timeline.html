@@ -5,17 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Timeline - Cantonese in Americas</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Mapbox CSS & JS (Library) -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
 
-  <!-- Custom Scripts -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
   <script src="./assets/mapbox.js" defer></script>
@@ -25,7 +22,7 @@
       --bg: #f5f0e5;
       --text: #1a1a1a;
       --mask-color: #e3bd28;
-      --header-h: 48px; /* Default fallback */
+      --header-h: 48px;
     }
 
     * { box-sizing: border-box; }
@@ -42,7 +39,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* --- Header Style --- */
     header {
       position: fixed !important;
       top: 0; left: 0; width: 100%;
@@ -56,7 +52,6 @@
       display: none !important;
     }
 
-    /* --- Main Layout --- */
     main {
       width: 100%;
       min-height: 100vh;
@@ -65,7 +60,6 @@
       padding-bottom: 100px;
     }
 
-    /* --- Gallery Section --- */
     .gallery-container {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -86,7 +80,6 @@
       cursor: pointer;
     }
 
-    /* --- Typography --- */
     .item-info {
       position: absolute;
       bottom: 100%; left: 0; width: 100%;
@@ -99,7 +92,7 @@
     .item-number {
       display: block;
       font-family: 'Exo', sans-serif;
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.5px;
       color: #000;
@@ -116,7 +109,6 @@
       color: #1a1a1a;
     }
 
-    /* Image Styles */
     .image-container {
       width: 100%;
       height: 100%;
@@ -153,7 +145,6 @@
     }
     .gallery-item:hover .image-wrapper::after { opacity: 0; }
 
-    /* --- Migration Map Section --- */
     .map-section {
       width: 100%;
       margin-top: 120px;
@@ -184,7 +175,6 @@
 
     .svg-filters { position: absolute; width: 0; height: 0; visibility: hidden; }
 
-    /* --- Scroll Down Arrow --- */
     .scroll-arrow-container {
       position: fixed;
       bottom: 25px;
@@ -222,7 +212,6 @@
 
     .scroll-arrow-container:hover .scroll-arrow-svg { animation-play-state: paused; }
 
-    /* --- Responsive --- */
     @media (max-width: 900px) {
       main { padding-top: calc(var(--header-h) + 8vh); }
       .gallery-container { grid-template-columns: repeat(2, 1fr); height: auto; gap: 50px; }
@@ -230,7 +219,6 @@
       #diaspora-map { width: 90vw; }
     }
     @media (max-width: 600px) {
-      /* ✅ 修改点：小屏幕上移 */
       main { padding-top: calc(var(--header-h) + 6vh); }
       .gallery-container { grid-template-columns: 1fr; height: auto; padding: 0 30px; gap: 60px; }
       .gallery-item { height: 350px; }
@@ -244,7 +232,6 @@
 
 <body>
 
-  <!-- Header Placeholder (Hidden by CSS) -->
   <div id="header-injection-point"></div>
 
   <svg class="svg-filters">
@@ -297,7 +284,6 @@
       </a>
     </div>
 
-    <!-- Scroll Indicator Arrow -->
     <div class="scroll-arrow-container" id="scrollArrow">
       <svg class="scroll-arrow-svg" viewBox="0 0 14 30" preserveAspectRatio="none">
         <line x1="7" y1="0" x2="7" y2="28" class="arrow-path" />
@@ -308,13 +294,11 @@
 
     <div class="map-section" id="mapSection">
       <div class="map-title">Migration map</div>
-      <!-- Mapbox Container -->
       <div id="diaspora-map"></div>
     </div>
   </main>
 
   <script>
-    // === Header Sync logic ===
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
@@ -346,7 +330,6 @@
       });
     })();
 
-    // --- Water Ripple Effect ---
     const turb = document.getElementById('turbulence');
     let step = 0;
     let requestID = null;
@@ -368,7 +351,6 @@
       });
     });
 
-    // --- Scroll & Arrow Logic ---
     let lastScrollY = window.scrollY;
     const arrow = document.getElementById('scrollArrow');
     const mapSection = document.getElementById('mapSection');
