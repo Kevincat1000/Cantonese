@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cantonese Culture Symbols</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Header/Footer 注入脚本 -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
@@ -20,7 +18,7 @@
       --bg: #f5f0e5; 
       --text: #1a1a1a;
       --accent: #a84d4d;
-      --header-h: 88px; /* ✅ 给一个更稳的默认值（最终会被JS自动更新） */
+      --header-h: 88px;
     }
 
     * { box-sizing: border-box; }
@@ -48,17 +46,14 @@
     }
     .header-hidden { transform: translateY(-100%) !important; }
 
-    /* ✅ 关键：header没注入完成前，不让内容露出来 */
     html.preload body { opacity: 0; }
     body { transition: opacity .15s ease; }
 
-    /* ✅ 顶部占位始终存在，避免header出现后顶内容 */
     #header-injection-point {
       height: var(--header-h);
       min-height: var(--header-h);
     }
 
-    /* --- 分栏布局 (Split Layout) --- */
     .section-split {
       display: flex;
       flex-wrap: wrap;
@@ -67,7 +62,6 @@
       align-items: stretch; 
     }
 
-    /* === 全局文字内容区域 === */
     .col-content {
       flex: 1;
       flex-basis: 50%;
@@ -78,10 +72,8 @@
       padding: 50px 40px 40px 40px; 
     }
 
-    /* 针对第一个板块消除顶部留白 */
     #symbol01 .col-content { padding-top: 5px !important; }
 
-    /* 图片区域 */
     .col-image {
       flex: 1;
       flex-basis: 50%;
@@ -98,7 +90,6 @@
       display: block;
     }
 
-    /* --- 字体排版 --- */
     .section-label {
       font-family: 'Exo', sans-serif;
       font-size: 12px;
@@ -146,7 +137,6 @@
       text-align: right;
     }
 
-    /* --- 移动端适配 --- */
     @media (max-width: 768px) {
       :root { --header-h: 72px; }
 
@@ -168,9 +158,6 @@
       }
     }
 
-    /* ============================================================
-       Symbol03 (舞狮) 修复版：更透 + 无圆角
-       ============================================================ */
     #symbol03 {
       background-image: url("https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840");
       background-repeat: no-repeat;
@@ -210,9 +197,6 @@
       #symbol03 .col-image { display: none; }
     }
 
-    /* ============================================================
-       Symbol04 (视频+图片)
-       ============================================================ */
     #symbol04 .col-image {
       display: flex;
       flex-direction: column;
@@ -259,7 +243,6 @@
   <div id="header-injection-point"></div>
 
   <main>
-    <!-- Culture Symbol 01: Religion -->
     <section id="symbol01" class="section-split">
       <div class="col-content">
         <span class="section-label">Culture Symbol 01</span>
@@ -267,9 +250,9 @@
 
         <p>Guangdong immigrants transplanted their spiritual landscape to the U.S. through a unique "Temple-Association" model. This integration of sacred and secular spaces—exemplified by the Tin How Temple in San Francisco (est. 1852)—served as a vital cultural nexus. Central to this spiritual ecosystem were specific deities chosen for the immigrant experience. Mazu (Tin How), originally a mortal woman from Fujian during the Song Dynasty, was deified into the Goddess of the Sea. For immigrants who survived the perilous voyage across the Pacific, she was the supreme guardian of wanderers and those drifting on the ocean.</p>
 
-        <p>Equally significant was Guandi, the God of War, who embodied righteousness, loyalty, and justice. The Cantonese reverence for Guandi is deeply rooted in their history as a migratory group moving south from the Central Plains. Throughout their historical migrations, they credited Guandi’s justice for their protection; thus, wherever they established a new foothold, Guandi was enshrined as the guardian who had accompanied them from their ancestral lands.</p>
+        <p>Equally significant was Guandi, the God of War, who embodied righteousness, loyalty, and justice. The Cantonese reverence for Guandi is deeply rooted in their history as a migratory group moving south from the Central Plains. Throughout their historical migrations, they credited Guandi's justice for their protection; thus, wherever they established a new foothold, Guandi was enshrined as the guardian who had accompanied them from their ancestral lands.</p>
 
-        <p>However, beyond the worship of deities, the most profound ritual was Ancestral Worship. For the Cantonese, venerating one’s lineage was the "priority" during festivals, often surpassing the worship of gods. As people living in a foreign land, this ritual was an act of not forgetting one's roots. Families would respectfully bring out ancestral spirit tablets and burn incense, not merely to pray, but to "report" to their forebears.</p>
+        <p>However, beyond the worship of deities, the most profound ritual was Ancestral Worship. For the Cantonese, venerating one's lineage was the "priority" during festivals, often surpassing the worship of gods. As people living in a foreign land, this ritual was an act of not forgetting one's roots. Families would respectfully bring out ancestral spirit tablets and burn incense, not merely to pray, but to "report" to their forebears.</p>
 
         <p>They would inform their ancestors that they had successfully settled down and continued the family line in the West. This ritual was a profound expression of gratitude, acknowledging that their survival was a blessing from the past. This intergenerational gratitude, passed down through the burning of incense, formed the core of a distinctly Cantonese culture of remembrance, allowing the community to maintain its "root" while navigating the challenges of a new world.</p>
       </div>
@@ -278,7 +261,6 @@
       </div>
     </section>
 
-    <!-- Culture Symbol 02: Cuisine -->
     <section id="symbol02" class="section-split">
       <div class="col-image">
         <img src="https://i.redd.it/4nqtfaaf33981.jpg" alt="Dim Sum">
@@ -293,7 +275,6 @@
       </div>
     </section>
 
-    <!-- Culture Symbol 03: Lion Dance -->
     <section id="symbol03" class="section-split">
       <div class="col-content">
         <span class="section-label">Culture Symbol 03</span>
@@ -311,11 +292,9 @@
       </div>
     </section>
 
-    <!-- Culture Symbol 04: Opera -->
     <section id="symbol04" class="section-split">
       <div class="col-image">
         <div class="video-container">
-          <!-- ✅ Updated YouTube embed: mldcDidGJCg -->
           <iframe
             src="https://www.youtube-nocookie.com/embed/mldcDidGJCg?rel=0&modestbranding=1"
             title="YouTube video player"
@@ -341,13 +320,12 @@
 
         <p>Cantonese Opera serves as a classic stage art that mixes singing, speaking, acting, and acrobatic fighting, combined with music, costumes, and makeup. It created a unique atmosphere known as the "Commoner's Symphony," where the audience would enjoy snacks while watching the show. This accessible and communal atmosphere allowed the opera to quickly weave itself into the fabric of daily life, offering spiritual comfort to early immigrants.</p>
 
-        <p>The opera arrived with the first wave of Cantonese immigrants. The first troupe, Hong Fook Tong, began performing in San Francisco in 1852. Over the next fifty years, the city saw the opening of countless theaters. During the first golden age in the 1870s, San Francisco’s Chinatown had four theaters operating at once. By the second golden age in the 1920s, the Great Star Theater and the Great China Theater opened within a year of each other. Both venues had over 700 seats and hosted daily performances.</p>
+        <p>The opera arrived with the first wave of Cantonese immigrants. The first troupe, Hong Fook Tong, began performing in San Francisco in 1852. Over the next fifty years, the city saw the opening of countless theaters. During the first golden age in the 1870s, San Francisco's Chinatown had four theaters operating at once. By the second golden age in the 1920s, the Great Star Theater and the Great China Theater opened within a year of each other. Both venues had over 700 seats and hosted daily performances.</p>
 
         <p>Print media played a crucial role in this success. With four daily Chinese newspapers in San Francisco, the press helped promote these shows. These theaters played a vital role in community life. They were not just for entertainment; they created a space for Cantonese merchants and the public to connect, shaping a modern and culturally rich image of Chinatown.</p>
       </div>
     </section>
 
-    <!-- Culture Symbol 05: Kung Fu -->
     <section id="symbol05" class="section-split">
       <div class="col-content">
         <span class="section-label">Culture Symbol 05</span>
@@ -364,7 +342,6 @@
     </section>
   </main>
 
-  <!-- ✅ 闪动修复：MutationObserver 等 header 真正注入后再显示页面 -->
   <script>
     (function () {
       const root = document.documentElement;
@@ -392,10 +369,8 @@
       }
 
       document.addEventListener('DOMContentLoaded', () => {
-        // 1) 先尝试一次（如果header已经在了，立刻放行）
         if (syncHeaderHeight()) reveal();
 
-        // 2) 监听 DOM：header 一旦被注入就立刻校准高度并放行
         const obs = new MutationObserver(() => {
           if (syncHeaderHeight()) {
             reveal();
@@ -404,19 +379,15 @@
         });
         obs.observe(document.body, { childList: true, subtree: true });
 
-        // 3) 字体加载会改变header高度，补一刀
         if (document.fonts && document.fonts.ready) {
           document.fonts.ready.then(() => syncHeaderHeight()).catch(() => {});
         }
 
-        // 4) load兜底：如果header注入失败，也要显示页面（避免黑屏）
         window.addEventListener('load', () => {
           if (!document.body.classList.contains('header-ready')) {
-            // 若此时header终于出现，优先校准；否则直接放行
             syncHeaderHeight();
             reveal();
           } else {
-            // 已放行也再校准一次，避免高度二次变化
             syncHeaderHeight();
             setTimeout(syncHeaderHeight, 200);
           }
@@ -425,7 +396,6 @@
         window.addEventListener('resize', syncHeaderHeight);
       });
 
-      // ✅ scroll隐藏header（保持你原逻辑，但用passive更稳）
       let lastScrollTop = 0;
       window.addEventListener('scroll', function () {
         if (!document.body.classList.contains('header-ready')) return;
