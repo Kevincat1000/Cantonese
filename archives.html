@@ -21,9 +21,8 @@
       --text-black: #000000;
       --accent-maroon: #701a1a;
       --header-h: 60px;
-      --video-gap: 25px;
+      --video-gap: 35px; /* 稍微增加间距以容纳下方的斜体字 */
       --title-x: 20vw;
-      /* ⬇️ 全局边框变量设为0，但保留变量以便Close按钮单独使用 */
       --border-w: 2px; 
     }
 
@@ -89,7 +88,7 @@
       pointer-events: none;
     }
 
-    /* 通用括号标签 [ A ] 等 */
+    /* 普通单行标签 [ D ] 等 */
     .bracket-label {
       position: absolute;
       right: 5px;
@@ -98,58 +97,83 @@
       font-size: 16px;
       font-weight: 400;
       color: #000;
-      letter-spacing: 0.2px;
     }
 
-    /* ✅ B 栏专用：多行文字标签结构 */
-    .complex-label-box {
+    /* --- 复杂信息块 (Wrapper) --- */
+    /* 包含：括号文字块 + 下方的斜体 Quote */
+    .info-wrapper {
       position: absolute;
       right: 5px;
-      top: 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      font-family: "Gentium Book Plus", serif;
-      font-size: 16px;
-      font-weight: 400;
-      color: #000;
-      line-height: 1.3;
-      text-align: left;
-    }
-    .complex-label-box .bracket-mark {
-      transform: translateY(-2px); /* 微调括号位置 */
-    }
-    .complex-label-box .inner-info {
+      top: -6px; /* 稍微上移以对齐右侧视频顶部 */
       display: flex;
       flex-direction: column;
+      align-items: flex-start; /* 左对齐 */
+      width: 320px; /* 限制宽度防止太宽 */
     }
 
-    /* ✅ 视频缩略图：去除边框 */
+    /* 括号 + 三行文字 */
+    .complex-label-box {
+      display: flex;
+      align-items: center; /* 括号垂直居中 */
+      gap: 8px;
+    }
+
+    /* 长括号样式 */
+    .bracket-mark {
+      font-family: "Gentium Book Plus", serif;
+      font-weight: 300; 
+      font-size: 56px; /* 足够大 */
+      line-height: 1;
+      color: #000;
+      transform: scaleY(1.2); /* 拉长 */
+      transform-origin: center;
+    }
+
+    .inner-info {
+      display: flex;
+      flex-direction: column;
+      font-family: "Gentium Book Plus", serif;
+      font-size: 16px;
+      line-height: 1.4;
+      color: #000;
+    }
+
+    /* 斜体引用语 */
+    .quote-text {
+      font-family: 'Exo', sans-serif; /* 或者是 Gentium，看喜好，这里保持无衬线更清晰 */
+      font-style: italic;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #333;
+      margin-top: 10px;
+      padding-left: 10px; /* 稍微缩进对齐文字而非括号 */
+    }
+
+    /* --- 视频缩略图 --- */
     .video-thumb {
       width: 50%;
       aspect-ratio: 16 / 9;
       background-color: #d1cdc4;
       cursor: pointer;
-      border: 0; /* 去除边框 */
+      border: 0;
       transition: filter 0.3s;
       filter: grayscale(100%);
     }
     .video-thumb:hover { filter: grayscale(0%); }
 
-    /* ✅ B 栏专用缩略图样式 */
-    .thumb-phoebe {
-      background-color: #eae5d6; /* 浅米色底 */
+    /* 定制缩略图样式 (Andy, Phoebe, Hedy) */
+    .thumb-custom {
+      background-color: #eae5d6; /* 浅米色 */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       position: relative;
-      filter: grayscale(0%) !important; /* 保持彩色/本色 */
+      filter: grayscale(0%) !important;
     }
     
-    /* PHOEBE 2026 大字 */
-    .thumb-phoebe-text {
-      color: #701a1a;
+    .thumb-text {
+      color: var(--accent-maroon);
       font-family: 'Exo', sans-serif;
       font-weight: 700;
       font-size: 42px;
@@ -159,12 +183,13 @@
       z-index: 1;
     }
     
-    /* 圆形播放键 */
+    /* 圆形播放键 (缩小至 70%) */
+    /* 原尺寸 68px -> 68 * 0.7 ≈ 48px */
     .play-circle {
       position: absolute;
-      width: 68px;
-      height: 68px;
-      background: rgba(0, 0, 0, 0.5); /* 半透明黑 */
+      width: 48px;
+      height: 48px;
+      background: rgba(0, 0, 0, 0.5);
       border-radius: 50%;
       display: flex;
       justify-content: center;
@@ -172,19 +197,19 @@
       z-index: 2;
       transition: background 0.3s, transform 0.3s;
     }
-    /* 播放键三角形 */
     .play-circle::after {
       content: '';
       display: block;
       width: 0; 
       height: 0; 
-      border-left: 18px solid #fff;
-      border-top: 11px solid transparent;
-      border-bottom: 11px solid transparent;
-      margin-left: 5px; /* 光学居中 */
+      /* 三角形按比例缩小 */
+      border-left: 12px solid #fff;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      margin-left: 4px; 
     }
-    .thumb-phoebe:hover .play-circle {
-      background: rgba(112, 26, 26, 0.85); /* 悬停变红 */
+    .thumb-custom:hover .play-circle {
+      background: rgba(112, 26, 26, 0.85);
       transform: scale(1.1);
     }
 
@@ -206,16 +231,13 @@
       aspect-ratio: 16 / 9;
       background: #000;
       box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-      border: 0; /* ✅ 去除大窗口边框 */
+      border: 0;
     }
 
-    /* Close 按钮保持原有样式 (带边框) 以保证可见性，如需去除请删除 border 属性 */
     .close-btn {
       position: fixed;
-      top: 30px;
-      left: 30px;
-      width: 46px;
-      height: 46px;
+      top: 30px; left: 30px;
+      width: 46px; height: 46px;
       border-radius: 50%;
       background: transparent;
       color: var(--accent-maroon);
@@ -227,61 +249,39 @@
       font-size: 28px;
       line-height: 1;
     }
-    .close-btn:hover {
-      background: rgba(112, 26, 26, 0.06);
-    }
+    .close-btn:hover { background: rgba(112, 26, 26, 0.06); }
 
     /* --- 手机端 --- */
     @media (max-width: 768px) {
       :root { --title-x: 50vw; }
-
-      .row {
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 40px;
-      }
-
+      .row { flex-direction: column; align-items: center; margin-bottom: 40px; }
       .left-col, .right-col {
-        width: 100%;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: static;
+        width: 100%; padding: 0;
+        display: flex; flex-direction: column;
+        align-items: center; position: static;
       }
-
-      .section-title {
-        position: static;
-        transform: none;
-        margin-bottom: 15px;
-        order: 1;
-      }
-
-      .bracket-label, .complex-label-box {
+      .section-title { position: static; transform: none; margin-bottom: 15px; order: 1; }
+      
+      .bracket-label, .info-wrapper {
         position: static;
         order: 2;
-        margin-bottom: 6px;
-      }
-      
-      /* 手机端稍微调整多行文字居中 */
-      .complex-label-box {
-        text-align: center;
-      }
-      .complex-label-box .inner-info {
-        align-items: center;
+        margin-bottom: 12px;
+        width: 90%; /* 手机端宽度 */
       }
 
-      .video-thumb {
-        width: 90%;
-        order: 4;
+      /* 手机端内容居中 */
+      .info-wrapper { align-items: center; }
+      .complex-label-box { justify-content: center; }
+      .inner-info { text-align: center; }
+      .quote-text { 
+        text-align: center; 
+        padding-left: 0;
+        margin-bottom: 10px;
       }
 
-      .row:not(:first-of-type) .section-title {
-        display: none;
-      }
-      #culture-section-start .section-title {
-        display: block;
-      }
+      .video-thumb { width: 90%; order: 4; }
+      .row:not(:first-of-type) .section-title { display: none; }
+      #culture-section-start .section-title { display: block; }
     }
 
     html.preload body { opacity: 0; }
@@ -295,34 +295,59 @@
 
   <main>
 
-    <!-- INTERVIEW FILES SECTION -->
+    <!-- [ A ] ANDY LEE -->
     <div class="row">
       <div class="left-col">
         <div class="section-title">INTERVIEW FILES</div>
-        <div class="bracket-label">[ A ]</div>
-      </div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_A"></div></div>
-    </div>
-
-    <!-- ✅ Modified Row B -->
-    <div class="row">
-      <div class="left-col">
-        <!-- 替换原有的 [ B ]，改为三行文字放在括号内 -->
-        <div class="complex-label-box">
-          <span class="bracket-mark">[</span>
-          <div class="inner-info">
-            <div>Phoebe's Interview</div>
-            <div>2026 Jan 2</div>
-            <div>Los Angeles, California</div>
+        
+        <div class="info-wrapper">
+          <!-- 括号 + 三行信息 -->
+          <div class="complex-label-box">
+            <span class="bracket-mark">[</span>
+            <div class="inner-info">
+              <div>Andy's Interview</div>
+              <div>2025 Dec 25,</div>
+              <div>Walnut, California</div>
+            </div>
+            <span class="bracket-mark">]</span>
           </div>
-          <span class="bracket-mark">]</span>
+          <!-- 斜体字引用 -->
+          <div class="quote-text">
+            "I'm Cantonese, I'm proud to be Cantonese, and I'll try to still preserve that Cantonese Culture."
+          </div>
         </div>
       </div>
 
       <div class="right-col">
-        <!-- B 视频缩略图：浅米色底 + 大字 + 圆形播放键 -->
-        <div class="video-thumb thumb-phoebe" data-video="https://player.vimeo.com/video/1151772755">
-          <div class="thumb-phoebe-text">
+        <!-- 视频 ID 1151385247 -->
+        <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151385247">
+          <div class="thumb-text">
+            ANDY LEE<br>2025
+          </div>
+          <div class="play-circle"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- [ B ] PHOEBE -->
+    <div class="row">
+      <div class="left-col">
+        <div class="info-wrapper">
+          <div class="complex-label-box">
+            <span class="bracket-mark">[</span>
+            <div class="inner-info">
+              <div>Phoebe's Interview</div>
+              <div>2026 Jan 2,</div>
+              <div>Los Angeles, California</div>
+            </div>
+            <span class="bracket-mark">]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-col">
+        <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151772755">
+          <div class="thumb-text">
             PHOEBE<br>2026
           </div>
           <div class="play-circle"></div>
@@ -330,16 +355,40 @@
       </div>
     </div>
 
+    <!-- [ C ] HEDY -->
     <div class="row">
-      <div class="left-col"><div class="bracket-label">[ C ]</div></div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_C"></div></div>
+      <div class="left-col">
+        <div class="info-wrapper">
+          <div class="complex-label-box">
+            <span class="bracket-mark">[</span>
+            <div class="inner-info">
+              <div>Hedy's Interview</div>
+              <div>2026 Jan 2,</div>
+              <div>Los Angeles, California</div>
+            </div>
+            <span class="bracket-mark">]</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-col">
+        <!-- 视频 ID 1151774286 -->
+        <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151774286">
+          <div class="thumb-text">
+            HEDY<br>2026
+          </div>
+          <div class="play-circle"></div>
+        </div>
+      </div>
     </div>
 
+    <!-- [ D ] - Placeholder -->
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ D ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_D"></div></div>
     </div>
 
+    <!-- [ E ] - Placeholder -->
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ E ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_E"></div></div>
@@ -383,8 +432,9 @@
     thumbs.forEach(thumb => {
       thumb.addEventListener('click', () => {
         const raw = thumb.getAttribute('data-video');
-        if(!raw || raw.startsWith('URL_')) return; // 防止点击占位符报错
+        if(!raw || raw.startsWith('URL_')) return; 
 
+        // 自动追加 autoplay
         const src = raw + (raw.includes('?') ? '&' : '?') + 'autoplay=1';
         iframe.src = src;
         overlay.classList.add('active');
