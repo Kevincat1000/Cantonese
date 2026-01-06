@@ -21,7 +21,7 @@
       --text-black: #000000;
       --accent-maroon: #701a1a;
       --header-h: 60px;
-      --video-gap: 35px; /* 稍微增加间距以容纳下方的斜体字 */
+      --video-gap: 35px;
       --title-x: 20vw;
       --border-w: 2px; 
     }
@@ -88,10 +88,10 @@
       pointer-events: none;
     }
 
-    /* 普通单行标签 [ D ] 等 */
+    /* 普通单行标签 [ D ] 等 - 同样靠右对齐 */
     .bracket-label {
       position: absolute;
-      right: 5px;
+      right: 15px; /* 距离中线留一点呼吸空间 */
       top: 0;
       font-family: "Gentium Book Plus", serif;
       font-size: 16px;
@@ -103,29 +103,32 @@
     /* 包含：括号文字块 + 下方的斜体 Quote */
     .info-wrapper {
       position: absolute;
-      right: 5px;
-      top: -6px; /* 稍微上移以对齐右侧视频顶部 */
+      /* ✅ 核心修改：在左栏内靠右对齐 */
+      right: 15px; 
+      top: -6px;
       display: flex;
       flex-direction: column;
-      align-items: flex-start; /* 左对齐 */
-      width: 320px; /* 限制宽度防止太宽 */
+      /* 让整体内容靠右对齐，或者左对齐但紧贴右边，根据美感通常左对齐文字看起来整齐，但盒子靠右 */
+      align-items: flex-start; 
+      width: auto;
+      max-width: 350px;
     }
 
     /* 括号 + 三行文字 */
     .complex-label-box {
       display: flex;
-      align-items: center; /* 括号垂直居中 */
+      align-items: center; 
       gap: 8px;
     }
 
-    /* 长括号样式 */
+    /* ✅ 长括号样式：不加粗 (400) */
     .bracket-mark {
       font-family: "Gentium Book Plus", serif;
-      font-weight: 300; 
-      font-size: 56px; /* 足够大 */
+      font-weight: 400; /* 正常字重 */
+      font-size: 56px;
       line-height: 1;
       color: #000;
-      transform: scaleY(1.2); /* 拉长 */
+      transform: scaleY(1.2);
       transform-origin: center;
     }
 
@@ -136,17 +139,18 @@
       font-size: 16px;
       line-height: 1.4;
       color: #000;
+      text-align: left; /* 文字内部左对齐阅读更舒适 */
     }
 
     /* 斜体引用语 */
     .quote-text {
-      font-family: 'Exo', sans-serif; /* 或者是 Gentium，看喜好，这里保持无衬线更清晰 */
+      font-family: 'Exo', sans-serif;
       font-style: italic;
       font-size: 13px;
       line-height: 1.4;
       color: #333;
       margin-top: 10px;
-      padding-left: 10px; /* 稍微缩进对齐文字而非括号 */
+      padding-left: 14px; /* 对齐文字起始处 */
     }
 
     /* --- 视频缩略图 --- */
@@ -161,9 +165,9 @@
     }
     .video-thumb:hover { filter: grayscale(0%); }
 
-    /* 定制缩略图样式 (Andy, Phoebe, Hedy) */
+    /* 定制缩略图样式 */
     .thumb-custom {
-      background-color: #eae5d6; /* 浅米色 */
+      background-color: #eae5d6;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -183,8 +187,7 @@
       z-index: 1;
     }
     
-    /* 圆形播放键 (缩小至 70%) */
-    /* 原尺寸 68px -> 68 * 0.7 ≈ 48px */
+    /* 圆形播放键 (70%大小) */
     .play-circle {
       position: absolute;
       width: 48px;
@@ -202,7 +205,6 @@
       display: block;
       width: 0; 
       height: 0; 
-      /* 三角形按比例缩小 */
       border-left: 12px solid #fff;
       border-top: 7px solid transparent;
       border-bottom: 7px solid transparent;
@@ -266,11 +268,12 @@
         position: static;
         order: 2;
         margin-bottom: 12px;
-        width: 90%; /* 手机端宽度 */
+        width: 90%; 
+        /* 手机端居中 */
+        right: auto;
+        align-items: center;
       }
 
-      /* 手机端内容居中 */
-      .info-wrapper { align-items: center; }
       .complex-label-box { justify-content: center; }
       .inner-info { text-align: center; }
       .quote-text { 
@@ -300,9 +303,10 @@
       <div class="left-col">
         <div class="section-title">INTERVIEW FILES</div>
         
+        <!-- ✅ 靠右对齐的容器 -->
         <div class="info-wrapper">
-          <!-- 括号 + 三行信息 -->
           <div class="complex-label-box">
+            <!-- ✅ 字重改为 400 -->
             <span class="bracket-mark">[</span>
             <div class="inner-info">
               <div>Andy's Interview</div>
@@ -311,7 +315,7 @@
             </div>
             <span class="bracket-mark">]</span>
           </div>
-          <!-- 斜体字引用 -->
+          <!-- 斜体字 -->
           <div class="quote-text">
             "I'm Cantonese, I'm proud to be Cantonese, and I'll try to still preserve that Cantonese Culture."
           </div>
@@ -319,7 +323,6 @@
       </div>
 
       <div class="right-col">
-        <!-- 视频 ID 1151385247 -->
         <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151385247">
           <div class="thumb-text">
             ANDY LEE<br>2025
@@ -337,7 +340,8 @@
             <span class="bracket-mark">[</span>
             <div class="inner-info">
               <div>Phoebe's Interview</div>
-              <div>2026 Jan 2,</div>
+              <!-- ✅ 改为 2025 Dec 28 -->
+              <div>2025 Dec 28,</div>
               <div>Los Angeles, California</div>
             </div>
             <span class="bracket-mark">]</span>
@@ -347,8 +351,9 @@
 
       <div class="right-col">
         <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151772755">
+          <!-- ✅ 改为 PHOEBE 2025 -->
           <div class="thumb-text">
-            PHOEBE<br>2026
+            PHOEBE<br>2025
           </div>
           <div class="play-circle"></div>
         </div>
@@ -363,7 +368,8 @@
             <span class="bracket-mark">[</span>
             <div class="inner-info">
               <div>Hedy's Interview</div>
-              <div>2026 Jan 2,</div>
+              <!-- ✅ 改为 2025 Dec 28 -->
+              <div>2025 Dec 28,</div>
               <div>Los Angeles, California</div>
             </div>
             <span class="bracket-mark">]</span>
@@ -372,23 +378,23 @@
       </div>
 
       <div class="right-col">
-        <!-- 视频 ID 1151774286 -->
         <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151774286">
+          <!-- ✅ 改为 HEDY 2025 -->
           <div class="thumb-text">
-            HEDY<br>2026
+            HEDY<br>2025
           </div>
           <div class="play-circle"></div>
         </div>
       </div>
     </div>
 
-    <!-- [ D ] - Placeholder -->
+    <!-- [ D ] -->
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ D ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_D"></div></div>
     </div>
 
-    <!-- [ E ] - Placeholder -->
+    <!-- [ E ] -->
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ E ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_E"></div></div>
@@ -432,9 +438,8 @@
     thumbs.forEach(thumb => {
       thumb.addEventListener('click', () => {
         const raw = thumb.getAttribute('data-video');
-        if(!raw || raw.startsWith('URL_')) return; 
+        if(!raw || raw.startsWith('URL_')) return;
 
-        // 自动追加 autoplay
         const src = raw + (raw.includes('?') ? '&' : '?') + 'autoplay=1';
         iframe.src = src;
         overlay.classList.add('active');
