@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Gentium -->
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
 
   <script src="./assets/header.js" defer></script>
@@ -21,11 +20,11 @@
       --text-black: #000000;
       --accent-maroon: #701a1a;
       --header-h: 60px;
-      --video-gap: 35px;
+      --video-gap: 40px;
       --title-x: 20vw;
       --border-w: 2px;
-      /* ✅ 定义括号颜色 */
-      --bracket-color: rgb(51, 51, 51);
+      /* 括号颜色 */
+      --bracket-color: #333;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,21 +40,23 @@
       overflow-x: hidden;
     }
 
-    #header-wrapper {
-      position: static;
-      width: 100%;
+    /* ✅ Header 修复：强制不固定，随页面滚动 */
+    #header-wrapper, 
+    #header-wrapper header, 
+    .site-header {
+      position: absolute !important; /* 或者 static */
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      z-index: 10;
       background-color: var(--bg-color);
     }
-    #header-wrapper header,
-    #header-wrapper .site-header {
-      position: static;
-      top: auto; left: auto; right: auto;
-    }
-
+    
+    /* 增加顶部 padding 以免内容被绝对定位的 header 遮挡 */
     main {
       width: 100%;
       flex: 1;
-      padding-top: 40px;
+      padding-top: 100px; /* 根据 Header 高度调整 */
       padding-bottom: 100px;
     }
 
@@ -77,10 +78,10 @@
       padding-left: 40px;
     }
 
-    /* 左侧大标题：位置不变，但现在内容靠右，不会重叠 */
+    /* 标题位置调整，避免和右边的括号打架 */
     .section-title {
       position: absolute;
-      left: var(--title-x);
+      left: var(--title-x); /* 约 20vw */
       transform: translateX(-50%);
       top: 0;
       font-size: 14px;
@@ -102,60 +103,66 @@
       color: #000;
     }
 
-    /* --- 核心修改区：信息容器 --- */
+    /* --- 信息块容器 --- */
     .info-wrapper {
       position: absolute;
-      /* ✅ 1. 全部靠右对齐 (距离右边框20px) */
-      right: 20px;
+      right: 20px; /* 靠右对齐 */
       top: -4px;
       display: flex;
       flex-direction: column;
-      /* 内部内容左对齐，但整体块在右边 */
       align-items: flex-start;
-      /* ✅ 2. 限制宽度，确保下方斜体字换行对齐 */
-      max-width: 240px; 
+      /* 让整体宽度适应内容，但在下面限制内部宽度 */
     }
 
-    /* 括号盒子 */
+    /* 括号盒子 (Flex布局) */
     .complex-label-box {
       display: flex;
-      align-items: center; 
-      gap: 10px;
+      align-items: stretch; /* 拉伸高度使括号适应文字高度 */
+      gap: 12px;
     }
 
-    /* ✅ 3. 细括号设置 */
-    .bracket-mark {
-      font-family: "Gentium Book Plus", serif;
-      font-weight: 400; 
-      font-size: 48px; /* 稍微调小一点以免显得太笨重 */
-      line-height: 1;
-      color: var(--bracket-color); /* rgb(51,51,51) */
-      transform: scaleY(1.1); /* 稍微拉长即可 */
-      transform-origin: center;
-      opacity: 0.9; /* 视觉上更细一点 */
+    /* ✅ 括号：使用 CSS Border 绘制，保证“非常细” (1px) */
+    .css-bracket {
+      width: 8px; /* 括号的勾长 */
+      border-top: 1px solid var(--bracket-color);
+      border-bottom: 1px solid var(--bracket-color);
+      /* 稍微缩放一点高度，让它不要紧贴着文字顶底 */
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
+    .bracket-left {
+      border-left: 1px solid var(--bracket-color);
+    }
+    .bracket-right {
+      border-right: 1px solid var(--bracket-color);
     }
 
-    /* ✅ 4. 文字改为 14号 */
+    /* ✅ 内部文字：设置固定宽度以对齐所有括号 */
     .inner-info {
       display: flex;
       flex-direction: column;
       font-family: "Gentium Book Plus", serif;
-      font-size: 14px; /* User Request */
-      line-height: 1.35;
+      font-size: 14px;
+      line-height: 1.4;
       color: #000;
       text-align: left;
+      /* 核心修改：固定宽度，使 Walnut 和 Los Angeles 的括号距离一致 */
+      width: 175px; 
     }
 
-    /* ✅ 5. 斜体字：折行对齐括号宽度 */
+    /* 斜体引用语 */
     .quote-text {
       font-family: 'Exo', sans-serif;
       font-style: italic;
       font-size: 13px;
       line-height: 1.4;
-      color: #444; /* 稍微淡一点 */
+      color: #555;
       margin-top: 12px;
-      padding-left: 10px; /* 稍微缩进，视觉上对齐文字而非括号 */
-      width: 100%; /* 撑满 max-width 触发换行 */
+      /* 对齐左括号右侧 (8px bracket + 12px gap) */
+      padding-left: 0; 
+      /* 限制宽度与上面的 box 一致 */
+      width: 100%;
+      max-width: 210px; /* 约等于 bracket width + gap + text width */
     }
 
     /* --- 视频缩略图 --- */
@@ -170,7 +177,6 @@
     }
     .video-thumb:hover { filter: grayscale(0%); }
 
-    /* 定制样式 */
     .thumb-custom {
       background-color: #eae5d6;
       display: flex;
@@ -260,6 +266,8 @@
     /* --- 手机端 --- */
     @media (max-width: 768px) {
       :root { --title-x: 50vw; }
+      main { padding-top: 80px; }
+      
       .row { flex-direction: column; align-items: center; margin-bottom: 40px; }
       .left-col, .right-col {
         width: 100%; padding: 0;
@@ -272,15 +280,19 @@
         position: static;
         order: 2;
         margin-bottom: 12px;
-        /* 手机端取消右对齐，改为居中 */
         right: auto;
+        /* 手机端取消固定宽度，改为适应 */
         max-width: 90%;
         align-items: center;
       }
 
+      .inner-info {
+        width: auto; /* 手机端取消对其强制，改为居中自然宽度 */
+        text-align: center;
+      }
       .quote-text {
         text-align: center;
-        padding-left: 0;
+        max-width: 90%;
       }
 
       .video-thumb { width: 90%; order: 4; }
@@ -304,18 +316,21 @@
       <div class="left-col">
         <div class="section-title">INTERVIEW FILES</div>
         
-        <!-- 右对齐Wrapper -->
         <div class="info-wrapper">
           <div class="complex-label-box">
-            <span class="bracket-mark">[</span>
+            <!-- CSS绘制的极细左括号 -->
+            <span class="css-bracket bracket-left"></span>
+            
             <div class="inner-info">
               <div>Andy's Interview</div>
               <div>2025 Dec 25,</div>
               <div>Walnut, California</div>
             </div>
-            <span class="bracket-mark">]</span>
+
+            <!-- CSS绘制的极细右括号 -->
+            <span class="css-bracket bracket-right"></span>
           </div>
-          <!-- 斜体字自动换行 -->
+          
           <div class="quote-text">
             "I'm Cantonese, I'm proud to be Cantonese, and I'll try to still preserve that Cantonese Culture."
           </div>
@@ -337,13 +352,13 @@
       <div class="left-col">
         <div class="info-wrapper">
           <div class="complex-label-box">
-            <span class="bracket-mark">[</span>
+            <span class="css-bracket bracket-left"></span>
             <div class="inner-info">
               <div>Phoebe's Interview</div>
               <div>2025 Dec 28,</div>
               <div>Los Angeles, California</div>
             </div>
-            <span class="bracket-mark">]</span>
+            <span class="css-bracket bracket-right"></span>
           </div>
         </div>
       </div>
@@ -363,13 +378,13 @@
       <div class="left-col">
         <div class="info-wrapper">
           <div class="complex-label-box">
-            <span class="bracket-mark">[</span>
+            <span class="css-bracket bracket-left"></span>
             <div class="inner-info">
               <div>Hedy's Interview</div>
               <div>2025 Dec 28,</div>
               <div>Los Angeles, California</div>
             </div>
-            <span class="bracket-mark">]</span>
+            <span class="css-bracket bracket-right"></span>
           </div>
         </div>
       </div>
