@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- ✅ Gentium for A–G labels -->
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- 原有注入脚本 -->
   <script src="./assets/header.js" defer></script>
@@ -18,12 +20,15 @@
     :root {
       --bg-color: #f5f0e5;
       --text-black: #000000;
-      --accent-green: #3c6d3c;
+      --accent-maroon: #701a1a;
       --header-h: 60px;
       --video-gap: 25px;
 
-      /* ✅ 标题在屏幕左侧约 20% 的位置（桌面端） */
+      /* 标题在屏幕左侧约 20% */
       --title-x: 20vw;
+
+      /* ✅ border thickness */
+      --border-w: 2px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,28 +44,23 @@
       overflow-x: hidden;
     }
 
-    /* ✅ 2) Header 不再固定：让它跟随页面自然滚动 */
+    /* ✅ Header 不固定：正常滚走 */
     #header-wrapper {
       position: static;
       width: 100%;
-      z-index: auto;
       background-color: var(--bg-color);
     }
-
-    /* 如果 header.js 里给 header / .site-header 写了定位，这里提高选择器优先级覆盖它（不使用 important） */
+    /* 覆盖 header.js 可能写的 fixed（不用 !important，用更高优先级） */
     #header-wrapper header,
     #header-wrapper .site-header {
       position: static;
-      top: auto;
-      left: auto;
-      right: auto;
+      top: auto; left: auto; right: auto;
     }
 
-    /* --- 布局核心 --- */
     main {
       width: 100%;
       flex: 1;
-      padding-top: 40px;   /* ✅ 现在不需要为 fixed header 让位了 */
+      padding-top: 40px;
       padding-bottom: 100px;
     }
 
@@ -74,16 +74,15 @@
     .left-col {
       width: 50%;
       position: relative;
-      height: 100%;
       min-height: 1px;
     }
 
     .right-col {
       width: 50%;
-      padding-left: 40px; /* 视频离中线 40px */
+      padding-left: 40px;
     }
 
-    /* ✅ 1) 左侧标题“离左边屏幕约 20%”对齐显示 */
+    /* 左侧大标题：固定到左侧 20vw */
     .section-title {
       position: absolute;
       left: var(--title-x);
@@ -94,26 +93,40 @@
       color: var(--text-black);
       text-transform: uppercase;
       white-space: nowrap;
-      pointer-events: none; /* 避免遮挡点击区域（安全处理） */
+      pointer-events: none;
     }
 
-    /* ✅ 3) 括号/字母颜色改为 #3c6d3c */
+    /* ✅ A–G 括号标签：Gentium / 16 / 400 / 黑色 */
     .bracket-label {
       position: absolute;
       right: 5px;
       top: 0;
-      font-size: 14px;
+      font-family: "Gentium Book Plus", serif;
+      font-size: 16px;
       font-weight: 400;
-      color: var(--accent-green);
+      color: #000;
+      letter-spacing: 0.2px;
     }
 
-    /* 视频缩略图 */
+    /* ✅ B 行的文字说明（在 [ B ] 下面） */
+    .item-meta {
+      position: absolute;
+      right: 5px;
+      top: 26px;
+      max-width: 320px;
+      font-size: 13px;
+      line-height: 1.35;
+      color: #000;
+      font-weight: 400;
+    }
+
+    /* ✅ 左右缩略图边框：#701a1a + 加粗 */
     .video-thumb {
       width: 50%;
       aspect-ratio: 16 / 9;
       background-color: #d1cdc4;
       cursor: pointer;
-      border: 1px solid rgba(0,0,0,0.05);
+      border: var(--border-w) solid var(--accent-maroon);
       transition: filter 0.3s;
       filter: grayscale(100%);
     }
@@ -133,66 +146,83 @@
     .modal-overlay.active { display: flex; }
 
     .modal-content {
-      width: 70%; /* 缩小至70% */
+      width: 70%;
       aspect-ratio: 16 / 9;
       background: #000;
       box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+      border: var(--border-w) solid var(--accent-maroon);
     }
 
+    /* ✅ 圆圈 X：#701a1a + 边框加粗 */
     .close-btn {
       position: fixed;
       top: 30px;
       left: 30px;
-      width: 45px;
-      height: 45px;
-      background: var(--accent-green); /* 顺手统一一下关闭按钮颜色（可删） */
-      color: #fff;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
+      background: transparent;
+      color: var(--accent-maroon);
+      border: var(--border-w) solid var(--accent-maroon);
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      border: none;
-      font-size: 26px;
+      font-size: 28px;
+      line-height: 1;
+    }
+    .close-btn:hover {
+      background: rgba(112, 26, 26, 0.06);
     }
 
-    /* --- 手机端程序调整 --- */
+    /* --- 手机端 --- */
     @media (max-width: 768px) {
-      :root { --title-x: 50vw; } /* 手机端标题居中更自然（你也可以删掉这一行） */
+      :root { --title-x: 50vw; }
 
       .row {
         flex-direction: column;
         align-items: center;
         margin-bottom: 40px;
       }
+
       .left-col, .right-col {
         width: 100%;
         padding: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
-        position: static; /* 取消绝对定位 */
+        position: static;
       }
+
       .section-title {
         position: static;
         transform: none;
         margin-bottom: 15px;
-        order: 1; /* 标题第一行 */
+        order: 1;
       }
+
       .bracket-label {
         position: static;
-        margin-bottom: 10px;
-        order: 2; /* 括号第二行 */
+        order: 2;
+        margin-bottom: 6px;
       }
+
+      .item-meta {
+        position: static;
+        order: 3;
+        text-align: center;
+        margin-bottom: 12px;
+        max-width: 90%;
+      }
+
       .video-thumb {
-        width: 90%; /* 手机端视频稍微大一点方便点击 */
-        order: 3; /* 视频第三行 */
+        width: 90%;
+        order: 4;
       }
-      /* 在手机端，后续行的标题需要隐藏，只留括号和视频 */
+
       .row:not(:first-of-type) .section-title {
         display: none;
       }
-      /* 第二板块的标题逻辑同理 */
       #culture-section-start .section-title {
         display: block;
       }
@@ -208,6 +238,7 @@
   </div>
 
   <main>
+
     <!-- INTERVIEW FILES SECTION -->
     <div class="row">
       <div class="left-col">
@@ -218,8 +249,16 @@
     </div>
 
     <div class="row">
-      <div class="left-col"><div class="bracket-label">[ B ]</div></div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_B"></div></div>
+      <div class="left-col">
+        <div class="bracket-label">[ B ]</div>
+        <!-- ✅ B 的文字信息 -->
+        <div class="item-meta">Phoebe's Interview, 转行 2026 Jan 2, 转行 Los Angeles, California</div>
+      </div>
+
+      <!-- ✅ B Vimeo embed 链接（可直接 iframe 播放） -->
+      <div class="right-col">
+        <div class="video-thumb" data-video="https://player.vimeo.com/video/1151772755"></div>
+      </div>
     </div>
 
     <div class="row">
@@ -252,20 +291,22 @@
       <div class="left-col"><div class="bracket-label">[ G ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_G"></div></div>
     </div>
+
   </main>
 
   <div id="footer-container"></div>
 
   <!-- 视频弹窗 -->
   <div class="modal-overlay" id="modalOverlay">
-    <button class="close-btn" id="closeBtn">×</button>
+    <button class="close-btn" id="closeBtn" aria-label="Close">×</button>
     <div class="modal-content">
-      <iframe id="videoIframe" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <iframe id="videoIframe" width="100%" height="100%" src=""
+        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
   </div>
 
   <script>
-    // --- 弹窗逻辑 ---
+    // --- 弹窗逻辑（顺手加 autoplay） ---
     const overlay = document.getElementById('modalOverlay');
     const iframe = document.getElementById('videoIframe');
     const closeBtn = document.getElementById('closeBtn');
@@ -273,7 +314,9 @@
 
     thumbs.forEach(thumb => {
       thumb.addEventListener('click', () => {
-        iframe.src = thumb.getAttribute('data-video');
+        const raw = thumb.getAttribute('data-video');
+        const src = raw + (raw.includes('?') ? '&' : '?') + 'autoplay=1';
+        iframe.src = src;
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
@@ -285,7 +328,6 @@
       document.body.style.overflow = 'auto';
     });
 
-    // --- preload 去闪动 ---
     document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.classList.remove('preload');
     });
