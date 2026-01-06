@@ -1,174 +1,284 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="preload">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cantonese in Americas</title>
+  <title>About - Cantonese in Americas</title>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- 原有脚本 -->
+  <script src="./assets/header.js" defer></script>
+  <script src="./assets/footer.js" defer></script>
+
   <style>
     :root {
       --bg-color: #f5f0e5;
-      --accent-red: #c0392b; /* 红色字体颜色 */
-      --text-black: #1a1a1a;
-      --gap: 25px; /* 视频间隙 */
+      --text-color: #000000;
+      --accent-red: #c0392b;
+      --header-h: 60px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; }
+
     body {
       background-color: var(--bg-color);
+      color: var(--text-color);
       font-family: 'Exo', sans-serif;
-      font-size: 13px;
-      color: var(--text-black);
-      line-height: 1.6;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
+    /* --- 布局结构 --- */
     main {
-      max-width: 1100px;
-      margin: 60px auto;
-      padding: 0 40px;
+      width: 100%;
+      flex: 1;
+      padding-top: 40px;
     }
 
-    /* 布局容器 */
-    .split-layout {
-      display: grid;
-      grid-template-columns: 200px 1fr; /* 左边窄，右边宽 */
-      column-gap: 50px;
-      align-items: start;
+    .container-50-50 {
+      display: flex;
+      width: 100%;
+      min-height: 100%;
     }
 
-    /* 左侧标签区域 */
-    .label-column {
-      position: sticky;
-      top: 40px;
+    .left-col, .right-col {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
     }
 
-    .section-title {
+    /* 左栏文字对齐设置 */
+    .left-col {
+      align-items: flex-end; /* 文字向右靠（贴近中线） */
+      padding-right: 40px;
+    }
+
+    /* 右栏视频对齐设置 */
+    .right-col {
+      padding-left: 40px; /* 视频靠左40px（离开中线） */
+    }
+
+    /* 每一行项目容器，确保左右高度对齐 */
+    .row-item {
+      display: flex;
+      width: 100%;
+      height: 200px; /* 统一行高，可根据视频大小调整 */
+      margin-bottom: 25px;
+      align-items: center;
+    }
+
+    /* 标题样式 */
+    .section-label {
       font-weight: 700;
-      letter-spacing: 2px;
       text-transform: uppercase;
+      letter-spacing: 1px;
       margin-bottom: 20px;
-      display: block;
     }
-
-    .black-text { color: var(--text-black); }
+    .black-text { color: #000; }
     .red-text { color: var(--accent-red); }
 
-    /* 大括号包裹样式 */
-    .bracket-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0; /* 这里由右侧视频的高度和间隙撑开 */
-    }
-
-    .bracket-item {
-      height: 250px; /* 必须与视频高度+间隙对应，以保持水平对齐 */
-      margin-bottom: var(--gap);
-      display: flex;
-      align-items: flex-start;
-      font-size: 18px;
-      font-weight: 600;
+    /* 大括号样式 */
+    .bracket {
       color: var(--accent-red);
+      font-weight: 700;
+      font-size: 14px;
+      white-space: nowrap;
     }
 
-    /* 右侧视频区域 */
-    .video-column {
-      display: flex;
-      flex-direction: column;
-      gap: var(--gap);
-    }
-
-    .video-wrapper {
-      width: 100%;
-      max-width: 600px; /* 控制视频窗口不要太大 */
+    /* 视频缩略图容器 */
+    .video-thumb {
+      width: 240px; /* 缩小一半左右的尺寸 */
       aspect-ratio: 16 / 9;
-      background-color: #ddd; /* 占位色 */
-      border: 1px solid rgba(0,0,0,0.1);
+      background-color: #ccc;
+      cursor: pointer;
       position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.1);
+      transition: opacity 0.3s;
     }
-
-    /* 模拟视频播放器 */
-    .video-wrapper iframe, 
-    .video-wrapper video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .placeholder-text {
+    .video-thumb:hover { opacity: 0.8; }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    
+    /* 播放图标小装饰 */
+    .video-thumb::after {
+      content: '▶';
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      color: #888;
+      color: white; font-size: 20px; opacity: 0.7;
     }
 
-    /* 装饰线 */
-    .divider {
-      grid-column: 1 / -1;
-      height: 1px;
-      background: rgba(0,0,0,0.1);
-      margin: 60px 0;
+    /* --- 弹窗 (Modal) 样式 --- */
+    .video-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: none; /* 初始隐藏 */
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
     }
 
-    @media (max-width: 900px) {
-      .split-layout { grid-template-columns: 1fr; }
-      .bracket-item { height: auto; margin-bottom: 10px; }
-      .video-wrapper { max-width: 100%; }
+    .video-overlay.active { display: flex; }
+
+    .video-content {
+      width: 80%;
+      max-width: 1000px;
+      aspect-ratio: 16 / 9;
+      background: #000;
     }
+
+    .close-modal {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      width: 40px;
+      height: 40px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 20px;
+      color: #000;
+      border: none;
+    }
+
+    /* 防闪烁 */
+    html.preload body { opacity: 0; }
+    body { transition: opacity .15s ease; }
+    #header-spacer { height: var(--header-h); }
   </style>
 </head>
+
 <body>
+  <div id="header-injection-point"></div>
+  <div id="header-spacer" aria-hidden="true"></div>
 
   <main>
-    <!-- 第一部分：INTERVIEW FILES (5个视频) -->
-    <div class="split-layout">
-      <div class="label-column">
-        <span class="section-title black-text">INTERVIEW<br>FILES</span>
-        
-        <div class="bracket-group">
-          <div class="bracket-item">[ A ]</div>
-          <div class="bracket-item">[ B·a ]</div>
-          <div class="bracket-item">[ B·b ]</div>
-          <div class="bracket-item">[ B·c ]</div>
-          <div class="bracket-item">[ C ]</div>
-        </div>
+    <!-- 第一部分: INTERVIEW FILES -->
+    <div class="container-50-50">
+      <div class="left-col">
+        <div class="section-label black-text" style="height: 40px;">INTERVIEW FILES</div>
+        <!-- 对应5个括号 -->
+        <div class="row-item"><div class="bracket">[ A ]</div></div>
+        <div class="row-item"><div class="bracket">[ B · a ]</div></div>
+        <div class="row-item"><div class="bracket">[ B · b ]</div></div>
+        <div class="row-item"><div class="bracket">[ B · c ]</div></div>
+        <div class="row-item"><div class="bracket">[ C ]</div></div>
       </div>
 
-      <div class="video-column">
-        <!-- 视频 1-5 -->
-        <div class="video-wrapper">
-          <div class="placeholder-text">Video Link 1 (Coming Soon)</div>
-          <!-- <iframe src="你的链接" frameborder="0" allowfullscreen></iframe> -->
+      <div class="right-col">
+        <div style="height: 40px;"></div><!-- 对齐占位 -->
+        <!-- 对应5个视频 -->
+        <div class="row-item">
+          <div class="video-thumb" data-video="URL_HERE_1"></div>
         </div>
-        <div class="video-wrapper"><div class="placeholder-text">Video Link 2</div></div>
-        <div class="video-wrapper"><div class="placeholder-text">Video Link 3</div></div>
-        <div class="video-wrapper"><div class="placeholder-text">Video Link 4</div></div>
-        <div class="video-wrapper"><div class="placeholder-text">Video Link 5</div></div>
+        <div class="row-item">
+          <div class="video-thumb" data-video="URL_HERE_2"></div>
+        </div>
+        <div class="row-item">
+          <div class="video-thumb" data-video="URL_HERE_3"></div>
+        </div>
+        <div class="row-item">
+          <div class="video-thumb" data-video="URL_HERE_4"></div>
+        </div>
+        <div class="row-item">
+          <div class="video-thumb" data-video="URL_HERE_5"></div>
+        </div>
       </div>
     </div>
 
-    <div class="divider"></div>
+    <div style="height: 80px;"></div> <!-- 间距 -->
 
-    <!-- 第二部分：Cantonese Culture (2个视频) -->
-    <div class="split-layout">
-      <div class="label-column">
-        <span class="section-title red-text">Cantonese<br>Culture</span>
-        <div class="bracket-group">
-          <div class="bracket-item">[ D ]</div>
-          <div class="bracket-item">[ E ]</div>
-        </div>
+    <!-- 第二部分: Cantonese Culture -->
+    <div class="container-50-50">
+      <div class="left-col">
+        <div class="section-label red-text" style="height: 40px;">Cantonese Culture</div>
+        <div class="row-item"><div class="bracket">[ D ]</div></div>
+        <div class="row-item"><div class="bracket">[ E ]</div></div>
       </div>
 
-      <div class="video-column">
-        <!-- 视频 6-7 -->
-        <div class="video-wrapper"><div class="placeholder-text">Video Link 6</div></div>
-        <div class="video-wrapper"><div class="placeholder-text">Video Link 7</div></div>
+      <div class="right-col">
+        <div style="height: 40px;"></div>
+        <div class="row-item">
+          <div class="video-thumb" data-video="URL_HERE_6"></div>
+        </div>
+        <div class="row-item">
+          <div class="video-thumb" data-video="URL_HERE_7"></div>
+        </div>
       </div>
     </div>
   </main>
 
+  <div id="footer-container"></div>
+
+  <!-- 弹窗结构 -->
+  <div class="video-overlay" id="videoOverlay">
+    <button class="close-modal" id="closeModal">×</button>
+    <div class="video-content">
+      <iframe id="modalIframe" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    // --- 弹窗逻辑 ---
+    const overlay = document.getElementById('videoOverlay');
+    const iframe = document.getElementById('modalIframe');
+    const closeBtn = document.getElementById('closeModal');
+    const thumbs = document.querySelectorAll('.video-thumb');
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        const videoUrl = thumb.getAttribute('data-video');
+        iframe.src = videoUrl; // 设置视频链接
+        overlay.classList.add('active');
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      overlay.classList.remove('active');
+      iframe.src = ""; // 停止播放
+    });
+
+    // --- 原有 Header/Footer 同步逻辑 ---
+    (function () {
+      const spacer = document.getElementById('header-spacer');
+      function findHeaderEl() { return document.querySelector('header') || document.querySelector('.site-header'); }
+      function syncHeaderHeight() {
+        const header = findHeaderEl();
+        if (!header) return false;
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        if (h > 0) {
+          document.documentElement.style.setProperty('--header-h', h + 'px');
+          if (spacer) spacer.style.height = h + 'px';
+          return true;
+        }
+        return false;
+      }
+      function showPage() { document.documentElement.classList.remove('preload'); }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let tries = 0;
+        (function tick() {
+          tries++;
+          if (syncHeaderHeight()) { showPage(); return; }
+          if (tries > 80) { showPage(); return; }
+          requestAnimationFrame(tick);
+        })();
+        window.addEventListener('resize', () => syncHeaderHeight());
+      });
+    })();
+  </script>
 </body>
 </html>
