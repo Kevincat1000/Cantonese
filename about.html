@@ -36,10 +36,7 @@
       min-height: 100vh;
     }
 
-    /* ✅ Header injected here (do NOT style it as fixed overlay) */
     #header-injection-point { width: 100%; }
-
-    /* ✅ Spacer to prevent layout jump after header injection */
     #header-spacer {
       height: var(--header-h);
       width: 100%;
@@ -52,8 +49,6 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-
-      /* ✅ only keep your desired top gap; header height is handled by spacer */
       padding-top: 30px;
       padding-bottom: 30px;
     }
@@ -198,7 +193,6 @@
   <div id="footer-container"></div>
 
   <script>
-    // ✅ Minimal: wait for injected header, measure its height, set --header-h + spacer, then show page
     (function () {
       const spacer = document.getElementById('header-spacer');
 
