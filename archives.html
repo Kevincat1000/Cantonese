@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Gentium for labels -->
+  <!-- Gentium -->
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
 
   <script src="./assets/header.js" defer></script>
@@ -23,7 +23,9 @@
       --header-h: 60px;
       --video-gap: 35px;
       --title-x: 20vw;
-      --border-w: 2px; 
+      --border-w: 2px;
+      /* ✅ 定义括号颜色 */
+      --bracket-color: rgb(51, 51, 51);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -75,6 +77,7 @@
       padding-left: 40px;
     }
 
+    /* 左侧大标题：位置不变，但现在内容靠右，不会重叠 */
     .section-title {
       position: absolute;
       left: var(--title-x);
@@ -88,10 +91,10 @@
       pointer-events: none;
     }
 
-    /* 普通单行标签 [ D ] 等 - 同样靠右对齐 */
+    /* 普通标签 [ D ] 等 */
     .bracket-label {
       position: absolute;
-      right: 15px; /* 距离中线留一点呼吸空间 */
+      right: 20px;
       top: 0;
       font-family: "Gentium Book Plus", serif;
       font-size: 16px;
@@ -99,58 +102,60 @@
       color: #000;
     }
 
-    /* --- 复杂信息块 (Wrapper) --- */
-    /* 包含：括号文字块 + 下方的斜体 Quote */
+    /* --- 核心修改区：信息容器 --- */
     .info-wrapper {
       position: absolute;
-      /* ✅ 核心修改：在左栏内靠右对齐 */
-      right: 15px; 
-      top: -6px;
+      /* ✅ 1. 全部靠右对齐 (距离右边框20px) */
+      right: 20px;
+      top: -4px;
       display: flex;
       flex-direction: column;
-      /* 让整体内容靠右对齐，或者左对齐但紧贴右边，根据美感通常左对齐文字看起来整齐，但盒子靠右 */
-      align-items: flex-start; 
-      width: auto;
-      max-width: 350px;
+      /* 内部内容左对齐，但整体块在右边 */
+      align-items: flex-start;
+      /* ✅ 2. 限制宽度，确保下方斜体字换行对齐 */
+      max-width: 240px; 
     }
 
-    /* 括号 + 三行文字 */
+    /* 括号盒子 */
     .complex-label-box {
       display: flex;
       align-items: center; 
-      gap: 8px;
+      gap: 10px;
     }
 
-    /* ✅ 长括号样式：不加粗 (400) */
+    /* ✅ 3. 细括号设置 */
     .bracket-mark {
       font-family: "Gentium Book Plus", serif;
-      font-weight: 400; /* 正常字重 */
-      font-size: 56px;
+      font-weight: 400; 
+      font-size: 48px; /* 稍微调小一点以免显得太笨重 */
       line-height: 1;
-      color: #000;
-      transform: scaleY(1.2);
+      color: var(--bracket-color); /* rgb(51,51,51) */
+      transform: scaleY(1.1); /* 稍微拉长即可 */
       transform-origin: center;
+      opacity: 0.9; /* 视觉上更细一点 */
     }
 
+    /* ✅ 4. 文字改为 14号 */
     .inner-info {
       display: flex;
       flex-direction: column;
       font-family: "Gentium Book Plus", serif;
-      font-size: 16px;
-      line-height: 1.4;
+      font-size: 14px; /* User Request */
+      line-height: 1.35;
       color: #000;
-      text-align: left; /* 文字内部左对齐阅读更舒适 */
+      text-align: left;
     }
 
-    /* 斜体引用语 */
+    /* ✅ 5. 斜体字：折行对齐括号宽度 */
     .quote-text {
       font-family: 'Exo', sans-serif;
       font-style: italic;
       font-size: 13px;
       line-height: 1.4;
-      color: #333;
-      margin-top: 10px;
-      padding-left: 14px; /* 对齐文字起始处 */
+      color: #444; /* 稍微淡一点 */
+      margin-top: 12px;
+      padding-left: 10px; /* 稍微缩进，视觉上对齐文字而非括号 */
+      width: 100%; /* 撑满 max-width 触发换行 */
     }
 
     /* --- 视频缩略图 --- */
@@ -165,7 +170,7 @@
     }
     .video-thumb:hover { filter: grayscale(0%); }
 
-    /* 定制缩略图样式 */
+    /* 定制样式 */
     .thumb-custom {
       background-color: #eae5d6;
       display: flex;
@@ -187,7 +192,6 @@
       z-index: 1;
     }
     
-    /* 圆形播放键 (70%大小) */
     .play-circle {
       position: absolute;
       width: 48px;
@@ -268,18 +272,15 @@
         position: static;
         order: 2;
         margin-bottom: 12px;
-        width: 90%; 
-        /* 手机端居中 */
+        /* 手机端取消右对齐，改为居中 */
         right: auto;
+        max-width: 90%;
         align-items: center;
       }
 
-      .complex-label-box { justify-content: center; }
-      .inner-info { text-align: center; }
-      .quote-text { 
-        text-align: center; 
+      .quote-text {
+        text-align: center;
         padding-left: 0;
-        margin-bottom: 10px;
       }
 
       .video-thumb { width: 90%; order: 4; }
@@ -303,10 +304,9 @@
       <div class="left-col">
         <div class="section-title">INTERVIEW FILES</div>
         
-        <!-- ✅ 靠右对齐的容器 -->
+        <!-- 右对齐Wrapper -->
         <div class="info-wrapper">
           <div class="complex-label-box">
-            <!-- ✅ 字重改为 400 -->
             <span class="bracket-mark">[</span>
             <div class="inner-info">
               <div>Andy's Interview</div>
@@ -315,7 +315,7 @@
             </div>
             <span class="bracket-mark">]</span>
           </div>
-          <!-- 斜体字 -->
+          <!-- 斜体字自动换行 -->
           <div class="quote-text">
             "I'm Cantonese, I'm proud to be Cantonese, and I'll try to still preserve that Cantonese Culture."
           </div>
@@ -340,7 +340,6 @@
             <span class="bracket-mark">[</span>
             <div class="inner-info">
               <div>Phoebe's Interview</div>
-              <!-- ✅ 改为 2025 Dec 28 -->
               <div>2025 Dec 28,</div>
               <div>Los Angeles, California</div>
             </div>
@@ -351,7 +350,6 @@
 
       <div class="right-col">
         <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151772755">
-          <!-- ✅ 改为 PHOEBE 2025 -->
           <div class="thumb-text">
             PHOEBE<br>2025
           </div>
@@ -368,7 +366,6 @@
             <span class="bracket-mark">[</span>
             <div class="inner-info">
               <div>Hedy's Interview</div>
-              <!-- ✅ 改为 2025 Dec 28 -->
               <div>2025 Dec 28,</div>
               <div>Los Angeles, California</div>
             </div>
@@ -379,7 +376,6 @@
 
       <div class="right-col">
         <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151774286">
-          <!-- ✅ 改为 HEDY 2025 -->
           <div class="thumb-text">
             HEDY<br>2025
           </div>
