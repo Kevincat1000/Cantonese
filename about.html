@@ -23,59 +23,54 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { height: auto; }
+    /* --- 1. 基础设置：保证高度占满屏幕 --- */
+    html {
+      height: 100%;
+    }
 
-    /* Body 保持 Block 布局 */
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
       font-family: 'Exo', sans-serif;
       font-size: 12px;
       width: 100%;
-      overflow-x: hidden;
-      display: block; 
+      
+      /* 关键修复：使用 Flexbox 实现 Sticky Footer */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* 最小高度为屏幕高度 */
     }
 
-    /* Header: 绝对置顶 */
+    /* --- 2. Header：固定定位 --- */
+    /* 在 Flex 容器中，Fixed 元素依然是脱离文档流的，不受 flex-grow 影响 */
     header, .site-header {
       position: fixed !important;
       top: 0; left: 0; width: 100% !important;
       z-index: 9999;
       background-color: var(--bg-color);
       transition: transform 0.4s ease;
+      flex-shrink: 0; /* 防止被挤压 */
     }
     header.hide { transform: translateY(-100%); }
 
-    /* --- Main: 布局核心调整 --- */
+    /* --- 3. Main：自动填充剩余空间 --- */
     main {
       width: 100%;
       
-      /* 
-         修改 1: 减小最小高度 
-         原来是 100vh (强制撑满全屏)，改为 80vh。
-         这样内容少时，Footer 会稍微往上提，离内容更近。
-      */
-      min-height: 80vh; 
+      /* 关键：flex: 1 让 Main 占据除了 Footer 以外的所有空间 */
+      /* 这样 Footer 就会被自然推到屏幕最底部 */
+      flex: 1; 
       
       display: flex;
       flex-direction: column;
-      
-      /* 
-         修改 2: 移除 justify-content: center 
-         不再强制垂直居中，改为靠上对齐。
-      */
-      justify-content: flex-start; 
+      justify-content: flex-start; /* 内容靠上对齐 */
 
-      /* 
-         修改 3: 紧凑的 Padding
-         Top: Header高度 + 30px (原先是垂直居中，可能距离顶部100px+)
-         Bottom: 30px (原先是60px)
-      */
+      /* 间距控制：Header高度 + 30px (紧凑间距) */
       padding-top: calc(var(--header-h) + 30px);
       padding-bottom: 30px; 
     }
 
-    /* 内容容器 */
+    /* --- 4. 布局容器 (保持不变) --- */
     .content-wrapper {
       width: 100%;
       max-width: 1200px;
@@ -83,19 +78,19 @@
       padding: 0 40px;
       
       display: flex;     
-      align-items: flex-start; /* 顶部对齐 */
+      align-items: flex-start;
       gap: 60px;
     }
 
-    /* 左栏 (60%) */
+    /* 左栏 */
     .text-column {
       flex: 6; 
       display: flex;
       flex-direction: column;
-      gap: 25px; /* 减小 About 和 Note 之间的间距 */
+      gap: 25px; 
     }
 
-    /* 右栏 (40%) */
+    /* 右栏 */
     .image-column {
       flex: 4;
       position: relative;
@@ -133,7 +128,6 @@
     /* 图片样式 */
     .image-container {
       width: 100%;
-      /* 稍微减小图片高度，让整体更紧凑 */
       height: 350px; 
       background-color: #ddd;
       overflow: hidden;
@@ -157,6 +151,12 @@
       background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=');
       opacity: 0.3;
       pointer-events: none;
+    }
+
+    /* --- Footer 保护 --- */
+    /* 确保通过 JS 插入的 Footer 不会缩小 */
+    footer, #footer-container, .site-footer {
+      flex-shrink: 0;
     }
 
     @media (max-width: 900px) {
