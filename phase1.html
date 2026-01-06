@@ -92,25 +92,38 @@
     }
 
     /* 
-       Cover 文字特效：
-       不再使用背景色块(background-color)，而是使用多层 text-shadow。
-       模拟大面积的柔和光晕/墨迹效果，围绕字体，不立体。
+    /* 
+       Cover 文字特效 - Solid (实体) 版 
+       原理：将模糊半径设为 0，并向不同方向堆叠阴影，
+       形成厚实的淡米色“描边”或“底座”效果，没有任何模糊感。
     */
     .hero-text-glow {
       color: #1a1a1a; /* 字体深黑 */
-      background: transparent; /* 移除背景块 */
+      background: transparent; 
       padding: 0;
       /* 
-         多重阴影叠加形成大面积淡米色光晕 
-         参数：水平偏移 垂直偏移 模糊半径 颜色
+         参数解读：X偏移 Y偏移 模糊(设为0即为实体) 颜色
+         这里我们上下左右叠加，形成一个实心的外轮廓
       */
       text-shadow: 
-        0 0 10px var(--bg-paper),
-        0 0 20px var(--bg-paper),
-        0 0 30px var(--bg-paper),
-        0 0 50px var(--bg-paper),
-        0 0 70px var(--bg-paper),
-        0 0 90px var(--bg-paper);
+        /* 第一层：紧贴的实体描边 */
+        2px 2px 0 var(--bg-paper),
+        -2px -2px 0 var(--bg-paper),
+        2px -2px 0 var(--bg-paper),
+        -2px 2px 0 var(--bg-paper),
+        2px 0 0 var(--bg-paper),
+        -2px 0 0 var(--bg-paper),
+        0 2px 0 var(--bg-paper),
+        0 -2px 0 var(--bg-paper),
+        
+        /* 第二层：加厚一圈 (可选，如果觉得不够厚可以保留) */
+        4px 4px 0 var(--bg-paper),
+        -4px -4px 0 var(--bg-paper),
+        4px -4px 0 var(--bg-paper),
+        -4px 4px 0 var(--bg-paper),
+        
+        /* 第三层：再加一点大的投影，增加一点点层次感 (也是实体的) */
+        6px 6px 0 rgba(245, 240, 229, 0.5); 
     }
 
     .hero-label {
@@ -120,23 +133,12 @@
       color: var(--date-red); /* 标签深红 */
       font-weight: 700; 
       font-size: 0.9rem;
-      /* 给标签也加一点点光晕，保持清晰 */
-      text-shadow: 0 0 15px var(--bg-paper), 0 0 25px var(--bg-paper);
-    }
-
-    .hero-title {
-      font-family: var(--font-heading); 
-      font-size: 5rem; 
-      line-height: 1.1; 
-      font-weight: 700; 
-    }
-
-    .hero-subtitle { 
-      font-family: var(--font-heading); 
-      font-size: 1.8rem; 
-      font-weight: 400; 
-      line-height: 1.4;
-      margin-top: 10px;
+      /* 给标签也加一个小的实体描边，保证清晰 */
+      text-shadow: 
+        1px 1px 0 var(--bg-paper),
+        -1px -1px 0 var(--bg-paper),
+        1px -1px 0 var(--bg-paper),
+        -1px 1px 0 var(--bg-paper);
     }
 
     /* 右下角引用样式 */
