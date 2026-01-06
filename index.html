@@ -3,166 +3,238 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - Cantonese in Americas</title>
+  <title>Cantonese in Americas - Introduction</title>
 
-  <!-- Fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Global style -->
+  <link rel="stylesheet" href="./assets/style.css" />
 
   <!-- Scripts -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
   <style>
+    /* ---------------------------------------------------------
+       VARIABLES & BASE
+    --------------------------------------------------------- */
     :root {
       --bg-color: #f5f0e5;
-      --text-color: #000000;
-      --header-h: 60px; /* 默认高度，脚本加载后可能会覆盖 */
+      --text-color: #1a1a1a;
+      --drop-cap-color: #701a1a;
+      --header-h: 50px; 
+      --content-gap: 40px; 
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html { height: auto; }
 
-    /* --- 关键修正：Body 保持 Block 布局，像你的 Introduction 页一样 --- */
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
-      font-family: 'Exo', sans-serif;
-      font-size: 12px;
+      font-family: "Gentium Book Plus", serif;
+      /* Initial gap from fixed header */
+      padding-top: calc(var(--header-h) + var(--content-gap));
+      overflow-x: hidden; 
       width: 100%;
-      overflow-x: hidden;
-      
-      /* 绝对不要在这里加 display: flex，否则 header 会乱 */
-      display: block; 
     }
 
-    /* --- Header 样式 (确保占满全宽) --- */
-    header, .site-header {
-      position: fixed !important;
-      top: 0; 
-      left: 0; 
-      width: 100% !important;
-      z-index: 9999;
-      background-color: var(--bg-color);
-      transition: transform 0.4s ease;
-    }
-    header.hide { transform: translateY(-100%); }
-
-    /* --- Main 负责垂直居中 --- */
-    main {
+    .main-grid {
+      display: grid;
       width: 100%;
-      min-height: 100vh; /* 占满全屏 */
-      
-      /* 在 Main 内部进行垂直居中，不影响 Header */
+      max-width: 100%;
+      grid-template-columns: 45% 55%; 
+      min-height: calc(100vh - (var(--header-h) + var(--content-gap)));
+      grid-template-areas: 
+        "img  content"
+        "stat content";
+      padding-top: 30px;
+    }
+
+    /* ---------------------------------------------------------
+       1. LEFT PHOTO (Area: img)
+    --------------------------------------------------------- */
+    .section-img {
+      grid-area: img;
+      display: flex;
+      align-items: flex-start; 
+      justify-content: flex-start;
+      padding-bottom: 2rem; 
+    }
+
+    .dragon-wrapper {
+      width: 70%; 
+      margin-left: 0;
+    }
+
+    .dragon-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      mix-blend-mode: multiply; 
+      filter: sepia(0.2) contrast(1.1);
+    }
+
+    /* ---------------------------------------------------------
+       2. RIGHT CONTENT (Area: content)
+    --------------------------------------------------------- */
+    .section-content {
+      grid-area: content;
       display: flex;
       flex-direction: column;
       justify-content: center; 
       
-      /* 避开 Header 和 Footer */
-      padding-top: var(--header-h);
-      padding-bottom: 60px; 
-    }
-
-    /* --- 内容容器 (60% 左 | 40% 右) --- */
-    .content-wrapper {
-      width: 100%;
-      max-width: 1200px; /* 限制最大宽，防止大屏太散 */
-      margin: 0 auto;    /* 水平居中 */
-      padding: 0 40px;   /* 屏幕左右边距 */
+      padding-right: 4rem;
+      padding-left: 0;
       
-      display: flex;     
-      align-items: flex-start; /* 顶部对齐 */
-      gap: 60px;         /* 左右栏间距 */
+      /* CHANGE 2: Removed top padding (moved to grid) 
+         and set bottom padding to 50px to match Stats side */
+      padding-top: 0;
+      padding-bottom: 50px;
     }
 
-    /* 左栏：文字 (60%) */
-    .text-column {
-      flex: 6; 
+    .content-wrapper {
+      max-width: 700px;
+    }
+
+    h2.sub-heading {
+      font-family: 'Exo', sans-serif;
+      font-weight: 400;
+      font-size: 14px; 
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    h1.main-title {
+      font-family: 'Exo', sans-serif;
+      font-weight: 800;
+      font-size: 3.5rem;
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      margin-bottom: 2rem;
+    }
+
+    .text-body {
+      font-size: 12pt; 
+      line-height: 1.6;
+      color: #000;
+      text-align: justify;
+    }
+
+    .text-body p { margin-bottom: 1.5rem; }
+    .text-body p:last-child { margin-bottom: 0; }
+
+    .text-body p:first-child::first-letter {
+      font-family: 'Exo', sans-serif;
+      font-weight: 800;
+      font-size: 3.5rem;
+      float: left;
+      line-height: 0.8;
+      margin-right: 0.15em;
+      margin-top: 0.05em;
+      color: var(--drop-cap-color);
+    }
+
+    /* ---------------------------------------------------------
+       3. STATS / NUMBERS (Area: stat)
+    --------------------------------------------------------- */
+    .section-stats {
+      grid-area: stat;
       display: flex;
       flex-direction: column;
-      gap: 30px; /* About 和 Note 之间的间距 */
+      justify-content: flex-end;
+      padding-left: 40px;
+      padding-bottom: 50px; 
     }
 
-    /* 右栏：图片 (40%) */
-    .image-column {
-      flex: 4;
-      position: relative;
+    .stats-container {
+      margin-top: auto; 
     }
 
-    /* --- 内部排版 (标题 | 正文) --- */
-    .text-row {
-      display: grid;
-      /* 100px 给标题，剩下给正文 */
-      grid-template-columns: 100px 1fr; 
-      gap: 20px;
-    }
-
-    .label {
+    .stats-title {
+      font-family: 'Exo', sans-serif;
       font-weight: 700;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      line-height: 1.4;
-      white-space: nowrap; 
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid #000;
+      padding-bottom: 4px;
+      display: inline-block;
+      margin-bottom: 0.5rem; 
       color: #000;
     }
 
-    .text-content {
-      line-height: 1.8;
-      text-align: justify;
-      text-justify: inter-word;
+    .stats-row {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap; 
+    }
+
+    .stat-item h4 {
+      font-family: 'Exo', sans-serif;
+      font-weight: 700;
+      font-size: 18px; 
+      color: #000;
+      margin-bottom: 2px;
+      line-height: 1.2;
+    }
+
+    .stat-item p {
+      font-family: 'Exo', sans-serif;
       font-weight: 400;
+      font-size: 12px;
       color: #000;
+      opacity: 0.8;
     }
 
-    .text-content p {
-      margin-bottom: 15px;
-    }
-    .text-content p:last-child { margin-bottom: 0; }
-
-    /* --- 图片样式 --- */
-    .image-container {
-      width: 100%;
-      height: 380px; /* 限制高度，确保一屏显示 */
-      background-color: #ddd;
-      overflow: hidden;
-      position: relative;
-      filter: grayscale(100%) contrast(1.1);
-    }
-
-    .image-inner {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      /* 替换这里的图片 */
-      background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop'); 
-      background-position: center;
-      background-size: cover;
-    }
-
-    /* 噪点纹理 */
-    .image-container::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=');
-      opacity: 0.3;
-      pointer-events: none;
-    }
-
-    /* --- 移动端适配 --- */
-    @media (max-width: 900px) {
-      .content-wrapper {
-        flex-direction: column-reverse; /* 手机上图片在上面 */
-        gap: 40px;
+    /* ---------------------------------------------------------
+       MOBILE / TABLET RESPONSIVE (< 1024px)
+    --------------------------------------------------------- */
+    @media (max-width: 1024px) {
+      .main-grid {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+        grid-template-areas: none;
+        padding-bottom: 2rem;
+        padding-top: 0; 
       }
-      .image-container {
-        height: 250px;
+
+      .section-img {
+        order: 1;
+        width: 100%;
+        padding-bottom: 1rem;
+        justify-content: center;
       }
-      .text-row {
-        grid-template-columns: 1fr; /* 标题正文上下排 */
-        gap: 8px;
+      .dragon-wrapper {
+        width: 100%;
+        max-width: 600px; 
+      }
+      .section-content {
+        order: 2;
+        padding: 1rem 2rem;
+      }
+      h1.main-title {
+        font-size: 2.5rem;
+      }
+      h2.sub-heading {
+        font-size: 16px; 
+      }
+      .section-stats {
+        order: 3;
+        padding: 2rem; 
+        padding-top: 0;
+      }
+      .stats-row {
+        gap: 2rem;
+        justify-content: space-between;
       }
     }
   </style>
@@ -170,90 +242,60 @@
 
 <body>
 
-  <!-- Header Injection -->
-  <div id="header-injection-point"></div>
+  <div id="header-container"></div>
 
-  <main>
-    <div class="content-wrapper">
-      
-      <!-- 左侧 60% -->
-      <div class="text-column">
-        
-        <!-- About Me -->
-        <div class="text-row">
-          <div class="label">
-            About Me &<br>This Project
-          </div>
-          <div class="text-content">
-            <p>
-              Hi, I’m Kevin. This project started in a pretty simple way: I really like dim sum. Growing up, it was something I always looked forward to, but over time, I started wondering how these traditions traveled so far from where they began. Visiting Hong Kong last summer made everything feel real to me. It pushed me to look beyond just enjoying the culture and start asking questions about where it comes from.
-            </p>
-            <p>
-              I started working on this six months ago, and I plan to spend the next year finishing it. I like filming and recording things, so instead of just reading textbooks, I decided to learn through interviews. I’m talking to people from different generations about their families, their languages, and the traditions they keep. My goal is to understand how Cantonese culture moves across places and time through the lens of ordinary routines and everyday stories.
-            </p>
-          </div>
-        </div>
-
-        <!-- Note -->
-        <div class="text-row">
-          <div class="label">Note</div>
-          <div class="text-content">
-            <p>
-              In this project, the term 'Cantonese' is employed in a broad geographic and historical sense to denote migrants from Guangdong Province and their descendants across the diaspora. While diverse groups like the Hakka and Teochew existed, the social dynamics of early Chinatowns established Cantonese as the dominant lingua franca, compelling these communities to adopt the vernacular for survival. Thus, 'Cantonese' here reflects a collective historical identity rather than a strict linguistic category.
-            </p>
-          </div>
-        </div>
-
+  <main class="main-grid">
+    <div class="section-img">
+      <div class="dragon-wrapper">
+        <img src="https://tessa2.lapl.org/digital/api/singleitem/image/photos/17275/default.jpg" alt="Dragon Parade">
       </div>
-
-      <!-- 右侧 40% -->
-      <div class="image-column">
-        <div class="image-container">
-          <div class="image-inner"></div>
-        </div>
-      </div>
-
     </div>
+
+    <div class="section-content">
+      <div class="content-wrapper">
+        <h2 class="sub-heading">Public History · Oral History · Cultural Research</h2>
+        <h1 class="main-title">CANTONESE IN<br>THE AMERICAS</h1>
+        
+        <div class="text-body">
+          <p>
+            Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.
+          </p>
+          <p>
+            This project seeks to shift the focus from "a group of Guangdong people" to a broader question of how Guangdong culture has been carried abroad, transformed, and transmitted across generations. Through multi-regional, multilingual archival research, this project aims to present the history of Cantonese migration and cultural transformation that has often been simplified.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Stats Section -->
+    <div class="section-stats">
+      <div class="stats-container">
+        <div class="stats-title">BY THE NUMBERS</div>
+        <div class="stats-row">
+          <div class="stat-item">
+            <h4>1848</h4>
+            <p>First Arrival</p>
+          </div>
+          
+          <div class="stat-item">
+            <h4>530k</h4>
+            <p>U.S. Home Speakers</p>
+          </div>
+          
+          <div class="stat-item">
+            <h4>30M+</h4>
+            <p>Global Cantonese Diaspora</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
-  <script>
-    /* Header Sync Logic */
-    (function () {
-      function syncHeaderHeight() {
-        const header = document.querySelector('header') || document.querySelector('.site-header');
-        if (!header) return false;
-        const h = Math.ceil(header.getBoundingClientRect().height);
-        if (h > 0) {
-          document.documentElement.style.setProperty('--header-h', h + 'px');
-          return true;
-        }
-        return false;
-      }
-      document.addEventListener('DOMContentLoaded', () => {
-        let tries = 0;
-        (function waitHeader() {
-          tries++;
-          if (syncHeaderHeight()) return;
-          if (tries > 60) return;
-          requestAnimationFrame(waitHeader);
-        })();
-        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
-      });
-    })();
+  <!-- Footer Placeholder -->
+  <div id="footer-container"></div>
 
-    /* Scroll Hide Logic */
-    let lastScrollY = window.scrollY;
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header') || document.querySelector('.site-header');
-      if (header) {
-        if (window.scrollY > lastScrollY && window.scrollY > 50) {
-          header.classList.add('hide');
-        } else {
-          header.classList.remove('hide');
-        }
-        lastScrollY = window.scrollY;
-      }
-    });
-  </script>
 </body>
 </html>
+
+
