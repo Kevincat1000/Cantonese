@@ -18,14 +18,14 @@
     :root {
       --bg-color: #f5f0e5;
       --text-color: #000000;
-      --header-h: 60px; /* 默认高度，脚本加载后可能会覆盖 */
+      --header-h: 60px; /* 默认高度 */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html { height: auto; }
 
-    /* --- 关键修正：Body 保持 Block 布局，像你的 Introduction 页一样 --- */
+    /* Body 保持 Block 布局 */
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
@@ -33,68 +33,77 @@
       font-size: 12px;
       width: 100%;
       overflow-x: hidden;
-      
-      /* 绝对不要在这里加 display: flex，否则 header 会乱 */
       display: block; 
     }
 
-    /* --- Header 样式 (确保占满全宽) --- */
+    /* Header: 绝对置顶 */
     header, .site-header {
       position: fixed !important;
-      top: 0; 
-      left: 0; 
-      width: 100% !important;
+      top: 0; left: 0; width: 100% !important;
       z-index: 9999;
       background-color: var(--bg-color);
       transition: transform 0.4s ease;
     }
     header.hide { transform: translateY(-100%); }
 
-    /* --- Main 负责垂直居中 --- */
+    /* --- Main: 布局核心调整 --- */
     main {
       width: 100%;
-      min-height: 100vh; /* 占满全屏 */
       
-      /* 在 Main 内部进行垂直居中，不影响 Header */
+      /* 
+         修改 1: 减小最小高度 
+         原来是 100vh (强制撑满全屏)，改为 80vh。
+         这样内容少时，Footer 会稍微往上提，离内容更近。
+      */
+      min-height: 80vh; 
+      
       display: flex;
       flex-direction: column;
-      justify-content: center; 
       
-      /* 避开 Header 和 Footer */
-      padding-top: var(--header-h);
-      padding-bottom: 60px; 
+      /* 
+         修改 2: 移除 justify-content: center 
+         不再强制垂直居中，改为靠上对齐。
+      */
+      justify-content: flex-start; 
+
+      /* 
+         修改 3: 紧凑的 Padding
+         Top: Header高度 + 30px (原先是垂直居中，可能距离顶部100px+)
+         Bottom: 30px (原先是60px)
+      */
+      padding-top: calc(var(--header-h) + 30px);
+      padding-bottom: 30px; 
     }
 
-    /* --- 内容容器 (60% 左 | 40% 右) --- */
+    /* 内容容器 */
     .content-wrapper {
       width: 100%;
-      max-width: 1200px; /* 限制最大宽，防止大屏太散 */
-      margin: 0 auto;    /* 水平居中 */
-      padding: 0 40px;   /* 屏幕左右边距 */
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
       
       display: flex;     
       align-items: flex-start; /* 顶部对齐 */
-      gap: 60px;         /* 左右栏间距 */
+      gap: 60px;
     }
 
-    /* 左栏：文字 (60%) */
+    /* 左栏 (60%) */
     .text-column {
       flex: 6; 
       display: flex;
       flex-direction: column;
-      gap: 30px; /* About 和 Note 之间的间距 */
+      gap: 25px; /* 减小 About 和 Note 之间的间距 */
     }
 
-    /* 右栏：图片 (40%) */
+    /* 右栏 (40%) */
     .image-column {
       flex: 4;
       position: relative;
     }
 
-    /* --- 内部排版 (标题 | 正文) --- */
+    /* 内部排版 */
     .text-row {
       display: grid;
-      /* 100px 给标题，剩下给正文 */
       grid-template-columns: 100px 1fr; 
       gap: 20px;
     }
@@ -121,10 +130,11 @@
     }
     .text-content p:last-child { margin-bottom: 0; }
 
-    /* --- 图片样式 --- */
+    /* 图片样式 */
     .image-container {
       width: 100%;
-      height: 380px; /* 限制高度，确保一屏显示 */
+      /* 稍微减小图片高度，让整体更紧凑 */
+      height: 350px; 
       background-color: #ddd;
       overflow: hidden;
       position: relative;
@@ -135,13 +145,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* 替换这里的图片 */
       background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop'); 
       background-position: center;
       background-size: cover;
     }
 
-    /* 噪点纹理 */
     .image-container::after {
       content: "";
       position: absolute;
@@ -151,17 +159,16 @@
       pointer-events: none;
     }
 
-    /* --- 移动端适配 --- */
     @media (max-width: 900px) {
       .content-wrapper {
-        flex-direction: column-reverse; /* 手机上图片在上面 */
-        gap: 40px;
+        flex-direction: column-reverse;
+        gap: 30px;
       }
       .image-container {
         height: 250px;
       }
       .text-row {
-        grid-template-columns: 1fr; /* 标题正文上下排 */
+        grid-template-columns: 1fr;
         gap: 8px;
       }
     }
@@ -170,13 +177,12 @@
 
 <body>
 
-  <!-- Header Injection -->
   <div id="header-injection-point"></div>
 
   <main>
     <div class="content-wrapper">
       
-      <!-- 左侧 60% -->
+      <!-- Left Column -->
       <div class="text-column">
         
         <!-- About Me -->
@@ -206,7 +212,7 @@
 
       </div>
 
-      <!-- 右侧 40% -->
+      <!-- Right Column -->
       <div class="image-column">
         <div class="image-container">
           <div class="image-inner"></div>
@@ -217,7 +223,6 @@
   </main>
 
   <script>
-    /* Header Sync Logic */
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
@@ -241,7 +246,6 @@
       });
     })();
 
-    /* Scroll Hide Logic */
     let lastScrollY = window.scrollY;
     window.addEventListener('scroll', () => {
       const header = document.querySelector('header') || document.querySelector('.site-header');
