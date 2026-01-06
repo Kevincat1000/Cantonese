@@ -9,10 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- ✅ Gentium for A–G labels -->
+  <!-- Gentium for labels -->
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- 原有注入脚本 -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
@@ -23,12 +22,9 @@
       --accent-maroon: #701a1a;
       --header-h: 60px;
       --video-gap: 25px;
-
-      /* 标题在屏幕左侧约 20% */
       --title-x: 20vw;
-
-      /* ✅ border thickness */
-      --border-w: 2px;
+      /* ⬇️ 全局边框变量设为0，但保留变量以便Close按钮单独使用 */
+      --border-w: 2px; 
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,13 +40,11 @@
       overflow-x: hidden;
     }
 
-    /* ✅ Header 不固定：正常滚走 */
     #header-wrapper {
       position: static;
       width: 100%;
       background-color: var(--bg-color);
     }
-    /* 覆盖 header.js 可能写的 fixed（不用 !important，用更高优先级） */
     #header-wrapper header,
     #header-wrapper .site-header {
       position: static;
@@ -82,7 +76,6 @@
       padding-left: 40px;
     }
 
-    /* 左侧大标题：固定到左侧 20vw */
     .section-title {
       position: absolute;
       left: var(--title-x);
@@ -96,7 +89,7 @@
       pointer-events: none;
     }
 
-    /* ✅ A–G 括号标签：Gentium / 16 / 400 / 黑色 */
+    /* 通用括号标签 [ A ] 等 */
     .bracket-label {
       position: absolute;
       right: 5px;
@@ -108,29 +101,92 @@
       letter-spacing: 0.2px;
     }
 
-    /* ✅ B 行的文字说明（在 [ B ] 下面） */
-    .item-meta {
+    /* ✅ B 栏专用：多行文字标签结构 */
+    .complex-label-box {
       position: absolute;
       right: 5px;
-      top: 26px;
-      max-width: 320px;
-      font-size: 13px;
-      line-height: 1.35;
-      color: #000;
+      top: 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-family: "Gentium Book Plus", serif;
+      font-size: 16px;
       font-weight: 400;
+      color: #000;
+      line-height: 1.3;
+      text-align: left;
+    }
+    .complex-label-box .bracket-mark {
+      transform: translateY(-2px); /* 微调括号位置 */
+    }
+    .complex-label-box .inner-info {
+      display: flex;
+      flex-direction: column;
     }
 
-    /* ✅ 左右缩略图边框：#701a1a + 加粗 */
+    /* ✅ 视频缩略图：去除边框 */
     .video-thumb {
       width: 50%;
       aspect-ratio: 16 / 9;
       background-color: #d1cdc4;
       cursor: pointer;
-      border: var(--border-w) solid var(--accent-maroon);
+      border: 0; /* 去除边框 */
       transition: filter 0.3s;
       filter: grayscale(100%);
     }
     .video-thumb:hover { filter: grayscale(0%); }
+
+    /* ✅ B 栏专用缩略图样式 */
+    .thumb-phoebe {
+      background-color: #eae5d6; /* 浅米色底 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      filter: grayscale(0%) !important; /* 保持彩色/本色 */
+    }
+    
+    /* PHOEBE 2026 大字 */
+    .thumb-phoebe-text {
+      color: #701a1a;
+      font-family: 'Exo', sans-serif;
+      font-weight: 700;
+      font-size: 42px;
+      text-transform: uppercase;
+      line-height: 1.1;
+      text-align: center;
+      z-index: 1;
+    }
+    
+    /* 圆形播放键 */
+    .play-circle {
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      background: rgba(0, 0, 0, 0.5); /* 半透明黑 */
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      transition: background 0.3s, transform 0.3s;
+    }
+    /* 播放键三角形 */
+    .play-circle::after {
+      content: '';
+      display: block;
+      width: 0; 
+      height: 0; 
+      border-left: 18px solid #fff;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      margin-left: 5px; /* 光学居中 */
+    }
+    .thumb-phoebe:hover .play-circle {
+      background: rgba(112, 26, 26, 0.85); /* 悬停变红 */
+      transform: scale(1.1);
+    }
 
     /* --- 弹窗 --- */
     .modal-overlay {
@@ -150,10 +206,10 @@
       aspect-ratio: 16 / 9;
       background: #000;
       box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-      border: var(--border-w) solid var(--accent-maroon);
+      border: 0; /* ✅ 去除大窗口边框 */
     }
 
-    /* ✅ 圆圈 X：#701a1a + 边框加粗 */
+    /* Close 按钮保持原有样式 (带边框) 以保证可见性，如需去除请删除 border 属性 */
     .close-btn {
       position: fixed;
       top: 30px;
@@ -201,18 +257,18 @@
         order: 1;
       }
 
-      .bracket-label {
+      .bracket-label, .complex-label-box {
         position: static;
         order: 2;
         margin-bottom: 6px;
       }
-
-      .item-meta {
-        position: static;
-        order: 3;
+      
+      /* 手机端稍微调整多行文字居中 */
+      .complex-label-box {
         text-align: center;
-        margin-bottom: 12px;
-        max-width: 90%;
+      }
+      .complex-label-box .inner-info {
+        align-items: center;
       }
 
       .video-thumb {
@@ -248,16 +304,29 @@
       <div class="right-col"><div class="video-thumb" data-video="URL_A"></div></div>
     </div>
 
+    <!-- ✅ Modified Row B -->
     <div class="row">
       <div class="left-col">
-        <div class="bracket-label">[ B ]</div>
-        <!-- ✅ B 的文字信息 -->
-        <div class="item-meta">Phoebe's Interview, 转行 2026 Jan 2, 转行 Los Angeles, California</div>
+        <!-- 替换原有的 [ B ]，改为三行文字放在括号内 -->
+        <div class="complex-label-box">
+          <span class="bracket-mark">[</span>
+          <div class="inner-info">
+            <div>Phoebe's Interview</div>
+            <div>2026 Jan 2</div>
+            <div>Los Angeles, California</div>
+          </div>
+          <span class="bracket-mark">]</span>
+        </div>
       </div>
 
-      <!-- ✅ B Vimeo embed 链接（可直接 iframe 播放） -->
       <div class="right-col">
-        <div class="video-thumb" data-video="https://player.vimeo.com/video/1151772755"></div>
+        <!-- B 视频缩略图：浅米色底 + 大字 + 圆形播放键 -->
+        <div class="video-thumb thumb-phoebe" data-video="https://player.vimeo.com/video/1151772755">
+          <div class="thumb-phoebe-text">
+            PHOEBE<br>2026
+          </div>
+          <div class="play-circle"></div>
+        </div>
       </div>
     </div>
 
@@ -306,7 +375,6 @@
   </div>
 
   <script>
-    // --- 弹窗逻辑（顺手加 autoplay） ---
     const overlay = document.getElementById('modalOverlay');
     const iframe = document.getElementById('videoIframe');
     const closeBtn = document.getElementById('closeBtn');
@@ -315,6 +383,8 @@
     thumbs.forEach(thumb => {
       thumb.addEventListener('click', () => {
         const raw = thumb.getAttribute('data-video');
+        if(!raw || raw.startsWith('URL_')) return; // 防止点击占位符报错
+
         const src = raw + (raw.includes('?') ? '&' : '?') + 'autoplay=1';
         iframe.src = src;
         overlay.classList.add('active');
