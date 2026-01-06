@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Scripts -->
+  <!-- Scripts (ONLY injectors) -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
@@ -18,11 +18,10 @@
     :root {
       --bg-color: #f5f0e5;
       --text-color: #000000;
-      --header-h: 60px; /* 默认高度，防止 JS 失效时 header 消失 */
+      --header-h: 60px; /* fallback; JS will sync real height */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { height: 100%; }
 
     body {
@@ -35,47 +34,30 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      /* 初始状态：如果 preload 没被移除，透明度为 0 */
-      opacity: 1; 
     }
 
-    /* --- Header：固定定位 --- */
-    /* 增加选择器范围，确保匹配到注入的标签 */
-    header, .site-header, #header-injection-point > header, #header-injection-point > div {
-      position: fixed !important;
-      top: 0; left: 0; width: 100% !important;
-      z-index: 9999;
-      background-color: var(--bg-color);
-      transition: transform 0.4s ease;
-      flex-shrink: 0;
-      will-change: transform;
-    }
-    
-    header.hide, .site-header.hide { transform: translateY(-100%); }
+    /* ✅ Header injected here (do NOT style it as fixed overlay) */
+    #header-injection-point { width: 100%; }
 
-    /* ✅ 预留 header 空间 */
-    #header-injection-point {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
+    /* ✅ Spacer to prevent layout jump after header injection */
+    #header-spacer {
       height: var(--header-h);
-      background: var(--bg-color);
-      z-index: 3000;
-      pointer-events: none;
+      width: 100%;
+      flex-shrink: 0;
     }
 
-    /* --- Main：自动填充剩余空间 --- */
     main {
       width: 100%;
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      padding-top: calc(var(--header-h) + 30px);
+
+      /* ✅ only keep your desired top gap; header height is handled by spacer */
+      padding-top: 30px;
       padding-bottom: 30px;
     }
 
-    /* --- 布局容器 --- */
     .content-wrapper {
       width: 100%;
       max-width: 1200px;
@@ -136,7 +118,6 @@
     .image-inner {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop');
       background-position: center;
       background-size: cover;
@@ -159,105 +140,103 @@
       .text-row { grid-template-columns: 1fr; gap: 8px; }
     }
 
-    /* 首屏控制 */
+    /* ✅ Anti-flash: hide until header height is synced (safe + minimal) */
     html.preload body { opacity: 0; }
-    body { transition: opacity .25s ease; }
+    body { transition: opacity .15s ease; }
   </style>
 </head>
 
 <body>
+  <!-- header.js will inject header here -->
   <div id="header-injection-point"></div>
+  <!-- reserve space so content doesn't jump -->
+  <div id="header-spacer" aria-hidden="true"></div>
 
   <main>
     <div class="content-wrapper">
+
+      <!-- Left Column -->
       <div class="text-column">
+
+        <!-- About Me -->
         <div class="text-row">
-          <div class="label">About Me &<br>This Project</div>
+          <div class="label">
+            About Me &<br>This Project
+          </div>
           <div class="text-content">
-            <p>Hi, I’m Kevin. This project started in a pretty simple way: I really like dim sum...</p>
-            <p>I started working on this six months ago, and I plan to spend the next year finishing it...</p>
+            <p>
+              Hi, I’m Kevin. This project started in a pretty simple way: I really like dim sum. Growing up, it was something I always looked forward to, but over time, I started wondering how these traditions traveled so far from where they began. Visiting Hong Kong last summer made everything feel real to me. It pushed me to look beyond just enjoying the culture and start asking questions about where it comes from.
+            </p>
+            <p>
+              I started working on this six months ago, and I plan to spend the next year finishing it. I like filming and recording things, so instead of just reading textbooks, I decided to learn through interviews. I’m talking to people from different generations about their families, their languages, and the traditions they keep. My goal is to understand how Cantonese culture moves across places and time through the lens of ordinary routines and everyday stories.
+            </p>
           </div>
         </div>
+
+        <!-- Note -->
         <div class="text-row">
           <div class="label">Note</div>
           <div class="text-content">
-            <p>In this project, the term 'Cantonese' is employed in a broad geographic and historical sense...</p>
+            <p>
+              In this project, the term 'Cantonese' is employed in a broad geographic and historical sense to denote migrants from Guangdong Province and their descendants across the diaspora. While diverse groups like the Hakka and Teochew existed, the social dynamics of early Chinatowns established Cantonese as the dominant lingua franca, compelling these communities to adopt the vernacular for survival. Thus, 'Cantonese' here reflects a collective historical identity rather than a strict linguistic category.
+            </p>
           </div>
         </div>
+
       </div>
+
+      <!-- Right Column -->
       <div class="image-column">
         <div class="image-container">
           <div class="image-inner"></div>
         </div>
       </div>
+
     </div>
   </main>
 
+  <div id="footer-container"></div>
+
   <script>
+    // ✅ Minimal: wait for injected header, measure its height, set --header-h + spacer, then show page
     (function () {
+      const spacer = document.getElementById('header-spacer');
+
+      function findHeaderEl() {
+        // header.js might inject <header> or .site-header
+        return document.querySelector('header') || document.querySelector('.site-header');
+      }
+
       function syncHeaderHeight() {
-        // 扩展选择器，确保能抓到注入后的元素
-        const header = document.querySelector('header') || 
-                       document.querySelector('.site-header') || 
-                       document.querySelector('#header-injection-point > *');
-        
+        const header = findHeaderEl();
         if (!header) return false;
 
         const h = Math.ceil(header.getBoundingClientRect().height);
-        // 只要高度大于 0，或者元素已经存在
         if (h > 0) {
           document.documentElement.style.setProperty('--header-h', h + 'px');
-          const holder = document.getElementById('header-injection-point');
-          if (holder) holder.style.height = h + 'px';
+          if (spacer) spacer.style.height = h + 'px';
           return true;
         }
         return false;
       }
 
-      function markReady() {
+      function showPage() {
         document.documentElement.classList.remove('preload');
-        document.body.classList.add('header-ready');
       }
 
       document.addEventListener('DOMContentLoaded', () => {
         let tries = 0;
-        function waitHeader() {
+        (function tick() {
           tries++;
-          const found = syncHeaderHeight();
-          
-          if (found) {
-            markReady();
-          } else if (tries > 60) {
-            // 如果尝试了60帧（约1秒）还没找到，强制显示，防止白屏
-            markReady();
-          } else {
-            requestAnimationFrame(waitHeader);
-          }
-        }
-        waitHeader();
+          if (syncHeaderHeight()) { showPage(); return; }
+          if (tries > 80) { showPage(); return; } // fail-safe
+          requestAnimationFrame(tick);
+        })();
 
-        window.addEventListener('load', () => {
-          syncHeaderHeight();
-          markReady(); // 最终保险
-        });
+        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
+        window.addEventListener('resize', () => syncHeaderHeight());
       });
     })();
-
-    // 滚动隐藏逻辑
-    let lastScrollY = window.scrollY;
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header') || 
-                     document.querySelector('.site-header') || 
-                     document.querySelector('#header-injection-point > *');
-      if (!header) return;
-
-      if (window.scrollY > lastScrollY && window.scrollY > 50) {
-        header.classList.add('hide');
-      } else {
-        header.classList.remove('hide');
-      }
-      lastScrollY = window.scrollY;
-    });
   </script>
 </body>
 </html>
