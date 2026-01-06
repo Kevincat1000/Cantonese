@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About - Cantonese in Americas</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Exo Only -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -17,8 +17,8 @@
   <style>
     :root {
       --bg: #f5f0e5;
-      --text: #000000; /* 纯黑 */
-      --header-h: 60px;
+      --text: #000000;
+      --header-h: 60px; /* 默认高度，会被JS更新 */
     }
 
     * { box-sizing: border-box; }
@@ -31,47 +31,51 @@
       font-size: 12px;
       color: var(--text);
       width: 100%;
-      /* 修复 Footer 问题：移除 height: 100% 和 overflow 限制，让页面自然滚动 */
+      /* 移除 overflow hidden，防止切断 footer */
       -webkit-font-smoothing: antialiased;
     }
 
-    /* --- Header Style --- */
+    /* --- Header Restoration --- */
+    /* 仅保留最核心定位，去除其余样式以免干扰 assets/header.js 自带样式 */
     header {
       position: fixed !important;
       top: 0; left: 0; width: 100%;
       z-index: 9999;
       background-color: var(--bg);
-      transition: transform 0.4s ease;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     header.hide { transform: translateY(-100%); }
+    
     #header-injection-point { display: none !important; }
 
     /* --- Main Layout --- */
     main {
       width: 100%;
+      /* 使用 min-height 而不是 height，允许内容多时滚动，但尽量保持一屏 */
       min-height: 100vh;
       display: flex;
-      align-items: center; /* 垂直居中 */
-      justify-content: center;
-      padding-top: calc(var(--header-h) + 40px); 
-      padding-bottom: 100px; /* 留足底部空间给 Footer */
+      flex-direction: column;
+      justify-content: center; /* 垂直居中 */
+      /* 顶部避开Header，底部留出Footer空间 */
+      padding-top: var(--header-h);
+      padding-bottom: 80px; 
     }
 
-    /* --- Grid Container (Golden Ratio) --- */
+    /* --- Grid Layout (Golden Ratio) --- */
     .grid-layout {
       width: 100%;
       display: grid;
       /* 
          列定义：
-         1. 40px: 左边距
-         2. 120px: 标签栏 (About/Note)
-         3. 1.618fr: 正文内容 (占据黄金比例的较大侧)
-         4. 60px: 中间空隙
-         5. 1fr: 图片 (占据余下空间)
-         6. 40px: 右边距
+         1. 40px: 左边距 (Left Margin)
+         2. 120px: 标题栏 (Labels)
+         3. 1.618fr: 正文内容 (Golden Ratio Major)
+         4. 50px: 中间空隙 (Gap)
+         5. 1fr: 图片 (Golden Ratio Minor)
+         6. 40px: 右边距 (Right Margin)
       */
-      grid-template-columns: 40px 120px 1.618fr 60px 1fr 40px;
-      align-items: start; /* 顶部对齐 */
+      grid-template-columns: 40px 120px 1.618fr 50px 1fr 40px;
+      align-items: start;
     }
 
     /* --- Typography --- */
@@ -79,34 +83,38 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: #000000; /* 纯黑 */
-      line-height: 1.6;
-      grid-column: 2; /* 放在第2列 */
+      color: #000000;
+      line-height: 1.4;
+      grid-column: 2;
     }
 
     .body-text {
-      line-height: 2.0; /* 增加行距，提升专业感 */
+      line-height: 1.8; /* 紧凑但易读 */
       text-align: justify; /* 两端对齐 */
       text-justify: inter-word;
-      color: #000000; /* 纯黑 */
+      color: #000000;
       font-weight: 400;
-      grid-column: 3; /* 放在第3列 */
+      grid-column: 3;
     }
 
     .body-text p {
       margin-top: 0;
-      margin-bottom: 24px;
+      margin-bottom: 15px; /* 减少段落间距 */
+    }
+    .body-text p:last-child {
+      margin-bottom: 0;
     }
 
     /* --- Image Styling --- */
     .image-container {
-      grid-column: 5; /* 放在第5列 */
+      grid-column: 5;
       grid-row: 1 / span 4; /* 跨越行 */
       
       width: 100%;
-      /* 让图片高度自适应，或者设定一个黄金比例的高度 */
-      aspect-ratio: 3 / 4; 
-      max-height: 450px;
+      /* 限制最大高度，确保在笔记本屏幕也能一页显示 */
+      max-height: 55vh; 
+      aspect-ratio: 3 / 4; /* 保持比例 */
+      
       background-color: #ddd;
       overflow: hidden;
       position: relative;
@@ -117,7 +125,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* 占位图 */
       background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop'); 
       background-size: cover;
       background-position: center;
@@ -133,13 +140,16 @@
       pointer-events: none;
     }
 
-    /* --- Alignment Helpers --- */
+    /* --- Positioning Helpers --- */
+    
+    /* Row 1: About Me */
     .row-1-label { grid-row: 1; margin-top: 0; } 
-    .row-1-text  { grid-row: 1; }
+    .row-1-text  { grid-row: 1; margin-top: 0; }
 
-    /* Note 部分的间距 */
-    .row-2-label { grid-row: 2; margin-top: 24px; } 
-    .row-2-text  { grid-row: 2; margin-top: 24px; }
+    /* Row 2: Note */
+    /* 减少上下的间距，让它更紧凑 */
+    .row-2-label { grid-row: 2; margin-top: 20px; } 
+    .row-2-text  { grid-row: 2; margin-top: 20px; }
 
     /* --- Responsive --- */
     @media (max-width: 900px) {
@@ -152,10 +162,10 @@
         width: 100%;
         max-height: 300px;
         order: -1;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
       }
-      .label-text { margin-bottom: 8px; }
-      .row-2-label { margin-top: 30px; }
+      .label-text { margin-bottom: 5px; }
+      .row-2-label { margin-top: 25px; }
       .row-2-text { margin-top: 0; }
     }
 
@@ -186,18 +196,18 @@
         </p>
       </div>
 
-      <!-- Part 2: Note (Rewritten: Professional yet Clear) -->
+      <!-- Part 2: Note (Professionally Shortened) -->
       <div class="label-text row-2-label">
         Note
       </div>
 
       <div class="body-text row-2-text">
         <p>
-          For the purpose of this archive, "Cantonese" denotes the broad diaspora from Guangdong Province. Although ethnolinguistically diverse—comprising groups such as the Hakka and Teochew—the social dynamics of early North American Chinatowns established Cantonese as the dominant lingua franca. Consequently, these communities often assimilated into the Cantonese vernacular for survival and cohesion. Here, the term reflects that collective, historically contingent identity rather than a strictly defined linguistic category.
+          In this project, the term 'Cantonese' is employed in a broad geographic and historical sense to denote migrants from Guangdong Province and their descendants across the diaspora. While diverse groups like the Hakka and Teochew existed, the social dynamics of early Chinatowns established Cantonese as the dominant lingua franca, compelling these communities to adopt the vernacular for survival. Thus, 'Cantonese' here reflects a collective historical identity rather than a strict linguistic category.
         </p>
       </div>
 
-      <!-- Image Column -->
+      <!-- Part 3: Image -->
       <div class="image-container">
         <div class="image-content"></div>
       </div>
@@ -206,6 +216,11 @@
   </main>
 
   <script>
+    /* 
+       Basic Header Logic 
+       保留最基础的Header高度同步和滚动隐藏，
+       去除了其他可能干扰Header显示的逻辑。
+    */
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
@@ -232,6 +247,20 @@
         window.addEventListener('load', () => syncHeaderHeight(), { once: true });
       });
     })();
+
+    // Simple scroll behavior
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (header) {
+        if (window.scrollY > lastScrollY && window.scrollY > 50) {
+          header.classList.add('hide');
+        } else {
+          header.classList.remove('hide');
+        }
+        lastScrollY = window.scrollY;
+      }
+    });
   </script>
 </body>
 </html>
