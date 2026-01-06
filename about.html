@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="preload">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,16 +11,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Header/Footer Injectors -->
+  <!-- Custom Scripts -->
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
   <style>
     :root {
-      --bg: #f5f0e5;
+      --bg: #f5f0e5; /* 温暖的纸张色 */
       --text: #1a1a1a;
-      --header-h: 48px;
-      --accent: #a84d4d;
+      --header-h: 60px;
     }
 
     * { box-sizing: border-box; }
@@ -31,76 +30,192 @@
       background-color: var(--bg);
       font-family: 'Gentium Book Plus', serif;
       color: var(--text);
+      width: 100%;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Reserve Header Space */
-    body { padding-top: var(--header-h); }
+    /* --- Header Style --- */
+    header {
+      position: fixed !important;
+      top: 0; left: 0; width: 100%;
+      z-index: 9999;
+      background-color: var(--bg);
+      transition: transform 0.4s ease;
+    }
+    header.hide { transform: translateY(-100%); }
 
-    /* Page Container */
-    .page-container {
-      max-width: 1152px;
-      margin: 0 auto;
-      padding: 80px 20px;
-      min-height: calc(100vh - var(--header-h));
+    #header-injection-point { display: none !important; }
+
+    /* --- Main Layout --- */
+    main {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      /* 顶部留白，根据Header高度调整，确保视觉居中 */
+      padding-top: calc(var(--header-h) + 60px);
+      padding-bottom: 100px;
     }
 
-    /* Typography */
-    .section-label {
-      font-family: 'Exo', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 10px;
-      display: block;
+    /* --- Content Block (参考图的核心排版) --- */
+    .content-block {
+      width: 100%;
+      max-width: 600px; /* 稍微调窄一点，让文字块更紧凑好看 */
+      padding: 0 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .section-title {
+    /* --- Typography --- */
+    .project-title {
       font-family: 'Exo', sans-serif;
-      font-size: 2.5rem;
+      font-size: 12px;
       font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 35px;
+      text-align: center;
+      color: #000;
     }
 
-    .section-body {
-      font-size: 1.15rem;
-      line-height: 1.7;
-      opacity: 0.9;
+    .narrative-text {
+      font-size: 16px; /* 保持16px */
+      line-height: 1.7; /* 适中的行距 */
+      text-align: justify; /* 关键：两端对齐，形成整齐的方块 */
+      text-justify: inter-word;
+      margin-bottom: 50px;
+      color: #222;
+      font-weight: 400;
     }
 
-    .section-body p {
-      margin: 0 0 1rem 0;
+    .narrative-text p {
+      margin-bottom: 20px;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .page-container { padding: 40px 20px; }
-      .section-title { font-size: 1.8rem; }
+    /* --- Bottom Placeholder Image --- */
+    .bottom-image-container {
+      width: 100%;
+      height: 320px; /* 图片高度 */
+      background-color: #ddd;
+      overflow: hidden;
+      position: relative;
+      /* 模拟参考图的黑白印刷质感 */
+      filter: grayscale(100%) contrast(1.1);
     }
+
+    .bottom-image {
+      width: 100%;
+      height: 100%;
+      /* 这里可以替换成你自己的照片 URL */
+      background-image: url('https://images.unsplash.com/photo-1542640244-7e67286feb8f?q=80&w=2574&auto=format&fit=crop'); 
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* 添加一点噪点纹理，让图片看起来不那么“数码味” */
+    .bottom-image-container::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=');
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 600px) {
+      .narrative-text {
+        text-align: left; /* 手机屏幕太窄时，取消两端对齐以免单词间距过大 */
+      }
+      .bottom-image-container {
+        height: 220px;
+      }
+    }
+
+    /* Anti-shake */
+    html.preload body { opacity: 0; }
+    body { transition: opacity .3s ease; }
   </style>
 </head>
 
 <body>
+
+  <!-- Header Injection -->
+  <div id="header-injection-point"></div>
+
   <main>
-    <div class="page-container">
-      <span class="section-label">About</span>
-      <h1 class="section-title">About Me & This Project</h1>
+    <div class="content-block">
+      
+      <!-- Title -->
+      <div class="project-title">About Me & This Project</div>
 
-      <div class="section-body">
-        <p>Hi, I’m Kevin. This project started in a pretty simple way. I really like dim sum. Growing up, it was something I looked forward to. Over time, I started wondering how Cantonese traditions ended up so far from where they began.</p>
-
-        <p>Last summer, I had the chance to go to Hong Kong, and that experience made everything feel more real. It pushed me to look beyond just enjoying the culture and start asking questions about where it came from and how it travels.</p>
-
-        <p>I like filming and recording things, so I decided to explore this through interviews and documentation instead of just reading about it. For this project, I’m talking to people from different generations about their families, the languages they speak, and the traditions they keep. The goal is to understand how Cantonese culture moves across places and time through the lens of ordinary routines and everyday stories.</p>
+      <!-- Text Block (Real & Honest Tone) -->
+      <div class="narrative-text">
+        <p>
+          Hi, I’m Kevin. This project started in a pretty simple way: I really like dim sum. Growing up, it was something I always looked forward to, but over time, I started wondering how these traditions traveled so far from where they began. Visiting Hong Kong last summer made everything feel real to me. It pushed me to look beyond just enjoying the culture and start asking questions about where it comes from.
+        </p>
+        <p>
+          I started working on this six months ago, and I plan to spend the next year finishing it. I like filming and recording things, so instead of just reading textbooks, I decided to learn through interviews. I’m talking to people from different generations about their families, their languages, and the traditions they keep. My goal is to understand how Cantonese culture moves across places and time—seen through everyday stories rather than big history lessons.
+        </p>
       </div>
+
+      <!-- Bottom Image -->
+      <div class="bottom-image-container">
+        <!-- 这里的图片可以换成你在香港拍的街景，或者你自己拿着相机的照片 -->
+        <div class="bottom-image"></div>
+      </div>
+
     </div>
   </main>
 
   <script>
-    // Page-specific logic (optional)
+    // Header Sync
+    (function () {
+      function syncHeaderHeight() {
+        const header = document.querySelector('header') || document.querySelector('.site-header');
+        if (!header) return false;
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        if (h > 0) {
+          document.documentElement.style.setProperty('--header-h', h + 'px');
+          return true;
+        }
+        return false;
+      }
+
+      function markReady() {
+        document.body.classList.add('header-ready');
+        document.documentElement.classList.remove('preload');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let tries = 0;
+        (function waitHeader() {
+          tries++;
+          if (syncHeaderHeight()) { markReady(); return; }
+          if (tries > 60) { markReady(); return; }
+          requestAnimationFrame(waitHeader);
+        })();
+        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
+      });
+    })();
+
+    // Scroll Hide Logic
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (header) {
+        if (window.scrollY > lastScrollY && window.scrollY > 50) {
+          header.classList.add('hide');
+        } else {
+          header.classList.remove('hide');
+        }
+        lastScrollY = window.scrollY;
+      }
+    });
   </script>
 </body>
 </html>
