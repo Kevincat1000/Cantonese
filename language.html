@@ -618,6 +618,7 @@
 
     let lastScrollTop = 0;
     window.addEventListener('scroll', function() {
+       if (window.innerWidth <= 1200) return;
       const header = document.querySelector('header') || document.querySelector('.site-header');
       if (!header) return;
       let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
