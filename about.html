@@ -27,9 +27,11 @@
       margin: 0;
       padding: 0;
       background-color: var(--bg);
-      font-family: 'Exo', sans-serif; /* 全局字体改为Exo */
+      font-family: 'Exo', sans-serif; /* 全局 Exo */
+      font-size: 12px; /* 全局 12px */
       color: var(--text);
       width: 100%;
+      height: 100%;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
@@ -43,84 +45,88 @@
       transition: transform 0.4s ease;
     }
     header.hide { transform: translateY(-100%); }
-
     #header-injection-point { display: none !important; }
 
     /* --- Main Layout --- */
     main {
       width: 100%;
-      min-height: 100vh;
+      min-height: 100vh; /* 占满全屏高度 */
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      align-items: center; /* 垂直居中 */
       justify-content: center;
-      /* 垂直居中 */
       padding-top: var(--header-h); 
       padding-bottom: 60px;
     }
 
-    /* --- Split Layout Container --- */
-    .content-block {
+    /* --- Grid Container --- */
+    .grid-layout {
       width: 100%;
-      max-width: 900px; /* 增加宽度以容纳左右结构 */
-      padding: 0 40px;
+      /* 定义列：
+         1. 40px (左边距)
+         2. 120px (标题列 About/Note)
+         3. 1fr (正文内容，自适应)
+         4. 60px (文字和图片之间的空隙)
+         5. 300px (图片宽度)
+         6. 40px (右边距) 
+      */
       display: grid;
-      grid-template-columns: 1fr 1fr; /* 左右 1:1 分割 */
-      gap: 40px; /* 中间间距 */
+      grid-template-columns: 40px 140px 1fr 60px 320px 40px;
+      /* 行高自适应 */
+      grid-auto-rows: min-content;
       align-items: start; /* 顶部对齐 */
     }
 
-    /* --- Left Side: Text --- */
-    .text-column {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .project-title {
-      font-size: 12px;
+    /* --- Text Styling --- */
+    .label-text {
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 24px;
       color: #000;
+      line-height: 1.6;
+      /* 放在第2列 */
+      grid-column: 2; 
     }
 
-    .narrative-text {
-      font-size: 12px; /* 要求的12px */
-      line-height: 2; /* 增大行高，防止小字号太挤，增加阅读舒适度 */
+    .body-text {
+      line-height: 1.8;
       text-align: justify; /* 两端对齐 */
       text-justify: inter-word;
-      color: #333;
+      color: #222;
       font-weight: 400;
+      /* 放在第3列 */
+      grid-column: 3;
     }
 
-    .narrative-text p {
-      margin-bottom: 20px;
+    .body-text p {
       margin-top: 0;
+      margin-bottom: 20px;
     }
 
-    /* --- Right Side: Image --- */
-    .image-column {
+    /* --- Image Styling --- */
+    .image-container {
+      /* 图片放在第5列，跨越所有行 (从第一行开始，到底部) */
+      grid-column: 5;
+      grid-row: 1 / span 4; 
+      
       width: 100%;
-      height: 350px; /* 固定高度，保持方块感 */
+      height: 420px; /* 固定高度，保持方块感 */
       background-color: #ddd;
       overflow: hidden;
       position: relative;
-      filter: grayscale(100%) contrast(1.1); /* 黑白质感 */
+      filter: grayscale(100%) contrast(1.1);
     }
 
-    .content-image {
+    .image-content {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* 这里的图片地址可以换成你的 */
+      /* 替换图片 URL */
       background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop'); 
       background-size: cover;
       background-position: center;
     }
 
-    /* 噪点遮罩 */
-    .image-column::after {
+    .image-container::after {
       content: "";
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -129,16 +135,35 @@
       pointer-events: none;
     }
 
-    /* --- Responsive (Mobile) --- */
-    @media (max-width: 768px) {
-      .content-block {
-        grid-template-columns: 1fr; /* 手机上变回上下结构 */
-        gap: 30px;
+    /* --- Specific Placement Helper Classes --- */
+    /* 第一行：About Me */
+    .row-1-label { grid-row: 1; margin-top: 0; } 
+    .row-1-text  { grid-row: 1; }
+
+    /* 第二行：Note (增加一点上边距，把Note往下顶一点，和上面隔开) */
+    .row-2-label { grid-row: 2; margin-top: 20px; } 
+    .row-2-text  { grid-row: 2; margin-top: 20px; }
+
+    /* --- Responsive --- */
+    @media (max-width: 900px) {
+      .grid-layout {
+        /* 平板/手机变为单列或简单的上下结构 */
+        display: flex;
+        flex-direction: column;
+        padding: 0 40px;
       }
-      .image-column {
-        height: 250px;
-        order: -1; /* 手机上图片在上面可能更好看，如果想图片在下，删掉这行 */
+      .image-container {
+        width: 100%;
+        height: 300px;
+        order: -1; /* 图片在最上面 */
+        margin-bottom: 30px;
       }
+      .grid-column, .label-text, .body-text {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .label-text { margin-bottom: 5px; }
+      .row-2-label, .row-2-text { margin-top: 20px; }
     }
 
     /* Anti-shake */
@@ -149,36 +174,45 @@
 
 <body>
 
-  <!-- Header Injection -->
   <div id="header-injection-point"></div>
 
   <main>
-    <div class="content-block">
+    <div class="grid-layout">
       
-      <!-- 左侧：文字 -->
-      <div class="text-column">
-        <div class="project-title">About Me & This Project</div>
-        
-        <div class="narrative-text">
-          <p>
-            Hi, I’m Kevin. This project started in a pretty simple way: I really like dim sum. Growing up, it was something I always looked forward to, but over time, I started wondering how these traditions traveled so far from where they began. Visiting Hong Kong last summer made everything feel real to me. It pushed me to look beyond just enjoying the culture and start asking questions about where it comes from.
-          </p>
-          <p>
-            I started working on this six months ago, and I plan to spend the next year finishing it. I like filming and recording things, so instead of just reading textbooks, I decided to learn through interviews. I’m talking to people from different generations about their families, their languages, and the traditions they keep. My goal is to understand how Cantonese culture moves across places and time through the lens of ordinary routines and everyday stories.
-          </p>
-        </div>
+      <!-- Row 1: Title & Main Text -->
+      <div class="label-text row-1-label">
+        About Me &<br>This Project
       </div>
 
-      <!-- 右侧：图片 -->
-      <div class="image-column">
-        <div class="content-image"></div>
+      <div class="body-text row-1-text">
+        <p>
+          Hi, I’m Kevin. This project started in a pretty simple way: I really like dim sum. Growing up, it was something I always looked forward to, but over time, I started wondering how these traditions traveled so far from where they began. Visiting Hong Kong last summer made everything feel real to me. It pushed me to look beyond just enjoying the culture and start asking questions about where it comes from.
+        </p>
+        <p>
+          I started working on this six months ago, and I plan to spend the next year finishing it. I like filming and recording things, so instead of just reading textbooks, I decided to learn through interviews. I’m talking to people from different generations about their families, their languages, and the traditions they keep. My goal is to understand how Cantonese culture moves across places and time through the lens of ordinary routines and everyday stories.
+        </p>
+      </div>
+
+      <!-- Row 2: Note Label & Note Text -->
+      <div class="label-text row-2-label">
+        Note
+      </div>
+
+      <div class="body-text row-2-text">
+        <p>
+          Just a quick note on words. When I use "Cantonese" here, I’m using it broadly to describe the early migrants from Guangdong. While different families like the Hakka and Teochew had their own dialects, the history of Chinatowns meant that many people adopted Cantonese speech and customs just to survive and stick together. So in this archive, "Cantonese" represents that shared story of survival in a new land.
+        </p>
+      </div>
+
+      <!-- Image Column (Spans Rows) -->
+      <div class="image-container">
+        <div class="image-content"></div>
       </div>
 
     </div>
   </main>
 
   <script>
-    // Header Sync
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
@@ -190,12 +224,10 @@
         }
         return false;
       }
-
       function markReady() {
         document.body.classList.add('header-ready');
         document.documentElement.classList.remove('preload');
       }
-
       document.addEventListener('DOMContentLoaded', () => {
         let tries = 0;
         (function waitHeader() {
@@ -207,20 +239,6 @@
         window.addEventListener('load', () => syncHeaderHeight(), { once: true });
       });
     })();
-
-    // Scroll Hide Logic
-    let lastScrollY = window.scrollY;
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      if (header) {
-        if (window.scrollY > lastScrollY && window.scrollY > 50) {
-          header.classList.add('hide');
-        } else {
-          header.classList.remove('hide');
-        }
-        lastScrollY = window.scrollY;
-      }
-    });
   </script>
 </body>
 </html>
