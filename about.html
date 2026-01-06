@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="preload">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,10 +23,7 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* --- 1. 基础设置：保证高度占满屏幕 --- */
-    html {
-      height: 100%;
-    }
+    html { height: 100%; }
 
     body {
       background-color: var(--bg-color);
@@ -34,72 +31,75 @@
       font-family: 'Exo', sans-serif;
       font-size: 12px;
       width: 100%;
-      
-      /* 关键修复：使用 Flexbox 实现 Sticky Footer */
+
       display: flex;
       flex-direction: column;
-      min-height: 100vh; /* 最小高度为屏幕高度 */
+      min-height: 100vh;
     }
 
-    /* --- 2. Header：固定定位 --- */
-    /* 在 Flex 容器中，Fixed 元素依然是脱离文档流的，不受 flex-grow 影响 */
+    /* --- Header：固定定位 --- */
     header, .site-header {
       position: fixed !important;
       top: 0; left: 0; width: 100% !important;
       z-index: 9999;
       background-color: var(--bg-color);
       transition: transform 0.4s ease;
-      flex-shrink: 0; /* 防止被挤压 */
+      flex-shrink: 0;
+      will-change: transform;
     }
     header.hide { transform: translateY(-100%); }
 
-    /* --- 3. Main：自动填充剩余空间 --- */
-    main {
+    /* ✅ 预留 header 空间，防止注入后“顶下去”造成闪动 */
+    #header-injection-point {
+      position: fixed;
+      top: 0; left: 0;
       width: 100%;
-      
-      /* 关键：flex: 1 让 Main 占据除了 Footer 以外的所有空间 */
-      /* 这样 Footer 就会被自然推到屏幕最底部 */
-      flex: 1; 
-      
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start; /* 内容靠上对齐 */
-
-      /* 间距控制：Header高度 + 30px (紧凑间距) */
-      padding-top: calc(var(--header-h) + 30px);
-      padding-bottom: 30px; 
+      height: var(--header-h);
+      background: var(--bg-color);
+      z-index: 3000;
+      pointer-events: none;
     }
 
-    /* --- 4. 布局容器 (保持不变) --- */
+    /* --- Main：自动填充剩余空间 --- */
+    main {
+      width: 100%;
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      /* 间距控制：Header高度 + 30px */
+      padding-top: calc(var(--header-h) + 30px);
+      padding-bottom: 30px;
+    }
+
+    /* --- 布局容器 --- */
     .content-wrapper {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 40px;
-      
-      display: flex;     
+      display: flex;
       align-items: flex-start;
       gap: 60px;
     }
 
-    /* 左栏 */
     .text-column {
-      flex: 6; 
+      flex: 6;
       display: flex;
       flex-direction: column;
-      gap: 25px; 
+      gap: 25px;
     }
 
-    /* 右栏 */
     .image-column {
       flex: 4;
       position: relative;
     }
 
-    /* 内部排版 */
     .text-row {
       display: grid;
-      grid-template-columns: 100px 1fr; 
+      grid-template-columns: 100px 1fr;
       gap: 20px;
     }
 
@@ -108,7 +108,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       line-height: 1.4;
-      white-space: nowrap; 
+      white-space: nowrap;
       color: #000;
     }
 
@@ -120,15 +120,12 @@
       color: #000;
     }
 
-    .text-content p {
-      margin-bottom: 15px;
-    }
+    .text-content p { margin-bottom: 15px; }
     .text-content p:last-child { margin-bottom: 0; }
 
-    /* 图片样式 */
     .image-container {
       width: 100%;
-      height: 350px; 
+      height: 350px;
       background-color: #ddd;
       overflow: hidden;
       position: relative;
@@ -139,7 +136,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop'); 
+      background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop');
       background-position: center;
       background-size: cover;
     }
@@ -153,38 +150,29 @@
       pointer-events: none;
     }
 
-    /* --- Footer 保护 --- */
-    /* 确保通过 JS 插入的 Footer 不会缩小 */
-    footer, #footer-container, .site-footer {
-      flex-shrink: 0;
-    }
+    footer, #footer-container, .site-footer { flex-shrink: 0; }
 
     @media (max-width: 900px) {
-      .content-wrapper {
-        flex-direction: column-reverse;
-        gap: 30px;
-      }
-      .image-container {
-        height: 250px;
-      }
-      .text-row {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
+      .content-wrapper { flex-direction: column-reverse; gap: 30px; }
+      .image-container { height: 250px; }
+      .text-row { grid-template-columns: 1fr; gap: 8px; }
     }
+
+    /* ✅ 同样办法：首屏先隐藏，等 header 高度同步后再显示，避免“闪一下再往下跳” */
+    html.preload body { opacity: 0; }
+    body { transition: opacity .15s ease; }
   </style>
 </head>
 
 <body>
-
   <div id="header-injection-point"></div>
 
   <main>
     <div class="content-wrapper">
-      
+
       <!-- Left Column -->
       <div class="text-column">
-        
+
         <!-- About Me -->
         <div class="text-row">
           <div class="label">
@@ -223,40 +211,54 @@
   </main>
 
   <script>
+    // === Same anti-flash logic: wait header injection -> sync real height -> show page ===
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
         if (!header) return false;
+
         const h = Math.ceil(header.getBoundingClientRect().height);
         if (h > 0) {
           document.documentElement.style.setProperty('--header-h', h + 'px');
+          const holder = document.getElementById('header-injection-point');
+          if (holder) holder.style.height = h + 'px';
           return true;
         }
         return false;
       }
+
+      function markReady() {
+        document.documentElement.classList.remove('preload');
+        document.body.classList.add('header-ready');
+      }
+
       document.addEventListener('DOMContentLoaded', () => {
         let tries = 0;
         (function waitHeader() {
           tries++;
-          if (syncHeaderHeight()) return;
-          if (tries > 60) return;
+          if (syncHeaderHeight()) { markReady(); return; }
+          if (tries > 60) { markReady(); return; }
           requestAnimationFrame(waitHeader);
         })();
+
         window.addEventListener('load', () => syncHeaderHeight(), { once: true });
       });
     })();
 
+    // ✅ Keep your hide-on-scroll, but only after header-ready to avoid first-frame jitter
     let lastScrollY = window.scrollY;
     window.addEventListener('scroll', () => {
+      if (!document.body.classList.contains('header-ready')) return;
+
       const header = document.querySelector('header') || document.querySelector('.site-header');
-      if (header) {
-        if (window.scrollY > lastScrollY && window.scrollY > 50) {
-          header.classList.add('hide');
-        } else {
-          header.classList.remove('hide');
-        }
-        lastScrollY = window.scrollY;
+      if (!header) return;
+
+      if (window.scrollY > lastScrollY && window.scrollY > 50) {
+        header.classList.add('hide');
+      } else {
+        header.classList.remove('hide');
       }
+      lastScrollY = window.scrollY;
     });
   </script>
 </body>
