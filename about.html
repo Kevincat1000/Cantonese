@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About - Cantonese in Americas</title>
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -18,13 +18,12 @@
     :root {
       --bg: #f5f0e5;
       --text: #000000;
-      --header-h: 60px;
+      --header-h: 60px; /* 默认高度 */
     }
 
     * { box-sizing: border-box; }
 
-    /* --- 1. Body Reset (关键修复) --- */
-    /* 移除 display: flex，防止 Header 被挤压 */
+    /* --- 1. 核心修复：Body 回归最简状态 --- */
     body, html {
       margin: 0;
       padding: 0;
@@ -33,93 +32,110 @@
       font-size: 12px;
       color: var(--text);
       width: 100%;
+      height: auto; /* 允许自然滚动 */
       -webkit-font-smoothing: antialiased;
+      
+      /* 绝对禁止在这里使用 flex/grid，否则会破坏 header 的定位 */
+      display: block; 
     }
 
-    /* --- 2. Header Style --- */
-    /* 确保 Header 绝对占据顶部全宽 */
-    header {
+    /* --- 2. Header 强制定位修复 --- */
+    /* 针对 header 标签以及可能的类名进行双重锁定 */
+    header, .site-header {
       position: fixed !important;
-      top: 0; left: 0; right: 0; width: 100%;
-      z-index: 9999;
+      top: 0; 
+      left: 0; 
+      width: 100% !important;
+      z-index: 99999;
       background-color: var(--bg);
+      
+      /* 防止被父元素居中属性影响 */
+      transform: none; 
+      margin: 0;
+      
+      /* 滚动隐藏动画 */
       transition: transform 0.4s ease;
     }
-    header.hide { transform: translateY(-100%); }
+    
+    /* 滚动时隐藏 */
+    header.hide, .site-header.hide { 
+      transform: translateY(-100%) !important; 
+    }
+
     #header-injection-point { display: none !important; }
 
-    /* --- 3. Main Container (负责垂直居中) --- */
+    /* --- 3. 主内容区域 --- */
     main {
       width: 100%;
-      min-height: 100vh; /* 占满全屏 */
-      padding-top: var(--header-h); /* 避开Header */
-      padding-bottom: 60px;         /* 避开Footer */
+      min-height: 100vh; /* 保证至少占满一屏 */
       
-      /* 在这里进行垂直居中，不影响 Header */
+      /* 这里的 Flex 只负责让整个大容器垂直居中 */
       display: flex;
       flex-direction: column;
       justify-content: center; 
-    }
-
-    /* --- 4. Content Wrapper (60% + 40%) --- */
-    .content-wrapper {
-      width: 100%;
-      max-width: 1400px; /* 限制最大宽，防止大屏太散 */
-      margin: 0 auto;    /* 水平居中 */
-      padding: 0 40px;   /* 左右边距 */
       
-      display: flex;     /* 左右布局 */
-      align-items: flex-start;
-      gap: 60px;         /* 左右两栏的间距 */
+      padding-top: var(--header-h);
+      padding-bottom: 60px; /* 给 Footer 留空 */
     }
 
-    /* 左侧：文字区域 (60%) */
-    .text-column {
-      flex: 6; /* 占据 60% */
+    /* --- 4. 60/40 分栏布局容器 --- */
+    .split-layout {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto; /* 居中大容器 */
+      padding: 0 40px; /* 屏幕左右 40px 留白 */
+      
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start; /* 顶部对齐 */
+      gap: 60px; /* 左右两栏之间的间距 */
+    }
+
+    /* 左栏：文字 (60%) */
+    .left-column {
+      width: 60%;
       display: flex;
       flex-direction: column;
-      gap: 20px; /* About Me 和 Note 之间的间距 */
+      gap: 30px; /* About Me 和 Note 之间的距离 */
     }
 
-    /* 右侧：图片区域 (40%) */
-    .image-column {
-      flex: 4; /* 占据 40% */
+    /* 右栏：图片 (40%) */
+    .right-column {
+      width: 40%;
       position: relative;
     }
 
-    /* --- 5. Left Side Internal Layout (Label | Text) --- */
-    /* 每一行 (About一行, Note一行) 都是一个小的 Grid */
-    .text-row {
+    /* --- 5. 左栏内部排版 (标题 | 正文) --- */
+    /* 使用 Grid 让标题和正文左侧对齐，且高度一致 */
+    .text-group {
       display: grid;
-      grid-template-columns: 100px 1fr; /* 标题宽100px | 正文自适应 */
+      /* 100px 给标题，剩下给正文 */
+      grid-template-columns: 100px 1fr; 
       gap: 20px;
     }
 
-    .label {
+    .section-label {
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      line-height: 1.4;
-      white-space: nowrap; /* 防止标题换行 */
+      line-height: 1.4; /* 调整行高以对齐正文 */
+      white-space: nowrap;
     }
 
-    .text-content {
+    .section-text {
       line-height: 1.8;
       text-align: justify;
       text-justify: inter-word;
       font-weight: 400;
     }
+    
+    .section-text p { margin-top: 0; margin-bottom: 15px; }
+    .section-text p:last-child { margin-bottom: 0; }
 
-    .text-content p {
-      margin-top: 0;
-      margin-bottom: 15px;
-    }
-    .text-content p:last-child { margin-bottom: 0; }
-
-    /* --- 6. Image Styling --- */
-    .image-container {
+    /* --- 6. 图片样式 --- */
+    .image-wrapper {
       width: 100%;
-      /* 设置一个最大高度，确保笔记本屏幕也能看完 */
+      /* 限制图片高度，确保笔记本上一屏能看完 */
       height: 400px; 
       background-color: #ddd;
       overflow: hidden;
@@ -127,15 +143,7 @@
       filter: grayscale(100%) contrast(1.1);
     }
 
-    .image-content {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop'); 
-      background-position: center;
-    }
-
-    .image-container::after {
+    .image-wrapper::after {
       content: "";
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -144,21 +152,29 @@
       pointer-events: none;
     }
 
-    /* --- Responsive --- */
+    .content-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop'); 
+      background-position: center;
+    }
+
+    /* --- Mobile --- */
     @media (max-width: 900px) {
-      .content-wrapper {
-        flex-direction: column-reverse; /* 手机上图片在上面 */
+      .split-layout {
+        flex-direction: column-reverse; /* 图片在文字上方 */
         gap: 40px;
       }
-      .image-container {
+      .left-column, .right-column {
+        width: 100%;
+      }
+      .image-wrapper {
         height: 250px;
       }
-      .text-row {
-        grid-template-columns: 1fr; /* 手机上标题和正文上下排列 */
-        gap: 5px;
-      }
-      .label {
-        margin-bottom: 5px;
+      .text-group {
+        grid-template-columns: 1fr; /* 标题和正文上下排 */
+        gap: 8px;
       }
     }
 
@@ -173,17 +189,17 @@
   <div id="header-injection-point"></div>
 
   <main>
-    <div class="content-wrapper">
+    <div class="split-layout">
       
-      <!-- Left Side (60%) -->
-      <div class="text-column">
+      <!-- 左侧 60% 区域 -->
+      <div class="left-column">
         
-        <!-- Row 1: About Me -->
-        <div class="text-row">
-          <div class="label">
+        <!-- 第一组：About Me -->
+        <div class="text-group">
+          <div class="section-label">
             About Me &<br>This Project
           </div>
-          <div class="text-content">
+          <div class="section-text">
             <p>
               Hi, I’m Kevin. This project started in a pretty simple way: I really like dim sum. Growing up, it was something I always looked forward to, but over time, I started wondering how these traditions traveled so far from where they began. Visiting Hong Kong last summer made everything feel real to me. It pushed me to look beyond just enjoying the culture and start asking questions about where it comes from.
             </p>
@@ -193,22 +209,22 @@
           </div>
         </div>
 
-        <!-- Row 2: Note -->
-        <div class="text-row">
-          <div class="label">Note</div>
-          <div class="text-content">
+        <!-- 第二组：Note -->
+        <div class="text-group">
+          <div class="section-label">Note</div>
+          <div class="section-text">
             <p>
               In this project, the term 'Cantonese' is employed in a broad geographic and historical sense to denote migrants from Guangdong Province and their descendants across the diaspora. While diverse groups like the Hakka and Teochew existed, the social dynamics of early Chinatowns established Cantonese as the dominant lingua franca, compelling these communities to adopt the vernacular for survival. Thus, 'Cantonese' here reflects a collective historical identity rather than a strict linguistic category.
             </p>
           </div>
         </div>
 
-      </div> <!-- End Text Column -->
+      </div>
 
-      <!-- Right Side (40%) -->
-      <div class="image-column">
-        <div class="image-container">
-          <div class="image-content"></div>
+      <!-- 右侧 40% 区域 -->
+      <div class="right-column">
+        <div class="image-wrapper">
+          <div class="content-image"></div>
         </div>
       </div>
 
@@ -216,6 +232,7 @@
   </main>
 
   <script>
+    /* Header Sync Logic - 只负责高度和隐藏 */
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
@@ -243,9 +260,10 @@
       });
     })();
 
+    /* Scroll Logic */
     let lastScrollY = window.scrollY;
     window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
+      const header = document.querySelector('header') || document.querySelector('.site-header');
       if (header) {
         if (window.scrollY > lastScrollY && window.scrollY > 50) {
           header.classList.add('hide');
