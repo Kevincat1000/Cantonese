@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" class="preload">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Cantonese in Americas</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Scripts (ONLY injectors) -->
+  <script src="./assets/header.js" defer></script>
+  <script src="./assets/footer.js" defer></script>
+
+  <style>
+    :root {
+      --bg-color: #f5f0e5;
+      --text-color: #000000;
+      --header-h: 60px; /* fallback; JS will sync real height */
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Exo', sans-serif;
+      font-size: 12px;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #header-injection-point { width: 100%; }
+    #header-spacer {
+      height: var(--header-h);
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    main {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+
+    .references-wrapper {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .references-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      text-align: center;
+      color: #000;
+    }
+
+    .references-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .reference-item {
+      line-height: 1.8;
+      text-align: left;
+      font-weight: 400;
+      color: #000;
+      padding-left: 30px;
+      text-indent: -30px;
+    }
+
+    .reference-item a {
+      color: #000;
+      text-decoration: underline;
+      text-decoration-color: rgba(0, 0, 0, 0.3);
+      transition: text-decoration-color 0.2s ease;
+    }
+
+    .reference-item a:hover {
+      text-decoration-color: rgba(0, 0, 0, 1);
+    }
+
+    .reference-item em {
+      font-style: italic;
+    }
+
+    footer, #footer-container, .site-footer { flex-shrink: 0; }
+
+    @media (max-width: 900px) {
+      .references-wrapper {
+        padding: 0 20px;
+      }
+      
+      .references-title {
+        font-size: 22px;
+        margin-bottom: 30px;
+      }
+      
+      .reference-item {
+        padding-left: 20px;
+        text-indent: -20px;
+      }
+    }
+
+    /* ✅ Anti-flash: hide until header height is synced (safe + minimal) */
+    html.preload body { opacity: 0; }
+    body { transition: opacity .15s ease; }
+  </style>
+</head>
+
+<body>
+  <!-- header.js will inject header here -->
+  <div id="header-injection-point"></div>
+  <!-- reserve space so content doesn't jump -->
+  <div id="header-spacer" aria-hidden="true"></div>
+
+  <main>
+    <div class="references-wrapper">
+      <h1 class="references-title">References</h1>
+      <div class="references-list">
+        <p class="reference-item">Cavanaugh, J. R., & Shankar, S. (Eds.). (2017). <em>Language and materiality: Ethnographic and theoretical explorations</em>. Cambridge University Press.</p>
+        
+        <p class="reference-item">City of Toronto. (2022). <em>2021 census backgrounder: Language</em>. <a href="https://www.toronto.ca" target="_blank">https://www.toronto.ca</a></p>
+        
+        <p class="reference-item">Coe, M. (2023). Migration of the Cantonese (Guangdong) people to Southeast Asia. <em>CCS City</em>. <a href="https://ccs.city/en/anthology-of-chinese-diasporas/migration-of-the-cantonese" target="_blank">https://ccs.city/en/anthology-of-chinese-diasporas/migration-of-the-cantonese</a></p>
+        
+        <p class="reference-item">Council on Foreign Relations. (n.d.). What is Canada's immigration policy? <a href="https://www.cfr.org" target="_blank">https://www.cfr.org</a></p>
+        
+        <p class="reference-item">Lai, H. M. (1987). Historical development of the Chinese Consolidated Benevolent Association/Huiguan system. In <em>Chinese America: History and perspectives</em>. Chinese Historical Society of America. <a href="https://himmarklai.org" target="_blank">https://himmarklai.org</a></p>
+        
+        <p class="reference-item">Leung, G. (2012). Contemporary "Hoisan-wa" language maintenance in Northern California: Evidence from fourteen Frog Story narratives. <em>International Multilingual Research Journal</em>, <em>6</em>(2), 104–120. <a href="https://doi.org/10.1080/19313152.2012.655712" target="_blank">https://doi.org/10.1080/19313152.2012.655712</a></p>
+        
+        <p class="reference-item">Leung, G. (2021). How "useful" is Mandarin really for contemporary Hoisan-wa speakers? <em>Language & Communication</em>, <em>78</em>, 1–13. <a href="https://doi.org/10.1016/j.langcom.2021.02.003" target="_blank">https://doi.org/10.1016/j.langcom.2021.02.003</a></p>
+        
+        <p class="reference-item">Leung, G. Y., & Wu, M.-H. (2012). Linguistic landscape and heritage language literacy education: A case study of linguistic rescaling in Philadelphia Chinatown. <em>Written Language & Literacy</em>, <em>15</em>(1), 114–140.</p>
+        
+        <p class="reference-item">Leung, M., & Leung, G. (2018). Cantonese heritage language and identity in Asian American popular culture. <em>Journal of Asian American Studies</em>. <a href="https://journals.uvic.ca" target="_blank">https://journals.uvic.ca</a></p>
+        
+        <p class="reference-item">Li, W. (1998). The Chinese ethnoburb in Los Angeles. <em>Urban Studies</em>, <em>35</em>(3), 479–501. <a href="https://doi.org/10.1080/0042098984872" target="_blank">https://doi.org/10.1080/0042098984872</a></p>
+        
+        <p class="reference-item">Li, W., & Zhu, H. (2010). Voices from the diaspora: Changing hierarchies and dynamics of Chinese multilingualism. <em>International Journal of the Sociology of Language</em>, <em>205</em>, 155–171. <a href="https://doi.org/10.1515/ijsl.2010.041" target="_blank">https://doi.org/10.1515/ijsl.2010.041</a></p>
+        
+        <p class="reference-item">Library of Congress. (n.d.). <em>Searching for the Gold Mountain: Chinese immigration and relocation in U.S. history</em>. <a href="https://www.loc.gov" target="_blank">https://www.loc.gov</a></p>
+        
+        <p class="reference-item">Migration Policy Institute. (2015). <em>Fifty years after the 1965 Immigration and Nationality Act</em>. <a href="https://www.migrationpolicy.org" target="_blank">https://www.migrationpolicy.org</a></p>
+        
+        <p class="reference-item">Ministry of Education, People's Republic of China. (2009). <em>Law of the People's Republic of China on the standard spoken and written Chinese language</em>. <a href="https://www.moe.gov.cn" target="_blank">https://www.moe.gov.cn</a></p>
+        
+        <p class="reference-item">Mussett, B. (n.d.). The new wave: British Columbia—An untold history. <em>Knowledge Network</em>.</p>
+        
+        <p class="reference-item">Stanford University. (n.d.). <em>Chinese Railroad Workers in North America Project</em>. <a href="https://amstudies.stanford.edu/about/transnational-initiatives/chinese-railroad-workers-north-america-project" target="_blank">https://amstudies.stanford.edu/about/transnational-initiatives/chinese-railroad-workers-north-america-project</a></p>
+        
+        <p class="reference-item">Stanford University. (n.d.). <em>Chinese Railroad Workers in North America Project (Chinese edition)</em>. <a href="https://web.stanford.edu/group/chineserailroad/cgi-bin/website/zh/chinese-home-page/" target="_blank">https://web.stanford.edu/group/chineserailroad/cgi-bin/website/zh/chinese-home-page/</a></p>
+        
+        <p class="reference-item">Statistics Canada. (2025, January 22). Linguistic diversity in Canada: Shedding light on 2021 census data on non-official languages. <a href="https://www150.statcan.gc.ca" target="_blank">https://www150.statcan.gc.ca</a></p>
+        
+        <p class="reference-item">U.S. Department of State. (n.d.). <em>Burlingame-Seward Treaty (1868)</em>. <a href="https://history.state.gov/milestones/1866-1898/burlingame-seward-treaty" target="_blank">https://history.state.gov/milestones/1866-1898/burlingame-seward-treaty</a></p>
+        
+        <p class="reference-item">U.S. Office of the Historian. (n.d.). <em>Chinese immigration and the exclusion acts</em>. <a href="https://history.state.gov" target="_blank">https://history.state.gov</a></p>
+        
+        <p class="reference-item">Wong, W. (2018). Why is Malaysia's Chinese population leaving in droves? <em>McGill International Review</em>.</p>
+        
+        <p class="reference-item">Wu, M.-H. (2014). Re-envisioning heritage language education: A study of middle school students learning Mandarin Chinese. <em>Heritage Language Journal</em>, <em>11</em>(3), 207–232.</p>
+        
+        <p class="reference-item">Yang, H. (2010). A study of the Chinese-language newspapers published in North America. <em>Chinese Librarianship</em>, <em>27</em>. <a href="https://eprints.rclis.org" target="_blank">https://eprints.rclis.org</a></p>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script>
+    (function () {
+      const spacer = document.getElementById('header-spacer');
+
+      function findHeaderEl() {
+        // header.js might inject <header> or .site-header
+        return document.querySelector('header') || document.querySelector('.site-header');
+      }
+
+      function syncHeaderHeight() {
+        const header = findHeaderEl();
+        if (!header) return false;
+
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        if (h > 0) {
+          document.documentElement.style.setProperty('--header-h', h + 'px');
+          if (spacer) spacer.style.height = h + 'px';
+          return true;
+        }
+        return false;
+      }
+
+      function showPage() {
+        document.documentElement.classList.remove('preload');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let tries = 0;
+        (function tick() {
+          tries++;
+          if (syncHeaderHeight()) { showPage(); return; }
+          if (tries > 80) { showPage(); return; } // fail-safe
+          requestAnimationFrame(tick);
+        })();
+
+        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
+        window.addEventListener('resize', () => syncHeaderHeight());
+      });
+    })();
+  </script>
+</body>
+</html>
