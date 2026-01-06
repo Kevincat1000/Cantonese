@@ -16,11 +16,14 @@
 
   <style>
     :root {
-      /* 定义全局变量 */
-      --bg-paper-texture: url('https://i.pinimg.com/736x/05/53/e3/0553e3d05d92a7ceb12f0af308f1c99b.jpg');
-      --bg-hero: #f5f0e5; /* 封面保持原色 */
-      --accent-red: #a84d4d;
+      /* 全局背景色设定 */
+      --bg-main: #1a5b5b;   /* 正文深青色 */
+      --bg-hero: #f5f0e5;   /* 封面保持浅色 */
+      --date-red: #701a1a;  /* 时间深红色 */
+      
+      --text-white: #ffffff;
       --text-dark: #231d16;
+      
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
     }
@@ -32,11 +35,8 @@
     body {
       font-family: var(--font-body);
       line-height: 1.6;
-      background-image: var(--bg-paper-texture); /* 全局背景 */
-      background-repeat: repeat;
-      background-size: cover;
-      background-attachment: fixed; /* 背景固定，产生视差感 */
-      color: var(--text-dark);
+      background-color: var(--bg-main); /* 除Cover外全屏深青色 */
+      color: var(--text-white);         /* 正文白色 */
       overflow-x: hidden;
     }
 
@@ -45,29 +45,29 @@
       position: fixed; top: 30px; left: 30px; z-index: 1000; display: flex; align-items: center; gap: 15px;
       text-decoration: none; color: var(--text-dark); transition: all 0.3s ease;
     }
-    /* 移除之前的 on-dark 逻辑，因为现在背景整体都是浅色，导航始终保持深色即可 */
     .nav-icon-circle {
-      width: 50px; height: 50px; border: 1px solid rgba(0,0,0,0.2); border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; transition: all 0.3s ease; background: rgba(255,255,255,0.4); backdrop-filter: blur(5px);
+      width: 50px; height: 50px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; transition: all 0.3s ease; 
+      background: rgba(255,255,255,0.4); backdrop-filter: blur(5px);
     }
     .nav-text {
       font-family: var(--font-heading); font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
       opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; font-weight: 600; color: var(--text-dark);
     }
-    .nav-float:hover .nav-icon-circle { background-color: var(--accent-red); border-color: var(--accent-red); color: #fff; transform: scale(1.1); }
-    .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); color: var(--accent-red); }
+    .nav-float:hover .nav-icon-circle { background-color: var(--date-red); border-color: var(--date-red); color: #fff; transform: scale(1.1); }
+    .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); color: var(--bg-hero); }
 
     /* --- Hero (Cover) --- */
     .hero-section {
       position: relative; height: 100vh; width: 100%; 
-      background-color: var(--bg-hero); /* 保持原有的封面背景色 */
+      background-color: var(--bg-hero); /* 封面保持浅色 */
       display: flex;
       align-items: center; padding: 0 5%; overflow: hidden;
-      border-bottom: 2px solid rgba(0,0,0,0.1);
+      border-bottom: none;
     }
     .hero-content { position: relative; z-index: 10; max-width: 800px; color: var(--text-dark); margin-top: -50px; }
     .hero-label {
-      font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px; color: var(--accent-red);
+      font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px; color: var(--date-red);
       margin-bottom: 1.5rem; display: block; font-weight: 700; font-size: 0.9rem;
     }
     .hero-title {
@@ -76,48 +76,50 @@
     }
     .hero-subtitle { font-family: var(--font-heading); font-size: 1.8rem; color: #4a5568; font-weight: 400; margin-top: 0.5rem; }
     
-    .hero-boat {
-      position: absolute; right: 5%; bottom: 20%;
-      width: 180px; 
-      height: auto; z-index: 1; opacity: 0.9; pointer-events: none;
-      transform: translateX(-30px); animation: sailRight 2s ease-out forwards;
-    }
-    @keyframes sailRight { from { transform: translateX(-30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    /* Cover 小船已删除 */
 
     /* --- Layout & Sections --- */
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
     
-    /* 移除了动画相关的 opacity 和 transform */
     .content-section { 
       padding: 4rem 2rem; 
-      /* 背景统一使用 CSS 变量中的图片 */
-      background-image: var(--bg-paper-texture);
-      background-size: cover;
-    }
-    
-    /* 统一所有 Section 的背景和文字颜色 */
-    .section-teal, .section-paper {
-      background: transparent; /* 让 body 的背景或者 section 的背景图透出来 */
-      color: var(--text-dark);
+      background-color: var(--bg-main);
     }
 
-    /* 强制覆盖原本是白色的文字，因为现在背景是浅色纸张 */
-    .text-white, .text-white-90, .section-title.text-white {
-      color: var(--text-dark) !important;
+    /* 标题样式重构 */
+    .section-header {
+      margin-bottom: 1.5rem;
+      border: none; /* 移除竖红线 */
+      padding-left: 0;
     }
-    .text-dark-90 { color: rgba(35, 29, 22, 0.9); }
+    
+    /* 时间: 14px 700 exo 大写 #701a1a */
+    .header-date {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--date-red);
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* 标题: 18px 600 exo 非大写 白色 换行 */
+    .header-title {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-white);
+      text-transform: none;
+      line-height: 1.4;
+    }
+
+    .text-content { font-size: 1.05rem; line-height: 1.7; width: 100%; color: rgba(255,255,255,0.9); }
+    .text-content p { margin-bottom: 1.2rem; }
 
     .last-section { padding-bottom: 10px !important; }
-
-    .section-title {
-      font-family: var(--font-heading); font-size: 24px; font-weight: 700; margin-bottom: 1.5rem;
-      line-height: 1.3; margin-top: 0; position: relative; padding-left: 20px; 
-      border-left: 5px solid var(--accent-red);
-      color: var(--text-dark);
-    }
-    
-    .text-content { font-size: 1.05rem; line-height: 1.7; width: 100%; }
-    .text-content p { margin-bottom: 1.2rem; }
 
     /* Grids */
     .grid-2col { display: grid; gap: 2rem; align-items: start; }
@@ -130,7 +132,7 @@
     .gallery { width: 100%; }
     .gallery-frame {
       width: 100%; height: 350px; position: relative; background: #000; border-radius: 8px; overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
     .gallery-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.4s ease; }
     .gallery-slide.show { opacity: 1; }
@@ -138,19 +140,18 @@
     
     .gallery-label {
       position: absolute; bottom: 0; left: 0; right: 0; 
-      /* 调整标签背景色以适应新风格 */
-      background: linear-gradient(to top, rgba(35, 29, 22, 0.95), rgba(35, 29, 22, 0.6));
+      background: linear-gradient(to top, rgba(26, 91, 91, 0.95), rgba(26, 91, 91, 0.6));
       color: white; padding: 14px; font-size: 13px; text-align: center; font-family: var(--font-heading);
     }
     .gallery-nav { display: flex; justify: center; gap: 16px; margin-top: 10px; }
     .nav-btn {
-      background: transparent; border: 1px solid rgba(35,29,22,0.3); color: var(--text-dark); width: 32px; height: 32px;
+      background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; width: 32px; height: 32px;
       border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify: center;
     }
-    .nav-btn:hover { border-color: var(--accent-red); background: var(--accent-red); color: white; }
+    .nav-btn:hover { border-color: var(--date-red); background: var(--date-red); color: white; }
 
     /* Images */
-    .caption { font-size: 0.85rem; text-align: center; margin-top: 8px; font-family: var(--font-heading); opacity: 0.8; color: var(--text-dark); }
+    .caption { font-size: 0.85rem; text-align: center; margin-top: 8px; font-family: var(--font-heading); opacity: 0.8; color: white; }
     .historical-images { display: grid; gap: 3rem; margin-top: 2rem; }
     .temple-image-wrapper { position: relative; width: 100%; height: 360px; perspective: 1000px; }
     .temple-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
@@ -170,22 +171,22 @@
     .tin-mine-image { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
     
     .loke-yew-layout { display: grid; gap: 2rem; }
-    .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(0,0,0,0.05); border-radius: 8px; }
+    .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(255,255,255,0.05); border-radius: 8px; }
 
     /* Link Section */
     .phase-navigation {
       margin-top: 5px; 
       padding-top: 10px; 
       padding-bottom: 5px;
-      border-top: 1px solid rgba(0,0,0,0.2); 
+      border-top: 1px solid rgba(255,255,255,0.2); 
       text-align: right;
     }
     
     .phase-link {
-      text-decoration: none; color: var(--text-dark); display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 10px;
       font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; transition: color 0.3s;
     }
-    .phase-link:hover { color: var(--accent-red); }
+    .phase-link:hover { color: #a84d4d; /* Hover 稍微亮一点的红，增加可见度 */ }
     .phase-arrow { transition: transform 0.3s; }
     .phase-link:hover .phase-arrow { transform: translateX(5px); }
 
@@ -206,7 +207,6 @@
 
     @media (max-width: 768px) {
       .hero-section { height: auto; min-height: 100vh; padding: 100px 20px 40px; }
-      .hero-boat { position: relative; right: auto; bottom: auto; left: auto; width: 150px; margin: 30px auto 0; display: block; transform: none; animation: none; opacity: 1; }
       .hero-content { margin-top: 0; }
       .vietnam-map .map-image { width: 100%; height: auto; margin-top: 0; }
     }
@@ -220,25 +220,27 @@
     <span class="nav-text">Back to Timeline</span>
   </a>
 
-  <!-- Hero (Cover) - 保持原样 -->
+  <!-- Hero (Cover) - 保持浅色背景，已删除小船 -->
   <header class="hero-section">
     <div class="hero-content">
       <span class="hero-label">Timeline / Phase I</span>
       <h1 class="hero-title">17th–19th Centuries</h1>
       <h2 class="hero-subtitle">Early Migration within Southeast Asia</h2>
     </div>
-    <img src="images/Boat.pic.png" alt="Sailing boat" class="hero-boat">
   </header>
   
   <main>
     <!-- Section 1: Siam -->
-    <!-- 移除了 section-teal，改用 CSS 变量背景 -->
     <section class="content-section first-section">
       <div class="container">
         <div class="grid-2col grid-2-1">
           <div>
-            <!-- 强制深色文字 -->
-            <h2 class="section-title">1640s–1770s: Early Migration to Siam</h2>
+            <!-- 修改后的标题结构 -->
+            <div class="section-header">
+              <span class="header-date">1640s–1770s</span>
+              <span class="header-title">Early Migration to Siam</span>
+            </div>
+            
             <div class="text-content">
               <p>Following the Qing dynasty's conquest of South China (c. 1644–1660s), significant Cantonese migration occurred. Ming loyalists and refugees fled south by sea to escape warfare, while widespread corruption and hardship under Qing rule compelled many farmers and artisans to seek livelihoods abroad.</p>
               <p>Maritime routes linked Guangdong's coastal communities to Siam (Thailand), Cambodia, and Cochinchina, where local rulers welcomed Cantonese traders and skilled workers for their commercial and fiscal value.</p>
@@ -254,7 +256,7 @@
             </div>
             <div class="gallery-nav">
               <button class="nav-btn" id="prev"><i data-lucide="chevron-left" size="16"></i></button>
-              <div style="display:flex; align-items:center; font-size:14px; color:var(--text-dark); gap:5px;">
+              <div style="display:flex; align-items:center; font-size:14px; color:white; gap:5px;">
                   <span id="num">1</span><span>/</span><span>3</span>
               </div>
               <button class="nav-btn" id="next"><i data-lucide="chevron-right" size="16"></i></button>
@@ -267,7 +269,12 @@
     <!-- Section 2: Vietnam -->
     <section class="content-section" id="vietnam-section">
       <div class="container">
-        <h2 class="section-title">1680s–1790s: Establishment in Southern Vietnam</h2>
+        
+        <div class="section-header">
+          <span class="header-date">1680s–1790s</span>
+          <span class="header-title">Establishment in Southern Vietnam</span>
+        </div>
+
         <div class="vietnam-layout">
           <div class="vietnam-text">
             <div class="text-content">
@@ -307,7 +314,12 @@
     <!-- Section 4: British Ports -->
     <section class="content-section">
       <div class="container">
-        <h2 class="section-title">1786–1820s: Expansion into British Colonial Ports</h2>
+        
+        <div class="section-header">
+          <span class="header-date">1786–1820s</span>
+          <span class="header-title">Expansion into British Colonial Ports</span>
+        </div>
+
         <div class="text-content">
           <p>From the late 18th century, British colonial ports reshaped Guangdong migration routes. Penang (est. 1786) offered security and strong commercial prospects. In the 1790s, the Ghee Hin Kongsi emerged as one of the earliest major Chinese brotherhoods in Penang. Strongly associated with Cantonese networks, it organized labor, protection, and mutual aid, anchoring Cantonese community life in the Straits Settlements.</p>
           <p>Penang’s Ng Fook Thong (founded in 1819), often cited as an early Cantonese school in Malaya, also served as a temple gathering hub for Cantonese migrants. Following the establishment of Singapore in 1819, Cantonese migrants integrated into the colony's expanding economy. In 1822, Cho Ah Chee established the first Cantonese dialect association, the Ning Yeung Wui Kuan.</p>
@@ -328,7 +340,12 @@
     <!-- Section 5: Tin Boom -->
     <section class="content-section" style="padding-top: 1.5rem;">
       <div class="container">
-        <h2 class="section-title">1840s–1870s: The Malayan Tin Boom</h2>
+        
+        <div class="section-header">
+          <span class="header-date">1840s–1870s</span>
+          <span class="header-title">The Malayan Tin Boom</span>
+        </div>
+
         <div class="tin-boom-layout">
           <div>
             <div class="tin-mine-wrapper">
@@ -346,7 +363,12 @@
     <!-- Section 6: Summary & Footer Navigation -->
     <section class="content-section last-section">
       <div class="container">
-        <h2 class="section-title">Summary: Social Mobility</h2>
+        
+        <div class="section-header">
+          <span class="header-date">Summary</span>
+          <span class="header-title">Social Mobility</span>
+        </div>
+
         <div class="loke-yew-layout">
           <div>
             <img src="https://bit.ly/4phrjVa" alt="Loke Yew" class="loke-yew-image">
@@ -372,7 +394,7 @@
   <script>
     lucide.createIcons();
 
-    // 只保留基本的交互逻辑，删除了 Observer 淡入淡出代码
+    // 只保留基本的交互逻辑
     const navBtn = document.getElementById('nav-btn');
     
     // Gallery Logic
