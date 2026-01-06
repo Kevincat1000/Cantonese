@@ -10,8 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Monospace font for authentic typewriter feel (optional, but looks better for the effect) -->
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
 
   <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,15 +17,14 @@
   <style>
     :root {
       /* 全局配色 */
-      --bg-teal: #1a5b5b;   /* 深青色 */
-      --bg-beige: #f5f0e5;  /* 淡米色 */
-      --date-red: #701a1a;  /* 深红 */
+      --bg-main: #1a5b5b;   /* 正文深青色 */
+      --bg-paper: #f5f0e5;  /* 封面特效：淡米色 */
+      --date-red: #701a1a;  /* 强调色：深红 */
       --text-white: #ffffff;
       --text-dark: #231d16;
       
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
-      --font-typewriter: 'Courier Prime', monospace; /* 打字机字体 */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,8 +34,8 @@
     body {
       font-family: var(--font-body);
       line-height: 1.6;
-      background-color: var(--bg-teal); /* 默认深青色 */
-      color: var(--text-white);         /* 默认白色 */
+      background-color: var(--bg-main); /* 正文深青色 */
+      color: var(--text-white);         /* 正文白色 */
       overflow-x: hidden;
     }
 
@@ -51,13 +48,13 @@
       width: 50px; height: 50px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50%; display: flex;
       align-items: center; justify-content: center; transition: all 0.3s ease; 
       background: rgba(245, 240, 229, 0.9); backdrop-filter: blur(5px);
-      box-shadow: 0 4px 0px rgba(0,0,0,0.2); /* 按钮也加一点硬阴影 */
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
     .nav-text {
       font-family: var(--font-heading); font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
       opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; font-weight: 600; 
-      background: var(--bg-beige); color: var(--text-dark); padding: 6px 10px; border-radius: 4px;
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+      background: var(--bg-paper); color: var(--text-dark); padding: 6px 10px; border-radius: 4px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
     }
     .nav-float:hover .nav-icon-circle { background-color: var(--date-red); border-color: var(--date-red); color: #fff; transform: scale(1.1); }
     .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); }
@@ -67,6 +64,7 @@
       position: relative; 
       height: 100vh; 
       width: 100%; 
+      /* 背景图 */
       background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/A_voyage_to_Cochinchina%2C_in_the_years_1792_and_1793._To_which_is_annexed_an_account_of_a_journey_made_in_the_years_1801_and_1802%2C_to_the_residence_of_the_chief_of_the_Booshuana_nation_%281806%29_%2814766269094%29.jpg/1600px-thumbnail.jpg');
       background-size: cover;
       background-position: center;
@@ -76,10 +74,10 @@
       overflow: hidden;
     }
     
-    /* 遮罩层 */
+    /* 遮罩层：稍微压暗背景，让文字更突出 */
     .hero-section::before {
       content: ""; position: absolute; top:0; left:0; width:100%; height:100%;
-      background: rgba(0,0,0,0.1); pointer-events: none;
+      background: rgba(0,0,0,0.15); pointer-events: none;
     }
 
     .hero-content { 
@@ -90,40 +88,46 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start; 
-      gap: 15px; 
+      gap: 10px; 
     }
 
     /* 
-       ★ 剪贴画风格特效 (Collage Style) ★
-       实体淡米色背景 + 黑色文字 + 硬阴影
+       Cover 文字特效：
+       不再使用背景色块(background-color)，而是使用多层 text-shadow。
+       模拟大面积的柔和光晕/墨迹效果，围绕字体，不立体。
     */
-    .collage-text {
-      background-color: var(--bg-beige);
-      color: #1a1a1a;
-      padding: 0.2rem 1rem;
-      /* 关键：让背景紧贴文字，换行时断开 */
-      box-decoration-break: clone;
-      -webkit-box-decoration-break: clone;
-      display: inline; 
-      /* 关键：硬阴影，不模糊，模仿剪纸堆叠 */
-      box-shadow: 6px 6px 0px rgba(0,0,0,0.5);
-      border: 1px solid rgba(0,0,0,0.1); /* 微微的边框增加质感 */
+    .hero-text-glow {
+      color: #1a1a1a; /* 字体深黑 */
+      background: transparent; /* 移除背景块 */
+      padding: 0;
+      /* 
+         多重阴影叠加形成大面积淡米色光晕 
+         参数：水平偏移 垂直偏移 模糊半径 颜色
+      */
+      text-shadow: 
+        0 0 10px var(--bg-paper),
+        0 0 20px var(--bg-paper),
+        0 0 30px var(--bg-paper),
+        0 0 50px var(--bg-paper),
+        0 0 70px var(--bg-paper),
+        0 0 90px var(--bg-paper);
     }
 
     .hero-label {
       font-family: var(--font-heading); 
       text-transform: uppercase; 
       letter-spacing: 3px; 
-      color: var(--date-red); /* 标签保留深红，但在米色背景上 */
+      color: var(--date-red); /* 标签深红 */
       font-weight: 700; 
       font-size: 0.9rem;
-      line-height: 2.5;
+      /* 给标签也加一点点光晕，保持清晰 */
+      text-shadow: 0 0 15px var(--bg-paper), 0 0 25px var(--bg-paper);
     }
 
     .hero-title {
       font-family: var(--font-heading); 
-      font-size: 4.5rem; 
-      line-height: 1.3; 
+      font-size: 5rem; 
+      line-height: 1.1; 
       font-weight: 700; 
     }
 
@@ -131,116 +135,86 @@
       font-family: var(--font-heading); 
       font-size: 1.8rem; 
       font-weight: 400; 
-      line-height: 1.6;
+      line-height: 1.4;
+      margin-top: 10px;
     }
 
+    /* 右下角引用样式 */
     .hero-citation {
-      position: absolute; bottom: 15px; right: 20px;
-      font-family: var(--font-body); font-size: 11px;
-      color: rgba(255,255,255,0.9); text-align: right; z-index: 10;
-      text-shadow: 1px 1px 2px rgba(0,0,0,1); font-style: italic;
+      position: absolute;
+      bottom: 15px;
+      right: 20px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: rgba(255,255,255,0.8);
+      text-align: right;
+      z-index: 10;
+      text-shadow: 1px 1px 2px rgba(0,0,0,1);
+      font-style: italic;
+      max-width: 400px;
     }
 
-    /* --- Section Styles --- */
+    /* --- Layout & Sections (Body) --- */
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
     
-    .content-section { padding: 5rem 2rem; }
+    .content-section { 
+      padding: 4rem 2rem; 
+      background-color: var(--bg-main);
+    }
 
-    /* 
-       ★ 淡米色背景区域样式 (Siam & Vietnam) ★
-    */
-    .section-beige {
-      background-color: var(--bg-beige);
-      color: var(--text-dark); /* 强制深色字体 */
+    /* 标题样式 */
+    .section-header {
+      margin-bottom: 1.5rem;
+      border: none;
+      padding-left: 0;
     }
     
-    /* 在淡米色区域内的文字覆盖 */
-    .section-beige .text-content,
-    .section-beige .caption,
-    .section-beige .header-title {
-      color: var(--text-dark) !important;
-    }
-
-    /* 在淡米色区域内，日期标签反色以突显 */
-    .section-beige .header-date-tag {
-      background-color: var(--date-red);
-      color: var(--bg-beige);
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
-    }
-
     /* 
-       ★ 深青色背景区域样式 (Default) ★
+       正文部分的时间标签 
+       (为了在深青色背景上清晰，这里保留一个小小的背景块，
+       如果需要也改成阴影，可以去掉 background-color 并加 text-shadow)
     */
-    .section-teal {
-      background-color: var(--bg-teal);
-      color: var(--text-white);
-    }
-    .section-teal .header-date-tag {
-      background-color: var(--bg-beige);
-      color: var(--date-red);
-      box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
-    }
-
-    /* Header Components */
-    .section-header { margin-bottom: 2rem; border: none; padding-left: 0; }
-    
     .header-date-tag {
-      padding: 4px 10px; display: inline-block;
-      font-family: var(--font-heading); font-size: 14px; font-weight: 700;
-      text-transform: uppercase; margin-bottom: 12px; border-radius: 2px;
+        background-color: var(--bg-paper);
+        color: var(--date-red);
+        padding: 2px 8px;
+        display: inline-block;
+        font-family: var(--font-heading);
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        border-radius: 2px;
+        box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
     .header-title {
       display: block;
-      font-family: var(--font-heading); /* 默认用Exo，打字机特效时会看起来比较现代 */
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.4;
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-white);
       text-transform: none;
+      line-height: 1.4;
     }
 
-    /* 
-       ★ 打字机特效 (Typewriter Effect) ★ 
-    */
-    .typewriter-wrapper {
-      display: inline-block;
-      overflow: hidden; /* 隐藏溢出内容 */
-      white-space: nowrap; /* 保持单行 */
-      border-right: 3px solid var(--date-red); /* 光标 */
-      width: 0; /* 初始宽度为0 */
-      vertical-align: bottom;
-    }
+    .text-content { font-size: 1.05rem; line-height: 1.7; width: 100%; color: rgba(255,255,255,0.95); }
+    .text-content p { margin-bottom: 1.2rem; }
 
-    /* 激活时的动画 */
-    .typing-active {
-      animation: 
-        typing 2.5s steps(40, end) forwards, 
-        blink-caret 0.75s step-end infinite;
-    }
+    .last-section { padding-bottom: 10px !important; }
 
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: var(--date-red) }
-    }
-
-    /* Text Content */
-    .text-content { font-size: 1.1rem; line-height: 1.8; width: 100%; opacity: 0.95; }
-    .text-content p { margin-bottom: 1.5rem; }
-
-    /* Layouts */
-    .grid-2col { display: grid; gap: 3rem; align-items: start; }
+    /* Grids */
+    .grid-2col { display: grid; gap: 2rem; align-items: start; }
     .grid-2-1 { grid-template-columns: 1fr; } 
-    .vietnam-layout { display: flex; flex-direction: column; gap: 3rem; }
     
-    /* Images & Galleries */
+    /* Vietnam Section */
+    .vietnam-layout { display: flex; flex-direction: column; gap: 2rem; }
+    
+    /* Gallery */
+    .gallery { width: 100%; }
     .gallery-frame {
-      width: 100%; height: 350px; position: relative; background: #000; border-radius: 4px; overflow: hidden;
-      box-shadow: 6px 6px 0px rgba(0,0,0,0.2); /* 统一硬阴影风格 */
-      border: 2px solid var(--text-dark); /* 加个边框更有剪贴感 */
+      width: 100%; height: 350px; position: relative; background: #000; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
     .gallery-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.4s ease; }
     .gallery-slide.show { opacity: 1; }
@@ -248,43 +222,54 @@
     
     .gallery-label {
       position: absolute; bottom: 0; left: 0; right: 0; 
-      background: rgba(35, 29, 22, 0.9);
-      color: white; padding: 10px; font-size: 13px; text-align: center; font-family: var(--font-heading);
+      background: linear-gradient(to top, rgba(26, 91, 91, 0.95), rgba(26, 91, 91, 0.6));
+      color: white; padding: 14px; font-size: 13px; text-align: center; font-family: var(--font-heading);
     }
-    .gallery-nav { display: flex; justify: center; gap: 16px; margin-top: 15px; }
+    .gallery-nav { display: flex; justify: center; gap: 16px; margin-top: 10px; }
     .nav-btn {
-      background: transparent; border: 2px solid var(--text-dark); color: var(--text-dark); width: 32px; height: 32px;
-      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify: center; transition: all 0.2s;
+      background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; width: 32px; height: 32px;
+      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify: center;
     }
-    .nav-btn:hover { background: var(--date-red); border-color: var(--date-red); color: white; transform: translateY(-2px); box-shadow: 2px 2px 0px rgba(0,0,0,0.2); }
+    .nav-btn:hover { border-color: var(--bg-paper); background: var(--bg-paper); color: var(--date-red); }
 
-    .map-image { 
-      width: 100%; height: auto; object-fit: cover; border-radius: 4px; 
-      border: 2px solid var(--text-dark);
-      box-shadow: 6px 6px 0px rgba(0,0,0,0.2); 
+    /* Images */
+    .caption { font-size: 0.85rem; text-align: center; margin-top: 8px; font-family: var(--font-heading); opacity: 0.8; color: white; }
+    .historical-images { display: grid; gap: 3rem; margin-top: 2rem; }
+    .temple-image-wrapper { position: relative; width: 100%; height: 360px; perspective: 1000px; }
+    .temple-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
+    .temple-image-wrapper:hover .temple-flip-inner { transform: rotateY(180deg); }
+    .temple-image {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+      backface-visibility: hidden; border-radius: 8px;
     }
+    .temple-image.final { transform: rotateY(180deg); }
+    .historical-image { width: 100%; height: 360px; object-fit: cover; border-radius: 8px; }
     
-    .caption { font-size: 0.85rem; text-align: center; margin-top: 10px; font-family: var(--font-heading); opacity: 0.8; font-style: italic; }
-
-    /* Other Image Grids (Teal Sections) */
-    .historical-images, .colonial-images, .tin-boom-layout { display: grid; gap: 2rem; margin-top: 2rem; }
-    .historical-image, .colonial-image, .tin-mine-image { 
-      width: 100%; height: 340px; object-fit: cover; border-radius: 4px; 
-      box-shadow: 6px 6px 0px rgba(0,0,0,0.3);
-    }
+    .colonial-images { display: grid; gap: 2rem; margin-top: 2rem; }
+    .colonial-image { width: 100%; height: 340px; object-fit: cover; border-radius: 8px; }
+    
+    .tin-boom-layout { display: grid; gap: 2rem; margin-top: 1rem; }
+    .tin-mine-wrapper { height: 300px; }
+    .tin-mine-image { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
     
     .loke-yew-layout { display: grid; gap: 2rem; }
     .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(255,255,255,0.05); border-radius: 8px; }
 
     /* Link Section */
     .phase-navigation {
-      margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); text-align: right;
+      margin-top: 5px; 
+      padding-top: 10px; 
+      padding-bottom: 5px;
+      border-top: 1px solid rgba(255,255,255,0.2); 
+      text-align: right;
     }
+    
     .phase-link {
       text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 10px;
-      font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem; transition: color 0.3s;
+      font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; transition: color 0.3s;
     }
-    .phase-link:hover { color: var(--bg-beige); }
+    .phase-link:hover { color: var(--bg-paper); }
+    .phase-arrow { transition: transform 0.3s; }
     .phase-link:hover .phase-arrow { transform: translateX(5px); }
 
     /* Media Queries */
@@ -294,11 +279,19 @@
       .vietnam-layout { flex-direction: row; align-items: flex-start; }
       .vietnam-text { width: 50%; padding-right: 2rem; }
       .vietnam-map { width: 50%; display: flex; flex-direction: column; align-items: center; justify: center; }
-      .map-image { width: 90%; height: 480px; margin-top: -20px; }
-      .historical-images { grid-template-columns: 1fr 1fr; }
+      .map-image { width: 90%; height: 480px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin-top: -20px; }
+      .historical-images { grid-template-columns: 1fr 1fr; margin-top: -60px; }
       .colonial-images { grid-template-columns: 1fr 1fr; }
       .tin-boom-layout { grid-template-columns: 1fr 1fr; align-items: center; }
       .loke-yew-layout { grid-template-columns: 300px 1fr; }
+      .hero-title { font-size: 5rem; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-section { height: auto; min-height: 100vh; padding: 100px 20px 40px; }
+      .hero-content { margin-top: 0; }
+      .vietnam-map .map-image { width: 100%; height: auto; margin-top: 0; }
+      .hero-title { font-size: 3rem; }
     }
   </style>
 </head>
@@ -313,36 +306,36 @@
   <!-- Hero (Cover) -->
   <header class="hero-section">
     <div class="hero-content">
-      <!-- 标签: 剪贴画风格 -->
+      <!-- 标签 -->
       <div>
-        <span class="hero-label collage-text">Timeline / Phase I</span>
+        <span class="hero-label">Timeline / Phase I</span>
       </div>
-      <!-- 主标题: 剪贴画风格 -->
+      <!-- 主标题 -->
       <div>
-        <h1 class="hero-title collage-text">17th–19th Centuries</h1>
+        <h1 class="hero-title hero-text-glow">17th–19th Centuries</h1>
       </div>
-      <!-- 副标题: 剪贴画风格 -->
+      <!-- 副标题 -->
       <div>
-        <h2 class="hero-subtitle collage-text">Early Migration within Southeast Asia</h2>
+        <h2 class="hero-subtitle hero-text-glow">Early Migration within Southeast Asia</h2>
       </div>
     </div>
     
+    <!-- 右下角引用 -->
     <div class="hero-citation">
       A voyage to Cochinchina, in the years 1792 and 1793. Barrow, John, Sir, 1764-1848
     </div>
   </header>
   
   <main>
-    <!-- Section 1: Siam (Beige Background) -->
-    <section class="content-section section-beige first-section">
+    <!-- Section 1: Siam -->
+    <section class="content-section first-section">
       <div class="container">
         <div class="grid-2col grid-2-1">
           <div>
             <div class="section-header">
+              <!-- 正文日期保持背景块，以适应深青色背景 -->
               <span class="header-date-tag">1640s–1770s</span>
-              <!-- 打字机特效容器 -->
-              <br>
-              <span class="header-title typewriter-wrapper" id="typewriter-1">Early Migration to Siam</span>
+              <span class="header-title">Early Migration to Siam</span>
             </div>
             
             <div class="text-content">
@@ -351,7 +344,6 @@
               <p>By 1700, the Chinese population in Ayutthaya reportedly exceeded 3,000. This community expanded significantly throughout the 18th century, with Cantonese immigrants becoming prominent in royal monopolies, navigation, commerce, and urban crafts.</p>
             </div>
           </div>
-          <!-- Gallery Buttons need to be dark in beige section -->
           <div class="gallery">
             <div class="gallery-frame">
               <div class="gallery-slide show"><img src="https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg" alt="Slide 1"></div>
@@ -361,7 +353,7 @@
             </div>
             <div class="gallery-nav">
               <button class="nav-btn" id="prev"><i data-lucide="chevron-left" size="16"></i></button>
-              <div style="display:flex; align-items:center; font-size:14px; color:var(--text-dark); gap:5px;">
+              <div style="display:flex; align-items:center; font-size:14px; color:white; gap:5px;">
                   <span id="num">1</span><span>/</span><span>3</span>
               </div>
               <button class="nav-btn" id="next"><i data-lucide="chevron-right" size="16"></i></button>
@@ -371,15 +363,13 @@
       </div>
     </section>
     
-    <!-- Section 2: Vietnam (Beige Background) -->
-    <section class="content-section section-beige" id="vietnam-section">
+    <!-- Section 2: Vietnam -->
+    <section class="content-section" id="vietnam-section">
       <div class="container">
         
         <div class="section-header">
           <span class="header-date-tag">1680s–1790s</span>
-          <br>
-          <!-- 打字机特效容器 -->
-          <span class="header-title typewriter-wrapper" id="typewriter-2">Establishment in Southern Vietnam</span>
+          <span class="header-title">Establishment in Southern Vietnam</span>
         </div>
 
         <div class="vietnam-layout">
@@ -397,17 +387,18 @@
       </div>
     </section>
     
-    <!-- Section 3: Historical Images (Back to Teal) -->
-    <section class="content-section section-teal">
+    <!-- Section 3: Historical Images -->
+    <section class="content-section">
       <div class="container">
-        <h2 class="section-header" style="color:white; margin-bottom:1rem;">Visual History</h2>
         <div class="historical-images">
           <div style="display:flex; flex-direction:column; gap:8px;">
             <div class="temple-image-wrapper">
-              <!-- Flip card removed/simplified or kept as plain image for consistency, kept plain image here for simplicity or flip as per original? Keeping structure. -->
-              <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Final" class="historical-image">
+              <div class="temple-flip-inner">
+                <img src="https://scontent-lax3-1.xx.fbcdn.net/v/t39.30808-6/482028079_1054721156683649_4741026620118105993_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=xGA8JIq5WqsQ7kNvwH1umDw&_nc_oc=AdmvToxUARCrvCsU01OTTocfHPpJmSCLLQvF-uoX6NaoVstx1NtHp7DnQaH14OImusjzc7yIio7joUDAMOzfCQw9&_nc_zt=23&_nc_ht=scontent-lax3-1.xx&_nc_gid=fXS4Lxf5_11QtpnEG8gF2w&oh=00_AfpSXG_vEJpXu5OjmSrxu-k0t9GQHXH_n1sScOkj5hUlog&oe=695B954A" alt="Initial" class="temple-image initial">
+                <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Final" class="temple-image final">
+              </div>
             </div>
-            <p class="caption">Thien Hau Temple, Saigon (1760)</p>
+            <p class="caption">Thien Hau Temple, Saigon, established in 1760</p>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/A_voyage_to_Cochinchina%2C_in_the_years_1792_and_1793._To_which_is_annexed_an_account_of_a_journey_made_in_the_years_1801_and_1802%2C_to_the_residence_of_the_chief_of_the_Booshuana_nation_%281806%29_%2814766269094%29.jpg/1600px-thumbnail.jpg" alt="Voyage" class="historical-image">
@@ -417,18 +408,18 @@
       </div>
     </section>
     
-    <!-- Section 4: British Ports (Teal) -->
-    <section class="content-section section-teal">
+    <!-- Section 4: British Ports -->
+    <section class="content-section">
       <div class="container">
         
         <div class="section-header">
           <span class="header-date-tag">1786–1820s</span>
-          <span class="header-title" style="display:block; margin-top:8px;">Expansion into British Colonial Ports</span>
+          <span class="header-title">Expansion into British Colonial Ports</span>
         </div>
 
         <div class="text-content">
-          <p>From the late 18th century, British colonial ports reshaped Guangdong migration routes. Penang (est. 1786) offered security and strong commercial prospects. In the 1790s, the Ghee Hin Kongsi emerged as one of the earliest major Chinese brotherhoods in Penang.</p>
-          <p>Penang’s Ng Fook Thong (founded in 1819), often cited as an early Cantonese school in Malaya, also served as a temple gathering hub. Following the establishment of Singapore in 1819, Cantonese migrants integrated into the colony's expanding economy.</p>
+          <p>From the late 18th century, British colonial ports reshaped Guangdong migration routes. Penang (est. 1786) offered security and strong commercial prospects. In the 1790s, the Ghee Hin Kongsi emerged as one of the earliest major Chinese brotherhoods in Penang. Strongly associated with Cantonese networks, it organized labor, protection, and mutual aid, anchoring Cantonese community life in the Straits Settlements.</p>
+          <p>Penang’s Ng Fook Thong (founded in 1819), often cited as an early Cantonese school in Malaya, also served as a temple gathering hub for Cantonese migrants. Following the establishment of Singapore in 1819, Cantonese migrants integrated into the colony's expanding economy. In 1822, Cho Ah Chee established the first Cantonese dialect association, the Ning Yeung Wui Kuan.</p>
         </div>
         <div class="colonial-images">
           <div style="display:flex; flex-direction:column; gap:8px;">
@@ -443,13 +434,13 @@
       </div>
     </section>
     
-    <!-- Section 5: Tin Boom (Teal) -->
-    <section class="content-section section-teal" style="padding-top: 1.5rem;">
+    <!-- Section 5: Tin Boom -->
+    <section class="content-section" style="padding-top: 1.5rem;">
       <div class="container">
         
         <div class="section-header">
           <span class="header-date-tag">1840s–1870s</span>
-          <span class="header-title" style="display:block; margin-top:8px;">The Malayan Tin Boom</span>
+          <span class="header-title">The Malayan Tin Boom</span>
         </div>
 
         <div class="tin-boom-layout">
@@ -466,13 +457,13 @@
       </div>
     </section>
     
-    <!-- Section 6: Summary (Teal) -->
-    <section class="content-section section-teal last-section">
+    <!-- Section 6: Summary & Footer Navigation -->
+    <section class="content-section last-section">
       <div class="container">
         
         <div class="section-header">
           <span class="header-date-tag">Summary</span>
-          <span class="header-title" style="display:block; margin-top:8px;">Social Mobility</span>
+          <span class="header-title">Social Mobility</span>
         </div>
 
         <div class="loke-yew-layout">
@@ -522,20 +513,6 @@
     }
     document.getElementById('prev').onclick = () => go(index - 1);
     document.getElementById('next').onclick = () => go(index + 1);
-
-    // Typewriter Intersection Observer
-    // 当打字机元素进入屏幕时，添加 active class 开始动画
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('typing-active');
-          observer.unobserve(entry.target); // 动画只播放一次
-        }
-      });
-    }, { threshold: 0.5 });
-
-    const typewriters = document.querySelectorAll('.typewriter-wrapper');
-    typewriters.forEach(tw => observer.observe(tw));
   </script>
 </body>
 </html>
