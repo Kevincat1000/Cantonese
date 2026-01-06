@@ -5,23 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Phase I: 17th–19th Centuries - Cantonese Migration</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      /* 全局配色 - 浅色主题 */
-      --bg-main: #f5f0e5;   /* 淡米色背景 */
-      --text-main: #231d16; /* 正文深褐色 */
-      --date-red: #701a1a;  /* 强调色：深红 */
-      --text-muted: #5c554f; /* 次要文字颜色 */
-      
+      --bg-main: #f5f0e5;
+      --text-main: #231d16;
+      --date-red: #701a1a;
+      --text-muted: #5c554f;
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
     }
@@ -38,7 +34,7 @@
       overflow-x: hidden;
     }
 
-    /* --- Nav --- */
+    /* Nav */
     .nav-float {
       position: fixed; top: 30px; left: 30px; z-index: 1000; display: flex; align-items: center; gap: 15px;
       text-decoration: none; color: var(--text-main); transition: all 0.3s ease;
@@ -58,7 +54,7 @@
     .nav-float:hover .nav-icon-circle { background-color: var(--date-red); border-color: var(--date-red); color: #fff; transform: scale(1.1); }
     .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); }
 
-    /* --- Hero (Cover) --- */
+    /* Hero */
     .hero-section {
       position: relative; 
       height: 100vh; 
@@ -109,7 +105,7 @@
       text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
     }
 
-    /* --- General Layout --- */
+    /* Common */
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
     .content-section { padding: 4rem 2rem; background-color: var(--bg-main); }
     
@@ -138,29 +134,26 @@
     
     .caption { font-size: 0.85rem; text-align: center; margin-top: 8px; font-family: var(--font-heading); color: var(--text-muted); }
 
-    /* --- Section 1: Siam Custom Grid Layout --- */
-    .siam-section {
-      width: 100%;
-      background-color: var(--bg-main);
-      /* Grid Layout: 2 Columns */
+    /* --- SIAM SECTION (Fixed Layout) --- */
+    .siam-grid-container {
       display: grid;
-      grid-template-columns: 1fr 1fr; /* 50% left, 50% right */
-      /* No gap between columns as requested (0px from middle) */
-      column-gap: 0; 
+      width: 100%;
+      /* 50% left, 50% right, 0px gap */
+      grid-template-columns: 1fr 1fr;
+      background-color: var(--bg-main);
     }
 
-    /* Left Image Area */
-    .siam-left-col {
+    /* Row 1, Col 1: Main Image */
+    .siam-main-image-cell {
       position: relative;
       width: 100%;
-      /* 重点：让图片高度自动撑满该Grid区域，即等于右侧文字区域的高度 */
-      display: flex; 
+      height: 100%; /* Stretches to match text height */
     }
 
-    .siam-left-col img {
+    .siam-main-image-cell img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* 保证填满区域不变形 */
+      object-fit: cover;
       display: block;
     }
 
@@ -172,83 +165,50 @@
       padding: 3px 8px; border-radius: 2px;
     }
 
-    /* Right Text Area */
-    .siam-right-col {
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* 
-       Padding Requirement: 
-       Top: 55px, Left: 40px, Right: 40px, Bottom: 40px 
-    */
-    .siam-text-block {
-      padding: 55px 40px 40px 40px;
-      /* Ensure left image aligns with bottom of this block */
-      height: 100%; 
-    }
-
-    /* Small Images Area - Below Text Block */
-    .siam-images-block {
-      /* Place below the text block but inside the right column structure? 
-         User said: "Left image top aligns with title, bottom aligns with text end".
-         This means the left image should NOT cover the small images.
-         So we put small images in a new grid row or just below the flex container?
-         
-         Implementation: 
-         We will use a Grid where:
-         Row 1 Col 1: Main Image
-         Row 1 Col 2: Text Block
-         Row 2 Col 2: Small Images (Main Image won't stretch here)
-      */
-    }
-
-    /* Overriding to use explicit Grid rows to control image height strictly */
-    .siam-grid-wrapper {
-      display: grid;
-      grid-template-columns: 50% 50%;
-      width: 100%;
-    }
-
+    /* Row 1, Col 2: Text Content */
     .siam-text-cell {
       padding: 55px 40px 40px 40px;
-    }
-    
-    .siam-extra-images-cell {
-      grid-column: 2; /* Place in right column */
-      padding: 0 40px 60px 40px; /* Aligned with text padding */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
-    /* The magnified small images */
-    .expanded-images-row {
-      display: flex;
-      flex-direction: column; /* Stack them or row? Let's do row for better view */
-      gap: 30px;
+    /* Row 2, Col 2: Extra Images */
+    .siam-extra-images-cell {
+      grid-column: 2; /* Force to right column */
+      padding: 0 40px 60px 40px;
     }
-    
-    .expanded-image-item {
-      width: 100%;
+
+    .expanded-images-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
     }
 
     .expanded-image-item img {
       width: 100%;
-      height: 240px; /* Magnified 2x from previous 120px */
+      height: 300px; /* Magnified size */
       object-fit: cover;
       border-radius: 4px;
       border: 1px solid rgba(0,0,0,0.1);
-      /* No shadow as requested */
-      box-shadow: none; 
     }
 
     .expanded-desc {
       font-size: 0.95rem;
       color: var(--text-main);
-      margin-top: 10px;
-      margin-bottom: 5px;
-      line-height: 1.4;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      line-height: 1.5;
     }
 
-    /* --- Other Grids --- */
+    .small-caption {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      opacity: 0.8;
+    }
+
+    /* Other Sections */
     .grid-2col { display: grid; gap: 2rem; align-items: start; }
     .vietnam-layout { display: flex; flex-direction: column; gap: 2rem; }
     
@@ -259,14 +219,13 @@
     .temple-image.final { transform: rotateY(180deg); }
     
     .historical-images { display: grid; gap: 3rem; margin-top: 2rem; }
-    .historical-image, .colonial-image, .tin-mine-image { width: 100%; object-fit: cover; border-radius: 8px; }
-    .historical-image { height: 360px; }
+    .historical-image { width: 100%; height: 360px; object-fit: cover; border-radius: 8px; }
     .colonial-images { display: grid; gap: 2rem; margin-top: 2rem; }
-    .colonial-image { height: 340px; }
+    .colonial-image { width: 100%; height: 340px; object-fit: cover; border-radius: 8px; }
     
     .tin-boom-layout { display: grid; gap: 2rem; margin-top: 1rem; }
     .tin-mine-wrapper { height: 300px; }
-    .tin-mine-image { height: 100%; }
+    .tin-mine-image { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
     
     .loke-yew-layout { display: grid; gap: 2rem; }
     .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(0,0,0,0.03); border-radius: 8px; mix-blend-mode: multiply; }
@@ -277,7 +236,6 @@
     .phase-arrow { transition: transform 0.3s; }
     .phase-link:hover .phase-arrow { transform: translateX(5px); }
 
-    /* Media Queries */
     @media (min-width: 900px) {
       .grid-2col { grid-template-columns: 1fr 1fr; }
       .vietnam-layout { flex-direction: row; align-items: flex-start; }
@@ -291,9 +249,9 @@
     }
     
     @media (max-width: 900px) {
-      .siam-grid-wrapper { grid-template-columns: 1fr; }
+      .siam-grid-container { grid-template-columns: 1fr; }
       .siam-text-cell, .siam-extra-images-cell { padding: 2rem; }
-      .siam-left-col { height: 400px; }
+      .siam-main-image-cell { height: 300px; }
       .siam-extra-images-cell { grid-column: 1; }
       .hero-title { font-size: 3rem; }
     }
@@ -301,7 +259,188 @@
 </head>
 
 <body>
-  <!-- Nav -->
   <a href="timeline.html" class="nav-float" id="nav-btn">
     <div class="nav-icon-circle"><i data-lucide="arrow-left"></i></div>
-    <span class="nav-text">Back to Timeline</span
+    <span class="nav-text">Back to Timeline</span>
+  </a>
+
+  <header class="hero-section">
+    <div class="hero-content">
+      <div><span class="hero-label">Timeline / Phase I</span></div>
+      <div><h1 class="hero-title hero-text-glow">17th–19th Centuries</h1></div>
+      <div><h2 class="hero-subtitle hero-text-glow">Early Migration within Southeast Asia</h2></div>
+    </div>
+    <div class="hero-citation">
+      A voyage to Cochinchina, in the years 1792 and 1793. Barrow, John, Sir, 1764-1848
+    </div>
+  </header>
+  
+  <main>
+    <div class="siam-grid-container">
+      
+      <div class="siam-main-image-cell">
+        <img src="https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg" alt="View of Judea">
+        <div class="left-caption-overlay">View of Judea, the Capital of Siam (c. 1662 - c. 1663)</div>
+      </div>
+
+      <div class="siam-text-cell">
+        <div>
+          <span class="header-date-tag">1640s–1770s</span>
+          <span class="header-title">Early Migration to Siam</span>
+        </div>
+        
+        <div class="text-content">
+          <p>Following the Qing dynasty's conquest of South China (c. 1644–1660s), significant Cantonese migration occurred. Ming loyalists and refugees fled south by sea to escape warfare, while widespread corruption and hardship under Qing rule compelled many farmers and artisans to seek livelihoods abroad.</p>
+          <p>Maritime routes linked Guangdong's coastal communities to Siam (Thailand), Cambodia, and Cochinchina, where local rulers welcomed Cantonese traders and skilled workers for their commercial and fiscal value.</p>
+          <p>By 1700, the Chinese population in Ayutthaya reportedly exceeded 3,000. This community expanded significantly throughout the 18th century, with Cantonese immigrants becoming prominent in royal monopolies, navigation, commerce, and urban crafts.</p>
+        </div>
+      </div>
+
+      <div class="siam-extra-images-cell">
+        <div class="expanded-images-wrapper">
+          
+          <div class="expanded-image-item">
+            <img src="https://www.meisterdrucke.ie/kunstwerke/1260px/French_School_-_View_of_Ayutthaya_with_royal_barges_from_Voyage_du_Siam_des_Peres_Jesuites_by_Gu_-_%28MeisterDrucke-444314%29.jpg" alt="Ayutthaya Barges">
+            <div class="expanded-desc">
+              Ayutthaya was a true city of water, crisscrossed by canals and rivers. As a vital entrepôt, it served as the meeting point where trade routes from China, India, and the West converged, creating a cosmopolitan hub where Cantonese merchants thrived in royal trade monopolies.
+            </div>
+            <div class="small-caption">View of Ayutthaya with royal barges (1688)</div>
+          </div>
+
+          <div class="expanded-image-item">
+            <img src="https://exploration.marinersmuseum.org/wp-content/uploads/sites/2/2014/04/Chinese_junk_1804-450x351.jpg" alt="Chinese Junk">
+            <div class="expanded-desc">
+              The "Red-Head" junks (named for their painted prows) were the workhorses of the South China Sea. These vessels followed the monsoon winds, transporting porcelain, silk, and tea from Canton to Siam, and returning with rice, timber, and exotic spices.
+            </div>
+            <div class="small-caption">Chinese Junk Ship (1804)</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    
+    <section class="content-section" id="vietnam-section">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="header-date-tag">1680s–1790s</span>
+          <span class="header-title">Establishment in Southern Vietnam</span>
+        </div>
+
+        <div class="vietnam-layout">
+          <div class="vietnam-text">
+            <div class="text-content">
+              <p>Around 1680, Mo Jiu, a refugee from Leizhou, Guangdong, developed the Hà Tiên area. He formally established a semi-autonomous principality there in 1708, placing it under the suzerainty of the Vietnamese Nguyễn lords. This polity functioned as a sanctuary and major hub for Cantonese and other Chinese migrants prior to French colonization.</p>
+              <p>During the Tây Sơn conflicts, ethnic Chinese merchants, primarily Cantonese, founded a new settlement adjacent to Saigon in 1778. This settlement evolved into Chợ Lớn ("Big Market"). Despite suffering severe persecution and violence in 1782, survivors rebuilt the community. By the end of the 18th century, the Cantonese population in Cochinchina was estimated at 30,000–40,000, controlling key rice and silk trade routes.</p>
+            </div>
+          </div>
+          <div class="vietnam-map">
+            <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map" class="map-image">
+            <p class="caption">Antique Map of Southern Asia by Walker (c.1840)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="content-section">
+      <div class="container">
+        <div class="historical-images">
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div class="temple-image-wrapper">
+              <div class="temple-flip-inner">
+                <img src="https://scontent-lax3-1.xx.fbcdn.net/v/t39.30808-6/482028079_1054721156683649_4741026620118105993_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=xGA8JIq5WqsQ7kNvwH1umDw&_nc_oc=AdmvToxUARCrvCsU01OTTocfHPpJmSCLLQvF-uoX6NaoVstx1NtHp7DnQaH14OImusjzc7yIio7joUDAMOzfCQw9&_nc_zt=23&_nc_ht=scontent-lax3-1.xx&_nc_gid=fXS4Lxf5_11QtpnEG8gF2w&oh=00_AfpSXG_vEJpXu5OjmSrxu-k0t9GQHXH_n1sScOkj5hUlog&oe=695B954A" alt="Initial" class="temple-image initial">
+                <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Final" class="temple-image final">
+              </div>
+            </div>
+            <p class="caption">Thien Hau Temple, Saigon, established in 1760</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/A_voyage_to_Cochinchina%2C_in_the_years_1792_and_1793._To_which_is_annexed_an_account_of_a_journey_made_in_the_years_1801_and_1802%2C_to_the_residence_of_the_chief_of_the_Booshuana_nation_%281806%29_%2814766269094%29.jpg/1600px-thumbnail.jpg" alt="Voyage" class="historical-image">
+            <p class="caption">A voyage to Cochinchina, 1790s</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="content-section">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="header-date-tag">1786–1820s</span>
+          <span class="header-title">Expansion into British Colonial Ports</span>
+        </div>
+
+        <div class="text-content">
+          <p>From the late 18th century, British colonial ports reshaped Guangdong migration routes. Penang (est. 1786) offered security and strong commercial prospects. In the 1790s, the Ghee Hin Kongsi emerged as one of the earliest major Chinese brotherhoods in Penang. Strongly associated with Cantonese networks, it organized labor, protection, and mutual aid, anchoring Cantonese community life in the Straits Settlements.</p>
+          <p>Penang’s Ng Fook Thong (founded in 1819), often cited as an early Cantonese school in Malaya, also served as a temple gathering hub for Cantonese migrants. Following the establishment of Singapore in 1819, Cantonese migrants integrated into the colony's expanding economy. In 1822, Cho Ah Chee established the first Cantonese dialect association, the Ning Yeung Wui Kuan.</p>
+        </div>
+        <div class="colonial-images">
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <img src="http://bit.ly/4924hNh" alt="Penang School" class="colonial-image">
+            <p class="caption">Penang Ng Fook Thong (est. 1819)</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <img src="https://sgarchi.wordpress.com/wp-content/uploads/2020/05/shophouses1900.jpg" alt="Shophouses" class="colonial-image">
+            <p class="caption">Early 1900s Singapore Shophouses</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="content-section" style="padding-top: 1.5rem;">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="header-date-tag">1840s–1870s</span>
+          <span class="header-title">The Malayan Tin Boom</span>
+        </div>
+
+        <div class="tin-boom-layout">
+          <div>
+            <div class="tin-mine-wrapper">
+              <img src="https://icf.newscdn.net/publisher-c1a3f893382d2b2f8a9aa22a654d9c97/2021/11/19671de90e44635c17d7ce037ff92cb8.jpg" alt="Tin Mine" class="tin-mine-image">
+            </div>
+            <p class="caption">Open-cast Tin Mine in Malaya, 1900s</p>
+          </div>
+          <div class="text-content">
+            <p>With the discovery of rich tin deposits in Perak, Selangor, and Negeri Sembilan, a new wave of migration occurred between the 1840s and 1870s. During this period, Cantonese laborers and capitalists moved from Penang and Singapore into the interior mining districts of the Malay Peninsula.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="content-section last-section">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="header-date-tag">Summary</span>
+          <span class="header-title">Social Mobility</span>
+        </div>
+
+        <div class="loke-yew-layout">
+          <div>
+            <img src="https://bit.ly/4phrjVa" alt="Loke Yew" class="loke-yew-image">
+            <p class="caption">Loke Yew (1846-1917). Cantonese tycoon.</p>
+          </div>
+          <div class="text-content">
+            <p>By the turn of the 19th century, the total Cantonese population in Southeast Asia remained relatively modest, yet they occupied a unique niche. Through the Ghee Hin brotherhoods and clan associations, they organized both labor and capital. By the late 19th century, a distinct class of magnates emerged, controlling tin mines, revenue farms, and vast commercial networks.</p>
+          </div>
+        </div>
+        
+        <div class="phase-navigation">
+          <a href="phase2.html" class="phase-link">
+            <span>Phase II: 1840s–1940s<br>
+            <span style="font-size:0.8em; opacity:0.8; font-weight:400;">Building North America & The Pacific</span></span>                                                                                                                                                    
+            <i data-lucide="arrow-right" class="phase-arrow"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
