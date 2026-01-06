@@ -37,7 +37,6 @@
 
     .main-container { display: flex; min-height: 100vh; }
 
-    /* --- 左侧固定栏 --- */
     .left-panel {
       width: var(--left-width); 
       height: calc(100vh - var(--header-h));
@@ -48,7 +47,6 @@
       z-index: 1000;
     }
 
-    /* 左上角标题 */
     .main-headline { 
       position: absolute;
       top: 30px;
@@ -61,7 +59,6 @@
       text-transform: uppercase; 
     }
 
-    /* 中间导航链接 */
     .nav-list { 
       position: absolute;
       top: 50%;
@@ -73,33 +70,44 @@
       width: 100%;
     }
 
-    .nav-item { display: flex; text-decoration: none; color: #000; font-family: 'Exo', sans-serif; font-size: 12px; line-height: 1.2; transition: color 0.3s; }
+    .nav-item { 
+      display: flex; 
+      text-decoration: none; 
+      color: #000; 
+      font-family: 'Exo', sans-serif; 
+      font-size: 12px; 
+      line-height: 1.2; 
+      transition: color 0.3s; 
+    }
     .nav-num { width: 22px; flex-shrink: 0; font-weight: 700; }
     .nav-text-group { display: flex; flex-direction: column; }
     .nav-title { font-weight: 700; text-transform: uppercase; }
     .nav-desc { font-weight: 700; text-transform: uppercase; }
     .nav-item:hover { color: var(--accent-red); }
 
-    /* 左下角关键词 */
     .keywords-wrap { 
       position: absolute;
       bottom: 40px; 
       left: 0;
     }
-    .keywords-text { font-family: 'Exo', sans-serif; font-size: 18px; font-weight: 600; line-height: 1.3; text-transform: uppercase; }
+    .keywords-text { 
+      font-family: 'Exo', sans-serif; 
+      font-size: 18px; 
+      font-weight: 600; 
+      line-height: 1.3; 
+      text-transform: uppercase; 
+    }
 
-    /* --- 右侧内容区域 --- */
     .right-panel { 
       margin-left: calc(40px + var(--left-width) + 100px); 
       padding-right: 100px;
-      padding-top: 0px; /* 减少间隙，使文字起始点与左侧标题对齐 */
+      padding-top: 0px;
       padding-bottom: 120px;
       flex-grow: 1;
     }
 
     .content-section { margin-bottom: 140px; }
     
-    /* 标题样式组 */
     .section-header-group { margin-bottom: 35px; }
     
     .section-meta { 
@@ -140,7 +148,6 @@
     }
     .section-body p { margin-bottom: 1.5rem; }
 
-    /* --- 其他组件样式 --- */
     .surname-comparison { margin: 20px 0; display: flex; flex-direction: column; gap: 8px; max-width: 420px; }
     .surname-row { display: flex; align-items: center; gap: 15px; margin-bottom: 5px; }
     .char-red { font-size: 22px; color: var(--accent-red); width: 35px; text-align: center; }
@@ -166,8 +173,26 @@
     .slideshow-container { position: relative; margin: 40px 0; background: #eeeae0; padding: 12px; }
     .mySlides { display: none; text-align: center; }
     .mySlides img { width: 100%; height: 400px; object-fit: cover; }
-    .prev, .next { cursor: pointer; position: absolute; top: 40%; padding: 16px; color: #000; font-weight: bold; font-size: 24px; background: rgba(255,255,255,0.4); z-index: 50; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border: none; }
-    .next { right: 20px; } .prev { left: 20px; }
+    .prev, .next { 
+      cursor: pointer; 
+      position: absolute; 
+      top: 40%; 
+      padding: 16px; 
+      color: #000; 
+      font-weight: bold; 
+      font-size: 24px; 
+      background: rgba(255,255,255,0.4); 
+      z-index: 50; 
+      border-radius: 50%; 
+      width: 50px; 
+      height: 50px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      border: none; 
+    }
+    .next { right: 20px; } 
+    .prev { left: 20px; }
 
     @media (max-width: 1200px) {
       .main-container { flex-direction: column; }
@@ -177,7 +202,7 @@
         width: 100%; 
         height: auto; 
         left: 0; 
-        padding: 40px; 
+        padding: 30px 20px; 
         border-right: none; 
         border-bottom: 1px solid var(--light-gray-line);
         top: 0; 
@@ -186,23 +211,57 @@
       
       .main-headline { 
         position: static; 
-        margin-bottom: 30px;
-        font-size: 24px;
+        margin-bottom: 25px;
+        font-size: 22px;
       }
       
       .nav-list { 
         position: static; 
         transform: none; 
-        margin-bottom: 30px;
+        margin-bottom: 25px;
+        gap: 15px;
+      }
+
+      .nav-item {
+        padding: 12px 0;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .nav-item:last-child {
+        border-bottom: none;
+      }
+
+      .nav-num {
+        width: 28px;
+        font-size: 13px;
+      }
+
+      .nav-text-group {
+        gap: 4px;
+      }
+
+      .nav-title {
+        font-size: 13px;
+        line-height: 1.3;
+      }
+
+      .nav-desc {
+        font-size: 11px;
+        line-height: 1.3;
+        opacity: 0.8;
       }
       
       .keywords-wrap { 
         position: static; 
       }
+
+      .keywords-text {
+        font-size: 16px;
+      }
       
       .right-panel { 
         margin-left: 0; 
-        padding: 40px; 
+        padding: 30px 20px 80px 20px; 
         order: 2;
       }
       
@@ -210,16 +269,84 @@
       .news-flex { flex-wrap: wrap; justify-content: center; }
       .slideshow-container { margin: 20px 0; }
       .mySlides img { height: auto; min-height: 250px; }
+
+      .content-section { margin-bottom: 80px; }
     }
 
     @media (max-width: 768px) {
-      .left-panel { padding: 30px 20px; }
-      .right-panel { padding: 30px 20px; }
-      .main-headline { font-size: 20px; }
+      .left-panel { padding: 25px 15px; }
+      .right-panel { padding: 25px 15px 60px 15px; }
+      .main-headline { font-size: 20px; margin-bottom: 20px; }
+      
+      .nav-item {
+        padding: 10px 0;
+      }
+
+      .nav-num {
+        width: 25px;
+        font-size: 12px;
+      }
+
+      .nav-title {
+        font-size: 12px;
+      }
+
+      .nav-desc {
+        font-size: 10px;
+      }
+
+      .keywords-text {
+        font-size: 14px;
+      }
+
       h2 { font-size: 16px; }
-      h3 { font-size: 16px; }
-      .section-body { font-size: 15px; }
-      .prev, .next { width: 40px; height: 40px; font-size: 18px; }
+      h3 { font-size: 16px; margin-top: 25px; }
+      .section-body { font-size: 15px; line-height: 1.7; }
+      .prev, .next { width: 40px; height: 40px; font-size: 18px; padding: 12px; }
+      
+      .section-header-group { margin-bottom: 25px; }
+      .content-section { margin-bottom: 60px; }
+
+      .news-item { width: 100%; max-width: 200px; }
+      .news-img { width: 100%; height: auto; aspect-ratio: 170/250; }
+
+      .border-highlight-box, .beige-bg-box { 
+        padding: 20px; 
+        margin: 20px 0; 
+        font-size: 14px; 
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-headline { font-size: 18px; }
+      h2 { font-size: 15px; }
+      .section-body { font-size: 14px; }
+      
+      .nav-title {
+        font-size: 11px;
+      }
+
+      .nav-desc {
+        font-size: 9px;
+      }
+
+      .surname-row {
+        gap: 10px;
+      }
+
+      .char-red {
+        font-size: 18px;
+        width: 30px;
+      }
+
+      .pill-box {
+        padding: 5px 15px;
+        height: 40px;
+      }
+
+      .surname-main, .surname-mandarin {
+        font-size: 14px;
+      }
     }
 
     html.preload body { opacity: 0; }
@@ -236,10 +363,33 @@
       <h1 class="main-headline">Cantonese as<br>Linguistic Capital</h1>
       
       <nav class="nav-list">
-        <a href="#sec1" class="nav-item"><span class="nav-num">1.</span><div class="nav-text-group"><span class="nav-title">The Era of Hegemony, 1848–1950</span><span class="nav-desc">Cantonese as Survival License</span></div></a>
-        <a href="#sec2" class="nav-item"><span class="nav-num">2.</span><div class="nav-text-group"><span class="nav-title">The Era of Stratification, 1965–2010</span><span class="nav-desc">The Rise of Mandarin as "High" Variety</span></div></a>
-        <a href="#sec3" class="nav-item"><span class="nav-num">3.</span><div class="nav-text-group"><span class="nav-title">Contemporary Reality, 2010–Present</span><span class="nav-desc">Heritage Value and Cultural Reclamation</span></div></a>
-        <a href="#sec4" class="nav-item"><span class="nav-num">4.</span><div class="nav-text-group"><span class="nav-title">Conclusion</span></div></a>
+        <a href="#sec1" class="nav-item">
+          <span class="nav-num">1.</span>
+          <div class="nav-text-group">
+            <span class="nav-title">The Era of Hegemony, 1848–1950</span>
+            <span class="nav-desc">Cantonese as Survival License</span>
+          </div>
+        </a>
+        <a href="#sec2" class="nav-item">
+          <span class="nav-num">2.</span>
+          <div class="nav-text-group">
+            <span class="nav-title">The Era of Stratification, 1965–2010</span>
+            <span class="nav-desc">The Rise of Mandarin as "High" Variety</span>
+          </div>
+        </a>
+        <a href="#sec3" class="nav-item">
+          <span class="nav-num">3.</span>
+          <div class="nav-text-group">
+            <span class="nav-title">Contemporary Reality, 2010–Present</span>
+            <span class="nav-desc">Heritage Value and Cultural Reclamation</span>
+          </div>
+        </a>
+        <a href="#sec4" class="nav-item">
+          <span class="nav-num">4.</span>
+          <div class="nav-text-group">
+            <span class="nav-title">Conclusion</span>
+          </div>
+        </a>
       </nav>
 
       <div class="keywords-wrap">
@@ -249,7 +399,6 @@
 
     <article class="right-panel">
       
-      <!-- Section 1 -->
       <section id="sec1" class="content-section">
         <div class="section-header-group">
             <span class="section-meta">01 1848–1950</span>
@@ -261,32 +410,83 @@
           <p>Because Guangdong cultures deeply influenced these institutions, Cantonese was the price of admission. Speaking the language was not a choice but rather a necessity. It functioned as a survival license. In a xenophobic society, Cantonese was the prerequisite for the community's safety net. Without it, immigrants were effectively barred from mutual aid, including the ability to secure employment, credit, or communal protection. Those outside this linguistic boundary were disconnected from the community.</p>
           
           <div class="slideshow-container">
-            <div class="mySlides" style="display: block;"><img src="https://www.foundsf.org/images/d/d3/Chinatwn%246-companies-officers.jpg"><div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Officers of the Six Companies in 1890, Bancroft Library.</div></div>
-            <div class="mySlides"><img src="https://www.foundsf.org/images/5/5a/Reps_of_Six_Companies_1943_AAB-6823.jpg"><div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Representatives of the Six Companies in 1943. SF Public Library.</div></div>
-            <div class="mySlides"><img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg"><div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Ning Yung Benevolent Association, I.W. Taber, 1891.</div></div>
-            <button class="prev" onclick="plusSlides(-1)">❮</button><button class="next" onclick="plusSlides(1)">❯</button>
+            <div class="mySlides" style="display: block;">
+              <img src="https://www.foundsf.org/images/d/d3/Chinatwn%246-companies-officers.jpg">
+              <div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Officers of the Six Companies in 1890, Bancroft Library.</div>
+            </div>
+            <div class="mySlides">
+              <img src="https://www.foundsf.org/images/5/5a/Reps_of_Six_Companies_1943_AAB-6823.jpg">
+              <div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Representatives of the Six Companies in 1943. SF Public Library.</div>
+            </div>
+            <div class="mySlides">
+              <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg">
+              <div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Ning Yung Benevolent Association, I.W. Taber, 1891.</div>
+            </div>
+            <button class="prev" onclick="plusSlides(-1)">❮</button>
+            <button class="next" onclick="plusSlides(1)">❯</button>
           </div>
 
           <h3>B. Media Hegemony: The Public Voice</h3>
           <p>Cantonese dominance was also shown through media institutions. Kim Shan Jit San Luk / Golden Hills' News (April 22, 1854), was founded to serve the growing Cantonese immigrant population and was written in traditional Chinese, yet its very title appears in Cantonese romanization ("Kim Shan"), and its contents circulated through Cantonese-speaking associations, shops, and communities, who often read aloud, debated, and retold in Cantonese, turning print into a shared Cantonese civic soundscape. In the early twentieth century, Chung Sai Yat Po (1900–1951) became one of the major Chinese-language dailies in Chinatown. Even when it addressed modern issues, it did so through institutions and audiences anchored in Cantonese community life. The media did not just reflect the community; it defined the boundaries. By making Cantonese the default language of news and opinion, these papers established who was inside the community's political imagination and which linguistic groups were peripheral.</p>
 
           <div class="news-flex">
-            <div class="news-item"><img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" class="news-img"><div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 10px; text-align: center;">The Golden Hills' News, 1854</div></div>
-            <div class="news-item"><img src="https://maxrambod.cdn.bibliopolis.com/pictures/22049.jpg" class="news-img"><div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 10px; text-align: center;">Chung Sai Yat Po, 1949</div></div>
+            <div class="news-item">
+              <img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" class="news-img">
+              <div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 10px; text-align: center;">The Golden Hills' News, 1854</div>
+            </div>
+            <div class="news-item">
+              <img src="https://maxrambod.cdn.bibliopolis.com/pictures/22049.jpg" class="news-img">
+              <div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 10px; text-align: center;">Chung Sai Yat Po, 1949</div>
+            </div>
           </div>
 
           <h3>C. Surnames and Signs: Cantonese as the Default Public Pronunciation</h3>
           <p>A third evidence comes from the linguistic landscape: the signs and names that defined Chinatown. In many older Chinatowns, English spellings of surnames and store names historically tracked Cantonese pronunciations: "Lee," "Wong," and "Chan" became the norm, rather than the Mandarin pinyin "Li," "Wang," or "Chen." This meant that Cantonese was the default language in Chinese communities. In the eyes of the community and the broader American public, Cantonese was accepted standard for being Chinese in North America.</p>
 
           <div class="surname-comparison">
-            <div class="surname-row"><div class="char-red">李</div><div class="pill-box"><div class="pill-side"><span class="lang-tag">Cantonese</span><span class="surname-main">Lee</span></div><div class="pill-side" style="align-items: flex-end;"><span class="surname-mandarin">Li</span><span class="lang-tag">Mandarin</span></div></div></div>
-            <div class="surname-row"><div class="char-red">王</div><div class="pill-box"><div class="pill-side"><span class="lang-tag">Cantonese</span><span class="surname-main">Wong</span></div><div class="pill-side" style="align-items: flex-end;"><span class="surname-mandarin">Wang</span><span class="lang-tag">Mandarin</span></div></div></div>
-            <div class="surname-row"><div class="char-red">陈</div><div class="pill-box"><div class="pill-side"><span class="lang-tag">Cantonese</span><span class="surname-main">Chan</span></div><div class="pill-side" style="align-items: flex-end;"><span class="surname-mandarin">Chen</span><span class="lang-tag">Mandarin</span></div></div></div>
+            <div class="surname-row">
+              <div class="char-red">李</div>
+              <div class="pill-box">
+                <div class="pill-side">
+                  <span class="lang-tag">Cantonese</span>
+                  <span class="surname-main">Lee</span>
+                </div>
+                <div class="pill-side" style="align-items: flex-end;">
+                  <span class="surname-mandarin">Li</span>
+                  <span class="lang-tag">Mandarin</span>
+                </div>
+              </div>
+            </div>
+            <div class="surname-row">
+              <div class="char-red">王</div>
+              <div class="pill-box">
+                <div class="pill-side">
+                  <span class="lang-tag">Cantonese</span>
+                  <span class="surname-main">Wong</span>
+                </div>
+                <div class="pill-side" style="align-items: flex-end;">
+                  <span class="surname-mandarin">Wang</span>
+                  <span class="lang-tag">Mandarin</span>
+                </div>
+              </div>
+            </div>
+            <div class="surname-row">
+              <div class="char-red">陈</div>
+              <div class="pill-box">
+                <div class="pill-side">
+                  <span class="lang-tag">Cantonese</span>
+                  <span class="surname-main">Chan</span>
+                </div>
+                <div class="pill-side" style="align-items: flex-end;">
+                  <span class="surname-mandarin">Chen</span>
+                  <span class="lang-tag">Mandarin</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Section 2 -->
       <section id="sec2" class="content-section">
         <div class="section-header-group">
             <span class="section-meta">02 1965–2010</span>
@@ -327,7 +527,6 @@
         </div>
       </section>
 
-      <!-- Section 3 -->
       <section id="sec3" class="content-section">
         <div class="section-header-group">
             <span class="section-meta">03 2010–PRESENT</span>
@@ -354,7 +553,6 @@
         </div>
       </section>
 
-      <!-- Section 4 -->
       <section id="sec4" class="content-section">
         <div class="section-header-group">
             <span class="section-meta">04</span>
@@ -370,7 +568,6 @@
   </div>
 
   <script>
-    // === Header 同步脚本 ===
     (function () {
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
@@ -399,7 +596,6 @@
       });
     })();
 
-    // --- 幻灯片逻辑 ---
     let slideIndex = 1;
     function plusSlides(n) { showSlides(slideIndex += n); }
     function showSlides(n) {
@@ -410,7 +606,6 @@
       slides[slideIndex-1].style.display = "block";
     }
 
-    // --- 滚动特效 ---
     function initReveal() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -421,7 +616,6 @@
     }
     document.addEventListener('DOMContentLoaded', initReveal);
 
-    // --- Header 智能显隐 ---
     let lastScrollTop = 0;
     window.addEventListener('scroll', function() {
       const header = document.querySelector('header') || document.querySelector('.site-header');
