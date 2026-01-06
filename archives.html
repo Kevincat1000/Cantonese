@@ -23,7 +23,6 @@
       --video-gap: 40px;
       --title-x: 20vw;
       --border-w: 2px;
-      /* 括号颜色 */
       --bracket-color: #333;
     }
 
@@ -40,11 +39,11 @@
       overflow-x: hidden;
     }
 
-    /* ✅ Header 修复：强制不固定，随页面滚动 */
+    /* Header 随页面滚动 */
     #header-wrapper, 
     #header-wrapper header, 
     .site-header {
-      position: absolute !important; /* 或者 static */
+      position: absolute !important;
       top: 0 !important;
       left: 0 !important;
       width: 100% !important;
@@ -52,11 +51,10 @@
       background-color: var(--bg-color);
     }
     
-    /* 增加顶部 padding 以免内容被绝对定位的 header 遮挡 */
     main {
       width: 100%;
       flex: 1;
-      padding-top: 100px; /* 根据 Header 高度调整 */
+      padding-top: 100px; 
       padding-bottom: 100px;
     }
 
@@ -78,10 +76,9 @@
       padding-left: 40px;
     }
 
-    /* 标题位置调整，避免和右边的括号打架 */
     .section-title {
       position: absolute;
-      left: var(--title-x); /* 约 20vw */
+      left: var(--title-x);
       transform: translateX(-50%);
       top: 0;
       font-size: 14px;
@@ -92,7 +89,6 @@
       pointer-events: none;
     }
 
-    /* 普通标签 [ D ] 等 */
     .bracket-label {
       position: absolute;
       right: 20px;
@@ -103,41 +99,34 @@
       color: #000;
     }
 
-    /* --- 信息块容器 --- */
+    /* 信息块容器 */
     .info-wrapper {
       position: absolute;
-      right: 20px; /* 靠右对齐 */
+      right: 20px; 
       top: -4px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      /* 让整体宽度适应内容，但在下面限制内部宽度 */
     }
 
-    /* 括号盒子 (Flex布局) */
     .complex-label-box {
       display: flex;
-      align-items: stretch; /* 拉伸高度使括号适应文字高度 */
+      align-items: stretch;
       gap: 12px;
     }
 
-    /* ✅ 括号：使用 CSS Border 绘制，保证“非常细” (1px) */
+    /* CSS 极细括号 (1px) */
     .css-bracket {
-      width: 8px; /* 括号的勾长 */
+      width: 8px;
       border-top: 1px solid var(--bracket-color);
       border-bottom: 1px solid var(--bracket-color);
-      /* 稍微缩放一点高度，让它不要紧贴着文字顶底 */
       margin-top: 2px;
       margin-bottom: 2px;
     }
-    .bracket-left {
-      border-left: 1px solid var(--bracket-color);
-    }
-    .bracket-right {
-      border-right: 1px solid var(--bracket-color);
-    }
+    .bracket-left { border-left: 1px solid var(--bracket-color); }
+    .bracket-right { border-right: 1px solid var(--bracket-color); }
 
-    /* ✅ 内部文字：设置固定宽度以对齐所有括号 */
+    /* 内部文字固定宽度，确保对齐 */
     .inner-info {
       display: flex;
       flex-direction: column;
@@ -146,11 +135,9 @@
       line-height: 1.4;
       color: #000;
       text-align: left;
-      /* 核心修改：固定宽度，使 Walnut 和 Los Angeles 的括号距离一致 */
       width: 175px; 
     }
 
-    /* 斜体引用语 */
     .quote-text {
       font-family: 'Exo', sans-serif;
       font-style: italic;
@@ -158,14 +145,12 @@
       line-height: 1.4;
       color: #555;
       margin-top: 12px;
-      /* 对齐左括号右侧 (8px bracket + 12px gap) */
       padding-left: 0; 
-      /* 限制宽度与上面的 box 一致 */
       width: 100%;
-      max-width: 210px; /* 约等于 bracket width + gap + text width */
+      max-width: 210px;
     }
 
-    /* --- 视频缩略图 --- */
+    /* 视频缩略图 */
     .video-thumb {
       width: 50%;
       aspect-ratio: 16 / 9;
@@ -225,7 +210,7 @@
       transform: scale(1.1);
     }
 
-    /* --- 弹窗 --- */
+    /* 弹窗 */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -239,7 +224,7 @@
     .modal-overlay.active { display: flex; }
 
     .modal-content {
-      width: 70%;
+      width: 70%; /* Desktop 默认宽度 */
       aspect-ratio: 16 / 9;
       background: #000;
       box-shadow: 0 30px 60px rgba(0,0,0,0.1);
@@ -263,7 +248,7 @@
     }
     .close-btn:hover { background: rgba(112, 26, 26, 0.06); }
 
-    /* --- 手机端 --- */
+    /* --- 手机端适配 --- */
     @media (max-width: 768px) {
       :root { --title-x: 50vw; }
       main { padding-top: 80px; }
@@ -281,13 +266,12 @@
         order: 2;
         margin-bottom: 12px;
         right: auto;
-        /* 手机端取消固定宽度，改为适应 */
         max-width: 90%;
         align-items: center;
       }
 
       .inner-info {
-        width: auto; /* 手机端取消对其强制，改为居中自然宽度 */
+        width: auto; 
         text-align: center;
       }
       .quote-text {
@@ -296,6 +280,21 @@
       }
 
       .video-thumb { width: 90%; order: 4; }
+      
+      /* ✅ 修复手机端视频弹窗宽度 */
+      .modal-content {
+        width: 95%;
+      }
+      
+      /* 手机端关闭按钮稍微调小一点，防止挡住视频 */
+      .close-btn {
+        top: 15px;
+        left: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+      }
+
       .row:not(:first-of-type) .section-title { display: none; }
       #culture-section-start .section-title { display: block; }
     }
@@ -318,7 +317,6 @@
         
         <div class="info-wrapper">
           <div class="complex-label-box">
-            <!-- CSS绘制的极细左括号 -->
             <span class="css-bracket bracket-left"></span>
             
             <div class="inner-info">
@@ -327,7 +325,6 @@
               <div>Walnut, California</div>
             </div>
 
-            <!-- CSS绘制的极细右括号 -->
             <span class="css-bracket bracket-right"></span>
           </div>
           
