@@ -110,11 +110,12 @@
       text-transform: uppercase; 
       display: block; 
       margin-bottom: 6px;
+      letter-spacing: 2px;
     }
 
     h2 { 
       font-family: 'Exo', sans-serif; 
-      font-size: 28px; 
+      font-size: 18px; 
       font-weight: 600; 
       line-height: 1.2; 
       margin: 0; 
@@ -169,9 +170,56 @@
     .next { right: 20px; } .prev { left: 20px; }
 
     @media (max-width: 1200px) {
-      .left-panel { position: relative; width: 100%; height: auto; left: 0; padding: 40px; border-right: none; top: 0; }
-      .main-headline, .nav-list, .keywords-wrap { position: static; transform: none; }
-      .right-panel { margin-left: 0; padding: 40px; }
+      .main-container { flex-direction: column; }
+      
+      .left-panel { 
+        position: relative; 
+        width: 100%; 
+        height: auto; 
+        left: 0; 
+        padding: 40px; 
+        border-right: none; 
+        border-bottom: 1px solid var(--light-gray-line);
+        top: 0; 
+        order: 1;
+      }
+      
+      .main-headline { 
+        position: static; 
+        margin-bottom: 30px;
+        font-size: 24px;
+      }
+      
+      .nav-list { 
+        position: static; 
+        transform: none; 
+        margin-bottom: 30px;
+      }
+      
+      .keywords-wrap { 
+        position: static; 
+      }
+      
+      .right-panel { 
+        margin-left: 0; 
+        padding: 40px; 
+        order: 2;
+      }
+      
+      .surname-comparison { max-width: 100%; }
+      .news-flex { flex-wrap: wrap; justify-content: center; }
+      .slideshow-container { margin: 20px 0; }
+      .mySlides img { height: auto; min-height: 250px; }
+    }
+
+    @media (max-width: 768px) {
+      .left-panel { padding: 30px 20px; }
+      .right-panel { padding: 30px 20px; }
+      .main-headline { font-size: 20px; }
+      h2 { font-size: 16px; }
+      h3 { font-size: 16px; }
+      .section-body { font-size: 15px; }
+      .prev, .next { width: 40px; height: 40px; font-size: 18px; }
     }
 
     html.preload body { opacity: 0; }
