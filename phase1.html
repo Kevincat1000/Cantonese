@@ -16,10 +16,10 @@
 
   <style>
     :root {
-      --bg-teal: #2d7b73;
-      --bg-paper: #f5f0e5;
+      /* 定义全局变量 */
+      --bg-paper-texture: url('https://i.pinimg.com/736x/05/53/e3/0553e3d05d92a7ceb12f0af308f1c99b.jpg');
+      --bg-hero: #f5f0e5; /* 封面保持原色 */
       --accent-red: #a84d4d;
-      --text-white: #f9f9f9;
       --text-dark: #231d16;
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
@@ -32,8 +32,11 @@
     body {
       font-family: var(--font-body);
       line-height: 1.6;
-      background-color: var(--bg-teal);
-      color: var(--text-white);
+      background-image: var(--bg-paper-texture); /* 全局背景 */
+      background-repeat: repeat;
+      background-size: cover;
+      background-attachment: fixed; /* 背景固定，产生视差感 */
+      color: var(--text-dark);
       overflow-x: hidden;
     }
 
@@ -42,24 +45,25 @@
       position: fixed; top: 30px; left: 30px; z-index: 1000; display: flex; align-items: center; gap: 15px;
       text-decoration: none; color: var(--text-dark); transition: all 0.3s ease;
     }
-    .nav-float.on-dark { color: white; }
-    .nav-float.on-dark .nav-icon-circle { border-color: rgba(255,255,255,0.4); }
+    /* 移除之前的 on-dark 逻辑，因为现在背景整体都是浅色，导航始终保持深色即可 */
     .nav-icon-circle {
-      width: 50px; height: 50px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; transition: all 0.3s ease; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px);
+      width: 50px; height: 50px; border: 1px solid rgba(0,0,0,0.2); border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; transition: all 0.3s ease; background: rgba(255,255,255,0.4); backdrop-filter: blur(5px);
     }
     .nav-text {
       font-family: var(--font-heading); font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
-      opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; font-weight: 600;
+      opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; font-weight: 600; color: var(--text-dark);
     }
     .nav-float:hover .nav-icon-circle { background-color: var(--accent-red); border-color: var(--accent-red); color: #fff; transform: scale(1.1); }
     .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); color: var(--accent-red); }
-    .nav-float.on-dark:hover .nav-text { color: var(--accent-red); }
 
-    /* --- Hero --- */
+    /* --- Hero (Cover) --- */
     .hero-section {
-      position: relative; height: 100vh; width: 100%; background-color: var(--bg-paper); display: flex;
+      position: relative; height: 100vh; width: 100%; 
+      background-color: var(--bg-hero); /* 保持原有的封面背景色 */
+      display: flex;
       align-items: center; padding: 0 5%; overflow: hidden;
+      border-bottom: 2px solid rgba(0,0,0,0.1);
     }
     .hero-content { position: relative; z-index: 10; max-width: 800px; color: var(--text-dark); margin-top: -50px; }
     .hero-label {
@@ -82,31 +86,38 @@
 
     /* --- Layout & Sections --- */
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
+    
+    /* 移除了动画相关的 opacity 和 transform */
     .content-section { 
       padding: 4rem 2rem; 
-      opacity: 0; 
-      transform: translateY(30px); 
-      transition: opacity 1s ease, transform 1s ease;
+      /* 背景统一使用 CSS 变量中的图片 */
+      background-image: var(--bg-paper-texture);
+      background-size: cover;
     }
-    .content-section.section-visible { opacity: 1; transform: translateY(0); }
     
-    .section-teal { background-color: var(--bg-teal); color: var(--text-white); }
-    .section-paper {
-      background-color: var(--bg-paper); color: var(--text-dark);
-      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px);
+    /* 统一所有 Section 的背景和文字颜色 */
+    .section-teal, .section-paper {
+      background: transparent; /* 让 body 的背景或者 section 的背景图透出来 */
+      color: var(--text-dark);
     }
 
-    /* 最后一页间距深度压缩 */
+    /* 强制覆盖原本是白色的文字，因为现在背景是浅色纸张 */
+    .text-white, .text-white-90, .section-title.text-white {
+      color: var(--text-dark) !important;
+    }
+    .text-dark-90 { color: rgba(35, 29, 22, 0.9); }
+
     .last-section { padding-bottom: 10px !important; }
 
     .section-title {
       font-family: var(--font-heading); font-size: 24px; font-weight: 700; margin-bottom: 1.5rem;
-      line-height: 1.3; margin-top: 0; position: relative; padding-left: 20px; border-left: 5px solid var(--accent-red);
+      line-height: 1.3; margin-top: 0; position: relative; padding-left: 20px; 
+      border-left: 5px solid var(--accent-red);
+      color: var(--text-dark);
     }
+    
     .text-content { font-size: 1.05rem; line-height: 1.7; width: 100%; }
     .text-content p { margin-bottom: 1.2rem; }
-    .text-white-90 { color: rgba(255, 255, 255, 0.9); }
-    .text-dark-90 { color: rgba(35, 29, 22, 0.9); }
 
     /* Grids */
     .grid-2col { display: grid; gap: 2rem; align-items: start; }
@@ -124,19 +135,22 @@
     .gallery-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.4s ease; }
     .gallery-slide.show { opacity: 1; }
     .gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
+    
     .gallery-label {
-      position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(45, 123, 115, 0.95), rgba(45, 123, 115, 0.7));
+      position: absolute; bottom: 0; left: 0; right: 0; 
+      /* 调整标签背景色以适应新风格 */
+      background: linear-gradient(to top, rgba(35, 29, 22, 0.95), rgba(35, 29, 22, 0.6));
       color: white; padding: 14px; font-size: 13px; text-align: center; font-family: var(--font-heading);
     }
     .gallery-nav { display: flex; justify: center; gap: 16px; margin-top: 10px; }
     .nav-btn {
-      background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; width: 32px; height: 32px;
+      background: transparent; border: 1px solid rgba(35,29,22,0.3); color: var(--text-dark); width: 32px; height: 32px;
       border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify: center;
     }
-    .nav-btn:hover { border-color: var(--accent-red); background: var(--accent-red); }
+    .nav-btn:hover { border-color: var(--accent-red); background: var(--accent-red); color: white; }
 
     /* Images */
-    .caption { font-size: 0.85rem; text-align: center; margin-top: 8px; font-family: var(--font-heading); opacity: 0.8; }
+    .caption { font-size: 0.85rem; text-align: center; margin-top: 8px; font-family: var(--font-heading); opacity: 0.8; color: var(--text-dark); }
     .historical-images { display: grid; gap: 3rem; margin-top: 2rem; }
     .temple-image-wrapper { position: relative; width: 100%; height: 360px; perspective: 1000px; }
     .temple-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
@@ -156,19 +170,19 @@
     .tin-mine-image { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
     
     .loke-yew-layout { display: grid; gap: 2rem; }
-    .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(255,255,255,0.1); border-radius: 8px; }
+    .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(0,0,0,0.05); border-radius: 8px; }
 
-    /* Compact Link Section - 深度压缩 */
+    /* Link Section */
     .phase-navigation {
       margin-top: 5px; 
       padding-top: 10px; 
       padding-bottom: 5px;
-      border-top: 1px solid rgba(255,255,255,0.15); 
+      border-top: 1px solid rgba(0,0,0,0.2); 
       text-align: right;
     }
     
     .phase-link {
-      text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text-dark); display: inline-flex; align-items: center; gap: 10px;
       font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; transition: color 0.3s;
     }
     .phase-link:hover { color: var(--accent-red); }
@@ -206,7 +220,7 @@
     <span class="nav-text">Back to Timeline</span>
   </a>
 
-  <!-- Hero -->
+  <!-- Hero (Cover) - 保持原样 -->
   <header class="hero-section">
     <div class="hero-content">
       <span class="hero-label">Timeline / Phase I</span>
@@ -218,12 +232,14 @@
   
   <main>
     <!-- Section 1: Siam -->
-    <section class="section-teal content-section first-section">
+    <!-- 移除了 section-teal，改用 CSS 变量背景 -->
+    <section class="content-section first-section">
       <div class="container">
         <div class="grid-2col grid-2-1">
           <div>
-            <h2 class="section-title text-white">1640s–1770s: Early Migration to Siam</h2>
-            <div class="text-content text-white-90">
+            <!-- 强制深色文字 -->
+            <h2 class="section-title">1640s–1770s: Early Migration to Siam</h2>
+            <div class="text-content">
               <p>Following the Qing dynasty's conquest of South China (c. 1644–1660s), significant Cantonese migration occurred. Ming loyalists and refugees fled south by sea to escape warfare, while widespread corruption and hardship under Qing rule compelled many farmers and artisans to seek livelihoods abroad.</p>
               <p>Maritime routes linked Guangdong's coastal communities to Siam (Thailand), Cambodia, and Cochinchina, where local rulers welcomed Cantonese traders and skilled workers for their commercial and fiscal value.</p>
               <p>By 1700, the Chinese population in Ayutthaya reportedly exceeded 3,000. This community expanded significantly throughout the 18th century, with Cantonese immigrants becoming prominent in royal monopolies, navigation, commerce, and urban crafts.</p>
@@ -238,7 +254,7 @@
             </div>
             <div class="gallery-nav">
               <button class="nav-btn" id="prev"><i data-lucide="chevron-left" size="16"></i></button>
-              <div style="display:flex; align-items:center; font-size:14px; color:rgba(255,255,255,0.8); gap:5px;">
+              <div style="display:flex; align-items:center; font-size:14px; color:var(--text-dark); gap:5px;">
                   <span id="num">1</span><span>/</span><span>3</span>
               </div>
               <button class="nav-btn" id="next"><i data-lucide="chevron-right" size="16"></i></button>
@@ -249,26 +265,26 @@
     </section>
     
     <!-- Section 2: Vietnam -->
-    <section class="section-teal content-section" id="vietnam-section">
+    <section class="content-section" id="vietnam-section">
       <div class="container">
-        <h2 class="section-title text-white">1680s–1790s: Establishment in Southern Vietnam</h2>
+        <h2 class="section-title">1680s–1790s: Establishment in Southern Vietnam</h2>
         <div class="vietnam-layout">
           <div class="vietnam-text">
-            <div class="text-content text-white-90">
+            <div class="text-content">
               <p>Around 1680, Mo Jiu, a refugee from Leizhou, Guangdong, developed the Hà Tiên area. He formally established a semi-autonomous principality there in 1708, placing it under the suzerainty of the Vietnamese Nguyễn lords. This polity functioned as a sanctuary and major hub for Cantonese and other Chinese migrants prior to French colonization.</p>
               <p>During the Tây Sơn conflicts, ethnic Chinese merchants, primarily Cantonese, founded a new settlement adjacent to Saigon in 1778. This settlement evolved into Chợ Lớn ("Big Market"). Despite suffering severe persecution and violence in 1782, survivors rebuilt the community. By the end of the 18th century, the Cantonese population in Cochinchina was estimated at 30,000–40,000, controlling key rice and silk trade routes.</p>
             </div>
           </div>
           <div class="vietnam-map">
             <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map" class="map-image">
-            <p class="caption text-white-90">Antique Map of Southern Asia by Walker (c.1840)</p>
+            <p class="caption">Antique Map of Southern Asia by Walker (c.1840)</p>
           </div>
         </div>
       </div>
     </section>
     
     <!-- Section 3: Historical Images -->
-    <section class="section-teal content-section">
+    <section class="content-section">
       <div class="container">
         <div class="historical-images">
           <div style="display:flex; flex-direction:column; gap:8px;">
@@ -278,49 +294,49 @@
                 <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Final" class="temple-image final">
               </div>
             </div>
-            <p class="caption text-white-90">Thien Hau Temple, Saigon, established in 1760</p>
+            <p class="caption">Thien Hau Temple, Saigon, established in 1760</p>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/A_voyage_to_Cochinchina%2C_in_the_years_1792_and_1793._To_which_is_annexed_an_account_of_a_journey_made_in_the_years_1801_and_1802%2C_to_the_residence_of_the_chief_of_the_Booshuana_nation_%281806%29_%2814766269094%29.jpg/1600px-thumbnail.jpg" alt="Voyage" class="historical-image">
-            <p class="caption text-white-90">A voyage to Cochinchina, 1790s</p>
+            <p class="caption">A voyage to Cochinchina, 1790s</p>
           </div>
         </div>
       </div>
     </section>
     
     <!-- Section 4: British Ports -->
-    <section class="section-paper content-section">
+    <section class="content-section">
       <div class="container">
-        <h2 class="section-title text-dark">1786–1820s: Expansion into British Colonial Ports</h2>
-        <div class="text-content text-dark-90">
+        <h2 class="section-title">1786–1820s: Expansion into British Colonial Ports</h2>
+        <div class="text-content">
           <p>From the late 18th century, British colonial ports reshaped Guangdong migration routes. Penang (est. 1786) offered security and strong commercial prospects. In the 1790s, the Ghee Hin Kongsi emerged as one of the earliest major Chinese brotherhoods in Penang. Strongly associated with Cantonese networks, it organized labor, protection, and mutual aid, anchoring Cantonese community life in the Straits Settlements.</p>
           <p>Penang’s Ng Fook Thong (founded in 1819), often cited as an early Cantonese school in Malaya, also served as a temple gathering hub for Cantonese migrants. Following the establishment of Singapore in 1819, Cantonese migrants integrated into the colony's expanding economy. In 1822, Cho Ah Chee established the first Cantonese dialect association, the Ning Yeung Wui Kuan.</p>
         </div>
         <div class="colonial-images">
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="http://bit.ly/4924hNh" alt="Penang School" class="colonial-image">
-            <p class="caption text-dark-90">Penang Ng Fook Thong (est. 1819)</p>
+            <p class="caption">Penang Ng Fook Thong (est. 1819)</p>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
             <img src="https://sgarchi.wordpress.com/wp-content/uploads/2020/05/shophouses1900.jpg" alt="Shophouses" class="colonial-image">
-            <p class="caption text-dark-90">Early 1900s Singapore Shophouses</p>
+            <p class="caption">Early 1900s Singapore Shophouses</p>
           </div>
         </div>
       </div>
     </section>
     
     <!-- Section 5: Tin Boom -->
-    <section class="section-paper content-section" style="padding-top: 1.5rem;">
+    <section class="content-section" style="padding-top: 1.5rem;">
       <div class="container">
-        <h2 class="section-title text-dark">1840s–1870s: The Malayan Tin Boom</h2>
+        <h2 class="section-title">1840s–1870s: The Malayan Tin Boom</h2>
         <div class="tin-boom-layout">
           <div>
             <div class="tin-mine-wrapper">
               <img src="https://icf.newscdn.net/publisher-c1a3f893382d2b2f8a9aa22a654d9c97/2021/11/19671de90e44635c17d7ce037ff92cb8.jpg" alt="Tin Mine" class="tin-mine-image">
             </div>
-            <p class="caption text-dark-90">Open-cast Tin Mine in Malaya, 1900s</p>
+            <p class="caption">Open-cast Tin Mine in Malaya, 1900s</p>
           </div>
-          <div class="text-content text-dark-90">
+          <div class="text-content">
             <p>With the discovery of rich tin deposits in Perak, Selangor, and Negeri Sembilan, a new wave of migration occurred between the 1840s and 1870s. During this period, Cantonese laborers and capitalists moved from Penang and Singapore into the interior mining districts of the Malay Peninsula.</p>
           </div>
         </div>
@@ -328,20 +344,20 @@
     </section>
     
     <!-- Section 6: Summary & Footer Navigation -->
-    <section class="section-teal content-section last-section">
+    <section class="content-section last-section">
       <div class="container">
-        <h2 class="section-title text-white">Summary: Social Mobility</h2>
+        <h2 class="section-title">Summary: Social Mobility</h2>
         <div class="loke-yew-layout">
           <div>
             <img src="https://bit.ly/4phrjVa" alt="Loke Yew" class="loke-yew-image">
-            <p class="caption text-white-90">Loke Yew (1846-1917). Cantonese tycoon.</p>
+            <p class="caption">Loke Yew (1846-1917). Cantonese tycoon.</p>
           </div>
-          <div class="text-content text-white-90">
+          <div class="text-content">
             <p>By the turn of the 19th century, the total Cantonese population in Southeast Asia remained relatively modest, yet they occupied a unique niche. Through the Ghee Hin brotherhoods and clan associations, they organized both labor and capital. By the late 19th century, a distinct class of magnates emerged, controlling tin mines, revenue farms, and vast commercial networks.</p>
           </div>
         </div>
         
-        <!-- Navigation Link Area (Depth Compressed) -->
+        <!-- Navigation Link Area -->
         <div class="phase-navigation">
           <a href="phase2.html" class="phase-link">
             <span>Phase II: 1840s–1940s<br>
@@ -356,13 +372,10 @@
   <script>
     lucide.createIcons();
 
+    // 只保留基本的交互逻辑，删除了 Observer 淡入淡出代码
     const navBtn = document.getElementById('nav-btn');
-    const heroHeight = window.innerHeight; 
-    window.addEventListener('scroll', () => {
-        if(window.scrollY > heroHeight - 50) navBtn.classList.add('on-dark');
-        else navBtn.classList.remove('on-dark');
-    });
-
+    
+    // Gallery Logic
     const captions = [
       "View of Judea, the Capital of Siam (c. 1662 - c. 1663)",
       "View of Ayutthaya with royal barges, 1688",
@@ -382,11 +395,6 @@
     }
     document.getElementById('prev').onclick = () => go(index - 1);
     document.getElementById('next').onclick = () => go(index + 1);
-
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('section-visible'); });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.content-section').forEach(section => fadeObserver.observe(section));
   </script>
 </body>
 </html>
