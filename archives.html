@@ -18,9 +18,9 @@
     :root {
       --bg-color: #f5f0e5;
       --text-black: #000000;
-      --accent-maroon: #701a1a; /* 要求的红色 */
+      --accent-maroon: #701a1a;
       --header-h: 60px;
-      --video-gap: 20px;
+      --video-gap: 25px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,26 +33,25 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* --- Header 隐藏逻辑 --- */
-    #header-injection-point {
+    /* --- Header 隐藏逻辑修复 --- */
+    #header-wrapper {
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 1000;
-      transition: transform 0.4s ease; /* 顺滑切换 */
+      z-index: 2000;
+      transition: top 0.4s ease-in-out;
+      background-color: var(--bg-color); /* 确保背景不透明 */
     }
-    /* 滚动时隐藏类 */
-    .header-hidden {
-      transform: translateY(-100%);
-    }
+    .header-up { top: -100px !important; } /* 隐藏高度 */
 
     /* --- 布局核心 --- */
     main {
       width: 100%;
       flex: 1;
-      padding-top: 50px;
+      padding-top: 80px; /* 留出header空间 */
       padding-bottom: 100px;
     }
 
@@ -66,26 +65,29 @@
     .left-col {
       width: 50%;
       position: relative;
+      height: 100%;
+      min-height: 1px;
     }
 
     .right-col {
       width: 50%;
-      padding-left: 40px; /* 视频靠左边线 40px */
+      padding-left: 40px; /* 视频离中线 40px */
     }
 
-    /* 栏目标题：14px, 600 weight, 黑色, 离左边 40px */
+    /* 栏目标题：Exo 600, 14px, 黑色, 左边栏居中 */
     .section-title {
       position: absolute;
-      left: 40px;
+      left: 50%;
+      transform: translateX(-50%);
       top: 0;
       font-size: 14px;
       font-weight: 600;
       color: var(--text-black);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      white-space: nowrap;
     }
 
-    /* 括号：14px, 400 weight, #701a1a, 离中线 5px */
+    /* 括号：Exo 400, 14px, #701a1a, 离中线 5px */
     .bracket-label {
       position: absolute;
       right: 5px;
@@ -101,19 +103,18 @@
       aspect-ratio: 16 / 9;
       background-color: #d1cdc4;
       cursor: pointer;
-      position: relative;
       border: 1px solid rgba(0,0,0,0.05);
       transition: filter 0.3s;
       filter: grayscale(100%);
     }
     .video-thumb:hover { filter: grayscale(0%); }
 
-    /* --- 视频弹窗 (Lightbox) --- */
+    /* --- 弹窗 --- */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(245, 240, 229, 0.95);
+      background: rgba(245, 240, 229, 0.98);
       display: none;
       justify-content: center;
       align-items: center;
@@ -122,11 +123,10 @@
     .modal-overlay.active { display: flex; }
 
     .modal-content {
-      width: 70%; /* 缩小为原来的 70% */
-      max-width: 1100px;
+      width: 70%; /* 缩小至70% */
       aspect-ratio: 16 / 9;
       background: #000;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.1);
     }
 
     .close-btn {
@@ -135,7 +135,7 @@
       left: 30px;
       width: 45px;
       height: 45px;
-      background: var(--accent-maroon); /* 要求的按钮颜色 */
+      background: var(--accent-maroon);
       color: #fff;
       border-radius: 50%;
       display: flex;
@@ -144,71 +144,111 @@
       cursor: pointer;
       border: none;
       font-size: 26px;
-      z-index: 10000;
     }
 
-    /* 防闪烁 */
+    /* --- 手机端程序调整 --- */
+    @media (max-width: 768px) {
+      .row {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+      .left-col, .right-col {
+        width: 100%;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: static; /* 取消绝对定位 */
+      }
+      .section-title {
+        position: static;
+        transform: none;
+        margin-bottom: 15px;
+        order: 1; /* 标题第一行 */
+      }
+      .bracket-label {
+        position: static;
+        margin-bottom: 10px;
+        order: 2; /* 括号第二行 */
+      }
+      .video-thumb {
+        width: 90%; /* 手机端视频稍微大一点方便点击 */
+        order: 3; /* 视频第三行 */
+      }
+      /* 在手机端，后续行的标题需要隐藏，只留括号和视频 */
+      .row:not(:first-of-type) .section-title {
+        display: none;
+      }
+      /* 第二板块的标题逻辑同理 */
+      #culture-section-start .section-title {
+        display: block !important;
+      }
+    }
+
     html.preload body { opacity: 0; }
-    #header-spacer { height: var(--header-h); }
   </style>
 </head>
 
 <body>
-  <div id="header-injection-point"></div>
-  <div id="header-spacer" aria-hidden="true"></div>
+  <div id="header-wrapper">
+    <div id="header-injection-point"></div>
+  </div>
+  
+  <div id="header-spacer" style="height: var(--header-h);" aria-hidden="true"></div>
 
   <main>
     
-    <!-- 第一部分: INTERVIEW FILES -->
+    <!-- INTERVIEW FILES SECTION -->
     <div class="row">
       <div class="left-col">
         <div class="section-title">INTERVIEW FILES</div>
         <div class="bracket-label">[ A ]</div>
       </div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_1"></div></div>
+      <div class="right-col"><div class="video-thumb" data-video="URL_A"></div></div>
     </div>
 
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ B ]</div></div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_2"></div></div>
+      <div class="right-col"><div class="video-thumb" data-video="URL_B"></div></div>
     </div>
 
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ C ]</div></div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_3"></div></div>
+      <div class="right-col"><div class="video-thumb" data-video="URL_C"></div></div>
     </div>
 
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ D ]</div></div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_4"></div></div>
+      <div class="right-col"><div class="video-thumb" data-video="URL_D"></div></div>
     </div>
 
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ E ]</div></div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_5"></div></div>
+      <div class="right-col"><div class="video-thumb" data-video="URL_E"></div></div>
     </div>
 
-    <div style="height: 60px;"></div>
+    <div style="height: 80px;"></div>
 
-    <!-- 第二部分: CULTURE RECORD -->
-    <div class="row">
+    <!-- CULTURE RECORD SECTION -->
+    <div class="row" id="culture-section-start">
       <div class="left-col">
         <div class="section-title">CULTURE RECORD</div>
         <div class="bracket-label">[ F ]</div>
       </div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_6"></div></div>
+      <div class="right-col"><div class="video-thumb" data-video="URL_F"></div></div>
     </div>
 
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ G ]</div></div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_7"></div></div>
+      <div class="right-col"><div class="video-thumb" data-video="URL_G"></div></div>
     </div>
 
   </main>
 
   <div id="footer-container"></div>
 
-  <!-- 弹窗 -->
+  <!-- 视频弹窗 -->
   <div class="modal-overlay" id="modalOverlay">
     <button class="close-btn" id="closeBtn">×</button>
     <div class="modal-content">
@@ -217,6 +257,23 @@
   </div>
 
   <script>
+    // --- Header 滚动隐藏/显示逻辑修复 ---
+    let lastScrollTop = 0;
+    const headerWrapper = document.getElementById('header-wrapper');
+
+    window.addEventListener('scroll', function() {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (st > lastScrollTop && st > 100) {
+        // 向下滚动 -> 隐藏
+        headerWrapper.classList.add('header-up');
+      } else {
+        // 向上滚动 -> 显示
+        headerWrapper.classList.remove('header-up');
+      }
+      lastScrollTop = st <= 0 ? 0 : st;
+    }, false);
+
     // --- 弹窗逻辑 ---
     const overlay = document.getElementById('modalOverlay');
     const iframe = document.getElementById('videoIframe');
@@ -225,8 +282,7 @@
 
     thumbs.forEach(thumb => {
       thumb.addEventListener('click', () => {
-        const url = thumb.getAttribute('data-video');
-        iframe.src = url; 
+        iframe.src = thumb.getAttribute('data-video');
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
@@ -238,48 +294,21 @@
       document.body.style.overflow = 'auto';
     });
 
-    // --- Header 滚动显示/隐藏逻辑 ---
-    let lastScrollY = window.scrollY;
-    const headerEl = document.getElementById('header-injection-point');
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > lastScrollY && window.scrollY > 100) {
-        // 向下滚 - 隐藏
-        headerEl.classList.add('header-hidden');
-      } else {
-        // 向上滚 - 显示
-        headerEl.classList.remove('header-hidden');
-      }
-      lastScrollY = window.scrollY;
-    });
-
-    // --- 原有 Header/Footer 同步逻辑 ---
+    // --- 同步高度逻辑 ---
     (function () {
-      const spacer = document.getElementById('header-spacer');
-      function findHeaderEl() { return document.querySelector('header') || document.querySelector('.site-header'); }
-      function syncHeaderHeight() {
-        const header = findHeaderEl();
-        if (!header) return false;
-        const h = Math.ceil(header.getBoundingClientRect().height);
-        if (h > 0) {
+      function sync() {
+        const header = document.querySelector('header') || document.querySelector('.site-header');
+        if (header) {
+          const h = header.offsetHeight;
           document.documentElement.style.setProperty('--header-h', h + 'px');
-          if (spacer) spacer.style.height = h + 'px';
-          return true;
+          document.getElementById('header-spacer').style.height = h + 'px';
         }
-        return false;
       }
-      function showPage() { document.documentElement.classList.remove('preload'); }
-
       document.addEventListener('DOMContentLoaded', () => {
-        let tries = 0;
-        (function tick() {
-          tries++;
-          if (syncHeaderHeight()) { showPage(); return; }
-          if (tries > 80) { showPage(); return; }
-          requestAnimationFrame(tick);
-        })();
-        window.addEventListener('resize', syncHeaderHeight);
+        setTimeout(sync, 500);
+        document.documentElement.classList.remove('preload');
       });
+      window.addEventListener('resize', sync);
     })();
   </script>
 </body>
