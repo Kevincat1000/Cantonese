@@ -76,7 +76,7 @@
       header[data-site-header="1"] .mobile-nav-menu.active{ display:block; }
       
       .mobile-search-wrapper { padding: 15px 20px; border-bottom: 1px solid #E5DBCA; }
-      .mobile-search-inner { display: flex; align-items: center; background: #F5F0E5; border: 1px solid #E5DBCA; border-radius: 6px; padding: 0 10px; height: 40px; }
+      .mobile-search-inner { display: flex; align-items: center; background: #ffffff; border: 1px solid #c2b49a; border-radius: 6px; padding: 0 10px; height: 40px; }
       .mobile-search-inner svg { width: 20px; height: 20px; color: #888; margin-right: 8px; flex-shrink: 0; }
       .mobile-search-inner input { border: none; background: transparent; height: 100%; width: 100%; font-size: 16px; outline: none; color: #333; }
       
