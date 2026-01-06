@@ -8,7 +8,6 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Custom Scripts -->
@@ -17,7 +16,7 @@
 
   <style>
     :root {
-      --bg: #f5f0e5; /* 温暖的纸张色 */
+      --bg: #f5f0e5;
       --text: #1a1a1a;
       --header-h: 60px;
     }
@@ -28,7 +27,7 @@
       margin: 0;
       padding: 0;
       background-color: var(--bg);
-      font-family: 'Gentium Book Plus', serif;
+      font-family: 'Exo', sans-serif; /* 全局字体改为Exo */
       color: var(--text);
       width: 100%;
       overflow-x: hidden;
@@ -55,69 +54,73 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      /* 顶部留白，根据Header高度调整，确保视觉居中 */
-      padding-top: calc(var(--header-h) + 60px);
-      padding-bottom: 100px;
+      /* 垂直居中 */
+      padding-top: var(--header-h); 
+      padding-bottom: 60px;
     }
 
-    /* --- Content Block (参考图的核心排版) --- */
+    /* --- Split Layout Container --- */
     .content-block {
       width: 100%;
-      max-width: 600px; /* 稍微调窄一点，让文字块更紧凑好看 */
-      padding: 0 25px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      max-width: 900px; /* 增加宽度以容纳左右结构 */
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 左右 1:1 分割 */
+      gap: 40px; /* 中间间距 */
+      align-items: start; /* 顶部对齐 */
     }
 
-    /* --- Typography --- */
+    /* --- Left Side: Text --- */
+    .text-column {
+      display: flex;
+      flex-direction: column;
+    }
+
     .project-title {
-      font-family: 'Exo', sans-serif;
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-bottom: 35px;
-      text-align: center;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
       color: #000;
     }
 
     .narrative-text {
-      font-size: 16px; /* 保持16px */
-      line-height: 1.7; /* 适中的行距 */
-      text-align: justify; /* 关键：两端对齐，形成整齐的方块 */
+      font-size: 12px; /* 要求的12px */
+      line-height: 2; /* 增大行高，防止小字号太挤，增加阅读舒适度 */
+      text-align: justify; /* 两端对齐 */
       text-justify: inter-word;
-      margin-bottom: 50px;
-      color: #222;
+      color: #333;
       font-weight: 400;
     }
 
     .narrative-text p {
       margin-bottom: 20px;
+      margin-top: 0;
     }
 
-    /* --- Bottom Placeholder Image --- */
-    .bottom-image-container {
+    /* --- Right Side: Image --- */
+    .image-column {
       width: 100%;
-      height: 320px; /* 图片高度 */
+      height: 350px; /* 固定高度，保持方块感 */
       background-color: #ddd;
       overflow: hidden;
       position: relative;
-      /* 模拟参考图的黑白印刷质感 */
-      filter: grayscale(100%) contrast(1.1);
+      filter: grayscale(100%) contrast(1.1); /* 黑白质感 */
     }
 
-    .bottom-image {
+    .content-image {
       width: 100%;
       height: 100%;
-      /* 这里可以替换成你自己的照片 URL */
-      background-image: url('https://images.unsplash.com/photo-1542640244-7e67286feb8f?q=80&w=2574&auto=format&fit=crop'); 
+      object-fit: cover;
+      /* 这里的图片地址可以换成你的 */
+      background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop'); 
       background-size: cover;
       background-position: center;
     }
 
-    /* 添加一点噪点纹理，让图片看起来不那么“数码味” */
-    .bottom-image-container::after {
+    /* 噪点遮罩 */
+    .image-column::after {
       content: "";
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -126,13 +129,15 @@
       pointer-events: none;
     }
 
-    /* --- Responsive --- */
-    @media (max-width: 600px) {
-      .narrative-text {
-        text-align: left; /* 手机屏幕太窄时，取消两端对齐以免单词间距过大 */
+    /* --- Responsive (Mobile) --- */
+    @media (max-width: 768px) {
+      .content-block {
+        grid-template-columns: 1fr; /* 手机上变回上下结构 */
+        gap: 30px;
       }
-      .bottom-image-container {
-        height: 220px;
+      .image-column {
+        height: 250px;
+        order: -1; /* 手机上图片在上面可能更好看，如果想图片在下，删掉这行 */
       }
     }
 
@@ -150,23 +155,23 @@
   <main>
     <div class="content-block">
       
-      <!-- Title -->
-      <div class="project-title">About Me & This Project</div>
-
-      <!-- Text Block (Real & Honest Tone) -->
-      <div class="narrative-text">
-        <p>
-          Hi, I’m Kevin. This project started in a pretty simple way: I really like dim sum. Growing up, it was something I always looked forward to, but over time, I started wondering how these traditions traveled so far from where they began. Visiting Hong Kong last summer made everything feel real to me. It pushed me to look beyond just enjoying the culture and start asking questions about where it comes from.
-        </p>
-        <p>
-          I started working on this six months ago, and I plan to spend the next year finishing it. I like filming and recording things, so instead of just reading textbooks, I decided to learn through interviews. I’m talking to people from different generations about their families, their languages, and the traditions they keep. My goal is to understand how Cantonese culture moves across places and time—seen through everyday stories rather than big history lessons.
-        </p>
+      <!-- 左侧：文字 -->
+      <div class="text-column">
+        <div class="project-title">About Me & This Project</div>
+        
+        <div class="narrative-text">
+          <p>
+            Hi, I’m Kevin. This project started in a pretty simple way: I really like dim sum. Growing up, it was something I always looked forward to, but over time, I started wondering how these traditions traveled so far from where they began. Visiting Hong Kong last summer made everything feel real to me. It pushed me to look beyond just enjoying the culture and start asking questions about where it comes from.
+          </p>
+          <p>
+            I started working on this six months ago, and I plan to spend the next year finishing it. I like filming and recording things, so instead of just reading textbooks, I decided to learn through interviews. I’m talking to people from different generations about their families, their languages, and the traditions they keep. My goal is to understand how Cantonese culture moves across places and time through the lens of ordinary routines and everyday stories.
+          </p>
+        </div>
       </div>
 
-      <!-- Bottom Image -->
-      <div class="bottom-image-container">
-        <!-- 这里的图片可以换成你在香港拍的街景，或者你自己拿着相机的照片 -->
-        <div class="bottom-image"></div>
+      <!-- 右侧：图片 -->
+      <div class="image-column">
+        <div class="content-image"></div>
       </div>
 
     </div>
