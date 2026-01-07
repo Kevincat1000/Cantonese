@@ -118,13 +118,12 @@
       padding: 4px 10px;
     }
 
-    /* UPDATED: Adjusted padding to 40px on sides as requested */
     .container { 
-      max-width: 1232px; /* Increased slightly to accommodate larger spacing */
+      max-width: 1232px; 
       margin: 0 auto; 
       padding: 0 40px; 
     }
-    .content-section { padding: 5rem 0; } /* Removed side padding from here since it is on container */
+    .content-section { padding: 5rem 0; }
 
     .section-title { margin-bottom: 55px; }
     .title-date {
@@ -147,7 +146,6 @@
     .text-content { font-size: 16px; color: #000000; line-height: 1.8; }
     .text-content p { margin-bottom: 1.5rem; }
     
-    /* UPDATED: Gap set to 80px (40px from center line for each side) */
     .grid-2col { 
       display: grid; 
       grid-template-columns: 1fr 1fr; 
@@ -180,7 +178,6 @@
       grid-template-columns: 1fr 1fr;
       gap: 20px;
       margin-top: 20px;
-      /* UPDATED: Removed max-width: 600px to allow images to enlarge and fill the column */
       width: 100%;
       margin-left: auto;
       margin-right: auto;
@@ -201,7 +198,14 @@
       line-height: 1.4;
     }
 
-    .hawaii-stack { display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: center; }
+    /* UPDATED: Hawaii Stack Styles */
+    .hawaii-stack { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 20px; 
+      align-items: center; /* Horizontally center images in the column */
+      justify-content: flex-start; /* Ensure top alignment */
+    }
     .hawaii-img-frame { width: 100%; max-width: 416px; overflow: hidden; }
     .hawaii-img-frame img { width: 100%; display: block; }
     .hawaii-caption {
@@ -212,7 +216,9 @@
       margin-top: 8px;
       text-align: left;
     }
-    .hawaii-grid { grid-template-columns: 1fr 2fr !important; }
+    
+    /* UPDATED: Hawaii Grid set to 50/50 */
+    .hawaii-grid { grid-template-columns: 1fr 1fr !important; }
 
     .image-frame { width: 100%; overflow: hidden; }
     .image-frame img { width: 100%; display: block; }
@@ -257,7 +263,6 @@
 
     .last-section { padding-top: 1rem !important; padding-bottom: 10px !important; }
 
-    /* UPDATED: Increased margin to separate Summary from the text above clearly */
     .summary-wrapper {
       margin-top: 100px;
     }
@@ -305,7 +310,7 @@
     }
 
     @media (max-width: 768px) {
-      .container { padding: 0 20px; } /* Reset padding for mobile */
+      .container { padding: 0 20px; }
       .grid-2col, .letter-feature-wide { grid-template-columns: 1fr; gap: 2rem; }
       .hawaii-grid { 
         grid-template-columns: 1fr !important; 
@@ -345,7 +350,6 @@
     <section class="content-section">
       <div class="container">
         <div class="grid-2col">
-          <!-- Left Column: 40px from screen left, 40px from center line -->
           <div class="text-col">
             <h2 class="section-title">
               <span class="title-date">1848–1858</span>
@@ -356,14 +360,11 @@
               <p>In 1858, the discovery of gold in British Columbia drew the migration northward. Cantonese miners, arriving from California or directly from southern China, founded Victoria's Chinatown. Known as the "Gateway to Canada," it remains the oldest Chinese enclave in the country.</p>
             </div>
           </div>
-          
-          <!-- Right Column: Images, 40px from screen right -->
           <div class="img-col">
             <div class="gold-rush-container">
               <img src="https://delivery.library.ca.gov:8183/iiif/2/FL275099.jpg/full/full/0/default.jpg" alt="Chinatown San Francisco" class="gold-rush-main-img">
               <div class="img-credit">Chinatown, San Francisco, 1890, SF Library</div>
             </div>
-            <!-- Images below enlarged by removing max-width constraint in CSS -->
             <div class="gold-rush-extra-images">
               <div class="gold-extra-img-frame">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Chinese_Man_Mining_Along_River.jpg?20071113014830" alt="Chinese man mining">
@@ -371,7 +372,6 @@
               </div>
               <div class="gold-extra-img-frame">
                 <img src="https://delivery.library.ca.gov:8183/iiif/2/FL76376.jpg/full/full/0/default.jpg" alt="Heathen Chinee prospecting">
-                <!-- Removed the "Room" typo here -->
                 <div class="img-credit">The "Heathen Chinee" prospecting in California in 1852, California History. </div>
               </div>
             </div>
@@ -382,12 +382,14 @@
 
     <section class="content-section" style="padding-top: calc(5rem - 30px);">
       <div class="container">
+        <!-- Title moved outside the grid to span full width -->
+        <h2 class="section-title">
+          <span class="title-date">1850s–1900s</span>
+          <span class="title-main">The Plantation Economy in Hawaii</span>
+        </h2>
+        <!-- hawaii-grid adjusted to 1fr 1fr (50%/50%) in CSS -->
         <div class="grid-2col hawaii-grid">
           <div class="text-col">
-            <h2 class="section-title">
-              <span class="title-date">1850s–1900s</span>
-              <span class="title-main">The Plantation Economy in Hawaii</span>
-            </h2>
             <div class="text-content">
               <p>A distinct wave of Cantonese migration began to transform Hawaii in the mid-nineteenth century, starting with the arrival of Chinese contract laborers in 1852. In contrast to the Chinese communities on the U.S. mainland, which were largely dominated by migrants from the Sze Yup region, Hawaii’s Chinese population was primarily composed of people from Heungshan (present-day Zhongshan). By the late nineteenth century, Heungshan migrants made up approximately 75 percent of the Chinese population in the islands, giving Hawaiʻi a distinctive regional profile within the broader Chinese diaspora.</p>
               <p>Between 1852 and 1899, an estimated 46,000 Chinese migrants arrived in Hawaiʻi, drawn by labor opportunities in plantation agriculture. By 1884, they represented about 22 percent of the total population and held nearly 49 percent of plantation jobs, making them a central workforce in the expanding sugar industry. Over time, many Chinese laborers transitioned from plantation work into independent farming and entrepreneurial roles. By the 1890s, they had become the dominant group in rice cultivation, an industry that experienced rapid growth as demand increased both locally and regionally.</p>
@@ -465,14 +467,21 @@
         </h2>
         <div class="grid-2col">
           <div class="text-content">
-            <p>Following the completion of the Pacific Railroad, economic shifts fueled hostility toward Cantonese labor. This culminated in the <strong>U.S. Chinese Exclusion Act of 1882</strong>, the first federal law banning a specific ethnic group. Canada followed with the 1885 Head Tax and the restrictive Chinese Immigration Act of 1923. These policies severed ties between Cantonese laborers and their hometowns and banned the entry of women, transforming North American Chinatowns into "Bachelor Societies" void of traditional family structures.</p>
+            <!-- UPDATED Text Paragraph -->
+            <p>Following the completion of the Pacific Railroad, economic shifts fueled hostility toward Cantonese labor. This culminated in the U.S. Chinese Exclusion Act of 1882, the first federal law banning a specific ethnic group. In 1892, the Geary Act was extended for another ten years, which barred Chinese laborers from entering the United States. Canada followed with the 1885 Head Tax and the restrictive Chinese Immigration Act of 1923, which virtually banned Chinese immigration for 24 years. These policies severed ties between Cantonese laborers and their hometowns and prohibited the entry of women, transforming North American Chinatowns into "Bachelor Societies" void of traditional family structures.</p>
             <p>The community challenged these restrictions through legal channels. In 1898, Wong Kim Ark, a Cantonese descendant born in San Francisco, appealed his denied entry to the Supreme Court. The ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship (jus soli), securing the legal status of American-born Cantonese and facilitating the transition from temporary sojourners to permanent citizens.</p>
             
-            <!-- Merged the WWII paragraph here for better line spacing as requested -->
             <p>World War II marked a turning point for Chinese Americans. Acknowledging China as an ally, the U.S. repealed exclusion act via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed in 1947, restoring voting rights.</p>
             <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
           </div>
           <div class="img-col">
+            <!-- NEW Image Inserted at Top -->
+            <div class="image-frame">
+              <img src="https://www.ocmuseum.cn/uploads/allimg/200510/1-200510150Q9353.jpg">
+            </div>
+            <div class="hawaii-caption" style="text-align: left; margin-bottom: 30px;">This is a residence certificate issued in 1901 by the Government of Hawaiʻi to a Cantonese laborer “CHAN KONG.” Applying for a residence certificate required at least two trustworthy white witnesses. Zhongshan Museum.</div>
+
+            <!-- Existing Wong Kim Ark Image Moved Down -->
             <div class="image-frame"><img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif"></div>
             <p class="image-caption-simple" style="text-align: center;">Wong Kim Ark Document, 1898</p>
           </div>
