@@ -65,7 +65,7 @@
       font-size: 12px;
       text-transform: uppercase;
       font-weight: 700;
-      background-color: #FEF9C3; /* 浅黄色底 */
+      background-color: #f5f0e5; /* 淡米色底 */
       color: #000; /* 黑字 */
       padding: 5px 12px;
       border-radius: 4px;
@@ -145,24 +145,30 @@
     .text-content p { margin-bottom: 1.5rem; }
     .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
 
-    /* --- 图片样式恢复 --- */
-    .gold-rush-container { position: relative; height: 500px; }
-    .chinatown-wrapper {
-      position: absolute; bottom: 0; right: 0; width: 90%; z-index: 1; transform: translateY(40px);
+    /* --- 新的金矿区图片样式 --- */
+    .gold-rush-container {
+      position: relative;
+      min-height: 400px;
     }
-    .chinatown-wrapper img {
-      width: 100%; border-radius: 4px; display: block;
-      -webkit-mask-image: linear-gradient(to top left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-      mask-image: linear-gradient(to top left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-      opacity: 0.85; 
+    .gold-rush-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -2rem;
+      width: calc(100% + 40px);
+      height: 100%;
+      background-image: url('https://delivery.library.ca.gov:8183/iiif/2/FL275099.jpg/full/full/0/default.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      mask-image: linear-gradient(to left, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+      z-index: 0;
     }
-    .miners-wrapper {
-      position: absolute; top: 0; left: 0; width: 60%; background: #fff; padding: 8px 8px 25px 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 5; transform: rotate(-3deg);
+    .gold-rush-container .text-col {
+      position: relative;
+      z-index: 1;
     }
-    .miners-wrapper img { width: 100%; height: auto; display: block; }
-    .miners-caption { font-family: var(--font-heading); font-size: 13px; text-align: center; margin-top: 8px; font-weight: 700; color: #333; }
-    .image-caption-simple { font-family: var(--font-heading); font-size: 12px; color: #000; text-align: right; margin-top: 4px; font-weight: 600; }
 
     .hawaii-stack { display: flex; flex-direction: column; gap: 20px; }
     .hawaii-img-frame { width: 100%; max-width: 320px; margin-left: auto; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
@@ -171,6 +177,7 @@
     .image-frame { width: 100%; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     .image-frame img { width: 100%; display: block; }
     .image-caption-long { font-size: 0.85rem; margin-top: 15px; opacity: 0.8; font-style: italic; color: #000; line-height: 1.5; }
+    .image-caption-simple { font-family: var(--font-heading); font-size: 12px; color: #000; text-align: right; margin-top: 4px; font-weight: 600; }
 
     .letter-feature-wide {
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;
@@ -187,7 +194,8 @@
     @media (max-width: 768px) {
         .grid-2col, .letter-feature-wide { grid-template-columns: 1fr; gap: 2rem; }
         .hero-title { font-size: 3rem; }
-        .gold-rush-container { height: 400px; }
+        .gold-rush-container { min-height: 300px; }
+        .gold-rush-container::before { right: 0; width: 100%; }
     }
   </style>
 </head>
@@ -221,21 +229,12 @@
                 <span class="title-main">The North American Gold Rushes</span>
             </h2>
             <div class="text-content">
-              <p>The discovery of gold in California triggered the first major wave of Cantonese migration to North America. Between 1848 and 1851, approximately 25,000 migrants arrived, sailing primarily from the Sze Yup (Four Counties) region. San Francisco served as the primary entry point, where Cantonese migrants established the continent’s first Chinatown. This district functioned not only as a transit hub for newcomers but also as North America's earliest permanent Cantonese settlement.</p>
-              <p>In 1858, the discovery of gold in British Columbia drew the migration northward. Cantonese miners, arriving from California or directly from southern China, founded Victoria’s Chinatown. Known as the “Gateway to Canada,” it remains the oldest Chinese enclave in the country.</p>
+              <p>The discovery of gold in California triggered the first major wave of Cantonese migration to North America. Between 1848 and 1851, approximately 25,000 migrants arrived, sailing primarily from the Sze Yup (Four Counties) region. San Francisco served as the primary entry point, where Cantonese migrants established the continent's first Chinatown. This district functioned not only as a transit hub for newcomers but also as North America's earliest permanent Cantonese settlement.</p>
+              <p>In 1858, the discovery of gold in British Columbia drew the migration northward. Cantonese miners, arriving from California or directly from southern China, founded Victoria's Chinatown. Known as the "Gateway to Canada," it remains the oldest Chinese enclave in the country.</p>
             </div>
           </div>
           <div class="img-col">
-            <div class="gold-rush-container">
-               <div class="chinatown-wrapper">
-                 <img src="https://opensfhistory.org/Download/wnp37.04111.jpg" alt="Chinatown 1885">
-                 <div class="image-caption-simple">China town, 1885</div>
-               </div>
-               <div class="miners-wrapper">
-                 <img src="https://www.huntington.org/sites/default/files/verso/featured/chinesearchives_1.jpg" alt="Miners">
-                 <div class="miners-caption">Miners at Auburn Ravine, California, 1852</div>
-               </div>
-            </div>
+            <div class="gold-rush-container"></div>
           </div>
         </div>
       </div>
@@ -251,8 +250,8 @@
                 <span class="title-main">The Plantation Economy in Hawaii</span>
             </h2>
             <div class="text-content">
-              <p>A distinct wave of Cantonese migration transformed Hawaii, beginning with contract laborers in 1852. Unlike the Sze Yup-dominated mainland, the majority of Hawaii’s community was Heungshan (Zhongshan), comprising roughly 75% of the Chinese population.</p>
-              <p>Between 1852 and 1899, approximately 46,000 migrants arrived. By 1884, they constituted 22% of the total population and held 49% of plantation jobs, forming the backbone of the sugar industry. By the 1890s, they also dominated rice cultivation, successfully transferring South China’s agricultural technology to the Pacific.</p>
+              <p>A distinct wave of Cantonese migration transformed Hawaii, beginning with contract laborers in 1852. Unlike the Sze Yup-dominated mainland, the majority of Hawaii's community was Heungshan (Zhongshan), comprising roughly 75% of the Chinese population.</p>
+              <p>Between 1852 and 1899, approximately 46,000 migrants arrived. By 1884, they constituted 22% of the total population and held 49% of plantation jobs, forming the backbone of the sugar industry. By the 1890s, they also dominated rice cultivation, successfully transferring South China's agricultural technology to the Pacific.</p>
             </div>
           </div>
           <div class="img-col hawaii-stack">
@@ -299,7 +298,7 @@
             <div class="text-content">
               <strong style="color: var(--accent-dark-red); font-family: var(--font-heading); display: block; margin-bottom: 10px;">Letter from 1871</strong>
               <p>In this 1871 letter from San Francisco, Zhencong explains why he left Xinning/Taishan, Guangdong: poverty at home pushed him to go abroad to earn a living and secure a better future. He reassures his elder brother that he is safe, reports receiving news that the family is well, and most importantly, sends money (a $20 silver draft) for rice and daily necessities, carefully listing earlier remittances and the messengers who carried them.</p>
-              <p>The message highlights a central motive behind many Cantonese migrations to the United States: working overseas to support the household through remittances, rather than simply seeking personal adventure or permanent departure. It also reflects strong filial piety: duties to parents, and a sense that an individual’s success abroad is measured by what he can send back and how he honors the family.</p>
+              <p>The message highlights a central motive behind many Cantonese migrations to the United States: working overseas to support the household through remittances, rather than simply seeking personal adventure or permanent departure. It also reflects strong filial piety: duties to parents, and a sense that an individual's success abroad is measured by what he can send back and how he honors the family.</p>
             </div>
         </div>
       </div>
@@ -323,7 +322,6 @@
           </div>
         </div>
         <div class="text-content" style="margin-top:2rem;">
-            <!-- 严格恢复原文 -->
             <p>World War II marked a turning point for Chinese Americans. Acknowledging China as an ally, the U.S. repealed exclusion act via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed in 1947, restoring voting rights.</p>
             <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
         </div>
@@ -350,7 +348,6 @@
 
   <script>
     lucide.createIcons();
-    // 确认已删除所有进入视野的缓慢进入特效脚本
   </script>
 </body>
 </html>
