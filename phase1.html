@@ -123,16 +123,13 @@
     .text-content p { margin-bottom: 1.2rem; }
     .caption { font-size: 0.85rem; text-align: center; margin-top: 8px; font-family: var(--font-heading); color: var(--text-muted); }
 
-    /* --- NEW OVERLAY STYLE (White Transparent, Black Bold) --- */
+    /* Overlay Note Style (White bg, Black text) */
     .overlay-note {
         position: absolute; 
         font-family: var(--font-heading); 
-        
-        /* New Style Specs */
-        background: rgba(255, 255, 255, 0.75); /* White semi-transparent */
-        color: #000; /* Black */
-        font-weight: 700; /* Bold */
-        
+        background: rgba(255, 255, 255, 0.75); 
+        color: #000; 
+        font-weight: 700; 
         font-size: 10px; 
         padding: 4px 8px; 
         border-radius: 2px; 
@@ -141,10 +138,7 @@
         pointer-events: none;
         z-index: 2;
     }
-
-    /* Specific Positions */
     .overlay-bottom-left { bottom: 50px; left: 10px; }
-    .overlay-bottom-right { bottom: 10px; right: 10px; }
 
     /* --- SIAM SECTION LAYOUT --- */
     .siam-grid-container {
@@ -168,14 +162,12 @@
       display: flex; flex-direction: column;
     }
 
-    /* Ayutthaya Barges */
     .siam-row2-left {
       grid-column: 1;
       padding: 0 0 60px 40px; 
       display: flex; flex-direction: column; justify-content: flex-start;
     }
 
-    /* Chinese Junk */
     .siam-row2-right {
       grid-column: 2;
       padding: 0 40px 60px 40px;
@@ -203,43 +195,50 @@
     }
 
 
-    /* --- MERGED VIETNAM + MAP GRID --- */
-    .vietnam-grid-container {
+    /* --- RESTRUCTURED VIETNAM SECTION (Grid Row Split) --- */
+    .vietnam-layout-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        width: 100%;
+        /* Row 1: Text & Map | Row 2: Temple & Empty */
         background-color: var(--bg-main);
     }
 
-    /* Left Col: Text + Temple */
-    .vietnam-left-col {
-        padding: 55px 40px 40px 40px; 
+    /* Cell 1: Top Left (Text) */
+    .vietnam-text-cell-top {
+        grid-column: 1;
+        grid-row: 1;
+        padding: 55px 40px 10px 40px; /* Slight bottom padding before temple */
+    }
+
+    /* Cell 2: Top Right (Map) */
+    .vietnam-map-cell-top {
+        grid-column: 2;
+        grid-row: 1;
+        /* Top aligns with text, Left/Right 40px, Bottom 0 to align with text end */
+        padding: 55px 40px 0 40px; 
         display: flex;
         flex-direction: column;
     }
 
-    /* Right Col: Map Image */
-    .vietnam-right-col {
-        position: relative;
-        width: 100%;
-        display: flex;
-        /* Key Padding Settings for Alignment */
-        /* Top 55px (aligns with text), Bottom 40px (aligns with temple), Left 40px, Right 40px */
-        padding: 55px 40px 40px 40px; 
-    }
-    
     .antique-map-img {
         width: 100%;
-        height: 100%; /* Stretches to fill vertical space */
+        height: 100%; /* Fill available height determined by text column */
         object-fit: cover;
-        object-position: center; /* Center content */
+        object-position: center;
         border-radius: 0; 
-        box-shadow: -5px 0 15px rgba(0,0,0,0.15);
+        box-shadow: none; /* Shadow removed */
         display: block;
     }
 
+    /* Cell 3: Bottom Left (Temple) */
+    .vietnam-temple-cell-bottom {
+        grid-column: 1;
+        grid-row: 2;
+        padding: 10px 40px 60px 40px;
+    }
+
     /* Temple Flip Card */
-    .temple-image-wrapper { position: relative; width: 100%; height: 360px; perspective: 1000px; margin-top: 2rem; }
+    .temple-image-wrapper { position: relative; width: 100%; height: 360px; perspective: 1000px; margin-top: 1rem; }
     .temple-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
     .temple-image-wrapper:hover .temple-flip-inner { transform: rotateY(180deg); }
     .temple-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; border-radius: 8px; }
@@ -271,10 +270,11 @@
     }
     
     @media (max-width: 900px) {
-      .siam-grid-container, .vietnam-grid-container { grid-template-columns: 1fr; }
-      .siam-text-cell, .siam-row2-left, .siam-row2-right, .vietnam-left-col, .vietnam-right-col { padding: 2rem; }
+      .siam-grid-container, .vietnam-layout-grid { grid-template-columns: 1fr; }
+      .siam-text-cell, .siam-row2-left, .siam-row2-right { padding: 2rem; }
+      .vietnam-text-cell-top, .vietnam-map-cell-top, .vietnam-temple-cell-bottom { padding: 2rem; grid-column: 1; grid-row: auto; }
       .siam-left-col { height: 300px; padding: 0; }
-      .vietnam-right-col { height: 400px; }
+      .vietnam-map-cell-top { height: 300px; }
       .siam-row2-left, .siam-row2-right { grid-column: 1; }
       .hero-title { font-size: 3rem; }
     }
@@ -305,7 +305,6 @@
       <!-- Row 1 Left: Main Image -->
       <div class="siam-left-col">
         <img src="https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg" alt="View of Judea">
-        <!-- Style changed: white bg, black bold text -->
         <div class="overlay-note overlay-bottom-left">Wat Koh Kaew Suttharam, established in 1734. Murals depict people in Qing Dynasty attire, presumed to be early Cantonese immigrants.</div>
       </div>
 
@@ -343,11 +342,11 @@
 
     </div>
     
-    <!-- MERGED VIETNAM + MAP SECTION -->
-    <div class="vietnam-grid-container">
+    <!-- VIETNAM GRID SECTION -->
+    <div class="vietnam-layout-grid">
         
-        <!-- Left Column: Text + Temple -->
-        <div class="vietnam-left-col">
+        <!-- Grid Row 1 Left: Text -->
+        <div class="vietnam-text-cell-top">
             <div>
               <span class="date-label-plain">1680s–1790s</span>
               <span class="header-title">Establishment in Southern Vietnam</span>
@@ -357,25 +356,27 @@
               <p>Around 1680, Mo Jiu, a refugee from Leizhou, Guangdong, developed the Hà Tiên area. He formally established a semi-autonomous principality there in 1708, placing it under the suzerainty of the Vietnamese Nguyễn lords. This polity functioned as a sanctuary and major hub for Cantonese and other Chinese migrants prior to French colonization.</p>
               <p>During the Tây Sơn conflicts, ethnic Chinese merchants, primarily Cantonese, founded a new settlement adjacent to Saigon in 1778. This settlement evolved into Chợ Lớn ("Big Market"). Despite suffering severe persecution and violence in 1782, survivors rebuilt the community. By the end of the 18th century, the Cantonese population in Cochinchina was estimated at 30,000–40,000, controlling key rice and silk trade routes.</p>
             </div>
+        </div>
 
-            <!-- Thien Hau Temple Flip Card -->
+        <!-- Grid Row 1 Right: Map (Aligns with Text) -->
+        <div class="vietnam-map-cell-top">
+            <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map" class="antique-map-img">
+            <p class="caption">Antique Map of Southern Asia by Walker (c.1840)</p>
+        </div>
+
+        <!-- Grid Row 2 Left: Temple Flip Card -->
+        <div class="vietnam-temple-cell-bottom">
             <div class="temple-image-wrapper">
               <div class="temple-flip-inner">
                 <img src="https://scontent-lax3-1.xx.fbcdn.net/v/t39.30808-6/482028079_1054721156683649_4741026620118105993_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=xGA8JIq5WqsQ7kNvwH1umDw&_nc_oc=AdmvToxUARCrvCsU01OTTocfHPpJmSCLLQvF-uoX6NaoVstx1NtHp7DnQaH14OImusjzc7yIio7joUDAMOzfCQw9&_nc_zt=23&_nc_ht=scontent-lax3-1.xx&_nc_gid=fXS4Lxf5_11QtpnEG8gF2w&oh=00_AfpSXG_vEJpXu5OjmSrxu-k0t9GQHXH_n1sScOkj5hUlog&oe=695B954A" alt="Initial" class="temple-image initial">
                 <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Final" class="temple-image final">
               </div>
             </div>
-            <!-- Updated Caption Text -->
-            <p class="caption">The Thien Hau Temple is one of the oldest and most significant Chinese-style temples in Ho Chi Minh City (Saigon). Flip to see the modern view.</p>
+            <!-- Updated Caption -->
+            <p class="caption">Established in 1760 by Cantonese immigrants, Thien Hau Temple is one of the oldest and most significant Chinese-style temples in Ho Chi Minh City (Saigon). Flip to see the modern view.</p>
         </div>
 
-        <!-- Right Column: Antique Map (Full Height) -->
-        <!-- Padding: 55px Top, 40px Right, 40px Bottom, 40px Left (from center) -->
-        <div class="vietnam-right-col">
-            <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map" class="antique-map-img">
-            <!-- Updated Caption Style: White bg, black bold text -->
-            <div class="overlay-note overlay-bottom-right">Antique Map of Southern Asia by Walker (c.1840)</div>
-        </div>
+        <!-- Grid Row 2 Right: Empty -->
 
     </div>
     
