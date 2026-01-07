@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -91,7 +91,7 @@
       text-transform: uppercase;
       letter-spacing: 3px;
       color: var(--accent-red);
-      margin-bottom: 1rem;
+      margin-bottom: 16px;
       display: block;
       font-weight: 700;
       text-shadow: var(--glow-2px);
@@ -102,7 +102,7 @@
       font-weight: 800;
       color: #1a1a1a;
       text-shadow: var(--glow-6px);
-      margin-bottom: 1rem;
+      margin-bottom: 16px;
     }
     .hero-subtitle {
       font-family: var(--font-heading);
@@ -147,8 +147,8 @@
       line-height: 1.2;
     }
 
-    .text-content { font-size: 16px; color: #000000; line-height: 1.8; }
-    .text-content p { margin-bottom: 1.5rem; }
+    .text-content { font-size: 16px; color: #000000; line-height: 1.6; }
+    .text-content p { margin-bottom: 24px; }
     
     .grid-2col { 
       display: grid; 
@@ -285,7 +285,7 @@
     
     .phase-summary-text{
       font-size: 16px;
-      line-height: 1.8;
+      line-height: 1.6;
       color: #000;
       margin-bottom: 40px;
       max-width: 100%;
@@ -293,7 +293,7 @@
 
     .phase-navigation{
       margin-top: 60px;
-      padding-top: 2rem;
+      padding-top: 32px;
       border-top: 1px solid rgba(0,0,0,0.15);
       display: flex;
       justify-content: space-between;
@@ -325,23 +325,26 @@
     }
 
     @media (max-width: 768px) {
+      body { font-size: 20px; line-height: 1.6; }
+
+      .text-content { font-size: 20px; line-height: 1.6; }
+      .phase-summary-text { font-size: 20px; line-height: 1.6; }
+
+      .phase-link { font-size: 20px; }
+      .link-sub { font-size: 18px; }
+
       .container { padding: 0 20px; }
       .grid-2col, .letter-feature-wide { grid-template-columns: 1fr; gap: 2rem; }
-      .hawaii-grid { 
-        grid-template-columns: 1fr !important; 
-      }
-      .hawaii-grid .text-col {
-        order: 1;
-      }
-      .hawaii-grid .img-col {
-        order: 2;
-      }
+      .hawaii-grid { grid-template-columns: 1fr !important; }
+      .hawaii-grid .text-col { order: 1; }
+      .hawaii-grid .img-col { order: 2; }
+
       .hero-title { font-size: 3rem; }
       .gold-rush-container { min-height: 300px; }
       .gold-rush-main-img { height: 300px; }
       .gold-rush-extra-images { grid-template-columns: 1fr; max-width: 100%; }
-      .phase-navigation { flex-direction: column; align-items: flex-start; }
-      .phase-link { font-size: 16px; }
+
+      .phase-navigation { flex-direction: column; align-items: flex-start; gap: 18px; }
     }
   </style>
 </head>
@@ -387,7 +390,7 @@
               </div>
               <div class="gold-extra-img-frame">
                 <img src="https://delivery.library.ca.gov:8183/iiif/2/FL76376.jpg/full/full/0/default.jpg" alt="Heathen Chinee prospecting">
-                <div class="img-credit">The "Heathen Chinee" prospecting in California in 1852, California History. </div>
+                <div class="img-credit">The "Heathen Chinee" prospecting in California in 1852, California History.</div>
               </div>
             </div>
           </div>
@@ -485,11 +488,11 @@
             <div class="text-content">
               <p>Following the completion of the Pacific Railroad, economic shifts fueled hostility toward Cantonese labor. This culminated in the U.S. Chinese Exclusion Act of 1882, the first federal law banning a specific ethnic group. In 1892, the Geary Act was extended for another ten years, which barred Chinese laborers from entering the United States. Canada followed with the 1885 Head Tax and the restrictive Chinese Immigration Act of 1923, which virtually banned Chinese immigration for 24 years. These policies severed ties between Cantonese laborers and their hometowns and prohibited the entry of women, transforming North American Chinatowns into "Bachelor Societies" void of traditional family structures.</p>
               <p>The community challenged these restrictions through legal channels. In 1898, Wong Kim Ark, a Cantonese descendant born in San Francisco, appealed his denied entry to the Supreme Court. The ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship (jus soli), securing the legal status of American-born Cantonese and facilitating the transition from temporary sojourners to permanent citizens.</p>
-            
-            <p>World War II marked a turning point for Chinese Americans. Acknowledging China as an ally, the U.S. repealed exclusion act via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed in 1947, restoring voting rights.</p>
-            <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
+              <p>World War II marked a turning point for Chinese Americans. Acknowledging China as an ally, the U.S. repealed exclusion act via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed in 1947, restoring voting rights.</p>
+              <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
+            </div>
           </div>
-          </div>
+
           <div class="img-col" style="display: flex; flex-direction: column; align-items: center;">
             <div class="chan-kong-frame">
               <img src="https://www.ocmuseum.cn/uploads/allimg/200510/1-200510150Q9353.jpg">
