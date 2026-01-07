@@ -1,37 +1,35 @@
-<!DOCTYPE html>
+```html
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Phase II: 1848–1947 - Building North America</title>
-  
-  <!-- Fonts -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      --bg-tan: #D9CCB7;     
+      --bg-tan: #D9CCB7;
       --accent-red: #a84d4d;
       --accent-dark-red: #701a1a;
-      --text-main: #000000; 
-      
+      --text-main: #000000;
+
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
 
-      /* 封面文字实体围绕阴影 */
       --glow-2px: 2px 2px 0 #f5f0e5, -2px -2px 0 #f5f0e5, 2px -2px 0 #f5f0e5, -2px 2px 0 #f5f0e5, 2px 0 0 #f5f0e5, -2px 0 0 #f5f0e5, 0 2px 0 #f5f0e5, 0 -2px 0 #f5f0e5;
       --glow-3px: 3px 3px 0 #f5f0e5, -3px -3px 0 #f5f0e5, 3px -3px 0 #f5f0e5, -3px 3px 0 #f5f0e5, 3px 0 0 #f5f0e5, -3px 0 0 #f5f0e5, 0 3px 0 #f5f0e5, 0 -3px 0 #f5f0e5;
       --glow-6px: 6px 6px 0 #f5f0e5, -6px -6px 0 #f5f0e5, 6px -6px 0 #f5f0e5, -6px 6px 0 #f5f0e5, 6px 0 0 #f5f0e5, -6px 0 0 #f5f0e5, 0 6px 0 #f5f0e5, 0 -6px 0 #f5f0e5;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
     body {
       font-family: var(--font-body);
       line-height: 1.6;
@@ -41,7 +39,8 @@
       font-size: 16px;
     }
 
-    /* --- 导航栏 --- */
+    main { padding-bottom: 110px; }
+
     .nav-float {
       position: fixed;
       top: 30px;
@@ -65,8 +64,8 @@
       font-size: 12px;
       text-transform: uppercase;
       font-weight: 700;
-      background-color: #f5f0e5; /* 淡米色底 */
-      color: #000; /* 黑字 */
+      background-color: #f5f0e5;
+      color: #000;
       padding: 5px 12px;
       border-radius: 4px;
       opacity: 0;
@@ -76,12 +75,11 @@
     .nav-float:hover .nav-icon-circle { transform: scale(1.1); }
     .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); }
 
-    /* --- 封面 --- */
     .hero-section {
       position: relative;
-      height: 100vh; 
+      height: 100vh;
       width: 100%;
-      background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
+      background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
                   url('https://shec.ashp.cuny.edu/files/original/auburn-ravine_086b8976ea.png');
       background-size: cover;
       background-position: center;
@@ -113,12 +111,16 @@
       text-shadow: var(--glow-3px);
     }
     .cover-credit {
-        position: absolute; bottom: 20px; right: 20px;
-        color: #fff; font-family: var(--font-heading); font-size: 11px;
-        background: rgba(0,0,0,0.4); padding: 4px 10px;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 12px;
+      background: rgba(0,0,0,0.4);
+      padding: 4px 10px;
     }
 
-    /* --- 标题与正文容器 --- */
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
     .content-section { padding: 5rem 2rem; }
 
@@ -144,7 +146,6 @@
     .text-content p { margin-bottom: 1.5rem; }
     .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
 
-    /* --- 新的金矿区图片样式 --- */
     .gold-rush-container {
       position: relative;
       min-height: 400px;
@@ -161,7 +162,7 @@
       background: rgba(255,255,255,0.5);
       color: #000;
       font-family: var(--font-heading);
-      font-size: 11px;
+      font-size: 12px;
       padding: 4px 8px;
       border-radius: 2px;
     }
@@ -186,20 +187,41 @@
       background: none;
       text-align: center;
       padding: 8px 4px 0 4px;
-      font-size: 10px;
+      font-size: 12px;
       line-height: 1.4;
     }
 
     .hawaii-stack { display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: center; }
     .hawaii-img-frame { width: 100%; max-width: 416px; overflow: hidden; }
     .hawaii-img-frame img { width: 100%; display: block; }
-    .hawaii-caption { font-family: var(--font-heading); font-size: 10px; color: #000; line-height: 1.4; margin-top: 8px; text-align: left; }
+    .hawaii-caption {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      color: #000;
+      line-height: 1.4;
+      margin-top: 8px;
+      text-align: left;
+    }
     .hawaii-grid { grid-template-columns: 1fr 2fr !important; }
 
     .image-frame { width: 100%; overflow: hidden; }
     .image-frame img { width: 100%; display: block; }
-    .image-caption-long { font-size: 0.85rem; margin-top: 15px; opacity: 0.8; font-style: italic; color: #000; line-height: 1.5; }
-    .image-caption-simple { font-family: var(--font-heading); font-size: 12px; color: #000; text-align: right; margin-top: 4px; font-weight: 600; }
+    .image-caption-long {
+      font-size: 12px;
+      margin-top: 15px;
+      opacity: 0.8;
+      font-style: italic;
+      color: #000;
+      line-height: 1.5;
+    }
+    .image-caption-simple {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      color: #000;
+      text-align: right;
+      margin-top: 4px;
+      font-weight: 600;
+    }
 
     .diplomacy-img-wrapper {
       display: flex;
@@ -219,31 +241,52 @@
     }
 
     .phase-navigation {
-      margin-top: calc(3rem - 30px); padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1);
-      display: flex; justify-content: space-between;
+      position: fixed;
+      left: 30px;
+      right: 30px;
+      bottom: 5px;
+      z-index: 1200;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.15);
     }
-    .phase-link { text-decoration: none; color: #000; font-family: var(--font-heading); font-weight: 700; font-size: 14px; }
-    .link-sub { display: block; font-size: 14px; font-weight: 700; opacity: 0.7; margin-bottom: 5px; }
+    .phase-link {
+      text-decoration: none;
+      color: #000;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .phase-link:visited { color: #000; }
+    .phase-link:hover { color: #000; }
+    .phase-link * { color: #000; }
+    .link-sub {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 0.7;
+      margin-bottom: 5px;
+      color: #000;
+    }
 
     @media (max-width: 768px) {
-        .grid-2col, .letter-feature-wide { grid-template-columns: 1fr; gap: 2rem; }
-        .hero-title { font-size: 3rem; }
-        .gold-rush-container { min-height: 300px; }
-        .gold-rush-main-img { height: 300px; }
-        .gold-rush-extra-images { grid-template-columns: 1fr; max-width: 100%; }
+      .grid-2col, .letter-feature-wide { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-title { font-size: 3rem; }
+      .gold-rush-container { min-height: 300px; }
+      .gold-rush-main-img { height: 300px; }
+      .gold-rush-extra-images { grid-template-columns: 1fr; max-width: 100%; }
+      .phase-navigation { left: 16px; right: 16px; bottom: 5px; }
     }
   </style>
 </head>
 
 <body>
-
-  <!-- 导航 -->
   <a href="timeline.html" class="nav-float">
     <div class="nav-icon-circle"><i data-lucide="arrow-left"></i></div>
     <span class="nav-text">Back to Timeline</span>
   </a>
 
-  <!-- 封面 -->
   <header class="hero-section">
     <div class="hero-content">
       <span class="hero-label">Timeline / Phase II</span>
@@ -252,16 +295,15 @@
     </div>
     <div class="cover-credit">Placer miners at Auburn Ravine ca. 1852</div>
   </header>
-  
+
   <main>
-    <!-- 1. Gold Rushes -->
     <section class="content-section">
       <div class="container">
         <div class="grid-2col">
           <div class="text-col">
             <h2 class="section-title">
-                <span class="title-date">1848–1858</span>
-                <span class="title-main">The North American Gold Rushes</span>
+              <span class="title-date">1848–1858</span>
+              <span class="title-main">The North American Gold Rushes</span>
             </h2>
             <div class="text-content">
               <p>The discovery of gold in California triggered the first major wave of Cantonese migration to North America. Between 1848 and 1851, approximately 25,000 migrants arrived, sailing primarily from the Sze Yup (Four Counties) region. San Francisco served as the primary entry point, where Cantonese migrants established the continent's first Chinatown. This district functioned not only as a transit hub for newcomers but also as North America's earliest permanent Cantonese settlement.</p>
@@ -288,14 +330,13 @@
       </div>
     </section>
 
-    <!-- 2. Hawaii -->
     <section class="content-section" style="padding-top: calc(5rem - 30px);">
       <div class="container">
         <div class="grid-2col hawaii-grid">
           <div class="text-col">
             <h2 class="section-title">
-                <span class="title-date">1850s–1900s</span>
-                <span class="title-main">The Plantation Economy in Hawaii</span>
+              <span class="title-date">1850s–1900s</span>
+              <span class="title-main">The Plantation Economy in Hawaii</span>
             </h2>
             <div class="text-content">
               <p>A distinct wave of Cantonese migration transformed Hawaii, beginning with contract laborers in 1852. Unlike the Sze Yup-dominated mainland, the majority of Hawaii's community was Heungshan (Zhongshan), comprising roughly 75% of the Chinese population.</p>
@@ -316,12 +357,11 @@
       </div>
     </section>
 
-    <!-- 3. Railroad -->
     <section class="content-section" style="padding-top:0;">
       <div class="container">
         <h2 class="section-title">
-            <span class="title-date">1865–1869</span>
-            <span class="title-main">The Transcontinental Railroad</span>
+          <span class="title-date">1865–1869</span>
+          <span class="title-main">The Transcontinental Railroad</span>
         </h2>
         <div class="grid-2col">
           <div class="railroad-img-wrapper">
@@ -336,12 +376,11 @@
       </div>
     </section>
 
-    <!-- 4. Diplomacy & Letter -->
     <section class="content-section">
       <div class="container">
         <h2 class="section-title">
-            <span class="title-date">1868</span>
-            <span class="title-main">Diplomacy and Free Migration</span>
+          <span class="title-date">1868</span>
+          <span class="title-main">Diplomacy and Free Migration</span>
         </h2>
         <div class="grid-2col">
           <div class="text-content">
@@ -353,26 +392,26 @@
             <div class="hawaii-caption">In 1872, 120 selected children were sent to the United States, and about 70% of them came from Guangdong Province.</div>
           </div>
         </div>
+
         <div class="letter-feature-wide">
-            <div class="letter-img-wrapper">
-              <div class="image-frame"><img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg"></div>
-              <div class="hawaii-caption">The earliest surviving remittance letter from the United States. Jiangmen Museum.</div>
-            </div>
-            <div class="text-content">
-              <strong style="color: var(--accent-dark-red); font-family: var(--font-heading); display: block; margin-bottom: 10px;">Letter from 1871</strong>
-              <p>In this 1871 letter from San Francisco, Zhencong explains why he left Xinning/Taishan, Guangdong: poverty at home pushed him to go abroad to earn a living and secure a better future. He reassures his elder brother that he is safe, reports receiving news that the family is well, and most importantly, sends money (a $20 silver draft) for rice and daily necessities, carefully listing earlier remittances and the messengers who carried them.</p>
-              <p>The message highlights a central motive behind many Cantonese migrations to the United States: working overseas to support the household through remittances, rather than simply seeking personal adventure or permanent departure. It also reflects strong filial piety: duties to parents, and a sense that an individual's success abroad is measured by what he can send back and how he honors the family.</p>
-            </div>
+          <div class="letter-img-wrapper">
+            <div class="image-frame"><img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg"></div>
+            <div class="hawaii-caption">The earliest surviving remittance letter from the United States. Jiangmen Museum.</div>
+          </div>
+          <div class="text-content">
+            <strong style="color: var(--accent-dark-red); font-family: var(--font-heading); display: block; margin-bottom: 10px;">Letter from 1871</strong>
+            <p>In this 1871 letter from San Francisco, Zhencong explains why he left Xinning/Taishan, Guangdong: poverty at home pushed him to go abroad to earn a living and secure a better future. He reassures his elder brother that he is safe, reports receiving news that the family is well, and most importantly, sends money (a $20 silver draft) for rice and daily necessities, carefully listing earlier remittances and the messengers who carried them.</p>
+            <p>The message highlights a central motive behind many Cantonese migrations to the United States: working overseas to support the household through remittances, rather than simply seeking personal adventure or permanent departure. It also reflects strong filial piety: duties to parents, and a sense that an individual's success abroad is measured by what he can send back and how he honors the family.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 5. Exclusion & Resistance -->
     <section class="content-section" style="padding-top:0;">
       <div class="container">
         <h2 class="section-title">
-            <span class="title-date">1882–1943</span>
-            <span class="title-main">Exclusion, Resistance, and Renewal</span>
+          <span class="title-date">1882–1943</span>
+          <span class="title-main">Exclusion, Resistance, and Renewal</span>
         </h2>
         <div class="grid-2col">
           <div class="text-content">
@@ -380,17 +419,19 @@
             <p>The community challenged these restrictions through legal channels. In 1898, Wong Kim Ark, a Cantonese descendant born in San Francisco, appealed his denied entry to the Supreme Court. The ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship (jus soli), securing the legal status of American-born Cantonese and facilitating the transition from temporary sojourners to permanent citizens.</p>
           </div>
           <div class="img-col">
-              <div class="image-frame"><img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif"></div>
-              <p class="image-caption-simple" style="text-align: center;">Wong Kim Ark Document, 1898</p>
+            <div class="image-frame"><img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif"></div>
+            <p class="image-caption-simple" style="text-align: center;">Wong Kim Ark Document, 1898</p>
           </div>
         </div>
+
         <div class="text-content" style="margin-top:2rem;">
-            <p>World War II marked a turning point for Chinese Americans. Acknowledging China as an ally, the U.S. repealed exclusion act via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed in 1947, restoring voting rights.</p>
-            <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
+          <p>World War II marked a turning point for Chinese Americans. Acknowledging China as an ally, the U.S. repealed exclusion act via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed in 1947, restoring voting rights.</p>
+          <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
         </div>
+
         <div class="phase-navigation">
-            <a href="phase1.html" class="phase-link"><span class="link-sub">Phase I</span>17th–19th Centuries</a>
-            <a href="phase3.html" class="phase-link" style="text-align:right;"><span class="link-sub">Phase III</span>1950s–Present</a>
+          <a href="phase1.html" class="phase-link"><span class="link-sub">Phase I</span>17th–19th Centuries</a>
+          <a href="phase3.html" class="phase-link" style="text-align:right;"><span class="link-sub">Phase III</span>1950s–Present</a>
         </div>
       </div>
     </section>
@@ -401,3 +442,4 @@
   </script>
 </body>
 </html>
+```
