@@ -208,17 +208,22 @@
       justify-content: center;
     }
 
+    .letter-img-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
     .letter-feature-wide {
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;
       background: rgba(255,255,255,0.3); padding: 30px; align-items: center;
     }
 
     .phase-navigation {
-      margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1);
+      margin-top: calc(3rem - 30px); padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1);
       display: flex; justify-content: space-between;
     }
-    .phase-link { text-decoration: none; color: #000; font-family: var(--font-heading); font-weight: 700; }
-    .link-sub { display: block; font-size: 12px; font-weight: 400; opacity: 0.7; }
+    .phase-link { text-decoration: none; color: #000; font-family: var(--font-heading); font-weight: 700; font-size: 14px; }
+    .link-sub { display: block; font-size: 14px; font-weight: 700; opacity: 0.7; margin-bottom: 5px; }
 
     @media (max-width: 768px) {
         .grid-2col, .letter-feature-wide { grid-template-columns: 1fr; gap: 2rem; }
@@ -349,7 +354,10 @@
           </div>
         </div>
         <div class="letter-feature-wide">
-            <div class="image-frame"><img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg"></div>
+            <div class="letter-img-wrapper">
+              <div class="image-frame"><img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg"></div>
+              <div class="hawaii-caption">The earliest surviving remittance letter from the United States. Jiangmen Museum.</div>
+            </div>
             <div class="text-content">
               <strong style="color: var(--accent-dark-red); font-family: var(--font-heading); display: block; margin-bottom: 10px;">Letter from 1871</strong>
               <p>In this 1871 letter from San Francisco, Zhencong explains why he left Xinning/Taishan, Guangdong: poverty at home pushed him to go abroad to earn a living and secure a better future. He reassures his elder brother that he is safe, reports receiving news that the family is well, and most importantly, sends money (a $20 silver draft) for rice and daily necessities, carefully listing earlier remittances and the messengers who carried them.</p>
@@ -379,19 +387,6 @@
         <div class="text-content" style="margin-top:2rem;">
             <p>World War II marked a turning point for Chinese Americans. Acknowledging China as an ally, the U.S. repealed exclusion act via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed in 1947, restoring voting rights.</p>
             <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Summary -->
-    <section class="content-section">
-      <div class="container">
-        <h2 class="section-title">
-            <span class="title-date">legacy</span>
-            <span class="title-main">Summary: From Labor to Legacy</span>
-        </h2>
-        <div class="text-content">
-          <p>In this century of struggle, Cantonese migrants transformed from transient laborers into the architects of the Pacific and American frontiers. Anchored by powerful, benevolent associations (Huiguan) and clan networks, they not only survived but also shaped the US society. These institutions funded the legal battles that defined American citizenship, managed the capital that fueled the Heungshan-led plantations of Hawaii, and coordinated the labor that built the Transcontinental Railroad. Through collective resistance, they turned exclusion into endurance, laying the physical, legal, and commercial foundations of a prosperous America.</p>
         </div>
         <div class="phase-navigation">
             <a href="phase1.html" class="phase-link"><span class="link-sub">Phase I</span>17th–19th Centuries</a>
