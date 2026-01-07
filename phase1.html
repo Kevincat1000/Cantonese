@@ -38,7 +38,7 @@
     body {
       font-family: var(--font-body);
       line-height: 1.6;
-      background-color: var(--bg-light); /* Default start color */
+      background-color: var(--bg-light);
       color: var(--text-dark);
       overflow-x: hidden;
     }
@@ -99,7 +99,7 @@
 
     .dark-section .header-title { color: var(--text-light); }
     .dark-section .text-content { color: rgba(255,255,255,0.9); }
-    .dark-section .date-label-plain { color: var(--date-light); } /* Lighter color for dark bg */
+    .dark-section .date-label-plain { color: var(--date-light); } 
     .dark-section .caption { color: var(--text-muted-light); }
 
     /* Typography */
@@ -138,7 +138,6 @@
 
     /* Left Column: Text Content */
     .vietnam-text-col {
-        /* Padding Right 40px from center line */
         padding: 55px 40px 60px 40px;
         display: flex;
         flex-direction: column;
@@ -146,7 +145,6 @@
 
     /* Right Column: Temple Image */
     .vietnam-image-col {
-        /* Padding Left 40px from center line */
         padding: 55px 40px 60px 40px;
         display: flex;
         flex-direction: column;
@@ -169,11 +167,10 @@
         font-family: var(--font-body);
     }
 
-    /* --- MAP TRANSITION SECTION (The Centerpiece) --- */
+    /* --- MAP TRANSITION SECTION --- */
     .map-transition-section {
         position: relative;
         width: 100%;
-        /* The magic: Half beige, Half green gradient */
         background: linear-gradient(to bottom, var(--bg-light) 50%, var(--bg-dark) 50%);
         padding: 60px 0;
         display: flex;
@@ -183,16 +180,16 @@
     }
 
     .antique-map-large {
-        width: 60%; /* Enlarged (approx 50-60% of screen looks good) */
+        width: 30%; /* 50% of previous 60% = 30% width of screen */
         height: auto;
         display: block;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.3); /* Optional: Shadow makes it pop over the split bg */
+        box-shadow: none; /* Shadow removed */
     }
 
     .map-caption-split {
         margin-top: 15px;
         font-size: 0.9rem;
-        color: var(--text-light); /* White text because it sits on the green part */
+        color: var(--text-light); 
         font-family: var(--font-heading);
         opacity: 0.9;
     }
@@ -226,7 +223,7 @@
       .siam-text-cell, .siam-row2-left, .siam-row2-right { padding: 2rem; }
       .vietnam-text-col, .vietnam-image-col { padding: 2rem; }
       .siam-left-col { height: 300px; padding: 0; }
-      .antique-map-large { width: 90%; }
+      .antique-map-large { width: 80%; }
       .siam-row2-left, .siam-row2-right { grid-column: 1; }
       .hero-title { font-size: 3rem; }
     }
@@ -290,10 +287,9 @@
     </div>
     
     <!-- 2. VIETNAM SECTION (Split Grid, Light BG) -->
-    <div class="vietnam-split-container light-section" style="padding:0;"> <!-- reset padding for grid -->
+    <div class="vietnam-split-container light-section" style="padding:0;">
         
         <!-- Left Column: Text Content -->
-        <!-- Padding-right: 40px ensures separation from center line -->
         <div class="vietnam-text-col">
             <div>
               <span class="date-label-plain">1680s–1790s</span>
@@ -307,7 +303,6 @@
         </div>
 
         <!-- Right Column: Temple Image + Caption -->
-        <!-- Padding-left: 40px ensures separation from center line -->
         <div class="vietnam-image-col">
             <div class="temple-image-wrapper">
               <div class="temple-flip-inner">
