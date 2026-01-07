@@ -122,6 +122,7 @@
       height: 100%;
       background-size: cover;
       background-position: center;
+      /* Desktop Defaults */
       filter: grayscale(100%) contrast(1.1);
       transition: filter 0.4s ease, transform 0.6s ease;
       position: relative;
@@ -129,6 +130,7 @@
     }
     .first-image { background-position: left center !important; }
 
+    /* Desktop Overlay Effect */
     .image-wrapper::after {
       content: '';
       position: absolute;
@@ -139,11 +141,14 @@
       transition: opacity 0.6s ease;
     }
 
-    .gallery-item:hover .image-wrapper {
-      filter: grayscale(0%) contrast(1) url(#liquid-filter);
-      transform: scale(1.05);
+    /* Desktop Hover Effects */
+    @media (min-width: 601px) {
+      .gallery-item:hover .image-wrapper {
+        filter: grayscale(0%) contrast(1) url(#liquid-filter);
+        transform: scale(1.05);
+      }
+      .gallery-item:hover .image-wrapper::after { opacity: 0; }
     }
-    .gallery-item:hover .image-wrapper::after { opacity: 0; }
 
     .map-section {
       width: 100%;
@@ -212,17 +217,49 @@
 
     .scroll-arrow-container:hover .scroll-arrow-svg { animation-play-state: paused; }
 
+    /* --- RESPONSIVE ADJUSTMENTS --- */
+    
     @media (max-width: 900px) {
       main { padding-top: calc(var(--header-h) + 8vh); }
       .gallery-container { grid-template-columns: repeat(2, 1fr); height: auto; gap: 50px; }
       .gallery-item { height: 40vh; margin-bottom: 40px; }
       #diaspora-map { width: 90vw; }
     }
+
     @media (max-width: 600px) {
       main { padding-top: calc(var(--header-h) + 6vh); }
       .gallery-container { grid-template-columns: 1fr; height: auto; padding: 0 30px; gap: 60px; }
-      .gallery-item { height: 350px; }
+      
+      /* Reduced Height by 20% (350px * 0.8 = 280px) */
+      .gallery-item { 
+        height: 280px; 
+      }
+      
       .item-info { position: static; margin-bottom: 10px; }
+
+      /* Increased Font Sizes (+4 sizes approx) */
+      .item-number { font-size: 16px; margin-bottom: 4px; }
+      .item-title { font-size: 20px; line-height: 1.4; }
+      .map-title { font-size: 16px; }
+
+      /* Remove all image effects for Mobile */
+      .image-wrapper {
+        filter: none !important;
+        transform: none !important;
+        -webkit-filter: none !important;
+      }
+      
+      /* Remove the yellow overlay mask */
+      .image-wrapper::after {
+        display: none !important;
+        content: none;
+      }
+
+      /* Prevent any hover effects on mobile */
+      .gallery-item:hover .image-wrapper {
+        filter: none !important;
+        transform: none !important;
+      }
     }
 
     html.preload body { opacity: 0; }
