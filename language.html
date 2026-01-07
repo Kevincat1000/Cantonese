@@ -4,22 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cantonese as Linguistic Capital</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
+
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
   <style>
     :root {
-      --bg: #f5f0e5; 
+      --bg: #f5f0e5;
       --text-black: #000;
-      --accent-red: #701a1a; 
+      --accent-red: #701a1a;
       --left-width: 320px;
-      --header-h: 80px; 
+      --header-h: 80px;
       --pill-grad: linear-gradient(90deg, #d9d1b9 0%, #e9e4d9 100%);
       --official-beige: #D9CCB7;
       --light-gray-line: #e0e0e0;
@@ -38,45 +38,45 @@
     .main-container { display: flex; min-height: 100vh; }
 
     .left-panel {
-      width: var(--left-width); 
+      width: var(--left-width);
       height: calc(100vh - var(--header-h));
-      position: fixed; 
-      left: 40px; 
+      position: fixed;
+      left: 40px;
       top: var(--header-h);
-      border-right: 1px solid var(--light-gray-line); 
+      border-right: 1px solid var(--light-gray-line);
     }
 
-    .main-headline { 
+    .main-headline {
       position: absolute;
       top: 30px;
       left: 0;
-      font-family: 'Exo', sans-serif; 
-      font-size: 28px; 
-      line-height: 1.1; 
-      font-weight: 600; 
-      margin: 0; 
-      text-transform: uppercase; 
+      font-family: 'Exo', sans-serif;
+      font-size: 28px;
+      line-height: 1.1;
+      font-weight: 600;
+      margin: 0;
+      text-transform: uppercase;
     }
 
-    .nav-list { 
+    .nav-list {
       position: absolute;
       top: 50%;
       left: 0;
       transform: translateY(-50%);
-      display: flex; 
-      flex-direction: column; 
-      gap: 20px; 
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
       width: 100%;
     }
 
-    .nav-item { 
-      display: flex; 
-      text-decoration: none; 
-      color: #000; 
-      font-family: 'Exo', sans-serif; 
-      font-size: 12px; 
-      line-height: 1.2; 
-      transition: color 0.3s; 
+    .nav-item {
+      display: flex;
+      text-decoration: none;
+      color: #000;
+      font-family: 'Exo', sans-serif;
+      font-size: 12px;
+      line-height: 1.2;
+      transition: color 0.3s;
     }
     .nav-num { width: 22px; flex-shrink: 0; font-weight: 700; }
     .nav-text-group { display: flex; flex-direction: column; }
@@ -84,21 +84,10 @@
     .nav-desc { font-weight: 700; text-transform: uppercase; }
     .nav-item:hover { color: var(--accent-red); }
 
-    .keywords-wrap { 
-      position: absolute;
-      bottom: 40px; 
-      left: 0;
-    }
-    .keywords-text { 
-      font-family: 'Exo', sans-serif; 
-      font-size: 18px; 
-      font-weight: 600; 
-      line-height: 1.3; 
-      text-transform: uppercase; 
-    }
+    .keywords-wrap { position: absolute; bottom: 40px; left: 0; display: none; }
 
-    .right-panel { 
-      margin-left: calc(40px + var(--left-width) + 100px); 
+    .right-panel {
+      margin-left: calc(40px + var(--left-width) + 100px);
       padding-right: 100px;
       padding-top: 0px;
       padding-bottom: 120px;
@@ -106,45 +95,44 @@
     }
 
     .content-section { margin-bottom: 140px; }
-    
     .section-header-group { margin-bottom: 35px; }
-    
-    .section-meta { 
-      font-family: 'Exo', sans-serif; 
-      font-size: 12px; 
-      font-weight: 700; 
-      color: var(--accent-red); 
-      text-transform: uppercase; 
-      display: block; 
+
+    .section-meta {
+      font-family: 'Exo', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-red);
+      text-transform: uppercase;
+      display: block;
       margin-bottom: 6px;
       letter-spacing: 2px;
     }
 
-    h2 { 
-      font-family: 'Exo', sans-serif; 
-      font-size: 18px; 
-      font-weight: 600; 
-      line-height: 1.2; 
-      margin: 0; 
-      color: #000; 
-      text-transform: uppercase; 
+    h2 {
+      font-family: 'Exo', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0;
+      color: #000;
+      text-transform: uppercase;
     }
 
-    h3 { 
-      font-family: 'Gentium Book Plus', serif; 
-      font-size: 16px; 
-      font-weight: 600; 
-      color: #000; 
-      margin-top: 35px; 
-      margin-bottom: 15px; 
+    h3 {
+      font-family: 'Gentium Book Plus', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #000;
+      margin-top: 35px;
+      margin-bottom: 15px;
     }
-    
-    .section-body { 
-      font-family: 'Gentium Book Plus', serif; 
-      font-size: 16px; 
+
+    .section-body {
+      font-family: 'Gentium Book Plus', serif;
+      font-size: 16px;
       font-weight: 400;
-      line-height: 1.8; 
-      color: #000; 
+      line-height: 1.8;
+      color: #000;
     }
     .section-body p { margin-bottom: 1.5rem; }
 
@@ -163,7 +151,7 @@
     .sepia { filter: grayscale(1) contrast(1.1); }
     .landscape-caption { font-family: 'Exo', sans-serif; font-size: 12px; margin-top: 15px; border-top: 1px solid #000; padding-top: 10px; color: #333; }
 
-    .news-flex { display: flex; gap: 30px; margin: 30px 0; } 
+    .news-flex { display: flex; gap: 30px; margin: 30px 0; }
     .news-item { width: 170px; }
     .news-img { width: 170px; height: 250px; object-fit: cover; }
 
@@ -173,52 +161,52 @@
     .slideshow-container { position: relative; margin: 40px 0; background: #eeeae0; padding: 12px; }
     .mySlides { display: none; text-align: center; }
     .mySlides img { width: 100%; height: 400px; object-fit: cover; }
-    .prev, .next { 
-      cursor: pointer; 
-      position: absolute; 
-      top: 40%; 
-      padding: 16px; 
-      color: #000; 
-      font-weight: bold; 
-      font-size: 24px; 
-      background: rgba(255,255,255,0.4); 
-      z-index: 50; 
-      border-radius: 50%; 
-      width: 50px; 
-      height: 50px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      border: none; 
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 40%;
+      padding: 16px;
+      color: #000;
+      font-weight: bold;
+      font-size: 24px;
+      background: rgba(255,255,255,0.4);
+      z-index: 50;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
     }
-    .next { right: 20px; } 
+    .next { right: 20px; }
     .prev { left: 20px; }
 
     @media (max-width: 1200px) {
       .main-container { flex-direction: column; }
-      
-      .left-panel { 
-        position: relative; 
-        width: 100%; 
-        height: auto; 
-        left: 0; 
-        padding: 30px 20px; 
-        border-right: none; 
+
+      .left-panel {
+        position: relative;
+        width: 100%;
+        height: auto;
+        left: 0;
+        padding: 30px 20px;
+        border-right: none;
         border-bottom: 1px solid var(--light-gray-line);
-        top: 0; 
+        top: 0;
         order: 1;
-         z-index: 0; 
+        z-index: 0;
       }
-      
-      .main-headline { 
-        position: static; 
+
+      .main-headline {
+        position: static;
         margin-bottom: 25px;
         font-size: 22px;
       }
-      
-      .nav-list { 
-        position: static; 
-        transform: none; 
+
+      .nav-list {
+        position: static;
+        transform: none;
         margin-bottom: 25px;
         gap: 15px;
       }
@@ -228,44 +216,22 @@
         border-bottom: 1px solid #e0e0e0;
       }
 
-      .nav-item:last-child {
-        border-bottom: none;
-      }
+      .nav-item:last-child { border-bottom: none; }
 
-      .nav-num {
-        width: 28px;
-        font-size: 13px;
-      }
+      .nav-num { width: 28px; font-size: 13px; }
 
-      .nav-text-group {
-        gap: 4px;
-      }
+      .nav-text-group { gap: 4px; }
 
-      .nav-title {
-        font-size: 13px;
-        line-height: 1.3;
-      }
+      .nav-title { font-size: 13px; line-height: 1.3; }
 
-      .nav-desc {
-        font-size: 11px;
-        line-height: 1.3;
-        opacity: 0.8;
-      }
-      
-      .keywords-wrap { 
-        position: static; 
-      }
+      .nav-desc { font-size: 11px; line-height: 1.3; opacity: 0.8; }
 
-      .keywords-text {
-        font-size: 16px;
-      }
-      
-      .right-panel { 
-        margin-left: 0; 
-        padding: 30px 20px 80px 20px; 
+      .right-panel {
+        margin-left: 0;
+        padding: 30px 20px 80px 20px;
         order: 2;
       }
-      
+
       .surname-comparison { max-width: 100%; }
       .news-flex { flex-wrap: wrap; justify-content: center; }
       .slideshow-container { margin: 20px 0; }
@@ -275,79 +241,61 @@
     }
 
     @media (max-width: 768px) {
+      body { font-size: 20px; line-height: 1.6; }
+
       .left-panel { padding: 25px 15px; }
       .right-panel { padding: 25px 15px 60px 15px; }
-      .main-headline { font-size: 20px; margin-bottom: 20px; }
-      
-      .nav-item {
-        padding: 10px 0;
-      }
 
-      .nav-num {
-        width: 25px;
-        font-size: 12px;
-      }
+      .main-headline { font-size: 24px; margin-bottom: 20px; }
 
-      .nav-title {
-        font-size: 12px;
-      }
+      .nav-item { padding: 10px 0; }
 
-      .nav-desc {
-        font-size: 10px;
-      }
+      .nav-num { width: 25px; font-size: 14px; }
 
-      .keywords-text {
-        font-size: 14px;
-      }
+      .nav-title { font-size: 14px; line-height: 1.3; }
 
-      h2 { font-size: 16px; }
-      h3 { font-size: 16px; margin-top: 25px; }
-      .section-body { font-size: 15px; line-height: 1.7; }
+      .nav-desc { font-size: 12px; line-height: 1.3; opacity: 0.8; }
+
+      h2 { font-size: 20px; line-height: 1.2; }
+      h3 { font-size: 18px; margin-top: 25px; margin-bottom: 12px; }
+
+      .section-body { font-size: 20px; line-height: 1.6; }
+
       .prev, .next { width: 40px; height: 40px; font-size: 18px; padding: 12px; }
-      
-      .section-header-group { margin-bottom: 25px; }
+
+      .section-header-group { margin-bottom: 22px; }
       .content-section { margin-bottom: 60px; }
 
-      .news-item { width: 100%; max-width: 200px; }
+      .news-item { width: 100%; max-width: 220px; }
       .news-img { width: 100%; height: auto; aspect-ratio: 170/250; }
 
-      .border-highlight-box, .beige-bg-box { 
-        padding: 20px; 
-        margin: 20px 0; 
-        font-size: 14px; 
+      .border-highlight-box, .beige-bg-box {
+        padding: 20px;
+        margin: 20px 0;
+        font-size: 18px;
+        line-height: 1.6;
       }
+
+      .lang-tag { font-size: 10px; }
+      .surname-main, .surname-mandarin { font-size: 18px; }
+      .landscape-caption { font-size: 14px; line-height: 1.5; }
     }
 
     @media (max-width: 480px) {
-      .main-headline { font-size: 18px; }
-      h2 { font-size: 15px; }
-      .section-body { font-size: 14px; }
-      
-      .nav-title {
-        font-size: 11px;
-      }
+      body { font-size: 20px; line-height: 1.6; }
 
-      .nav-desc {
-        font-size: 9px;
-      }
+      .main-headline { font-size: 22px; }
 
-      .surname-row {
-        gap: 10px;
-      }
+      .nav-title { font-size: 13px; }
+      .nav-desc { font-size: 11px; }
 
-      .char-red {
-        font-size: 18px;
-        width: 30px;
-      }
+      h2 { font-size: 19px; }
+      h3 { font-size: 17px; }
 
-      .pill-box {
-        padding: 5px 15px;
-        height: 40px;
-      }
+      .surname-row { gap: 10px; }
+      .char-red { font-size: 18px; width: 30px; }
 
-      .surname-main, .surname-mandarin {
-        font-size: 14px;
-      }
+      .pill-box { padding: 5px 15px; height: 40px; }
     }
 
     html.preload body { opacity: 0; }
@@ -356,13 +304,12 @@
   </style>
 </head>
 <body>
-
   <div id="header-injection-point"></div>
 
   <div class="main-container">
     <aside class="left-panel">
       <h1 class="main-headline">Cantonese as<br>Linguistic Capital</h1>
-      
+
       <nav class="nav-list">
         <a href="#sec1" class="nav-item">
           <span class="nav-num">1.</span>
@@ -392,24 +339,19 @@
           </div>
         </a>
       </nav>
-
-      <div class="keywords-wrap">
-        <div class="keywords-text">POWER<br>HIERARCHY<br>IDENTITY</div>
-      </div>
     </aside>
 
     <article class="right-panel">
-      
       <section id="sec1" class="content-section">
         <div class="section-header-group">
-            <span class="section-meta">01 1848–1950</span>
-            <h2>THE ERA OF HEGEMONY: CANTONESE AS SURVIVAL LICENSE</h2>
+          <span class="section-meta">01 1848–1950</span>
+          <h2>THE ERA OF HEGEMONY: CANTONESE AS SURVIVAL LICENSE</h2>
         </div>
         <div class="section-body">
           <h3>A. Huiguan Power: Associations as Gatekeepers of Social Protection</h3>
           <p>The first large wave of Chinese immigration to North America mainly came from Guangdong's Pearl River Delta, in particular the Sze Yup counties. Early Cantonese dominance was about institutional power. To maintain order and protection, Cantonese migrants founded the Sze Yup Association in 1849. In 1854, the Taishanese split off to form the Ning Yung Benevolent Association, which grew into the most influential district group. By 1862, these major Cantonese huiguan united as the "Chinese Six Companies" in San Francisco (later the CCBA), functioning like a Chinatown government. They dominated trades like hand laundries, cigar making, and shoe manufacturing. They settled disputes, provided welfare, controlled remittance networks and steamship tickets, and fought legal battles against discrimination.</p>
           <p>Because Guangdong cultures deeply influenced these institutions, Cantonese was the price of admission. Speaking the language was not a choice but rather a necessity. It functioned as a survival license. In a xenophobic society, Cantonese was the prerequisite for the community's safety net. Without it, immigrants were effectively barred from mutual aid, including the ability to secure employment, credit, or communal protection. Those outside this linguistic boundary were disconnected from the community.</p>
-          
+
           <div class="slideshow-container">
             <div class="mySlides" style="display: block;">
               <img src="https://www.foundsf.org/images/d/d3/Chinatwn%246-companies-officers.jpg">
@@ -490,81 +432,84 @@
 
       <section id="sec2" class="content-section">
         <div class="section-header-group">
-            <span class="section-meta">02 1965–2010</span>
-            <h2>THE ERA OF STRATIFICATION: THE RISE OF MANDARIN AS "HIGH" VARIETY</h2>
+          <span class="section-meta">02 1965–2010</span>
+          <h2>THE ERA OF STRATIFICATION: THE RISE OF MANDARIN AS "HIGH" VARIETY</h2>
         </div>
         <div class="section-body">
-            <h3>A. Demographic Shifts: From Chinatown to Ethnoburb</h3>
-            <p>The 1965 Immigration Act and the 1979 normalization of U.S.-China relations dismantled the long-standing Cantonese monopoly in North America. The first shift began with a significant influx of Mandarin speakers from Taiwan (in the 1960s–70s), followed by a massive wave of migrants from mainland China, especially after 1980s onward. Unlike earlier impoverished villagers, these newcomers from various regions were often educated professionals or middle-class investors. They bypassed traditional Chinatown enclaves for suburban 'ethnoburbs', such as California's San Gabriel Valley and Greater Vancouver's Richmond, where economic success was decoupled from the old Cantonese safety net. This demographic transition established Mandarin as the new prestige language of the North American diaspora.</p>
-            <h3>B. Reframing Diglossia: High/Low Inside Chinese</h3>
-            <p>Historically, sociolinguists define diglossia as a system where a high variety serves official functions and a low variety serves everyday life. In the North American diaspora, this split now operates within the Chinese language itself. Mandarin has ascended as the high variety, associated with formal education, global mobility, and a modern Chinese identity. Conversely, Cantonese is increasingly relegated to the low variety, confined to domesticity, local history, and the private sphere. While Cantonese remains an official language in Hong Kong and Macau, it lacks such institutional support in North America.</p>
-            <p>This hierarchy is solidified through institutional production. Schools and formal curricula now enforce Mandarin as the official language taught. Historically, Cantonese was the bedrock of diaspora education; for decades, community Saturday schools were almost exclusively Cantonese-speaking. Today, these programs have drastically declined, replaced by Mandarin to satisfy parent demand and standardized testing like the AP Chinese exam. This shift is equally stark in higher education. While thousands of North American colleges offer Mandarin degrees, Cantonese courses are being downsized or cut, leaving them without formal academic credit.</p>
-            <p>The result is a three-tier hierarchy:</p>
-            <p><strong>English:</strong> Holds the highest status<br>
-            <strong>Mandarin:</strong> The testable professional standard<br>
-            <strong>Cantonese:</strong> A private, family tongue<br>
-            Consequently, Cantonese speakers must now adopt Mandarin to participate in broader professional networks, a requirement that confirms the new linguistic order.</p>
-            
-            <div class="border-highlight-box">
-              <strong>Mandarin as High:</strong> Treated as official, educated, and globally useful.<br>
-              <strong>Cantonese as Low:</strong> Primarily used at home and in elder services.
-            </div>
-            <div class="beige-bg-box">
-              <span class="box-title" style="font-weight: 700;">★ Official Exceptions</span><br>
-              <strong>Hong Kong:</strong> Under the Basic Law, Cantonese serves as the language of government, law, and education.<br>
-              <strong>Macau:</strong> Cantonese functions as the official oral medium alongside Portuguese.
-            </div>
+          <h3>A. Demographic Shifts: From Chinatown to Ethnoburb</h3>
+          <p>The 1965 Immigration Act and the 1979 normalization of U.S.-China relations dismantled the long-standing Cantonese monopoly in North America. The first shift began with a significant influx of Mandarin speakers from Taiwan (in the 1960s–70s), followed by a massive wave of migrants from mainland China, especially after 1980s onward. Unlike earlier impoverished villagers, these newcomers from various regions were often educated professionals or middle-class investors. They bypassed traditional Chinatown enclaves for suburban 'ethnoburbs', such as California's San Gabriel Valley and Greater Vancouver's Richmond, where economic success was decoupled from the old Cantonese safety net. This demographic transition established Mandarin as the new prestige language of the North American diaspora.</p>
 
-            <div class="landscape-reveal-container">
-              <div class="reveal-item">
-                <img src="https://www.bobeckertphotography.com/uploads/1/2/6/7/126794906/img032-people-lined-along-street-san-francisco-chinatown-2-email_orig.jpg" class="landscape-img sepia">
-                <div class="landscape-caption"><strong>1970s San Francisco</strong><br>Legacy soundscape: Street signs and community life anchored in Cantonese traditional characters. Photo by Bob Eckert.</div>
-              </div>
-              <div class="reveal-item">
-                <img src="https://media.timeout.com/images/105501181/750/422/image.jpg" class="landscape-img">
-                <div class="landscape-caption"><strong>2024 Flushing, NY</strong><br>Mandarin visual dominance: Simplified characters and Pinyin-based signage reflecting new demographic centers.</div>
-              </div>
+          <h3>B. Reframing Diglossia: High/Low Inside Chinese</h3>
+          <p>Historically, sociolinguists define diglossia as a system where a high variety serves official functions and a low variety serves everyday life. In the North American diaspora, this split now operates within the Chinese language itself. Mandarin has ascended as the high variety, associated with formal education, global mobility, and a modern Chinese identity. Conversely, Cantonese is increasingly relegated to the low variety, confined to domesticity, local history, and the private sphere. While Cantonese remains an official language in Hong Kong and Macau, it lacks such institutional support in North America.</p>
+
+          <p>This hierarchy is solidified through institutional production. Schools and formal curricula now enforce Mandarin as the official language taught. Historically, Cantonese was the bedrock of diaspora education; for decades, community Saturday schools were almost exclusively Cantonese-speaking. Today, these programs have drastically declined, replaced by Mandarin to satisfy parent demand and standardized testing like the AP Chinese exam. This shift is equally stark in higher education. While thousands of North American colleges offer Mandarin degrees, Cantonese courses are being downsized or cut, leaving them without formal academic credit.</p>
+
+          <p>The result is a three-tier hierarchy:</p>
+          <p><strong>English:</strong> Holds the highest status<br>
+          <strong>Mandarin:</strong> The testable professional standard<br>
+          <strong>Cantonese:</strong> A private, family tongue<br>
+          Consequently, Cantonese speakers must now adopt Mandarin to participate in broader professional networks, a requirement that confirms the new linguistic order.</p>
+
+          <div class="border-highlight-box">
+            <strong>Mandarin as High:</strong> Treated as official, educated, and globally useful.<br>
+            <strong>Cantonese as Low:</strong> Primarily used at home and in elder services.
+          </div>
+
+          <div class="beige-bg-box">
+            <span class="box-title" style="font-weight: 700;">★ Official Exceptions</span><br>
+            <strong>Hong Kong:</strong> Under the Basic Law, Cantonese serves as the language of government, law, and education.<br>
+            <strong>Macau:</strong> Cantonese functions as the official oral medium alongside Portuguese.
+          </div>
+
+          <div class="landscape-reveal-container">
+            <div class="reveal-item">
+              <img src="https://www.bobeckertphotography.com/uploads/1/2/6/7/126794906/img032-people-lined-along-street-san-francisco-chinatown-2-email_orig.jpg" class="landscape-img sepia">
+              <div class="landscape-caption"><strong>1970s San Francisco</strong><br>Legacy soundscape: Street signs and community life anchored in Cantonese traditional characters. Photo by Bob Eckert.</div>
             </div>
+            <div class="reveal-item">
+              <img src="https://media.timeout.com/images/105501181/750/422/image.jpg" class="landscape-img">
+              <div class="landscape-caption"><strong>2024 Flushing, NY</strong><br>Mandarin visual dominance: Simplified characters and Pinyin-based signage reflecting new demographic centers.</div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section id="sec3" class="content-section">
         <div class="section-header-group">
-            <span class="section-meta">03 2010–PRESENT</span>
-            <h2>CONTEMPORARY REALITY: HERITAGE VALUE AND CULTURAL RECLAMATION</h2>
+          <span class="section-meta">03 2010–PRESENT</span>
+          <h2>CONTEMPORARY REALITY: HERITAGE VALUE AND CULTURAL RECLAMATION</h2>
         </div>
         <div class="section-body">
-            <h3>A. Demographic Tipping Point</h3>
-            <p>Data confirm a historic shift in the North American linguistic landscape. By 2010, for the first time in over 150 years, Mandarin overtook Cantonese as the dominant Chinese language in both the U.S. and Canada.</p>
-            <p><strong>United States:</strong> Among the total Asian American population, Mandarin has become the most spoken non-English language at home at 13%, followed by Cantonese at 11% (Pew Research, 2023). While Chinese speakers (combined) make up roughly 1% of the total U.S. population, the internal balance has shifted decisively. Mandarin speakers now number over 2 million, while Cantonese speakers have plateaued at approximately 0.55 million.</p>
-            <p><strong>Canada:</strong> The 2021 Census revealed a similar landmark. Mandarin speakers reached 679,000, significantly widening the gap over the 553,000 Cantonese speakers. In traditional hubs like Toronto, Cantonese counts have actually begun to decline since their 2016 peak.</p>
-            <p>This trend is driven by a stark demographic divide: the Cantonese-speaking population is aging, reflecting the pioneer immigration waves of the late 20th century, while the Mandarin-speaking population is younger and growing due to more recent migration.</p>
-            
-            <h3>B. Language of Need vs. Capital</h3>
-            <p>Even as Mandarin becomes the language of prestige and transnational wealth, Cantonese remains a fortress of operational necessity for the North American grassroots. This creates a paradox of utility. While Mandarin is the language of global capital, Cantonese is the indispensable language of public survival.</p>
-            <p>San Francisco serves as the primary case study for this divide. Despite Mandarin's rapid growth, Cantonese continues to dominate institutional demand for public services:</p>
-            <p><strong>The Demand Disparity:</strong> 2021 city data shows that 41.8% of all in-person interpretation requests across San Francisco departments were for Cantonese, compared to a mere 4.1% for Mandarin.</p>
-            <p><strong>Access to Rights:</strong> The 2025 OCEIA Language Access Report confirms this trend. Cantonese-speaking "Limited English Proficiency" (LEP) interactions accounted for 20% of all language requests citywide, while Mandarin represented only 5%.</p>
-            
-            <h3>C. The Cantonese Renaissance</h3>
-            <p>While the statistical decline of Cantonese is undeniable, younger generations are reframing the language as a valued connection to their roots. This transition from survival currency to identity certification marks the most significant chapter in the modern history of the Cantonese diaspora.</p>
-            <p><strong>Rebranding the language:</strong> Today's youth have branded Cantonese as a cool and authentic identity. It is associated with a specific "Cantonese personality", described as humble, united, and business-savvy.</p>
-            <p><strong>Digital creativity:</strong> The digital world has supercharged this movement. Creator Lan Lao (揽佬) bridges the gap between old and new by fusing Cantonese Opera with Mandarin rap. His success proves that Cantonese is still a powerful and viral medium for the 21st century.</p>
-            <p><strong>Defending educational spaces:</strong> Grassroots efforts, such as the successful campaign to reinstate Cantonese at Stanford, reflect a refusal to let the language be erased by institutional neglect.</p>
+          <h3>A. Demographic Tipping Point</h3>
+          <p>Data confirm a historic shift in the North American linguistic landscape. By 2010, for the first time in over 150 years, Mandarin overtook Cantonese as the dominant Chinese language in both the U.S. and Canada.</p>
+          <p><strong>United States:</strong> Among the total Asian American population, Mandarin has become the most spoken non-English language at home at 13%, followed by Cantonese at 11% (Pew Research, 2023). While Chinese speakers (combined) make up roughly 1% of the total U.S. population, the internal balance has shifted decisively. Mandarin speakers now number over 2 million, while Cantonese speakers have plateaued at approximately 0.55 million.</p>
+          <p><strong>Canada:</strong> The 2021 Census revealed a similar landmark. Mandarin speakers reached 679,000, significantly widening the gap over the 553,000 Cantonese speakers. In traditional hubs like Toronto, Cantonese counts have actually begun to decline since their 2016 peak.</p>
+          <p>This trend is driven by a stark demographic divide: the Cantonese-speaking population is aging, reflecting the pioneer immigration waves of the late 20th century, while the Mandarin-speaking population is younger and growing due to more recent migration.</p>
+
+          <h3>B. Language of Need vs. Capital</h3>
+          <p>Even as Mandarin becomes the language of prestige and transnational wealth, Cantonese remains a fortress of operational necessity for the North American grassroots. This creates a paradox of utility. While Mandarin is the language of global capital, Cantonese is the indispensable language of public survival.</p>
+          <p>San Francisco serves as the primary case study for this divide. Despite Mandarin's rapid growth, Cantonese continues to dominate institutional demand for public services:</p>
+          <p><strong>The Demand Disparity:</strong> 2021 city data shows that 41.8% of all in-person interpretation requests across San Francisco departments were for Cantonese, compared to a mere 4.1% for Mandarin.</p>
+          <p><strong>Access to Rights:</strong> The 2025 OCEIA Language Access Report confirms this trend. Cantonese-speaking "Limited English Proficiency" (LEP) interactions accounted for 20% of all language requests citywide, while Mandarin represented only 5%.</p>
+
+          <h3>C. The Cantonese Renaissance</h3>
+          <p>While the statistical decline of Cantonese is undeniable, younger generations are reframing the language as a valued connection to their roots. This transition from survival currency to identity certification marks the most significant chapter in the modern history of the Cantonese diaspora.</p>
+          <p><strong>Rebranding the language:</strong> Today's youth have branded Cantonese as a cool and authentic identity. It is associated with a specific "Cantonese personality", described as humble, united, and business-savvy.</p>
+          <p><strong>Digital creativity:</strong> The digital world has supercharged this movement. Creator Lan Lao (揽佬) bridges the gap between old and new by fusing Cantonese Opera with Mandarin rap. His success proves that Cantonese is still a powerful and viral medium for the 21st century.</p>
+          <p><strong>Defending educational spaces:</strong> Grassroots efforts, such as the successful campaign to reinstate Cantonese at Stanford, reflect a refusal to let the language be erased by institutional neglect.</p>
         </div>
       </section>
 
       <section id="sec4" class="content-section">
         <div class="section-header-group">
-            <span class="section-meta">04</span>
-            <h2>CONCLUSION</h2>
+          <span class="section-meta">04</span>
+          <h2>CONCLUSION</h2>
         </div>
         <div class="section-body">
-            <p>Over 170 years, Cantonese in North America has shifted from a mandatory survival license to a fragile heritage asset. Despite its deep history, the language's broad presence is undeniably thinning as it loses ground to Mandarin and English. Today, the survival currency of the old enclaves has mostly faded.</p>
-            <p>Yet today, Cantonese remains a key lifeline for local community services and is being embraced by younger generations as a cultural asset to express their identity. Ultimately, the story of Cantonese today is a testament to the community's attempt to find a sense of belonging in a thinning legacy.</p>
+          <p>Over 170 years, Cantonese in North America has shifted from a mandatory survival license to a fragile heritage asset. Despite its deep history, the language's broad presence is undeniably thinning as it loses ground to Mandarin and English. Today, the survival currency of the old enclaves has mostly faded.</p>
+          <p>Yet today, Cantonese remains a key lifeline for local community services and is being embraced by younger generations as a cultural asset to express their identity. Ultimately, the story of Cantonese today is a testament to the community's attempt to find a sense of belonging in a thinning legacy.</p>
         </div>
       </section>
-
     </article>
   </div>
 
@@ -601,10 +546,10 @@
     function plusSlides(n) { showSlides(slideIndex += n); }
     function showSlides(n) {
       let slides = document.getElementsByClassName("mySlides");
-      if (n > slides.length) {slideIndex = 1}
-      if (n < 1) {slideIndex = slides.length}
+      if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
       for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-      slides[slideIndex-1].style.display = "block";
+      slides[slideIndex - 1].style.display = "block";
     }
 
     function initReveal() {
@@ -619,7 +564,7 @@
 
     let lastScrollTop = 0;
     window.addEventListener('scroll', function() {
-       if (window.innerWidth <= 1200) return;
+      if (window.innerWidth <= 1200) return;
       const header = document.querySelector('header') || document.querySelector('.site-header');
       if (!header) return;
       let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
@@ -631,6 +576,5 @@
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }, false);
   </script>
-
 </body>
 </html>
