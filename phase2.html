@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html> 
 <html lang="en">
 <head>
@@ -37,8 +38,6 @@
       overflow-x: hidden;
       font-size: 16px;
     }
-
-    main { padding-bottom: 110px; }
 
     .nav-float {
       position: fixed;
@@ -235,41 +234,51 @@
     }
 
     .letter-feature-wide {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;
-      background: rgba(255,255,255,0.3); padding: 30px; align-items: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+      background: rgba(255,255,255,0.3);
+      padding: 30px;
+      align-items: center;
     }
 
-    main { padding-bottom: 0; }
+    .last-section { padding-top: 1rem !important; padding-bottom: 10px !important; }
 
-.phase-navigation{
-  margin-top: calc(3rem - 30px);
-  padding-top: 2rem;
-  border-top: 1px solid rgba(0,0,0,0.1);
-  display: flex;
-  justify-content: space-between;
-  position: static;
-  left: auto;
-  right: auto;
-  bottom: auto;
-  z-index: auto;
-}
-
-.phase-link{
-  text-decoration: none;
-  color: #000;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.link-sub{
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  opacity: 0.7;
-  margin-bottom: 5px;
-}
-
+    .phase-navigation{
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0,0,0,0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 0;
+    }
+    .phase-link{
+      text-decoration: none;
+      color: #000;
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    .phase-link:hover{ color: var(--accent-dark-red); }
+    .phase-arrow{ transition: transform 0.3s; }
+    .phase-link:hover .phase-arrow.right{ transform: translateX(5px); }
+    .phase-link:hover .phase-arrow.left{ transform: translateX(-5px); }
+    .link-sub{
+      display: block;
+      font-size: 12px;
+      opacity: 0.7;
+      font-weight: 700;
+      margin-top: 4px;
+      color: #000;
+    }
 
     @media (max-width: 768px) {
       .grid-2col, .letter-feature-wide { grid-template-columns: 1fr; gap: 2rem; }
@@ -277,7 +286,7 @@
       .gold-rush-container { min-height: 300px; }
       .gold-rush-main-img { height: 300px; }
       .gold-rush-extra-images { grid-template-columns: 1fr; max-width: 100%; }
-      .phase-navigation { left: 16px; right: 16px; bottom: 5px; }
+      .phase-navigation { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -408,7 +417,7 @@
       </div>
     </section>
 
-    <section class="content-section" style="padding-top:0;">
+    <section class="content-section last-section" style="padding-top:0;">
       <div class="container">
         <h2 class="section-title">
           <span class="title-date">1882–1943</span>
@@ -431,8 +440,15 @@
         </div>
 
         <div class="phase-navigation">
-          <a href="phase1.html" class="phase-link"><span class="link-sub">Phase I</span>17th–19th Centuries</a>
-          <a href="phase3.html" class="phase-link" style="text-align:right;"><span class="link-sub">Phase III</span>1950s–Present</a>
+          <a href="phase1.html" class="phase-link prev">
+            <i data-lucide="arrow-left" class="phase-arrow left"></i>
+            <span>Phase I: 17th–19th Centuries<br><span class="link-sub">Early Migration within Southeast Asia</span></span>
+          </a>
+
+          <a href="phase3.html" class="phase-link next" style="text-align:right;">
+            <span>Phase III: 1965–2000<br><span class="link-sub">Reforms, Refugees, and American Dream</span></span>
+            <i data-lucide="arrow-right" class="phase-arrow right"></i>
+          </a>
         </div>
       </div>
     </section>
@@ -443,3 +459,4 @@
   </script>
 </body>
 </html>
+```
