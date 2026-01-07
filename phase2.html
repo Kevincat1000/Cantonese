@@ -24,7 +24,7 @@
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
 
-      /* 封面文字阴影设计 */
+      /* 封面文字实体围绕阴影 */
       --glow-2px: 2px 2px 0 #f5f0e5, -2px -2px 0 #f5f0e5, 2px -2px 0 #f5f0e5, -2px 2px 0 #f5f0e5, 2px 0 0 #f5f0e5, -2px 0 0 #f5f0e5, 0 2px 0 #f5f0e5, 0 -2px 0 #f5f0e5;
       --glow-3px: 3px 3px 0 #f5f0e5, -3px -3px 0 #f5f0e5, 3px -3px 0 #f5f0e5, -3px 3px 0 #f5f0e5, 3px 0 0 #f5f0e5, -3px 0 0 #f5f0e5, 0 3px 0 #f5f0e5, 0 -3px 0 #f5f0e5;
       --glow-6px: 6px 6px 0 #f5f0e5, -6px -6px 0 #f5f0e5, 6px -6px 0 #f5f0e5, -6px 6px 0 #f5f0e5, 6px 0 0 #f5f0e5, -6px 0 0 #f5f0e5, 0 6px 0 #f5f0e5, 0 -6px 0 #f5f0e5;
@@ -38,7 +38,7 @@
       background-color: var(--bg-tan);
       color: var(--text-main);
       overflow-x: hidden;
-      font-size: 15px; /* 全局15号字 */
+      font-size: 15px;
     }
 
     /* --- 导航栏 --- */
@@ -95,14 +95,14 @@
       margin-bottom: 1rem;
       display: block;
       font-weight: 700;
-      text-shadow: var(--glow-2px); /* 2px 阴影 */
+      text-shadow: var(--glow-2px);
     }
     .hero-title {
       font-family: var(--font-heading);
       font-size: 5rem;
       font-weight: 800;
       color: #1a1a1a;
-      text-shadow: var(--glow-6px); /* 6px 阴影 */
+      text-shadow: var(--glow-6px);
       margin-bottom: 1rem;
     }
     .hero-subtitle {
@@ -110,7 +110,7 @@
       font-size: 1.8rem;
       color: #1a1a1a;
       font-weight: 600;
-      text-shadow: var(--glow-3px); /* 3px 阴影 */
+      text-shadow: var(--glow-3px);
     }
     .cover-credit {
         position: absolute; bottom: 20px; right: 20px;
@@ -118,7 +118,7 @@
         background: rgba(0,0,0,0.4); padding: 4px 10px;
     }
 
-    /* --- 标题样式 --- */
+    /* --- 标题与正文容器 --- */
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
     .content-section { padding: 5rem 2rem; }
 
@@ -145,7 +145,7 @@
     .text-content p { margin-bottom: 1.5rem; }
     .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
 
-    /* --- 图片布局 --- */
+    /* --- 图片样式恢复 --- */
     .gold-rush-container { position: relative; height: 500px; }
     .chinatown-wrapper {
       position: absolute; bottom: 0; right: 0; width: 90%; z-index: 1; transform: translateY(40px);
@@ -211,7 +211,7 @@
   </header>
   
   <main>
-    <!-- 1. Gold Rushes (恢复层叠图片和长文本) -->
+    <!-- 1. Gold Rushes -->
     <section class="content-section">
       <div class="container">
         <div class="grid-2col">
@@ -283,7 +283,7 @@
       </div>
     </section>
 
-    <!-- 4. Diplomacy & Letter (恢复完整细节) -->
+    <!-- 4. Diplomacy & Letter -->
     <section class="content-section">
       <div class="container">
         <h2 class="section-title">
@@ -291,20 +291,21 @@
             <span class="title-main">Diplomacy and Free Migration</span>
         </h2>
         <div class="text-content">
-            <p>The Burlingame Treaty (1868) marked a high point in early U.S.–Qing relations. It recognized the mutual advantage of free migration for trade, travel, or permanent residence. Combined with labor demand and established Cantonese migrant networks, it reinforced the United States as a major destination until restrictive policies in the 1880s.</p>
-            <p>In this diplomatic context, the Qing government soon launched initiatives such as the Chinese Educational Mission (1872–1881). From 1872 to 1875, the Qing government sent 120 boys, most around age 12, and about 70% from Guangdong, to study in the United States. Many students performed exceptionally well, with more than 50 being admitted to universities such as Yale and Columbia.</p>
+            <p>The Burlingame Treaty (1868) marked a high point in early U.S.–Qing relations. It affirmed reciprocal Qing's most-favored-nation treatment in travel and residence. Most importantly, it recognized the mutual advantage of free migration for trade, travel, or permanent residence while condemning coerced migration.</p>
+            <p>In this diplomatic context, the Qing government soon launched initiatives such as the Chinese Educational Mission (1872–1881). From 1872 to 1875, the Qing government sent 120 boys, most around age 12, and about 70% from Guangdong, to study in the United States. Many students performed exceptionally well, with more than 50 being admitted to universities such as Yale and Columbia. In 1881, the Qing government ended the program and ordered them home, cutting their studies short; only five eventually returned and settled in the U.S.</p>
         </div>
         <div class="letter-feature-wide">
             <div class="image-frame"><img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg"></div>
             <div class="text-content">
               <strong style="color: var(--accent-dark-red); font-family: var(--font-heading); display: block; margin-bottom: 10px;">Letter from 1871</strong>
-              <p>In this 1871 letter from San Francisco, Zhencong explains why he left Taishan: poverty pushed him to earn a living abroad. He reassures his brother of his safety and sends a $20 silver draft for rice, reflecting the central motive of supporting the household through remittances and strong filial piety.</p>
+              <p>In this 1871 letter from San Francisco, Zhencong explains why he left Xinning/Taishan, Guangdong: poverty at home pushed him to go abroad to earn a living and secure a better future. He reassures his elder brother that he is safe, reports receiving news that the family is well, and most importantly, sends money (a $20 silver draft) for rice and daily necessities, carefully listing earlier remittances and the messengers who carried them.</p>
+              <p>The message highlights a central motive behind many Cantonese migrations to the United States: working overseas to support the household through remittances, rather than simply seeking personal adventure or permanent departure. It also reflects strong filial piety: duties to parents, and a sense that an individual’s success abroad is measured by what he can send back and how he honors the family.</p>
             </div>
         </div>
       </div>
     </section>
 
-    <!-- 5. Exclusion & Resistance (恢复王金标及二战细节) -->
+    <!-- 5. Exclusion & Resistance -->
     <section class="content-section" style="padding-top:0;">
       <div class="container">
         <h2 class="section-title">
@@ -313,8 +314,8 @@
         </h2>
         <div class="grid-2col">
           <div class="text-content">
-            <p>Economic shifts fueled the <strong>U.S. Chinese Exclusion Act of 1882</strong>, the first federal law banning a specific ethnic group. Canada followed with the 1885 Head Tax. These policies severed ties, transforming Chinatowns into "Bachelor Societies" void of traditional family structures.</p>
-            <p>In 1898, Wong Kim Ark challenged his denied entry. The ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship (jus soli), securing the status of American-born Cantonese and facilitating the transition from temporary sojourners to permanent citizens.</p>
+            <p>Following the completion of the Pacific Railroad, economic shifts fueled hostility toward Cantonese labor. This culminated in the <strong>U.S. Chinese Exclusion Act of 1882</strong>, the first federal law banning a specific ethnic group. Canada followed with the 1885 Head Tax and the restrictive Chinese Immigration Act of 1923. These policies severed ties between Cantonese laborers and their hometowns and banned the entry of women, transforming North American Chinatowns into "Bachelor Societies" void of traditional family structures.</p>
+            <p>The community challenged these restrictions through legal channels. In 1898, Wong Kim Ark, a Cantonese descendant born in San Francisco, appealed his denied entry to the Supreme Court. The ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship (jus soli), securing the legal status of American-born Cantonese and facilitating the transition from temporary sojourners to permanent citizens.</p>
           </div>
           <div class="img-col">
               <div class="image-frame"><img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif"></div>
@@ -322,7 +323,9 @@
           </div>
         </div>
         <div class="text-content" style="margin-top:2rem;">
-            <p>World War II marked a turning point. China became an ally, leading to the repeal of the exclusion act via the Magnuson Act (1943). The War Brides Act (1945) allowed the entry of Cantonese women, ending the "Bachelor Society" era and revitalizing Chinatowns as family-centered cultural hubs for future generations.</p>
+            <!-- 严格恢复原文 -->
+            <p>World War II marked a turning point for Chinese Americans. Acknowledging China as an ally, the U.S. repealed exclusion act via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed in 1947, restoring voting rights.</p>
+            <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
         </div>
       </div>
     </section>
@@ -335,7 +338,7 @@
             <span class="title-main">Summary: From Labor to Legacy</span>
         </h2>
         <div class="text-content">
-          <p>In this century of struggle, Cantonese migrants transformed from transient laborers into the architects of the Pacific and American frontiers. Anchored by clan networks (Huiguan), they funded legal battles that defined American citizenship and built the physical and legal foundations of a prosperous America.</p>
+          <p>In this century of struggle, Cantonese migrants transformed from transient laborers into the architects of the Pacific and American frontiers. Anchored by powerful, benevolent associations (Huiguan) and clan networks, they not only survived but also shaped the US society. These institutions funded the legal battles that defined American citizenship, managed the capital that fueled the Heungshan-led plantations of Hawaii, and coordinated the labor that built the Transcontinental Railroad. Through collective resistance, they turned exclusion into endurance, laying the physical, legal, and commercial foundations of a prosperous America.</p>
         </div>
         <div class="phase-navigation">
             <a href="phase1.html" class="phase-link"><span class="link-sub">Phase I</span>17th–19th Centuries</a>
@@ -347,7 +350,7 @@
 
   <script>
     lucide.createIcons();
-    // 已删除所有 IntersectionObserver 逻辑，页面直接展示
+    // 确认已删除所有进入视野的缓慢进入特效脚本
   </script>
 </body>
 </html>
