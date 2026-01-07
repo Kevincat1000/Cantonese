@@ -52,9 +52,9 @@
       width: 50px; height: 50px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      background: var(--accent-red);
-      color: #fff;
-      transition: transform 0.3s ease;
+      background: rgba(255, 255, 255, 0.7);
+      color: #000;
+      transition: all 0.3s ease;
     }
     .nav-text {
       font-family: var(--font-heading);
@@ -69,7 +69,11 @@
       transform: translateX(-10px);
       transition: all 0.3s ease;
     }
-    .nav-float:hover .nav-icon-circle { transform: scale(1.1); }
+    .nav-float:hover .nav-icon-circle { 
+      transform: scale(1.1); 
+      background: var(--accent-red);
+      color: #fff;
+    }
     .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); }
 
     .hero-section {
@@ -198,13 +202,12 @@
       line-height: 1.4;
     }
 
-    /* UPDATED: Hawaii Stack Styles */
     .hawaii-stack { 
       display: flex; 
       flex-direction: column; 
       gap: 20px; 
-      align-items: center; /* Horizontally center images in the column */
-      justify-content: flex-start; /* Ensure top alignment */
+      align-items: center; 
+      justify-content: flex-start;
     }
     .hawaii-img-frame { width: 100%; max-width: 416px; overflow: hidden; }
     .hawaii-img-frame img { width: 100%; display: block; }
@@ -217,7 +220,6 @@
       text-align: left;
     }
     
-    /* UPDATED: Hawaii Grid set to 50/50 */
     .hawaii-grid { grid-template-columns: 1fr 1fr !important; }
 
     .image-frame { width: 100%; overflow: hidden; }
@@ -243,7 +245,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     .letter-img-wrapper {
@@ -259,6 +261,17 @@
       background: rgba(255,255,255,0.3);
       padding: 30px;
       align-items: center;
+    }
+
+    .chan-kong-frame {
+      width: 100%;
+      overflow: hidden;
+    }
+    .chan-kong-frame img {
+      width: 100%;
+      display: block;
+      transform: scale(1.25);
+      transform-origin: center;
     }
 
     .last-section { padding-top: 1rem !important; padding-bottom: 10px !important; }
@@ -382,14 +395,12 @@
 
     <section class="content-section" style="padding-top: calc(5rem - 30px);">
       <div class="container">
-        <!-- Title moved outside the grid to span full width -->
-        <h2 class="section-title">
-          <span class="title-date">1850s–1900s</span>
-          <span class="title-main">The Plantation Economy in Hawaii</span>
-        </h2>
-        <!-- hawaii-grid adjusted to 1fr 1fr (50%/50%) in CSS -->
         <div class="grid-2col hawaii-grid">
           <div class="text-col">
+            <h2 class="section-title">
+              <span class="title-date">1850s–1900s</span>
+              <span class="title-main">The Plantation Economy in Hawaii</span>
+            </h2>
             <div class="text-content">
               <p>A distinct wave of Cantonese migration began to transform Hawaii in the mid-nineteenth century, starting with the arrival of Chinese contract laborers in 1852. In contrast to the Chinese communities on the U.S. mainland, which were largely dominated by migrants from the Sze Yup region, Hawaii’s Chinese population was primarily composed of people from Heungshan (present-day Zhongshan). By the late nineteenth century, Heungshan migrants made up approximately 75 percent of the Chinese population in the islands, giving Hawaiʻi a distinctive regional profile within the broader Chinese diaspora.</p>
               <p>Between 1852 and 1899, an estimated 46,000 Chinese migrants arrived in Hawaiʻi, drawn by labor opportunities in plantation agriculture. By 1884, they represented about 22 percent of the total population and held nearly 49 percent of plantation jobs, making them a central workforce in the expanding sugar industry. Over time, many Chinese laborers transitioned from plantation work into independent farming and entrepreneurial roles. By the 1890s, they had become the dominant group in rice cultivation, an industry that experienced rapid growth as demand increased both locally and regionally.</p>
@@ -430,14 +441,16 @@
 
     <section class="content-section">
       <div class="container">
-        <h2 class="section-title">
-          <span class="title-date">1868</span>
-          <span class="title-main">Diplomacy and Free Migration</span>
-        </h2>
         <div class="grid-2col">
-          <div class="text-content">
-            <p>The Burlingame Treaty (1868) marked a high point in early U.S.–Qing relations. It affirmed the reciprocal Qing's most-favored-nation treatment in travel and residence. Most importantly, it recognized the mutual advantage of free migration for trade, travel, or permanent residence while condemning coerced migration.</p>
-            <p>In this diplomatic context, the Qing government soon launched initiatives such as the Chinese Educational Mission (1872–1881). More broadly, the treaty's language of "free migration" helped legitimize and protect transpacific mobility in the late 1860s and early 1870s. Combined with labor demand and established Cantonese migrant networks, it reinforced the United States as a major destination for Cantonese workers until the agreement was later curtailed and ultimately undermined by restrictive policies in the 1880s.</p>
+          <div class="text-col">
+            <h2 class="section-title">
+              <span class="title-date">1868–1882</span>
+              <span class="title-main">Diplomacy and Free Migration</span>
+            </h2>
+            <div class="text-content">
+              <p>The Burlingame Treaty (1868) marked a high point in early U.S.–Qing relations. It affirmed the reciprocal Qing's most-favored-nation treatment in travel and residence. Most importantly, it recognized the mutual advantage of free migration for trade, travel, or permanent residence while condemning coerced migration.</p>
+              <p>In this diplomatic context, the Qing government soon launched initiatives such as the Chinese Educational Mission (1872–1881). More broadly, the treaty's language of "free migration" helped legitimize and protect transpacific mobility in the late 1860s and early 1870s. Combined with labor demand and established Cantonese migrant networks, it reinforced the United States as a major destination for Cantonese workers until the agreement was later curtailed and ultimately undermined by restrictive policies in the 1880s.</p>
+            </div>
           </div>
           <div class="diplomacy-img-wrapper">
             <div class="image-frame"><img src="https://picture01.52hrttpic.com/image/infoImage/202401/03/K1702364084824.jpeg?640x481"></div>
@@ -461,29 +474,27 @@
 
     <section class="content-section last-section" style="padding-top:0;">
       <div class="container">
-        <h2 class="section-title">
-          <span class="title-date">1882–1943</span>
-          <span class="title-main">Exclusion, Resistance, and Renewal</span>
-        </h2>
         <div class="grid-2col">
-          <div class="text-content">
-            <!-- UPDATED Text Paragraph -->
-            <p>Following the completion of the Pacific Railroad, economic shifts fueled hostility toward Cantonese labor. This culminated in the U.S. Chinese Exclusion Act of 1882, the first federal law banning a specific ethnic group. In 1892, the Geary Act was extended for another ten years, which barred Chinese laborers from entering the United States. Canada followed with the 1885 Head Tax and the restrictive Chinese Immigration Act of 1923, which virtually banned Chinese immigration for 24 years. These policies severed ties between Cantonese laborers and their hometowns and prohibited the entry of women, transforming North American Chinatowns into "Bachelor Societies" void of traditional family structures.</p>
-            <p>The community challenged these restrictions through legal channels. In 1898, Wong Kim Ark, a Cantonese descendant born in San Francisco, appealed his denied entry to the Supreme Court. The ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship (jus soli), securing the legal status of American-born Cantonese and facilitating the transition from temporary sojourners to permanent citizens.</p>
+          <div class="text-col">
+            <h2 class="section-title">
+              <span class="title-date">1882–1943</span>
+              <span class="title-main">Exclusion, Resistance, and Renewal</span>
+            </h2>
+            <div class="text-content">
+              <p>Following the completion of the Pacific Railroad, economic shifts fueled hostility toward Cantonese labor. This culminated in the U.S. Chinese Exclusion Act of 1882, the first federal law banning a specific ethnic group. In 1892, the Geary Act was extended for another ten years, which barred Chinese laborers from entering the United States. Canada followed with the 1885 Head Tax and the restrictive Chinese Immigration Act of 1923, which virtually banned Chinese immigration for 24 years. These policies severed ties between Cantonese laborers and their hometowns and prohibited the entry of women, transforming North American Chinatowns into "Bachelor Societies" void of traditional family structures.</p>
+              <p>The community challenged these restrictions through legal channels. In 1898, Wong Kim Ark, a Cantonese descendant born in San Francisco, appealed his denied entry to the Supreme Court. The ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship (jus soli), securing the legal status of American-born Cantonese and facilitating the transition from temporary sojourners to permanent citizens.</p>
             
             <p>World War II marked a turning point for Chinese Americans. Acknowledging China as an ally, the U.S. repealed exclusion act via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed in 1947, restoring voting rights.</p>
             <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
           </div>
-          <div class="img-col">
-            <!-- NEW Image Inserted at Top -->
-            <div class="image-frame">
+          <div class="img-col" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="chan-kong-frame">
               <img src="https://www.ocmuseum.cn/uploads/allimg/200510/1-200510150Q9353.jpg">
             </div>
-            <div class="hawaii-caption" style="text-align: left; margin-bottom: 30px;">This is a residence certificate issued in 1901 by the Government of Hawaiʻi to a Cantonese laborer “CHAN KONG.” Applying for a residence certificate required at least two trustworthy white witnesses. Zhongshan Museum.</div>
+            <div class="hawaii-caption" style="text-align: left; margin-bottom: 30px; width: 100%;">This is a residence certificate issued in 1901 by the Government of Hawaiʻi to a Cantonese laborer “CHAN KONG.” Applying for a residence certificate required at least two trustworthy white witnesses. Zhongshan Museum.</div>
 
-            <!-- Existing Wong Kim Ark Image Moved Down -->
-            <div class="image-frame"><img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif"></div>
-            <p class="image-caption-simple" style="text-align: center;">Wong Kim Ark Document, 1898</p>
+            <div class="image-frame" style="width: 100%;"><img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif"></div>
+            <p class="image-caption-simple" style="text-align: center; width: 100%;">Wong Kim Ark Document, 1898</p>
           </div>
         </div>
 
