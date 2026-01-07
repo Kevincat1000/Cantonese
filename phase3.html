@@ -60,8 +60,8 @@
       position: relative;
       height: 100vh; 
       width: 100%;
-      /* New background image as requested */
-      background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://s.hdnux.com/photos/22/77/22/4977792/4/rawImage.jpg');
+      /* Removed gradient overlay, raw image as background */
+      background-image: url('https://s.hdnux.com/photos/22/77/22/4977792/4/rawImage.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -79,45 +79,64 @@
       padding: 2rem;
     }
 
-    /* Shadow effect: light color surround circle, 2px, 6px, 3px */
-    .text-shadow-effect {
-      text-shadow: 
-        0 0 2px rgba(255, 255, 255, 0.9),
-        0 0 6px rgba(255, 255, 255, 0.7),
-        0 0 3px rgba(255, 255, 255, 0.5);
+    /* Sticker/Cut-out Effect Logic */
+    .sticker-text {
+      font-family: var(--font-heading); 
+      color: var(--text-main);
+      /* Use paint-order to ensure stroke is behind text */
+      paint-order: stroke fill;
+      -webkit-text-stroke-color: var(--bg-main); 
+      /* Fallback for readability if stroke fails */
+      text-shadow: 0 2px 10px rgba(0,0,0,0.1); 
     }
 
     .hero-label { 
-      font-family: var(--font-heading); 
+      font-size: 1rem; 
+      font-weight: 700; 
       text-transform: uppercase; 
       letter-spacing: 3px; 
-      color: var(--accent-red); 
+      color: var(--accent-red);
       margin-bottom: 1rem; 
-      display: block; 
-      font-weight: 700; 
-      font-size: 1rem; 
+      display: block;
+      -webkit-text-stroke-width: 2px; /* 2px stroke */
     }
+    
     .hero-title { 
-      font-family: var(--font-heading); 
-      font-size: 3.5rem; 
+      font-size: 5rem; 
+      font-weight: 700; 
       line-height: 1.1; 
       margin-bottom: 1rem; 
-      font-weight: 700; 
       color: var(--text-main); 
+      -webkit-text-stroke-width: 6px; /* 6px stroke */
     }
+    
     .hero-subtitle { 
-      font-family: var(--font-heading); 
       font-size: 1.5rem; 
-      color: var(--text-main); 
       font-weight: 400; 
       margin-top: 0.5rem; 
+      color: var(--text-main);
+      -webkit-text-stroke-width: 3px; /* 3px stroke */
+    }
+
+    /* Hero Caption (Bottom Right) */
+    .hero-caption {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.7); /* Pale white background */
+      padding: 4px 8px;
+      font-family: var(--font-heading);
+      font-size: 10px; /* Small text */
+      color: #000;     /* Black text */
+      border-radius: 2px;
+      pointer-events: none;
     }
 
     /* --- General Section Styles --- */
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
-    .content-section { padding: 5rem 2rem; background-color: var(--bg-main); color: var(--text-main);}
+    .content-section { padding: 5rem 0; background-color: var(--bg-main); color: var(--text-main);}
     
-    /* NEW TITLE STYLES */
+    /* New Title Styles */
     .section-header-block {
       margin-bottom: 2rem;
       width: 100%;
@@ -129,7 +148,6 @@
       color: var(--accent-red);
       display: block;
       margin-bottom: 4px;
-      /* "lowercase" visual style */
       text-transform: lowercase; 
     }
     .title-main {
@@ -138,51 +156,72 @@
       font-weight: 600;
       color: #000;
       line-height: 1.2;
-      /* "lowercase" visual style */
       text-transform: lowercase;
     }
 
     .text-content { font-size: 1.1rem; line-height: 1.8; width: 100%; color: var(--text-main);}
     .text-content p { margin-bottom: 1.5rem; color: var(--text-main);}
 
-    /* --- Grid Systems --- */
-    .grid-2col { display: grid; gap: 3rem; align-items: start; }
-    .video-text-grid { grid-template-columns: 1.4fr 1fr; } 
-
-    /* --- Section 1965 Specifics --- */
+    /* --- 1965 Section Specific Layout --- */
     #section-1965 {
       padding-top: 5rem; 
       padding-bottom: 5rem;
-      background: var(--bg-main); /* Removed the old background image */
+      background: var(--bg-main);
     }
     
-    /* 1965 Layout: 50% Text (left 40px pad), 50% Image (Centered) */
-    .layout-1965 {
+    .layout-1965-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0; /* Gap handled by padding */
-      align-items: center;
-    }
-    .layout-1965-text {
+      /* Gap logic: 40px from mid-line for both means 80px total gap */
+      column-gap: 80px; 
+      /* Screen edge logic: 40px from screen left/right */
       padding-left: 40px;
-    }
-    .layout-1965-img-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      padding-left: 2rem;
-    }
-    .layout-1965-img {
+      padding-right: 40px;
       width: 100%;
-      max-width: 600px;
-      height: auto;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      border-radius: 4px;
     }
 
-    /* --- UNIFIED MEDIA STYLES --- */
+    .layout-1965-text-col {
+      /* Text aligns here */
+    }
+
+    .layout-1965-img-col {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .family-img-container {
+      width: 100%;
+      max-width: 500px; /* Limit width slightly for aesthetics within the column */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .family-img {
+      width: 100%;
+      height: auto;
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+    }
+
+    .family-caption {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      color: #555;
+      line-height: 1.4;
+      text-align: left; /* Or center based on preference, left usually better for long captions */
+      width: 100%;
+      font-style: italic;
+    }
+
+    /* --- Other Sections Grid --- */
+    .grid-2col { display: grid; gap: 3rem; align-items: start; }
+    .video-text-grid { grid-template-columns: 1.4fr 1fr; } 
+
+    /* --- Media Styles --- */
     .vertical-media-stack {
       display: flex;
       flex-direction: column;
@@ -204,7 +243,6 @@
     }
     .media-container img {
       width: 100%; height: 100%; object-fit: cover;
-      transition: opacity 0.3s;
       display: block;
     }
 
@@ -223,7 +261,6 @@
     .video-box:hover img { opacity: 0.7; }
     .video-box:hover { transform: scale(1.01); transition: transform 0.3s; }
 
-    /* Quote Box */
     .quote-box {
       flex: 1;
       display: flex;
@@ -244,28 +281,8 @@
       color: var(--accent-red);
       font-style: normal;
     }
-
-    /* Large Images (Full Width) */
-    .large-image-box {
-      width: 100%;
-      aspect-ratio: 16/9;
-    }
-
-    .image-caption-center {
-      width: 100%;
-      text-align: center;
-      font-family: var(--font-heading);
-      font-size: 0.85rem;
-      opacity: 0.8;
-      margin-top: 8px;
-      font-style: italic;
-    }
-
-    /* --- Animations --- */
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 1s, transform 1s; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    .slide-in-left { opacity: 0; transform: translateX(-30px); transition: all 1.2s ease; }
-    .slide-in-left.visible { opacity: 1; transform: translateX(0); }
+    .large-image-box { width: 100%; aspect-ratio: 16/9; }
+    .image-caption-center { width: 100%; text-align: center; font-family: var(--font-heading); font-size: 0.85rem; opacity: 0.8; margin-top: 8px; font-style: italic; }
 
     /* --- Modal --- */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
@@ -291,10 +308,8 @@
     
     @media (max-width: 768px) {
       .content-section { padding: 3rem 1.5rem; }
-      #section-1965 { padding-top: 4rem; padding-bottom: 4rem; }
-      .layout-1965 { grid-template-columns: 1fr; }
-      .layout-1965-text { padding-left: 0; }
-      .layout-1965-img-container { padding-left: 0; margin-top: 2rem; }
+      #section-1965 { padding-top: 4rem; padding-bottom: 4rem; padding-left: 20px; padding-right: 20px; }
+      .layout-1965-grid { grid-template-columns: 1fr; padding-left: 0; padding-right: 0; column-gap: 0; row-gap: 40px; }
       .video-text-grid { grid-template-columns: 1fr; }
       .media-row { flex-direction: column; gap: 10px; }
       .quote-box { padding-top: 10px; border-top: 1px solid #ddd; text-align: center; }
@@ -320,45 +335,62 @@
   <!-- HERO -->
   <header class="hero-section">
     <div class="hero-content">
-      <span class="hero-label text-shadow-effect">Timeline / Phase III</span>
-      <h1 class="hero-title text-shadow-effect">1965–2000</h1>
-      <h2 class="hero-subtitle text-shadow-effect">Reforms, Refugees, and American Dream</h2>
+      <span class="hero-label sticker-text">Timeline / Phase III</span>
+      <h1 class="hero-title sticker-text">1965–2000</h1>
+      <h2 class="hero-subtitle sticker-text">Reforms, Refugees, and American Dream</h2>
+    </div>
+    <div class="hero-caption">
+      Grant street, San Francisco,1965 Lake County Museum/Getty Images
     </div>
   </header>
 
   <main>
     <!-- SECTION 1965 -->
     <section class="content-section" id="section-1965">
-      <div class="container">
-        <!-- Full width title -->
-        <div class="section-header-block fade-in">
-          <span class="date-sub">1965–1990s</span>
-          <h2 class="title-main">opening doors and new professionals</h2>
-        </div>
+      <!-- Full width grid layout for 1965 -->
+      <div class="layout-1965-grid">
         
-        <!-- 50% Text Left (40px pad), 50% Image Right -->
-        <div class="layout-1965 fade-in">
-          <div class="layout-1965-text">
-            <div class="text-content">
-              <p>
-                The mid-1960s was a major turning point for Cantonese migration to North America. In the United States, the Immigration and Nationality Act of 1965 (Hart–Celler) ended the old discriminatory quota system and shifted admissions toward family reunions and skilled labor, with a per-country limit of 20,000 immigrants. Because the U.S. did not recognize the PRC at the time, the “China” quota was largely used by Taiwan-related cases. After U.S.–China normalization in 1979, an additional 20,000 quota was effectively opened for mainland China. Immigration from mainland China then increased quickly, and it was mainly based on family reunions. In the 1980s, 84.5% of U.S. citizens from mainland China filed petitions to bring family members, one of the highest rates among immigrant groups. Guangdong overseas authorities estimate that from the early 1980s to 1996, Guangdong sent about 378,000 legal migrants to the U.S., with roughly 85% entering through family reunions, and about 10% made up of highly educated international students and skilled professionals. Canada moved in parallel: after eliminating race-based immigration criteria, Ottawa introduced a merit-based “points system” in 1967 that prioritized education, language proficiency, and employment potential.
-              </p>
-              <p>
-                These policies enabled the reunion of Cantonese families separated under the earlier exclusion act and fundamentally altered the profile of new arrivals. While earlier migration consisted largely of rural laborers from Sze Yap, the post-1965 era saw the arrival of significant numbers of urban, educated, and professional Cantonese migrants. This shifted the community from a society of single male laborers to a growing middle class with strong global connections.
-              </p>
+        <!-- Left Column: Text -->
+        <div class="layout-1965-text-col">
+          <div class="section-header-block">
+            <span class="date-sub">1965–1990s</span>
+            <h2 class="title-main">opening doors and new professionals</h2>
+          </div>
+          <div class="text-content">
+            <p>
+              The mid-1960s was a major turning point for Cantonese migration to North America. In the United States, the Immigration and Nationality Act of 1965 (Hart–Celler) ended the old discriminatory quota system and shifted admissions toward family reunions and skilled labor, with a per-country limit of 20,000 immigrants. Because the U.S. did not recognize the PRC at the time, the “China” quota was largely used by Taiwan-related cases. After U.S.–China normalization in 1979, an additional 20,000 quota was effectively opened for mainland China. Immigration from mainland China then increased quickly, and it was mainly based on family reunions. In the 1980s, 84.5% of U.S. citizens from mainland China filed petitions to bring family members, one of the highest rates among immigrant groups. Guangdong overseas authorities estimate that from the early 1980s to 1996, Guangdong sent about 378,000 legal migrants to the U.S., with roughly 85% entering through family reunions, and about 10% made up of highly educated international students and skilled professionals. Canada moved in parallel: after eliminating race-based immigration criteria, Ottawa introduced a merit-based “points system” in 1967 that prioritized education, language proficiency, and employment potential.
+            </p>
+            <p>
+              These policies enabled the reunion of Cantonese families separated under the earlier exclusion act and fundamentally altered the profile of new arrivals. While earlier migration consisted largely of rural laborers from Sze Yap, the post-1965 era saw the arrival of significant numbers of urban, educated, and professional Cantonese migrants. This shifted the community from a society of single male laborers to a growing middle class with strong global connections.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column: Images -->
+        <div class="layout-1965-img-col">
+          <!-- Image 1 -->
+          <div class="family-img-container">
+            <img src="https://wams.nyhistory.org/wp-content/uploads/2020/11/47_LS_Linda-Moy-Chin_Linda-and-Family.png" alt="Linda Moy Chin Family" class="family-img">
+            <div class="family-caption">
+              Cantonese Linda (Lun Chee Moy) and Pang Fook Chin with their young children shortly before Pang Fook and his brother Pang Dick (pictured standing) leave for America, Hong Kong, 1951.
             </div>
           </div>
-          <div class="layout-1965-img-container">
-            <!-- Using a relevant historical image to replace the background/placeholder -->
-            <img src="https://static01.nyt.com/images/2015/10/03/us/03immig-web01/03immig-web01-superJumbo.jpg" alt="President Lyndon B. Johnson signs the 1965 Immigration Act" class="layout-1965-img">
+          
+          <!-- Image 2 -->
+          <div class="family-img-container">
+            <img src="https://chineseamerican.nyhistory.org/wp-content/uploads/2014/07/ChinFamily_DocsPhotos-2.jpg" alt="Linda Chin in New York" class="family-img">
+            <div class="family-caption">
+              Linda emigrated to New York in 1960 to reunite with her husband. She built a career in the garment industry and sponsored relatives, turning one reunion into the start of her extended family’s American dream. Source from New York History.
+            </div>
           </div>
         </div>
+
       </div>
     </section>
 
     <!-- SECTION 1975-1980s -->
     <section class="content-section">
-      <div class="container fade-in">
+      <div class="container">
         <div class="section-header-block">
           <span class="date-sub">1975–1980s</span>
           <h2 class="title-main">the refugee crisis and commercial revitalization</h2>
@@ -370,7 +402,7 @@
           <div class="vertical-media-stack">
             
             <!-- Row 1: Video (Left) + Quote (Right) -->
-            <div class="slide-in-left media-row">
+            <div class="media-row">
                 <div class="media-container video-box"
                       onclick="openModal('https://player.vimeo.com/video/1151385247?autoplay=1')">
                   <img src="images/AndyLeeThumbnail.png" alt="Andy Lee interview thumbnail">
@@ -384,7 +416,7 @@
             </div>
 
             <!-- Row 2: Large Image 1 (Full Column Width) -->
-            <div class="slide-in-left">
+            <div>
                 <div class="media-container large-image-box">
                     <img src="https://borgenproject.org/wp-content/uploads/Vietnamese-Boat-People-2-845x684.jpg" alt="Vietnamese Refugees">
                 </div>
@@ -392,7 +424,7 @@
             </div>
 
             <!-- Row 3: Large Image 2 (Full Column Width) -->
-            <div class="slide-in-left">
+            <div>
                 <div class="media-container large-image-box">
                     <img src="https://www.westminster-ca.gov/home/showpublishedimage/962/637454428643270000" alt="Little Saigon">
                 </div>
@@ -423,7 +455,7 @@
 
     <!-- SECTION 1984-2000 -->
     <section class="content-section">
-      <div class="container fade-in">
+      <div class="container">
         <div class="section-header-block">
           <span class="date-sub">1984–2000</span>
           <h2 class="title-main">the hong kong migration and suburban growth</h2>
@@ -434,7 +466,7 @@
            <div class="img-col vertical-media-stack">
             <!-- Row 1 -->
             <div class="media-row">
-                <div class="media-container video-box" onclick="openModal('https://player.vimeo.com/video/123456789')"> <!-- Placeholder ID maintained/fixed syntax -->
+                <div class="media-container video-box" onclick="openModal('https://player.vimeo.com/video/123456789')">
                   <img src="https://static01.nyt.com/images/2019/08/18/world/18hongkong-rally-toronto1/merlin_159165713_5f6e61fe-90ef-48dc-9a3b-ed597373ccfa-superJumbo.jpg" alt="HK Video 1">
                   <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
                 </div>
@@ -446,7 +478,7 @@
 
             <!-- Row 2 -->
             <div class="media-row">
-               <div class="media-container video-box" style="flex: 1.5;" onclick="openModal('https://player.vimeo.com/video/987654321')"> <!-- Placeholder ID maintained -->
+               <div class="media-container video-box" style="flex: 1.5;" onclick="openModal('https://player.vimeo.com/video/987654321')">
                   <img src="https://images.unsplash.com/photo-1596525737276-80f4f9526715?q=80&w=1000&auto=format&fit=crop" alt="HK Video 2">
                   <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
                </div>
@@ -472,7 +504,7 @@
 
     <!-- SUMMARY SECTION -->
     <section class="content-section last-section">
-      <div class="container fade-in">
+      <div class="container">
         <div class="section-header-block">
           <span class="date-sub">summary</span>
           <h2 class="title-main">transformation through migration</h2>
@@ -502,15 +534,7 @@
   <script>
     lucide.createIcons();
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in, .slide-in-left').forEach(el => observer.observe(el));
+    // Removed the IntersectionObserver (fade-in) logic as requested to remove transitions.
 
     // --- Modal Logic ---
     const modal = document.getElementById('videoModal');
