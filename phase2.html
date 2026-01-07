@@ -244,19 +244,15 @@
 
     .last-section { padding-top: 1rem !important; padding-bottom: 10px !important; }
 
-    .phase-summary-title{
-      font-family: var(--font-heading);
-      font-size: 22px;
-      font-weight: 700;
-      color: #000;
-      margin-bottom: 12px;
-      line-height: 1.25;
+    .summary-wrapper {
+      margin-top: 55px;
     }
+    
     .phase-summary-text{
       font-size: 16px;
       line-height: 1.8;
       color: #000;
-      margin-bottom: 18px;
+      margin-bottom: 40px;
     }
 
     .phase-navigation{
@@ -282,12 +278,13 @@
       transition: color 0.3s;
     }
     .phase-link:hover{ color: var(--accent-dark-red); }
+    .phase-link:hover .link-sub{ color: var(--accent-dark-red); opacity: 1; }
     .phase-arrow{ transition: transform 0.3s; }
     .phase-link:hover .phase-arrow.right{ transform: translateX(5px); }
     .phase-link:hover .phase-arrow.left{ transform: translateX(-5px); }
     .link-sub{
       display: block;
-      font-size: 12px;
+      font-size: 16px;
       opacity: 0.7;
       font-weight: 700;
       margin-top: 4px;
@@ -296,6 +293,15 @@
 
     @media (max-width: 768px) {
       .grid-2col, .letter-feature-wide { grid-template-columns: 1fr; gap: 2rem; }
+      .hawaii-grid { 
+        grid-template-columns: 1fr !important; 
+      }
+      .hawaii-grid .text-col {
+        order: 1;
+      }
+      .hawaii-grid .img-col {
+        order: 2;
+      }
       .hero-title { font-size: 3rem; }
       .gold-rush-container { min-height: 300px; }
       .gold-rush-main-img { height: 300px; }
@@ -454,8 +460,11 @@
           <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
         </div>
 
-        <div style="margin-top: 1.25rem;">
-          <div class="phase-summary-title">Summary: From Labor to Legacy</div>
+        <div class="summary-wrapper">
+          <h2 class="section-title">
+            <span class="title-date">Summary</span>
+            <span class="title-main">From Labor to Legacy</span>
+          </h2>
           <div class="phase-summary-text">
             In this century of struggle, Cantonese migrants transformed from transient laborers into the architects of the Pacific and American frontiers. Anchored by powerful, benevolent associations (Huiguan) and clan networks, they not only survived but also organized. These institutions funded the legal battles that defined American citizenship, managed the capital that fueled the Heungshan-led plantations of Hawaii, and coordinated the labor that built the Transcontinental Railroad. Through collective resistance and economic pragmatism, they turned exclusion into endurance, laying the physical, legal, and commercial foundations of a prosperous America.
           </div>
