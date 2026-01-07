@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en" class="preload">
 <head>
   <meta charset="UTF-8" />
@@ -9,13 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <script src="./assets/header.js" defer></script>
   <script src="./assets/footer.js" defer></script>
 
   <style>
     :root {
-      --bg: #f5f0e5; 
+      --bg: #f5f0e5;
       --text: #1a1a1a;
       --accent: #a84d4d;
       --header-h: 88px;
@@ -59,7 +59,7 @@
       flex-wrap: wrap;
       width: 100%;
       position: relative;
-      align-items: stretch; 
+      align-items: stretch;
     }
 
     .col-content {
@@ -69,7 +69,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 50px 40px 40px 40px; 
+      padding: 50px 40px 40px 40px;
     }
 
     #symbol01 .col-content { padding-top: 5px !important; }
@@ -77,16 +77,16 @@
     .col-image {
       flex: 1;
       flex-basis: 50%;
-      position: relative; 
+      position: relative;
       min-width: 320px;
     }
-    
+
     .col-image img {
       position: absolute;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover; 
+      object-fit: cover;
       display: block;
     }
 
@@ -97,9 +97,9 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       color: #701a1a;
-      margin-bottom: 15px; 
+      margin-bottom: 15px;
       display: block;
-      margin-top: 0; 
+      margin-top: 0;
     }
 
     .subtitle {
@@ -110,13 +110,13 @@
       margin-bottom: 20px;
       line-height: 1.1;
       color: #000;
-      margin-top: 0; 
+      margin-top: 0;
     }
 
     p {
       font-size: 16px;
-      line-height: 1.7; 
-      margin-bottom: 20px; 
+      line-height: 1.7;
+      margin-bottom: 20px;
       color: #000;
       text-align: justify;
     }
@@ -135,6 +135,7 @@
       line-height: 1.3;
       max-width: 250px;
       text-align: right;
+      pointer-events: none;
     }
 
     #symbol03 {
@@ -142,7 +143,7 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
-      align-items: center; 
+      align-items: center;
     }
 
     #symbol03 .col-content {
@@ -153,27 +154,30 @@
       );
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      margin: 60px 40px; 
-      border-radius: 0; 
+      margin: 60px 40px;
+      border-radius: 0;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-      flex: 0 1 50%; 
-      height: fit-content; 
+      flex: 0 1 50%;
+      height: fit-content;
     }
 
     #symbol03 .col-image {
       background: transparent;
       pointer-events: none;
-      display: none; 
+      display: none;
     }
     #symbol03 .col-image img { display: none; }
+
+    #symbol03 .bg-credit { display: block; }
+    #symbol03 .mobile-credit { display: none; }
 
     #symbol04 .col-image {
       display: flex;
       flex-direction: column;
     }
-    
+
     #symbol04 .video-container {
-      flex: 0 0 auto; 
+      flex: 0 0 auto;
       width: 100%;
       position: relative;
       padding-top: 56.25%;
@@ -191,9 +195,9 @@
       color: #333;
     }
     #symbol04 .image-container {
-      flex: 1; 
+      flex: 1;
       position: relative;
-      min-height: 100px; 
+      min-height: 100px;
     }
     #symbol04 .image-container img {
       position: absolute;
@@ -201,14 +205,14 @@
       width: 100%; height: 100%;
       object-fit: cover;
     }
-    
+
     @media (max-width: 768px) {
       :root { --header-h: 72px; }
 
       .section-split { flex-direction: column; }
       .col-content, .col-image { flex-basis: auto; width: 100%; }
-      .col-image { height: 350px; } 
-      .col-image img { position: relative; } 
+      .col-image { height: 350px; }
+      .col-image img { position: relative; }
       .section-split .col-image { order: -1; }
       .col-content { padding: 30px 20px; }
       #symbol01 .col-content { padding-top: 20px !important; }
@@ -219,10 +223,13 @@
       }
 
       #symbol03 {
-        background-image: none !important; 
+        background-image: none !important;
         padding: 0;
       }
-      
+
+      #symbol03 .bg-credit { display: none; }
+      #symbol03 .mobile-credit { display: block; }
+
       #symbol03 .col-content {
         background: var(--bg) !important;
         backdrop-filter: none !important;
@@ -232,14 +239,15 @@
         padding: 30px 20px !important;
         flex: 1 1 auto;
       }
-      
+
       #symbol03 .col-image {
         display: block !important;
         order: -1;
         height: 350px;
         pointer-events: auto;
+        position: relative;
       }
-      
+
       #symbol03 .col-image img {
         display: block !important;
         position: relative;
@@ -247,7 +255,7 @@
         height: 100%;
       }
 
-      #symbol04 .col-image { 
+      #symbol04 .col-image {
         height: auto !important;
         min-height: auto;
       }
@@ -264,7 +272,6 @@
 </head>
 
 <body>
-
   <div id="header-injection-point"></div>
 
   <main>
@@ -281,8 +288,10 @@
 
         <p>They would inform their ancestors that they had successfully settled down and continued the family line in the West. This ritual was a profound expression of gratitude, acknowledging that their survival was a blessing from the past. This intergenerational gratitude, passed down through the burning of incense, formed the core of a distinctly Cantonese culture of remembrance, allowing the community to maintain its "root" while navigating the challenges of a new world.</p>
       </div>
+
       <div class="col-image">
         <img src="images/temple.jpg" alt="Religious Beliefs">
+        <div class="photo-credit">Shantou Guanyin Temple</div>
       </div>
     </section>
 
@@ -290,6 +299,7 @@
       <div class="col-image">
         <img src="https://i.redd.it/4nqtfaaf33981.jpg" alt="Dim Sum">
       </div>
+
       <div class="col-content">
         <span class="section-label">Culture Symbol 02</span>
         <h2 class="subtitle">Cantonese Cuisine</h2>
@@ -314,15 +324,17 @@
 
       <div class="col-image">
         <img src="https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840" alt="Lion Dance">
-        <div class="photo-credit">The Lunar New Year Parade on San Francisco in 2023. Photo: Tayfun Coskun via Getty Images</div>
+        <div class="photo-credit mobile-credit">The Lunar New Year Parade on San Francisco in 2023. Photo: Tayfun Coskun via Getty Images</div>
       </div>
+
+      <div class="photo-credit bg-credit">The Lunar New Year Parade on San Francisco in 2023. Photo: Tayfun Coskun via Getty Images</div>
     </section>
 
     <section id="symbol04" class="section-split">
       <div class="col-image">
         <div class="video-container">
           <iframe
-            src="https://www.youtube.com/embed/jZ_zY63Emz8?si=9k_vG2gG9X6f_Z3_"
+            src="https://www.youtube.com/embed/mldcDidGJCg"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
@@ -440,6 +452,5 @@
       }, { passive: true });
     })();
   </script>
-
 </body>
 </html>
