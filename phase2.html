@@ -16,16 +16,15 @@
 
   <style>
     :root {
-      /* Palette */
       --bg-tan: #D9CCB7;     
-      --bg-paper: #f5f0e5;   
       --accent-red: #a84d4d;
-      --text-main: #333333;  
+      --accent-dark-red: #701a1a;
+      --text-main: #000000; /* 纯黑 */
       
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
 
-      /* 实心围绕阴影函数生成 */
+      /* 封面文字阴影 */
       --glow-2px: 2px 2px 0 #f5f0e5, -2px -2px 0 #f5f0e5, 2px -2px 0 #f5f0e5, -2px 2px 0 #f5f0e5, 2px 0 0 #f5f0e5, -2px 0 0 #f5f0e5, 0 2px 0 #f5f0e5, 0 -2px 0 #f5f0e5;
       --glow-3px: 3px 3px 0 #f5f0e5, -3px -3px 0 #f5f0e5, 3px -3px 0 #f5f0e5, -3px 3px 0 #f5f0e5, 3px 0 0 #f5f0e5, -3px 0 0 #f5f0e5, 0 3px 0 #f5f0e5, 0 -3px 0 #f5f0e5;
       --glow-6px: 6px 6px 0 #f5f0e5, -6px -6px 0 #f5f0e5, 6px -6px 0 #f5f0e5, -6px 6px 0 #f5f0e5, 6px 0 0 #f5f0e5, -6px 0 0 #f5f0e5, 0 6px 0 #f5f0e5, 0 -6px 0 #f5f0e5;
@@ -38,12 +37,13 @@
     body {
       font-family: var(--font-body);
       line-height: 1.6;
-      background-color: var(--bg-paper);
+      background-color: var(--bg-tan);
       color: var(--text-main);
       overflow-x: hidden;
+      font-size: 15px; /* 全局15号字 */
     }
 
-    /* --- 1. Nav (恢复并修改颜色) --- */
+    /* --- 1. Nav (浅黄底黑字) --- */
     .nav-float {
       position: fixed;
       top: 30px;
@@ -53,43 +53,33 @@
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      transition: all 0.3s ease;
     }
-    
     .nav-icon-circle {
-      width: 50px;
-      height: 50px;
-      border: 1px solid var(--accent-red);
+      width: 50px; height: 50px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       background: var(--accent-red);
       color: #fff;
       transition: all 0.3s ease;
     }
-
     .nav-text {
       font-family: var(--font-heading);
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: 700;
-      /* 修改：浅黄色底黑字 */
-      background-color: #FEF9C3;
+      background-color: #FEF9C3; /* 浅黄色 */
       color: #000;
       padding: 5px 12px;
       border-radius: 4px;
-      box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
       opacity: 0;
       transform: translateX(-10px);
       transition: all 0.3s ease;
     }
-
     .nav-float:hover .nav-icon-circle { transform: scale(1.1); }
     .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); }
 
-    /* --- 2. Hero (封面) --- */
+    /* --- 2. Hero --- */
     .hero-section {
       position: relative;
       height: 100vh; 
@@ -98,12 +88,8 @@
                   url('https://shec.ashp.cuny.edu/files/original/auburn-ravine_086b8976ea.png');
       background-size: cover;
       background-position: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      display: flex; align-items: center; justify-content: center; text-align: center;
     }
-
     .hero-label {
       font-family: var(--font-heading);
       text-transform: uppercase;
@@ -113,65 +99,66 @@
       display: block;
       font-weight: 700;
       font-size: 1.1rem;
-      text-shadow: var(--glow-2px); /* 2px 阴影 */
+      text-shadow: var(--glow-2px);
     }
-
     .hero-title {
       font-family: var(--font-heading);
       font-size: 5rem;
-      line-height: 1.1;
-      margin-bottom: 1rem;
       font-weight: 800;
       color: #1a1a1a;
-      text-shadow: var(--glow-6px); /* 6px 阴影 */
+      text-shadow: var(--glow-6px);
+      margin-bottom: 1rem;
     }
-
     .hero-subtitle {
       font-family: var(--font-heading);
       font-size: 1.8rem;
       color: #1a1a1a;
       font-weight: 600;
-      text-shadow: var(--glow-3px); /* 3px 阴影 */
+      text-shadow: var(--glow-3px);
     }
-
     .cover-credit {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        color: #fff;
-        font-family: var(--font-heading);
-        font-size: 11px;
-        background: rgba(0,0,0,0.4);
-        padding: 4px 10px;
+        position: absolute; bottom: 20px; right: 20px;
+        color: #fff; font-family: var(--font-heading); font-size: 11px;
+        background: rgba(0,0,0,0.4); padding: 4px 10px;
     }
 
-    /* --- 3. 恢复最早的布局设计 --- */
-    .container {
-      max-width: 1152px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    .content-section { padding: 5rem 2rem; }
-    .section-tan { background-color: var(--bg-tan); }
-    .section-paper { background-color: var(--bg-paper); }
+    /* --- 3. Content Layout & Titles --- */
+    .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
+    .content-section { padding: 5rem 2rem; background-color: var(--bg-tan); } /* 背景统一 */
 
     .fade-content { opacity: 0; transform: translateY(20px); transition: opacity 1s, transform 1s; }
     .fade-content.visible { opacity: 1; transform: translateY(0); }
 
+    /* 标题重塑样式 */
     .section-title {
+      margin-bottom: 2rem;
+      border-left: none; /* 删除红线 */
+      padding-left: 0;
+    }
+    .title-date {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-dark-red);
+      display: block;
+      margin-bottom: 5px;
+    }
+    .title-main {
       font-family: var(--font-heading);
       font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      border-left: 5px solid var(--accent-red);
-      padding-left: 20px;
+      font-weight: 600;
+      color: #000;
+      display: block;
+      line-height: 1.2;
     }
 
-    .text-content { font-size: 1.1rem; line-height: 1.8; color: rgba(51, 51, 51, 0.9); }
+    .text-content { font-size: 15px; color: #000; line-height: 1.8; }
+    .text-content p { margin-bottom: 1.5rem; }
+
     .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    
-    /* 恢复：Gold Rush 图片层叠样式 */
+
+    /* Image Styles (保留) */
     .gold-rush-container { position: relative; height: 500px; }
     .chinatown-wrapper {
       position: absolute; bottom: 0; right: 0; width: 90%; z-index: 1; transform: translateY(40px);
@@ -187,37 +174,34 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 5; transform: rotate(-3deg);
     }
     .miners-wrapper img { width: 100%; height: auto; display: block; }
-    .miners-caption { font-family: var(--font-heading); font-size: 13px; text-align: center; margin-top: 8px; font-weight: 700; }
+    .miners-caption { font-family: var(--font-heading); font-size: 13px; text-align: center; margin-top: 8px; font-weight: 700; color: #333; }
 
-    /* 恢复：夏威夷堆叠 */
     .hawaii-stack { display: flex; flex-direction: column; gap: 20px; }
     .hawaii-img-frame { width: 100%; max-width: 320px; margin-left: auto; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .hawaii-img-frame img { width: 100%; display: block; }
 
-    /* 恢复：信件 feature */
+    .image-frame { width: 100%; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .image-frame img { width: 100%; display: block; }
+    .image-caption { font-size: 13px; margin-top: 10px; opacity: 0.8; font-style: italic; color: #000; }
+
     .letter-feature-wide {
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;
-      background: rgba(255,255,255,0.5); padding: 30px; border-radius: 8px;
+      background: rgba(255,255,255,0.3); padding: 30px; border-radius: 8px;
     }
     .letter-img-col img { width: 100%; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
 
-    .image-frame { width: 100%; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-    .image-frame img { width: 100%; display: block; }
-    .image-caption { font-size: 0.85rem; margin-top: 10px; opacity: 0.8; font-style: italic; }
-
-    /* 恢复：二战全宽文本 */
     .text-full-width { width: 100%; max-width: 100%; margin-top: 1.5rem; }
 
-    /* Phase Navigation */
+    /* Navigation */
     .phase-navigation {
       margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1);
       display: flex; justify-content: space-between;
     }
-    .phase-link { text-decoration: none; color: var(--text-main); font-family: var(--font-heading); font-weight: 700; }
-    .link-sub { display: block; font-size: 0.8em; font-weight: 400; opacity: 0.7; }
+    .phase-link { text-decoration: none; color: #000; font-family: var(--font-heading); font-weight: 700; }
+    .link-sub { display: block; font-size: 12px; font-weight: 400; opacity: 0.7; }
 
     @media (max-width: 768px) {
-        .grid-2col, .letter-feature-wide { grid-template-columns: 1fr; }
+        .grid-2col, .letter-feature-wide { grid-template-columns: 1fr; gap: 2rem; }
         .hero-title { font-size: 3rem; }
     }
   </style>
@@ -243,11 +227,14 @@
   
   <main>
     <!-- 1. Gold Rushes -->
-    <section class="content-section section-paper">
+    <section class="content-section">
       <div class="container">
         <div class="grid-2col fade-content">
           <div class="text-col">
-            <h2 class="section-title">1848–1858: The North American Gold Rushes</h2>
+            <h2 class="section-title">
+                <span class="title-date">1848–1858</span>
+                <span class="title-main">The North American Gold Rushes</span>
+            </h2>
             <div class="text-content">
               <p>The discovery of gold in California triggered the first major wave of Cantonese migration to North America. Between 1848 and 1851, approximately 25,000 migrants arrived, sailing primarily from the Sze Yup (Four Counties) region. San Francisco served as the primary entry point, where Cantonese migrants established the continent’s first Chinatown.</p>
               <p>In 1858, the discovery of gold in British Columbia drew the migration northward. Cantonese miners, arriving from California or directly from southern China, founded Victoria’s Chinatown. Known as the “Gateway to Canada,” it remains the oldest Chinese enclave in the country.</p>
@@ -269,11 +256,14 @@
     </section>
 
     <!-- 2. Hawaii -->
-    <section class="content-section section-tan">
+    <section class="content-section">
       <div class="container">
         <div class="grid-2col">
           <div class="text-col fade-content">
-            <h2 class="section-title">1850s–1900s: The Plantation Economy in Hawaii</h2>
+            <h2 class="section-title">
+                <span class="title-date">1850s–1900s</span>
+                <span class="title-main">The Plantation Economy in Hawaii</span>
+            </h2>
             <div class="text-content">
               <p>A distinct wave of Cantonese migration transformed Hawaii, beginning with contract laborers in 1852. Unlike the Sze Yup-dominated mainland, the majority of Hawaii’s community was Heungshan (Zhongshan), comprising roughly 75% of the Chinese population.</p>
               <p>Between 1852 and 1899, approximately 46,000 migrants arrived. By 1884, they constituted 22% of the total population and held 49% of plantation jobs. By the 1890s, they also dominated rice cultivation, successfully transferring South China’s agricultural technology to the Pacific.</p>
@@ -288,30 +278,36 @@
     </section>
 
     <!-- 3. Railroad -->
-    <section class="content-section section-tan" style="padding-top:0;">
+    <section class="content-section" style="padding-top:0;">
       <div class="container">
-        <h2 class="section-title">1865–1869: The Transcontinental Railroad</h2>
+        <h2 class="section-title">
+            <span class="title-date">1865–1869</span>
+            <span class="title-main">The Transcontinental Railroad</span>
+        </h2>
         <div class="grid-2col fade-content">
           <div class="image-frame"><img src="https://today.ucsd.edu/news_uploads/chinese-and-the-iron-road-1-160113.jpg"></div>
           <div class="text-content">
             <p>During the construction of the Central Pacific Railroad, more than 12,000 Chinese laborers were recruited. Roughly 90% were Cantonese migrants from Guangdong. Estimates suggest that several hundred to over one thousand laborers died due to extreme cold and accidents. Their contributions were pivotal in joining the Union Pacific on May 10, 1869, accelerating U.S. national expansion.</p>
-            <p class="image-caption">Ging Cui, Wong Fook, and Lee Shao, three of the workers who put the last rail in place, 50th Anniversary celebration, Ogden, Utah.</p>
+            <p class="image-caption">Ging Cui, Wong Fook, and Lee Shao, workers who put the last rail in place, 50th Anniversary, Ogden, Utah.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- 4. Burlingame & Letter -->
-    <section class="content-section section-paper">
+    <section class="content-section">
       <div class="container fade-content">
-        <h2 class="section-title">1868: Diplomacy and Free Migration</h2>
+        <h2 class="section-title">
+            <span class="title-date">1868</span>
+            <span class="title-main">Diplomacy and Free Migration</span>
+        </h2>
         <div class="text-content">
             <p>The Burlingame Treaty (1868) marked a high point in early U.S.–Qing relations, recognizing the mutual advantage of free migration. In this context, the Qing government launched the Chinese Educational Mission (1872–1881), sending 120 boys (70% from Guangdong) to study at universities like Yale and Columbia.</p>
         </div>
         <div class="letter-feature-wide">
             <div class="letter-img-col"><img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg"></div>
             <div class="text-content">
-              <strong>Letter from 1871</strong>
+              <strong style="color: var(--accent-dark-red); font-family: var(--font-heading);">Letter from 1871</strong>
               <p>In this 1871 letter from San Francisco, Zhencong explains why he left Taishan: poverty pushed him to earn a living abroad. He reassures his brother of his safety and sends a $20 silver draft for rice. This highlights a central motive: working overseas to support the household through remittances, reflecting strong filial piety.</p>
             </div>
         </div>
@@ -319,9 +315,12 @@
     </section>
 
     <!-- 5. Exclusion & Resistance -->
-    <section class="content-section section-paper" style="padding-top:0;">
+    <section class="content-section" style="padding-top:0;">
       <div class="container">
-        <h2 class="section-title">1882–1943: Exclusion, Resistance, and Renewal</h2>
+        <h2 class="section-title">
+            <span class="title-date">1882–1943</span>
+            <span class="title-main">Exclusion, Resistance, and Renewal</span>
+        </h2>
         <div class="grid-2col fade-content">
           <div class="text-content">
             <p>Economic shifts fueled hostility, culminating in the <strong>U.S. Chinese Exclusion Act of 1882</strong>. These policies severed ties between migrants and hometowns, transforming Chinatowns into "Bachelor Societies."</p>
@@ -336,9 +335,12 @@
     </section>
 
     <!-- Summary -->
-    <section class="content-section section-tan">
+    <section class="content-section">
       <div class="container fade-content">
-        <h2 class="section-title">Summary: From Labor to Legacy</h2>
+        <h2 class="section-title">
+            <span class="title-date">Legacy</span>
+            <span class="title-main">Summary: From Labor to Legacy</span>
+        </h2>
         <div class="text-content">
           <p>In this century of struggle, Cantonese migrants transformed from transient laborers into the architects of the Pacific and American frontiers. Anchored by clan networks (Huiguan), they funded legal battles that defined American citizenship and coordinated the labor that built the Transcontinental Railroad. They turned exclusion into endurance, laying the physical and legal foundations of a prosperous America.</p>
         </div>
