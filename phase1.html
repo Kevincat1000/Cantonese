@@ -208,6 +208,11 @@
     }
     .dark-section .img-caption{ color: rgba(255,255,255,0.75); }
 
+    .img-caption.left-black{
+      text-align: left;
+      color: #000;
+    }
+
     .overlay-note {
       position: absolute;
       font-family: var(--font-heading);
@@ -263,14 +268,6 @@
       border: 1px solid rgba(0,0,0,0.1);
     }
 
-    .siam-sub-desc {
-      font-size: 15px;
-      line-height: 1.6;
-      margin-top: 15px;
-      margin-bottom: 5px;
-      text-align: left;
-    }
-
     .siam-sub-caption { font-size: 10px; font-family: var(--font-heading); text-align: center; opacity: 0.8; line-height: 1.3; }
 
     .vietnam-split-container {
@@ -299,10 +296,10 @@
     .temple-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; border-radius: 8px; }
     .temple-image.final { transform: rotateY(180deg); }
 
-    .temple-desc-left {
+    .temple-desc-left{
       text-align: left;
-      font-size: 15px;
-      line-height: 1.6;
+      font-size: 12px;
+      line-height: 1.35;
       color: var(--text-dark);
       margin-top: 15px;
       font-family: var(--font-body);
@@ -321,7 +318,6 @@
 
     .antique-map-large { width: 30%; height: auto; display: block; box-shadow: none; }
 
-    .grid-2col { display: grid; gap: 2rem; align-items: start; }
     .colonial-images { display: grid; gap: 2rem; margin-top: 2rem; }
     .colonial-image { width: 100%; height: 340px; object-fit: cover; border-radius: 8px; }
     .tin-boom-layout { display: grid; gap: 2rem; margin-top: 1rem; }
@@ -351,12 +347,10 @@
     }
 
     .phase-link:hover { color: var(--date-light); }
-
     .phase-arrow { transition: transform 0.3s; }
     .phase-link:hover .phase-arrow { transform: translateX(5px); }
 
     @media (min-width: 900px) {
-      .grid-2col { grid-template-columns: 1fr 1fr; }
       .colonial-images { grid-template-columns: 1fr 1fr; }
       .tin-boom-layout { grid-template-columns: 1fr 1fr; align-items: center; }
       .loke-yew-layout { grid-template-columns: 300px 1fr; }
@@ -382,6 +376,9 @@
 
       .overlay-note { background: rgba(255,255,255,0.6); max-width: 70%; }
       .overlay-bottom-left { left: auto; right: 10px; bottom: 10px; }
+
+      .img-caption{ font-size: 10px; line-height: 1.3; }
+      .temple-desc-left{ font-size: 10px; line-height: 1.3; }
     }
   </style>
 </head>
@@ -424,7 +421,7 @@
 
       <div class="siam-row2-left light-section">
         <img src="https://www.meisterdrucke.ie/kunstwerke/1260px/French_School_-_View_of_Ayutthaya_with_royal_barges_from_Voyage_du_Siam_des_Peres_Jesuites_by_Gu_-_%28MeisterDrucke-444314%29.jpg" alt="Ayutthaya Barges" class="siam-sub-img">
-        <div class="img-caption">
+        <div class="img-caption left-black">
           Ayutthaya was a true city of water, crisscrossed by canals and rivers. As a vital entrepôt, it served as the meeting point where trade routes from China, India, and the West converged, creating a cosmopolitan hub where Cantonese merchants thrived in royal trade monopolies.
         </div>
         <div class="img-caption">View of Ayutthaya with royal barges (1688)</div>
@@ -432,7 +429,7 @@
 
       <div class="siam-row2-right light-section">
         <img src="https://exploration.marinersmuseum.org/wp-content/uploads/sites/2/2014/04/Chinese_junk_1804-450x351.jpg" alt="Chinese Junk" class="siam-sub-img">
-        <div class="img-caption">
+        <div class="img-caption left-black">
           The "Red-Head" junks (named for their painted prows) were the workhorses of the South China Sea. These vessels followed the monsoon winds, transporting porcelain, silk, and tea from Canton to Siam, and returning with rice, timber, and exotic spices.
         </div>
         <div class="img-caption">Chinese Junk Ship (1804)</div>
