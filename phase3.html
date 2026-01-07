@@ -1,16 +1,17 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Phase III: 1965–2000 Reforms, Refugees, and American Dream</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
+
   <style>
-    /* --- Root Variables --- */
     :root {
       --bg-main: #e5f0f5;
       --accent-red: #a84d4d;
@@ -28,15 +29,13 @@
       background-color: var(--bg-main);
       color: var(--text-main);
       overflow-x: hidden;
-      /* Default font size for Desktop */
       font-size: 16px;
     }
 
-    /* --- Navigation --- */
     .nav-float {
       position: fixed; top: 30px; left: 30px; z-index: 1000;
       display: flex; align-items: center; gap: 15px;
-      text-decoration: none; color: var(--text-main); 
+      text-decoration: none; color: var(--text-main);
       transition: all 0.3s ease;
     }
     .nav-icon-circle {
@@ -58,7 +57,6 @@
     }
     .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); color: var(--accent-red); }
 
-    /* --- Hero Section (UNTOUCHED) --- */
     .hero-section {
       position: relative;
       height: 100vh; 
@@ -78,68 +76,63 @@
       z-index: 10;
       text-align: center;
       max-width: 900px;
-      padding: 2rem;
+      padding: 32px;
     }
 
     .sticker-text {
-      font-family: var(--font-heading); 
-      color: #333; 
+      font-family: var(--font-heading);
+      color: #333;
       paint-order: stroke fill;
-      -webkit-text-stroke-color: var(--bg-main); 
+      -webkit-text-stroke-color: var(--bg-main);
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
     .hero-label { 
-      font-size: 1rem; 
-      font-weight: 700; 
-      text-transform: uppercase; 
-      letter-spacing: 3px; 
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
       color: var(--accent-red);
-      margin-bottom: 1rem; 
+      margin-bottom: 16px;
       display: block;
-      -webkit-text-stroke-width: 6px; 
+      -webkit-text-stroke-width: 6px;
     }
     
     .hero-title { 
-      font-size: 5rem; 
-      font-weight: 700; 
-      line-height: 1.1; 
-      margin-bottom: 1rem; 
-      color: #222; 
-      -webkit-text-stroke-width: 20px; 
+      font-size: 5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: #222;
+      -webkit-text-stroke-width: 20px;
     }
     
     .hero-subtitle { 
-      font-size: 1.5rem; 
-      font-weight: 400; 
-      margin-top: 0.5rem; 
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-top: 8px;
       color: #333;
-      -webkit-text-stroke-width: 10px; 
+      -webkit-text-stroke-width: 10px;
     }
 
     .hero-caption {
       position: absolute;
       bottom: 20px;
       right: 20px;
-      background-color: rgba(255, 255, 255, 0.7); 
+      background-color: rgba(255, 255, 255, 0.7);
       padding: 4px 8px;
       font-family: var(--font-heading);
-      font-size: 10px; 
-      color: #000;     
+      font-size: 10px;
+      color: #000;
       border-radius: 2px;
       pointer-events: none;
     }
 
-    /* --- General Section Styles --- */
-    .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
-    
-    .content-section { padding: 5rem 0; background-color: var(--bg-main); color: var(--text-main);}
-    
-    .section-header-block {
-      margin-bottom: 2rem;
-      width: 100%;
-    }
+    .container { max-width: 1152px; margin: 0 auto; padding: 0 32px; }
+    .content-section { padding: 80px 0; background-color: var(--bg-main); color: var(--text-main);}
+
+    .section-header-block { margin-bottom: 32px; width: 100%; }
     .date-sub {
       font-family: var(--font-heading);
       font-size: 14px;
@@ -147,7 +140,7 @@
       color: var(--accent-red);
       display: block;
       margin-bottom: 4px;
-      text-transform: lowercase; 
+      text-transform: lowercase;
     }
     .title-main {
       font-family: var(--font-heading);
@@ -157,20 +150,15 @@
       line-height: 1.2;
     }
 
-    .text-content { width: 100%; color: var(--text-main);}
-    .text-content p { margin-bottom: 1.5rem; color: var(--text-main);}
+    .text-content { width: 100%; color: var(--text-main); font-size: 16px; line-height: 1.6; }
+    .text-content p { margin-bottom: 24px; color: var(--text-main);}
 
-    /* --- 1965 Section Specific Layout --- */
-    #section-1965 {
-      padding-top: 5rem; 
-      padding-bottom: 5rem;
-      background: var(--bg-main);
-    }
+    #section-1965 { padding-top: 80px; padding-bottom: 80px; background: var(--bg-main); }
     
     .layout-1965-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      column-gap: 60px; 
+      column-gap: 60px;
       width: 100%;
     }
 
@@ -186,7 +174,7 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center; /* Centers items inside */
+      align-items: center;
     }
 
     .family-img {
@@ -197,14 +185,11 @@
       margin-bottom: 10px;
     }
     
-    /* REFACTORED: Unified class for half-width elements (Linda image & caption) */
-    .half-width-element {
-        width: 50% !important; 
-    }
+    .half-width-element { width: 50%; }
 
     .family-caption, .image-caption-center {
       font-family: var(--font-heading);
-      font-size: 0.85em; /* Scalable font size */
+      font-size: 12px;
       color: #555;
       line-height: 1.4;
       text-align: left;
@@ -213,11 +198,9 @@
     }
     .image-caption-center { text-align: center; opacity: 0.8; margin-top: 8px; }
 
-    /* --- Other Sections Grid --- */
-    .grid-2col { display: grid; gap: 3rem; align-items: start; }
+    .grid-2col { display: grid; gap: 48px; align-items: start; }
     .video-text-grid { grid-template-columns: 1.4fr 1fr; } 
 
-    /* --- Media Styles --- */
     .vertical-media-stack {
       display: flex;
       flex-direction: column;
@@ -242,9 +225,8 @@
       display: block;
     }
 
-    /* Video Box */
     .video-box {
-      flex: 1.5; 
+      flex: 1.5;
       aspect-ratio: 16/9;
       cursor: pointer;
     }
@@ -264,14 +246,14 @@
       justify-content: center;
       padding-left: 0;
       font-family: var(--font-heading);
-      font-size: 0.95rem;
+      font-size: 15px;
       font-style: italic;
       color: #555;
       line-height: 1.4;
     }
     .quote-author {
       font-weight: 700;
-      font-size: 0.75rem;
+      font-size: 12px;
       margin-top: 10px;
       text-transform: uppercase;
       color: var(--accent-red);
@@ -279,13 +261,11 @@
     }
     .large-image-box { width: 100%; aspect-ratio: 16/9; }
     
-    /* Little Saigon Override */
     .little-saigon-wrapper {
-        width: 60% !important; 
-        margin-right: auto; 
+      width: 60%;
+      margin-right: auto;
     }
 
-    /* --- Modal --- */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
     .modal-close-btn { position: absolute; top: 30px; left: 30px; width: 50px; height: 50px; border: 2px solid white; border-radius: 50%; color: white; font-size: 30px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s; z-index: 10001; }
@@ -293,52 +273,45 @@
     .modal-content { width: 80%; max-width: 1000px; aspect-ratio: 16/9; background: black; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
     .modal-content iframe { width: 100%; height: 100%; border: none; }
 
-    /* --- Footer --- */
-    .last-section { padding-top: 1rem !important; padding-bottom: 10px !important; }
-    .phase-navigation { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(74, 74, 74, 0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 0; }
-    .phase-link { text-decoration: none; color: var(--text-main); display: inline-flex; align-items: center; gap: 15px; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; transition: color 0.3s; }
+    .last-section { padding-top: 16px; padding-bottom: 10px; }
+    .phase-navigation { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(74, 74, 74, 0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 0; }
+    .phase-link { text-decoration: none; color: var(--text-main); display: inline-flex; align-items: center; gap: 15px; font-family: var(--font-heading); font-weight: 700; font-size: 18px; transition: color 0.3s; }
     .phase-link:hover { color: var(--accent-red); }
     .phase-arrow { transition: transform 0.3s; }
     .phase-link:hover .phase-arrow.right { transform: translateX(5px); }
     .phase-link:hover .phase-arrow.left { transform: translateX(-5px); }
-    .link-sub { display: block; font-size: 0.8em; opacity: 0.7; font-weight: 700; margin-top: 4px; }
+    .link-sub { display: block; font-size: 14px; opacity: 0.7; font-weight: 700; margin-top: 4px; }
 
     @media (min-width: 900px) {
       .hero-title { font-size: 5rem; }
     }
-    
-    /* --- MOBILE OPTIMIZATIONS --- */
-    @media (max-width: 768px) {
-      /* 1. INCREASED FONT SIZE (Requested: +2 sizes) */
-      body {
-        font-size: 18px; /* Up from 16px */
-      }
-      .text-content {
-        font-size: 18px;
-        line-height: 1.8;
-      }
-      /* Adjust caption size slightly up for readability */
-      .family-caption, .image-caption-center {
-        font-size: 14px; 
-      }
 
-      .content-section { padding: 3rem 1.5rem; }
-      #section-1965 { padding-top: 4rem; padding-bottom: 4rem; }
+    @media (max-width: 768px) {
+      body { font-size: 20px; line-height: 1.6; }
+      .text-content { font-size: 20px; line-height: 1.6; }
+
+      .container { padding: 0 20px; }
+      .content-section { padding: 48px 20px; }
+      #section-1965 { padding-top: 64px; padding-bottom: 64px; }
+
       .layout-1965-grid { grid-template-columns: 1fr; column-gap: 0; row-gap: 40px; }
       .video-text-grid { grid-template-columns: 1fr; }
+      .grid-2col { gap: 32px; }
+
       .media-row { flex-direction: column; gap: 10px; }
-      .quote-box { padding-top: 10px; border-top: 1px solid #ddd; text-align: center; }
-      .phase-navigation { flex-direction: column; }
-      
-      /* 2. REFACTORED WIDTHS: Force 100% width on mobile for special elements */
-      /* This fixes the "Linda" text being too narrow and the Little Saigon image */
-      .half-width-element, /* Used for Linda Image AND Caption */
-      .little-saigon-wrapper { 
-          width: 100% !important; 
-      }
+      .quote-box { padding-top: 10px; border-top: 1px solid #ddd; text-align: center; font-size: 16px; }
+      .quote-author { font-size: 12px; }
+
+      .phase-navigation { flex-direction: column; align-items: flex-start; }
+      .phase-link { font-size: 20px; }
+      .link-sub { font-size: 16px; }
+
+      .half-width-element, .little-saigon-wrapper { width: 100%; }
+      .family-caption, .image-caption-center { font-size: 12px; }
     }
   </style>
 </head>
+
 <body>
   <div class="modal-overlay" id="videoModal">
     <div class="modal-close-btn" onclick="closeModal()">✕</div>
@@ -354,7 +327,6 @@
     <span class="nav-text">Back to Timeline</span>
   </a>
 
-  <!-- HERO -->
   <header class="hero-section">
     <div class="hero-content">
       <span class="hero-label sticker-text">Timeline / Phase III</span>
@@ -367,12 +339,9 @@
   </header>
 
   <main>
-    <!-- SECTION 1965 -->
     <section class="content-section" id="section-1965">
       <div class="container">
         <div class="layout-1965-grid">
-          
-          <!-- Left Column: Text -->
           <div class="layout-1965-text-col">
             <div class="section-header-block">
               <span class="date-sub">1965–1990s</span>
@@ -388,20 +357,14 @@
             </div>
           </div>
 
-          <!-- Right Column: Images -->
           <div class="layout-1965-img-col">
-            <!-- Image 1: LINDA -->
             <div class="family-img-container">
-              <!-- 已修改：添加了 half-width-element 类，去除了 inline style -->
               <img src="https://wams.nyhistory.org/wp-content/uploads/2020/11/47_LS_Linda-Moy-Chin_Linda-and-Family.png" alt="Linda Moy Chin Family" class="family-img half-width-element">
-              
-              <!-- 已修改：添加了 half-width-element 类，删除了 inline style="width:50%" -->
-              <div class="family-caption half-width-element"> 
+              <div class="family-caption half-width-element">
                 Cantonese Linda (Lun Chee Moy) and Pang Fook Chin with their young children shortly before Pang Fook and his brother Pang Dick (pictured standing) leave for America, Hong Kong, 1951.
               </div>
             </div>
             
-            <!-- Image 2: Normal width -->
             <div class="family-img-container">
               <img src="https://chineseamerican.nyhistory.org/wp-content/uploads/2014/07/ChinFamily_DocsPhotos-2.jpg" alt="Linda Chin in New York" class="family-img">
               <div class="family-caption">
@@ -414,7 +377,6 @@
       </div>
     </section>
 
-    <!-- SECTION 1975-1980s -->
     <section class="content-section">
       <div class="container">
         <div class="section-header-block">
@@ -423,11 +385,7 @@
         </div>
         
         <div class="grid-2col video-text-grid">
-          
-          <!-- LEFT COLUMN: Large Media Stack -->
           <div class="vertical-media-stack">
-            
-            <!-- Row 1: Video (Left) + Quote (Right) -->
             <div class="media-row">
                 <div class="media-container video-box"
                       onclick="openModal('https://player.vimeo.com/video/1151385247?autoplay=1')">
@@ -441,7 +399,6 @@
                 </div>
             </div>
 
-            <!-- Row 2: Large Image 1 (Full Column Width) -->
             <div>
                 <div class="media-container large-image-box">
                     <img src="https://borgenproject.org/wp-content/uploads/Vietnamese-Boat-People-2-845x684.jpg" alt="Vietnamese Refugees">
@@ -449,7 +406,6 @@
                 <p class="image-caption-center">Vietnamese boat people arriving at refugee camp, 1979</p>
             </div>
 
-            <!-- Row 3: Large Image 2 (Little Saigon) -->
             <div style="width: 100%;">
                 <div class="media-container large-image-box little-saigon-wrapper">
                     <img src="https://www.westminster-ca.gov/home/showpublishedimage/962/637454428643270000" alt="Little Saigon">
@@ -459,7 +415,6 @@
 
           </div>
 
-          <!-- RIGHT COLUMN: Text -->
           <div class="text-content">
             <p style="margin-top: 0;">
               The end of the Vietnam War and the rise of communist rule triggered a massive humanitarian crisis. Within this chaos, the Hoa (ethnic Chinese in Vietnam), most of whom spoke Cantonese, faced severe political pressure and often the seizure of their businesses. Beginning in 1978, hundreds of thousands fled as "boat people" to camps in Southeast Asia.
@@ -479,7 +434,6 @@
       </div>
     </section>
 
-    <!-- SECTION 1984-2000 -->
     <section class="content-section">
       <div class="container">
         <div class="section-header-block">
@@ -488,9 +442,7 @@
         </div>
         
         <div class="grid-2col video-text-grid">
-           <!-- LEFT COLUMN: Media -->
            <div class="img-col vertical-media-stack">
-            <!-- Row 1 -->
             <div class="media-row">
                 <div class="media-container video-box" onclick="openModal('https://player.vimeo.com/video/123456789')">
                   <img src="https://static01.nyt.com/images/2019/08/18/world/18hongkong-rally-toronto1/merlin_159165713_5f6e61fe-90ef-48dc-9a3b-ed597373ccfa-superJumbo.jpg" alt="HK Video 1">
@@ -502,7 +454,6 @@
                 </div>
             </div>
 
-            <!-- Row 2 -->
             <div class="media-row">
                <div class="media-container video-box" style="flex: 1.5;" onclick="openModal('https://player.vimeo.com/video/987654321')">
                   <img src="https://images.unsplash.com/photo-1596525737276-80f4f9526715?q=80&w=1000&auto=format&fit=crop" alt="HK Video 2">
@@ -512,7 +463,6 @@
             </div>
           </div>
 
-          <!-- RIGHT COLUMN: Text -->
           <div class="text-content">
             <p style="margin-top: 0;">
               Following the 1984 agreement that scheduled the return of Hong Kong to China for 1997, a massive migration wave occurred due to political uncertainty. Estimates suggest over 500,000 Hong Kong residents left during this period, with most people migrating to Canada and the United States.
@@ -528,7 +478,6 @@
       </div>
     </section>
 
-    <!-- SUMMARY SECTION -->
     <section class="content-section last-section">
       <div class="container">
         <div class="section-header-block">
@@ -560,20 +509,22 @@
   <script>
     lucide.createIcons();
 
-    // --- Modal Logic ---
     const modal = document.getElementById('videoModal');
     const modalFrame = document.getElementById('modalFrame');
+
     function openModal(videoUrl) {
       if(!videoUrl || videoUrl.trim() === "") return;
       modalFrame.src = videoUrl;
       modal.classList.add('active');
-      document.body.style.overflow = 'hidden'; 
+      document.body.style.overflow = 'hidden';
     }
+
     function closeModal() {
       modal.classList.remove('active');
-      modalFrame.src = ""; 
-      document.body.style.overflow = ''; 
+      modalFrame.src = "";
+      document.body.style.overflow = '';
     }
+
     modal.addEventListener('click', function(e) {
       if (e.target === modal) closeModal();
     });
