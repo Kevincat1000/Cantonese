@@ -153,8 +153,6 @@
       width: 100%;
       height: 400px;
       object-fit: cover;
-      border-radius: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .img-credit {
       position: absolute;
@@ -182,8 +180,6 @@
     .gold-extra-img-frame img {
       width: 100%;
       height: auto;
-      border-radius: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .gold-extra-img-frame .img-credit {
       position: static;
@@ -194,18 +190,19 @@
       line-height: 1.4;
     }
 
-    .hawaii-stack { display: flex; flex-direction: column; gap: 20px; }
-    .hawaii-img-frame { width: 100%; max-width: 320px; margin-left: auto; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .hawaii-stack { display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: center; }
+    .hawaii-img-frame { width: 100%; max-width: 416px; overflow: hidden; }
     .hawaii-img-frame img { width: 100%; display: block; }
+    .hawaii-grid { grid-template-columns: 1fr 2fr !important; }
 
-    .image-frame { width: 100%; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .image-frame { width: 100%; overflow: hidden; }
     .image-frame img { width: 100%; display: block; }
     .image-caption-long { font-size: 0.85rem; margin-top: 15px; opacity: 0.8; font-style: italic; color: #000; line-height: 1.5; }
     .image-caption-simple { font-family: var(--font-heading); font-size: 12px; color: #000; text-align: right; margin-top: 4px; font-weight: 600; }
 
     .letter-feature-wide {
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;
-      background: rgba(255,255,255,0.3); padding: 30px; border-radius: 8px; align-items: start;
+      background: rgba(255,255,255,0.3); padding: 30px; align-items: start;
     }
 
     .phase-navigation {
@@ -270,7 +267,7 @@
               </div>
               <div class="gold-extra-img-frame">
                 <img src="https://delivery.library.ca.gov:8183/iiif/2/FL76376.jpg/full/full/0/default.jpg" alt="Heathen Chinee prospecting">
-                <div class="img-credit">The "Heathen Chinee" prospecting Calif year 1852</div>
+                <div class="img-credit">The "Heathen Chinee" prospecting Calif year 1852, California Hist. Room</div>
               </div>
             </div>
           </div>
@@ -279,9 +276,9 @@
     </section>
 
     <!-- 2. Hawaii -->
-    <section class="content-section">
+    <section class="content-section" style="padding-top: calc(5rem - 30px);">
       <div class="container">
-        <div class="grid-2col">
+        <div class="grid-2col hawaii-grid">
           <div class="text-col">
             <h2 class="section-title">
                 <span class="title-date">1850s–1900s</span>
