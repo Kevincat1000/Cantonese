@@ -1,624 +1,445 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> 
+<html lang="en" class="preload">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phase III: 1965–2000 Reforms, Refugees, and American Dream</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cantonese Culture Symbols</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="./assets/header.js" defer></script>
+  <script src="./assets/footer.js" defer></script>
+
   <style>
-    /* --- Root Variables --- */
     :root {
-      --bg-main: #e5f0f5;
-      --accent-red: #a84d4d;
-      --text-main: #4a4a4a;
-      --font-body: 'Gentium Book Plus', serif;
-      --font-heading: 'Exo', sans-serif;
+      --bg: #f5f0e5; 
+      --text: #1a1a1a;
+      --accent: #a84d4d;
+      --header-h: 88px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    
-    body {
-      font-family: var(--font-body);
-      line-height: 1.6;
-      background-color: var(--bg-main);
-      color: var(--text-main);
+    * { box-sizing: border-box; }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      font-family: 'Gentium Book Plus', serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
       overflow-x: hidden;
       font-size: 16px;
     }
 
-    /* --- Navigation --- */
-    .nav-float {
-      position: fixed; top: 30px; left: 30px; z-index: 1000;
-      display: flex; align-items: center; gap: 15px;
-      text-decoration: none; color: var(--text-main); 
-      transition: all 0.3s ease;
-    }
-    .nav-icon-circle {
-      width: 50px; height: 50px;
-      border: 1px solid rgba(74, 74, 74, 0.2); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.3s ease; background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(5px);
-    }
-    .nav-text {
-      font-family: var(--font-heading); font-size: 12px;
-      text-transform: uppercase; letter-spacing: 1px;
-      opacity: 0; transform: translateX(-10px); transition: all 0.3s ease;
-      font-weight: 600;
-    }
-    .nav-float:hover .nav-icon-circle {
-      background-color: var(--accent-red); border-color: var(--accent-red);
-      color: #fff; transform: scale(1.1);
-    }
-    .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); color: var(--accent-red); }
-
-    /* --- Hero Section --- */
-    .hero-section {
-      position: relative;
-      height: 100vh; 
+    header, .site-header {
+      position: fixed !important;
+      top: 0; left: 0;
       width: 100%;
-      background-image: url('https://s.hdnux.com/photos/22/77/22/4977792/4/rawImage.jpg');
+      z-index: 3000;
+      background-color: var(--bg);
+      transition: transform 0.4s ease-in-out !important;
+      will-change: transform;
+    }
+    .header-hidden { transform: translateY(-100%) !important; }
+
+    html.preload body { opacity: 0; }
+    body { transition: opacity .15s ease; }
+
+    #header-injection-point {
+      height: var(--header-h);
+      min-height: var(--header-h);
+    }
+
+    .section-split {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      position: relative;
+      align-items: stretch; 
+    }
+
+    .col-content {
+      flex: 1;
+      flex-basis: 50%;
+      background-color: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 50px 40px 40px 40px; 
+    }
+
+    #symbol01 .col-content { padding-top: 5px !important; }
+
+    .col-image {
+      flex: 1;
+      flex-basis: 50%;
+      position: relative; 
+      min-width: 320px;
+    }
+    
+    .col-image img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+      display: block;
+    }
+
+    .section-label {
+      font-family: 'Exo', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #701a1a;
+      margin-bottom: 15px; 
+      display: block;
+      margin-top: 0; 
+    }
+
+    .subtitle {
+      font-family: 'Exo', sans-serif;
+      font-weight: 600;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      color: #000;
+      margin-top: 0; 
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.7; 
+      margin-bottom: 20px; 
+      color: #000;
+      text-align: justify;
+    }
+
+    .photo-credit {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      font-size: 10px;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4px 8px;
+      border-radius: 2px;
+      z-index: 10;
+      font-family: 'Exo', sans-serif;
+      line-height: 1.3;
+      max-width: 250px;
+      text-align: right;
+    }
+
+    #symbol03 {
+      background-image: url("https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840");
+      background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    /* Mobile Only Hero Image (Hidden by default) */
-    .hero-bg-mobile {
-      display: none; 
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      margin-bottom: 1rem;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      max-width: 900px;
-      padding: 2rem;
-    }
-
-    /* Sticker Text Effects (Desktop) */
-    .sticker-text {
-      font-family: var(--font-heading); 
-      color: #333; 
-      paint-order: stroke fill;
-      -webkit-text-stroke-color: var(--bg-main); 
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .hero-label { 
-      font-size: 1rem; 
-      font-weight: 700; 
-      text-transform: uppercase; 
-      letter-spacing: 3px; 
-      color: var(--accent-red);
-      margin-bottom: 1rem; 
-      display: block;
-      -webkit-text-stroke-width: 6px; 
-    }
-    
-    .hero-title { 
-      font-size: 5rem; 
-      font-weight: 700; 
-      line-height: 1.1; 
-      margin-bottom: 1rem; 
-      color: #222; 
-      -webkit-text-stroke-width: 20px; 
-    }
-    
-    .hero-subtitle { 
-      font-size: 1.5rem; 
-      font-weight: 400; 
-      margin-top: 0.5rem; 
-      color: #333;
-      -webkit-text-stroke-width: 10px; 
-    }
-
-    .hero-caption {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      background-color: rgba(255, 255, 255, 0.7); 
-      padding: 4px 8px;
-      font-family: var(--font-heading);
-      font-size: 10px; 
-      color: #000;     
-      border-radius: 2px;
-      pointer-events: none;
-    }
-
-    /* --- General Section Styles --- */
-    .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
-    
-    .content-section { padding: 5rem 0; background-color: var(--bg-main); color: var(--text-main);}
-    
-    .section-header-block {
-      margin-bottom: 2rem;
-      width: 100%;
-    }
-    .date-sub {
-      font-family: var(--font-heading);
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--accent-red);
-      display: block;
-      margin-bottom: 4px;
-      text-transform: lowercase; 
-    }
-    .title-main {
-      font-family: var(--font-heading);
-      font-size: 28px;
-      font-weight: 600;
-      color: #000;
-      line-height: 1.2;
-    }
-
-    .text-content { width: 100%; color: var(--text-main);}
-    .text-content p { margin-bottom: 1.5rem; color: var(--text-main);}
-
-    /* --- 1965 Section Specific Layout --- */
-    #section-1965 {
-      padding-top: 5rem; 
-      padding-bottom: 5rem;
-      background: var(--bg-main);
-    }
-    
-    .layout-1965-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 60px; 
-      width: 100%;
-    }
-
-    .layout-1965-img-col {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      align-items: center;
-      padding-top: 10px;
-    }
-
-    .family-img-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
       align-items: center; 
     }
 
-    .family-img {
-      width: 100%;
-      height: auto;
-      border-radius: 2px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-bottom: 10px;
-    }
-    
-    .half-width-element {
-        width: 50% !important; 
+    #symbol03 .col-content {
+      background: linear-gradient(
+        135deg,
+        rgba(245, 240, 229, 0.60) 0%,
+        rgba(245, 240, 229, 0.40) 100%
+      );
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      margin: 60px 40px; 
+      border-radius: 0; 
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      flex: 0 1 50%; 
+      height: fit-content; 
     }
 
-    .family-caption, .image-caption-center {
-      font-family: var(--font-heading);
-      font-size: 0.85em; 
-      color: #555;
-      line-height: 1.4;
-      text-align: left;
-      width: 100%;
-      font-style: normal;
+    #symbol03 .col-image {
+      background: transparent;
+      pointer-events: none;
+      display: none; 
     }
-    .image-caption-center { text-align: center; opacity: 0.8; margin-top: 8px; }
+    #symbol03 .col-image img { display: none; }
 
-    /* --- Other Sections Grid --- */
-    .grid-2col { display: grid; gap: 3rem; align-items: start; }
-    .video-text-grid { grid-template-columns: 1.4fr 1fr; } 
-
-    /* --- Media Styles --- */
-    .vertical-media-stack {
+    #symbol04 .col-image {
       display: flex;
       flex-direction: column;
-      gap: 30px;
     }
-
-    .media-row {
-      display: flex;
-      align-items: stretch;
-      gap: 20px;
-    }
-
-    .media-container {
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    
+    #symbol04 .video-container {
+      flex: 0 0 auto; 
+      width: 100%;
       position: relative;
+      padding-top: 56.25%;
       background: #000;
     }
-    .media-container img {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block;
+    #symbol04 .video-container iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
     }
-
-    /* Video Box */
-    .video-box {
-      flex: 1.5; 
-      aspect-ratio: 16/9;
-      cursor: pointer;
+    #symbol04 .video-caption {
+      flex: 0 0 auto;
+      padding: 8px 16px;
+      background: var(--bg);
+      font-size: 11px;
+      text-align: center;
+      color: #333;
     }
-    .video-box .play-icon {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 45px; height: 45px; background: rgba(255,255,255,0.9);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      color: var(--accent-red); pointer-events: none;
+    #symbol04 .image-container {
+      flex: 1; 
+      position: relative;
+      min-height: 100px; 
     }
-    .video-box:hover img { opacity: 0.7; }
-    .video-box:hover { transform: scale(1.01); transition: transform 0.3s; }
-
-    .quote-box {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-left: 0;
-      font-family: var(--font-heading);
-      font-size: 0.95rem;
-      font-style: italic;
-      color: #555;
-      line-height: 1.4;
-    }
-    .quote-author {
-      font-weight: 700;
-      font-size: 0.75rem;
-      margin-top: 10px;
-      text-transform: uppercase;
-      color: var(--accent-red);
-      font-style: normal;
-    }
-    .large-image-box { width: 100%; aspect-ratio: 16/9; }
-    
-    .little-saigon-wrapper {
-        width: 60% !important; 
-        margin-right: auto; 
-    }
-
-    /* --- Modal --- */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
-    .modal-overlay.active { opacity: 1; visibility: visible; }
-    .modal-close-btn { position: absolute; top: 30px; left: 30px; width: 50px; height: 50px; border: 2px solid white; border-radius: 50%; color: white; font-size: 30px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s; z-index: 10001; }
-    .modal-close-btn:hover { background-color: white; color: black; transform: rotate(90deg); }
-    .modal-content { width: 80%; max-width: 1000px; aspect-ratio: 16/9; background: black; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
-    .modal-content iframe { width: 100%; height: 100%; border: none; }
-
-    /* --- Footer --- */
-    .last-section { padding-top: 1rem !important; padding-bottom: 10px !important; }
-    .phase-navigation { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(74, 74, 74, 0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 0; }
-    .phase-link { text-decoration: none; color: var(--text-main); display: inline-flex; align-items: center; gap: 15px; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; transition: color 0.3s; }
-    .phase-link:hover { color: var(--accent-red); }
-    .phase-arrow { transition: transform 0.3s; }
-    .phase-link:hover .phase-arrow.right { transform: translateX(5px); }
-    .phase-link:hover .phase-arrow.left { transform: translateX(-5px); }
-    .link-sub { display: block; font-size: 0.8em; opacity: 0.7; font-weight: 700; margin-top: 4px; }
-
-    @media (min-width: 900px) {
-      .hero-title { font-size: 5rem; }
+    #symbol04 .image-container img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
     }
     
-    /* --- MOBILE OPTIMIZATIONS --- */
     @media (max-width: 768px) {
-      /* 1. HERO MODIFICATION (Removed bg, added image tag) */
-      .hero-section {
-        height: auto;
-        background-image: none !important; /* Remove background */
-        flex-direction: column;
-        padding-top: 80px; /* Nav space */
-        align-items: flex-start;
-      }
-      
-      .hero-bg-mobile {
-        display: block; /* Show the image tag */
-      }
+      :root { --header-h: 72px; }
 
-      .hero-content {
-        padding: 0 1.5rem 2rem 1.5rem;
-        text-align: left;
-        width: 100%;
-      }
+      .section-split { flex-direction: column; }
+      .col-content, .col-image { flex-basis: auto; width: 100%; }
+      .col-image { height: 350px; } 
+      .col-image img { position: relative; } 
+      .section-split .col-image { order: -1; }
+      .col-content { padding: 30px 20px; }
+      #symbol01 .col-content { padding-top: 20px !important; }
 
-      /* Remove mask effects (strokes) for mobile */
-      .sticker-text {
-        -webkit-text-stroke-width: 0 !important;
-        color: #222 !important;
-      }
-      .hero-title {
-        font-size: 3.5rem; /* Still big */
-        margin-bottom: 0.5rem;
-      }
-      .hero-caption {
-        position: static;
-        margin-top: -10px;
-        margin-bottom: 20px;
-        margin-left: 1.5rem;
-        text-align: left;
-        background: none;
-        padding: 0;
-      }
-
-      /* 2. INCREASED FONT SIZE (Requested: Bigger body text) */
-      body {
-        font-size: 21px; /* Increased from 18px to 21px */
-      }
-      .text-content {
-        font-size: 21px; 
+      p {
+        font-size: 20px;
         line-height: 1.6;
       }
-      .family-caption, .image-caption-center {
-        font-size: 16px; 
+
+      #symbol03 {
+        background-image: none !important; 
+        padding: 0;
+      }
+      
+      #symbol03 .col-content {
+        background: var(--bg) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 30px 20px !important;
+        flex: 1 1 auto;
+      }
+      
+      #symbol03 .col-image {
+        display: block !important;
+        order: -1;
+        height: 350px;
+        pointer-events: auto;
+      }
+      
+      #symbol03 .col-image img {
+        display: block !important;
+        position: relative;
+        width: 100%;
+        height: 100%;
       }
 
-      .content-section { padding: 3rem 1.5rem; }
-      #section-1965 { padding-top: 2rem; padding-bottom: 4rem; }
-      .layout-1965-grid { grid-template-columns: 1fr; column-gap: 0; row-gap: 40px; }
-      .video-text-grid { grid-template-columns: 1fr; }
-      .media-row { flex-direction: column; gap: 10px; }
-      .quote-box { padding-top: 10px; border-top: 1px solid #ddd; text-align: center; }
-      .phase-navigation { flex-direction: column; }
-      
-      .half-width-element, 
-      .little-saigon-wrapper { 
-          width: 100% !important; 
+      #symbol04 .col-image { 
+        height: auto !important;
+        min-height: auto;
+      }
+
+      #symbol04 .image-container {
+        height: 300px;
+      }
+
+      #symbol05 .col-content {
+        justify-content: flex-start !important;
       }
     }
   </style>
 </head>
-<body>
-  <div class="modal-overlay" id="videoModal">
-    <div class="modal-close-btn" onclick="closeModal()">✕</div>
-    <div class="modal-content">
-      <iframe id="modalFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
-  </div>
-  
-  <a href="timeline.html" class="nav-float">
-    <div class="nav-icon-circle">
-      <i data-lucide="arrow-left"></i>
-    </div>
-    <span class="nav-text">Back to Timeline</span>
-  </a>
 
-  <!-- HERO -->
-  <header class="hero-section">
-    <!-- NEW: Image tag for Mobile (Hidden on Desktop) -->
-    <img src="https://s.hdnux.com/photos/22/77/22/4977792/4/rawImage.jpg" alt="San Francisco 1965" class="hero-bg-mobile">
-    
-    <div class="hero-content">
-      <span class="hero-label sticker-text">Timeline / Phase III</span>
-      <h1 class="hero-title sticker-text">1965–2000</h1>
-      <h2 class="hero-subtitle sticker-text">Reforms, Refugees, and American Dream</h2>
-    </div>
-    <div class="hero-caption">
-      Grant street, San Francisco,1965 Lake County Museum/Getty Images
-    </div>
-  </header>
+<body>
+
+  <div id="header-injection-point"></div>
 
   <main>
-    <!-- SECTION 1965 -->
-    <section class="content-section" id="section-1965">
-      <div class="container">
-        <div class="layout-1965-grid">
-          
-          <!-- Left Column: Text -->
-          <div class="layout-1965-text-col">
-            <div class="section-header-block">
-              <span class="date-sub">1965–1990s</span>
-              <h2 class="title-main">Opening doors and new professionals</h2>
-            </div>
-            <div class="text-content">
-              <p>
-                The mid-1960s was a major turning point for Cantonese migration to North America. In the United States, the Immigration and Nationality Act of 1965 (Hart–Celler) ended the old discriminatory quota system and shifted admissions toward family reunions and skilled labor, with a per-country limit of 20,000 immigrants. Because the U.S. did not recognize the PRC at the time, the “China” quota was largely used by Taiwan-related cases. After U.S.–China normalization in 1979, an additional 20,000 quota was effectively opened for mainland China. Immigration from mainland China then increased quickly, and it was mainly based on family reunions. In the 1980s, 84.5% of U.S. citizens from mainland China filed petitions to bring family members, one of the highest rates among immigrant groups. Guangdong overseas authorities estimate that from the early 1980s to 1996, Guangdong sent about 378,000 legal migrants to the U.S., with roughly 85% entering through family reunions, and about 10% made up of highly educated international students and skilled professionals. Canada moved in parallel: after eliminating race-based immigration criteria, Ottawa introduced a merit-based “points system” in 1967 that prioritized education, language proficiency, and employment potential.
-              </p>
-              <p>
-                These policies enabled the reunion of Cantonese families separated under the earlier exclusion act and fundamentally altered the profile of new arrivals. While earlier migration consisted largely of rural laborers from Sze Yap, the post-1965 era saw the arrival of significant numbers of urban, educated, and professional Cantonese migrants. This shifted the community from a society of single male laborers to a growing middle class with strong global connections.
-              </p>
-            </div>
-          </div>
+    <section id="symbol01" class="section-split">
+      <div class="col-content">
+        <span class="section-label">Culture Symbol 01</span>
+        <h2 class="subtitle">Religious Beliefs and Ancestral Worship</h2>
 
-          <!-- Right Column: Images -->
-          <div class="layout-1965-img-col">
-            <!-- Image 1: LINDA -->
-            <div class="family-img-container">
-              <img src="https://wams.nyhistory.org/wp-content/uploads/2020/11/47_LS_Linda-Moy-Chin_Linda-and-Family.png" alt="Linda Moy Chin Family" class="family-img half-width-element">
-              
-              <div class="family-caption half-width-element"> 
-                Cantonese Linda (Lun Chee Moy) and Pang Fook Chin with their young children shortly before Pang Fook and his brother Pang Dick (pictured standing) leave for America, Hong Kong, 1951.
-              </div>
-            </div>
-            
-            <!-- Image 2: Normal width -->
-            <div class="family-img-container">
-              <img src="https://chineseamerican.nyhistory.org/wp-content/uploads/2014/07/ChinFamily_DocsPhotos-2.jpg" alt="Linda Chin in New York" class="family-img">
-              <div class="family-caption">
-                Linda emigrated to New York in 1960 to reunite with her husband. She built a career in the garment industry and sponsored relatives, turning one reunion into the start of her extended family’s American dream. Source from New York History.
-              </div>
-            </div>
-          </div>
+        <p>Guangdong immigrants transplanted their spiritual landscape to the U.S. through a unique "Temple-Association" model. This integration of sacred and secular spaces—exemplified by the Tin How Temple in San Francisco (est. 1852)—served as a vital cultural nexus. Central to this spiritual ecosystem were specific deities chosen for the immigrant experience. Mazu (Tin How), originally a mortal woman from Fujian during the Song Dynasty, was deified into the Goddess of the Sea. For immigrants who survived the perilous voyage across the Pacific, she was the supreme guardian of wanderers and those drifting on the ocean.</p>
 
-        </div>
+        <p>Equally significant was Guandi, the God of War, who embodied righteousness, loyalty, and justice. The Cantonese reverence for Guandi is deeply rooted in their history as a migratory group moving south from the Central Plains. Throughout their historical migrations, they credited Guandi's justice for their protection; thus, wherever they established a new foothold, Guandi was enshrined as the guardian who had accompanied them from their ancestral lands.</p>
+
+        <p>However, beyond the worship of deities, the most profound ritual was Ancestral Worship. For the Cantonese, venerating one's lineage was the "priority" during festivals, often surpassing the worship of gods. As people living in a foreign land, this ritual was an act of not forgetting one's roots. Families would respectfully bring out ancestral spirit tablets and burn incense, not merely to pray, but to "report" to their forebears.</p>
+
+        <p>They would inform their ancestors that they had successfully settled down and continued the family line in the West. This ritual was a profound expression of gratitude, acknowledging that their survival was a blessing from the past. This intergenerational gratitude, passed down through the burning of incense, formed the core of a distinctly Cantonese culture of remembrance, allowing the community to maintain its "root" while navigating the challenges of a new world.</p>
+      </div>
+      <div class="col-image">
+        <img src="images/temple.jpg" alt="Religious Beliefs">
       </div>
     </section>
 
-    <!-- SECTION 1975-1980s -->
-    <section class="content-section">
-      <div class="container">
-        <div class="section-header-block">
-          <span class="date-sub">1975–1980s</span>
-          <h2 class="title-main">The refugee crisis and commercial revitalization</h2>
-        </div>
-        
-        <div class="grid-2col video-text-grid">
-          
-          <!-- LEFT COLUMN: Large Media Stack -->
-          <div class="vertical-media-stack">
-            
-            <!-- Row 1: Video (Left) + Quote (Right) -->
-            <div class="media-row">
-                <div class="media-container video-box"
-                      onclick="openModal('https://player.vimeo.com/video/1151385247?autoplay=1')">
-                  <img src="images/AndyLeeThumbnail.png" alt="Andy Lee interview thumbnail">
-                  <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
-                </div>
-                
-                <div class="quote-box">
-                    "I'm Cantonese, I'm proud to be Cantonese, and I'll try to still preserve that Cantonese Culture."
-                    <div class="quote-author">— Andy Lee, 2025</div>
-                </div>
-            </div>
+    <section id="symbol02" class="section-split">
+      <div class="col-image">
+        <img src="https://i.redd.it/4nqtfaaf33981.jpg" alt="Dim Sum">
+      </div>
+      <div class="col-content">
+        <span class="section-label">Culture Symbol 02</span>
+        <h2 class="subtitle">Cantonese Cuisine</h2>
 
-            <!-- Row 2: Large Image 1 (Full Column Width) -->
-            <div>
-                <div class="media-container large-image-box">
-                    <img src="https://borgenproject.org/wp-content/uploads/Vietnamese-Boat-People-2-845x684.jpg" alt="Vietnamese Refugees">
-                </div>
-                <p class="image-caption-center">Vietnamese boat people arriving at refugee camp, 1979</p>
-            </div>
+        <p>The evolution of Cantonese cuisine in the West is a journey from desperate survival to cultural dominance. During the Chinese Exclusion Act era, the restaurant business was one of the few legal loopholes for employment. From a handful of eateries in the 1850s to over 50,000 across the U.S. today, Cantonese food became the economic bedrock of the diaspora. Immigrants adapted their complex culinary heritage into dishes like "Chow Mein" and "Chop Suey," leading to the linguistic integration of terms like "Dim Sum," "Wok," and "Bok Choy" into the global lexicon.</p>
 
-            <!-- Row 3: Large Image 2 (Little Saigon) -->
-            <div style="width: 100%;">
-                <div class="media-container large-image-box little-saigon-wrapper">
-                    <img src="https://www.westminster-ca.gov/home/showpublishedimage/962/637454428643270000" alt="Little Saigon">
-                </div>
-                <p class="image-caption-center little-saigon-wrapper" style="text-align: left;">Little Saigon commercial district, Westminster, California</p>
-            </div>
-
-          </div>
-
-          <!-- RIGHT COLUMN: Text -->
-          <div class="text-content">
-            <p style="margin-top: 0;">
-              The end of the Vietnam War and the rise of communist rule triggered a massive humanitarian crisis. Within this chaos, the Hoa (ethnic Chinese in Vietnam), most of whom spoke Cantonese, faced severe political pressure and often the seizure of their businesses. Beginning in 1978, hundreds of thousands fled as "boat people" to camps in Southeast Asia.
-            </p>
-            <p>
-              The United States also became another primary destination, admitting a significant number of these refugees. It is estimated that by 1990, approximately 200,000 ethnic Chinese from Vietnam had settled in the U.S., with the majority being Cantonese speakers from the Chợ Lớn area of Saigon.
-            </p>
-            <p>
-              The arrival of the Hoa was critical for North American asian communities. They revitalized local existing neighborhoods. Many older Chinatowns, such as those in Los Angeles, were facing decline, but these refugees brought more money, labor, and business that saved them.
-            </p>
-            <p>
-              Furthermore, they sparked the creation of entirely new commercial zones. In Southern California, for example, while the broader Vietnamese community established the "Little Saigon" district in Westminster, many of the foundational businesses, supermarkets, jewelry shops, and trading firms were actually started by Cantonese-speaking Hoa.
-            </p>
-          </div>
-        </div>
-
+        <p>This influence is most profound in the tradition of Yum Cha (drink morning tea with dim sum). Rooted in the classic "One Cup, Two Pieces" custom, a pot of tea with two baskets of dim sum, this practice is far more than a brunch. It embodies the art of "slow living." This ritual acts as a sanctuary from the rush of the outside world, inviting people to pause, sip, and connect over hot tea. By turning a simple meal into a shared experience of leisure, Yum Cha has evolved into a global staple, proving that the most meaningful cultural exchange happens not just through food, but through the time spent enjoying it.</p>
       </div>
     </section>
 
-    <!-- SECTION 1984-2000 -->
-    <section class="content-section">
-      <div class="container">
-        <div class="section-header-block">
-          <span class="date-sub">1984–2000</span>
-          <h2 class="title-main">The Hong Kong migration and suburban growth</h2>
-        </div>
-        
-        <div class="grid-2col video-text-grid">
-           <!-- LEFT COLUMN: Media -->
-           <div class="img-col vertical-media-stack">
-            <!-- Row 1 -->
-            <div class="media-row">
-                <div class="media-container video-box" onclick="openModal('https://player.vimeo.com/video/123456789')">
-                  <img src="https://static01.nyt.com/images/2019/08/18/world/18hongkong-rally-toronto1/merlin_159165713_5f6e61fe-90ef-48dc-9a3b-ed597373ccfa-superJumbo.jpg" alt="HK Video 1">
-                  <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
-                </div>
-                <div class="quote-box">
-                    "We brought our investments and our future."
-                    <div class="quote-author">— HK Immigrant, 1990</div>
-                </div>
-            </div>
+    <section id="symbol03" class="section-split">
+      <div class="col-content">
+        <span class="section-label">Culture Symbol 03</span>
+        <h2 class="subtitle">The Lion Dance and Dragon Lanterns</h2>
 
-            <!-- Row 2 -->
-            <div class="media-row">
-               <div class="media-container video-box" style="flex: 1.5;" onclick="openModal('https://player.vimeo.com/video/987654321')">
-                  <img src="https://images.unsplash.com/photo-1596525737276-80f4f9526715?q=80&w=1000&auto=format&fit=crop" alt="HK Video 2">
-                  <div class="play-icon"><i data-lucide="play" fill="currentColor"></i></div>
-               </div>
-               <div style="flex:1;"></div>
-            </div>
-          </div>
+        <p>The Cantonese Lion Dance has long been regarded as a lucky symbol capable of driving away evil spirits and bringing good luck. As a unique mix of martial arts, dance, and music, it represents the community's energetic spirit, a lively contrast to the quiet soul of the temple.</p>
 
-          <!-- RIGHT COLUMN: Text -->
-          <div class="text-content">
-            <p style="margin-top: 0;">
-              Following the 1984 agreement that scheduled the return of Hong Kong to China for 1997, a massive migration wave occurred due to political uncertainty. Estimates suggest over 500,000 Hong Kong residents left during this period, with most people migrating to Canada and the United States.
-            </p>
-            <p>
-              Unlike previous groups, these migrants were often wealthy professionals and investors. They skipped the traditional Chinatowns, settling instead in suburban areas such as Monterey Park (California), Richmond (British Columbia), and Markham (Ontario).
-            </p>
-            <p>
-              This created suburban Chinese centers known for their wealth and international ties. This wave of migrants established Cantonese as a major language of international business and shifted the community's center from historic labor districts to modern, globally connected suburbs.
-            </p>
-          </div>
-        </div>
+        <p>For immigrants, this tradition was more than just holiday entertainment; it was an active ceremony that claimed "public space" for an excluded community. Accompanied by the loud beat of drums and cymbals, the Lion Dance announced the Chinese presence in Western cities, turning quiet neighborhoods into vibrant cultural scenes. The main act of Cai Qing (plucking the greens), where the lion "eats" a lettuce head containing a red envelope, serves as a strong symbol of the immigrant spirit. It is a skillful performance meant to bring wealth, representing the courage needed to grab opportunities in a new land.</p>
+
+        <p>Along with this is the Dragon Lantern parade. While the Lion highlights individual skill and agility, the Dragon requires dozens of people moving together as one, symbolizing the need for teamwork to survive. Together, these performances turned city streets into stages for celebration, driving away bad luck and social pressure, and welcoming good fortune.</p>
+      </div>
+
+      <div class="col-image">
+        <img src="https://images.axios.com/_2dSq9Ozdch2OvGg8cOrIZvrsz0=/0x420:7862x4842/1920x1080/2024/02/22/1708643194671.jpg?w=3840" alt="Lion Dance">
+        <div class="photo-credit">The Lunar New Year Parade on San Francisco in 2023. Photo: Tayfun Coskun via Getty Images</div>
       </div>
     </section>
 
-    <!-- SUMMARY SECTION -->
-    <section class="content-section last-section">
-      <div class="container">
-        <div class="section-header-block">
-          <span class="date-sub">summary</span>
-          <h2 class="title-main">Transformation through migration</h2>
+    <section id="symbol04" class="section-split">
+      <div class="col-image">
+        <div class="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/jZ_zY63Emz8?si=9k_vG2gG9X6f_Z3_"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
         </div>
-        <div class="text-content" style="width: 100%;">
-          <p>
-            The period from 1965 to 2000 fundamentally reshaped the Cantonese diaspora in North America. Legal reforms opened doors that had been closed for decades, allowing diverse groups to arrive: educated professionals from Hong Kong, resilient refugees from Vietnam, and ambitious entrepreneurs seeking new opportunities.
-          </p>
-          <p>
-            By 2000, the Cantonese diaspora had evolved from marginalized laborers into a sophisticated, economically powerful, and culturally diverse transnational community. This transformation set the stage for continued growth and adaptation in the decades to come.
-          </p>
+
+        <div class="video-caption">
+          Featured Video<br>
+          (YouTube)
         </div>
-        <div class="phase-navigation">
-          <a href="phase2.html" class="phase-link prev">
-            <i data-lucide="arrow-left" class="phase-arrow left"></i>
-            <span>Phase II: 1848–1947<br><span class="link-sub">Building North America & The Pacific</span></span>
-          </a>
-          <a href="phase4.html" class="phase-link next">
-            <span>Phase IV: 2000–Present<br><span class="link-sub">Diversification and Cultural Resilience</span></span>
-            <i data-lucide="arrow-right" class="phase-arrow right"></i>
-          </a>
+
+        <div class="image-container">
+          <img src="https://nfassetoss.southcn.com/__asset/0bdf1f0b31/86cc519f06.jpeg" alt="Cantonese Opera">
         </div>
+      </div>
+
+      <div class="col-content">
+        <span class="section-label">Culture Symbol 04</span>
+        <h2 class="subtitle">Cantonese Opera</h2>
+
+        <p>Cantonese Opera serves as a classic stage art that mixes singing, speaking, acting, and acrobatic fighting, combined with music, costumes, and makeup. It created a unique atmosphere known as the "Commoner's Symphony," where the audience would enjoy snacks while watching the show. This accessible and communal atmosphere allowed the opera to quickly weave itself into the fabric of daily life, offering spiritual comfort to early immigrants.</p>
+
+        <p>The opera arrived with the first wave of Cantonese immigrants. The first troupe, Hong Fook Tong, began performing in San Francisco in 1852. Over the next fifty years, the city saw the opening of countless theaters. During the first golden age in the 1870s, San Francisco's Chinatown had four theaters operating at once. By the second golden age in the 1920s, the Great Star Theater and the Great China Theater opened within a year of each other. Both venues had over 700 seats and hosted daily performances.</p>
+
+        <p>Print media played a crucial role in this success. With four daily Chinese newspapers in San Francisco, the press helped promote these shows. These theaters played a vital role in community life. They were not just for entertainment; they created a space for Cantonese merchants and the public to connect, shaping a modern and culturally rich image of Chinatown.</p>
+      </div>
+    </section>
+
+    <section id="symbol05" class="section-split">
+      <div class="col-content">
+        <span class="section-label">Culture Symbol 05</span>
+        <h2 class="subtitle">Martial Arts Cinema and "Kung Fu"</h2>
+
+        <p>The global success of "Kung Fu" comes from the survival needs of the Cantonese people. Its roots go back to the chaotic time between the Ming and Qing dynasties, when soldiers running from the war brought fighting skills south to Guangdong. In a time of constant war and social unrest, made worse by the Opium Wars, martial arts were not a sport, but a tool for survival. These skills became popular among ordinary people, becoming a key way for workers and citizens to protect themselves in a dangerous world.</p>
+
+        <p>Hong Kong movies later turned these local traditions into a genre focused on justice and community. The success of the word "Kung Fu," which comes directly from Cantonese, shows how this culture is linked to global pop culture. From the "Kung Fu Craze" started by Bruce Lee in the 1970s to the action scenes in <em>The Matrix</em> designed by Yuen Woo-ping, Hong Kong cinema shared more than just movies; it shared a "body language." This change through movies turned a local survival skill into a worldwide symbol of strength and discipline, placing Cantonese culture into the global story.</p>
+      </div>
+
+      <div class="col-image">
+        <img src="https://www.walterfilm.com/wp-content/uploads/2018/10/EnterTheDragon.jpg" alt="Martial Arts">
       </div>
     </section>
   </main>
 
   <script>
-    lucide.createIcons();
+    (function () {
+      const root = document.documentElement;
+      const injection = document.getElementById('header-injection-point');
 
-    const modal = document.getElementById('videoModal');
-    const modalFrame = document.getElementById('modalFrame');
-    function openModal(videoUrl) {
-      if(!videoUrl || videoUrl.trim() === "") return;
-      modalFrame.src = videoUrl;
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden'; 
-    }
-    function closeModal() {
-      modal.classList.remove('active');
-      modalFrame.src = ""; 
-      document.body.style.overflow = ''; 
-    }
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) closeModal();
-    });
+      function getHeader() {
+        return document.querySelector('header') || document.querySelector('.site-header');
+      }
+
+      function syncHeaderHeight() {
+        const header = getHeader();
+        if (!header) return false;
+
+        const h = Math.ceil(header.getBoundingClientRect().height || 0);
+        if (!h) return false;
+
+        root.style.setProperty('--header-h', h + 'px');
+        if (injection) injection.style.height = h + 'px';
+        return true;
+      }
+
+      function reveal() {
+        root.classList.remove('preload');
+        document.body.classList.add('header-ready');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        if (syncHeaderHeight()) reveal();
+
+        const obs = new MutationObserver(() => {
+          if (syncHeaderHeight()) {
+            reveal();
+            obs.disconnect();
+          }
+        });
+        obs.observe(document.body, { childList: true, subtree: true });
+
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(() => syncHeaderHeight()).catch(() => {});
+        }
+
+        window.addEventListener('load', () => {
+          if (!document.body.classList.contains('header-ready')) {
+            syncHeaderHeight();
+            reveal();
+          } else {
+            syncHeaderHeight();
+            setTimeout(syncHeaderHeight, 200);
+          }
+        }, { once: true });
+
+        window.addEventListener('resize', syncHeaderHeight);
+      });
+
+      let lastScrollTop = 0;
+      window.addEventListener('scroll', function () {
+        if (!document.body.classList.contains('header-ready')) return;
+        const header = getHeader();
+        if (!header) return;
+
+        let currentScroll = window.pageYOffset || document.documentElement.scrollTop || 0;
+        if (currentScroll < 0) currentScroll = 0;
+
+        if (currentScroll > lastScrollTop && currentScroll > 80) {
+          header.classList.add('header-hidden');
+        } else if (currentScroll < lastScrollTop) {
+          header.classList.remove('header-hidden');
+        }
+        lastScrollTop = currentScroll;
+      }, { passive: true });
+    })();
   </script>
+
 </body>
 </html>
