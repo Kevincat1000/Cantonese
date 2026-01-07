@@ -19,7 +19,7 @@
       --bg-tan: #D9CCB7;     
       --accent-red: #a84d4d;
       --accent-dark-red: #701a1a;
-      --text-main: #000000; /* 纯黑 */
+      --text-main: #000000; 
       
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
@@ -40,10 +40,10 @@
       background-color: var(--bg-tan);
       color: var(--text-main);
       overflow-x: hidden;
-      font-size: 15px; /* 全局15号字 */
+      font-size: 15px;
     }
 
-    /* --- 1. Nav (浅黄底黑字) --- */
+    /* --- Nav --- */
     .nav-float {
       position: fixed;
       top: 30px;
@@ -60,26 +60,23 @@
       display: flex; align-items: center; justify-content: center;
       background: var(--accent-red);
       color: #fff;
-      transition: all 0.3s ease;
     }
     .nav-text {
       font-family: var(--font-heading);
       font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 1px;
       font-weight: 700;
-      background-color: #FEF9C3; /* 浅黄色 */
-      color: #000;
+      background-color: #FEF9C3; /* 浅黄色底 */
+      color: #000; /* 黑字 */
       padding: 5px 12px;
       border-radius: 4px;
       opacity: 0;
       transform: translateX(-10px);
       transition: all 0.3s ease;
     }
-    .nav-float:hover .nav-icon-circle { transform: scale(1.1); }
     .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); }
 
-    /* --- 2. Hero --- */
+    /* --- Hero --- */
     .hero-section {
       position: relative;
       height: 100vh; 
@@ -98,7 +95,6 @@
       margin-bottom: 1rem;
       display: block;
       font-weight: 700;
-      font-size: 1.1rem;
       text-shadow: var(--glow-2px);
     }
     .hero-title {
@@ -122,19 +118,14 @@
         background: rgba(0,0,0,0.4); padding: 4px 10px;
     }
 
-    /* --- 3. Content Layout & Titles --- */
+    /* --- Titles & Content --- */
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
-    .content-section { padding: 5rem 2rem; background-color: var(--bg-tan); } /* 背景统一 */
+    .content-section { padding: 5rem 2rem; }
 
     .fade-content { opacity: 0; transform: translateY(20px); transition: opacity 1s, transform 1s; }
     .fade-content.visible { opacity: 1; transform: translateY(0); }
 
-    /* 标题重塑样式 */
-    .section-title {
-      margin-bottom: 2rem;
-      border-left: none; /* 删除红线 */
-      padding-left: 0;
-    }
+    .section-title { margin-bottom: 2rem; }
     .title-date {
       font-family: var(--font-heading);
       font-size: 14px;
@@ -158,23 +149,19 @@
 
     .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
 
-    /* Image Styles (保留) */
-    .gold-rush-container { position: relative; height: 500px; }
+    /* Images */
+    .gold-rush-container { position: relative; height: 400px; }
     .chinatown-wrapper {
-      position: absolute; bottom: 0; right: 0; width: 90%; z-index: 1; transform: translateY(40px);
+      width: 100%; border-radius: 4px; overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
     .chinatown-wrapper img {
-      width: 100%; border-radius: 4px; display: block;
+      width: 100%; display: block;
       -webkit-mask-image: linear-gradient(to top left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
       mask-image: linear-gradient(to top left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-      opacity: 0.85; 
+      opacity: 0.9;
     }
-    .miners-wrapper {
-      position: absolute; top: 0; left: 0; width: 60%; background: #fff; padding: 8px 8px 25px 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 5; transform: rotate(-3deg);
-    }
-    .miners-wrapper img { width: 100%; height: auto; display: block; }
-    .miners-caption { font-family: var(--font-heading); font-size: 13px; text-align: center; margin-top: 8px; font-weight: 700; color: #333; }
+    .image-caption { font-family: var(--font-heading); font-size: 13px; margin-top: 10px; color: #000; line-height: 1.4; font-style: italic; }
 
     .hawaii-stack { display: flex; flex-direction: column; gap: 20px; }
     .hawaii-img-frame { width: 100%; max-width: 320px; margin-left: auto; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
@@ -182,17 +169,12 @@
 
     .image-frame { width: 100%; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     .image-frame img { width: 100%; display: block; }
-    .image-caption { font-size: 13px; margin-top: 10px; opacity: 0.8; font-style: italic; color: #000; }
 
     .letter-feature-wide {
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;
       background: rgba(255,255,255,0.3); padding: 30px; border-radius: 8px;
     }
-    .letter-img-col img { width: 100%; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
 
-    .text-full-width { width: 100%; max-width: 100%; margin-top: 1.5rem; }
-
-    /* Navigation */
     .phase-navigation {
       margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1);
       display: flex; justify-content: space-between;
@@ -209,13 +191,11 @@
 
 <body>
 
-  <!-- Nav -->
   <a href="timeline.html" class="nav-float">
     <div class="nav-icon-circle"><i data-lucide="arrow-left"></i></div>
     <span class="nav-text">Back to Timeline</span>
   </a>
 
-  <!-- Hero -->
   <header class="hero-section">
     <div class="hero-content">
       <span class="hero-label">Timeline / Phase II</span>
@@ -245,10 +225,7 @@
                <div class="chinatown-wrapper">
                  <img src="https://opensfhistory.org/Download/wnp37.04111.jpg" alt="Chinatown 1885">
                </div>
-               <div class="miners-wrapper">
-                 <img src="https://www.huntington.org/sites/default/files/verso/featured/chinesearchives_1.jpg" alt="Miners">
-                 <div class="miners-caption">Miners at Auburn Ravine, California, 1852</div>
-               </div>
+               <div class="image-caption">China town, 1885</div>
             </div>
           </div>
         </div>
@@ -287,8 +264,10 @@
         <div class="grid-2col fade-content">
           <div class="image-frame"><img src="https://today.ucsd.edu/news_uploads/chinese-and-the-iron-road-1-160113.jpg"></div>
           <div class="text-content">
-            <p>During the construction of the Central Pacific Railroad, more than 12,000 Chinese laborers were recruited. Roughly 90% were Cantonese migrants from Guangdong. Estimates suggest that several hundred to over one thousand laborers died due to extreme cold and accidents. Their contributions were pivotal in joining the Union Pacific on May 10, 1869, accelerating U.S. national expansion.</p>
-            <p class="image-caption">Ging Cui, Wong Fook, and Lee Shao, workers who put the last rail in place, 50th Anniversary, Ogden, Utah.</p>
+            <p>During the construction of the Central Pacific Railroad, more than 12,000 Chinese laborers were recruited. Roughly 90% were Cantonese migrants from Guangdong. Estimates suggest that several hundred to over one thousand laborers died due to extreme cold and accidents.</p>
+            <p class="image-caption">
+                Ging Cui, Wong Fook, and Lee Shao, three of the eight Chinese workers who put the last rail in place, on a float at the 50th Anniversary celebration of the completion of the transcontinental railroad in Ogden, Utah. Photo by courtesy of Amon Carter Museum of American Art Archives, Fort Worth, TX
+            </p>
           </div>
         </div>
       </div>
@@ -302,13 +281,13 @@
             <span class="title-main">Diplomacy and Free Migration</span>
         </h2>
         <div class="text-content">
-            <p>The Burlingame Treaty (1868) marked a high point in early U.S.–Qing relations, recognizing the mutual advantage of free migration. In this context, the Qing government launched the Chinese Educational Mission (1872–1881), sending 120 boys (70% from Guangdong) to study at universities like Yale and Columbia.</p>
+            <p>The Burlingame Treaty (1868) recognized the mutual advantage of free migration. In this context, the Qing government launched the Chinese Educational Mission (1872–1881), sending 120 boys (70% from Guangdong) to study at universities like Yale and Columbia.</p>
         </div>
         <div class="letter-feature-wide">
-            <div class="letter-img-col"><img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg"></div>
+            <div class="image-frame"><img src="https://m.newsduan.com/image/2025-09-16/thumb/1417474668189880320.jpg"></div>
             <div class="text-content">
               <strong style="color: var(--accent-dark-red); font-family: var(--font-heading);">Letter from 1871</strong>
-              <p>In this 1871 letter from San Francisco, Zhencong explains why he left Taishan: poverty pushed him to earn a living abroad. He reassures his brother of his safety and sends a $20 silver draft for rice. This highlights a central motive: working overseas to support the household through remittances, reflecting strong filial piety.</p>
+              <p>In this 1871 letter, Zhencong explains why he left Taishan: poverty. He reassures his brother of his safety and sends a $20 silver draft for rice, reflecting the deep motive of supporting the household through remittances.</p>
             </div>
         </div>
       </div>
@@ -323,13 +302,16 @@
         </h2>
         <div class="grid-2col fade-content">
           <div class="text-content">
-            <p>Economic shifts fueled hostility, culminating in the <strong>U.S. Chinese Exclusion Act of 1882</strong>. These policies severed ties between migrants and hometowns, transforming Chinatowns into "Bachelor Societies."</p>
-            <p>In 1898, Wong Kim Ark, a Cantonese descendant born in San Francisco, challenged his denied entry. The Supreme Court ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship (jus soli), facilitating the transition from temporary sojourners to permanent citizens.</p>
+            <p>Economic shifts fueled the <strong>U.S. Chinese Exclusion Act of 1882</strong>. These policies severed ties, transforming Chinatowns into "Bachelor Societies."</p>
+            <p>In 1898, Wong Kim Ark challenged his denied entry. The ruling in <em>United States v. Wong Kim Ark</em> affirmed birthright citizenship, securing the status of American-born Cantonese as permanent citizens.</p>
           </div>
-          <div class="image-frame"><img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif"></div>
+          <div class="img-col">
+              <div class="image-frame"><img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif"></div>
+              <div class="image-caption">Wong Kim Ark Document, 1898</div>
+          </div>
         </div>
-        <div class="text-content text-full-width fade-content">
-            <p>WWII marked a turning point. The Magnuson Act (1943) repealed exclusion. The War Brides Act (1945) allowed the entry of Cantonese women, ending the "Bachelor Society" era and revitalizing Chinatowns as family-centered cultural hubs.</p>
+        <div class="text-content text-full-width fade-content" style="margin-top:2rem;">
+            <p>WWII brought the Magnuson Act (1943) and the War Brides Act (1945), ending the "Bachelor Society" era and revitalizing Chinatowns as family-centered cultural hubs.</p>
         </div>
       </div>
     </section>
@@ -342,15 +324,11 @@
             <span class="title-main">Summary: From Labor to Legacy</span>
         </h2>
         <div class="text-content">
-          <p>In this century of struggle, Cantonese migrants transformed from transient laborers into the architects of the Pacific and American frontiers. Anchored by clan networks (Huiguan), they funded legal battles that defined American citizenship and coordinated the labor that built the Transcontinental Railroad. They turned exclusion into endurance, laying the physical and legal foundations of a prosperous America.</p>
+          <p>In this century of struggle, Cantonese migrants transformed from transient laborers into the architects of the Pacific frontier. Anchored by clan networks (Huiguan), they funded legal battles that defined citizenship and built the physical and legal foundations of a prosperous America.</p>
         </div>
         <div class="phase-navigation">
-            <a href="phase1.html" class="phase-link">
-                <span class="link-sub">Phase I</span>17th–19th Centuries
-            </a>
-            <a href="phase3.html" class="phase-link" style="text-align:right;">
-                <span class="link-sub">Phase III</span>1950s–Present
-            </a>
+            <a href="phase1.html" class="phase-link"><span class="link-sub">Phase I</span>17th–19th Centuries</a>
+            <a href="phase3.html" class="phase-link" style="text-align:right;"><span class="link-sub">Phase III</span>1950s–Present</a>
         </div>
       </div>
     </section>
