@@ -28,6 +28,7 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       font-family: 'Exo', sans-serif;
+      /* PC端保持默认 12px */
       font-size: 12px;
       width: 100%;
 
@@ -129,10 +130,22 @@
 
     footer, #footer-container, .site-footer { flex-shrink: 0; }
 
+    /* --- Mobile / Responsive Adjustments --- */
     @media (max-width: 900px) {
       .content-wrapper { flex-direction: column-reverse; gap: 30px; }
       .image-container { height: 250px; }
       .text-row { grid-template-columns: 1fr; gap: 8px; }
+
+      /* 【修改部分】字体放大逻辑 */
+      .label {
+        font-size: 16px; /* 从 12px 放大到 16px */
+        margin-bottom: 5px; /* 增加一点下边距 */
+      }
+      
+      .text-content {
+        font-size: 16px; /* 从 12px 放大到 16px */
+        line-height: 1.6; /* 行高稍微收紧一点以适应大字体 */
+      }
     }
 
     /* ✅ Anti-flash: hide until header height is synced (safe + minimal) */
