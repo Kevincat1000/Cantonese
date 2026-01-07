@@ -14,10 +14,19 @@
 
   <style>
     :root {
-      --bg-main: #f5f0e5;
-      --text-main: #231d16;
-      --date-red: #701a1a;
-      --text-muted: #5c554f;
+      /* Color Palette */
+      --bg-light: #f5f0e5;   /* Light Beige */
+      --bg-dark: #1a5b5b;    /* Dark Green/Teal */
+      
+      --text-dark: #231d16;  /* Dark Text (for beige bg) */
+      --text-light: #ffffff; /* White Text (for green bg) */
+      
+      --date-red: #701a1a;   /* Red (for beige bg) */
+      --date-light: #ffcdcd; /* Light Coral (for green bg) */
+      
+      --text-muted-dark: #5c554f;
+      --text-muted-light: #cccccc;
+
       --font-body: 'Gentium Book Plus', serif;
       --font-heading: 'Exo', sans-serif;
     }
@@ -29,15 +38,15 @@
     body {
       font-family: var(--font-body);
       line-height: 1.6;
-      background-color: var(--bg-main);
-      color: var(--text-main);
+      background-color: var(--bg-light); /* Default start color */
+      color: var(--text-dark);
       overflow-x: hidden;
     }
 
     /* --- Navigation --- */
     .nav-float {
       position: fixed; top: 30px; left: 30px; z-index: 1000; display: flex; align-items: center; gap: 15px;
-      text-decoration: none; color: var(--text-main); transition: all 0.3s ease;
+      text-decoration: none; color: var(--text-dark); transition: all 0.3s ease;
     }
     .nav-icon-circle {
       width: 50px; height: 50px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50%; display: flex;
@@ -48,227 +57,147 @@
     .nav-text {
       font-family: var(--font-heading); font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
       opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; font-weight: 600; 
-      background: #fff; color: var(--text-main); padding: 6px 10px; border-radius: 4px;
+      background: #fff; color: var(--text-dark); padding: 6px 10px; border-radius: 4px;
       box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     }
     .nav-float:hover .nav-icon-circle { background-color: var(--date-red); border-color: var(--date-red); color: #fff; transform: scale(1.1); }
     .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); }
 
-    /* --- Hero Section --- */
+    /* --- Hero --- */
     .hero-section {
-      position: relative; 
-      height: 100vh; 
-      width: 100%; 
+      position: relative; height: 100vh; width: 100%; 
       background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/A_voyage_to_Cochinchina%2C_in_the_years_1792_and_1793._To_which_is_annexed_an_account_of_a_journey_made_in_the_years_1801_and_1802%2C_to_the_residence_of_the_chief_of_the_Booshuana_nation_%281806%29_%2814766269094%29.jpg/1600px-thumbnail.jpg');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: center; 
-      padding: 0 5%; 
-      overflow: hidden;
+      background-size: cover; background-position: center;
+      display: flex; align-items: center; padding: 0 5%; overflow: hidden;
     }
-    
-    .hero-section::before {
-      content: ""; position: absolute; top:0; left:0; width:100%; height:100%;
-      background: rgba(245, 240, 229, 0.2); pointer-events: none;
-    }
-
-    .hero-content { 
-      position: relative; 
-      z-index: 10; 
-      max-width: 900px; 
-      margin-top: -50px; 
-      display: flex; flex-direction: column; align-items: flex-start; gap: 10px; 
-    }
-
-    .hero-text-glow {
-      color: #1a1a1a; 
-      text-shadow: 
-        2px 2px 0 var(--bg-main), -2px -2px 0 var(--bg-main), 2px -2px 0 var(--bg-main), -2px 2px 0 var(--bg-main),
-        2px 0 0 var(--bg-main), -2px 0 0 var(--bg-main), 0 2px 0 var(--bg-main), 0 -2px 0 var(--bg-main); 
-    }
+    .hero-section::before { content: ""; position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(245, 240, 229, 0.2); pointer-events: none; }
+    .hero-content { position: relative; z-index: 10; max-width: 900px; margin-top: -50px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .hero-text-glow { color: #1a1a1a; text-shadow: 2px 2px 0 var(--bg-light), -2px -2px 0 var(--bg-light), 2px -2px 0 var(--bg-light), -2px 2px 0 var(--bg-light); }
     .hero-title { font-size: 5rem; line-height: 1.1; }
     .hero-subtitle { font-size: 2rem; }
-    .hero-label {
-      font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px; 
-      color: var(--date-red); font-weight: 700; font-size: 0.9rem;
-      text-shadow: 2px 2px 0 var(--bg-main), -2px -2px 0 var(--bg-main);
-    }
-    .hero-citation {
-      position: absolute; bottom: 15px; right: 20px; font-family: var(--font-body); font-size: 11px;
-      color: rgba(0,0,0,0.6); text-align: right; z-index: 10; font-style: italic; max-width: 400px;
-      text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
-    }
+    .hero-label { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px; color: var(--date-red); font-weight: 700; font-size: 0.9rem; text-shadow: 2px 2px 0 var(--bg-light), -2px -2px 0 var(--bg-light); }
+    .hero-citation { position: absolute; bottom: 15px; right: 20px; font-family: var(--font-body); font-size: 11px; color: rgba(0,0,0,0.6); text-align: right; z-index: 10; font-style: italic; max-width: 400px; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
 
-    /* --- General Layout Classes --- */
+    /* --- General Layout --- */
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
-    .content-section { padding: 4rem 2rem; background-color: var(--bg-main); }
     
-    .date-label-plain {
-        color: var(--date-red);
-        font-family: var(--font-heading);
-        font-size: 14px;
-        font-weight: 700;
-        text-transform: lowercase;
-        margin-bottom: 8px;
-        display: block;
+    /* Standard Light Section */
+    .light-section { background-color: var(--bg-light); color: var(--text-dark); padding: 4rem 2rem; }
+    
+    /* Dark Green Section Styling */
+    .dark-section { 
+        background-color: var(--bg-dark); 
+        color: var(--text-light); 
+        padding: 4rem 2rem;
     }
+    
+    /* Dynamic Text Colors based on background */
+    .light-section .header-title { color: var(--text-dark); }
+    .light-section .text-content { color: var(--text-dark); }
+    .light-section .date-label-plain { color: var(--date-red); }
+    .light-section .caption { color: var(--text-muted-dark); }
 
-    .header-title {
-      display: block; font-family: var(--font-heading); font-size: 18px; font-weight: 600;
-      color: var(--text-main); text-transform: none; line-height: 1.4; margin-bottom: 1rem;
-    }
+    .dark-section .header-title { color: var(--text-light); }
+    .dark-section .text-content { color: rgba(255,255,255,0.9); }
+    .dark-section .date-label-plain { color: var(--date-light); } /* Lighter color for dark bg */
+    .dark-section .caption { color: var(--text-muted-light); }
 
-    .text-content { font-size: 1.05rem; line-height: 1.7; color: var(--text-main); }
+    /* Typography */
+    .date-label-plain { font-family: var(--font-heading); font-size: 14px; font-weight: 700; text-transform: lowercase; margin-bottom: 8px; display: block; }
+    .header-title { display: block; font-family: var(--font-heading); font-size: 18px; font-weight: 600; text-transform: none; line-height: 1.4; margin-bottom: 1rem; }
+    .text-content { font-size: 1.05rem; line-height: 1.7; }
     .text-content p { margin-bottom: 1.2rem; }
-    
-    /* Caption for images (default centered) */
-    .caption { font-size: 0.85rem; text-align: center; margin-top: 8px; font-family: var(--font-heading); color: var(--text-muted); }
+    .caption { font-size: 0.85rem; text-align: center; margin-top: 8px; font-family: var(--font-heading); }
 
-    /* Overlay Note for Images (White semi-transparent background) */
+    /* Overlay Note */
     .overlay-note {
-        position: absolute; 
-        font-family: var(--font-heading); 
-        background: rgba(255, 255, 255, 0.75); 
-        color: #000; 
-        font-weight: 700; 
-        font-size: 10px; 
-        padding: 4px 8px; 
-        border-radius: 2px; 
-        max-width: 90%;
-        line-height: 1.3;
-        pointer-events: none;
-        z-index: 2;
+        position: absolute; font-family: var(--font-heading); background: rgba(255, 255, 255, 0.75); color: #000; font-weight: 700; font-size: 10px; padding: 4px 8px; border-radius: 2px; max-width: 90%; line-height: 1.3; pointer-events: none; z-index: 2;
     }
     .overlay-bottom-left { bottom: 50px; left: 10px; }
 
-    /* --- SIAM SECTION (Grid Layout) --- */
-    .siam-grid-container {
-      display: grid;
-      width: 100%;
-      grid-template-columns: 1fr 1fr;
-      background-color: var(--bg-main);
-    }
-
-    .siam-left-col {
-      position: relative;
-      width: 100%;
-      padding: 55px 0 40px 0; 
-      display: flex;
-    }
-
+    /* --- SIAM GRID --- */
+    .siam-grid-container { display: grid; width: 100%; grid-template-columns: 1fr 1fr; background-color: var(--bg-light); }
+    .siam-left-col { position: relative; width: 100%; padding: 55px 0 40px 0; display: flex; }
     .siam-left-col img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .siam-text-cell { padding: 55px 40px 40px 40px; display: flex; flex-direction: column; }
+    .siam-row2-left { grid-column: 1; padding: 0 0 60px 40px; display: flex; flex-direction: column; }
+    .siam-row2-right { grid-column: 2; padding: 0 40px 60px 40px; display: flex; flex-direction: column; }
+    .siam-sub-img { width: 100%; height: 280px; object-fit: cover; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); }
+    .ayutthaya-desc { text-align: left; font-size: 0.9rem; margin-top: 15px; margin-bottom: 5px; }
+    .ayutthaya-caption { text-align: center; font-size: 10px; font-family: var(--font-heading); color: #7a7a7a; }
+    .siam-sub-desc { font-size: 0.9rem; margin-top: 15px; margin-bottom: 5px; text-align: center; }
+    .siam-sub-caption { font-size: 10px; font-family: var(--font-heading); text-align: center; opacity: 0.8; }
 
-    .siam-text-cell {
-      padding: 55px 40px 40px 40px;
-      display: flex; flex-direction: column;
-    }
-
-    /* Sub Images Row 2 */
-    .siam-row2-left {
-      grid-column: 1;
-      padding: 0 0 60px 40px; 
-      display: flex; flex-direction: column;
-    }
-
-    .siam-row2-right {
-      grid-column: 2;
-      padding: 0 40px 60px 40px;
-      display: flex; flex-direction: column;
-    }
-
-    .siam-sub-img {
-      width: 100%; height: 280px; object-fit: cover;
-      border-radius: 4px; border: 1px solid rgba(0,0,0,0.1);
-    }
-
-    /* Siam Captions */
-    .ayutthaya-desc {
-        text-align: left; font-size: 0.9rem; color: var(--text-main); line-height: 1.4;
-        margin-top: 15px; margin-bottom: 5px;
-    }
-    .ayutthaya-caption { text-align: center; font-size: 10px; color: #7a7a7a; font-family: var(--font-heading); }
-
-    .siam-sub-desc {
-      font-size: 0.9rem; color: var(--text-main); line-height: 1.4;
-      margin-top: 15px; margin-bottom: 5px; text-align: center;
-    }
-    .siam-sub-caption {
-      font-size: 10px; color: var(--text-muted); font-family: var(--font-heading);
-      text-align: center; opacity: 0.8;
-    }
-
-
-    /* --- VIETNAM SECTION (Revised Structure) --- */
-    .vietnam-container {
+    /* --- VIETNAM SPLIT SECTION --- */
+    .vietnam-split-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
         width: 100%;
-        background-color: var(--bg-main);
+        background-color: var(--bg-light);
     }
 
-    /* Left Column: Stacked Text + Temple */
-    .vietnam-left-col {
+    /* Left Column: Text Content */
+    .vietnam-text-col {
+        /* Padding Right 40px from center line */
+        padding: 55px 40px 60px 40px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Right Column: Temple Image */
+    .vietnam-image-col {
+        /* Padding Left 40px from center line */
         padding: 55px 40px 60px 40px;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        /* Ensure gap is managed by margins to avoid big spaces */
     }
 
-    /* Right Column: Map */
-    .vietnam-right-col {
-        padding: 55px 40px 60px 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Center horizontally */
-    }
-
-    /* Temple Image Styling */
-    .temple-image-wrapper { 
-        position: relative; 
-        width: 100%; 
-        height: 360px; 
-        perspective: 1000px; 
-        margin-top: 20px; /* Reduced margin to bring it closer to text */
-    }
+    /* Temple Styles */
+    .temple-image-wrapper { position: relative; width: 100%; height: 400px; perspective: 1000px; }
     .temple-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
     .temple-image-wrapper:hover .temple-flip-inner { transform: rotateY(180deg); }
     .temple-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; border-radius: 8px; }
     .temple-image.final { transform: rotateY(180deg); }
 
-    /* Temple Caption (Left Aligned) */
     .temple-desc-left {
         text-align: left; 
         font-size: 0.9rem; 
-        color: var(--text-main); 
+        color: var(--text-dark); 
         line-height: 1.4;
-        margin-top: 10px; /* Small gap between image and text */
+        margin-top: 15px; 
         font-family: var(--font-body);
     }
 
-    /* Map Image Styling (50% Width) */
-    .antique-map-img {
-        width: 50%; /* 50% scale as requested */
+    /* --- MAP TRANSITION SECTION (The Centerpiece) --- */
+    .map-transition-section {
+        position: relative;
+        width: 100%;
+        /* The magic: Half beige, Half green gradient */
+        background: linear-gradient(to bottom, var(--bg-light) 50%, var(--bg-dark) 50%);
+        padding: 60px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .antique-map-large {
+        width: 60%; /* Enlarged (approx 50-60% of screen looks good) */
         height: auto;
-        object-fit: contain;
-        border-radius: 0;
-        box-shadow: none; /* No shadow */
         display: block;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.3); /* Optional: Shadow makes it pop over the split bg */
     }
 
-    /* Map Caption (Centered) */
-    .map-caption-centered {
+    .map-caption-split {
+        margin-top: 15px;
         font-size: 0.9rem;
-        color: var(--text-main);
-        font-family: var(--font-body);
-        text-align: center;
-        margin-top: 10px;
-        width: 50%; /* Match width of map */
-        line-height: 1.4;
+        color: var(--text-light); /* White text because it sits on the green part */
+        font-family: var(--font-heading);
+        opacity: 0.9;
     }
 
-    /* --- Other Sections --- */
+    /* --- GREEN SECTIONS GRID --- */
     .grid-2col { display: grid; gap: 2rem; align-items: start; }
     .colonial-images { display: grid; gap: 2rem; margin-top: 2rem; }
     .colonial-image { width: 100%; height: 340px; object-fit: cover; border-radius: 8px; }
@@ -276,16 +205,15 @@
     .tin-mine-wrapper { height: 300px; }
     .tin-mine-image { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
     .loke-yew-layout { display: grid; gap: 2rem; }
-    .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(0,0,0,0.03); border-radius: 8px; mix-blend-mode: multiply; }
-    
-    /* --- Footer Nav --- */
-    .phase-navigation { margin-top: 5px; padding-top: 10px; padding-bottom: 5px; border-top: 1px solid rgba(0,0,0,0.1); text-align: right; }
-    .phase-link { text-decoration: none; color: var(--text-main); display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; transition: color 0.3s; }
-    .phase-link:hover { color: var(--date-red); }
+    .loke-yew-image { width: 100%; height: 300px; object-fit: contain; background: rgba(255,255,255,0.05); border-radius: 8px; }
+
+    /* Footer Nav */
+    .phase-navigation { margin-top: 5px; padding-top: 10px; padding-bottom: 5px; border-top: 1px solid rgba(255,255,255,0.2); text-align: right; }
+    .phase-link { text-decoration: none; color: var(--text-light); display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; transition: color 0.3s; }
+    .phase-link:hover { color: var(--date-light); }
     .phase-arrow { transition: transform 0.3s; }
     .phase-link:hover .phase-arrow { transform: translateX(5px); }
 
-    /* Media Queries */
     @media (min-width: 900px) {
       .grid-2col { grid-template-columns: 1fr 1fr; }
       .colonial-images { grid-template-columns: 1fr 1fr; }
@@ -294,12 +222,11 @@
     }
     
     @media (max-width: 900px) {
-      .siam-grid-container, .vietnam-container { grid-template-columns: 1fr; }
+      .siam-grid-container, .vietnam-split-container { grid-template-columns: 1fr; }
       .siam-text-cell, .siam-row2-left, .siam-row2-right { padding: 2rem; }
-      .vietnam-left-col, .vietnam-right-col { padding: 2rem; }
+      .vietnam-text-col, .vietnam-image-col { padding: 2rem; }
       .siam-left-col { height: 300px; padding: 0; }
-      .antique-map-img { width: 80%; }
-      .map-caption-centered { width: 80%; }
+      .antique-map-large { width: 90%; }
       .siam-row2-left, .siam-row2-right { grid-column: 1; }
       .hero-title { font-size: 3rem; }
     }
@@ -325,90 +252,83 @@
   </header>
   
   <main>
-    <!-- SIAM SECTION -->
+    <!-- 1. SIAM SECTION (Light BG) -->
     <div class="siam-grid-container">
-      
-      <!-- Row 1 Left: Main Image -->
+      <!-- Left Image -->
       <div class="siam-left-col">
         <img src="https://files.thailandtourismdirectory.go.th/assets/upload/2018/05/17/2018051750b7f7b4bf127c7789e88e0fa6d6dc83114645.jpg" alt="View of Judea">
         <div class="overlay-note overlay-bottom-left">Wat Koh Kaew Suttharam, established in 1734. Murals depict people in Qing Dynasty attire, presumed to be early Cantonese immigrants.</div>
       </div>
-
-      <!-- Row 1 Right: Text -->
-      <div class="siam-text-cell">
+      <!-- Right Text -->
+      <div class="siam-text-cell light-section">
         <div>
           <span class="date-label-plain">1640s–1770s</span>
           <span class="header-title">Early Migration to Siam</span>
         </div>
-        
         <div class="text-content">
           <p>Following the Qing dynasty's conquest of South China (c. 1644–1660s), significant Cantonese migration occurred. Ming loyalists and refugees fled south by sea to escape warfare, while widespread corruption and hardship under Qing rule compelled many farmers and artisans to seek livelihoods abroad.</p>
           <p>Maritime routes linked Guangdong's coastal communities to Siam (Thailand), Cambodia, and Cochinchina, where local rulers welcomed Cantonese traders and skilled workers for their commercial and fiscal value.</p>
           <p>By 1700, the Chinese population in Ayutthaya reportedly exceeded 3,000. This community expanded significantly throughout the 18th century, with Cantonese immigrants becoming prominent in royal monopolies, navigation, commerce, and urban crafts.</p>
         </div>
       </div>
-
-      <!-- Row 2 Left -->
-      <div class="siam-row2-left">
+      <!-- Row 2 Left Image -->
+      <div class="siam-row2-left light-section">
         <img src="https://www.meisterdrucke.ie/kunstwerke/1260px/French_School_-_View_of_Ayutthaya_with_royal_barges_from_Voyage_du_Siam_des_Peres_Jesuites_by_Gu_-_%28MeisterDrucke-444314%29.jpg" alt="Ayutthaya Barges" class="siam-sub-img">
         <div class="ayutthaya-desc">
           Ayutthaya was a true city of water, crisscrossed by canals and rivers. As a vital entrepôt, it served as the meeting point where trade routes from China, India, and the West converged, creating a cosmopolitan hub where Cantonese merchants thrived in royal trade monopolies.
         </div>
         <div class="ayutthaya-caption">View of Ayutthaya with royal barges (1688)</div>
       </div>
-
-      <!-- Row 2 Right -->
-      <div class="siam-row2-right">
+      <!-- Row 2 Right Image -->
+      <div class="siam-row2-right light-section">
         <img src="https://exploration.marinersmuseum.org/wp-content/uploads/sites/2/2014/04/Chinese_junk_1804-450x351.jpg" alt="Chinese Junk" class="siam-sub-img">
         <div class="siam-sub-desc">
           The "Red-Head" junks (named for their painted prows) were the workhorses of the South China Sea. These vessels followed the monsoon winds, transporting porcelain, silk, and tea from Canton to Siam, and returning with rice, timber, and exotic spices.
         </div>
         <div class="siam-sub-caption">Chinese Junk Ship (1804)</div>
       </div>
-
     </div>
     
-    <!-- VIETNAM & MAP SECTION -->
-    <div class="vietnam-container">
+    <!-- 2. VIETNAM SECTION (Split Grid, Light BG) -->
+    <div class="vietnam-split-container light-section" style="padding:0;"> <!-- reset padding for grid -->
         
-        <!-- Left Column: Title -> Text -> Temple -> Note (All stacked) -->
-        <div class="vietnam-left-col">
-            <!-- Title -->
+        <!-- Left Column: Text Content -->
+        <!-- Padding-right: 40px ensures separation from center line -->
+        <div class="vietnam-text-col">
             <div>
               <span class="date-label-plain">1680s–1790s</span>
               <span class="header-title">Establishment in Southern Vietnam</span>
             </div>
             
-            <!-- Text -->
             <div class="text-content">
               <p>Around 1680, Mo Jiu, a refugee from Leizhou, Guangdong, developed the Hà Tiên area. He formally established a semi-autonomous principality there in 1708, placing it under the suzerainty of the Vietnamese Nguyễn lords. This polity functioned as a sanctuary and major hub for Cantonese and other Chinese migrants prior to French colonization.</p>
               <p>During the Tây Sơn conflicts, ethnic Chinese merchants, primarily Cantonese, founded a new settlement adjacent to Saigon in 1778. This settlement evolved into Chợ Lớn ("Big Market"). Despite suffering severe persecution and violence in 1782, survivors rebuilt the community. By the end of the 18th century, the Cantonese population in Cochinchina was estimated at 30,000–40,000, controlling key rice and silk trade routes.</p>
             </div>
+        </div>
 
-            <!-- Temple Image -->
+        <!-- Right Column: Temple Image + Caption -->
+        <!-- Padding-left: 40px ensures separation from center line -->
+        <div class="vietnam-image-col">
             <div class="temple-image-wrapper">
               <div class="temple-flip-inner">
                 <img src="https://scontent-lax3-1.xx.fbcdn.net/v/t39.30808-6/482028079_1054721156683649_4741026620118105993_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=xGA8JIq5WqsQ7kNvwH1umDw&_nc_oc=AdmvToxUARCrvCsU01OTTocfHPpJmSCLLQvF-uoX6NaoVstx1NtHp7DnQaH14OImusjzc7yIio7joUDAMOzfCQw9&_nc_zt=23&_nc_ht=scontent-lax3-1.xx&_nc_gid=fXS4Lxf5_11QtpnEG8gF2w&oh=00_AfpSXG_vEJpXu5OjmSrxu-k0t9GQHXH_n1sScOkj5hUlog&oe=695B954A" alt="Initial" class="temple-image initial">
                 <img src="https://rawrnie.com/cdn/shop/articles/thien-hau-temple.jpg?v=1584357958" alt="Final" class="temple-image final">
               </div>
             </div>
-            
-            <!-- Temple Caption (Left Aligned, below image) -->
             <div class="temple-desc-left">
               Established in 1760 by Cantonese immigrants, Thien Hau Temple is one of the oldest and most significant Chinese-style temples in Ho Chi Minh City (Saigon). Flip to see the modern view.
             </div>
         </div>
+    </div>
 
-        <!-- Right Column: Map Only (Aligned Top) -->
-        <div class="vietnam-right-col">
-            <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map" class="antique-map-img">
-            <div class="map-caption-centered">Antique Map of Southern Asia by Walker (c.1840)</div>
-        </div>
-
+    <!-- 3. MAP TRANSITION SECTION (Split Background) -->
+    <div class="map-transition-section">
+        <img src="images/antique-map-of-southern-asia2-by-walker-c1840.jpg" alt="Antique Map" class="antique-map-large">
+        <div class="map-caption-split">Antique Map of Southern Asia by Walker (c.1840)</div>
     </div>
     
-    <!-- British Ports -->
-    <section class="content-section">
+    <!-- 4. BRITISH PORTS (Dark Green BG) -->
+    <section class="content-section dark-section">
       <div class="container">
         
         <div class="section-header">
@@ -433,8 +353,8 @@
       </div>
     </section>
     
-    <!-- Tin Boom -->
-    <section class="content-section" style="padding-top: 1.5rem;">
+    <!-- 5. TIN BOOM (Dark Green BG) -->
+    <section class="content-section dark-section" style="padding-top: 1.5rem;">
       <div class="container">
         
         <div class="section-header">
@@ -456,8 +376,8 @@
       </div>
     </section>
     
-    <!-- Summary -->
-    <section class="content-section last-section">
+    <!-- 6. SUMMARY (Dark Green BG) -->
+    <section class="content-section dark-section last-section">
       <div class="container">
         
         <div class="section-header">
