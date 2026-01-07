@@ -28,7 +28,7 @@
       background-color: var(--bg-main);
       color: var(--text-main);
       overflow-x: hidden;
-      /* Force body font size to 16px */
+      /* Default font size for Desktop */
       font-size: 16px;
     }
 
@@ -58,7 +58,7 @@
     }
     .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); color: var(--accent-red); }
 
-    /* --- Hero Section --- */
+    /* --- Hero Section (UNTOUCHED) --- */
     .hero-section {
       position: relative;
       height: 100vh; 
@@ -81,11 +81,9 @@
       padding: 2rem;
     }
 
-    /* Sticker/Cut-out Effect Logic - THICKER VERSION */
     .sticker-text {
       font-family: var(--font-heading); 
-      color: #333; /* Dark inner text */
-      /* Crucial: Ensure stroke is behind the text fill */
+      color: #333; 
       paint-order: stroke fill;
       -webkit-text-stroke-color: var(--bg-main); 
       stroke-linecap: round;
@@ -100,7 +98,6 @@
       color: var(--accent-red);
       margin-bottom: 1rem; 
       display: block;
-      /* Increased stroke */
       -webkit-text-stroke-width: 6px; 
     }
     
@@ -110,7 +107,6 @@
       line-height: 1.1; 
       margin-bottom: 1rem; 
       color: #222; 
-      /* Very thick stroke for the "Image" effect */
       -webkit-text-stroke-width: 20px; 
     }
     
@@ -119,11 +115,9 @@
       font-weight: 400; 
       margin-top: 0.5rem; 
       color: #333;
-      /* Increased stroke */
       -webkit-text-stroke-width: 10px; 
     }
 
-    /* Hero Caption (Bottom Right) */
     .hero-caption {
       position: absolute;
       bottom: 20px;
@@ -138,12 +132,10 @@
     }
 
     /* --- General Section Styles --- */
-    /* Reverting to standard container for spacing */
     .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
     
     .content-section { padding: 5rem 0; background-color: var(--bg-main); color: var(--text-main);}
     
-    /* New Title Styles */
     .section-header-block {
       margin-bottom: 2rem;
       width: 100%;
@@ -163,10 +155,9 @@
       font-weight: 600;
       color: #000;
       line-height: 1.2;
-      /* Changed to normal case logic, text will dictate capitalization */
     }
 
-    .text-content { font-size: 16px; line-height: 1.8; width: 100%; color: var(--text-main);}
+    .text-content { width: 100%; color: var(--text-main);}
     .text-content p { margin-bottom: 1.5rem; color: var(--text-main);}
 
     /* --- 1965 Section Specific Layout --- */
@@ -176,11 +167,10 @@
       background: var(--bg-main);
     }
     
-    /* Grid inside container */
     .layout-1965-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      column-gap: 60px; /* Standard gap */
+      column-gap: 60px; 
       width: 100%;
     }
 
@@ -189,14 +179,14 @@
       flex-direction: column;
       gap: 30px;
       align-items: center;
-      padding-top: 10px; /* Slight visual alignment */
+      padding-top: 10px;
     }
 
     .family-img-container {
       width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: center; /* Centers items inside */
     }
 
     .family-img {
@@ -207,20 +197,19 @@
       margin-bottom: 10px;
     }
     
-    /* Specific overrides requested */
-    .img-linda {
-        width: 50% !important; /* Reduced to 50% */
+    /* REFACTORED: Unified class for half-width elements (Linda image & caption) */
+    .half-width-element {
+        width: 50% !important; 
     }
 
-    /* Global Caption Style Update */
     .family-caption, .image-caption-center {
       font-family: var(--font-heading);
-      font-size: 12px; /* Fixed to 12px */
+      font-size: 0.85em; /* Scalable font size */
       color: #555;
       line-height: 1.4;
       text-align: left;
       width: 100%;
-      font-style: normal; /* Non-italic */
+      font-style: normal;
     }
     .image-caption-center { text-align: center; opacity: 0.8; margin-top: 8px; }
 
@@ -290,10 +279,10 @@
     }
     .large-image-box { width: 100%; aspect-ratio: 16/9; }
     
-    /* Specific Little Saigon Override */
+    /* Little Saigon Override */
     .little-saigon-wrapper {
-        width: 60% !important; /* Reduced size */
-        margin-right: auto; /* Align Left */
+        width: 60% !important; 
+        margin-right: auto; 
     }
 
     /* --- Modal --- */
@@ -312,15 +301,27 @@
     .phase-arrow { transition: transform 0.3s; }
     .phase-link:hover .phase-arrow.right { transform: translateX(5px); }
     .phase-link:hover .phase-arrow.left { transform: translateX(-5px); }
-    
-    /* Make the sub-link bold as requested */
     .link-sub { display: block; font-size: 0.8em; opacity: 0.7; font-weight: 700; margin-top: 4px; }
 
     @media (min-width: 900px) {
       .hero-title { font-size: 5rem; }
     }
     
+    /* --- MOBILE OPTIMIZATIONS --- */
     @media (max-width: 768px) {
+      /* 1. INCREASED FONT SIZE (Requested: +2 sizes) */
+      body {
+        font-size: 18px; /* Up from 16px */
+      }
+      .text-content {
+        font-size: 18px;
+        line-height: 1.8;
+      }
+      /* Adjust caption size slightly up for readability */
+      .family-caption, .image-caption-center {
+        font-size: 14px; 
+      }
+
       .content-section { padding: 3rem 1.5rem; }
       #section-1965 { padding-top: 4rem; padding-bottom: 4rem; }
       .layout-1965-grid { grid-template-columns: 1fr; column-gap: 0; row-gap: 40px; }
@@ -328,7 +329,13 @@
       .media-row { flex-direction: column; gap: 10px; }
       .quote-box { padding-top: 10px; border-top: 1px solid #ddd; text-align: center; }
       .phase-navigation { flex-direction: column; }
-      .img-linda, .little-saigon-wrapper { width: 100% !important; }
+      
+      /* 2. REFACTORED WIDTHS: Force 100% width on mobile for special elements */
+      /* This fixes the "Linda" text being too narrow and the Little Saigon image */
+      .half-width-element, /* Used for Linda Image AND Caption */
+      .little-saigon-wrapper { 
+          width: 100% !important; 
+      }
     }
   </style>
 </head>
@@ -362,7 +369,6 @@
   <main>
     <!-- SECTION 1965 -->
     <section class="content-section" id="section-1965">
-      <!-- Reverted to container to restore previous distance -->
       <div class="container">
         <div class="layout-1965-grid">
           
@@ -384,10 +390,13 @@
 
           <!-- Right Column: Images -->
           <div class="layout-1965-img-col">
-            <!-- Image 1: Reduced to 50% -->
+            <!-- Image 1: LINDA -->
             <div class="family-img-container">
-              <img src="https://wams.nyhistory.org/wp-content/uploads/2020/11/47_LS_Linda-Moy-Chin_Linda-and-Family.png" alt="Linda Moy Chin Family" class="family-img img-linda">
-              <div class="family-caption" style="width: 50%;"> <!-- Caption matches image width roughly -->
+              <!-- 已修改：添加了 half-width-element 类，去除了 inline style -->
+              <img src="https://wams.nyhistory.org/wp-content/uploads/2020/11/47_LS_Linda-Moy-Chin_Linda-and-Family.png" alt="Linda Moy Chin Family" class="family-img half-width-element">
+              
+              <!-- 已修改：添加了 half-width-element 类，删除了 inline style="width:50%" -->
+              <div class="family-caption half-width-element"> 
                 Cantonese Linda (Lun Chee Moy) and Pang Fook Chin with their young children shortly before Pang Fook and his brother Pang Dick (pictured standing) leave for America, Hong Kong, 1951.
               </div>
             </div>
@@ -440,12 +449,12 @@
                 <p class="image-caption-center">Vietnamese boat people arriving at refugee camp, 1979</p>
             </div>
 
-            <!-- Row 3: Large Image 2 (Little Saigon - Reduced to 60%, Left Aligned) -->
+            <!-- Row 3: Large Image 2 (Little Saigon) -->
             <div style="width: 100%;">
                 <div class="media-container large-image-box little-saigon-wrapper">
                     <img src="https://www.westminster-ca.gov/home/showpublishedimage/962/637454428643270000" alt="Little Saigon">
                 </div>
-                <p class="image-caption-center" style="width: 60%; margin-right: auto; text-align: left;">Little Saigon commercial district, Westminster, California</p>
+                <p class="image-caption-center little-saigon-wrapper" style="text-align: left;">Little Saigon commercial district, Westminster, California</p>
             </div>
 
           </div>
