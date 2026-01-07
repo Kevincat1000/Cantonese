@@ -276,10 +276,12 @@
 
     .last-section { padding-top: 1rem !important; padding-bottom: 10px !important; }
 
+    /* Summary is now block level */
     .summary-wrapper {
       margin-top: 100px;
       width: 100%;
       display: block;
+      clear: both;
     }
     
     .phase-summary-text{
@@ -287,6 +289,7 @@
       line-height: 1.8;
       color: #000;
       margin-bottom: 40px;
+      max-width: 100%;
     }
 
     .phase-navigation{
@@ -296,8 +299,6 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 20px;
       width: 100%;
     }
     .phase-link{
@@ -476,6 +477,7 @@
 
     <section class="content-section last-section" style="padding-top:0;">
       <div class="container">
+        <!-- Start of 2-Column Grid for Exclusion Content -->
         <div class="grid-2col">
           <div class="text-col">
             <h2 class="section-title">
@@ -489,6 +491,7 @@
             <p>World War II marked a turning point for Chinese Americans. Acknowledging China as an ally, the U.S. repealed exclusion act via the Magnuson Act (1943), though it imposed a restrictive annual quota of 105. Canada followed in 1947, restoring voting rights.</p>
             <p>The War Brides Act of 1945 allowed the entry of Cantonese women. This demographic shift ended the "Bachelor Society" era, re-established family units, and revitalized Chinatowns as centers of Cantonese commerce and culture for future generations.</p>
           </div>
+          </div>
           <div class="img-col" style="display: flex; flex-direction: column; align-items: center;">
             <div class="chan-kong-frame">
               <img src="https://www.ocmuseum.cn/uploads/allimg/200510/1-200510150Q9353.jpg">
@@ -498,8 +501,10 @@
             <div class="image-frame" style="width: 100%;"><img src="https://static.politico.com/dims4/default/69c0a8c/2147483647/resize/1160x/quality/90/?url=https%3A%2F%2Fstatic.politico.com%2F04%2F34%2F3fa109284b6b9578319ed0cfdbe6%2Fwongkimark.gif"></div>
             <p class="image-caption-simple" style="text-align: center; width: 100%;">Wong Kim Ark Document, 1898</p>
           </div>
-        </div>
+        </div> 
+        <!-- End of 2-Column Grid -->
 
+        <!-- Summary Wrapper (Now Outside the Grid, spans full width) -->
         <div class="summary-wrapper">
           <h2 class="section-title">
             <span class="title-date">Summary</span>
