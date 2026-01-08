@@ -113,7 +113,38 @@
       header[data-site-header="1"] .mobile-sub-link { display: block; padding: 1rem 1.5rem 1rem 2rem; color: #000000; text-decoration: none; font-size: 16px; font-weight: 500; border-bottom: 1px solid #e0d6c2; line-height: 1.4; }
       header[data-site-header="1"] .mobile-sub-link:hover { background-color: #e6dfcd; color: #701a1a; }
       
-      @media (min-width:1024px){ header[data-site-header="1"] .nav-menu{ gap:1.5rem; } }
+      @media (min-width:1024px){ header[data-site-header="1"] .nav-menu{ gap:1.5rem; }
+      /* --- LOGO HOVER EFFECT: Red Block Invert (Desktop Only) --- */
+      @media (min-width: 1024px) {
+        header[data-site-header="1"] .logo {
+          position: relative;
+          padding: 8px 12px; /* 增加内边距 */
+          margin-left: -12px; /* 修正位置偏移，保持视觉中心 */
+          border-radius: 8px;
+          transition: background-color 0.3s ease;
+        }
+
+        header[data-site-header="1"] .logo-main,
+        header[data-site-header="1"] .logo-sub {
+          position: relative;
+          z-index: 2;
+          transition: color 0.25s ease;
+        }
+
+        /* Hover 状态 */
+        header[data-site-header="1"] .logo:hover {
+          background-color: #701a1a; /* 深红背景 */
+          box-shadow: 0 4px 12px rgba(112, 26, 26, 0.25);
+        }
+
+        header[data-site-header="1"] .logo:hover .logo-main {
+          color: #ffffff; /* 文字变白 */
+        }
+
+        header[data-site-header="1"] .logo:hover .logo-sub {
+          color: rgba(255, 255, 255, 0.8); /* 副标题半透明白 */
+        }
+      }}
     `;
 
     const style = document.createElement("style");
