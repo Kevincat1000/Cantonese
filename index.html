@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="preload">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,224 +19,194 @@
   <script src="./assets/footer.js" defer></script>
 
   <style>
-    /* ---------------------------------------------------------
-       VARIABLES & BASE
-    --------------------------------------------------------- */
-    :root {
-      --bg-color: #f5f0e5;
-      --text-color: #1a1a1a;
-      --drop-cap-color: #701a1a;
-      --header-h: 50px; 
-      --content-gap: 40px; 
+    :root{
+      --bg-color:#f5f0e5;
+      --text-color:#1a1a1a;
+      --drop-cap-color:#701a1a;
+      --header-h:50px;      /* fallback; JS will sync real height */
+      --content-gap:40px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{height:100%;}
+    body{
+      background-color:var(--bg-color);
+      color:var(--text-color);
+      font-family:"Gentium Book Plus",serif;
+      overflow-x:hidden;
+      width:100%;
 
-    html { height: auto; }
+      /* ✅ footer stick to bottom */
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: "Gentium Book Plus", serif;
-      /* Initial gap from fixed header */
-      padding-top: calc(var(--header-h) + var(--content-gap));
-      overflow-x: hidden; 
-      width: 100%;
+      /* ✅ keep your original header gap logic */
+      padding-top:calc(var(--header-h) + var(--content-gap));
     }
 
-    .main-grid {
-      display: grid;
-      width: 100%;
-      max-width: 100%;
-      grid-template-columns: 45% 55%; 
-      min-height: calc(100vh - (var(--header-h) + var(--content-gap)));
-      grid-template-areas: 
+    /* ✅ keep injection ids (do not change) */
+    #header-container{
+      width:100%;
+      flex-shrink:0;
+    }
+
+    /* ✅ footer stick to bottom */
+    #footer-container{
+      margin-top:auto;
+      width:100%;
+      flex-shrink:0;
+    }
+
+    /* ✅ main takes remaining space so footer can be bottom */
+    main.main-grid{
+      flex:1;
+
+      display:grid;
+      width:100%;
+      max-width:100%;
+      grid-template-columns:45% 55%;
+      min-height:calc(100vh - (var(--header-h) + var(--content-gap)));
+      grid-template-areas:
         "img  content"
         "stat content";
-      padding-top: 30px;
+      padding-top:30px;
     }
 
-    /* ---------------------------------------------------------
-       1. LEFT PHOTO (Area: img)
-    --------------------------------------------------------- */
-    .section-img {
-      grid-area: img;
-      display: flex;
-      align-items: flex-start; 
-      justify-content: flex-start;
-      padding-bottom: 2rem; 
+    /* 1. LEFT PHOTO */
+    .section-img{
+      grid-area:img;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+      padding-bottom:2rem;
+    }
+    .dragon-wrapper{width:70%;margin-left:0;}
+    .dragon-wrapper img{
+      width:100%;
+      height:auto;
+      display:block;
+      mix-blend-mode:multiply;
+      filter:sepia(0.2) contrast(1.1);
     }
 
-    .dragon-wrapper {
-      width: 70%; 
-      margin-left: 0;
+    /* 2. RIGHT CONTENT */
+    .section-content{
+      grid-area:content;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding-right:4rem;
+      padding-left:0;
+      padding-top:0;
+      padding-bottom:50px;
+    }
+    .content-wrapper{max-width:700px;}
+    h2.sub-heading{
+      font-family:'Exo',sans-serif;
+      font-weight:400;
+      font-size:14px;
+      color:#555;
+      margin-bottom:1rem;
+    }
+    h1.main-title{
+      font-family:'Exo',sans-serif;
+      font-weight:800;
+      font-size:3.5rem;
+      line-height:0.95;
+      text-transform:uppercase;
+      color:#1a1a1a;
+      margin-bottom:2rem;
+    }
+    .text-body{
+      font-size:12pt;
+      line-height:1.6;
+      color:#000;
+      text-align:justify;
+    }
+    .text-body p{margin-bottom:1.5rem;}
+    .text-body p:last-child{margin-bottom:0;}
+    .text-body p:first-child::first-letter{
+      font-family:'Exo',sans-serif;
+      font-weight:800;
+      font-size:3.5rem;
+      float:left;
+      line-height:0.8;
+      margin-right:0.15em;
+      margin-top:0.05em;
+      color:var(--drop-cap-color);
     }
 
-    .dragon-wrapper img {
-      width: 100%;
-      height: auto;
-      display: block;
-      mix-blend-mode: multiply; 
-      filter: sepia(0.2) contrast(1.1);
+    /* 3. STATS */
+    .section-stats{
+      grid-area:stat;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      padding-left:40px;
+      padding-bottom:50px;
+    }
+    .stats-container{margin-top:auto;}
+    .stats-title{
+      font-family:'Exo',sans-serif;
+      font-weight:700;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:0.1em;
+      border-bottom:1px solid #000;
+      padding-bottom:4px;
+      display:inline-block;
+      margin-bottom:0.5rem;
+      color:#000;
+    }
+    .stats-row{
+      display:flex;
+      gap:3rem;
+      flex-wrap:wrap;
+    }
+    .stat-item h4{
+      font-family:'Exo',sans-serif;
+      font-weight:700;
+      font-size:18px;
+      color:#000;
+      margin-bottom:2px;
+      line-height:1.2;
+    }
+    .stat-item p{
+      font-family:'Exo',sans-serif;
+      font-weight:400;
+      font-size:12px;
+      color:#000;
+      opacity:0.8;
     }
 
-    /* ---------------------------------------------------------
-       2. RIGHT CONTENT (Area: content)
-    --------------------------------------------------------- */
-    .section-content {
-      grid-area: content;
-      display: flex;
-      flex-direction: column;
-      justify-content: center; 
-      
-      padding-right: 4rem;
-      padding-left: 0;
-      
-      /* CHANGE 2: Removed top padding (moved to grid) 
-         and set bottom padding to 50px to match Stats side */
-      padding-top: 0;
-      padding-bottom: 50px;
-    }
-
-    .content-wrapper {
-      max-width: 700px;
-    }
-
-    h2.sub-heading {
-      font-family: 'Exo', sans-serif;
-      font-weight: 400;
-      font-size: 14px; 
-      color: #555;
-      margin-bottom: 1rem;
-    }
-
-    h1.main-title {
-      font-family: 'Exo', sans-serif;
-      font-weight: 800;
-      font-size: 3.5rem;
-      line-height: 0.95;
-      text-transform: uppercase;
-      color: #1a1a1a;
-      margin-bottom: 2rem;
-    }
-
-    .text-body {
-      font-size: 12pt; 
-      line-height: 1.6;
-      color: #000;
-      text-align: justify;
-    }
-
-    .text-body p { margin-bottom: 1.5rem; }
-    .text-body p:last-child { margin-bottom: 0; }
-
-    .text-body p:first-child::first-letter {
-      font-family: 'Exo', sans-serif;
-      font-weight: 800;
-      font-size: 3.5rem;
-      float: left;
-      line-height: 0.8;
-      margin-right: 0.15em;
-      margin-top: 0.05em;
-      color: var(--drop-cap-color);
-    }
-
-    /* ---------------------------------------------------------
-       3. STATS / NUMBERS (Area: stat)
-    --------------------------------------------------------- */
-    .section-stats {
-      grid-area: stat;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding-left: 40px;
-      padding-bottom: 50px; 
-    }
-
-    .stats-container {
-      margin-top: auto; 
-    }
-
-    .stats-title {
-      font-family: 'Exo', sans-serif;
-      font-weight: 700;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      border-bottom: 1px solid #000;
-      padding-bottom: 4px;
-      display: inline-block;
-      margin-bottom: 0.5rem; 
-      color: #000;
-    }
-
-    .stats-row {
-      display: flex;
-      gap: 3rem;
-      flex-wrap: wrap; 
-    }
-
-    .stat-item h4 {
-      font-family: 'Exo', sans-serif;
-      font-weight: 700;
-      font-size: 18px; 
-      color: #000;
-      margin-bottom: 2px;
-      line-height: 1.2;
-    }
-
-    .stat-item p {
-      font-family: 'Exo', sans-serif;
-      font-weight: 400;
-      font-size: 12px;
-      color: #000;
-      opacity: 0.8;
-    }
-
-    /* ---------------------------------------------------------
-       MOBILE / TABLET RESPONSIVE (< 1024px)
-    --------------------------------------------------------- */
-    @media (max-width: 1024px) {
-      .main-grid {
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        min-height: auto;
-        grid-template-areas: none;
-        padding-bottom: 2rem;
-        padding-top: 0; 
+    @media (max-width:1024px){
+      main.main-grid{
+        display:flex;
+        flex-direction:column;
+        height:auto;
+        min-height:auto;
+        grid-template-areas:none;
+        padding-bottom:2rem;
+        padding-top:0;
       }
-
-      .section-img {
-        order: 1;
-        width: 100%;
-        padding-bottom: 1rem;
-        justify-content: center;
+      .section-img{
+        order:1;
+        width:100%;
+        padding-bottom:1rem;
+        justify-content:center;
       }
-      .dragon-wrapper {
-        width: 100%;
-        max-width: 600px; 
-      }
-      .section-content {
-        order: 2;
-        padding: 1rem 2rem;
-      }
-      h1.main-title {
-        font-size: 2.5rem;
-      }
-      h2.sub-heading {
-        font-size: 16px; 
-      }
-      .section-stats {
-        order: 3;
-        padding: 2rem; 
-        padding-top: 0;
-      }
-      .stats-row {
-        gap: 2rem;
-        justify-content: space-between;
-      }
+      .dragon-wrapper{width:100%;max-width:600px;}
+      .section-content{order:2;padding:1rem 2rem;}
+      h1.main-title{font-size:2.5rem;}
+      h2.sub-heading{font-size:16px;}
+      .section-stats{order:3;padding:2rem;padding-top:0;}
+      .stats-row{gap:2rem;justify-content:space-between;}
     }
+
+    /* ✅ anti-flash (same method you used on other pages) */
+    html.preload body{opacity:0;}
+    body{transition:opacity .15s ease;}
   </style>
 </head>
 
@@ -255,7 +225,7 @@
       <div class="content-wrapper">
         <h2 class="sub-heading">Public History · Oral History · Cultural Research</h2>
         <h1 class="main-title">CANTONESE IN<br>THE AMERICAS</h1>
-        
+
         <div class="text-body">
           <p>
             Since the 17th century, hundreds of thousands of Cantonese migrants from Guangdong's coastal region have crossed the South China Sea and the Pacific for commerce, contract labor, education, and family reunion. They moved back and forth across Southeast Asia and North America. Over time, these movements helped shape the social structures and cultural image of Chinese communities overseas.
@@ -267,7 +237,6 @@
       </div>
     </div>
 
-    <!-- 3. Stats Section -->
     <div class="section-stats">
       <div class="stats-container">
         <div class="stats-title">BY THE NUMBERS</div>
@@ -276,12 +245,12 @@
             <h4>1848</h4>
             <p>First Arrival</p>
           </div>
-          
+
           <div class="stat-item">
             <h4>530k</h4>
             <p>U.S. Home Speakers</p>
           </div>
-          
+
           <div class="stat-item">
             <h4>30M+</h4>
             <p>Global Cantonese Diaspora</p>
@@ -289,13 +258,47 @@
         </div>
       </div>
     </div>
-
   </main>
 
-  <!-- Footer Placeholder -->
   <div id="footer-container"></div>
+
+  <script>
+    // ✅ Fix jitter: wait for injected header -> measure -> set --header-h -> show page
+    (function () {
+      function getHeaderEl() {
+        return document.querySelector('header') || document.querySelector('.site-header');
+      }
+
+      function syncHeaderHeight() {
+        const header = getHeaderEl();
+        if (!header) return false;
+
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        if (h > 0) {
+          document.documentElement.style.setProperty('--header-h', h + 'px');
+          return true;
+        }
+        return false;
+      }
+
+      function show() {
+        document.documentElement.classList.remove('preload');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let tries = 0;
+        (function wait() {
+          tries++;
+          if (syncHeaderHeight()) { show(); return; }
+          if (tries > 80) { show(); return; }
+          requestAnimationFrame(wait);
+        })();
+
+        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
+        window.addEventListener('resize', () => syncHeaderHeight());
+      });
+    })();
+  </script>
 
 </body>
 </html>
-
-
