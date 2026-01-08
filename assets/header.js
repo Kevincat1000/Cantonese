@@ -142,12 +142,12 @@
       
 
         header[data-site-header="1"] .logo:hover .logo-main {
-          color: #ffffff; 
+          color: #000; 
           -webkit-text-stroke: 5px #701a1a;
         }
 
         header[data-site-header="1"] .logo:hover .logo-sub {
-          color: #ffffff;
+          color: #000;
           margin-top: 2px; 
           -webkit-text-stroke: 2px #701a1a; 
         }
