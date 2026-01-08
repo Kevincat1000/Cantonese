@@ -43,6 +43,11 @@
       footer[data-site-footer="1"] .footer-contact {
         color: #000;
         text-decoration: none;
+        transition: color 0.2s ease; 
+      }
+
+      footer[data-site-footer="1"] .footer-contact:hover {
+        color: #701a1a;
       }
 
       footer[data-site-footer="1"] .footer-copyright {
@@ -77,7 +82,8 @@
         <div class="footer-content">
           <div class="footer-left">Designing for a more connected world.</div>
           <div class="footer-center">
-
+            <a href="about.html" class="footer-contact">ABOUT ME</a>
+            
             <a href="mailto:kw30928@gmail.com" class="footer-contact">CONTACT ME</a>
    
             <div class="footer-copyright">© 2026 KEVIN W.</div>
@@ -89,6 +95,7 @@
   }
 
   function boot() {
+    if (document.querySelector(FOOTER_SEL)) return;
     insertFooterStyles();
     insertFooterHTML();
   }
