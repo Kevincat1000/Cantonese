@@ -16,6 +16,7 @@
 :root{
   --bg: #e5f0f5;
   --accent: #a84d4d;
+  --accent-hover: #701a1a; /* 新增的悬停颜色 */
   --text: #2d3748;
   --font-body: 'Gentium Book Plus', serif;
   --font-heading: 'Exo', sans-serif;
@@ -135,28 +136,18 @@ body{
   padding: 0 2rem;
 }
 
-.content-section{
-  padding: 5rem 2rem;
+.main-content{
+  padding: 2rem 2rem 5rem 2rem;
   background: var(--bg);
 }
 
-.last-section{ padding-bottom: 10px; }
-
-.section-title{
-  font-family: var(--font-heading);
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  line-height: 1.3;
-}
-
 .text-content{ width: 100%; }
-.text-content p{ margin-bottom: 1.5rem; }
+.text-content p{ margin-bottom: 2rem; } /* 增加段落间距使长文更易读 */
 
 .phase-navigation{
-  margin-top: 5px;
-  padding-top: 12px;
-  padding-bottom: 10px;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
   border-top: 1px solid rgba(45, 55, 72, 0.2);
   display: flex;
   justify-content: space-between;
@@ -175,7 +166,10 @@ body{
   font-size: 0.95rem;
 }
 
-.phase-link:hover{ color: var(--accent); }
+/* 修改后的hover特效 */
+.phase-link:hover{ 
+  color: var(--accent-hover); 
+}
 
 @media (min-width: 900px){
   .hero-title{ font-size: 5rem; }
@@ -184,7 +178,7 @@ body{
 @media (max-width: 768px){
   .phase-navigation{
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
     text-align: center;
   }
@@ -206,60 +200,41 @@ body{
   </div>
 </header>
 
-<main>
-  <section class="content-section">
-    <div class="container">
-      <h2 class="section-title">A New Wave of Capital and Expertise</h2>
-      <div class="text-content">
-        <p>
-          In the 21st century, Cantonese migration to the United States has shifted from a struggle for survival to a movement shaped by wealth accumulation, educational opportunity, and long-term family planning. Since 2000, a new wave of immigrants from Guangdong and Hong Kong has arrived with substantial financial capital and professional expertise. As the forefront of China’s economic growth, Guangdong has produced a generation of successful entrepreneurs and technology professionals who are increasingly seeking global opportunities.
-        </p>
-        <p>
-          Alongside them are large numbers of international students and young professionals who often begin their journeys on American university campuses and later transition into high-paying positions in the U.S. labor market. This population is not primarily motivated by short-term employment; rather, they are focused on securing long-term stability, accessing elite educational opportunities for their children, and protecting family assets within a stable social and political environment. This cultural community is further reinforced by Chinese families migrating from Southeast Asian countries such as Vietnam and Malaysia. Many of these families share Cantonese or Teochew linguistic and cultural roots and relocate through extended family networks, forming a broad and interconnected diaspora that sustains Cantonese language and traditions across the United States.
-        </p>
-      </div>
+<main class="main-content">
+  <div class="container">
+    <div class="text-content">
+      <p>
+        In the 21st century, Cantonese migration to the United States has shifted from a struggle for survival to a movement shaped by wealth accumulation, educational opportunity, and long-term family planning. Since 2000, a new wave of immigrants from Guangdong and Hong Kong has arrived with substantial financial capital and professional expertise. As the forefront of China’s economic growth, Guangdong has produced a generation of successful entrepreneurs and technology professionals who are increasingly seeking global opportunities.
+      </p>
+      <p>
+        Alongside them are large numbers of international students and young professionals who often begin their journeys on American university campuses and later transition into high-paying positions in the U.S. labor market. This population is not primarily motivated by short-term employment; rather, they are focused on securing long-term stability, accessing elite educational opportunities for their children, and protecting family assets within a stable social and political environment. This cultural community is further reinforced by Chinese families migrating from Southeast Asian countries such as Vietnam and Malaysia. Many of these families share Cantonese or Teochew linguistic and cultural roots and relocate through extended family networks, forming a broad and interconnected diaspora that sustains Cantonese language and traditions across the United States.
+      </p>
+      <p>
+        Although traditional destinations such as California and New York remain important centers, Cantonese settlement has expanded well beyond the historical boundaries of “Chinatown.” Approximately 32% of Chinese immigrants currently reside in California and 19% in New York, forming a significant cultural core. However, instead of remaining concentrated in dense urban neighborhoods, many contemporary families are relocating to suburban areas and developing large-scale commercial districts.
+      </p>
+      <p>
+        These suburban landscapes increasingly feature expansive Chinese supermarkets, real estate agencies, and financial service firms that integrate smoothly into the broader American economy. This spatial shift has transformed many American suburbs into dynamic commercial hubs that serve both local residents and the wider market. Through this process, Cantonese-speaking communities demonstrate that they are no longer transient populations but are instead committed to long-term settlement and community building.
+      </p>
+      <p>
+        This transition from temporary residence to permanent settlement represents one of the most significant changes in the modern period. Historically, many immigrants envisioned returning to their ancestral villages in China, an idea often described as “falling leaves returning to their roots.” In contrast, contemporary migrants increasingly view the United States as a permanent home.
+      </p>
+      <p>
+        With an estimated 351,000 individuals from Guangdong and 233,000 from Hong Kong currently residing in the United States, this population of more than half a million people has become an influential presence in public life. They are raising American-born children, operating long-term businesses, and, for the first time, participating actively in local and national politics. By moving from the margins of society into the mainstream, Cantonese and Hong Kong communities are not only preserving their cultural heritage but are also contributing directly to the social, economic, and political future of the United States.
+      </p>
     </div>
-  </section>
 
-  <section class="content-section">
-    <div class="container">
-      <h2 class="section-title">Beyond Chinatown: The Suburban Shift</h2>
-      <div class="text-content">
-        <p>
-          Although traditional destinations such as California and New York remain important centers, Cantonese settlement has expanded well beyond the historical boundaries of “Chinatown.” Approximately 32% of Chinese immigrants currently reside in California and 19% in New York, forming a significant cultural core. However, instead of remaining concentrated in dense urban neighborhoods, many contemporary families are relocating to suburban areas and developing large-scale commercial districts.
-        </p>
-        <p>
-          These suburban landscapes increasingly feature expansive Chinese supermarkets, real estate agencies, and financial service firms that integrate smoothly into the broader American economy. This spatial shift has transformed many American suburbs into dynamic commercial hubs that serve both local residents and the wider market. Through this process, Cantonese-speaking communities demonstrate that they are no longer transient populations but are instead committed to long-term settlement and community building.
-        </p>
-      </div>
+    <div class="phase-navigation">
+      <a href="phase3.html" class="phase-link">
+        <i data-lucide="arrow-left"></i>
+        <span>Phase III: 1950s–1990s</span>
+      </a>
+
+      <a href="timeline.html" class="phase-link" style="text-align:right;">
+        <span>Return to Timeline</span>
+        <i data-lucide="layout-grid"></i>
+      </a>
     </div>
-  </section>
-
-  <section class="content-section last-section">
-    <div class="container">
-      <h2 class="section-title">From "Falling Leaves" to "Taking Root"</h2>
-      <div class="text-content">
-        <p>
-          This transition from temporary residence to permanent settlement represents one of the most significant changes in the modern period. Historically, many immigrants envisioned returning to their ancestral villages in China, an idea often described as “falling leaves returning to their roots.” In contrast, contemporary migrants increasingly view the United States as a permanent home.
-        </p>
-        <p>
-          With an estimated 351,000 individuals from Guangdong and 233,000 from Hong Kong currently residing in the United States, this population of more than half a million people has become an influential presence in public life. They are raising American-born children, operating long-term businesses, and, for the first time, participating actively in local and national politics. By moving from the margins of society into the mainstream, Cantonese and Hong Kong communities are not only preserving their cultural heritage but are also contributing directly to the social, economic, and political future of the United States.
-        </p>
-      </div>
-
-      <div class="phase-navigation">
-        <a href="phase3.html" class="phase-link">
-          <i data-lucide="arrow-left"></i>
-          <span>Phase III: 1950s–1990s</span>
-        </a>
-
-        <a href="timeline.html" class="phase-link" style="text-align:right;">
-          <span>Return to Timeline</span>
-          <i data-lucide="layout-grid"></i>
-        </a>
-      </div>
-    </div>
-  </section>
+  </div>
 </main>
 
 <script>
