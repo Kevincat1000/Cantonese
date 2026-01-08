@@ -115,36 +115,28 @@
       
       @media (min-width:1024px){ header[data-site-header="1"] .nav-menu{ gap:1.5rem; }
       /* --- LOGO HOVER EFFECT: Red Block Invert (Desktop Only) --- */
+      }/* --- LOGO HOVER EFFECT: Cinematic Expansion (Desktop Only) --- */
       @media (min-width: 1024px) {
         header[data-site-header="1"] .logo {
-          position: relative;
-          padding: 8px 12px; /* 增加内边距 */
-          margin-left: -12px; /* 修正位置偏移，保持视觉中心 */
-          border-radius: 8px;
-          transition: background-color 0.3s ease;
+          padding-right: 20px; /* 给右边留点空间防止文字撑开时抖动 */
         }
-
         header[data-site-header="1"] .logo-main,
         header[data-site-header="1"] .logo-sub {
-          position: relative;
-          z-index: 2;
-          transition: color 0.25s ease;
+          transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* 苹果味顺滑曲线 */
         }
-
-        /* Hover 状态 */
-        header[data-site-header="1"] .logo:hover {
-          background-color: #701a1a; /* 深红背景 */
-          box-shadow: 0 4px 12px rgba(112, 26, 26, 0.25);
-        }
-
+        
         header[data-site-header="1"] .logo:hover .logo-main {
-          color: #ffffff; /* 文字变白 */
+          letter-spacing: 0.12em; /* 字间距拉开 */
+          color: #8B2332; /* 颜色变更鲜艳的红 */
+          text-shadow: 2px 2px 0px rgba(139, 35, 50, 0.1); /* 极淡的影子 */
         }
-
+        
         header[data-site-header="1"] .logo:hover .logo-sub {
-          color: rgba(255, 255, 255, 0.8); /* 副标题半透明白 */
+          letter-spacing: 0.25em; /* 副标题拉得更开 */
+          color: #333;
+          padding-left: 2px;
         }
-      }}
+      }
     `;
 
     const style = document.createElement("style");
