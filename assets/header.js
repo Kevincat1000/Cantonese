@@ -115,26 +115,57 @@
       
       @media (min-width:1024px){ header[data-site-header="1"] .nav-menu{ gap:1.5rem; }
       /* --- LOGO HOVER EFFECT: Red Block Invert (Desktop Only) --- */
-      }/* --- LOGO HOVER EFFECT: Cinematic Expansion (Desktop Only) --- */
+     /* --- LOGO HOVER EFFECT: Sticker Cutout (High Contrast) --- */
       @media (min-width: 1024px) {
         header[data-site-header="1"] .logo {
-          padding-right: 20px; /* 给右边留点空间防止文字撑开时抖动 */
+          /* 稍微增加左右内边距，给描边留出空间，防止被切掉 */
+          padding: 0 10px; 
+          transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 弹性动画 */
         }
-        header[data-site-header="1"] .logo-main,
+
+        header[data-site-header="1"] .logo-main {
+          /* 关键属性：让描边(stroke)绘制在填充(fill)的后面，这样字不会变细 */
+          paint-order: stroke fill;
+          transition: all 0.2s ease;
+          /* 默认状态下没有描边 */
+          -webkit-text-stroke: 0px transparent;
+        }
+
         header[data-site-header="1"] .logo-sub {
-          transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* 苹果味顺滑曲线 */
+          paint-order: stroke fill;
+          transition: all 0.2s ease;
+          -webkit-text-stroke: 0px transparent;
         }
-        
+
+        /* Hover 触发状态 */
+        header[data-site-header="1"] .logo:hover {
+          transform: scale(1.05) rotate(-1deg); /* 像贴纸一样稍微歪一点点浮起来 */
+          filter: drop-shadow(3px 3px 0px rgba(112, 26, 26, 0.2)); /* 整体淡淡的投影 */
+        }
+
         header[data-site-header="1"] .logo:hover .logo-main {
-          letter-spacing: 0.12em; /* 字间距拉开 */
-          color: #8B2332; /* 颜色变更鲜艳的红 */
-          text-shadow: 2px 2px 0px rgba(139, 35, 50, 0.1); /* 极淡的影子 */
+          color: #ffffff; /* 字体变成白色 */
+          
+          /* 核心效果：深红色的厚实描边 */
+          -webkit-text-stroke: 8px #701a1a; 
+          
+          /* 修正：如果浏览器不支持 text-stroke，用阴影兜底 */
+          text-shadow: 
+             3px 0 0 #701a1a, -3px 0 0 #701a1a,
+             0 3px 0 #701a1a, 0 -3px 0 #701a1a,
+             2px 2px 0 #701a1a, -2px -2px 0 #701a1a,
+             2px -2px 0 #701a1a, -2px 2px 0 #701a1a;
         }
-        
+
         header[data-site-header="1"] .logo:hover .logo-sub {
-          letter-spacing: 0.25em; /* 副标题拉得更开 */
-          color: #333;
-          padding-left: 2px;
+          color: #ffffff;
+          margin-top: 4px; /* 因为上面描边太厚，稍微把下面文字推远一点 */
+          
+          /* 副标题字小，描边要细一点，不然糊成一团 */
+          -webkit-text-stroke: 4px #701a1a;
+        }
+      }
+       
         }
       }
     `;
