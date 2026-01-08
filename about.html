@@ -16,7 +16,7 @@
     :root {
       --bg-color: #f5f0e5;
       --text-color: #000000;
-      --header-h: 60px; /* fallback; JS will sync real height */
+      --header-h: 60px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -111,7 +111,7 @@
     .image-inner {
       width: 100%;
       height: 100%;
-      background-image: url('https://images.unsplash.com/photo-1519672852055-687445209c15?q=80&w=2670&auto=format&fit=crop');
+      background-image: url('https://www.discoverhongkong.com/content/dam/dhk/intl/plan/guided-tour/dukling-harbour-cruise/day%20ship_1024x768_640x480.jpg');
       background-position: center;
       background-size: cover;
     }
@@ -126,18 +126,20 @@
     }
 
     footer, #footer-container, .site-footer { flex-shrink: 0; }
+
     @media (max-width: 900px) {
       .content-wrapper { flex-direction: column-reverse; gap: 30px; }
       .image-container { height: 250px; }
       .text-row { grid-template-columns: 1fr; gap: 8px; }
+
       .label {
-        font-size: 16px; 
-        margin-bottom: 5px; 
+        font-size: 16px;
+        margin-bottom: 5px;
       }
-      
+
       .text-content {
-        font-size: 16px; 
-        line-height: 1.6; 
+        font-size: 16px;
+        line-height: 1.6;
       }
     }
 
@@ -147,9 +149,7 @@
 </head>
 
 <body>
-  <!-- header.js will inject header here -->
   <div id="header-injection-point"></div>
-  <!-- reserve space so content doesn't jump -->
   <div id="header-spacer" aria-hidden="true"></div>
 
   <main>
@@ -158,7 +158,6 @@
       <!-- Left Column -->
       <div class="text-column">
 
-        <!-- About Me -->
         <div class="text-row">
           <div class="label">
             About Me &<br>This Project
@@ -173,7 +172,6 @@
           </div>
         </div>
 
-        <!-- Note -->
         <div class="text-row">
           <div class="label">Note</div>
           <div class="text-content">
@@ -202,7 +200,6 @@
       const spacer = document.getElementById('header-spacer');
 
       function findHeaderEl() {
-        // header.js might inject <header> or .site-header
         return document.querySelector('header') || document.querySelector('.site-header');
       }
 
@@ -228,7 +225,7 @@
         (function tick() {
           tries++;
           if (syncHeaderHeight()) { showPage(); return; }
-          if (tries > 80) { showPage(); return; } // fail-safe
+          if (tries > 80) { showPage(); return; }
           requestAnimationFrame(tick);
         })();
 
