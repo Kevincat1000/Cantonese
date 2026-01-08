@@ -26,14 +26,18 @@
     }
 
     * { box-sizing: border-box; scroll-behavior: smooth; }
-    body, html { margin: 0; padding: 0; background-color: var(--bg); color: var(--text-black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-
-    header, .site-header {
-      position: fixed !important; top: 0; left: 0; width: 100%;
-      z-index: 3000; background-color: var(--bg);
-      transition: transform 0.4s ease-in-out !important;
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--text-black);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      font-size: 16px;
+      line-height: 1.6;
+      font-family: 'Gentium Book Plus', serif;
+      font-weight: 400;
     }
-    .header-hidden { transform: translateY(-100%) !important; }
 
     .main-container { display: flex; min-height: 100vh; }
 
@@ -129,12 +133,12 @@
 
     .section-body {
       font-family: 'Gentium Book Plus', serif;
-      font-size: 16px;
+      font-size: inherit;
       font-weight: 400;
-      line-height: 1.8;
+      line-height: inherit;
       color: #000;
     }
-    .section-body p { margin-bottom: 1.5rem; }
+    .section-body p { margin-bottom: 24px; }
 
     .surname-comparison { margin: 20px 0; display: flex; flex-direction: column; gap: 8px; max-width: 420px; }
     .surname-row { display: flex; align-items: center; gap: 15px; margin-bottom: 5px; }
@@ -149,7 +153,7 @@
     .reveal-item.visible { opacity: 1; transform: translateY(0); }
     .landscape-img { width: 100%; height: auto; display: block; }
     .sepia { filter: grayscale(1) contrast(1.1); }
-    .landscape-caption { font-family: 'Exo', sans-serif; font-size: 12px; margin-top: 15px; border-top: 1px solid #000; padding-top: 10px; color: #333; }
+    .landscape-caption { font-family: 'Exo', sans-serif; font-size: 12px; margin-top: 15px; border-top: 1px solid #000; padding-top: 10px; color: #333; line-height: 1.5; }
 
     .news-flex { display: flex; gap: 30px; margin: 30px 0; }
     .news-item { width: 170px; }
@@ -161,6 +165,8 @@
     .slideshow-container { position: relative; margin: 40px 0; background: #eeeae0; padding: 12px; }
     .mySlides { display: none; text-align: center; }
     .mySlides img { width: 100%; height: 400px; object-fit: cover; }
+    .slide-caption { font-family: 'Exo', sans-serif; font-size: 12px; margin-top: 15px; text-align: center; line-height: 1.5; }
+
     .prev, .next {
       cursor: pointer;
       position: absolute;
@@ -219,11 +225,8 @@
       .nav-item:last-child { border-bottom: none; }
 
       .nav-num { width: 28px; font-size: 13px; }
-
       .nav-text-group { gap: 4px; }
-
       .nav-title { font-size: 13px; line-height: 1.3; }
-
       .nav-desc { font-size: 11px; line-height: 1.3; opacity: 0.8; }
 
       .right-panel {
@@ -236,12 +239,11 @@
       .news-flex { flex-wrap: wrap; justify-content: center; }
       .slideshow-container { margin: 20px 0; }
       .mySlides img { height: auto; min-height: 250px; }
-
       .content-section { margin-bottom: 80px; }
     }
 
     @media (max-width: 768px) {
-      body { font-size: 20px; line-height: 1.6; }
+      html, body { font-size: 20px; line-height: 1.6; }
 
       .left-panel { padding: 25px 15px; }
       .right-panel { padding: 25px 15px 60px 15px; }
@@ -249,17 +251,12 @@
       .main-headline { font-size: 28px; margin-bottom: 20px; }
 
       .nav-item { padding: 10px 0; }
-
       .nav-num { width: 25px; font-size: 14px; }
-
       .nav-title { font-size: 14px; line-height: 1.3; }
-
       .nav-desc { font-size: 12px; line-height: 1.3; opacity: 0.8; }
 
       h2 { font-size: 20px; line-height: 1.2; }
       h3 { font-size: 18px; margin-top: 25px; margin-bottom: 12px; }
-
-      .section-body { font-size: 16px; line-height: 1.6; }
 
       .prev, .next { width: 40px; height: 40px; font-size: 18px; padding: 12px; }
 
@@ -272,17 +269,16 @@
       .border-highlight-box, .beige-bg-box {
         padding: 20px;
         margin: 20px 0;
-        font-size: 18px;
-        line-height: 1.6;
       }
 
       .lang-tag { font-size: 10px; }
       .surname-main, .surname-mandarin { font-size: 18px; }
-      .landscape-caption { font-size: 14px; line-height: 1.5; }
+      .landscape-caption { font-size: 12px; line-height: 1.5; }
+      .slide-caption { font-size: 12px; }
     }
 
     @media (max-width: 480px) {
-      body { font-size: 20px; line-height: 1.6; }
+      html, body { font-size: 20px; line-height: 1.6; }
 
       .main-headline { font-size: 22px; }
 
@@ -303,6 +299,7 @@
     #header-injection-point { height: var(--header-h); }
   </style>
 </head>
+
 <body>
   <div id="header-injection-point"></div>
 
@@ -355,15 +352,15 @@
           <div class="slideshow-container">
             <div class="mySlides" style="display: block;">
               <img src="https://www.foundsf.org/images/d/d3/Chinatwn%246-companies-officers.jpg">
-              <div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Officers of the Six Companies in 1890, Bancroft Library.</div>
+              <div class="slide-caption">Officers of the Six Companies in 1890, Bancroft Library.</div>
             </div>
             <div class="mySlides">
               <img src="https://www.foundsf.org/images/5/5a/Reps_of_Six_Companies_1943_AAB-6823.jpg">
-              <div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Representatives of the Six Companies in 1943. SF Public Library.</div>
+              <div class="slide-caption">Representatives of the Six Companies in 1943. SF Public Library.</div>
             </div>
             <div class="mySlides">
               <img src="https://peterromaskiewicz.com/wp-content/uploads/2025/05/3546-the-new-chinese-joss-house-waverly-place-san-francisco.jpg">
-              <div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 15px; text-align: center;">Ning Yung Benevolent Association, I.W. Taber, 1891.</div>
+              <div class="slide-caption">Ning Yung Benevolent Association, I.W. Taber, 1891.</div>
             </div>
             <button class="prev" onclick="plusSlides(-1)">❮</button>
             <button class="next" onclick="plusSlides(1)">❯</button>
@@ -375,11 +372,11 @@
           <div class="news-flex">
             <div class="news-item">
               <img src="https://img2.bonhams.com/image?src=Images/live/2023-10/17/25423136-4-1.jpg" class="news-img">
-              <div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 10px; text-align: center;">The Golden Hills' News, 1854</div>
+              <div class="slide-caption" style="margin-top: 10px;">The Golden Hills' News, 1854</div>
             </div>
             <div class="news-item">
               <img src="https://maxrambod.cdn.bibliopolis.com/pictures/22049.jpg" class="news-img">
-              <div class="slide-caption" style="font-family: 'Exo', sans-serif; font-size: 14px; margin-top: 10px; text-align: center;">Chung Sai Yat Po, 1949</div>
+              <div class="slide-caption" style="margin-top: 10px;">Chung Sai Yat Po, 1949</div>
             </div>
           </div>
 
@@ -515,9 +512,23 @@
 
   <script>
     (function () {
+      function applyHeaderFixedStyle(headerEl) {
+        headerEl.style.position = 'fixed';
+        headerEl.style.top = '0';
+        headerEl.style.left = '0';
+        headerEl.style.width = '100%';
+        headerEl.style.zIndex = '3000';
+        headerEl.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#f5f0e5';
+        headerEl.style.transition = 'transform 0.4s ease-in-out';
+        headerEl.style.willChange = 'transform';
+      }
+
       function syncHeaderHeight() {
         const header = document.querySelector('header') || document.querySelector('.site-header');
         if (!header) return false;
+
+        applyHeaderFixedStyle(header);
+
         const h = Math.ceil(header.getBoundingClientRect().height);
         if (h > 0) {
           document.documentElement.style.setProperty('--header-h', h + 'px');
@@ -527,10 +538,11 @@
         }
         return false;
       }
+
       function markReady() {
-        document.body.classList.add('header-ready');
         document.documentElement.classList.remove('preload');
       }
+
       document.addEventListener('DOMContentLoaded', () => {
         let tries = 0;
         (function waitHeader() {
@@ -545,20 +557,23 @@
     let slideIndex = 1;
     function plusSlides(n) { showSlides(slideIndex += n); }
     function showSlides(n) {
-      let slides = document.getElementsByClassName("mySlides");
-      if (n > slides.length) { slideIndex = 1 }
-      if (n < 1) { slideIndex = slides.length }
+      const slides = document.getElementsByClassName("mySlides");
+      if (!slides || slides.length === 0) return;
+      if (n > slides.length) { slideIndex = 1; }
+      if (n < 1) { slideIndex = slides.length; }
       for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
       slides[slideIndex - 1].style.display = "block";
     }
 
     function initReveal() {
+      const items = document.querySelectorAll('.reveal-item');
+      if (!items || items.length === 0) return;
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) entry.target.classList.add('visible');
         });
       }, { threshold: 0.1 });
-      document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
+      items.forEach(el => observer.observe(el));
     }
     document.addEventListener('DOMContentLoaded', initReveal);
 
@@ -567,11 +582,12 @@
       if (window.innerWidth <= 1200) return;
       const header = document.querySelector('header') || document.querySelector('.site-header');
       if (!header) return;
-      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
       if (currentScroll > lastScrollTop && currentScroll > 80) {
-        header.classList.add('header-hidden');
+        header.style.transform = 'translateY(-100%)';
       } else {
-        header.classList.remove('header-hidden');
+        header.style.transform = 'translateY(0)';
       }
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }, false);
