@@ -19,7 +19,12 @@
       --header-h: 60px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     html { height: 100%; }
 
     body {
@@ -35,6 +40,7 @@
     }
 
     #header-injection-point { width: 100%; }
+
     #header-spacer {
       height: var(--header-h);
       width: 100%;
@@ -46,9 +52,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      padding-top: 30px;
-      padding-bottom: 30px;
+      padding: 30px 0;
     }
 
     .content-wrapper {
@@ -70,7 +74,6 @@
 
     .image-column {
       flex: 4;
-      position: relative;
     }
 
     .text-row {
@@ -96,16 +99,20 @@
       color: #000;
     }
 
-    .text-content p { margin-bottom: 15px; }
-    .text-content p:last-child { margin-bottom: 0; }
+    .text-content p {
+      margin-bottom: 15px;
+    }
 
+    .text-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* IMAGE — FULL COLOR */
     .image-container {
       width: 100%;
       height: 350px;
-      background-color: #ddd;
       overflow: hidden;
       position: relative;
-      filter: grayscale(100%) contrast(1.1);
     }
 
     .image-inner {
@@ -116,25 +123,39 @@
       background-size: cover;
     }
 
+    /* subtle texture overlay stays */
     .image-container::after {
       content: "";
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
+      inset: 0;
       background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=');
-      opacity: 0.3;
+      opacity: 0.25;
       pointer-events: none;
     }
 
-    footer, #footer-container, .site-footer { flex-shrink: 0; }
+    footer,
+    #footer-container,
+    .site-footer {
+      flex-shrink: 0;
+    }
 
     @media (max-width: 900px) {
-      .content-wrapper { flex-direction: column-reverse; gap: 30px; }
-      .image-container { height: 250px; }
-      .text-row { grid-template-columns: 1fr; gap: 8px; }
+      .content-wrapper {
+        flex-direction: column-reverse;
+        gap: 30px;
+      }
+
+      .image-container {
+        height: 250px;
+      }
+
+      .text-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
 
       .label {
         font-size: 16px;
-        margin-bottom: 5px;
       }
 
       .text-content {
@@ -155,9 +176,7 @@
   <main>
     <div class="content-wrapper">
 
-      <!-- Left Column -->
       <div class="text-column">
-
         <div class="text-row">
           <div class="label">
             About Me &<br>This Project
@@ -176,14 +195,12 @@
           <div class="label">Note</div>
           <div class="text-content">
             <p>
-              In this project, the term Cantonese is used in a broad geographic and historical sense to denote migrants from Guangdong Province and their descendants across the diaspora. While diverse groups like the Hakka and Teochew existed, the social dynamics of early Chinatowns established Cantonese as the dominant language. Thus, Cantonese here reflects a collective historical identity rather than a strict linguistic category.
+              In this project, the term Cantonese is used in a broad geographic and historical sense to denote migrants from Guangdong Province and their descendants across the diaspora. While diverse groups like the Hakka and Teochew existed, the social dynamics of early Chinatowns established Cantonese as the dominant language.
             </p>
           </div>
         </div>
-
       </div>
 
-      <!-- Right Column -->
       <div class="image-column">
         <div class="image-container">
           <div class="image-inner"></div>
@@ -229,8 +246,7 @@
           requestAnimationFrame(tick);
         })();
 
-        window.addEventListener('load', () => syncHeaderHeight(), { once: true });
-        window.addEventListener('resize', () => syncHeaderHeight());
+        window.addEventListener('resize', syncHeaderHeight);
       });
     })();
   </script>
