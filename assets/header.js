@@ -49,8 +49,25 @@
       .nav-item-wrapper { position: relative; height: 100%; display: flex; align-items: center; }
       
       header[data-site-header="1"] .nav-link{ color:#050505; text-decoration:none; font-size:14px; font-weight:600; letter-spacing:.3px; transition:color .25s; display:inline-flex; align-items:center; padding:.5rem 0; cursor:pointer; line-height:1.5; white-space:nowrap; }
+      
+      /* Hover states for main link */
       header[data-site-header="1"] .nav-link:hover, 
       .nav-item-wrapper:hover .nav-link { color:#701a1a; }
+
+      /* Arrow Icon Styling */
+      .dropdown-arrow {
+        width: 10px;
+        height: 10px;
+        margin-left: 6px;
+        stroke-width: 2.5;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0.6;
+      }
+      /* Rotate arrow on hover */
+      .nav-item-wrapper:hover .dropdown-arrow {
+        transform: rotate(180deg);
+        opacity: 1;
+      }
 
       .dropdown-menu {
         position: absolute;
@@ -69,7 +86,7 @@
         z-index: 1100;
       }
       
-      /* Create a safe hover bridge */
+      /* Safe bridge */
       .dropdown-menu::before {
         content: ''; position: absolute; top: -20px; left: 0; width: 100%; height: 20px;
       }
@@ -186,9 +203,12 @@
             <nav class="nav-menu" aria-label="Primary">
               <a href="about.html" class="nav-link">About</a>
               
-              <!-- Timeline Dropdown -->
+              <!-- Timeline Dropdown with Arrow -->
               <div class="nav-item-wrapper">
-                <a href="timeline.html" class="nav-link">Timeline</a>
+                <a href="timeline.html" class="nav-link">
+                    Timeline
+                    <svg class="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                </a>
                 <div class="dropdown-menu">
                   <a href="phase1.html" class="dropdown-item">
                     <span class="dropdown-meta">01. 17th–19th Centuries</span>
@@ -235,7 +255,6 @@
 
             <div class="mobile-nav-item"><a href="about.html" class="mobile-nav-link">About</a></div>
             
-            <!-- Mobile Timeline Group -->
             <div class="mobile-nav-item">
                 <a href="timeline.html" class="mobile-nav-link">Timeline</a>
                 <a href="phase1.html" class="mobile-sub-link">01. Early Migration</a>
