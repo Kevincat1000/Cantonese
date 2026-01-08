@@ -45,120 +45,47 @@
       header[data-site-header="1"] .nav-menu{ display:none; align-items:center; justify-content:flex-end; gap:1.25rem; margin-left:auto; }
       @media (min-width:768px){ header[data-site-header="1"] .nav-menu{ display:flex; } }
       
-      /* --- Dropdown Styles Start --- */
+      /* --- Desktop Dropdown Styles --- */
       .nav-item-wrapper { position: relative; height: 100%; display: flex; align-items: center; }
       
       header[data-site-header="1"] .nav-link{ color:#050505; text-decoration:none; font-size:14px; font-weight:600; letter-spacing:.3px; transition:color .25s; display:inline-flex; align-items:center; padding:.5rem 0; cursor:pointer; line-height:1.5; white-space:nowrap; }
-      
-      /* Hover states for main link */
       header[data-site-header="1"] .nav-link:hover, 
       .nav-item-wrapper:hover .nav-link { color:#701a1a; }
 
-      /* Arrow Icon Styling */
-      .dropdown-arrow {
-        width: 10px;
-        height: 10px;
-        margin-left: 6px;
-        stroke-width: 2.5;
-        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        opacity: 0.6;
-      }
-      /* Rotate arrow on hover */
-      .nav-item-wrapper:hover .dropdown-arrow {
-        transform: rotate(180deg);
-        opacity: 1;
-      }
+      .dropdown-arrow { width: 10px; height: 10px; margin-left: 6px; stroke-width: 2.5; transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0.6; }
+      .nav-item-wrapper:hover .dropdown-arrow { transform: rotate(180deg); opacity: 1; }
 
-      .dropdown-menu {
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%) translateY(10px);
-        width: 280px;
-        background-color: #F5F0E5;
-        border: 1px solid #E5DBCA;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        padding: 6px;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-        z-index: 1100;
-      }
-      
-      /* Safe bridge */
-      .dropdown-menu::before {
-        content: ''; position: absolute; top: -20px; left: 0; width: 100%; height: 20px;
-      }
+      .dropdown-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); width: 280px; background-color: #F5F0E5; border: 1px solid #E5DBCA; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 6px; opacity: 0; visibility: hidden; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 1100; }
+      .dropdown-menu::before { content: ''; position: absolute; top: -20px; left: 0; width: 100%; height: 20px; }
+      .nav-item-wrapper:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 
-      .nav-item-wrapper:hover .dropdown-menu {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(-50%) translateY(0);
-      }
-
-      .dropdown-item {
-        display: block;
-        padding: 10px 14px;
-        text-decoration: none;
-        border-radius: 6px;
-        transition: background-color 0.2s ease, color 0.2s ease;
-        margin-bottom: 2px;
-      }
+      .dropdown-item { display: block; padding: 10px 14px; text-decoration: none; border-radius: 6px; transition: background-color 0.2s ease, color 0.2s ease; margin-bottom: 2px; }
       .dropdown-item:last-child { margin-bottom: 0; }
+      .dropdown-meta { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #8B2332; margin-bottom: 3px; transition: color 0.2s ease; }
+      .dropdown-title { display: block; font-size: 13px; font-weight: 500; color: #1a1a1a; line-height: 1.3; transition: color 0.2s ease; }
+      .dropdown-item:hover { background-color: #701a1a; }
+      .dropdown-item:hover .dropdown-meta { color: rgba(255, 255, 255, 0.7); }
+      .dropdown-item:hover .dropdown-title { color: #ffffff; }
 
-      .dropdown-meta {
-        display: block;
-        font-size: 10px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: #8B2332;
-        margin-bottom: 3px;
-        transition: color 0.2s ease;
-      }
-      
-      .dropdown-title {
-        display: block;
-        font-size: 13px;
-        font-weight: 500;
-        color: #1a1a1a;
-        line-height: 1.3;
-        transition: color 0.2s ease;
-      }
-
-      /* Hover Effect for Dropdown Items */
-      .dropdown-item:hover {
-        background-color: #701a1a;
-      }
-      .dropdown-item:hover .dropdown-meta {
-        color: rgba(255, 255, 255, 0.7);
-      }
-      .dropdown-item:hover .dropdown-title {
-        color: #ffffff;
-      }
-      /* --- Dropdown Styles End --- */
-
+      /* --- Search Styles --- */
       header[data-site-header="1"] .header-search{ display:none; align-items:center; gap:.5rem; position: relative; }
       @media (min-width:768px){ header[data-site-header="1"] .header-search{ display:flex; } }
-      
       header[data-site-header="1"] .header-search input{ width:160px; height:32px; border-radius:6px; border:1px solid #E5DBCA; background:#F5F0E5; padding:0 10px; font-size:14px; line-height:32px; outline:none; }
       header[data-site-header="1"] .header-search input::placeholder{ color:#888; }
       header[data-site-header="1"] .header-search input:focus{ border-color:#8B2332; }
-      
       header[data-site-header="1"] .header-search button{ height:32px; width:32px; border-radius:6px; border:1px solid #E5DBCA; background:#F5F0E5; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; color:#333; }
       header[data-site-header="1"] .header-search button:hover{ color:#8B2332; border-color:#8B2332; }
       header[data-site-header="1"] .header-search button svg{ width:16px; height:16px; }
 
       .search-results-dropdown { position: absolute; top: 100%; right: 0; width: 300px; background: #F5F0E5; border: 1px solid #E5DBCA; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 8px; max-height: 400px; overflow-y: auto; z-index: 1001; display: none; }
       .search-results-dropdown.active { display: block; }
-      
       .search-result-item { display: block; padding: 12px; text-decoration: none; border-bottom: 1px solid #E5DBCA; transition: background 0.1s; }
       .search-result-item:hover { background: #EAE4D5; }
       .search-result-title { display: block; color: #701a1a; font-weight: 700; font-size: 14px; margin-bottom: 4px; }
       .search-result-snippet { display: block; color: #666; font-size: 12px; line-height: 1.4; }
       .search-no-results { padding: 12px; color: #888; font-size: 13px; text-align: center; }
       
+      /* --- Mobile Styles --- */
       header[data-site-header="1"] .mobile-menu-btn{ display:block; background:none; border:none; cursor:pointer; padding:.5rem; color:#333; }
       @media (min-width:768px){ header[data-site-header="1"] .mobile-menu-btn{ display:none; } }
       header[data-site-header="1"] .mobile-menu-btn svg{ width:22px; height:22px; }
@@ -170,15 +97,28 @@
       .mobile-search-inner { display: flex; align-items: center; background: #ffffff; border: 1px solid #c2b49a; border-radius: 6px; padding: 0 10px; height: 40px; }
       .mobile-search-inner svg { width: 20px; height: 20px; color: #888; margin-right: 8px; flex-shrink: 0; }
       .mobile-search-inner input { border: none; background: transparent; height: 100%; width: 100%; font-size: 16px; outline: none; color: #333; }
-      
       .mobile-search-results { display: none; background: #F5F0E5; }
       .mobile-search-results.active { display: block; border-top: 1px solid #E5DBCA; }
       
       header[data-site-header="1"] .mobile-nav-item{ border-bottom:1px solid #E5DBCA; }
-      header[data-site-header="1"] .mobile-nav-link{ display:block; padding:1rem 1.5rem; color:#333; text-decoration:none; font-size:16px; font-weight:600; transition:background-color .2s, color .2s; }
+      
+      /* Mobile Link Flex Container */
+      .mobile-link-row { display: flex; align-items: center; justify-content: space-between; padding-right: 15px; }
+      header[data-site-header="1"] .mobile-nav-link{ flex-grow: 1; display:block; padding:1rem 1.5rem; color:#333; text-decoration:none; font-size:16px; font-weight:600; transition:background-color .2s, color .2s; }
       header[data-site-header="1"] .mobile-nav-link:hover{ background-color:#EAE4D5; color:#8B2332; }
-      header[data-site-header="1"] .mobile-sub-link { display: block; padding: 0.8rem 1.5rem 0.8rem 2.5rem; color: #555; text-decoration: none; font-size: 14px; border-bottom: 1px solid #F0EAD9; }
-      header[data-site-header="1"] .mobile-sub-link:hover { background-color: #EAE4D5; color: #701a1a; }
+
+      /* Mobile Toggle Arrow Button */
+      .mobile-toggle-btn { background: none; border: none; cursor: pointer; padding: 10px; color: #666; display: flex; align-items: center; justify-content: center; }
+      .mobile-toggle-btn svg { width: 14px; height: 14px; transition: transform 0.3s ease; }
+      .mobile-toggle-btn.active svg { transform: rotate(180deg); color: #8B2332; }
+      
+      /* Mobile Submenu Container */
+      .mobile-submenu-wrapper { max-height: 0; overflow: hidden; background-color: #efebd8; transition: max-height 0.3s ease-in-out; }
+      .mobile-submenu-wrapper.active { max-height: 500px; /* Expands to fit content */ }
+
+      header[data-site-header="1"] .mobile-sub-link { display: block; padding: 0.8rem 1.5rem 0.8rem 2.5rem; color: #555; text-decoration: none; font-size: 14px; border-bottom: 1px solid #e0d6c2; }
+      header[data-site-header="1"] .mobile-sub-link:hover { background-color: #e6dfcd; color: #701a1a; }
+      
       @media (min-width:1024px){ header[data-site-header="1"] .nav-menu{ gap:1.5rem; } }
     `;
 
@@ -203,7 +143,7 @@
             <nav class="nav-menu" aria-label="Primary">
               <a href="about.html" class="nav-link">About</a>
               
-              <!-- Timeline Dropdown with Arrow -->
+              <!-- Desktop Timeline Dropdown -->
               <div class="nav-item-wrapper">
                 <a href="timeline.html" class="nav-link">
                     Timeline
@@ -255,12 +195,20 @@
 
             <div class="mobile-nav-item"><a href="about.html" class="mobile-nav-link">About</a></div>
             
+            <!-- Mobile Timeline Group (Collapsible) -->
             <div class="mobile-nav-item">
-                <a href="timeline.html" class="mobile-nav-link">Timeline</a>
-                <a href="phase1.html" class="mobile-sub-link">01. Early Migration</a>
-                <a href="phase2.html" class="mobile-sub-link">02. Building North America</a>
-                <a href="phase3.html" class="mobile-sub-link">03. Reforms & Refugees</a>
-                <a href="phase4.html" class="mobile-sub-link">04. Diversification</a>
+                <div class="mobile-link-row">
+                    <a href="timeline.html" class="mobile-nav-link">Timeline</a>
+                    <button class="mobile-toggle-btn" id="mobileTimelineToggle" aria-label="Toggle Submenu">
+                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                </div>
+                <div class="mobile-submenu-wrapper" id="mobileTimelineSubmenu">
+                    <a href="phase1.html" class="mobile-sub-link">01. Early Migration</a>
+                    <a href="phase2.html" class="mobile-sub-link">02. Building North America</a>
+                    <a href="phase3.html" class="mobile-sub-link">03. Reforms & Refugees</a>
+                    <a href="phase4.html" class="mobile-sub-link">04. Diversification</a>
+                </div>
             </div>
 
             <div class="mobile-nav-item"><a href="language.html" class="mobile-nav-link">Language</a></div>
@@ -427,16 +375,40 @@
     if (!headerEl) return;
     const btn = headerEl.querySelector("#mobileMenuBtn");
     const menu = headerEl.querySelector("#mobileNavMenu");
+    
+    // Logic for Timeline Submenu Toggle
+    const timelineToggle = headerEl.querySelector("#mobileTimelineToggle");
+    const timelineSubmenu = headerEl.querySelector("#mobileTimelineSubmenu");
+    
+    if (timelineToggle && timelineSubmenu) {
+      timelineToggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation(); // Prevent closing the main menu
+        const isActive = timelineSubmenu.classList.contains("active");
+        
+        if (isActive) {
+            timelineSubmenu.classList.remove("active");
+            timelineToggle.classList.remove("active");
+        } else {
+            timelineSubmenu.classList.add("active");
+            timelineToggle.classList.add("active");
+        }
+      });
+    }
+
     if (!btn || !menu) return;
     const path = btn.querySelector("svg path");
     function setOpen(open) {
       menu.classList.toggle("active", open);
       if(path) path.setAttribute("d", open ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16");
     }
+    
     btn.addEventListener("click", () => setOpen(!menu.classList.contains("active")));
+    
     headerEl.querySelectorAll(".mobile-nav-link, .mobile-sub-link").forEach((a) => {
       a.addEventListener("click", () => setOpen(false));
     });
+    
     document.addEventListener("click", (e) => {
       if (!btn.contains(e.target) && !menu.contains(e.target)) setOpen(false);
     });
