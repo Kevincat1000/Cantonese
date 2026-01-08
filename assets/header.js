@@ -118,17 +118,17 @@
      /* --- LOGO HOVER EFFECT: Sticker Cutout (Clean & Flat) --- */
       @media (min-width: 1024px) {
         header[data-site-header="1"] .logo {
-          /* 左右留点空隙，防止描边太厚被切掉 */
+     
           padding: 0 10px; 
-          /* 稍微放大一点点(1.02)表示被选中了，但绝对不旋转 */
-          transition: transform 0.2s ease;
+     
+          
         }
 
         header[data-site-header="1"] .logo-main {
           /* 让描边长在文字后面，保证白色文字不被挤瘦 */
           paint-order: stroke fill;
           transition: all 0.2s ease;
-          /* 默认无描边 */
+  
           -webkit-text-stroke: 0px transparent;
         }
 
@@ -138,21 +138,18 @@
           -webkit-text-stroke: 0px transparent;
         }
 
-        /* Hover 触发 */
-        header[data-site-header="1"] .logo:hover {
-          /* 只有微弱的放大，没有旋转，没有阴影 */
-          transform: scale(1.02); 
-        }
+       
+      
 
         header[data-site-header="1"] .logo:hover .logo-main {
-          color: #ffffff; /* 字变白 */
-          -webkit-text-stroke: 8px #701a1a; /* 8px 深红实心描边 */
+          color: #ffffff; 
+          -webkit-text-stroke: 5px #701a1a;
         }
 
         header[data-site-header="1"] .logo:hover .logo-sub {
           color: #ffffff;
-          margin-top: 4px; /* 稍微把副标题往下推一点，避免和上面厚描边重叠 */
-          -webkit-text-stroke: 4px #701a1a; /* 4px 深红实心描边 */
+          margin-top: 2px; 
+          -webkit-text-stroke: 2px #701a1a; 
         }
       }
        
