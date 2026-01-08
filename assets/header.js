@@ -5,14 +5,14 @@
     { url: "index.html", title: "Home" },
     { url: "about.html", title: "About Us" },
     { url: "timeline.html", title: "Timeline" },
+    { url: "phase1.html", title: "Phase 1: 17th-19th Centuries" },
+    { url: "phase2.html", title: "Phase 2: 1848-1947" },
+    { url: "phase3.html", title: "Phase 3: 1965-2000" },
+    { url: "phase4.html", title: "Phase 4: 2000-Present" },
     { url: "language.html", title: "Language" },
     { url: "culture.html", title: "Culture" },
     { url: "archives.html", title: "Archives" },
-    { url: "resources.html", title: "Resources" },
-    { url: "phase1.html", title: "Phase 1" },
-    { url: "phase2.html", title: "Phase 2" },
-    { url: "phase3.html", title: "Phase 3" },
-    { url: "phase4.html", title: "Phase 4" }
+    { url: "resources.html", title: "Resources" }
   ];
 
   const HEADER_SEL = "header[data-site-header='1']";
@@ -45,8 +45,82 @@
       header[data-site-header="1"] .nav-menu{ display:none; align-items:center; justify-content:flex-end; gap:1.25rem; margin-left:auto; }
       @media (min-width:768px){ header[data-site-header="1"] .nav-menu{ display:flex; } }
       
+      /* --- Dropdown Styles Start --- */
+      .nav-item-wrapper { position: relative; height: 100%; display: flex; align-items: center; }
+      
       header[data-site-header="1"] .nav-link{ color:#050505; text-decoration:none; font-size:14px; font-weight:600; letter-spacing:.3px; transition:color .25s; display:inline-flex; align-items:center; padding:.5rem 0; cursor:pointer; line-height:1.5; white-space:nowrap; }
-      header[data-site-header="1"] .nav-link:hover{ color:#701a1a; }
+      header[data-site-header="1"] .nav-link:hover, 
+      .nav-item-wrapper:hover .nav-link { color:#701a1a; }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        width: 280px;
+        background-color: #F5F0E5;
+        border: 1px solid #E5DBCA;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 6px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+        z-index: 1100;
+      }
+      
+      /* Create a safe hover bridge */
+      .dropdown-menu::before {
+        content: ''; position: absolute; top: -20px; left: 0; width: 100%; height: 20px;
+      }
+
+      .nav-item-wrapper:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .dropdown-item {
+        display: block;
+        padding: 10px 14px;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        margin-bottom: 2px;
+      }
+      .dropdown-item:last-child { margin-bottom: 0; }
+
+      .dropdown-meta {
+        display: block;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #8B2332;
+        margin-bottom: 3px;
+        transition: color 0.2s ease;
+      }
+      
+      .dropdown-title {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: #1a1a1a;
+        line-height: 1.3;
+        transition: color 0.2s ease;
+      }
+
+      /* Hover Effect for Dropdown Items */
+      .dropdown-item:hover {
+        background-color: #701a1a;
+      }
+      .dropdown-item:hover .dropdown-meta {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .dropdown-item:hover .dropdown-title {
+        color: #ffffff;
+      }
+      /* --- Dropdown Styles End --- */
 
       header[data-site-header="1"] .header-search{ display:none; align-items:center; gap:.5rem; position: relative; }
       @media (min-width:768px){ header[data-site-header="1"] .header-search{ display:flex; } }
@@ -86,6 +160,8 @@
       header[data-site-header="1"] .mobile-nav-item{ border-bottom:1px solid #E5DBCA; }
       header[data-site-header="1"] .mobile-nav-link{ display:block; padding:1rem 1.5rem; color:#333; text-decoration:none; font-size:16px; font-weight:600; transition:background-color .2s, color .2s; }
       header[data-site-header="1"] .mobile-nav-link:hover{ background-color:#EAE4D5; color:#8B2332; }
+      header[data-site-header="1"] .mobile-sub-link { display: block; padding: 0.8rem 1.5rem 0.8rem 2.5rem; color: #555; text-decoration: none; font-size: 14px; border-bottom: 1px solid #F0EAD9; }
+      header[data-site-header="1"] .mobile-sub-link:hover { background-color: #EAE4D5; color: #701a1a; }
       @media (min-width:1024px){ header[data-site-header="1"] .nav-menu{ gap:1.5rem; } }
     `;
 
@@ -109,7 +185,30 @@
             
             <nav class="nav-menu" aria-label="Primary">
               <a href="about.html" class="nav-link">About</a>
-              <a href="timeline.html" class="nav-link">Timeline</a>
+              
+              <!-- Timeline Dropdown -->
+              <div class="nav-item-wrapper">
+                <a href="timeline.html" class="nav-link">Timeline</a>
+                <div class="dropdown-menu">
+                  <a href="phase1.html" class="dropdown-item">
+                    <span class="dropdown-meta">01. 17th–19th Centuries</span>
+                    <span class="dropdown-title">Early Migration within Southeast Asia</span>
+                  </a>
+                  <a href="phase2.html" class="dropdown-item">
+                    <span class="dropdown-meta">02. 1848–1947</span>
+                    <span class="dropdown-title">Building North America & The Pacific</span>
+                  </a>
+                  <a href="phase3.html" class="dropdown-item">
+                    <span class="dropdown-meta">03. 1965–2000</span>
+                    <span class="dropdown-title">Reforms, Refugees, and American Dream</span>
+                  </a>
+                  <a href="phase4.html" class="dropdown-item">
+                    <span class="dropdown-meta">04. 2000–Present</span>
+                    <span class="dropdown-title">Diversification and Cultural Resilience</span>
+                  </a>
+                </div>
+              </div>
+
               <a href="language.html" class="nav-link">Language</a>
               <a href="culture.html" class="nav-link">Culture</a>
               <a href="archives.html" class="nav-link">Archives</a>
@@ -135,7 +234,16 @@
             </div>
 
             <div class="mobile-nav-item"><a href="about.html" class="mobile-nav-link">About</a></div>
-            <div class="mobile-nav-item"><a href="timeline.html" class="mobile-nav-link">Timeline</a></div>
+            
+            <!-- Mobile Timeline Group -->
+            <div class="mobile-nav-item">
+                <a href="timeline.html" class="mobile-nav-link">Timeline</a>
+                <a href="phase1.html" class="mobile-sub-link">01. Early Migration</a>
+                <a href="phase2.html" class="mobile-sub-link">02. Building North America</a>
+                <a href="phase3.html" class="mobile-sub-link">03. Reforms & Refugees</a>
+                <a href="phase4.html" class="mobile-sub-link">04. Diversification</a>
+            </div>
+
             <div class="mobile-nav-item"><a href="language.html" class="mobile-nav-link">Language</a></div>
             <div class="mobile-nav-item"><a href="culture.html" class="mobile-nav-link">Culture</a></div>
             <div class="mobile-nav-item"><a href="archives.html" class="mobile-nav-link">Archives</a></div>
@@ -307,7 +415,7 @@
       if(path) path.setAttribute("d", open ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16");
     }
     btn.addEventListener("click", () => setOpen(!menu.classList.contains("active")));
-    headerEl.querySelectorAll(".mobile-nav-link").forEach((a) => {
+    headerEl.querySelectorAll(".mobile-nav-link, .mobile-sub-link").forEach((a) => {
       a.addEventListener("click", () => setOpen(false));
     });
     document.addEventListener("click", (e) => {
