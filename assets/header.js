@@ -115,19 +115,20 @@
       
       @media (min-width:1024px){ header[data-site-header="1"] .nav-menu{ gap:1.5rem; }
       /* --- LOGO HOVER EFFECT: Red Block Invert (Desktop Only) --- */
-     /* --- LOGO HOVER EFFECT: Sticker Cutout (High Contrast) --- */
+     /* --- LOGO HOVER EFFECT: Sticker Cutout (Clean & Flat) --- */
       @media (min-width: 1024px) {
         header[data-site-header="1"] .logo {
-          /* 稍微增加左右内边距，给描边留出空间，防止被切掉 */
+          /* 左右留点空隙，防止描边太厚被切掉 */
           padding: 0 10px; 
-          transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 弹性动画 */
+          /* 稍微放大一点点(1.02)表示被选中了，但绝对不旋转 */
+          transition: transform 0.2s ease;
         }
 
         header[data-site-header="1"] .logo-main {
-          /* 关键属性：让描边(stroke)绘制在填充(fill)的后面，这样字不会变细 */
+          /* 让描边长在文字后面，保证白色文字不被挤瘦 */
           paint-order: stroke fill;
           transition: all 0.2s ease;
-          /* 默认状态下没有描边 */
+          /* 默认无描边 */
           -webkit-text-stroke: 0px transparent;
         }
 
@@ -137,32 +138,21 @@
           -webkit-text-stroke: 0px transparent;
         }
 
-        /* Hover 触发状态 */
+        /* Hover 触发 */
         header[data-site-header="1"] .logo:hover {
-          transform: scale(1.05) rotate(-1deg); /* 像贴纸一样稍微歪一点点浮起来 */
-          filter: drop-shadow(3px 3px 0px rgba(112, 26, 26, 0.2)); /* 整体淡淡的投影 */
+          /* 只有微弱的放大，没有旋转，没有阴影 */
+          transform: scale(1.02); 
         }
 
         header[data-site-header="1"] .logo:hover .logo-main {
-          color: #ffffff; /* 字体变成白色 */
-          
-          /* 核心效果：深红色的厚实描边 */
-          -webkit-text-stroke: 8px #701a1a; 
-          
-          /* 修正：如果浏览器不支持 text-stroke，用阴影兜底 */
-          text-shadow: 
-             3px 0 0 #701a1a, -3px 0 0 #701a1a,
-             0 3px 0 #701a1a, 0 -3px 0 #701a1a,
-             2px 2px 0 #701a1a, -2px -2px 0 #701a1a,
-             2px -2px 0 #701a1a, -2px 2px 0 #701a1a;
+          color: #ffffff; /* 字变白 */
+          -webkit-text-stroke: 8px #701a1a; /* 8px 深红实心描边 */
         }
 
         header[data-site-header="1"] .logo:hover .logo-sub {
           color: #ffffff;
-          margin-top: 4px; /* 因为上面描边太厚，稍微把下面文字推远一点 */
-          
-          /* 副标题字小，描边要细一点，不然糊成一团 */
-          -webkit-text-stroke: 4px #701a1a;
+          margin-top: 4px; /* 稍微把副标题往下推一点，避免和上面厚描边重叠 */
+          -webkit-text-stroke: 4px #701a1a; /* 4px 深红实心描边 */
         }
       }
        
