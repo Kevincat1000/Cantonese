@@ -16,7 +16,7 @@
 :root{
   --bg: #e5f0f5;
   --accent: #a84d4d;
-  --accent-hover: #701a1a; /* 新增的悬停颜色 */
+  --accent-hover: #701a1a;
   --text: #2d3748;
   --font-body: 'Gentium Book Plus', serif;
   --font-heading: 'Exo', sans-serif;
@@ -38,6 +38,7 @@ body{
   body{ font-size: 20px; line-height: 1.6; }
 }
 
+/* 顶部返回按钮 */
 .nav-float{
   position: fixed;
   top: 30px;
@@ -86,9 +87,10 @@ body{
   color: var(--accent);
 }
 
+/* 头部 Banner */
 .hero-section{
   position: relative;
-  height: 100vh;
+  height: 90vh; /* 稍微缩减高度让文字更早出现 */
   width: 100%;
   display: flex;
   align-items: center;
@@ -130,25 +132,32 @@ body{
   margin-top: 0.5rem;
 }
 
+/* 正文容器 */
 .container{
   max-width: 800px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-.main-content{
-  padding: 2rem 2rem 5rem 2rem;
-  background: var(--bg);
+.article-body{
+  padding-bottom: 5rem;
 }
 
-.text-content{ width: 100%; }
-.text-content p{ margin-bottom: 2rem; } /* 增加段落间距使长文更易读 */
+/* 调整文字间距，使其看起来是一个整体 */
+.text-content{ 
+  width: 100%; 
+  text-align: justify; /* 两端对齐增加整体感 */
+}
+.text-content p{ 
+  margin-bottom: 1.2rem; /* 缩减段落间距 */
+  text-indent: 0;      /* 如果需要首行缩进可以改为2em */
+}
 
+/* 底部导航 */
 .phase-navigation{
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  padding-bottom: 2rem;
-  border-top: 1px solid rgba(45, 55, 72, 0.2);
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(45, 55, 72, 0.15);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -166,7 +175,7 @@ body{
   font-size: 0.95rem;
 }
 
-/* 修改后的hover特效 */
+/* 悬停颜色改为 #701a1a */
 .phase-link:hover{ 
   color: var(--accent-hover); 
 }
@@ -180,7 +189,6 @@ body{
     flex-direction: column;
     gap: 20px;
     align-items: center;
-    text-align: center;
   }
 }
 </style>
@@ -200,7 +208,7 @@ body{
   </div>
 </header>
 
-<main class="main-content">
+<main class="article-body">
   <div class="container">
     <div class="text-content">
       <p>
@@ -229,7 +237,7 @@ body{
         <span>Phase III: 1950s–1990s</span>
       </a>
 
-      <a href="timeline.html" class="phase-link" style="text-align:right;">
+      <a href="timeline.html" class="phase-link">
         <span>Return to Timeline</span>
         <i data-lucide="layout-grid"></i>
       </a>
