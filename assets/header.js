@@ -3,7 +3,7 @@
 
   const PAGES_TO_SCAN = [
     { url: "index.html", title: "Home" },
-    { url: "about.html", title: "About Us" },
+    { url: "index.html", title: "Home" },
     { url: "timeline.html", title: "Timeline" },
     { url: "phase1.html", title: "Phase 1: 17th-19th Centuries" },
     { url: "phase2.html", title: "Phase 2: 1848-1947" },
@@ -139,7 +139,7 @@
             </a>
             
             <nav class="nav-menu" aria-label="Primary">
-              <a href="about.html" class="nav-link">About</a>
+              <a href="index.html" class="nav-link">Home</a>
               
               <div class="nav-item-wrapper">
                 <a href="timeline.html" class="nav-link">
