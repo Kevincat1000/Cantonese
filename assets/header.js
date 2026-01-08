@@ -45,7 +45,6 @@
       header[data-site-header="1"] .nav-menu{ display:none; align-items:center; justify-content:flex-end; gap:1.25rem; margin-left:auto; }
       @media (min-width:768px){ header[data-site-header="1"] .nav-menu{ display:flex; } }
       
-      /* --- Desktop Dropdown Styles --- */
       .nav-item-wrapper { position: relative; height: 100%; display: flex; align-items: center; }
       
       header[data-site-header="1"] .nav-link{ color:#050505; text-decoration:none; font-size:14px; font-weight:600; letter-spacing:.3px; transition:color .25s; display:inline-flex; align-items:center; padding:.5rem 0; cursor:pointer; line-height:1.5; white-space:nowrap; }
@@ -67,7 +66,6 @@
       .dropdown-item:hover .dropdown-meta { color: rgba(255, 255, 255, 0.7); }
       .dropdown-item:hover .dropdown-title { color: #ffffff; }
 
-      /* --- Search Styles --- */
       header[data-site-header="1"] .header-search{ display:none; align-items:center; gap:.5rem; position: relative; }
       @media (min-width:768px){ header[data-site-header="1"] .header-search{ display:flex; } }
       header[data-site-header="1"] .header-search input{ width:160px; height:32px; border-radius:6px; border:1px solid #E5DBCA; background:#F5F0E5; padding:0 10px; font-size:14px; line-height:32px; outline:none; }
@@ -85,7 +83,6 @@
       .search-result-snippet { display: block; color: #666; font-size: 12px; line-height: 1.4; }
       .search-no-results { padding: 12px; color: #888; font-size: 13px; text-align: center; }
       
-      /* --- Mobile Styles --- */
       header[data-site-header="1"] .mobile-menu-btn{ display:block; background:none; border:none; cursor:pointer; padding:.5rem; color:#333; }
       @media (min-width:768px){ header[data-site-header="1"] .mobile-menu-btn{ display:none; } }
       header[data-site-header="1"] .mobile-menu-btn svg{ width:22px; height:22px; }
@@ -102,21 +99,18 @@
       
       header[data-site-header="1"] .mobile-nav-item{ border-bottom:1px solid #E5DBCA; }
       
-      /* Mobile Link Flex Container */
       .mobile-link-row { display: flex; align-items: center; justify-content: space-between; padding-right: 15px; }
-      header[data-site-header="1"] .mobile-nav-link{ flex-grow: 1; display:block; padding:1rem 1.5rem; color:#333; text-decoration:none; font-size:16px; font-weight:600; transition:background-color .2s, color .2s; }
+      header[data-site-header="1"] .mobile-nav-link{ flex-grow: 1; display:block; padding:1rem 1.5rem; color:#333; text-decoration:none; font-size:18px; font-weight:700; transition:background-color .2s, color .2s; }
       header[data-site-header="1"] .mobile-nav-link:hover{ background-color:#EAE4D5; color:#8B2332; }
 
-      /* Mobile Toggle Arrow Button */
-      .mobile-toggle-btn { background: none; border: none; cursor: pointer; padding: 10px; color: #666; display: flex; align-items: center; justify-content: center; }
-      .mobile-toggle-btn svg { width: 14px; height: 14px; transition: transform 0.3s ease; }
+      .mobile-toggle-btn { background: none; border: none; cursor: pointer; padding: 10px; color: #333; display: flex; align-items: center; justify-content: center; }
+      .mobile-toggle-btn svg { width: 16px; height: 16px; transition: transform 0.3s ease; stroke-width: 2.5; }
       .mobile-toggle-btn.active svg { transform: rotate(180deg); color: #8B2332; }
       
-      /* Mobile Submenu Container */
       .mobile-submenu-wrapper { max-height: 0; overflow: hidden; background-color: #efebd8; transition: max-height 0.3s ease-in-out; }
-      .mobile-submenu-wrapper.active { max-height: 500px; /* Expands to fit content */ }
+      .mobile-submenu-wrapper.active { max-height: 600px; }
 
-      header[data-site-header="1"] .mobile-sub-link { display: block; padding: 0.8rem 1.5rem 0.8rem 2.5rem; color: #555; text-decoration: none; font-size: 14px; border-bottom: 1px solid #e0d6c2; }
+      header[data-site-header="1"] .mobile-sub-link { display: block; padding: 1rem 1.5rem 1rem 2rem; color: #000000; text-decoration: none; font-size: 16px; font-weight: 500; border-bottom: 1px solid #e0d6c2; line-height: 1.4; }
       header[data-site-header="1"] .mobile-sub-link:hover { background-color: #e6dfcd; color: #701a1a; }
       
       @media (min-width:1024px){ header[data-site-header="1"] .nav-menu{ gap:1.5rem; } }
@@ -143,7 +137,6 @@
             <nav class="nav-menu" aria-label="Primary">
               <a href="about.html" class="nav-link">About</a>
               
-              <!-- Desktop Timeline Dropdown -->
               <div class="nav-item-wrapper">
                 <a href="timeline.html" class="nav-link">
                     Timeline
@@ -195,7 +188,6 @@
 
             <div class="mobile-nav-item"><a href="about.html" class="mobile-nav-link">About</a></div>
             
-            <!-- Mobile Timeline Group (Collapsible) -->
             <div class="mobile-nav-item">
                 <div class="mobile-link-row">
                     <a href="timeline.html" class="mobile-nav-link">Timeline</a>
@@ -204,10 +196,10 @@
                     </button>
                 </div>
                 <div class="mobile-submenu-wrapper" id="mobileTimelineSubmenu">
-                    <a href="phase1.html" class="mobile-sub-link">01. Early Migration</a>
-                    <a href="phase2.html" class="mobile-sub-link">02. Building North America</a>
-                    <a href="phase3.html" class="mobile-sub-link">03. Reforms & Refugees</a>
-                    <a href="phase4.html" class="mobile-sub-link">04. Diversification</a>
+                    <a href="phase1.html" class="mobile-sub-link">01. Early Migration within Southeast Asia</a>
+                    <a href="phase2.html" class="mobile-sub-link">02. Building North America & The Pacific</a>
+                    <a href="phase3.html" class="mobile-sub-link">03. Reforms, Refugees, and American Dream</a>
+                    <a href="phase4.html" class="mobile-sub-link">04. Diversification and Cultural Resilience</a>
                 </div>
             </div>
 
@@ -376,14 +368,13 @@
     const btn = headerEl.querySelector("#mobileMenuBtn");
     const menu = headerEl.querySelector("#mobileNavMenu");
     
-    // Logic for Timeline Submenu Toggle
     const timelineToggle = headerEl.querySelector("#mobileTimelineToggle");
     const timelineSubmenu = headerEl.querySelector("#mobileTimelineSubmenu");
     
     if (timelineToggle && timelineSubmenu) {
       timelineToggle.addEventListener("click", function(e) {
         e.preventDefault();
-        e.stopPropagation(); // Prevent closing the main menu
+        e.stopPropagation();
         const isActive = timelineSubmenu.classList.contains("active");
         
         if (isActive) {
