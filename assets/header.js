@@ -4,6 +4,7 @@
   const PAGES_TO_SCAN = [
     { url: "index.html", title: "Home" },
     { url: "timeline.html", title: "Timeline" },
+       { url: "about.html", title: "About" },
     { url: "phase1.html", title: "Phase 1: 17th-19th Centuries" },
     { url: "phase2.html", title: "Phase 2: 1848-1947" },
     { url: "phase3.html", title: "Phase 3: 1965-2000" },
