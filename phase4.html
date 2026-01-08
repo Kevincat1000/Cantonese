@@ -1,238 +1,210 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phase IV: 2000–Present - Diversification and Resilience</title>
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase IV: 2000–Present - From Survival to Prosperity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+:root {
+--bg-tan: #b8cdd6;
+--bg-paper: #e5f0f5;
+--accent-red: #2c5282;
+--dark-red: #1a365d;
+--text-main: #2d3748;
+--text-light: #e5f0f5;
+--font-body: 'Gentium Book Plus', serif;
+--font-heading: 'Exo', sans-serif;
+}
 
-  <!-- Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+font-family: var(--font-body);
+line-height: 1.6;
+font-size: 16px;
+background-color: var(--bg-paper);
+color: var(--text-main);
+overflow-x: hidden;
+}
 
-  <style>
-    :root {
-      --bg-tan: #D9CCB7;     
-      --bg-paper: #f5f0e5;   
-      --accent-red: #a84d4d;
-      --dark-red: #701a1a; 
-      --text-main: #333333;  
-      --text-light: #f5f0e5;
-      --font-body: 'Gentium Book Plus', serif;
-      --font-heading: 'Exo', sans-serif;
-    }
+@media (max-width: 768px) {
+body {
+font-size: 20px;
+line-height: 1.6;
+}
+}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-body);
-      line-height: 1.6;
-      background-color: var(--bg-paper);
-      color: var(--text-main);
-      overflow-x: hidden;
-    }
+.nav-float {
+position: fixed; top: 30px; left: 30px; z-index: 1000;
+display: flex; align-items: center; gap: 15px;
+text-decoration: none; color: var(--text-main); transition: all 0.3s ease;
+}
+.nav-icon-circle {
+width: 50px; height: 50px; border: 1px solid rgba(45, 55, 72, 0.2);
+border-radius: 50%; display: flex; align-items: center; justify-content: center;
+transition: all 0.3s ease; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px);
+}
+.nav-text {
+font-family: var(--font-heading); font-size: 12px; text-transform: uppercase;
+letter-spacing: 1px; opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; font-weight: 600;
+}
+.nav-float:hover .nav-icon-circle { background-color: var(--accent-red); border-color: var(--accent-red); color: #fff; }
+.nav-float:hover .nav-text { opacity: 1; transform: translateX(0); color: var(--accent-red); }
 
-    /* --- 1. Nav --- */
-    .nav-float {
-      position: fixed; top: 30px; left: 30px; z-index: 1000;
-      display: flex; align-items: center; gap: 15px;
-      text-decoration: none; color: var(--text-main); transition: all 0.3s ease;
-    }
-    .nav-icon-circle {
-      width: 50px; height: 50px; border: 1px solid rgba(51, 51, 51, 0.2);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      transition: all 0.3s ease; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px);
-    }
-    .nav-text {
-      font-family: var(--font-heading); font-size: 12px; text-transform: uppercase;
-      letter-spacing: 1px; opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; font-weight: 600;
-    }
-    .nav-float:hover .nav-icon-circle { background-color: var(--accent-red); border-color: var(--accent-red); color: #fff; }
-    .nav-float:hover .nav-text { opacity: 1; transform: translateX(0); color: var(--accent-red); }
+.hero-section {
+position: relative; height: 100vh; width: 100%; display: flex;
+align-items: center; justify-content: center; overflow: hidden;
+}
+#network-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.4; }
+.hero-content { position: relative; z-index: 10; text-align: center; max-width: 900px; padding: 0 20px; }
+.hero-label { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px; color: var(--accent-red); margin-bottom: 1rem; display: block; font-weight: 700; font-size: 1rem; }
+.hero-title { font-family: var(--font-heading); font-size: 3.5rem; line-height: 1.1; margin-bottom: 1rem; font-weight: 700; color: #1a1a1a; }
+.hero-subtitle { font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-main); font-weight: 400; margin-top: 0.5rem; }
 
-    /* --- 2. Hero --- */
-    .hero-section {
-      position: relative; height: 100vh; width: 100%; display: flex;
-      align-items: center; justify-content: center; overflow: hidden;
-    }
-    #network-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.4; }
-    .hero-content { position: relative; z-index: 10; text-align: center; max-width: 900px; padding: 0 20px; }
-    .hero-label { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px; color: var(--accent-red); margin-bottom: 1rem; display: block; font-weight: 700; font-size: 1rem; }
-    .hero-title { font-family: var(--font-heading); font-size: 3.5rem; line-height: 1.1; margin-bottom: 1rem; font-weight: 700; color: #1a1a1a; }
-    .hero-subtitle { font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-main); font-weight: 400; margin-top: 0.5rem; }
+.container { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+.content-section { padding: 5rem 2rem; transition: background-color 1.5s ease; }
 
-    /* --- 3. Content --- */
-    .container { max-width: 1152px; margin: 0 auto; padding: 0 2rem; }
-    .content-section { padding: 5rem 2rem; transition: background-color 1.5s ease; }
-    
-    /* 深红背景 */
-    .section-dark-red { background-color: var(--dark-red); color: var(--text-light); }
-    .section-dark-red .section-title { border-left-color: var(--bg-tan); }
-    
-    /* 压缩最后一页空白 */
-    .last-section { padding-bottom: 10px !important; }
+.section-dark { background-color: var(--dark-red); color: var(--text-light); }
+.section-dark .section-title { border-left-color: var(--bg-tan); }
 
-    .section-title {
-      font-family: var(--font-heading); font-size: 28px; font-weight: 700;
-      margin-bottom: 1.5rem; line-height: 1.3; position: relative;
-      padding-left: 20px; border-left: 5px solid var(--accent-red);
-    }
-    .text-content { font-size: 1.15rem; line-height: 1.8; width: 100%; }
-    .grid-2col { display: grid; gap: 4rem; align-items: start; }
+.last-section { padding-bottom: 10px !important; }
 
-    .fade-content { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
-    .fade-content.visible { opacity: 1; transform: translateY(0); }
+.section-title {
+font-family: var(--font-heading); font-size: 28px; font-weight: 700;
+margin-bottom: 1.5rem; line-height: 1.3; position: relative;
+padding-left: 20px; border-left: 5px solid var(--accent-red);
+}
+.text-content { width: 100%; }
+.text-content p { margin-bottom: 1.5rem; }
 
-    .image-frame { width: 100%; border-radius: 4px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
-    .image-frame img { width: 100%; height: auto; display: block; }
-    .image-caption { font-family: var(--font-heading); font-size: 0.85rem; margin-top: 12px; opacity: 0.8; font-style: italic; color: var(--bg-tan); }
+.fade-content { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+.fade-content.visible { opacity: 1; transform: translateY(0); }
 
-    /* --- Footer Navigation (极简版) --- */
-    .phase-navigation {
-      margin-top: 5px; 
-      padding-top: 5px; 
-      padding-bottom: 10px; 
-      border-top: 1px solid rgba(245, 240, 229, 0.2);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .phase-link {
-      text-decoration: none; color: var(--text-light); display: inline-flex;
-      align-items: center; gap: 12px; font-family: var(--font-heading);
-      font-weight: 700; transition: all 0.3s; font-size: 0.95rem;
-    }
-    .phase-link:hover { color: var(--bg-tan); }
-    .link-sub { display: block; font-size: 0.75em; opacity: 0.7; font-weight: 400; margin-top: 2px; }
+.phase-navigation {
+margin-top: 5px;
+padding-top: 5px;
+padding-bottom: 10px;
+border-top: 1px solid rgba(229, 240, 245, 0.2);
+display: flex; justify-content: space-between; align-items: center;
+}
+.phase-link {
+text-decoration: none; color: var(--text-light); display: inline-flex;
+align-items: center; gap: 12px; font-family: var(--font-heading);
+font-weight: 700; transition: all 0.3s; font-size: 0.95rem;
+}
+.phase-link:hover { color: var(--bg-tan); }
+.link-sub { display: block; font-size: 0.75em; opacity: 0.7; font-weight: 400; margin-top: 2px; }
 
-    @media (min-width: 900px) { .hero-title { font-size: 5rem; } .grid-2col { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 768px) { .phase-navigation { flex-direction: column; gap: 10px; align-items: center; text-align: center; } }
-  </style>
+@media (min-width: 900px) { .hero-title { font-size: 5rem; } }
+@media (max-width: 768px) { .phase-navigation { flex-direction: column; gap: 10px; align-items: center; text-align: center; } }
+</style>
 </head>
-
 <body>
-
-  <a href="timeline.html" class="nav-float">
-    <div class="nav-icon-circle"><i data-lucide="arrow-left"></i></div>
-    <span class="nav-text">Back to Timeline</span>
-  </a>
-
-  <header class="hero-section">
-    <canvas id="network-canvas"></canvas>
-    <div class="hero-content">
-      <span class="hero-label">Timeline / Phase IV</span>
-      <h1 class="hero-title">2000–Present</h1>
-      <h2 class="hero-subtitle">Diversification and Cultural Resilience</h2>
+<a href="timeline.html" class="nav-float">
+<div class="nav-icon-circle"><i data-lucide="arrow-left"></i></div>
+<span class="nav-text">Back to Timeline</span>
+</a>
+<header class="hero-section">
+<canvas id="network-canvas"></canvas>
+<div class="hero-content">
+<span class="hero-label">Timeline / Phase IV</span>
+<h1 class="hero-title">2000–Present</h1>
+<h2 class="hero-subtitle">Wealth, Education, and Permanent Settlement</h2>
+</div>
+</header>
+<main>
+<section class="content-section">
+<div class="container fade-content">
+<h2 class="section-title">A New Wave of Capital and Expertise</h2>
+<div class="text-content">
+<p>
+In the 21st century, Cantonese migration to the United States has shifted from a struggle for survival to a movement shaped by wealth accumulation, educational opportunity, and long-term family planning. Since 2000, a new wave of immigrants from Guangdong and Hong Kong has arrived with substantial financial capital and professional expertise. As the forefront of China’s economic growth, Guangdong has produced a generation of successful entrepreneurs and technology professionals who are increasingly seeking global opportunities.
+</p>
+<p>
+Alongside them are large numbers of international students and young professionals who often begin their journeys on American university campuses and later transition into high-paying positions in the U.S. labor market. This population is not primarily motivated by short-term employment; rather, they are focused on securing long-term stability, accessing elite educational opportunities for their children, and protecting family assets within a stable social and political environment. This cultural community is further reinforced by Chinese families migrating from Southeast Asian countries such as Vietnam and Malaysia. Many of these families share Cantonese or Teochew linguistic and cultural roots and relocate through extended family networks, forming a broad and interconnected diaspora that sustains Cantonese language and traditions across the United States.
+</p>
+</div>
+</div>
+</section>
+code
+Code
+<section class="content-section section-dark">
+  <div class="container fade-content">
+    <h2 class="section-title">Beyond Chinatown: The Suburban Shift</h2>
+    <div class="text-content">
+      <p>
+        Although traditional destinations such as California and New York remain important centers, Cantonese settlement has expanded well beyond the historical boundaries of “Chinatown.” Approximately 32% of Chinese immigrants currently reside in California and 19% in New York, forming a significant cultural core. However, instead of remaining concentrated in dense urban neighborhoods, many contemporary families are relocating to suburban areas and developing large-scale commercial districts.
+      </p>
+      <p>
+        These suburban landscapes increasingly feature expansive Chinese supermarkets, real estate agencies, and financial service firms that integrate smoothly into the broader American economy. This spatial shift has transformed many American suburbs into dynamic commercial hubs that serve both local residents and the wider market. Through this process, Cantonese-speaking communities demonstrate that they are no longer transient populations but are instead committed to long-term settlement and community building.
+      </p>
     </div>
-  </header>
-  
-  <main>
-    <section class="content-section">
-      <div class="container">
-        <div class="grid-2col fade-content">
-          <div class="text-col">
-            <h2 class="section-title">A New Era of Movement</h2>
-            <div class="text-content">
-              <p style="margin-bottom: 1.5rem;">
-                In the 21st century, Cantonese migration to North America has evolved beyond the economic survivalism of previous eras into a nuanced movement driven by education, investment, family reunification, and lifestyle aspirations.
-              </p>
-              <p>
-                The demographic profile of migrants has shifted significantly. It now includes technical elites, professionals, and wealthy entrepreneurs seeking global asset allocation, alongside a growing wave of international students and accompanying families. This influx has injected a more diverse cultural dynamism into the United States, reinforcing the community’s vitality.
-              </p>
-            </div>
-          </div>
-          <div class="img-col">
-            <div class="image-frame">
-              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000" alt="Professionals and Education">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  </div>
+</section>
 
-    <section class="content-section section-dark-red">
-      <div class="container">
-        <div class="grid-2col fade-content" style="align-items: center;">
-          <div class="img-col">
-            <div class="image-frame">
-              <img src="https://images.unsplash.com/photo-1543157145-f78c636d023d?auto=format&fit=crop&q=80&w=1000" alt="Cultural Identity">
-            </div>
-            <p class="image-caption">Resilience through language: Cantonese remains a vibrant home language for over half a million Americans.</p>
-          </div>
-          <div class="text-col">
-            <h2 class="section-title">The Cantonese Renaissance</h2>
-            <div class="text-content">
-              <p style="margin-bottom: 1.5rem;">
-                Despite the increasing dominance of Mandarin in global commerce and education, Cantonese retains a strong foothold in North America. Current estimates project that approximately <strong>530,000 U.S. residents</strong> continue to use Cantonese as their primary home language in 2025.
-              </p>
-              <p>
-                This linguistic resilience is further supported by a visible <strong>"Cantonese Renaissance,"</strong> where younger generations, utilizing social media and community organizations, are actively preserving their linguistic identity. This movement ensures that Cantonese remains not just a relic of the railroad era, but a living, evolving component of modern American society.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<section class="content-section last-section">
+  <div class="container fade-content">
+    <h2 class="section-title">From "Falling Leaves" to "Taking Root"</h2>
+    <div class="text-content">
+      <p>
+        This transition from temporary residence to permanent settlement represents one of the most significant changes in the modern period. Historically, many immigrants envisioned returning to their ancestral villages in China, an idea often described as “falling leaves returning to their roots.” In contrast, contemporary migrants increasingly view the United States as a permanent home.
+      </p>
+      <p>
+        With an estimated 351,000 individuals from Guangdong and 233,000 from Hong Kong currently residing in the United States, this population of more than half a million people has become an influential presence in public life. They are raising American-born children, operating long-term businesses, and, for the first time, participating actively in local and national politics. By moving from the margins of society into the mainstream, Cantonese and Hong Kong communities are not only preserving their cultural heritage but are also contributing directly to the social, economic, and political future of the United States.
+      </p>
+    </div>
 
-    <!-- 最后一页：彻底移除底部多余间距 -->
-    <section class="content-section section-dark-red last-section" style="padding-top: 0;">
-      <div class="container fade-content">
-        <h2 class="section-title">Legacy into the Future</h2>
-        <div class="text-content">
-          <p style="margin-bottom: 2rem;">
-            From the gold mines of the 19th century to the tech hubs of the 21st, the Cantonese journey in North America is a testament to endurance. What began as a quest for survival has blossomed into a sophisticated, transnational identity that continues to shape the cultural landscape of the Pacific Rim.
-          </p>
-        </div>
+    <div class="phase-navigation" style="border-top: 1px solid rgba(45, 55, 72, 0.2);">
+        <a href="phase3.html" class="phase-link" style="color: var(--text-main);">
+            <i data-lucide="arrow-left"></i>
+            <span>Phase III: 1950s–1990s<br><span class="link-sub">Global Dispersion & Identity</span></span>
+        </a>
 
-        <!-- 极简导航：上下仅 5px-10px 间距 -->
-        <div class="phase-navigation">
-            <a href="phase3.html" class="phase-link">
-                <i data-lucide="arrow-left"></i>
-                <span>Phase III: 1950s–1990s<br><span class="link-sub">Global Dispersion & Identity</span></span>
-            </a>
+        <a href="timeline.html" class="phase-link" style="text-align: right; color: var(--text-main);">
+            <span>Return to Timeline<br><span class="link-sub">Overview of All Phases</span></span>
+            <i data-lucide="layout-grid"></i>
+        </a>
+    </div>
+  </div>
+</section>
+</main>
+<script>
+lucide.createIcons();
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-content').forEach(el => observer.observe(el));
 
-            <a href="timeline.html" class="phase-link" style="text-align: right;">
-                <span>Return to Timeline<br><span class="link-sub">Overview of All Phases</span></span>
-                <i data-lucide="layout-grid"></i>
-            </a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    lucide.createIcons();
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-content').forEach(el => observer.observe(el));
-
-    const canvas = document.getElementById('network-canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height, particles = [];
-    function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; initParticles(); }
-    function initParticles() {
-      particles = [];
-      for(let i=0; i<Math.floor(width/50); i++) {
-        particles.push({ x: Math.random()*width, y: Math.random()*height, vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4, r: Math.random()*2+1 });
-      }
-    }
-    function draw() {
-      ctx.clearRect(0, 0, width, height); ctx.fillStyle = "#a84d4d"; ctx.strokeStyle = "rgba(168, 77, 77, 0.2)";
-      particles.forEach((p, i) => {
-        p.x += p.vx; p.y += p.vy;
-        if(p.x<0||p.x>width) p.vx*=-1; if(p.y<0||p.y>height) p.vy*=-1;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
-        for(let j=i+1; j<particles.length; j++) {
-          const p2 = particles[j]; const dist = Math.hypot(p.x-p2.x, p.y-p2.y);
-          if(dist < 180) { ctx.globalAlpha = 1-(dist/180); ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); ctx.globalAlpha = 1; }
-        }
-      });
-      requestAnimationFrame(draw);
-    }
-    window.addEventListener('resize', resize); resize(); draw();
-  </script>
+const canvas = document.getElementById('network-canvas');
+const ctx = canvas.getContext('2d');
+let width, height, particles = [];
+function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; initParticles(); }
+function initParticles() {
+particles = [];
+for(let i=0; i<Math.floor(width/50); i++) {
+particles.push({ x: Math.random()*width, y: Math.random()*height, vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4, r: Math.random()*2+1 });
+}
+}
+function draw() {
+ctx.clearRect(0, 0, width, height); ctx.fillStyle = "#2c5282"; ctx.strokeStyle = "rgba(44, 82, 130, 0.2)";
+particles.forEach((p, i) => {
+p.x += p.vx; p.y += p.vy;
+if(p.x<0||p.x>width) p.vx*=-1; if(p.y<0||p.y>height) p.vy*=-1;
+ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+for(let j=i+1; j<particles.length; j++) {
+const p2 = particles[j]; const dist = Math.hypot(p.x-p2.x, p.y-p2.y);
+if(dist < 180) { ctx.globalAlpha = 1-(dist/180); ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); ctx.globalAlpha = 1; }
+}
+});
+requestAnimationFrame(draw);
+}
+window.addEventListener('resize', resize); resize(); draw();
+</script>
 </body>
 </html>
