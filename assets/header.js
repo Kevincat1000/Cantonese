@@ -114,43 +114,8 @@
       header[data-site-header="1"] .mobile-sub-link:hover { background-color: #e6dfcd; color: #701a1a; }
       
       @media (min-width:1024px){ header[data-site-header="1"] .nav-menu{ gap:1.5rem; }
-      /* --- LOGO HOVER EFFECT: Red Block Invert (Desktop Only) --- */
-     /* --- LOGO HOVER EFFECT: Static Sticker (Pure & Thinner) --- */
-      @media (min-width: 1024px) {
-        header[data-site-header="1"] .logo {
-          /* 左右预留一点空间，防止红色描边被切掉 */
-          padding: 0 10px; 
-        }
-
-        header[data-site-header="1"] .logo-main {
-          /* 关键：让描边长在文字后面，保证边缘平滑 */
-          paint-order: stroke fill; 
-          transition: all 0.2s ease;
-          -webkit-text-stroke: 0px transparent;
-        }
-
-        header[data-site-header="1"] .logo-sub {
-          paint-order: stroke fill;
-          transition: all 0.2s ease;
-          -webkit-text-stroke: 0px transparent;
-        }
-
-        /* --- Hover 触发状态 --- */
-        
-        /* 1. 主标题 */
-        header[data-site-header="1"] .logo:hover .logo-main {
-          color: #ffffff;          /* 变白 */
-          font-weight: 700;        /* 关键：从800降到700，让白色部分变细 */
-          -webkit-text-stroke: 8px #701a1a; /* 厚实的深红描边 */
-        }
-
-        /* 2. 副标题 */
-        header[data-site-header="1"] .logo:hover .logo-sub {
-          color: #ffffff;          /* 变白 */
-          font-weight: 500;        /* 稍微变细一点，防止糊住 */
-          margin-top: 4px;         /* 往下挪一点，避开上面的厚描边 */
-          -webkit-text-stroke: 4px #701a1a; /* 稍细的深红描边 */
-        }
+  
+    
         }
       }
     `;
