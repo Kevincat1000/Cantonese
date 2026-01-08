@@ -23,7 +23,7 @@
       --bg-color:#f5f0e5;
       --text-color:#1a1a1a;
       --drop-cap-color:#701a1a;
-      --header-h:50px;      /* fallback; JS will sync real height */
+      --header-h:50px;     
       --content-gap:40px;
     }
 
@@ -36,29 +36,23 @@
       overflow-x:hidden;
       width:100%;
 
-      /* ✅ footer stick to bottom */
       display:flex;
       flex-direction:column;
       min-height:100vh;
 
-      /* ✅ keep your original header gap logic */
       padding-top:calc(var(--header-h) + var(--content-gap));
     }
-
-    /* ✅ keep injection ids (do not change) */
     #header-container{
       width:100%;
       flex-shrink:0;
     }
 
-    /* ✅ footer stick to bottom */
     #footer-container{
       margin-top:auto;
       width:100%;
       flex-shrink:0;
     }
 
-    /* ✅ main takes remaining space so footer can be bottom */
     main.main-grid{
       flex:1;
 
@@ -204,7 +198,6 @@
       .stats-row{gap:2rem;justify-content:space-between;}
     }
 
-    /* ✅ anti-flash (same method you used on other pages) */
     html.preload body{opacity:0;}
     body{transition:opacity .15s ease;}
   </style>
@@ -263,7 +256,6 @@
   <div id="footer-container"></div>
 
   <script>
-    // ✅ Fix jitter: wait for injected header -> measure -> set --header-h -> show page
     (function () {
       function getHeaderEl() {
         return document.querySelector('header') || document.querySelector('.site-header');
