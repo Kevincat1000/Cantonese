@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap" rel="stylesheet">
 
   <script src="./assets/header.js" defer></script>
@@ -268,9 +268,7 @@
         align-items: center;
       }
 
-      .bracket-label {
-        font-size: 20px;
-      }
+      .bracket-label { font-size: 20px; }
 
       .inner-info {
         width: auto; 
@@ -286,9 +284,7 @@
 
       .video-thumb { width: 90%; order: 4; }
       
-      .modal-content {
-        width: 95%;
-      }
+      .modal-content { width: 95%; }
       
       .close-btn {
         top: 15px; left: 15px;
@@ -311,6 +307,7 @@
 
   <main>
 
+    <!-- A: Andy -->
     <div class="row">
       <div class="left-col">
         <div class="section-title">INTERVIEW FILES</div>
@@ -318,13 +315,11 @@
         <div class="info-wrapper">
           <div class="complex-label-box">
             <span class="css-bracket bracket-left"></span>
-            
             <div class="inner-info">
               <div>Andy's Interview</div>
               <div>2025 Dec 25,</div>
               <div>Walnut, California</div>
             </div>
-
             <span class="css-bracket bracket-right"></span>
           </div>
           
@@ -336,14 +331,13 @@
 
       <div class="right-col">
         <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151385247">
-          <div class="thumb-text">
-            ANDY LEE<br>2025
-          </div>
+          <div class="thumb-text">ANDY LEE<br>2025</div>
           <div class="play-circle"></div>
         </div>
       </div>
     </div>
 
+    <!-- B: Phoebe (HK) -->
     <div class="row">
       <div class="left-col">
         <div class="info-wrapper">
@@ -361,14 +355,13 @@
 
       <div class="right-col">
         <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151772755">
-          <div class="thumb-text">
-            PHOEBE<br>2025
-          </div>
+          <div class="thumb-text">PHOEBE<br>2025</div>
           <div class="play-circle"></div>
         </div>
       </div>
     </div>
 
+    <!-- C: Hedy (HK) -->
     <div class="row">
       <div class="left-col">
         <div class="info-wrapper">
@@ -386,19 +379,19 @@
 
       <div class="right-col">
         <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151774286">
-          <div class="thumb-text">
-            HEDY<br>2025
-          </div>
+          <div class="thumb-text">HEDY<br>2025</div>
           <div class="play-circle"></div>
         </div>
       </div>
     </div>
 
+    <!-- D: placeholder -->
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ D ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_D"></div></div>
     </div>
 
+    <!-- E: placeholder -->
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ E ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_E"></div></div>
@@ -406,14 +399,33 @@
 
     <div style="height: 80px;"></div>
 
+    <!-- CULTURE RECORD -->
     <div class="row" id="culture-section-start">
       <div class="left-col">
         <div class="section-title">CULTURE RECORD</div>
-        <div class="bracket-label">[ F ]</div>
+        <div class="info-wrapper" style="top:-4px;">
+          <div class="complex-label-box">
+            <span class="css-bracket bracket-left"></span>
+            <div class="inner-info">
+              <div>Yum Cha (Dim Sum)</div>
+              <div>2025</div>
+              <div>Culture record</div>
+            </div>
+            <span class="css-bracket bracket-right"></span>
+          </div>
+        </div>
       </div>
-      <div class="right-col"><div class="video-thumb" data-video="URL_F"></div></div>
+
+      <div class="right-col">
+        <!-- F: Yum Cha video -->
+        <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1152110840">
+          <div class="thumb-text">YUM CHA<br>2025</div>
+          <div class="play-circle"></div>
+        </div>
+      </div>
     </div>
 
+    <!-- G: placeholder -->
     <div class="row">
       <div class="left-col"><div class="bracket-label">[ G ]</div></div>
       <div class="right-col"><div class="video-thumb" data-video="URL_G"></div></div>
@@ -440,7 +452,7 @@
     thumbs.forEach(thumb => {
       thumb.addEventListener('click', () => {
         const raw = thumb.getAttribute('data-video');
-        if(!raw || raw.startsWith('URL_')) return;
+        if (!raw || raw.startsWith('URL_')) return;
 
         const src = raw + (raw.includes('?') ? '&' : '?') + 'autoplay=1';
         iframe.src = src;
@@ -449,10 +461,16 @@
       });
     });
 
-    closeBtn.addEventListener('click', () => {
+    function closeModal() {
       overlay.classList.remove('active');
       iframe.src = "";
       document.body.style.overflow = 'auto';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
     });
 
     document.addEventListener('DOMContentLoaded', () => {
