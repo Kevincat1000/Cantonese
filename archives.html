@@ -36,7 +36,6 @@
       overflow-x: hidden;
     }
 
-    /* 移除了 !important */
     header[data-site-header="1"] {
       position: absolute;
       top: 0; left: 0; width: 100%; z-index: 10;
@@ -48,7 +47,6 @@
       max-width: 1400px;
       margin: 0 auto;
       flex: 1;
-      /* 这里从 120px 减少到了 80px，大幅减少了与 Header 的间隙 */
       padding-top: 80px;
       padding-bottom: 100px;
       display: flex;
@@ -133,13 +131,7 @@
       margin-top: 10px;
     }
 
-    .origin-text {
-      font-family: 'Exo', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      color: #000;
-      margin-top: 5px;
-    }
+    /* Deleted .origin-text class as it is no longer needed */
 
     .video-thumb {
       width: var(--vid-width);
@@ -158,7 +150,6 @@
     .video-thumb:hover { filter: grayscale(0%); }
 
     .thumb-no-filter {
-      /* 移除了 !important */
       filter: grayscale(0%);
     }
 
@@ -168,7 +159,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      /* 移除了 !important */
       filter: grayscale(0%);
     }
     
@@ -267,10 +257,11 @@
               </div>
               <span class="css-bracket bracket-right"></span>
             </div>
+ 
             <div class="quote-text">
-              "I'm Cantonese, I'm proud to be Cantonese, and I'll try to still preserve that Cantonese Culture."
+              "I'm Cantonese, I'm proud to be Cantonese, and I'll try to still preserve that Cantonese Culture."<br>
+              Immigrated from Vietnam
             </div>
-            <div class="origin-text">Immigrated from Vietnam</div>
           </div>
           <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151385247">
             <div class="thumb-text">ANDY LEE<br>2025</div>
@@ -290,10 +281,11 @@
               </div>
               <span class="css-bracket bracket-right"></span>
             </div>
+         
             <div class="quote-text">
-              "We brought our investments and our future."
+              "We brought our investments and our future."<br>
+              Immigrated from Hong Kong
             </div>
-            <div class="origin-text">Immigrated from Hong Kong</div>
           </div>
           <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151772755">
             <div class="thumb-text">PHOEBE<br>2025</div>
