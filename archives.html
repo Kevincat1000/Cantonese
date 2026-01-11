@@ -36,8 +36,9 @@
       overflow-x: hidden;
     }
 
+    /* 移除了 !important */
     header[data-site-header="1"] {
-      position: absolute !important;
+      position: absolute;
       top: 0; left: 0; width: 100%; z-index: 10;
       background-color: var(--bg-color);
     }
@@ -47,7 +48,8 @@
       max-width: 1400px;
       margin: 0 auto;
       flex: 1;
-      padding-top: 120px;
+      /* 这里从 120px 减少到了 80px，大幅减少了与 Header 的间隙 */
+      padding-top: 80px;
       padding-bottom: 100px;
       display: flex;
       justify-content: center;
@@ -131,6 +133,14 @@
       margin-top: 10px;
     }
 
+    .origin-text {
+      font-family: 'Exo', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #000;
+      margin-top: 5px;
+    }
+
     .video-thumb {
       width: var(--vid-width);
       aspect-ratio: 16 / 9;
@@ -148,7 +158,8 @@
     .video-thumb:hover { filter: grayscale(0%); }
 
     .thumb-no-filter {
-      filter: grayscale(0%) !important;
+      /* 移除了 !important */
+      filter: grayscale(0%);
     }
 
     .thumb-custom {
@@ -157,7 +168,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      filter: grayscale(0%) !important;
+      /* 移除了 !important */
+      filter: grayscale(0%);
     }
     
     .thumb-text {
@@ -243,6 +255,7 @@
       <div class="column left-column">
         <h2 class="section-header">INTERVIEW FILES</h2>
 
+        <!-- Andy -->
         <div class="entry-row">
           <div class="info-box">
             <div class="complex-label-box">
@@ -257,6 +270,7 @@
             <div class="quote-text">
               "I'm Cantonese, I'm proud to be Cantonese, and I'll try to still preserve that Cantonese Culture."
             </div>
+            <div class="origin-text">Immigrated from Vietnam</div>
           </div>
           <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151385247">
             <div class="thumb-text">ANDY LEE<br>2025</div>
@@ -264,6 +278,7 @@
           </div>
         </div>
 
+        <!-- Phoebe -->
         <div class="entry-row">
           <div class="info-box">
             <div class="complex-label-box">
@@ -275,6 +290,10 @@
               </div>
               <span class="css-bracket bracket-right"></span>
             </div>
+            <div class="quote-text">
+              "We brought our investments and our future."
+            </div>
+            <div class="origin-text">Immigrated from Hong Kong</div>
           </div>
           <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151772755">
             <div class="thumb-text">PHOEBE<br>2025</div>
@@ -282,6 +301,7 @@
           </div>
         </div>
 
+        <!-- Hedy -->
         <div class="entry-row">
           <div class="info-box">
             <div class="complex-label-box">
@@ -314,6 +334,7 @@
       <div class="column right-column">
         <h2 class="section-header">CULTURE RECORD</h2>
 
+        <!-- Yum Cha -->
         <div class="entry-row">
           <div class="info-box">
             <div class="complex-label-box">
