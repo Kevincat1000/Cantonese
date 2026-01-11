@@ -20,7 +20,6 @@
       --accent-maroon: #701a1a;
       --bracket-color: #333;
       --column-gap: 60px;
-      /* 统一视频宽度，确保对齐 */
       --vid-width: 240px; 
     }
 
@@ -83,13 +82,11 @@
       width: 100%;
     }
 
-    /* 左栏布局：[文字] [视频] | 中线 */
     .left-column .entry-row {
       flex-direction: row;
       justify-content: flex-end; 
     }
 
-    /* 右栏布局：中线 | [视频] [文字] */
     .right-column .entry-row {
       flex-direction: row-reverse;
       justify-content: flex-end;
@@ -134,7 +131,6 @@
       margin-top: 10px;
     }
 
-    /* 左侧 Interview Files 用的自定义封面样式 */
     .video-thumb {
       width: var(--vid-width);
       aspect-ratio: 16 / 9;
@@ -178,17 +174,23 @@
       content: ''; border-left: 10px solid #fff; border-top: 6px solid transparent; border-bottom: 6px solid transparent; margin-left: 3px;
     }
 
-    /* 新增：用于直接嵌入 iframe 的容器，确保大小和 left-col 的视频一样 */
-    .iframe-container {
-      width: var(--vid-width);
-      aspect-ratio: 16 / 9;
-      background: #000;
-      flex-shrink: 0;
-    }
-    .iframe-container iframe {
+    .video-thumb iframe {
       width: 100%;
       height: 100%;
-      display: block;
+      position: absolute;
+      top: 0; left: 0;
+      z-index: 1;
+    }
+
+    .click-blocker {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 10;
+      background: transparent;
+    }
+    .video-thumb:hover .click-blocker {
+      background: rgba(0,0,0,0.1); 
     }
 
     .bracket-only {
@@ -196,7 +198,6 @@
         font-size: 16px;
     }
 
-    /* Modal (仅用于左侧视频) */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(245, 240, 229, 0.98);
@@ -218,7 +219,7 @@
         flex-direction: column; align-items: center; text-align: center; 
       }
       .info-box { margin: 0 0 15px 0 !important; max-width: 100%; }
-      .video-thumb, .iframe-container { width: 100%; max-width: 400px; }
+      .video-thumb { width: 100%; max-width: 400px; }
     }
 
     html.preload body { opacity: 0; }
@@ -231,11 +232,9 @@
   <main>
     <div class="split-layout">
       
-      <!-- ============ 左侧栏: INTERVIEW FILES ============ -->
       <div class="column left-column">
         <h2 class="section-header">INTERVIEW FILES</h2>
 
-        <!-- Andy -->
         <div class="entry-row">
           <div class="info-box">
             <div class="complex-label-box">
@@ -257,7 +256,6 @@
           </div>
         </div>
 
-        <!-- Phoebe -->
         <div class="entry-row">
           <div class="info-box">
             <div class="complex-label-box">
@@ -265,7 +263,7 @@
               <div class="inner-info">
                 <div>Phoebe's Interview</div>
                 <div>2025 Dec 28</div>
-                <div>Los Angeles, CA</div>
+                <div>Los Angeles, California</div>
               </div>
               <span class="css-bracket bracket-right"></span>
             </div>
@@ -276,7 +274,6 @@
           </div>
         </div>
 
-        <!-- Hedy -->
         <div class="entry-row">
           <div class="info-box">
             <div class="complex-label-box">
@@ -284,7 +281,7 @@
               <div class="inner-info">
                 <div>Hedy's Interview</div>
                 <div>2025 Dec 28</div>
-                <div>Los Angeles, CA</div>
+                <div>Los Angeles, California</div>
               </div>
               <span class="css-bracket bracket-right"></span>
             </div>
@@ -295,53 +292,46 @@
           </div>
         </div>
 
-        <!-- Placeholder D -->
         <div class="entry-row">
           <div class="info-box"><div class="bracket-only">[ D ]</div></div>
           <div class="video-thumb" data-video="URL_D"></div>
         </div>
 
-        <!-- Placeholder E -->
         <div class="entry-row">
           <div class="info-box"><div class="bracket-only">[ E ]</div></div>
           <div class="video-thumb" data-video="URL_E"></div>
         </div>
       </div>
 
-      <!-- ============ 右侧栏: CULTURE RECORD ============ -->
       <div class="column right-column">
         <h2 class="section-header">CULTURE RECORD</h2>
 
-        <!-- Yum Cha (已修改为直接显示 Iframe) -->
         <div class="entry-row">
           <div class="info-box">
             <div class="complex-label-box">
               <span class="css-bracket bracket-left"></span>
               <div class="inner-info">
                 <div>Yum Cha (Dim Sum)</div>
-                <div>2025</div>
-                <div>Culture record</div>
+                <div>2025 August,</div>
+                <div>Shenzhen, Guangdong</div>
               </div>
               <span class="css-bracket bracket-right"></span>
             </div>
           </div>
           
-          <!-- 这里删除了 .video-thumb，改用 iframe-container 包裹您的 iframe -->
-          <div class="iframe-container">
+          <div class="video-thumb" data-video="https://player.vimeo.com/video/1153366025?h=2e10f2d2e6">
+            <div class="click-blocker"></div>
             <iframe 
               title="vimeo-player" 
               src="https://player.vimeo.com/video/1153366025?h=2e10f2d2e6" 
               width="640" 
               height="360" 
               frameborder="0" 
-              referrerpolicy="strict-origin-when-cross-origin" 
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
               allowfullscreen>
             </iframe>
           </div>
         </div>
 
-        <!-- Placeholder G -->
         <div class="entry-row">
           <div class="info-box"><div class="bracket-only">[ G ]</div></div>
           <div class="video-thumb" data-video="URL_G"></div>
@@ -353,7 +343,6 @@
 
   <div id="footer-container"></div>
 
-  <!-- Modal -->
   <div class="modal-overlay" id="modalOverlay">
     <button class="close-btn" id="closeBtn">×</button>
     <div class="modal-content">
@@ -371,6 +360,7 @@
       thumb.addEventListener('click', () => {
         const raw = thumb.getAttribute('data-video');
         if (!raw || raw.startsWith('URL_')) return;
+        
         iframe.src = raw + (raw.includes('?') ? '&' : '?') + 'autoplay=1';
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
