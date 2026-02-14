@@ -131,8 +131,6 @@
       margin-top: 10px;
     }
 
-    /* Deleted .origin-text class as it is no longer needed */
-
     .video-thumb {
       width: var(--vid-width);
       aspect-ratio: 16 / 9;
@@ -149,9 +147,7 @@
     }
     .video-thumb:hover { filter: grayscale(0%); }
 
-    .thumb-no-filter {
-      filter: grayscale(0%);
-    }
+    .thumb-no-filter { filter: grayscale(0%); }
 
     .thumb-custom {
       background-color: #eae5d6;
@@ -199,9 +195,6 @@
       z-index: 10;
       background: transparent;
     }
-    .video-thumb:hover .click-blocker {
-      background: rgba(0,0,0,0.1); 
-    }
 
     .bracket-only {
         font-family: "Gentium Book Plus", serif;
@@ -222,17 +215,6 @@
       border: 2px solid var(--accent-maroon);
       cursor: pointer; font-size: 28px;
     }
-
-    @media (max-width: 900px) {
-      .split-layout { flex-direction: column; padding: 0 20px; }
-      .entry-row, .left-column .entry-row, .right-column .entry-row { 
-        flex-direction: column; align-items: center; text-align: center; 
-      }
-      .info-box { margin: 0 0 15px 0 !important; max-width: 100%; }
-      .video-thumb { width: 100%; max-width: 400px; }
-    }
-
-    html.preload body { opacity: 0; }
   </style>
 </head>
 
@@ -245,121 +227,13 @@
       <div class="column left-column">
         <h2 class="section-header">INTERVIEW FILES</h2>
 
-        <!-- Andy -->
-        <div class="entry-row">
-          <div class="info-box">
-            <div class="complex-label-box">
-              <span class="css-bracket bracket-left"></span>
-              <div class="inner-info">
-                <div>Andy's Interview</div>
-                <div>2025 Dec 25</div>
-                <div>Walnut, California</div>
-              </div>
-              <span class="css-bracket bracket-right"></span>
-            </div>
- 
-            <div class="quote-text">
-              "I'm Cantonese, I'm proud to be Cantonese, and I'll try to still preserve that Cantonese Culture."<br>
-              Immigrated from Vietnam
-            </div>
-          </div>
-          <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151385247">
-            <div class="thumb-text">ANDY LEE<br>2025</div>
-            <div class="play-circle"></div>
-          </div>
-        </div>
-
-        <!-- Phoebe -->
-        <div class="entry-row">
-          <div class="info-box">
-            <div class="complex-label-box">
-              <span class="css-bracket bracket-left"></span>
-              <div class="inner-info">
-                <div>Phoebe's Interview</div>
-                <div>2025 Dec 28</div>
-                <div>Los Angeles, California</div>
-              </div>
-              <span class="css-bracket bracket-right"></span>
-            </div>
-         
-            <div class="quote-text">
-              "We brought our investments and our future."<br>
-              Immigrated from Hong Kong
-            </div>
-          </div>
-          <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151772755">
-            <div class="thumb-text">PHOEBE<br>2025</div>
-            <div class="play-circle"></div>
-          </div>
-        </div>
-
-        <!-- Hedy -->
-        <div class="entry-row">
-          <div class="info-box">
-            <div class="complex-label-box">
-              <span class="css-bracket bracket-left"></span>
-              <div class="inner-info">
-                <div>Hedy's Interview</div>
-                <div>2025 Dec 28</div>
-                <div>Los Angeles, California</div>
-              </div>
-              <span class="css-bracket bracket-right"></span>
-            </div>
-          </div>
-          <div class="video-thumb thumb-custom" data-video="https://player.vimeo.com/video/1151774286">
-            <div class="thumb-text">HEDY<br>2025</div>
-            <div class="play-circle"></div>
-          </div>
-        </div>
-
+        <!-- D (NEW VIDEO ADDED HERE) -->
         <div class="entry-row">
           <div class="info-box"><div class="bracket-only">[ D ]</div></div>
-          <div class="video-thumb" data-video="URL_D"></div>
+          <div class="video-thumb" data-video="https://player.vimeo.com/video/1164895907"></div>
         </div>
 
-        <div class="entry-row">
-          <div class="info-box"><div class="bracket-only">[ E ]</div></div>
-          <div class="video-thumb" data-video="URL_E"></div>
-        </div>
       </div>
-
-      <div class="column right-column">
-        <h2 class="section-header">CULTURE RECORD</h2>
-
-        <!-- Yum Cha -->
-        <div class="entry-row">
-          <div class="info-box">
-            <div class="complex-label-box">
-              <span class="css-bracket bracket-left"></span>
-              <div class="inner-info">
-                <div>Yum Cha (Dim Sum)</div>
-                <div>2025 August,</div>
-                <div>Shenzhen, Guangdong</div>
-              </div>
-              <span class="css-bracket bracket-right"></span>
-            </div>
-          </div>
-          
-          <div class="video-thumb thumb-no-filter" data-video="https://player.vimeo.com/video/1153366025?h=2e10f2d2e6">
-            <div class="click-blocker"></div>
-            <div class="play-circle" style="background: rgba(0, 0, 0, 0.4);"></div>
-            <iframe 
-              title="vimeo-player" 
-              src="https://player.vimeo.com/video/1153366025?h=2e10f2d2e6&controls=0" 
-              width="640" 
-              height="360" 
-              frameborder="0" 
-              allowfullscreen>
-            </iframe>
-          </div>
-        </div>
-
-        <div class="entry-row">
-          <div class="info-box"><div class="bracket-only">[ G ]</div></div>
-          <div class="video-thumb" data-video="URL_G"></div>
-        </div>
-      </div>
-
     </div>
   </main>
 
